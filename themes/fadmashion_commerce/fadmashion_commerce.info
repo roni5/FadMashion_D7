@@ -1,0 +1,26 @@
+; $Id: stark.info,v 1.4 2010/11/07 00:27:20 dries Exp $
+name = FadMashion Commerce
+description = FadMashion E-Commerce Theme
+package = Core
+version = VERSION
+core = 7.x
+
+stylesheets[all][] = css/layout.css
+stylesheets[all][] = css/style.css
+
+regions[pre_header] = Pre Header
+regions[header] = Header
+regions[featured] = Featured
+regions[highlighted] = Highlighted
+regions[content] = Content
+regions[sidebar_first] = Sidebar Left
+regions[sidebar_second] = Sidebar Right
+
+regions[triptych_first] = Triptych first
+regions[triptych_middle] = Triptych middle
+regions[triptych_last] = Triptych last
+
+regions[footer_firstcolumn] = Footer first column
+regions[footer_secondcolumn] = Footer second column
+regions[footer_thirdcolumn] = Footer third column
+regions[footer] = Footer
