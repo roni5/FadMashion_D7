@@ -7,8 +7,8 @@
  */
 ?>
 
-<script type="text/javascript">  
-			
+<script>
+
 jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
@@ -17,25 +17,31 @@ jQuery(function($){
 											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image2.jpg'},  
 											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image3.jpg'}  
 									]
-									
 	}); 
 });
 
 </script>
+
 
 <div id="container">
   <div id="content">
     <div id="box">
       <div class="pad">
         <div class="logo">
-	        	<img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
+        			<img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+      			</a>
 	        	<h1> <?php print $site_slogan; ?> </h1>
         </div>
-          <?php print render($page['content']); ?>
+        <?php if ($messages): ?>
+    			<div id="messages"><div class="section clearfix">
+      			<?php print $messages; ?>
+    			</div></div> <!-- /.section, /#messages -->
+  			<?php endif; ?>
+        <?php print render($page['content']); ?>
       </div>
 		</div>
 	</div>
-	<div class="clearfooter"></div>
 </div>
 <div id="footer">
     <?php print render($page['footer']); ?>
