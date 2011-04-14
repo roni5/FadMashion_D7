@@ -22,7 +22,7 @@ jQuery(function($){
 });
 </script>
 
-<div id="containter">
+<div id="containter" style="min-height: 100%;">
   <div id="content">
     <div id="box">
       <div class="pad">
