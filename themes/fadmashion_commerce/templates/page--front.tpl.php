@@ -13,16 +13,16 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		slides 					:  	[		//Slideshow Images
-											{image : '<?php print path_to_theme()?>/images/front-page/image1.jpg'},  
-											{image : '<?php print path_to_theme()?>/images/front-page/image2.jpg'},  
-											{image : '<?php print path_to_theme()?>/images/front-page/image3.jpg'}  
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg'},  
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image2.jpg'},  
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image3.jpg'}  
 									]
 									
 	}); 
 });
 </script>
 
-<div id="containter" style="min-height: 100%;">
+<div id="container">
   <div id="content">
     <div id="box">
       <div class="pad">
@@ -34,7 +34,8 @@ jQuery(function($){
       </div>
 		</div>
 	</div>
+	<div class="clearfooter"></div>
 </div>
 <div id="footer">
-  <?php print render($page['footer']); ?>
+    <?php print render($page['footer']); ?>
 </div>
