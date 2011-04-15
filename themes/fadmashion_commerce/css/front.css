@@ -1,4 +1,4 @@
-* { color: #fff; margin:0; padding:0; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; line-height:18px; font-size: 13px;}
+* { color: #fff; margin:0; padding:0; font-family: Georgia; line-height:18px; font-size: 12px;}
 html, body { height: 100%; }
 
 #content{padding-bottom: 36px; overflow: auto;}
@@ -21,7 +21,7 @@ html, body { height: 100%; }
       
     
 #box{ position: absolute; width: 360px; backgound-color: #1b1513;background:rgba(0,0,0,0.60); margin-top: 50px; }
-#box p{margin: 0 0 7px 0; color: #c8b8b0; }
+#box p{text-align: center; margin: 0 0 7px 0; color: #c8b8b0; }
 #box p span{color: #fff; font-weight:bold;}
 #box .pad{padding: 35px;}
 h1{font-family: Georgia, "Times New Roman", Times, serif; font-size: 15px; color: #c8b8b0; font-style:italic; font-weight:normal; }   
