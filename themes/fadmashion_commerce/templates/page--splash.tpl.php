@@ -13,8 +13,7 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		slides 					:  	[		//Slideshow Images
-											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg'},  
-											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image2.jpg'},  
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg'},
 											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image3.jpg'}  
 									]
 	}); 
