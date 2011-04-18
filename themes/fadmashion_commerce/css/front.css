@@ -3,13 +3,13 @@ p{color: #fff; font-family: helvetica, arial;}
 html, body, #wrap { height: 100%; }
 body > #wrap {height: auto; min-height: 100%;}
 #main { padding-bottom: 36px; }  /* must be same height as the footer */
-#footer {position: relative;margin-top: -36px; background: url(images/bg.png); height: 36px;clear:both;} 
+#footer {position: relative;margin-top: -36px; background: url(../images/bg.png); height: 36px;clear:both;} 
 
 
 
 /* content  */
 
-#box{ width: 360px; background: url(images/bg.png); margin-top: 40px; float: left;}
+#box{ width: 360px; background: url(../images/bg.png); margin-top: 40px; float: left;}
 #box .pad{padding: 30px;}
 #box p{margin: 0 0 12px 0; color: #c8b8b0; font-family:"museo-sans-1","museo-sans-2", Helvetica; font-size: 15px; line-height:21px;  }
 #box p span{color: #fff;}
