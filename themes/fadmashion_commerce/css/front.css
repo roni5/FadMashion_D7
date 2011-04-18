@@ -9,7 +9,7 @@ body > #wrap {height: auto; min-height: 100%;}
 
 /* content  */
 
-#box{ width: 360px; background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6); margin-top: 40px; float: left;}
+#box{ width: 360px; background:none repeat scroll 0 0 rgba(0, 0, 0, 0.4); margin-top: 40px; float: left;}
 #box .pad{padding: 30px;}
 #box p{margin: 0 0 12px 0; color: #c8b8b0; font-family:"museo-sans-1","museo-sans-2", Helvetica; font-size: 15px; line-height:21px;  }
 #box p span{color: #fff;}
