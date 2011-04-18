@@ -3,18 +3,17 @@ p{color: #fff; font-family: helvetica, arial;}
 html, body, #wrap { height: 100%; }
 body > #wrap {height: auto; min-height: 100%;}
 #main { padding-bottom: 36px; }  /* must be same height as the footer */
-#footer {position: relative;margin-top: -36px; background:none repeat scroll 0 0 rgba(0, 0, 0, 0.6); height: 36px;clear:both;} 
+#footer {position: relative;margin-top: -36px; background:none repeat scroll 0 0 rgba(0, 0, 0, 0.8); height: 36px;clear:both;} 
 
 
 
 /* content  */
 
-#box{ width: 360px; background:none repeat scroll 0 0 rgba(0, 0, 0, 0.4); margin-top: 40px; float: left;}
+#box{ width: 360px; background:none repeat scroll 0 0 rgba(0, 0, 0, 0.8); margin-top: 40px; float: left;}
 #box .pad{padding: 30px;}
 #box p{margin: 0 0 12px 0; color: #c8b8b0; font-family:"museo-sans-1","museo-sans-2", Helvetica; font-size: 15px; line-height:21px;  }
 #box p span{color: #fff;}
 #box p.intro{font-size: 25px; line-height: 31px;}
-.logo{border-bottom: 1px solid #392d26; margin-top: 25px; margin-bottom: 16px; padding-bottom: 12px;}
 .logo img{margin-bottom: 12px; }
 
 .email, .button{float: left;}
