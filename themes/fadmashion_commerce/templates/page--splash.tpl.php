@@ -22,15 +22,14 @@ jQuery(function($){
 </script>
 
 
-<div id="container">
-  <div id="content">
+<div id="wrap">
+  <div id="main">
     <div id="box">
       <div class="pad">
         <div class="logo">
 	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
         			<img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
       			</a>
-	        	<h1> <?php print $site_slogan; ?> </h1>
         </div>
         <?php if ($messages): ?>
     			<div id="messages"><div class="section clearfix">
