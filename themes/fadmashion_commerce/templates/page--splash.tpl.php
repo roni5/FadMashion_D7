@@ -37,6 +37,7 @@ jQuery(function($){
     			</div></div> <!-- /.section, /#messages -->
   			<?php endif; ?>
         <?php print render($page['content']); ?>
+        
       </div>
 		</div>
 	</div>

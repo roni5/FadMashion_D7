@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Invitation Codes
+description = Enables invitation codes to be able to be used for 
+core = 7.x
+package = Fadmashion

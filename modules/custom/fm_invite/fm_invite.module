@@ -1,0 +1,167 @@
+<?php
+
+/**
+ * @file
+ * Assigns a sign-up'd user a registration code to send invites.
+ */
+
+/**
+ * Session names.
+ */
+define('FM_INVITE_SESSION', 'invite_code');
+define('FM_INVITE_ADMIN_SESSION', 'invite_admin_filter');
+
+define('FM_INVITE_WEBFORM_TITLE', 'FadMashion - Request Invitation');
+define('FM_INVITE_CONFIRM_PATH', 'splash/thankyou');
+
+function fm_invite_menu() {
+	
+	$items['invite'] = array(
+    'page callback' => 'fm_invite_accept',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['invite/%reg_code'] = array(
+    'page callback' => 'fm_invite_accept',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['invite/confirmed'] = array(
+    'page callback' => 'fm_invite_confirmed',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fm_invite_theme() {
+  return array(
+    'fm_invite_share' => array(
+      'variables' => array('reg_code_url' => ''),
+      'template' => 'fm_invite_share'
+    ),
+  );
+}
+
+
+function fm_invite_request_form() {
+  
+	$form['mail'] = array(
+    '#type' => 'textfield', 
+    '#size' => 30, 
+	  '#maxlength' => 255,
+    '#default_value' => t('Enter E-mail Address'), 
+    '#required' => TRUE,
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Submit'),
+  );
+  
+  return $form;
+}
+
+function fm_invite_request_form_validate($form, &$form_state) {
+ if (!valid_email_address($form_state['values']['mail'])) {
+    form_set_error('mail', t('You must enter a valid e-mail address.'));
+ }
+}
+
+function fm_invite_request_form_submit($form, &$form_state) {
+    
+	$referred_by_id = null;
+	if($inviter = fm_invite_load_from_session()) {
+	 	$referred_by_id = $inviter->id;
+	}
+	  
+	$id = db_insert('fm_invite')
+    ->fields(array(
+      'reg_code' => fm_invite_generate_code(),
+      'referred_by_id' => $referred_by_id,
+       'email' => $form_state['values']['mail'],
+    ))
+  ->execute();
+    
+  if(isset($_SESSION[FM_INVITE_SESSION])) {
+	  unset($_SESSION[FM_INVITE_SESSION]);
+  } 
+	
+	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
+}
+
+function fm_invite_share_info() {
+	if(isset($_GET['id'])) {
+		$id = $_GET['id'];
+	  $result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
+	  $inviter = $result->fetchObject();
+	  $reg_code_url =  url('invite/'.$inviter->reg_code, array('absolute' => TRUE));
+	}
+	else {
+		drupal_goto();
+	}
+	
+	return theme('fm_invite_share', array('reg_code_url' => $reg_code_url));
+}
+
+
+
+function fm_invite_generate_code() {
+  do {
+    $reg_code = user_password(8);
+    $result = db_query("SELECT COUNT(*) FROM {fm_invite} WHERE reg_code = :regcode", array(':regcode' => $reg_code));
+  } while ($result->fetchField());
+
+  return $reg_code;
+}
+
+function fm_invite_accept($reg_code = '') {
+	global $user;
+	
+	if($reg_code == '') {
+		drupal_goto();
+	}
+	
+	$inviter = fm_invite_load($reg_code);
+	
+	if(!$inviter) {
+		drupal_set_message(t("This is not a valid invite code"), 'error');
+	}
+  else {
+  	fm_invite_update_page_views($inviter);
+    $_SESSION[FM_INVITE_SESSION] = $reg_code;
+  }
+  drupal_goto();
+}
+
+function fm_invite_update_page_views($inviter) {
+ //TODO: Update page views code for the inviter;
+}
+
+
+function fm_invite_load($reg_code) {
+	$result = db_query('SELECT * FROM {fm_invite} WHERE reg_code = :reg_code', array(':reg_code' => $reg_code));
+	$invite = $result->fetchObject();
+  return $invite;
+}
+
+/**
+ * Returns an invite record from an invite code stored in the user's session.
+ *
+ * @return
+ *   An invite record, or FALSE if there is no invite code stored in the
+ *   user's session.
+ */
+function fm_invite_load_from_session() {
+  if (isset($_SESSION[FM_INVITE_SESSION])) {
+    return fm_invite_load($_SESSION[FM_INVITE_SESSION]);
+  }
+  return FALSE;
+}
