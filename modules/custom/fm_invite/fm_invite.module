@@ -32,6 +32,12 @@ function fm_invite_menu() {
     'type' => MENU_CALLBACK,
   );
   
+  $items['admin/fadmashion/invite'] = array(
+    'page callback' => 'fm_invite_list',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
   return $items;
 }
 
