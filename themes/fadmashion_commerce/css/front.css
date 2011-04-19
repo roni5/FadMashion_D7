@@ -17,10 +17,10 @@ body > #wrap {height: auto; min-height: 100%;}
 .logo{border-bottom: 1px solid #392d26; margin-top: 25px; margin-bottom: 16px; padding-bottom: 12px;}
 .logo img{margin-bottom: 12px; }
 
-.email, .button{float: left;}
-.email{ margin: 0 5px 0 0; width: 185px; height: 26px; color: #8f837a; background: url(../images/bg_email.jpg) top left  repeat-x; font-size: 12px; padding-left: 4px; border: none;}
-.button{  background: url(images/bg_button.png) no-repeat scroll top right; color: #fff; display: block;  height: 26px; width: 64px; text-decoration: none; line-height: 26px; padding-top: 0px}
-.button:hover{background-position: 0 -26px;}
+.form-text, .form-button, .form-text-readonly{float: left;}
+.form-text, .form-text-readonly{ margin: 0 5px 0 0; width: 185px; height: 26px; color: #8f837a; background: url(../images/bg_email.jpg) top left  repeat-x; font-size: 12px; padding-left: 4px; border: none;}
+.form-button{  background: url(images/bg_button.png) no-repeat scroll top right; color: #fff; display: block;  height: 26px; width: 64px; text-decoration: none; line-height: 26px; padding-top: 0px}
+.form-button:hover{background-position: 0 -26px;}
 
 
 
