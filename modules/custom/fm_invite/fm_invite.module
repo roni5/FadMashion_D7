@@ -9,9 +9,6 @@
  * Session names.
  */
 define('FM_INVITE_SESSION', 'invite_code');
-define('FM_INVITE_ADMIN_SESSION', 'invite_admin_filter');
-
-define('FM_INVITE_WEBFORM_TITLE', 'FadMashion - Request Invitation');
 define('FM_INVITE_CONFIRM_PATH', 'splash/thankyou');
 
 function fm_invite_menu() {
