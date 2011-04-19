@@ -70,6 +70,15 @@ function fm_invite_request_form_validate($form, &$form_state) {
  if (!valid_email_address($form_state['values']['mail'])) {
     form_set_error('mail', t('You must enter a valid e-mail address.'));
  }
+ 
+ $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $form_state['values']['mail']));
+ $obj = $result->fetchObject();
+ if($obj) {
+ 	drupal_set_message('You have already Submitted');
+ 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $obj->id)));
+ }
+ 
+ 
 }
 
 function fm_invite_request_form_submit($form, &$form_state) {
