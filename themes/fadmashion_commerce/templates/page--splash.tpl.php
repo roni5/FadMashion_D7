@@ -15,6 +15,7 @@ jQuery(function($){
 		vertical_center   : 0, 
 		slides 					:  	[		//Slideshow Images
 											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg'},
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/trenchcoat.jpg'}
 											  
 									]
 	}); 
