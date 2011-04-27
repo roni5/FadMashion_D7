@@ -14,7 +14,7 @@ jQuery(function($){
 		start_slide				:	0,
 		vertical_center   : 0, 
 		slides 					:  	[		//Slideshow Images
-											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg'},
+											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg'},
 											
 											  
 									]
@@ -30,7 +30,7 @@ jQuery(function($){
       <div class="pad">
         <div class="logo">
 	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-        			<img src="<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
+        			<img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
       			</a>
         </div>
         <?php if ($messages): ?>
