@@ -19,6 +19,9 @@ h2{font-size: 20px; line-height: 28px; font-weight: 300; margin: 0 0 0px 0;}
 .logo{border-bottom: 1px solid #392d26; margin-top: 0px; margin-bottom: 16px; padding-bottom: 12px;}
 .logo img{margin-bottom: 12px; }
 
+.form-item input.error, .form-item textarea.error, .form-item select.error {
+border:0px solid red !important;
+}
 
 .form-text, .form-button, .form-text-readonly{float: left;}
 .form-text, .form-text-readonly{ margin: 0 5px 0 0; width: 185px; height: 26px; color: #8f837a; background: url(../images/bg_email.jpg) top left  repeat-x; font-size: 12px; padding-left: 4px; border: none;}
