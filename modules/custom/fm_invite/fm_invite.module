@@ -54,6 +54,11 @@ function fm_invite_theme() {
   );
 }
 
+function fm_invite_preprocess(&$variables, $hook) {
+	print drupal_to_js($variables);
+	exit();
+}
+
 
 function fm_invite_request_form() {
   
@@ -76,6 +81,7 @@ function fm_invite_request_form() {
 function fm_invite_request_form_validate($form, &$form_state) {
  if (!valid_email_address($form_state['values']['mail'])) {
     form_set_error('mail', t('Please enter a valid e-mail address.'));
+    return;
  }
  
  $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $form_state['values']['mail']));
@@ -83,7 +89,6 @@ function fm_invite_request_form_validate($form, &$form_state) {
  if($obj) {
  	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $obj->id)));
  }
- 
  
 }
 

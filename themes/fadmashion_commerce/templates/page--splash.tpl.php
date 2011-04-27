@@ -39,8 +39,7 @@ jQuery(function($){
       <?php if($is_front): ?>
 	      <div class="pad" id="invite"><p>Request an invintation to our <br>upcoming private launch</p>
 				<?php 
-	 			    $form = drupal_get_form('fm_invite_request_form');  
-	          print drupal_render($form);
+	 			    print $request_form;
 	       ?>
 	       <?php if ($messages): ?>
     			<div id="message_box"><div class="section clearfix">

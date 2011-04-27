@@ -17,6 +17,11 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_css(path_to_theme().'/css/supersized.core.css');
     drupal_add_css(path_to_theme().'/css/front.css');
     $variables['theme_hook_suggestion'] = 'page__splash';
+    
+    if($variables['is_front']) {
+    	$form = drupal_get_form('fm_invite_request_form');  
+	    $variables['request_form'] = drupal_render($form);
+    }
   }
 }
 
