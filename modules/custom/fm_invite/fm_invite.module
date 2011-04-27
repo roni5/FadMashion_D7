@@ -149,12 +149,12 @@ function fm_invite_facebook() {
                          'href' => url('node/1', array('absolute' => TRUE)),
       );
       
-      fb_stream_publish_dialog(array('message' => $user_message,
+      /*fb_stream_publish_dialog(array('message' => $user_message,
                                      'attachment' => $attachment,
                                      'action_links' => $actions,
                                ), 
                                fb_get_app(array('label' => 'fb_fadmashion')));
-                               
+                               */
     return 'test';
 }
 
