@@ -39,12 +39,14 @@ jQuery(function($){
   			<?php endif; ?>
         <?php print render($page['content']); ?>
       </div>
-      <div class="pad" id="invite"><p>Request an invintation to our <br>upcoming private launch</p>
-			<?php 
- 			    $form = drupal_get_form('fm_invite_request_form');  
-          print drupal_render($form);
-       ?>
-
+      
+      <?php if($is_front): ?>
+	      <div class="pad" id="invite"><p>Request an invintation to our <br>upcoming private launch</p>
+				<?php 
+	 			    $form = drupal_get_form('fm_invite_request_form');  
+	          print drupal_render($form);
+	       ?>
+			 <?php endif; ?>
       </div>
 		</div>
 	</div>

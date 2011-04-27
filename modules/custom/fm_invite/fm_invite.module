@@ -58,7 +58,7 @@ function fm_invite_request_form() {
   
 	$form['mail'] = array(
     '#type' => 'textfield', 
-    '#size' => 30, 
+    '#size' => 25, 
 	  '#maxlength' => 255,
     '#default_value' => t('Enter E-mail Address'), 
     '#required' => TRUE,
