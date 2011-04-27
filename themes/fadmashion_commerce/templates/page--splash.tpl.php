@@ -12,9 +12,10 @@
 jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
+		vertical_center   : 0, 
 		slides 					:  	[		//Slideshow Images
-											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg'},
-											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image3.jpg'}  
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg'},
+											{image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg'}  
 									]
 	}); 
 });
@@ -37,7 +38,13 @@ jQuery(function($){
     			</div></div> <!-- /.section, /#messages -->
   			<?php endif; ?>
         <?php print render($page['content']); ?>
-        
+      </div>
+      <div class="pad" id="invite"><p>Request an invintation to our <br>upcoming private launch</p>
+			<?php 
+ 			    $form = drupal_get_form('fm_invite_request_form');  
+          print drupal_render($form);
+       ?>
+
       </div>
 		</div>
 	</div>
