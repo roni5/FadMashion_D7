@@ -75,7 +75,7 @@ function fm_invite_request_form() {
 
 function fm_invite_request_form_validate($form, &$form_state) {
  if (!valid_email_address($form_state['values']['mail'])) {
-    form_set_error('mail', t('You must enter a valid e-mail address.'));
+    form_set_error('mail', t('Please enter a valid e-mail address.'));
  }
  
  $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $form_state['values']['mail']));
@@ -98,7 +98,8 @@ function fm_invite_request_form_submit($form, &$form_state) {
     ->fields(array(
       'reg_code' => fm_invite_generate_code(),
       'referred_by_id' => $referred_by_id,
-       'email' => $form_state['values']['mail'],
+      'email' => $form_state['values']['mail'],
+      'timestamp' => time(),
     ))
   ->execute();
     
@@ -211,4 +212,9 @@ function fm_invite_load_from_session() {
     return fm_invite_load($_SESSION[FM_INVITE_SESSION]);
   }
   return FALSE;
+}
+
+
+function fm_invite_list() {
+	
 }

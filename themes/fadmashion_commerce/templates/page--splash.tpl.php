@@ -33,11 +33,6 @@ jQuery(function($){
         			<img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
       			</a>
         </div>
-        <?php if ($messages): ?>
-    			<div id="messages"><div class="section clearfix">
-      			<?php print $messages; ?>
-    			</div></div> <!-- /.section, /#messages -->
-  			<?php endif; ?>
         <?php print render($page['content']); ?>
       </div>
       
@@ -47,6 +42,12 @@ jQuery(function($){
 	 			    $form = drupal_get_form('fm_invite_request_form');  
 	          print drupal_render($form);
 	       ?>
+	       <?php if ($messages): ?>
+    			<div id="message_box"><div class="section clearfix">
+      			<?php print $messages; ?>
+    			</div></div> <!-- /.section, /#messages -->
+  			<?php endif; ?>
+  			
 			 <?php endif; ?>
       </div>
 		</div>
