@@ -104,7 +104,7 @@ function fm_invite_request_form_validate($form, &$form_state) {
   drupal_set_message('sending');
   if (
     drupal_mail(
-      'htmlmail',
+      'fm_invite',
       'test',
       $form_state['values']['mail'],
       language_default(),
