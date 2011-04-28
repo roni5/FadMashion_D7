@@ -45,13 +45,29 @@ function fm_invite_menu() {
 /**
  * Implements hook_theme().
  */
-function fm_invite_theme() {
-  return array(
-    'fm_invite_share' => array(
-      'variables' => array('reg_code_url' => ''),
-      'template' => 'fm_invite_share'
-    ),
+function fm_invite_mail($key, &$message, $params) {
+  $message['module'] = 'htmlmail';
+  $message['key'] = $key;
+  $message['subject'] = $params['subject'];
+  $message['body'] = explode(
+    MAIL_LINE_ENDINGS . MAIL_LINE_ENDINGS,
+    $params['body']
   );
+  return $message;
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fm_invite_mail() {
+  $message['module'] = 'htmlmail';
+  $message['key'] = $key;
+  $message['subject'] = $params['subject'];
+  $message['body'] = explode(
+    MAIL_LINE_ENDINGS . MAIL_LINE_ENDINGS,
+    $params['body']
+  );
+  return $message;
 }
 
 function fm_invite_request_form() {
@@ -82,6 +98,24 @@ function fm_invite_request_form_validate($form, &$form_state) {
  $obj = $result->fetchObject();
  if($obj) {
  	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $obj->id)));
+ 
+ 	// Send the email.
+  $params = array(
+    'subject' => 'FadMashion Request Confirmation',
+    'body' => 'test',
+  );
+  if (
+    drupal_mail(
+      'fm_invite',
+      'test',
+      $form_state['values']['mail'],
+      language_default(),
+      $params
+    )
+  ) {
+    drupal_set_message(t('HTML Mail test message sent.'));
+  }
+  
  }
  
 }
@@ -92,10 +126,11 @@ function fm_invite_request_form_submit($form, &$form_state) {
 	if($inviter = fm_invite_load_from_session()) {
 	 	$referred_by_id = $inviter->id;
 	}
-	  
+	
+	$reg_code = fm_invite_generate_code();
 	$id = db_insert('fm_invite')
     ->fields(array(
-      'reg_code' => fm_invite_generate_code(),
+      'reg_code' => $reg_code,
       'referred_by_id' => $referred_by_id,
       'email' => $form_state['values']['mail'],
       'timestamp' => time(),
@@ -105,6 +140,8 @@ function fm_invite_request_form_submit($form, &$form_state) {
   if(isset($_SESSION[FM_INVITE_SESSION])) {
 	  unset($_SESSION[FM_INVITE_SESSION]);
   } 
+  
+  
 	
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
 }
