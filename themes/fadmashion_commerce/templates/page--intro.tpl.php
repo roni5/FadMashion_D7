@@ -38,8 +38,7 @@ jQuery(function($){
       
       
 	     <div class="pad" id="invite">
-	      <?php print $form_desc;?>
-					<?php print $request_form;?>
+					<?php print $featured; ?>
 		       <?php if ($messages): ?>
 	    			<div id="message_box"><div class="section clearfix">
 	      			<?php print $messages; ?>
