@@ -14,7 +14,7 @@ function htmlmail_permission() {
   $args = array(
     '!htmlmail' => url('http://drupal.org/project/htmlmail'),
     '%htmlmail' => 'HTML Mail',
-  )
+  );
 
   return array(
     'choose htmlmail_plaintext' => array(
