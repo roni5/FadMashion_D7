@@ -54,12 +54,6 @@ function fm_invite_theme() {
   );
 }
 
-function fm_invite_preprocess(&$variables, $hook) {
-	print drupal_to_js($variables);
-	exit();
-}
-
-
 function fm_invite_request_form() {
   
 	$form['mail'] = array(
@@ -222,4 +216,16 @@ function fm_invite_load_from_session() {
 
 function fm_invite_list() {
 	
+	$result = db_query('SELECT * FROM {fm_invite}');
+	$rows = array();
+	$header = array('Name/E-mail', 'Date', 'Invite Code',  'Sign-Ups' );
+	
+	while($row = $result->fetchObject()) {
+		$reg_code_url =  url('invite/'.$row->reg_code, array('absolute' => TRUE));
+		$number = db_query("SELECT COUNT(*) FROM {fm_invite} WHERE referred_by_id = :id", array(':id' => $row->id))->fetchField();
+		
+		$rows[] = array($row->email, format_date($row->timestamp), $reg_code_url, $number);
+	}
+	
+	return 'test'.theme ('table', array('header' => $header, 'rows' => $rows));
 }
