@@ -43,7 +43,7 @@ function fm_invite_menu() {
 }
 
 /**
- * Implements hook_theme().
+ * Implements hook_mail().
  */
 function fm_invite_mail($key, &$message, $params) {
   $message['module'] = 'fm_invite';
@@ -56,6 +56,18 @@ function fm_invite_mail($key, &$message, $params) {
   return $message;
 }
 
+/**
+ * Implements hook_theme().
+ */
+function fm_invite_theme() {
+ return array(
+    'fm_invite_share' => array(
+      'variables' => array('reg_code_url' => ''),
+      'template' => 'fm_invite_share'
+    ),
+  );
+}
+  
 function fm_invite_request_form() {
   
 	$form['mail'] = array(
@@ -90,6 +102,7 @@ function fm_invite_request_form_validate($form, &$form_state) {
     'subject' => 'FadMashion Request Confirmation',
     'body' => 'test',
   );
+  drupal_set_message('sending');
   if (
     drupal_mail(
       'fm_invite',
