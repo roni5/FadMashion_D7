@@ -1,0 +1,12 @@
+name = Chartbeat
+description = Shows real-time traffic to your website using the third party Chartbeat service.
+package = Statistics
+core = 7.x
+configure = admin/config/system/chartbeat
+
+; Information added by drupal.org packaging script on 2011-03-25
+version = "7.x-1.2"
+core = "7.x"
+project = "chartbeat"
+datestamp = "1301077867"
+
