@@ -10,7 +10,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   $split_url = explode('/', $url_alias);
   
   //Use splash template only for URL's that have a splash as the first item in the URL
-  if($split_url[0] == 'splash')
+  if($split_url[0] == 'intro')
   {
     drupal_add_js(path_to_theme().'/js/supersized.3.1.3.core.min.js');
     drupal_add_js(path_to_theme().'/js/FM_form.js');
