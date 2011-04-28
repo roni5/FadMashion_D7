@@ -36,19 +36,18 @@ jQuery(function($){
         <?php print render($page['content']); ?>
       </div>
       
-      <?php if($is_front): ?>
-	      <div class="pad" id="invite"><p>Request an invintation to our <br>upcoming private launch</p>
-				<?php 
-	 			    print $request_form;
-	       ?>
-	       <?php if ($messages): ?>
-    			<div id="message_box"><div class="section clearfix">
-      			<?php print $messages; ?>
-    			</div></div> <!-- /.section, /#messages -->
-  			<?php endif; ?>
-  			
-			 <?php endif; ?>
-      </div>
+      
+	     <div class="pad" id="invite">
+	      <?php print $form_desc;?>
+					<?php print $request_form;?>
+		       <?php if ($messages): ?>
+	    			<div id="message_box"><div class="section clearfix">
+	      			<?php print $messages; ?>
+	    			</div></div> <!-- /.section, /#messages -->
+	  			<?php endif; ?>
+  			</div>
+			 
+      
 		</div>
 	</div>
 </div>
