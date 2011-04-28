@@ -9,7 +9,7 @@
  * Session names.
  */
 define('FM_INVITE_SESSION', 'invite_code');
-define('FM_INVITE_CONFIRM_PATH', 'splash/thankyou');
+define('FM_INVITE_CONFIRM_PATH', 'intro/thankyou');
 
 function fm_invite_menu() {
 	
