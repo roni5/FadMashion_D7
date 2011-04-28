@@ -24,7 +24,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	    $variables['form_desc'] ='<p>Request an invintation to our <br>upcoming private launch</p>';
     }
     else {
-    	$variables['form_desc'] ='<p>Post the link below into Twitter, Facebook or copy & paste in an Email.</p>';
+    	$variables['form_desc'] ='<p>Post the link below into Twitter, Facebook or paste in an Email.</p>';
 	    $variables['request_form'] = fm_invite_share_info(); 
     }
     
