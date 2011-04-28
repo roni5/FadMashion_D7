@@ -38,7 +38,7 @@ jQuery(function($){
       
       
 	     <div class="pad" id="invite">
-					<?php print $featured; ?>
+					<?php print render($page['featured']);?>
 		       <?php if ($messages): ?>
 	    			<div id="message_box"><div class="section clearfix">
 	      			<?php print $messages; ?>
