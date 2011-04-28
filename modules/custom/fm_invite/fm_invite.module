@@ -110,7 +110,12 @@ function fm_invite_request_form_submit($form, &$form_state) {
 }
 
 function fm_invite_share_info() {
-	if(isset($_GET['id'])) {
+	$reg_code_url = fm_invite_get_invite_url();
+	return theme('fm_invite_share', array('reg_code_url' => $reg_code_url));
+}
+
+function fm_invite_get_invite_url() {
+  if(isset($_GET['id'])) {
 		$id = $_GET['id'];
 	  $result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
 	  $inviter = $result->fetchObject();
@@ -119,8 +124,6 @@ function fm_invite_share_info() {
 	else {
 		drupal_goto();
 	}
-	
-	return theme('fm_invite_share', array('reg_code_url' => $reg_code_url));
 }
 
 
