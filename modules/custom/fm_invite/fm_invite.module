@@ -95,8 +95,7 @@ function fm_invite_request_form_validate($form, &$form_state) {
  $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $form_state['values']['mail']));
  $obj = $result->fetchObject();
  if($obj) {
- 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $obj->id)));
- 
+ 	
  	// Send the email.
   $params = array(
     'subject' => 'FadMashion Request Confirmation',
@@ -114,7 +113,8 @@ function fm_invite_request_form_validate($form, &$form_state) {
   ) {
     drupal_set_message(t('HTML Mail test message sent.'));
   }
-  
+  drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $obj->id)));
+ 
  }
  
 }
