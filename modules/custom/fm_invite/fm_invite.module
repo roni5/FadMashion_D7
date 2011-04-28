@@ -46,21 +46,7 @@ function fm_invite_menu() {
  * Implements hook_theme().
  */
 function fm_invite_mail($key, &$message, $params) {
-  $message['module'] = 'htmlmail';
-  $message['key'] = $key;
-  $message['subject'] = $params['subject'];
-  $message['body'] = explode(
-    MAIL_LINE_ENDINGS . MAIL_LINE_ENDINGS,
-    $params['body']
-  );
-  return $message;
-}
-
-/**
- * Implements hook_mail().
- */
-function fm_invite_mail() {
-  $message['module'] = 'htmlmail';
+  $message['module'] = 'fm_invite';
   $message['key'] = $key;
   $message['subject'] = $params['subject'];
   $message['body'] = explode(
