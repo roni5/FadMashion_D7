@@ -27,7 +27,6 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     	$variables['form_desc'] ='<p>Post your unique invite link below into Twitter, Facebook or paste in an Email.</p>';
 	    $variables['request_form'] = fm_invite_share_info(); 
     }
-    
   }
 }
 
