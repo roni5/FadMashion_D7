@@ -120,10 +120,12 @@ function fm_invite_get_invite_url() {
 	  $result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
 	  $inviter = $result->fetchObject();
 	  $reg_code_url =  url('invite/'.$inviter->reg_code, array('absolute' => TRUE));
+	  return $reg_code_url;
 	}
 	else {
 		drupal_goto();
 	}
+	
 }
 
 
