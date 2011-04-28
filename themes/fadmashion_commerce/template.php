@@ -18,15 +18,6 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_css(path_to_theme().'/css/front.css');
     $variables['theme_hook_suggestion'] = 'page__'.$split_url[0] ;
     
-    if($variables['is_front']) {
-    	$form = drupal_get_form('fm_invite_request_form');  
-	    $variables['request_form'] = drupal_render($form);
-	    $variables['form_desc'] ='<p>Request an invintation to our <br>upcoming private launch</p>';
-    }
-    else {
-    	$variables['form_desc'] ='<p>Post your unique invite link below into Twitter, Facebook or paste in an Email.</p>';
-	    $variables['request_form'] = fm_invite_share_info(); 
-    }
   }
 }
 
