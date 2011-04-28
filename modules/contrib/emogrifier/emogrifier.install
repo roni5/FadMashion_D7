@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Provide Emogrifier requirements for the status page.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function emogrifier_requirements($phase) {
+  $t = get_t();
+  $dom = extension_loaded('dom');
+  $emogrifier = drupal_load('module', 'libraries')
+    && drupal_load('module', 'emogrifier')
+    && _emogrifier_available();
+  $args = array(
+    '!help' => url('admin/help/emogrifier'),
+    '!emogrifier' => url('http://drupal.org/project/emogrifier'),
+    '%emogrifier' => 'emogrifier',
+    '!dom' => url('http://php.net/dom'),
+    '%dom' => 'dom',
+  );
+  return array(
+    'emogrifier_dom' => array(
+      'title' => 'DOM extension',
+      'value' => $dom ? 'Enabled' : 'Disabled',
+      'description' => $t('The <a href="!emogrifier">%emogrifier</a> module requires the PHP <a href="!dom">%dom</a> extension.', $args),
+      'severity' => $dom ? REQUIREMENT_OK : REQUIREMENT_WARNING,
+    ),
+    'emogrifier_class' => array(
+      'title' => 'Emogrifier class library',
+      'value' => ($emogrifier ? 'Available' : 'Unavailable'),
+      'description' => (
+        $emogrifier
+        ? $t('The <a href="!help">%emogrifier</a> class library was found.', $args)
+        : $t('The <a href="!help">%emogrifier</a> class library was not found.', $args)
+      ),
+      'severity' => $emogrifier ? REQUIREMENT_OK : REQUIREMENT_WARNING,
+    ),
+  );
+}
