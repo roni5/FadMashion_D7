@@ -5,15 +5,27 @@
  * Sample template for HTML Mail test messages.
  */
 ?>
-<table style="background:none repeat scroll 0 0 #FFFFFF;width:500px;" cellspacing="0" cellpadding="0" class="main"><tbody><tr>
-<td style="background:none repeat scroll 0 0 #FFFFFF;
-border-bottom:5px solid #BDB6AF;
-border-top:5px solid #BDB6AF;
-padding:25px;
-text-align:left;">
 
-<h1 style="font-size:22px;
-margin-top:0;">Excellent choice.</h1>
+<style>
+*{font-family: helvetica, arial, trebuchet MS; font-size: 12px;	margin: 0; padding: 0; line-height: 16px; border: none; }
+h1{ font-size: 16px; margin: 20px 0 6px 0;}
+h1.big{font-size: 22px; margin-top: 0;}
+.main { width: 500px; background: #fff;}
+h1 span{color: #7b6858; font-size: 16px; }
+p{margin-bottom: 7px; font-size: 13px;}
+a{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;}
+.url{padding: 13px; margin: 25px 0; background: #000; color: #fff; }
+.url p{font-size: 12px;}
+td{padding: 25px; background: #fff; border-top: 5px solid #bdb6af; border-bottom: 5px solid #bdb6af; text-align:left;}
+.logo{border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;}
+.social{margin: 0px 3px}
+</style>
+
+
+<table  cellspacing="0" cellpadding="0" class="main"><tbody><tr>
+<td >
+
+<h1>Excellent choice.</h1>
 
 <p style="font-size:13px;
 margin-bottom:7px;">We have received your request to shop the most sought after independent designers at FadMashion.com. To make the most out of FadMashion, learn about our social shopping rewards below. </p>	
