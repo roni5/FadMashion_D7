@@ -21,7 +21,7 @@
 	</div>
 
 
-<div class="logo" style="border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img title="fadmashion" src="<?php print $theme_url?>/logo_black.jpg"></a></div>
+<div class="logo" style="border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img style="width: 400px; border: 0px solid #000;" title="fadmashion" src="<?php print $theme_url?>/logo_black.jpg"></a></div>
 
 
 </td></tr></tbody></table>
