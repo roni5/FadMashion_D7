@@ -13,12 +13,12 @@
 
 <p style="font-size:13px;margin-bottom:7px;">We have received your request to shop the most sought after independent designers at FadMashion.com. To make the most out of FadMashion, learn about our social shopping rewards below. </p>	
 
-<h1 style="font-size: 16px; margin: 20px 0 6px 0;">Your <span style="color: #7b6858; font-size: 16px;">Social Shopping Rewards</span> Link</h1> 
+<h1 style="font-size: 16px; margin: 20px 0 6px 0;">Your <span style="margin-left: 5px; color: #7b6858; font-size: 16px;">Social Shopping Rewards</span> Link</h1> 
 <p style="margin-bottom: 7px; font-size: 13px;">The link below was created just for you. Keep it safe and use it often. When you share your link and people click it, we will make sure you receive credit for your efforts at FadMashion.</p> 	
 
 	
 <div class="url" style="padding: 13px; margin: 25px 0; background: #000; color: #fff;">
-<p style="margin-bottom:7px;font-size:12px;">Copy and paste this URL in Twitter, Facebook, or in an Email to invite friends.</p>
+<p style="margin-bottom:7px;margin-top: 0px; font-size:12px;">Copy and paste this URL in Twitter, Facebook, or in an Email to invite friends.</p>
 <input type="text" style="padding: 4px 0pt 0pt 4px; width: 300px; margin-right: 10px;" value="<?php print $body; ?>" name="">	
 	</div>
 
