@@ -129,7 +129,8 @@ function fm_invite_request_form_submit($form, &$form_state) {
       'test',
       $form_state['values']['mail'],
       language_default(),
-      $params
+      $params,
+      'FadMashion <admin@fadmashion.com> '
    ); 
 	
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
