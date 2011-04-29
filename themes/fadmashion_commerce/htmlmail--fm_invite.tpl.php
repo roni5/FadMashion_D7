@@ -25,7 +25,7 @@
 <a href="#" style='font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'>Check your status</a>
 
 
-<div class="logo" style="border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img title="fadmashion" src="<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo.png"></a></div>
+<div class="logo" style="border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img title="fadmashion" src="http://www.fadmashion.com/<?php print url(drupal_get_path("theme","fadmashion_commerce");?>/images/logo.png"></a></div>
 
 
 </td></tr></tbody></table>
