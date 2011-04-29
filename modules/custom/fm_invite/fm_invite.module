@@ -49,10 +49,7 @@ function fm_invite_mail($key, &$message, $params) {
   $message['module'] = 'fm_invite';
   $message['key'] = $key;
   $message['subject'] = $params['subject'];
-  $message['body'] = explode(
-    MAIL_LINE_ENDINGS . MAIL_LINE_ENDINGS,
-    $params['body']
-  );
+  $message['body'] = $params['reg_url'];
   return $message;
 }
 
@@ -95,26 +92,7 @@ function fm_invite_request_form_validate($form, &$form_state) {
  $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $form_state['values']['mail']));
  $obj = $result->fetchObject();
  if($obj) {
- 	
- 	// Send the email.
-  $params = array(
-    'subject' => 'FadMashion Request Confirmation',
-    'body' => 'test',
-  );
-  
-  if (
-    drupal_mail(
-      'fm_invite',
-      'test',
-      $form_state['values']['mail'],
-      language_default(),
-      $params
-    )
-  ) {
-    
-  }
   drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $obj->id)));
- 
  }
  
 }
@@ -140,7 +118,19 @@ function fm_invite_request_form_submit($form, &$form_state) {
 	  unset($_SESSION[FM_INVITE_SESSION]);
   } 
   
+  // Send the confirmation email.
+  $params = array(
+    'subject' => 'FadMashion Request Confirmation',
+    'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
+  );
   
+  drupal_mail(
+      'fm_invite',
+      'test',
+      $form_state['values']['mail'],
+      language_default(),
+      $params
+   ); 
 	
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
 }
