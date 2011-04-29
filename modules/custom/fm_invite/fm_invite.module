@@ -120,7 +120,7 @@ function fm_invite_request_form_submit($form, &$form_state) {
   
   // Send the confirmation email.
   $params = array(
-    'subject' => 'FadMashion Request Confirmation',
+    'subject' => 'Fadmashion pre-launch confirmation: Getting started',
     'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
   );
   
