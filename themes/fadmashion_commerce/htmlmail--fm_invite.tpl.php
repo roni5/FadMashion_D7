@@ -17,15 +17,11 @@
 	
 <div class="url" style="padding: 13px; margin: 25px 0; background: #000; color: #fff;">
 <p style="margin-bottom:7px;font-size:12px;">Copy and paste this URL in Twitter, Facebook, or in an Email to invite friends.</p>
-<input type="text" style="padding: 4px 0pt 0pt 4px; width: 200px; margin-right: 10px;" value="http://fadmashion.com/<?php  ?>" name="">	
+<input type="text" style="padding: 4px 0pt 0pt 4px; width: 300px; margin-right: 10px;" value="<?php print $body; ?>" name="">	
 	</div>
 
-	
-<h1 style="font-size: 16px; margin: 20px 0 6px 0;">Invite Friends</h1> 
-<a href="#" style='font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'>Check your status</a>
 
-
-<div class="logo" style="border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img title="fadmashion" src="<?php print $theme_url?>/images/logo.png"></a></div>
+<div class="logo" style="border-top: 1px solid #eae7e2; padding: 12px 0 0 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img title="fadmashion" src="<?php print $theme_url?>/logo.png"></a></div>
 
 
 </td></tr></tbody></table>
