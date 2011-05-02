@@ -6,8 +6,9 @@ function fm_invite_facebookshare() {
 	 FB.ui(
 			   {
 			     method: 'feed',
+			     app_id= '213872101957329',
 			     name: 'Facebook Dialogs',
-			     link: 'http://developers.facebook.com/docs/reference/dialogs/',
+			     link: 'http://www.fadmashion.com/',
 			     picture: 'http://fbrell.com/f8.jpg',
 			     caption: 'Reference Documentation',
 			     description: 'Dialogs provide a simple, consistent interface for applications to interface with users.',
