@@ -46,6 +46,8 @@
 
 <head profile="<?php print $grddl_profile; ?>">
   <?php print $head; ?>
+  <META name="description" content="Independent fashion designers up to 60% off retail">
+  <META name="keywords" content="Deals for womens clothes, womens fashion, womens fassion, new york fashions, Samantha Pleet, Daniella Kallmeye, Jonathan Simkhai, Sang A, West/Feren, Rachel Nasvik, Rebecca Minkoff, Alexandra Bee, Katrina LaPenne, Odette New York, Melissa Joy Manning, Suzanna Dai, Assad Mounser, A Peace Treaty, Lot 78, Rachel Comey, Jonathan Simkhai, Kimberly Taylor, Pencey, Annie Havlicek, Kate Linstrom, dresses, leather jackets, bags, jewelry and other independent designs">
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
