@@ -36,7 +36,8 @@ border:0px solid red !important;
 #invite{padding: 12px;  }
 #invite.pad{background:#322b25; background: url("../images/bg_invite.png") repeat scroll 0% 0% transparent !important;}
 
-     
+#twitter_link { background: url("../images/icon_twitter_brown.png") repeat scroll 0% 0% transparent; }
+#facebook_link { background: url("../images/icon_twitter_brown.png") repeat scroll 0% 0% transparent; }
 
 
 

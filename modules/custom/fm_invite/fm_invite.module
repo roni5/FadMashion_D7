@@ -202,7 +202,6 @@ function fm_invite_generate_code() {
 }
 
 function fm_invite_accept($reg_code = '') {
-	
 	global $user;
 	
 	if($reg_code == '') {
