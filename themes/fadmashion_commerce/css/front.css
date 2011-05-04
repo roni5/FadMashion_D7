@@ -41,10 +41,10 @@ padding-left:25px; }
 #facebook_link { background:url("../images/icon_facebook_brown.png") no-repeat scroll 0 0 transparent;
 padding-left:25px;}
 
-
-
-
-
+.shareLinkOptions{width: 100%; margin: 0 0 15px 0; float: left;  }
+.shareLinkOptions .box{float: left; width: 85px; text-align: center; font-size: 12px; margin-right: 1px; }
+.shareLinkOptions a{ text-decoration: none;}
+.shareLinkOptions img{ margin-bottom: 5px;}
 
 
 /* footer */
