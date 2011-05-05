@@ -100,6 +100,7 @@ function fm_invite_request_form() {
     '#type' => 'submit', 
     '#value' => t('Submit'),
      '#ajax' => array(
+            'callback' => 'markit_ajax_terms_add_callback',
             'wrapper' => 'form_message',
             'method' => 'replace',
         ),
