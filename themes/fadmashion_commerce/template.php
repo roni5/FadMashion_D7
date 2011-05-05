@@ -14,10 +14,8 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   {
     drupal_add_js(path_to_theme().'/js/supersized.3.1.3.core.min.js');
     drupal_add_js(path_to_theme().'/js/FM_form.js');
-    drupal_add_js(path_to_theme().'/js/jquery.colorbox-min.js');
     drupal_add_css(path_to_theme().'/css/supersized.core.css');
     drupal_add_css(path_to_theme().'/css/front.css');
-    drupal_add_css(path_to_theme().'/css/colorbox.css');
     $variables['theme_hook_suggestion'] = 'page__'.$split_url[0] ;
     
   }
