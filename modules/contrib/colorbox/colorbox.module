@@ -105,6 +105,7 @@ function colorbox_menu() {
  */
 function _colorbox_form_page_access($form_id) {
   $access = FALSE;
+  drupal_set_message($form_id);
 
   // First check if this is one of the forms Colorbox support out of the box.
   switch ($form_id) {

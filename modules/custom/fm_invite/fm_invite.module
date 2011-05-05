@@ -76,6 +76,7 @@ function fm_invite_theme() {
 function fm_invite_colorbox_form_access($form_id) {
   $access = FALSE;
 
+  drupal_set_message('hell yah');
   if ($form_id == 'fm_invite_request_form') {
     return true;
   }
