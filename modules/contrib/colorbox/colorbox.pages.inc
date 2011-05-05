@@ -29,7 +29,9 @@ function colorbox_form_page($form_id) {
     case 'user_pass':
       module_load_include('inc', 'user', 'user.pages');
     default:
+    	drupal_set_message($form_id);
       $form = drupal_get_form($form_id);
+      drupal_set_message($form);
       if (!empty($form)) {
         print drupal_render($form);
       }
