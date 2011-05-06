@@ -158,6 +158,43 @@ function fm_invite_request_form_submit($form, &$form_state) {
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
 }
 
+function fm_invite_send_email_form() {
+  
+	drupal_add_library('jquery_plugin', 'validate');
+	
+	$form['name'] = array(
+    '#type' => 'textfield', 
+    '#size' => 25, 
+	  '#maxlength' => 255,
+    '#title' => t('From'), 
+    '#required' => TRUE
+  );
+  
+  $form['to'] = array(
+    '#type' => 'textfield', 
+    '#size' => 25, 
+	  '#maxlength' => 255,
+    '#title' => t('To'), 
+    '#description' => 'Comma seperated e-mail addresses',
+    '#required' => TRUE
+  );
+  
+  $form['message'] = array(
+    '#type' => 'textarea', 
+    '#row' => 4, 
+    '#title' => t('Message'),
+    '#required' => TRUE
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Submit'),
+  
+  );
+  
+  return $form;
+}
+
 function fm_invite_share_info() {
 	$reg_code_url = fm_invite_get_invite_url();
 	return theme('fm_invite_share', array('reg_code_url' => $reg_code_url));
