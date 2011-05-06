@@ -281,5 +281,9 @@ function fm_invite_list() {
 		$rows[] = array($row->email, format_date($row->timestamp), $reg_code_url, $number);
 	}
 	
-	return 'test'.theme ('table', array('header' => $header, 'rows' => $rows));
+	$output = 'Count: ' . db_query("SELECT COUNT(*) FROM {fm_invite} ")->fetchField(); 
+	$output .= theme ('table', array('header' => $header, 'rows' => $rows));
+	
+	return $output;
+	
 }
