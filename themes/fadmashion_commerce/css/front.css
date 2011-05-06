@@ -50,8 +50,8 @@ padding-left:25px;}
 /* footer */
 
 #footer .pad{padding: 9px 15px 0 0;}
-#footer .msg{float: right; text-align: right;font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font-size: 12px; color: #c8b8b0;}
-#footer  a{font-family: Georgia, "Times New Roman", Times, serif; text-decoration:none; font-style:italic; font-size: 12px; color: #fff; }
-#footer .link{padding: 0 16px; border-right: 1px solid #3c2f28; float: left; height: 20px; }
+#footer .msg{float: right; text-align: right;font-size: 12px; color: #c8b8b0;}
+#footer  a{text-decoration:none; font-weight: bold; font-size: 12px; color: #fff; }
+#footer .link{padding: 0 16px; font-weight: bold;  border-right: 1px solid #3c2f28; float: left; height: 20px; }
 #footer .link:hover, #footer .msg a:hover{color: #c8b8b0;}
 #footer .social{float: left; width: 60px; padding-left: 16px;}
