@@ -11,7 +11,7 @@ input[type="button"], input[type="submit"], button {cursor:pointer;}
 
 #box{ width: 320px; margin: 6% 0 0 6%;; float: left;}
 #box .pad{padding: 30px;background: url(../images/bg.png);}
-#box p{margin: 0 0 13px 0; color: #c8b8b0;font-size: 15px; line-height:18px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;position: relative; top: -4px;  }
+#box p{margin: 0 0 13px 0; color: #c8b8b0;font-size: 15px; line-height:18px; position: relative; top: -4px;  }
 
 span{color: #fff; font-weight:500}
 h1{font-size: 25px; line-height: 31px; font-weight: 100; margin: 0 0 10px 0; color: #fff;}
