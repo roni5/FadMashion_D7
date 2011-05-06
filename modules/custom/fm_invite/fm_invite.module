@@ -35,7 +35,7 @@ function fm_invite_menu() {
   
   $items['admin/fadmashion/invite'] = array(
     'page callback' => 'fm_invite_list',
-    'access arguments' => array('View the administrative dashboard'),
+    'access arguments' => array('View the administration theme'),
     'type' => MENU_CALLBACK,
   );
   
