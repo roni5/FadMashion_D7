@@ -33,11 +33,20 @@ function fm_invite_menu() {
     'type' => MENU_CALLBACK,
   );
   
+  $items['invite/provider/%'] = array(
+    'page callback' => 'fm_invite_facebook',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
   $items['admin/fadmashion/invite'] = array(
     'page callback' => 'fm_invite_list',
     'access arguments' => array('administer invite list'),
     'type' => MENU_CALLBACK,
   );
+  
+  
   
   return $items;
 }

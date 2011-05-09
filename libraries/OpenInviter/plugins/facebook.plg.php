@@ -21,7 +21,7 @@ $_pluginInfo=array(
  * @author OpenInviter
  * @version 1.0.8
  */
-class facebook extends openinviter_base
+class facebookInviter extends openinviter_base
 	{
 	private $login_ok=false;
 	public $showContacts=true;
