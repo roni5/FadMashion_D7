@@ -11,17 +11,22 @@ Drupal.behaviors.addFMEmailInviteValidation = {
     if(!jQuery('#fm-invite-send-email-form').length) {
     	return;
     }
+    
+    //Add Multi-email validation to jQuery Validate plugin
     jQuery.validator.addMethod("multiemail", function(value, element) {
         if (this.optional(element)) {
             return true;
         }
-        var emails = value.split(new RegExp( "\\s*;\\s*", "gi" ));
+        var emails = value.split(new RegExp( "\\s*,\\s*", "gi" ));
         valid = true;
         for(var i in emails) {
             value = emails[i];
-            valid=valid && jQuery.validator.methods.email.call(this, value,element);
+            if(value.length > 0) {
+            	valid=valid && jQuery.validator.methods.email.call(this, value,element);
+            }
         }
-        return valid;}, "Invalid email format");
+        return valid;}, "Invalid email format"
+    );
     
     jQuery('#fm-invite-send-email-form').validate({
     	errorClass:'invalid', 

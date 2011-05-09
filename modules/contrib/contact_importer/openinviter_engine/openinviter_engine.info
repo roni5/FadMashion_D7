@@ -1,0 +1,16 @@
+; $Id: openinviter_engine.info,v 1.1.6.5 2010/10/20 08:27:51 dalin Exp $
+name = OpenInviter Retrieval Engine
+description = Integrates Contact Importer with the OpenInviter Retrieval Library
+dependencies[] = contact_importer
+package = Contact Importer
+core = 7.x
+files[] = openinviter_engine.admin.inc
+files[] = openinviter_engine.install
+files[] = openinviter_engine.module
+
+; Information added by drupal.org packaging script on 2011-02-17
+version = "7.x-1.0"
+core = "7.x"
+project = "contact_importer"
+datestamp = "1297939324"
+

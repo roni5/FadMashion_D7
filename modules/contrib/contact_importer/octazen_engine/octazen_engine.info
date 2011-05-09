@@ -1,0 +1,16 @@
+; $Id: octazen_engine.info,v 1.1.6.5 2010/10/20 08:27:51 dalin Exp $
+name = Octazen Retrieval Engine
+description = Integrates Contact Importer with the Octazen Retrieval Service
+dependencies[] = contact_importer
+package = Contact Importer
+core = 7.x
+configure = admin/config/contact_importer/settings
+files[] = octazen_engine.install
+files[] = octazen_engine.module
+
+; Information added by drupal.org packaging script on 2011-02-17
+version = "7.x-1.0"
+core = "7.x"
+project = "contact_importer"
+datestamp = "1297939324"
+

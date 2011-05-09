@@ -1,0 +1,17 @@
+; $Id: contact_importer.info,v 1.1.6.5 2010/10/20 08:27:51 dalin Exp $
+name = Contact Importer
+description = Enables other modules to allow users to import email addresses from their address book.
+package = Contact Importer
+core = 7.x
+configure = admin/config/contact_importer
+files[] = contact_importer.install
+files[] = contact_importer.module
+files[] = contact_importer.admin.inc
+
+
+; Information added by drupal.org packaging script on 2011-02-17
+version = "7.x-1.0"
+core = "7.x"
+project = "contact_importer"
+datestamp = "1297939324"
+
