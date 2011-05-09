@@ -35,11 +35,22 @@ function fm_invite_menu() {
   
   $items['admin/fadmashion/invite'] = array(
     'page callback' => 'fm_invite_list',
-    'access arguments' => array('View the administration theme'),
+    'access arguments' => array('administer invite list'),
     'type' => MENU_CALLBACK,
   );
   
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function fm_invite_permission() {
+  return array(
+    'administer invite list' => array(
+      'title' => t('View Invite List'),
+    ),
+  );
 }
 
 /**
@@ -84,7 +95,7 @@ function fm_invite_colorbox_form_access($form_id) {
 }
   
 function fm_invite_request_form() {
-  
+ 
 	drupal_add_library('jquery_plugin', 'validate');
 	
 	$form['mail'] = array(
@@ -98,8 +109,7 @@ function fm_invite_request_form() {
   
   $form['submit'] = array(
     '#type' => 'submit', 
-    '#value' => t('Submit'),
-  
+    '#value' => t('Submit')
   );
   
   return $form;
@@ -159,16 +169,13 @@ function fm_invite_request_form_submit($form, &$form_state) {
 }
 
 function fm_invite_send_email_form() {
-  
-	drupal_add_library('jquery_plugin', 'validate');
 	
 	$form['name'] = array(
     '#type' => 'textfield', 
     '#size' => 25, 
 	  '#maxlength' => 255,
     '#title' => t('From').':',
-	  '#description' => 'Enter Full Name', 
-    '#required' => TRUE
+	  '#default_value' => 'Enter Full Name', 
   );
   
   $form['to'] = array(
@@ -176,8 +183,8 @@ function fm_invite_send_email_form() {
     '#size' => 25, 
 	  '#maxlength' => 255,
     '#title' => t('To').':', 
-    '#description' => 'Comma seperated e-mail addresses',
-    '#required' => TRUE
+    '#default_value' => 'Comma seperated e-mail addresses',
+    '#required' => TRUE,
   );
   
   $form['message'] = array(
@@ -194,6 +201,10 @@ function fm_invite_send_email_form() {
   );
   
   return $form;
+}
+
+function fm_invite_send_email_form_submit() {
+	
 }
 
 function fm_invite_share_info() {
