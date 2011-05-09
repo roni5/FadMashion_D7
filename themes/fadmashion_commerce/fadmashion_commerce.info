@@ -7,6 +7,7 @@ core = 7.x
 
 stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
+stylesheets[all][] = css/colorbox.css
 
 regions[pre_header] = Pre Header
 regions[header] = Header
