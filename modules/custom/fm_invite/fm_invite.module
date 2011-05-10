@@ -26,17 +26,18 @@ function fm_invite_menu() {
     'type' => MENU_CALLBACK,
   );
   
-  $items['invite/provider/%'] = array(
-    'page callback' => 'fm_invite_facebook',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
-  
   $items['admin/fadmashion/invite'] = array(
     'page callback' => 'fm_invite_list',
     'access arguments' => array('administer invite list'),
     'type' => MENU_CALLBACK,
+    'file' => 'fm_invite.admin.inc',
+  );
+  $items['admin/fadmashion/invite/%'] = array(
+    'page callback' => 'fm_invite_list_detailed',
+    'page arguments' => array(3),
+    'access arguments' => array('administer invite list'),
+    'type' => MENU_CALLBACK,
+    'file' => 'fm_invite.admin.inc',
   );
   
   
@@ -59,10 +60,18 @@ function fm_invite_permission() {
  * Implements hook_mail().
  */
 function fm_invite_mail($key, &$message, $params) {
-  $message['module'] = 'fm_invite';
-  $message['key'] = $key;
-  $message['subject'] = $params['subject'];
-  $message['body'] = $params['reg_url'];
+	$message['module'] = 'fm_invite';
+	$message['key'] = $key;
+	$message['subject'] = $params['subject'];
+	  
+	if($key == 'confirmation') {
+	  $message['body'] = $params['reg_url'];
+	}
+	else {
+		$message['module'] = 'fm_invite';
+	  $message['key'] = $key;
+	  $message['subject'] = $params['subject'];
+	}
   return $message;
 }
 
@@ -147,6 +156,7 @@ function fm_invite_request_form_validate($form, &$form_state) {
 
 function fm_invite_request_form_submit($form, &$form_state) {
     
+	//Insert the e-mail into the table and generate invite codes
 	$referred_by_id = null;
 	if($inviter = fm_invite_load_from_session()) {
 	 	$referred_by_id = $inviter->id;
@@ -168,17 +178,19 @@ function fm_invite_request_form_submit($form, &$form_state) {
   
   // Send the confirmation email.
   $params = array(
-    'subject' => 'Fadmashion pre-launch confirmation: Getting started',
+    'subject' => 'Your Unique Social Rewards Link',
     'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
   );
   
+  $email = variable_get('site_mail', 'admin@fadmashion.com');
+  
   drupal_mail(
       'fm_invite',
-      'test',
+      'confirmation',
       $form_state['values']['mail'],
       language_default(),
       $params,
-      'FadMashion <admin@fadmashion.com> '
+      'FadMashion <' . $email . '> '
    ); 
 	
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
@@ -220,7 +232,32 @@ function fm_invite_send_email_form() {
 }
 
 function fm_invite_send_email_form_submit() {
+	 // Send the confirmation email.
+  $params = array(
+    'subject' => 'Fadmashion pre-launch confirmation: Getting started',
+    'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
+  );
+  
+  //Get the submitted e-mail address for From address
+	if(isset($_GET['id'])) {
+		$id = $_GET['id'];
+	  $email = db_query('SELECT email FROM {fm_invite} WHERE id = :id', array(':id' => $id))->fetchField();
+	}
+	else {
+		$email = variable_get('site_mail', 'admin@fadmashion.com');
+	}
 	
+  drupal_mail(
+      'fm_invite',
+      'email_friends',
+      $form_state['values']['to'],
+      language_default(),
+      $params,
+      $form_state['values']['name']. ' <' . $email . '> '
+   ); 
+   
+   exit();
+   
 }
 
 function fm_invite_share_info() {
@@ -271,6 +308,7 @@ function fm_invite_accept($reg_code = '') {
 
 function fm_invite_update_page_views($inviter) {
  //TODO: Update page views code for the inviter;
+ db_query('UPDATE {fm_invite} SET link_back_views=link_back_views+1 WHERE id = :id', array(':id' => $inviter->id));
 }
 
 
@@ -295,22 +333,3 @@ function fm_invite_load_from_session() {
 }
 
 
-function fm_invite_list() {
-	
-	$result = db_query('SELECT * FROM {fm_invite}');
-	$rows = array();
-	$header = array('Name/E-mail', 'Date', 'Invite Code',  'Sign-Ups' );
-	
-	while($row = $result->fetchObject()) {
-		$reg_code_url =  url('invite/'.$row->reg_code, array('absolute' => TRUE));
-		$number = db_query("SELECT COUNT(*) FROM {fm_invite} WHERE referred_by_id = :id", array(':id' => $row->id))->fetchField();
-		
-		$rows[] = array($row->email, format_date($row->timestamp), $reg_code_url, $number);
-	}
-	
-	$output = '<h1>Count: ' . db_query("SELECT COUNT(*) FROM {fm_invite} ")->fetchField().'</h1>'; 
-	$output .= theme ('table', array('header' => $header, 'rows' => $rows));
-	
-	return $output;
-	
-}

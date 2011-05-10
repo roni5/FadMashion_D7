@@ -34,16 +34,18 @@ Drupal.behaviors.addFMEmailInviteValidation = {
     	wrapper: 'div id="message_box"',
     	submitHandler: function(form) {
 			jQuery(form).ajaxSubmit({
-				target: "#result"
+		        beforeSubmit:  inviteEmailPreLoader,  // pre-submit callback 
+		        success:       inviteEmailSuccess  // post-submit callback 
 			});
 		},
 		
-		//Copied from Source files defaultShowErrors. Added Colorbox functionality
+		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
 		showErrors: function() {
 			for ( var i = 0; this.errorList[i]; i++ ) {
 				var error = this.errorList[i];
 				this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
 				
+				//ADDED Colorbox functionality
 				var resizeColorbox = false;
 				var errlabel = this.errorsFor( error.element );
 				if(!errlabel.length) {
@@ -74,6 +76,7 @@ Drupal.behaviors.addFMEmailInviteValidation = {
 			this.hideErrors();
 			this.addWrapper( this.toShow ).show();
 		},
+		//END OF COPY
 
 		
     });
@@ -90,4 +93,11 @@ Drupal.behaviors.addFMEmailInviteValidation = {
 
 })(jQuery);
 
-
+//Show a loader
+function inviteEmailPreLoader() {
+	jQuery.colorbox({inline:true, href:"#submittingEmail"});
+	
+}
+function inviteEmailSuccess() {
+	jQuery.colorbox({inline:true, href:"#confirmedEmail"});
+}
