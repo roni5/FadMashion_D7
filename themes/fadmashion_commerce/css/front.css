@@ -9,7 +9,7 @@ input[type="button"], input[type="submit"], button {cursor:pointer;}
 
 /* content  */
 
-#box{ width: 320px; margin: 6% 0 0 6%;; float: left;}
+#box{ width: 320px; margin: 3% 0 0 6%;; float: left;}
 #box .pad{padding: 30px;background: url(../images/bg.png);}
 #box p{margin: 0 0 13px 0; color: #c8b8b0;font-size: 15px; line-height:18px; position: relative; top: -4px;  }
 
