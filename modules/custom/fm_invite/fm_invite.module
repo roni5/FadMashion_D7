@@ -266,7 +266,11 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 
 function fm_invite_email_message() {
 	$reg_code_url = fm_invite_get_invite_url();
-	return 'test';
+	
+	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch.  Use the link below and we both get priority access.
+	
+');
+	return $message.$reg_code_url;
 }
 
 function fm_invite_share_info() {

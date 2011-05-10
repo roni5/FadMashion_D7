@@ -81,10 +81,10 @@ Drupal.behaviors.addFMEmailInviteValidation = {
 		
     });
     
-    $("#edit-message").rules("add", {
+    $("#fm-invite-send-email-form #edit-message").rules("add", {
     	 minlength: 10
     });
-    $("#edit-to").rules("add", {
+    $("#fm-invite-send-email-form  #edit-to").rules("add", {
     	multiemail: true,
    });
     
