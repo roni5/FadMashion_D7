@@ -68,9 +68,7 @@ function fm_invite_mail($key, &$message, $params) {
 	  $message['body'] = $params['reg_url'];
 	}
 	else {
-		$message['module'] = 'fm_invite';
-	  $message['key'] = $key;
-	  $message['subject'] = $params['subject'];
+		$message['body'] = $params['reg_url'];
 	}
   return $message;
 }
@@ -130,7 +128,7 @@ function fm_invite_request_form() {
 	  '#maxlength' => 255,
     '#default_value' => t('Enter E-mail Address'), 
     '#required' => TRUE,
-		'#prefix' => '<div id="form_message"></div>'
+		'#attributes' => array('class' => array('clear-defaults')),
   );
   
   $form['submit'] = array(
@@ -205,6 +203,7 @@ function fm_invite_send_email_form() {
     '#size' => 25, 
 	  '#maxlength' => 255,
     '#title' => t('From').':',
+	  '#attributes' => array('class' => array('clear-defaults')),
 	  '#default_value' => 'Enter Full Name', 
   );
   
@@ -214,6 +213,7 @@ function fm_invite_send_email_form() {
 	  '#maxlength' => 255,
     '#title' => t('To').':', 
     '#default_value' => 'Comma seperated e-mail addresses',
+    '#attributes' => array('class' => array('clear-defaults')),
     '#required' => TRUE,
   );
   
@@ -221,6 +221,7 @@ function fm_invite_send_email_form() {
     '#type' => 'textarea', 
     '#row' => 4, 
     '#title' => t('Message').':',
+    '#default_value' => fm_invite_email_message(),
     '#required' => TRUE
   );
   
@@ -238,6 +239,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
   $params = array(
     'subject' => 'Personal invite to Fadmashion',
     'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
+    'message' => $form_state['values']['message']
   );
   
   //Get the submitted e-mail address for From address
@@ -260,6 +262,11 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
    
    exit();
    
+}
+
+function fm_invite_email_message() {
+	$reg_code_url = fm_invite_get_invite_url();
+	return 'test';
 }
 
 function fm_invite_share_info() {

@@ -8,8 +8,7 @@ jQuery(document).ready(function() {
 
 function clearAllForms() {
   //Call the Form clear and restore
-  jQuery("input.form-text").cleardefault();
-  jQuery("input.form-textarea").cleardefault();
+  jQuery("input.clear-defaults").cleardefault();
 };
 
 jQuery.fn.cleardefault = function() {
