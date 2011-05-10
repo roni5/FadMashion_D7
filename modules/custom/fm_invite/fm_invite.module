@@ -236,7 +236,7 @@ function fm_invite_send_email_form() {
 function fm_invite_send_email_form_submit($form, &$form_state) {
 	 // Send the confirmation email.
   $params = array(
-    'subject' => '',
+    'subject' => 'Personal invite to Fadmashion',
     'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
   );
   
