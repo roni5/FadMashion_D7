@@ -42,8 +42,9 @@ function fm_invite_list_detailed($inviter_id) {
 		$count++;
 	}
 	
-	drupal_set_title('Sign ups for '.db_query("SELECT email FROM {fm_invite} WHERE referred_by_id = :id",
+	drupal_set_title('Sign ups for '.db_query("SELECT email FROM {fm_invite} WHERE id = :id",
 	                 array(':id' => $inviter_id))->fetchField());
+	                 
 	drupal_set_breadcrumb(array(l(t('Home'), NULL), l(t('Full Invite List'), 'admin/fadmashion/invite')));
 	$output = '<h1>Count: ' . $count . '</h1>';
 	$output .= theme ('table', array('header' => $header, 'rows' => $rows));
