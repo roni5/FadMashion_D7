@@ -23,9 +23,4 @@ We have received your request to shop up to 60% off the best independent designe
 <input type="text" style="padding: 4px 0pt 0pt 4px; width: 300px; margin-right: 10px;" value="<?php print $body; ?>" name="">	
 	</div>
 
-<?php 
-$image = '<img src=/"' . drupal_get_path("theme","fadmashion_commerce") . '/images/icon_email_brown.png"><br>Email';
-print l($image, 'colorbox/form/fm_invite_send_email_form', array('query' => 'id=' . $_GET['id'], 'html' => true, 'attributes' => array('class' => 'colorbox-load', 'title' => 'Send an e-mail to your friend') )  ); 
-?>
-
 </td></tr></tbody></table>

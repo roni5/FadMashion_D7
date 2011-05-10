@@ -68,7 +68,7 @@ function fm_invite_mail($key, &$message, $params) {
 	  $message['body'] = $params['reg_url'];
 	}
 	else {
-		$message['body'] = $params['reg_url'];
+		$message['body'] = $params['message'];
 	}
   return $message;
 }
