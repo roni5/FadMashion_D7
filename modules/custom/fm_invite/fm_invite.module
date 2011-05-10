@@ -68,6 +68,7 @@ function fm_invite_mail($key, &$message, $params) {
 	  $message['body'] = $params['reg_url'];
 	}
 	else {
+		drupal_set_message($params['message']);
 		$message['body'] = $params['message'];
 	}
   return $message;
@@ -238,7 +239,6 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	 // Send the confirmation email.
   $params = array(
     'subject' => 'Personal invite to Fadmashion',
-    'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
     'message' => $form_state['values']['message']
   );
   
