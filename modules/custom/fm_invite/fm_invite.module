@@ -170,6 +170,7 @@ function fm_invite_request_form_submit($form, &$form_state) {
       'referred_by_id' => $referred_by_id,
       'email' => $form_state['values']['mail'],
       'timestamp' => time(),
+      'link_back_views' => 0
     ))
   ->execute();
     
