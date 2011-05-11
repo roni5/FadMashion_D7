@@ -240,7 +240,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	// Send the confirmation email.
 	$reg_code_url = fm_invite_get_invite_url();
   $params = array(
-    'subject' => 'Invintation to Independence at Fadmashion',
+    'subject' => 'Invitation to Independence at Fadmashion',
     'message' => $form_state['values']['message'] . '<br><br>' . $reg_code_url . '<br><br>-'.$form_state['values']['name'] 
   );
   
