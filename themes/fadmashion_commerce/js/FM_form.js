@@ -43,10 +43,10 @@ jQuery.fn.cleardefault = function() {
  */
 //Show a loader
 function formPreLoader(formData, jqForm, options) {
-	jQuery('.ajax-button').append('<div id="ajax-button-loader">test</div>');
+	jQuery('.ajax-button').after('<div id="submitLoader"></div>');
 }
 function formSuccess(responseText, statusText, xhr, $form)  {
-	jQuery('#ajax-button-loader').html();
+	jQuery('#submitLoader').remove();
 }
 
 

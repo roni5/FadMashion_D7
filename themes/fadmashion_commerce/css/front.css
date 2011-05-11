@@ -29,7 +29,7 @@ label { font-size: 12px; color:black;font-weight: normal !important; margin-bott
 #fm-invite-request-form .form-text, #fm-invite-request-form .form-button, #fm-invite-request-form .form-text-readonly{float: left;}
 .form-textarea, .form-text, .form-text-readonly{ margin: 0 5px 0 0;  color: #8f837a; font-size: 12px; }
 .form-text, .form-text-readonly { width: 185px; height: 26px; background: url(../images/bg_email.jpg) top left  repeat-x; padding-left: 4px;  border: none;}
-.form-submit{ background: url(../images/bg_button.png) no-repeat scroll top right; color: #fff; display: block;  height: 26px; width: 64px; text-decoration: none; line-height: 26px; padding-top: 0px}
+.form-submit{ float: left; background: url(../images/bg_button.png) no-repeat scroll top right; color: #fff; display: block;  height: 26px; width: 64px; text-decoration: none; line-height: 26px; padding-top: 0px}
 .form-submit:hover{background-position: 0 -26px;}
 
 #message_box { width: 220px; color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
@@ -55,6 +55,12 @@ padding-left:25px;}
 .shareLinkOptions .box{float: left; width: 85px; text-align: center; font-size: 12px; margin-right: 1px; }
 .shareLinkOptions a{ text-decoration: none;}
 .shareLinkOptions img{ margin-bottom: 5px;}
+
+#submitLoader{background:url("../images/colorbox/loading.gif") no-repeat scroll 5px 5px #FFFFFF;
+float:left;
+height:32px;
+margin:-7px 0 0 7px;
+width:32px;}
 
 
 /* footer */

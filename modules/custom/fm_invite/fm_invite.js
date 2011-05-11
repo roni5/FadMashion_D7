@@ -3,7 +3,7 @@
  */
 (function ($) {
 
-Drupal.behaviors.addFMEmailInviteValidation = {
+Drupal.behaviors.addFMInviteSendEmail= {
   attach: function (context, settings) {
     if (!$.isFunction($.colorbox)) {
       return;
@@ -35,7 +35,7 @@ Drupal.behaviors.addFMEmailInviteValidation = {
     	submitHandler: function(form) {
 			jQuery(form).ajaxSubmit({
 		        beforeSubmit:  formPreLoader,  // pre-submit callback 
-		        success:       formSuccess  // post-submit callback 
+		        success:       inviteFormSuccess  // post-submit callback 
 			});
 		},
 		
@@ -93,5 +93,12 @@ Drupal.behaviors.addFMEmailInviteValidation = {
 
 })(jQuery);
 
+
+function inviteFormSuccess(responseText, statusText, xhr, $form) {
+	formSuccess();
+	jQuery('#cboxTitle').html('Thank You! Your e-mail has been sent.');
+	jQuery('#cboxLoadedContent').html('<div></div>');
+	jQuery.colorbox.resize();
+}
 
 
