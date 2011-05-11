@@ -34,8 +34,8 @@ Drupal.behaviors.addFMEmailInviteValidation = {
     	wrapper: 'div id="message_box"',
     	submitHandler: function(form) {
 			jQuery(form).ajaxSubmit({
-		        beforeSubmit:  inviteEmailPreLoader,  // pre-submit callback 
-		        success:       inviteEmailSuccess  // post-submit callback 
+		        beforeSubmit:  formPreLoader,  // pre-submit callback 
+		        success:       formSuccess  // post-submit callback 
 			});
 		},
 		
@@ -93,11 +93,5 @@ Drupal.behaviors.addFMEmailInviteValidation = {
 
 })(jQuery);
 
-//Show a loader
-function inviteEmailPreLoader() {
-	jQuery.colorbox({inline:true, href:"#submittingEmail"});
-	
-}
-function inviteEmailSuccess() {
-	jQuery.colorbox({inline:true, href:"#confirmedEmail"});
-}
+
+

@@ -1,11 +1,14 @@
 /**
- * 
+ *  Javascript Tools to handle Forms in FAdmashion 
  */
 
 jQuery(document).ready(function() {
 	clearAllForms();
 });
 
+/*
+ * Code for clearing defaults in forms
+ */
 function clearAllForms() {
   //Call the Form clear and restore
   jQuery("input.clear-defaults").cleardefault();
@@ -33,6 +36,19 @@ jQuery.fn.cleardefault = function() {
 	  }
 	};
 })(jQuery);
+
+
+/*
+ * Functions to add AJAX loaders and submit
+ */
+//Show a loader
+function formPreLoader(formData, jqForm, options) {
+	jQuery('.ajax-button').append('<div id="ajax-button-loader">test</div>');
+}
+function formSuccess(responseText, statusText, xhr, $form)  {
+	jQuery('#ajax-button-loader').html();
+}
+
 
 
 

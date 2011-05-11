@@ -9,6 +9,8 @@ stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/colorbox.css
 
+scripts[] = js/fm_form.js
+
 regions[pre_header] = Pre Header
 regions[header] = Header
 regions[featured] = Featured

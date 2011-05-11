@@ -68,7 +68,6 @@ function fm_invite_mail($key, &$message, $params) {
 	  $message['body'] = $params['reg_url'];
 	}
 	else {
-		drupal_set_message($params['message']);
 		$message['body'] = $params['message'];
 	}
   return $message;
@@ -229,6 +228,7 @@ function fm_invite_send_email_form() {
   $form['submit'] = array(
     '#type' => 'submit', 
     '#value' => t('Send'),
+    '#attributes' => array('class' => array('ajax-button')),
   
   );
   
