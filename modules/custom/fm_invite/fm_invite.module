@@ -204,7 +204,7 @@ function fm_invite_send_email_form() {
 	  '#maxlength' => 255,
     '#title' => t('From').':',
 	  '#attributes' => array('class' => array('clear-defaults')),
-	  '#default_value' => 'Enter Full Name', 
+	  '#default_value' => 'Enter Name', 
   );
   
   $form['to'] = array(
