@@ -238,7 +238,7 @@ function fm_invite_send_email_form() {
 function fm_invite_send_email_form_submit($form, &$form_state) {
 	 // Send the confirmation email.
   $params = array(
-    'subject' => 'Personal invite to Fadmashion',
+    'subject' => 'Invintation to Independence at Fadmashion',
     'message' => $form_state['values']['message']
   );
   
@@ -250,6 +250,8 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	else {
 		$email = variable_get('site_mail', 'admin@fadmashion.com');
 	}
+	
+	drupal_set_message($form_state['values']['to']);
 	
   drupal_mail(
       'fm_invite',

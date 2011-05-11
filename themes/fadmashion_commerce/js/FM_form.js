@@ -37,6 +37,49 @@ jQuery.fn.cleardefault = function() {
 	};
 })(jQuery);
 
+/* 
+ * Function to add Validate support with Colorbox
+ */
+function showErrorsColorbox() {
+	//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
+	
+		for ( var i = 0; this.errorList[i]; i++ ) {
+			var error = this.errorList[i];
+			this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
+			
+			//ADDED Colorbox functionality
+			var resizeColorbox = false;
+			var errlabel = this.errorsFor( error.element );
+			if(!errlabel.length) {
+				resizeColorbox = true;
+			}
+			
+			this.showLabel( error.element, error.message );
+			
+			if(resizeColorbox) {
+				jQuery.colorbox.resize();
+			}
+		}
+		if( this.errorList.length ) {
+			this.toShow = this.toShow.add( this.containers );
+		}
+		
+		if (this.settings.success) {
+			for ( var i = 0; this.successList[i]; i++ ) {
+				this.showLabel( this.successList[i] );
+			}
+		}
+		if (this.settings.unhighlight) {
+			for ( var i = 0, elements = this.validElements(); elements[i]; i++ ) {
+				this.settings.unhighlight.call( this, elements[i], this.settings.errorClass, this.settings.validClass );
+			}
+		}
+		this.toHide = this.toHide.not( this.toShow );
+		this.hideErrors();
+		this.addWrapper( this.toShow ).show();
+	//END OF COPY
+}
+
 
 /*
  * Functions to add AJAX loaders and submit
