@@ -264,6 +264,17 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $form_state['values']['name']. ' <' . $email . '> '
    ); 
    
+   /*SEND SAME TO ADMIN*/
+   $params['subject'] = 'Admin Only - Invitation Sent VIA e-mail';
+   drupal_mail(
+      'fm_invite',
+      'email_friends',
+      'admin@fadmashion.com',
+      language_default(),
+      $params,
+      $form_state['values']['name']. ' <' . $email . '> '
+   ); 
+   
    exit();
    
 }
