@@ -269,7 +269,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 }
 
 function fm_invite_email_message() {
-	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch.  Sign up too and we both get priority access!');
+	$message = t('Exciting fashion find!  I just requested an invitation to Fadmashion\'s upcoming private launch which is offering up to 60% off independent designs.  Sign up too and we both get priority access!');
 	return $message;
 }
 
