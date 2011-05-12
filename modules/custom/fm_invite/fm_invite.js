@@ -1,5 +1,34 @@
+/*
+ * E-mail gathering form - Add e-mail jquery validation
+
+
+//TODO: use jquery validate on e-mail signup form
+(function ($) {
+
+Drupal.behaviors.addFMRequestEmail= {
+  attach: function (context, settings) {
+    if(!jQuery('#fm-invite-request-form').length) {
+    	return;
+    }
+    
+    jQuery('#fm-invite-request-form').validate({
+    	errorClass: 'invalid',
+    	onkeyup: false,
+    	wrapper: 'div id="message_box"',
+    });
+    
+    $("#fm-invite-request-form #edit-mail").rules("add", {
+    	 minlength: 2,
+    	 email: true
+    });
+  } 
+};
+
+})(jQuery);
+ */
+
 /**
- * 
+ * Submit Invitation E-mail form
  */
 (function ($) {
 
