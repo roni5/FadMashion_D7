@@ -241,7 +241,9 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	$reg_code_url = fm_invite_get_invite_url();
   $params = array(
     'subject' => 'Invitation to Independence at Fadmashion',
-    'message' => $form_state['values']['message'] . '<br><br>' . $reg_code_url . '<br><br>-'.$form_state['values']['name'] 
+    'message' => $form_state['values']['message'] . 
+                 '<br><br><div style="width: 200px; background-color: #bdb6af; padding: 4px 10px">' . $reg_code_url . 
+                  '</div><br><br>-'.$form_state['values']['name'] 
   );
   
   //Get the submitted e-mail address for From address
