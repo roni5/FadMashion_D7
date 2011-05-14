@@ -4,7 +4,6 @@
  * @file
  * */
 
-
 function fm_invite_list() {
 	
 	$result = db_query('SELECT * FROM {fm_invite}');
