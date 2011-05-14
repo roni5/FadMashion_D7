@@ -16,25 +16,27 @@ function fm_invite_menu() {
 	$items['invite'] = array(
     'page callback' => 'fm_invite_accept',
     'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
   );
   
   $items['invite/%reg_code'] = array(
     'page callback' => 'fm_invite_accept',
     'page arguments' => array(1),
     'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
   );
   
   $items['admin/fadmashion/invite'] = array(
+    'title' => t('Fadmashion Invite'), 
+    'description' => t('Invintation list for Fadmashion\'s Splash page'),
     'page callback' => 'fm_invite_list',
     'access arguments' => array('administer invite list'),
-    'type' => MENU_CALLBACK,
+    'type' => MENU_NORMAL_ITEM,
     'file' => 'fm_invite.admin.inc',
   );
   $items['admin/fadmashion/invite/%'] = array(
     'page callback' => 'fm_invite_list_detailed',
-    'page arguments' => array(3),
+    'page arguments' => array(5),
     'access arguments' => array('administer invite list'),
     'type' => MENU_CALLBACK,
     'file' => 'fm_invite.admin.inc',
