@@ -36,7 +36,7 @@ function fm_invite_menu() {
   );
   $items['admin/fadmashion/invite/%'] = array(
     'page callback' => 'fm_invite_list_detailed',
-    'page arguments' => array(5),
+    'page arguments' => array(3),
     'access arguments' => array('administer invite list'),
     'type' => MENU_CALLBACK,
     'file' => 'fm_invite.admin.inc',
