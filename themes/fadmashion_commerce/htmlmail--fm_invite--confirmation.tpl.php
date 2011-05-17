@@ -5,22 +5,36 @@
  * Sample template for HTML Mail test messages.
  */
 ?>
-<table cellspacing="0" cellpadding="0" class="main" style="margin-left: 50px; width: 500px; background: #fff;"><tbody><tr><td style="padding; 10px; background: #fff; border-top: 5px solid #bdb6af; border-bottom: 5px solid #bdb6af; text-align:left;">
 
+<div class="wrapper" style="background-color: #221e1b; padding: 20px 0 0 0;">
+<table cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto;">
+<tr>
+<td colspan="2"><img src="http://www.owenlinton.com/fadmashion/dev/email1/header.jpg" style="border: none; display: block;"></td>
+</tr>
+<tr>
+<td class="content" valign="top" style="background-color: #efeee9;">
 
-<div class="logo" style="padding: 0 0 12px 0; margin-top: 25px;"><a href="http://www.fadmashion.com" style='font-size: 20px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;'><img style=" border: 0px solid #000;" title="fadmashion" src="<?php print $theme_url?>/logo_black.jpg"></a></div>
+<div class="pad" style="padding: 24px 15px 10px 50px">
+<h1 style="font-size:18px;width:auto;margin:4px 0;">Excellent choice.</h1>
+<p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">We have received your request to shop the most sought after independent designers at <a href="http://www.fadmashion.com" style="color: #01517e;">FadMashion.com</a>. To make the most out of FadMashion, learn about our social shopping rewards below.</p>
+<br><h1 style="width: auto; font-size: 18px; margin: 4px 0;">Your Social Shopping Rewards Link</h1>
+<p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">The link below was created just for you. Keep it safe and use it often. When you share your link and people click it, we will make sure you receive credit for your efforts at FadMashion.</p>
 
+<div class="url" style="background: #d7d1c7; padding: 15px; margin: 20px 0;">
+<p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">Copy and paste this URL in Twitter, Facebook,<br>
+ or in an Email to invite friends.</p>
 
-<p style="font-size:13px;margin-bottom:7px;">
-We have received your request to shop up to 60% off the best independent designers worldwide and will be in touch with you following our launch.  To be one of the first members inside, take a moment to learn about FadMashion Social Shopping Rewards.</p>	
-
-<h1 style="font-size: 16px; margin: 20px 0 6px 0;">Your <span style="margin-left: 3px; color: #7b6858; font-size: 16px;">Social Shopping Rewards</span> Link</h1> 
-<p style="margin-bottom: 7px; font-size: 13px;">The link below is your very own, and it will <b>earn you Social Shopping Rewards</b> - share your link with friends and earn priority access to new discounts, exclusive parties and much more.  Keep your link safe, and share it often. </p> 	
-<p style="margin-bottom: 7px; font-size: 13px;">Your first reward opportunity lets you jump the line. Share the link below with <b>5 friends</b> who sign up and you'll be among the first to step inside.</p>
-	
-<div class="url" style="padding: 13px; margin: 25px 0; background: #000; color: #fff;">
-<p style="margin-bottom:7px;margin-top: 0px; font-size:12px;">Copy and paste this URL in Twitter, Facebook, or in an Email to invite friends.</p>
-<input type="text" style="padding: 4px 0pt 0pt 4px; width: 300px; margin-right: 10px;" value="<?php print $body; ?>" name="">	
+<input name="" type="text" value="http://fadmashion.com/mqjk5h" style="padding: 1px 0 0 4px; height: 18px; width: 200px; margin-right: 10px;"><span style="font-family: Georgia, 'Times New Roman', Times, serif; font-style:italic; font-size: 13px;">share</span> 	 <a href="#" style="color: #01517e;"><img src="http://www.owenlinton.com/fadmashion/dev/email1/facebook.png" align="absmiddle" class="social" style="border:none;display:inline;"></a> <a href="#" style="color: #01517e;"><img src="http://www.owenlinton.com/fadmashion/dev/email1/twitter.png" align="absmiddle" class="social" style="border:none;display:inline;"></a>	
 	</div>
 
-</td></tr></tbody></table>
+</div>
+</td>
+
+<td width="195"><img src="http://www.owenlinton.com/fadmashion/dev/email1/model.jpg" style="border: none; display: block;"></td>
+</tr>
+<tr>
+<td colspan="2"><img src="http://www.owenlinton.com/fadmashion/dev/email1/footer.jpg" style="border: none; display: block;"></td>
+
+</tr>
+</table>
+</div> 
