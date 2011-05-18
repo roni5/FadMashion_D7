@@ -24,7 +24,7 @@
 <br clear="all"><p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">- <?php print $params['fromName'];?></p>
 
 <div class="quote" style='padding: 80px 0 0 0; color: #796155; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font-size: 13px; line-height: 20px;'>
- "Fadmashion.com has changed, and so has the way you’ll shop for independent fashion from now on."
+ "Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."
  <img src="<?php print $theme_url?>/images/emails/myfashionlife.jpg" alt="-myfashionlife" align="right" style="display:block;margin-top:14px;border:none;">
 </div>
 
@@ -36,7 +36,7 @@
 <td width="237"><img src="<?php print $theme_url?>/images/emails/template2/model.jpg" style="border: none; display: block;"></td>
 </tr>
 <tr>
-<td colspan="2"><img src="h<?php print $theme_url?>/images/emails/template2/footer.jpg" style="border: none; display: block;"></td>
+<td colspan="2"><img src="<?php print $theme_url?>/images/emails/template2/footer.jpg" style="border: none; display: block;"></td>
 
 </tr>
 </table>
