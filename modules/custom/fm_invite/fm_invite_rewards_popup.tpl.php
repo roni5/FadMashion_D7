@@ -4,7 +4,7 @@
 	<div class="social">
   <a class="socialIcon" href="#"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_facebook_white.jpg"></a><a class="socialIcon" href="#"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_twitter_white.jpg"></a><a class="socialIcon" href="#"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_mail_white.jpg"></a></div>
 
-    <div class="link"><input type="text" readonly="readonly" name="share_url" style="width: 250px; border: 1px solid rgb(197, 189, 182); color: rgb(114, 101, 92); float: left; margin: 0pt; padding: 2px 0pt 0pt 2px; height: 22px;" autocomplete="off" class="form-text-readonly" onclick="this.select()" id="share_url" value="http://exp.fadmashion.com/invite/U3E8dyHk">
+    <div class="rewards_link"><input type="text" readonly="readonly" name="share_url" style="width: 250px; border: 1px solid rgb(197, 189, 182); color: rgb(114, 101, 92); float: left; margin: 0pt; padding: 2px 0pt 0pt 2px; height: 22px;" autocomplete="off" class="form-text-readonly" onclick="this.select()" id="share_url" value="http://exp.fadmashion.com/invite/U3E8dyHk">
     <input type="submit" style="float: left; position: relative; left: -5px;" class="form-submit" value="Copy" name="op" id="edit-submit"></div>
 </div>
 
