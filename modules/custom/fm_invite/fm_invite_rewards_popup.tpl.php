@@ -6,7 +6,7 @@
   <a class="socialIcon" href="target="_blank" href="http://twitter.com/home?status=@Fadmashion offering hourly deals on independent fashion.  Sign up and we both get priority access <?php print $url;?>"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_twitter_white.jpg"></a>
   <?php 
     $image = '<img src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/icon_mail_white.jpg"><br>Email';
-    print l($image, 'colorbox/form/fm_invite_send_email_form', array( 'html' => true, 'query' => array('id' => $_GET['id']), 'attributes' => array('class' => 'colorbox-load socialIcon', 'title' => 'Send an e-mail to your friend') )  ); 
+    print l($image, 'colorbox/form/fm_invite_send_email_form', array( 'html' => true, 'query' => array('id' => $_GET['id']), 'attributes' => array('class' => 'colorbox-load socialIcon', 'title' => 'Spread the love') )  ); 
    ?>
    </div>
 
