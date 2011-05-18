@@ -64,13 +64,14 @@ padding-left:25px;}
 /* Rewards Pop-up */
 
 .signupBox {text-align:center; float:left; height:229px; margin-right:8px; padding:0; width:164px;}
-.share { float:left; padding:24px 0 35px 30px;  }
+.share { float:left; text-align: center; padding:24px 0 35px 50px;}
 #signup5 {background:url("../images/bg_signups_5.jpg") no-repeat scroll left top transparent;}
 #signup15 {background:url("../images/bg_signups_15.jpg") no-repeat scroll left top transparent; }
 #signup25 {background:url("../images/bg_signups_25.jpg") no-repeat scroll left top transparent; }
 
 .signupBox h1 {color:#FFFFFF; font-size:47px; font-weight:100; line-height:47px; margin:24px 0 4px;}
-.signupBox h2 {border-bottom:1px solid #948D86; color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:13px; font-style:normal; font-weight:300; line-height:13px; margin:0 26px 16px; padding-bottom:12px; }
+h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times New Roman",Times,serif;font-size:15px;font-style:italic;font-weight:normal;margin:0;}
+.signupBox h3 {border-bottom:1px solid #948D86; color:#8A7D71 font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:13px; font-style:normal; font-weight:300; line-height:13px; margin:0 26px 16px; padding-bottom:12px; }
 .signupBox p {color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:14px; font-weight:100; line-height:18px; margin:0; padding:0 20px; }
 .signupBox p.value { color:#D7CBC2; font-weight:700; margin-top:14px; }
 .social {float:left;width:111px;}
