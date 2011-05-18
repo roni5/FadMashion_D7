@@ -75,7 +75,7 @@ h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times
 .signupBox p {color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:14px; font-weight:100; line-height:18px; margin:0; padding:0 20px; }
 .signupBox p.value { color:#D7CBC2; font-weight:700; margin-top:14px; }
 .social {float:left;width:111px;}
-.socialIcon {margin:0 5px 0 0;}
+.socialIcon {margin:0 5px 0 0; float:left}
 .rewards_link {float:left;}
 
 

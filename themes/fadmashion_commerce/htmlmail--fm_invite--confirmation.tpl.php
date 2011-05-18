@@ -9,7 +9,7 @@
 <div class="wrapper" style="background-color: #221e1b; padding: 20px 0 20px 0; margin-bottom: 10px;">
 <table cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto;">
 <tr>
-<td colspan="2"><img title = "fadmashion" src="<?php print $theme_url?>/images/template1/header.jpg" style="border: none; display: block;"></td>
+<td colspan="2"><img alt="Fadmashion" src="<?php print $theme_url?>/images/template1/header.jpg" style="border: none; display: block;"></td>
 </tr>
 <tr>
 <td class="content" valign="top" style="background-color: #efeee9;">

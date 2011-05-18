@@ -9,7 +9,7 @@
 <div class="wrapper" align="center" style="background-color: #221e1b; padding: 20px 0 ;">
 <table cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto;">
 <tr>
-<td colspan="2"><img src="http://www.owenlinton.com/fadmashion/dev/email2/header.jpg" alt="FadMashion" style="border: none; display: block;"></td>
+<td colspan="2"><img src="http://www.owenlinton.com/fadmashion/dev/email2/header.jpg" alt="Fadmashion" style="border: none; display: block;"></td>
 </tr>
 <tr>
 <td class="content" valign="top" style="background-color: #f0f0e8;">
@@ -19,7 +19,7 @@
 <p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">I just requested an invitation to Fadmashion's upcoming private launch which is offering up to 60% off independent designs. Sign up too and we both get priority access!</p>
 
 <div class="signUp" style="float: left; display: block; margin: 20px 0;">
-<img src="b_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="#" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Sign up to Fadmashion</a><img src="b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
+<img src="http://www.owenlinton.com/fadmashion/dev/email2/b_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="#" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Sign up to Fadmashion</a><img src="http://www.owenlinton.com/fadmashion/dev/email2/b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
 </div>
 <br clear="all"><p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">- Owen</p>
 
