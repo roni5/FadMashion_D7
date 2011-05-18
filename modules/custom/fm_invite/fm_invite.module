@@ -26,6 +26,13 @@ function fm_invite_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  $items['invite/rewards'] = array(
+    'title' => t('Fadmashion Rewards'), 
+    'page callback' => 'fm_invite_rewards_popup',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   $items['admin/fadmashion/invite'] = array(
     'title' => t('Fadmashion Invite'), 
     'description' => t('Invintation list for Fadmashion\'s Splash page'),
@@ -84,9 +91,20 @@ function fm_invite_theme() {
       'variables' => array('reg_code_url' => ''),
       'template' => 'fm_invite_share'
     ),
+    'fm_invite_rewards_popup' => array(
+      'variables' => array('reg_code_url' => ''),
+      'template' => 'fm_invite_rewards_popup'
+    ),
   );
 }
 
+function fm_invite_rewards_popup() {
+	$id = $_GET['id'];
+	
+	$output = theme('fm_invite_rewards_popup', reg_code_url);
+	print $output;
+	exit;
+}
 /**
  * Implements hook_js_alter().
  */
@@ -180,7 +198,7 @@ function fm_invite_request_form_submit($form, &$form_state) {
   
   // Send the confirmation email.
   $params = array(
-    'subject' => 'Your Unique Social Rewards Link',
+    'subject' => 'Your social shopping rewards link',
     'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
   );
   
@@ -192,7 +210,7 @@ function fm_invite_request_form_submit($form, &$form_state) {
       $form_state['values']['mail'],
       language_default(),
       $params,
-      'FadMashion <' . $email . '> '
+      'Fadmashion <' . $email . '> '
    ); 
 	
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
