@@ -98,7 +98,7 @@ function fm_invite_theme() {
   );
 }
 
-function fm_invite_twitter_text($reg_code_url) {
+function fm_invite_twitter_text($reg_code_url = '') {
 	if(!empty($reg_code_url)) {
 		$reg_code_url =  fm_invite_get_invite_url(); 
 	}
