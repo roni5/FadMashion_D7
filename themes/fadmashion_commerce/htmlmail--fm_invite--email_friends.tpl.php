@@ -19,12 +19,12 @@
 <p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;"><?php print $body;?></p>
 
 <div class="signUp" style="float: left; display: block; margin: 20px 0;">
-<img src="<?php print $theme_url?>/images/db_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="http://<?php print $params['reg_url'];?>" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Sign up to Fadmashion</a><img src="<?php print $theme_url?>/images/b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
+<img src="<?php print $theme_url?>/images/db_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="<?php print $params['reg_url'];?>" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Sign up to Fadmashion</a><img src="<?php print $theme_url?>/images/b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
 </div>
 <br clear="all"><p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">- <?php print $params['fromName'];?></p>
 
 <div class="quote" style='padding: 80px 0 0 0; color: #796155; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font-size: 13px; line-height: 20px;'>
- "FadMashion.com has changed the way you'll shop for independent fashion from now on."
+ "Fadmashion.com has changed, and so has the way you’ll shop for independent fashion from now on."
  <img src="<?php print $theme_url?>/images/myfashionlife.jpg" alt="-myfashionlife" align="right" style="display:block;margin-top:14px;border:none;">
 </div>
 
