@@ -95,16 +95,10 @@ function fm_invite_theme() {
       'variables' => array('reg_code_url' => ''),
       'template' => 'fm_invite_rewards_popup'
     ),
-    'fm_invite_twitter_text' => array(
-      'variables' => array('reg_code_url' => ''),
-    ),
-    'fm_invite_facebook_text' => array(
-      'variables' => array('reg_code_url' => ''),
-    ),
   );
 }
 
-function theme_fm_invite_twitter_text($reg_code_url) {
+function fm_invite_twitter_text($reg_code_url) {
 	if(!empty($reg_code_url)) {
 		$reg_code_url =  fm_invite_get_invite_url(); 
 	}
