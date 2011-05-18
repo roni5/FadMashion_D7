@@ -14,6 +14,7 @@
 </div>
 
 <br clear="all">
+<div style="width: 518px;">
 <div class="signupBox" id="signup5">
 <h1>5</h1>
 <h3>SIGN-UPS</h2>
@@ -34,6 +35,6 @@
 <p>Priority Access and <b>Free shipping</b> for 20 purchases</p>
 <p class="value">A $200 value</p>
 </div>
-
+</div>
 
 </div>
