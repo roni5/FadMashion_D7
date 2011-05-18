@@ -105,9 +105,9 @@ function fm_invite_theme() {
 }
 
 function theme_fm_invite_twitter_text($reg_code_url) {
-	/*if(!empty($reg_code_url)) {
+	if(!empty($reg_code_url)) {
 		$reg_code_url =  fm_invite_get_invite_url(); 
-	}*/
+	}
 	$output = '@Fadmashion offering hourly deals on independent fashion.  Sign up and we both get priority access ' . $reg_code_url;
 	print $output;
 }
