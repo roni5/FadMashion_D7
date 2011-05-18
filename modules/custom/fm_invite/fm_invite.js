@@ -87,7 +87,7 @@ Drupal.behaviors.addFMInviteSendEmail= {
 
 function inviteFormSuccess(responseText, statusText, xhr, $form) {
 	formSuccess();
-	jQuery('#cboxTitle').html('<span style="font-size: 14px; color: #1D1C1A">Thank You! Your e-mail has been sent.</span>');
+	jQuery('#cboxTitle').html('<span style="font-size: 18px; color: #1D1C1A">Thank You! Your e-mail has been sent.</span>');
 	jQuery('#cboxLoadedContent').html('<div></div>');
 	jQuery.colorbox.resize();
 }
