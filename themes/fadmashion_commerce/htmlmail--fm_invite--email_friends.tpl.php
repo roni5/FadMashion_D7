@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="wrapper" align="center" style="background-color: #221e1b; padding: 20px 0 ;">
+<div class="wrapper" align="center" style="height: 100%; background-color: #221e1b; padding: 20px 0 ;">
 <table cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto;">
 <tr>
 <td colspan="2" style="color: #fff; font-size: 18px;"><img src="<?php print $theme_url?>/images/emails/template2/header.jpg" alt="Fadmashion" style="border: none; display: block;"></td>
