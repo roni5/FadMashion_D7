@@ -329,12 +329,16 @@ function fm_invite_get_invite_url() {
   if(isset($_GET['id'])) {
 		$id = $_GET['id'];
 	  $result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
+	  if(!$result) {
+	  	drupal_set_message('Not a valid link', 'error');
+	  	drupal_goto();
+	  }
 	  $inviter = $result->fetchObject();
 	  $reg_code_url =  url('invite/'.$inviter->reg_code, array('absolute' => TRUE));
 	  return $reg_code_url;
 	}
 	else {
-		//drupal_goto();
+		drupal_goto();
 	}
 }
 
