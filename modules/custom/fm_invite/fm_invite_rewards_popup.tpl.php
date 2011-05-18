@@ -17,21 +17,21 @@
 <div class="signupBox" id="signup5">
 <h1>5</h1>
 <h3>SIGN-UPS</h2>
-<p>Priority Access and Free shipping for 1st purchase</p>
+<p>Priority Access and <b>Free shipping</b> for 1st purchase</p>
 <p class="value">A $10 value</p>
 </div>
 
 <div class="signupBox" id="signup15">
 <h1>15</h1>
 <h3>SIGN-UPS</h2>
-<p>Priority Access and Free shipping for 10 purchases</p>
+<p>Priority Access and <b>Free shipping</b> for 10 purchases</p>
 <p class="value">A $100 value</p>
 </div>
 
 <div class="signupBox" id="signup25">
 <h1>25</h1>
 <h3>SIGN-UPS</h2>
-<p>Priority Access and Free shipping for 20 purchases</p>
+<p>Priority Access and <b>Free shipping</b> for 20 purchases</p>
 <p class="value">A $200 value</p>
 </div>
 
