@@ -5,6 +5,8 @@ body > #wrap {height: auto; min-height: 100%;}
 #main { padding-bottom: 36px; }  /* must be same height as the footer */
 #footer {position: relative;margin-top: -36px; background: url(../images/bg.png); height: 36px;clear:both;} 
 input[type="button"], input[type="submit"], button {cursor:pointer;}
+a {text-decoration: none }
+a:hover {text-decoration: underline; }
 
 /* content  */
 
