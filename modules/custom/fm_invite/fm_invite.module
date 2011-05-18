@@ -112,9 +112,6 @@ function theme_fm_invite_twitter_text($reg_code_url) {
 	print $output;
 }
 
-function theme_fm_invite_facebook_text() {
-	
-}
 
 function fm_invite_rewards_popup() {
 	$id = $_GET['id'];
