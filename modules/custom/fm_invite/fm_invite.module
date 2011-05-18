@@ -273,7 +273,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
     'subject' => 'Invitation to independence at Fadmashion',
     'message' => $form_state['values']['message'],
     'fromName' => $form_state['values']['name'],
-    'url' => l('Sign up to Fadmashion', $reg_code_url, array('absolute' => true))
+    'reg_url' => l('Sign up to Fadmashion', $reg_code_url, array('absolute' => true))
   );
   
   //Get the submitted e-mail address for From address
