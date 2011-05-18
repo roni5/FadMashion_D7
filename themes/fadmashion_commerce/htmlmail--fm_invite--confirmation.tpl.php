@@ -9,7 +9,7 @@
 <div class="wrapper" style="background-color: #221e1b; padding: 20px 0 20px 0; margin-bottom: 10px;">
 <table cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto;">
 <tr>
-<td colspan="2"><img alt="Fadmashion" src="<?php print $theme_url?>/images/template1/header.jpg" style="border: none; display: block;"></td>
+<td colspan="2"><img alt="Fadmashion" src="<?php print $theme_url?>/images/emails/template1/header.jpg" style="border: none; display: block;"></td>
 </tr>
 <tr>
 <td class="content" valign="top" style="background-color: #efeee9;">
@@ -31,10 +31,10 @@
 </div>
 </td>
 
-<td width="195"><img src="<?php print $theme_url?>/images/template1/model.jpg" style="border: none; display: block;"></td>
+<td width="195"><img src="<?php print $theme_url?>/images/emails/template1/model.jpg" style="border: none; display: block;"></td>
 </tr>
 <tr>
-<td colspan="2"><img src="<?php print $theme_url?>/images/template1/footer.jpg" style="border: none; display: block;"></td>
+<td colspan="2"><img src="<?php print $theme_url?>/images/emails/template1/footer.jpg" style="border: none; display: block;"></td>
 
 </tr>
 </table>
