@@ -1,4 +1,4 @@
-<div class="wrapper" align="center" style="background-color: #221e1b; padding: 20px 0 0 0;">
+<div class="wrapper" align="center" style="background-color: #221e1b; padding: 20px 0;">
 <table cellpadding="0" cellspacing="0" width="600" style="margin: 0 auto;">
 <tr>
 <td colspan="2"><img src="http://www.owenlinton.com/fadmashion/dev/email1b/header.jpg" style="border: none; display: block;"></td>
