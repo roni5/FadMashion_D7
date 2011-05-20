@@ -7,7 +7,7 @@
 <td class="content" valign="top" style="background-color: #efeee9;">
 <div class="pad" style="padding: 24px 0px 10px 38px">
 <div class="textPad" style="padding: 0 26px 20px 0;">
-<h1 style="font-size:18px;color:#221e1b;font-weight:normal;font-family:Arial, Helvetica, sans-serif;text-align:left;width:auto;margin:4px 0;">Thank You.</h1>
+<h1 style="font-size:28px;color:#85786E;font-weight:normal;font-family:Arial, Helvetica, sans-serif;text-align:left;width:auto;margin:4px 0;">Thank You.</h1>
 <p style="color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left; margin: 0 0 10px 0; font-size: 14px; line-height:19px;">At <a href="http://www.fadmashion.com" style="color: #01517e; text-decoration:none;">Fadmashion</a>, community involvement is important to us.  Supporting independent brands means building a following of loyal customers that not only shops for beautiful fashion but also share their new discoveries with their friends.  To encourage sharing, Fadmashion is offering a unique social shopping loyalty program that gives customers rewards as they contribute to building the community.</p>
 
 <p style="color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left; margin: 0 0 10px 0; font-size: 14px; line-height:19px;">Before we launch, start earning rewards today by sharing your unique invite link.  </p>
@@ -18,10 +18,10 @@
 
 <table cellpadding="0" cellspacing="0" class="rewardFrame">
 <tr><td><img src="http://www.owenlinton.com/fadmashion/dev/email1b/edge_reward_top.jpg" style="border: none; display: block;"></td></tr>
-<td class="rewardContent">
-  	<div class="social">
+<td style ="background:none repeat scroll 0 0 #FFFFFF; border-left:1px solid #D4C5B9; border-right:1px solid #D4C5B9; padding-left:4px;" class="rewardContent">
+  	<div style="padding: 0 15px 22px 15px;" class="social">
     <h1 style="text-align:left;padding:10px 0;font-weight:normal;font-size:18px;color:#221e1b;font-family:Arial, Helvetica, sans-serif;width:auto;margin:4px 0;">Your Social Shopping Rewards Link</h1>
-<a href="#" class="socialIcon" style="color: #01517e; text-decoration:none;"><img src="http://www.owenlinton.com/fadmashion/dev/email1b/icon_facebook.jpg" align="absmiddle" style="border: none; display: block;"></a><a href="#" class="socialIcon" style="color: #01517e; text-decoration:none;"><img src="http://www.owenlinton.com/fadmashion/dev/email1b/icon_twitter.jpg" align="absmiddle" style="border: none; display: block;"></a><a href="#" class="socialIcon" style="color: #01517e; text-decoration:none;"><img src="http://www.owenlinton.com/fadmashion/dev/email1b/icon_mail.jpg" align="absmiddle" style="border: none; display: block;"></a><input type="text" value="http://exp.fadmashion.com/invite/U3E8dyHk" id="share_url" onclick="this.select()" class="form-text-readonly" autocomplete="off" style="width: 240px; border: 1px solid #c5bdb6; color: #72655c;  margin: 0 0 0 5px; padding: 2px 0 0 2px ;height: 22px;" name="share_url" readonly>
+<a href="#" class="socialIcon" style="color: #01517e; text-decoration:none;"><img style="margin: 0 5px 0 0; display: inline;" src="http://www.owenlinton.com/fadmashion/dev/email1b/icon_facebook.jpg" align="absmiddle" style="border: none; display: block;"></a><a href="#" class="socialIcon" style="color: #01517e; text-decoration:none;"><img src="http://www.owenlinton.com/fadmashion/dev/email1b/icon_twitter.jpg" align="absmiddle" style="border: none; display: block;"></a><a href="#" class="socialIcon" style="color: #01517e; text-decoration:none;"><img src="http://www.owenlinton.com/fadmashion/dev/email1b/icon_mail.jpg" align="absmiddle" style="border: none; display: block;"></a><input type="text" value="http://exp.fadmashion.com/invite/U3E8dyHk" id="share_url" onclick="this.select()" class="form-text-readonly" autocomplete="off" style="width: 240px; border: 1px solid #c5bdb6; color: #72655c;  margin: 0 0 0 5px; padding: 2px 0 0 2px ;height: 22px;" name="share_url" readonly>
 </div>
 
 
