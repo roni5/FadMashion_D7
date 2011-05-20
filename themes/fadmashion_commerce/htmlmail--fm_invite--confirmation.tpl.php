@@ -35,7 +35,7 @@
 <td class="signup5" style="padding-right:5px;width:124px;">
         <img src="<?php print $theme_url?>/images/emails/template1/edge_5_top.jpg" style="border: none; display: block;"><div class="text" style="text-align:center;color:#fff;background:#7d6e63;">
 <h1 style="color:#fff;font-family:Arial, Helvetica, sans-serif;text-align:center;width:auto;font-size:36px;margin:0px 0 4px 0;font-weight:normal;padding-top:5px;">5</h1>
-<h2 style="font-size: 13px; line-height: 13px; border-bottom: 1px solid #948d86; margin: 0 26px 16px 26px; padding-bottom: 12px; color: #fff; font-style:normal;">SIGN-UPS</h2>
+<h2 style="font-size: 13px; line-height: 13px; border-bottom: 1px solid #948d86; margin: 0 26px 16px 26px; padding-bottom: 12px; color: #fff; font-style:normal;">signups</h2>
 <p style="color:#fff;font-family:Arial, Helvetica, sans-serif;text-align:center;margin:0;font-size:13px;line-height:16px;padding:0 7px;">Priority Access and Free shipping for first purchase</p>
 <p class="value" style="color:#d7cbc2;font-family:Arial, Helvetica, sans-serif;text-align:center;margin:0;font-size:13px;line-height:16px;padding:14px 0 5px 0;">A $10 value</p>
 </div>
@@ -46,7 +46,7 @@
   <td class="signup15" style="padding-right:5px;width:124px;">        <img src="<?php print $theme_url?>/images/emails/template1/edge_15_top.jpg" style="border: none; display: block;"><div class="text" style="text-align:center;color:#fff;background:#605045;">
 <h1 style="color:#fff;font-family:Arial, Helvetica, sans-serif;text-align:center;width:auto;font-size:36px;margin:0px 0 4px 0;font-weight:normal;padding-top:5px;">15</h1>
 
-<h2 style="font-size: 13px; line-height: 13px; border-bottom: 1px solid #948d86; margin: 0 26px 16px 26px; padding-bottom: 12px; color: #fff; font-style:normal;">SIGN-UPS</h2>
+<h2 style="font-size: 13px; line-height: 13px; border-bottom: 1px solid #948d86; margin: 0 26px 16px 26px; padding-bottom: 12px; color: #fff; font-style:normal;">signups</h2>
 <p style="color:#fff;font-family:Arial, Helvetica, sans-serif;text-align:center;margin:0;font-size:13px;line-height:16px;padding:0 7px;">Priority Access and Free shipping for 10 purchases</p>
 <p class="value" style="color:#d7cbc2;font-family:Arial, Helvetica, sans-serif;text-align:center;margin:0;font-size:13px;line-height:16px;padding:14px 0 5px 0;">A $100 value</p>
 </div>
@@ -56,7 +56,7 @@
    
     <td class="signup25" style="width: 124px;">        <img src="<?php print $theme_url?>/images/emails/template1/edge_25_top.jpg" style="border: none; display: block;"><div class="text" style="text-align:center;color:#fff;background:#473b2f;">
 <h1 style="color:#fff;font-family:Arial, Helvetica, sans-serif;text-align:center;width:auto;font-size:36px;margin:0px 0 4px 0;font-weight:normal;padding-top:5px;">25</h1>
-<h2 style="font-size: 13px; line-height: 13px; border-bottom: 1px solid #948d86; margin: 0 26px 16px 26px; padding-bottom: 12px; color: #fff; font-style:normal;">SIGN-UPS</h2>
+<h2 style="font-size: 13px; line-height: 13px; border-bottom: 1px solid #948d86; margin: 0 26px 16px 26px; padding-bottom: 12px; color: #fff; font-style:normal;">signups</h2>
 <p style="color:#fff;font-family:Arial, Helvetica, sans-serif;text-align:center;margin:0;font-size:13px;line-height:16px;padding:0 7px;">Priority Access and Free shipping for 20 purchases</p>
 <p class="value" style="color:#d7cbc2;font-family:Arial, Helvetica, sans-serif;text-align:center;margin:0;font-size:13px;line-height:16px;padding:14px 0 5px 0;">A $200 value</p>
 </div>
