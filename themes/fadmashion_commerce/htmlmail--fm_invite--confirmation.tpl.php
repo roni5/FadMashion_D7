@@ -69,7 +69,7 @@
    
     <tr><td><img src="http://www.owenlinton.com/fadmashion/dev/email1b/edge_reward_bottom.jpg" style="border: none; display: block;"></td></tr>
 </table>
-<div class="blog">Stay inspired by following <a href="http://blog.fadmashion.com/" style="color: #01517e; text-decoration:none;">Fadmashion's blog</a>
+<div style="padding:28px 0 0;text-align:center;font-family:Georgia,Times,serif;font-size:13px; font-style:italic;" class="blog">Stay inspired by following <a href="http://blog.fadmashion.com/" style="font-family:Georgia,Times,serif; font-size:13px; font-style:italic; color: #01517e; text-decoration:none;">Fadmashion's blog</a>
 </div>
  
   </div>
