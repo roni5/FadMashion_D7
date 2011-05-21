@@ -160,7 +160,7 @@ function fm_invite_request_form() {
   
   $form['submit'] = array(
     '#type' => 'submit', 
-    '#value' => t('Submit')
+    '#value' => t('Sign Up!')
   );
   
   return $form;
