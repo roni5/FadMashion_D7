@@ -48,8 +48,9 @@ background-image:none;
 }
 
 
-#invite{padding: 12px; position: relative; left: -8px; width: 276px;}
+#invite{padding: 12px; position: relative; left: -8px; width: 276px; }
 #invite.pad{background:#322b25; background: url("../images/bg_invite.png") repeat scroll 0% 0% transparent !important;}
+#invite .content {left: 8px; position: relative;}
 
 #twitter_link { background:url("../images/icon_twitter_brown.png") no-repeat scroll 0 0 transparent;
 padding-left:25px; }
