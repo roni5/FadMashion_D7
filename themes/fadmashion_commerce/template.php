@@ -17,8 +17,8 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_css(path_to_theme().'/css/supersized.core.css');
     drupal_add_css(path_to_theme().'/css/front.css');
     $variables['theme_hook_suggestion'] = 'page__'.$split_url[0] ;
-    
   }
+
 }
 
 

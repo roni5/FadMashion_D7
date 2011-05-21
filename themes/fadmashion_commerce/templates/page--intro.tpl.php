@@ -35,7 +35,7 @@ jQuery(function($){
       </div>
       
       
-	     <div class="pad" id="invite">
+	     <div class="pad <?php $is_front ? print 'extend' : ''?>" id="invite">
 					<?php print render($page['featured']);?>
 		       <?php if ($messages): ?>
 	    			<div id="message_box"><div class="section clearfix">
