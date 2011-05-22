@@ -67,6 +67,12 @@ padding-left:25px;}
 .ajax-button { float: left; }
 #submitLoader{background:url("../images/colorbox/loading.gif") no-repeat scroll 5px 5px #FFFFFF; float:left; height:32px; margin:-7px 0 0 7px; width:32px;}
 
+.quote {background:url("../images/bg.png") repeat scroll 0 0 transparent; padding:30px;}
+.quote a {color:#FFFFFF; font-size:11px;}
+.quote p {color:#FFFFFF;font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;}
+.quote .byline { color:#C8B8B0; float:right; font-size:11px; text-align:right; width:100px; }
+
+
 /* Rewards Pop-up */
 
 .signupBox {text-align:center; float:left; height:229px; margin-right:8px; padding:0; width:164px;}

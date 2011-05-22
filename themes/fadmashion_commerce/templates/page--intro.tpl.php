@@ -43,6 +43,13 @@ jQuery(function($){
 	    			</div></div> <!-- /.section, /#messages -->
 	  			<?php endif; ?>
   			</div>
+  			
+  			<?php if($is_front): ?>
+  			<div class="quote">
+<p style="font-size: 15px; line-height: 22px;">"Sign-up now, tell your friends, beat the line and be the first inside!"</p>
+<a class="colorbox-load" href="http://www.google.com">Read Full Article</a><div class="byline">- PRCouture</div>
+</div> 
+        <?php endif;  ?>
 			 
       
 		</div>
