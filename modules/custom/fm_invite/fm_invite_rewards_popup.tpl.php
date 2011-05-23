@@ -4,7 +4,7 @@
 
 	<div class="social">
   <a class="socialIcon" href="javascript:void(0);" onClick="javascript:fm_invite_facebookshare();"><img width="25" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_facebook_white.jpg"></a>
-  <a class="socialIcon" target="_blank" href="http://twitter.com/home?status=<?php print fm_invite_twitter_text()?>"><img width="25" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_twitter_white.jpg"></a>
+  <a class="socialIcon" target="_blank" href="http://twitter.com/intent/tweet?text=<?php print fm_invite_twitter_text()?>"><img width="25" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_twitter_white.jpg"></a>
   <?php 
     $image = '<img src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/icon_mail_white.jpg">';
     print l($image, 'colorbox/form/fm_invite_send_email_form', array( 'html' => true, 'query' => array('id' => $_GET['id']), 'attributes' => array('width' => '25', 'class' => 'colorbox-load socialIcon', 'title' => 'Spread the word') )  ); 
