@@ -12,14 +12,22 @@
 jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
-		vertical_center   : 0, 
+		vertical_center   : 0,
+		slideshow : 0, 
 		navigation              :   1,		//Slideshow controls on/off
 		thumbnail_navigation    :   1,		//Thumbnail navigation
 		slide_counter           :   1,		//Display slide numbers
 		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
 		slides 					:  	[		//Slideshow Images
-											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', title: 'test1'},	
-											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/model_glasses.jpg', title: 'test2'},	  
+											{//Slide 1
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
+											  title: 'Designer: <a style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a> <span  style="color: #c8b8b0; margin-left: 8px">Photographer: Kaitlin Dale</span>'
+											},	
+
+											{//Slide 2
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/model_glasses.jpg', title: 'test2'
+                        title: 'Designer: <a href="http://www.jonathansimkhai.com/jonathan.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Jonathan Simkhai</a>'
+											}	  
 									]
 	}); 
 });
