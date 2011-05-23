@@ -1,0 +1,16 @@
+; $Id$
+name = Google Website Optimizer
+description = Easily insert the nessesary javascript code for your Google Website Optimizer tests.
+core = 7.x
+files[] = google_website_optimizer.module
+files[] = google_website_optimizer.install
+files[] = google_website_optimizer.admin.inc
+files[] = google_website_optimizer.test
+configure = admin/config/content/google_website_optimizer
+
+; Information added by drupal.org packaging script on 2011-03-05
+version = "7.x-1.0"
+core = "7.x"
+project = "google_website_optimizer"
+datestamp = "1299307867"
+

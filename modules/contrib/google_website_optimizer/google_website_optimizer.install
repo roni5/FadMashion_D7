@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Google Website Optimizer module.
+ */
+
+/**
+ * Implementation of hook_schema().
+ */
+function google_website_optimizer_schema() {
+  $schema['google_website_optimizer'] = array(
+    'fields' => array(
+      'test_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'test_page_path' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'variation_page_path' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'conversion_page_path' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'control_tracking_script' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'variation_tracking_script' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+      'conversion_script' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('test_id'),
+  );
+
+  return $schema;
+}
+
+
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function google_website_optimizer_uninstall() {
+  drupal_uninstall_schema('google_website_optimizer');
+}
+
+/**
+ * Combine the control and tracking script columns
+ *   1. Rename control_script to control_tracking_script
+ *   2. Add tracking scripts to the control_tracking_script column
+ *   3. Delete tracking_script column
+ */
+function google_website_optimizer_update_7101() {
+  db_change_field('google_website_optimizer', 'control_script', 'control_tracking_script', array(
+      'type' => 'text',
+      'not null' => FALSE,
+    )
+  );
+  $query = db_select('google_website_optimizer', 'gwo');
+  $query->fields('gwo', array('test_id', 'control_tracking_script', 'tracking_script'));
+  $result = $query->execute();
+  foreach ($result as $row) {
+    db_update('google_website_optimizer')
+      ->fields(array('control_tracking_script' => $row->control_tracking_script . "\n" . $row->tracking_script))
+      ->condition('test_id', $row->test_id)
+      ->execute();
+  }
+  db_drop_field('google_website_optimizer', 'tracking_script');
+}

@@ -1,0 +1,145 @@
+<?php
+
+/**
+ * @file
+ * Easily insert the nessesary javascript code for your Google Website Optimizer tests.
+ */
+
+/**
+ * Implementation of hook_menu().
+ */
+function google_website_optimizer_menu() {
+  $items['admin/config/content/google_website_optimizer'] = array(
+    'title' => 'Google Website Optimizer',
+    'description' => 'Create and manage your Google Website Optimizer tests.',
+    'page callback' => 'google_website_optimizer_admin_overview',
+    'access arguments' => array('administer google_website_optimizer'),
+    'file' => 'google_website_optimizer.admin.inc',
+  );
+  $items['admin/config/content/google_website_optimizer/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -1,
+  );
+  $items['admin/config/content/google_website_optimizer/add'] = array(
+    'title' => 'Add Test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('google_website_optimizer_admin_form'),
+    'access arguments' => array('administer google_website_optimizer'),
+    'file' => 'google_website_optimizer.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/content/google_website_optimizer/edit/%'] = array(
+    'title' => 'Edit test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('google_website_optimizer_admin_form', 5),
+    'access arguments' => array('administer google_website_optimizer'),
+    'file' => 'google_website_optimizer.admin.inc',
+  );
+  $items['admin/config/content/google_website_optimizer/delete/%'] = array(
+    'title' => 'Delete test',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('google_website_optimizer_delete_confirm', 5),
+    'access arguments' => array('administer google_website_optimizer'),
+    'file' => 'google_website_optimizer.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_help().
+ */
+function google_website_optimizer_help($path, $arg) {
+  switch ($path) {
+    case 'admin/config/content/google_website_optimizer#pages':
+      return "node/*\nuser/*\ncomment/*";
+    case 'admin/config/content/google_website_optimizer':
+    case 'admin/help#google_website_optimizer' :
+      return '<p>'. t('Google Website Optimizer allows you to test different content and layout on your pages to increase your conversion rate. Learn more about <a href="http://www.google.com/websiteoptimizer">Google Website Optimizer</a>.') .'</p>'.
+               '<p>'. t('This module provides an easy way to output the javascript code on the appropriate pages.') .'</p>'.
+               '<p>'. t('When you create a test in Google Website Optimizer, create a new test here and input the code provided into the appropriate places. The module will do the rest.') .'</p>';
+  }
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function google_website_optimizer_permission() {
+  return array(
+    'administer google_website_optimizer' => array(
+      'title' => t('Administer Google Website Optimizer'),
+      'description' => t('Perform A/B split and multivariate testing using the Google Website Optimizer service.'),
+    )
+  );
+}
+
+/**
+ * Implementation of hook_boot() to insert Javascript on the page
+ * I don't know if this is the hook to use
+ */
+function google_website_optimizer_init() {
+  $tests = google_website_optimizer_test_load();
+  foreach ($tests as $test) {
+    $testing_page = _google_website_optimizer_page_match($test->test_page_path);
+    $conversion_page = _google_website_optimizer_page_match($test->conversion_page_path);
+    $variation_page = _google_website_optimizer_page_match($test->variation_page_path);
+    if ($conversion_page) {
+      $element = array(
+        '#type' => 'markup',
+        '#markup' => $test->conversion_script,
+      );
+      drupal_add_html_head($element, 'google_website_optimizer_conversion');
+    }
+    else if ($testing_page) {
+      $element = array(
+        '#type' => 'markup',
+        '#markup' => $test->control_tracking_script,
+      );
+      drupal_add_html_head($element, 'google_website_optimizer_variation_tracking');
+    } elseif ($variation_page) {
+      $element = array(
+        '#type' => 'markup',
+        '#markup' => $test->variation_tracking_script,
+      );
+      drupal_add_html_head($element, 'google_website_optimizer_control_tracking');
+    }
+  }
+}
+
+/**
+ * Module Functions :: Private
+ */
+
+/**
+ * Load all tests. Just load one test if $test_id is passed in.
+ */
+function google_website_optimizer_test_load($test_id = 0) {
+  static $tests = array();
+  if (!$tests) {
+    $result = db_query('SELECT * FROM {google_website_optimizer}');
+    foreach($result as $record) {
+      $tests[$record->test_id] = $record;
+    }
+  }
+  return $test_id ? $tests[$test_id] : $tests;
+}
+
+/**
+ * Determine if the current page matches the testing or conversion page path.
+ *
+ * @return
+ *   TRUE if yes, FALSE if no.
+ */
+function _google_website_optimizer_page_match($paths) {
+  $page_match = FALSE;
+
+  $path = drupal_get_path_alias($_GET['q']);
+  $regexp = '/^('. preg_replace(array('/(\r\n?|\n)/', '/\\\\\*/', '/(^|\|)\\\\<front\\\\>($|\|)/'), array('|', '.*', '\1'. preg_quote(variable_get('site_frontpage', 'node'), '/') .'\2'), preg_quote($paths, '/')) .')$/';
+  // Compare with the internal and path alias (if any).
+  $page_match = preg_match($regexp, $path);
+  if ($path != $_GET['q']) {
+    $page_match = $page_match || preg_match($regexp, $_GET['q']);
+  }
+
+  return $page_match;
+}
