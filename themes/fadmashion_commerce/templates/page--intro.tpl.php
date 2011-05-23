@@ -13,9 +13,10 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		vertical_center   : 0, 
+		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
 		slides 					:  	[		//Slideshow Images
-											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg'},	
-											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/model_glasses.jpg'},	  
+											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', title: 'test1'},	
+											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/model_glasses.jpg', title: 'test2'},	  
 									]
 	}); 
 });
