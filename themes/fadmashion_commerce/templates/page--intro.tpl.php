@@ -13,6 +13,9 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		vertical_center   : 0, 
+		navigation              :   1,		//Slideshow controls on/off
+		thumbnail_navigation    :   1,		//Thumbnail navigation
+		slide_counter           :   1,		//Display slide numbers
 		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
 		slides 					:  	[		//Slideshow Images
 											{image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', title: 'test1'},	
