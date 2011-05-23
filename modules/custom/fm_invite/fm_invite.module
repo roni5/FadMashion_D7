@@ -103,7 +103,7 @@ function fm_invite_twitter_text($reg_code_url = '') {
 		$reg_code_url = fm_invite_get_invite_url();
 	}
 	$output = 'Join @Fadmashion where you can shop independent styles at up to 60% off. A new deal every hour! ' . $reg_code_url;
-	print $output;
+	print urlencode($output);
 }
 
 
