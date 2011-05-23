@@ -59,8 +59,8 @@ jQuery(function($){
   			
   			<?php if($is_front): ?>
   			<div class="quote">
-<p style="font-size: 15px; line-height: 22px;">"Sign-up now, tell your friends, beat the line and be the first inside!"</p>
-<a class="colorbox-load" title="PRCouture" href="http://www.prcouture.com/2011/05/03/fadmashion-gives-pr-couture-priority-access-to-new-independent-fashion-shopping-site/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- PRCouture</div>
+<p style="font-size: 15px; line-height: 22px;">"Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."</p>
+<a class="colorbox-load" title="PRCouture" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- PRCouture</div>
 </div> 
         <?php endif;  ?>
 			 
