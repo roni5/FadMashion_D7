@@ -21,7 +21,7 @@ jQuery(function($){
 		slides 					:  	[		//Slideshow Images
 											{//Slide 1
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
-											  title: 'Designer: <a style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a> <span  style="color: #c8b8b0; margin-left: 8px">Photographer: Kaitlin Dale</span>'
+											  title: 'Designer: <a style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'
 											},	
 
 											{//Slide 2
