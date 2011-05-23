@@ -25,7 +25,7 @@ jQuery(function($){
 											},	
 
 											{//Slide 2
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/model_glasses.jpg', title: 'test2',
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/splash_photo.jpg',
                         title: 'Designer: <a href="http://www.jonathansimkhai.com/jonathan.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Jonathan Simkhai</a>'
 											}	  
 									]
