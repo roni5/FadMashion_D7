@@ -333,7 +333,7 @@ function fm_invite_get_invite_url() {
 	  return $reg_code_url;
 	}
 	else {
-		drupal_goto();
+		//drupal_goto();
 	}
 }
 
