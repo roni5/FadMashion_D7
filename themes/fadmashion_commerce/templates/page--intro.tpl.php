@@ -60,7 +60,7 @@ jQuery(function($){
   			<?php if($is_front): ?>
   			<div class="quote">
 <p style="font-size: 15px; line-height: 22px;">"Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."</p>
-<a class="colorbox-load" title="myfashionlife" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- PRCouture</div>
+<a class="colorbox-load" title="myfashionlife" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- myfashionlife</div>
 </div> 
         <?php endif;  ?>
 			 
