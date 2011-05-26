@@ -43,6 +43,8 @@ function fm_commerce_store_schema() {
    
   );
 
+var_dump($scheuma);
+
   return $schema;
 }
 
