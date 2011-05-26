@@ -14,7 +14,7 @@ function fm_commerce_store_add_page() {
   drupal_set_title(t('Create a store'));
   
   // Initialize a store.
-  $store = entity_create('fm_commerce_store', array());
+  $store = entity_get_controller('fm_commerce_store')->create();
 
   return drupal_get_form('fm_commerce_store_form', $store);
 }

@@ -124,4 +124,10 @@ function fm_commerce_store_load_multiple($store_ids = array(), $conditions = arr
 
 
 class FMStoreController extends DrupalDefaultEntityController {
+	public function create() {
+		return (object) array(
+		  'store_id' => '',
+		  'name' => ''
+		);
+	}
 }
