@@ -13,17 +13,16 @@ class fm_commerce_store_handler_field_store_link_edit extends commerce_product_h
 
   function render($values) {
     // Ensure the user has access to edit this product.
-    $product = commerce_product_new();
-    $product->product_id = $this->get_value($values, 'product_id');
-    $product->type = $this->get_value($values, 'type');
-    $product->uid = $this->get_value($values, 'uid');
+    $store = entity_get_controller('fm_commerce_store')->create();
+    $store->store_id = $this->get_value($values, 'store_id');
+    $store->uid = $this->get_value($values, 'uid');
 
-    if (!commerce_product_access('update', $product)) {
+    /*if (!commerce_product_access('update', $product)) {
       return;
-    }
+    }*/
 
     $text = !empty($this->options['text']) ? $this->options['text'] : t('edit');
 
-    return l($text, 'admin/commerce/products/' . $product->product_id . '/edit', array('query' => drupal_get_destination()));
+    return l($text, 'admin/commerce/store/' . $store->store_id . '/edit', array('query' => drupal_get_destination()));
   }
 }

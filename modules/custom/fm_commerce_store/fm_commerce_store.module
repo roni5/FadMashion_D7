@@ -25,7 +25,7 @@ function fm_commerce_store_permission() {
 function fm_commerce_store_menu() {
   $items = array();
 
-  // admin/commerce/config/stores is defined by Views.
+  // admin/commerce/stores is defined by Views.
   $items['admin/commerce/stores/add'] = array(
     'title' => 'Add a store',
     'type' => MENU_LOCAL_ACTION,

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Field handler to present a link to a product.
+ * Field handler to present a link to a store.
  */
 class fm_commerce_store_handler_field_store_link extends views_handler_field {
   function construct() {
     parent::construct();
 
-    $this->additional_fields['product_id'] = 'product_id';
+    $this->additional_fields['product_id'] = 'store_id';
   }
 
   function option_definition() {
@@ -35,8 +35,8 @@ class fm_commerce_store_handler_field_store_link extends views_handler_field {
 
   function render($values) {
     $text = !empty($this->options['text']) ? $this->options['text'] : t('view');
-    $product_id = $this->get_value($values, 'product_id');
+    $store_id = $this->get_value($values, 'store_id');
 
-    return l($text, 'admin/commerce/products/' . $product_id);
+    return l($text, 'admin/commerce/store/' . $store_id);
   }
 }
