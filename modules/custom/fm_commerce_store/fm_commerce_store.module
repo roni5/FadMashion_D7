@@ -19,4 +19,109 @@ function fm_commerce_store_permission() {
   return $permissions;
 }
 
+/**
+ * Implements hook_menu().
+ */
+function fm_commerce_store_menu() {
+  $items = array();
 
+  // admin/commerce/config/stores is defined by Views.
+  $items['admin/commerce/config/stores/add'] = array(
+    'title' => 'Add a store',
+    'type' => MENU_LOCAL_ACTION,
+    'page callback' => 'fm_commerce_store_add_page',
+    'access arguments' => array( 'administer stores'),
+    'file' => 'fm_commerce_store.admin.inc',
+  );
+  $items['admin/commerce/config/stores/%store'] = array(
+    'title callback' => 'fm_commerce_store_edit_page',
+    'title arguments' => array(4),
+    'page callback' => 'commerce_offer_edit_store_page',
+    'page arguments' => array(4),
+    'access arguments' => array( 'administer stores'),
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'file' => 'fm_commerce_store.admin.inc',
+  );
+  $items['admin/commerce/config/stores/%store/edit'] = array(
+    'title' => 'Edit',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'weight' => -10,
+  );
+  $items['admin/commerce/config/stores/%store/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'fm_commerce_store_form_delete_page',
+    'page arguments' => array(4),
+    'access arguments' => array('administer stores'),
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_INLINE,
+    'file' => 'fm_commerce_store.admin.inc',
+    'weight' => 20,
+  );
+
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_entity_info().
+ */
+function fm_commerce_store_entity_info() {
+  $return = array(
+    'fm_commerce_store' => array(
+      'label' => t('FM Commerce store'),
+      'controller class' => 'FMStoreController',
+      // Don't let Entity API auto-generate the property info.
+      'metadata controller class' => '',
+      'uri_callback' => 'fm_commerce_store_uri',
+      'module' => 'fm_commerce_store',
+      'base table' => 'fm_commerce_store',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'store_id',
+        'label' => 'name',
+      ),
+    ),
+  );
+
+  return $return;
+}
+
+function fm_commerce_store_uri($store) {
+  return array(
+    'path' => 'store/' . $store->store_id,
+  );
+}
+
+/**
+ * Loads a store by ID.
+ */
+function fm_commerce_store_load($store_id, $reset = FALSE) {
+  $stores = fm_commerce_store_load_multiple(array($store_id), array());
+  return $stores ? reset($stores) : FALSE;
+}
+
+/**
+ * Loads multiple stores by ID or based on a set of matching conditions.
+ *
+ * @see entity_load()
+ *
+ * @param $store_ids
+ *   An array of store ids.
+ * @param $conditions
+ *   (deprecated) An array of conditions on the {commerce_store} table in the form
+ *     'field' => $value.
+ * @param $reset
+ *   Whether to reset the internal loading cache.
+ *
+ * @return
+ *   An array of store entities indexed by store_id.
+ */
+function fm_commerce_store_load_multiple($store_ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('fm_commerce_store', $store_ids, $conditions, $reset);
+}
+
+
+class FMStoreController extends DrupalDefaultEntityController {
+}
