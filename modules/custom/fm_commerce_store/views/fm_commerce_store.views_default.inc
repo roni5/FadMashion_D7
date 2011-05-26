@@ -63,7 +63,7 @@ function fm_commerce_store_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'No stores have been created yet.';
   /* Field: Commerce store: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'commerce_store';
+  $handler->display->display_options['fields']['name']['table'] = 'fm_commerce_store';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
@@ -82,7 +82,7 @@ function fm_commerce_store_views_default_views() {
   $handler->display->display_options['fields']['name']['empty_zero'] = 0;
   /* Field: Commerce store: Operations links */
   $handler->display->display_options['fields']['operations']['id'] = 'operations';
-  $handler->display->display_options['fields']['operations']['table'] = 'commerce_store';
+  $handler->display->display_options['fields']['operations']['table'] = 'fm_commerce_store';
   $handler->display->display_options['fields']['operations']['field'] = 'operations';
   $handler->display->display_options['fields']['operations']['label'] = 'Operations';
   $handler->display->display_options['fields']['operations']['alter']['alter_text'] = 0;
