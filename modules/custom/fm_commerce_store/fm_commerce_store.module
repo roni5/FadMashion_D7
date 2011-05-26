@@ -18,3 +18,5 @@ function fm_commerce_store_permission() {
 
   return $permissions;
 }
+
+
