@@ -9,9 +9,10 @@
  */
 function fm_commerce_store_views_data() {
 	
-	drupal_set_message('test');
   $data = array();
 
+	drupal_set_message('test:'.function_exists('fm_commerce_store_views_data'));
+	
   $data['fm_commerce_store']['table']['group']  = t('FM Commerce Store');
 
   $data['fm_commerce_store']['table']['base'] = array(
@@ -42,10 +43,10 @@ function fm_commerce_store_views_data() {
 
   // Expose the Store Name.
   $data['fm_commerce_store']['name'] = array(
-    'title' => t('Title'),
-    'help' => t('The title of the product used for administrative display.'),
+    'title' => t('Name'),
+    'help' => t('The title of the Store used for administrative display.'),
     'field' => array(
-      'handler' => 'fm_commerce_store_handler_field_store',
+      'handler' => 'views_handler_field',
       'click sortable' => TRUE,
     ),
     'filter' => array(
