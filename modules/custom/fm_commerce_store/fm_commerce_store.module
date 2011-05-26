@@ -33,22 +33,22 @@ function fm_commerce_store_menu() {
     'access arguments' => array( 'administer stores'),
     'file' => 'fm_commerce_store.admin.inc',
   );
-  $items['admin/commerce/config/stores/%store'] = array(
-    'title callback' => 'fm_commerce_store_edit_page',
+  $items['admin/commerce/config/stores/%fm_commerce_store'] = array(
+    'title callback' => 'fm_commerce_store_title',
     'title arguments' => array(4),
-    'page callback' => 'commerce_offer_edit_store_page',
+    'page callback' => 'fm_commerce_store_edit_page',
     'page arguments' => array(4),
     'access arguments' => array( 'administer stores'),
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     'file' => 'fm_commerce_store.admin.inc',
   );
-  $items['admin/commerce/config/stores/%store/edit'] = array(
+  $items['admin/commerce/config/stores/%fm_commerce_store/edit'] = array(
     'title' => 'Edit',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     'weight' => -10,
   );
-  $items['admin/commerce/config/stores/%store/delete'] = array(
+  $items['admin/commerce/config/stores/%fm_commerce_store/delete'] = array(
     'title' => 'Delete',
     'page callback' => 'fm_commerce_store_form_delete_page',
     'page arguments' => array(4),
@@ -63,6 +63,17 @@ function fm_commerce_store_menu() {
   return $items;
 }
 
+/**
+ * Menu item title callback: returns the name of a store for its pages.
+ *
+ * @param $store
+ *   The store entity as loaded via the URL wildcard.
+ * @return
+ *   A page title of the format "Store: [name]".
+ */
+function fm_commerce_store_title($store) {
+  return t('Store: @name', array('@name' => $store->name));
+}
 
 /**
  * Implements hook_entity_info().
