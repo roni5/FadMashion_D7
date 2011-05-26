@@ -74,7 +74,7 @@ function fm_commerce_store_form_submit($form, &$form_state) {
   // Notify field widgets.
   field_attach_submit('fm_commerce_store', $store, $form, $form_state);
 
-  $store->save();
+  fm_commerce_store_save($store);
   drupal_set_message(t('Your store has been saved.'));
   $form_state['redirect'] = 'admin/commerce/config/stores/';
 }

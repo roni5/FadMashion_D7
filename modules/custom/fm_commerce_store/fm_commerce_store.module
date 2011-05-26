@@ -122,6 +122,10 @@ function fm_commerce_store_load_multiple($store_ids = array(), $conditions = arr
   return entity_load('fm_commerce_store', $store_ids, $conditions, $reset);
 }
 
+function fm_commerce_store_save($store) {
+	$store = entity_get_controller('fm_commerce_store')->save($store);
+}
+
 
 class FMStoreController extends DrupalDefaultEntityController {
 	public function create() {
@@ -130,4 +134,51 @@ class FMStoreController extends DrupalDefaultEntityController {
 		  'name' => ''
 		);
 	}
+	
+	public function save($store) {
+		$transaction = db_transaction();
+		
+		try {
+			global $user;
+			
+			//Determine if store is new
+			$store->is_new = empty($store->store_id);
+			
+			if(empty($store->created)) {
+			  $store->created = REQUEST_TIME;
+			}
+			
+			//Give modules the opportunity to prepare field date for saving
+			field_attach_presave('fm_commerce_store', $store);
+			
+			if($store->is_new) {
+				$store->uid = $user->uid;
+				$store->status = 1;
+				
+				drupal_write_record('fm_commerce_store', $store);
+				$op = 'insert';
+			}
+			else {
+				drupal_write_record('fm_commerce_store', $store, 'store_id');
+				$op = 'update';
+			}
+			
+			$function = 'field_attach_' . $op;
+			$function('fm_commerce_store', $store);
+			
+			module_invoke_all('entity_' . $op, $store, 'fm_commerce_store');
+			
+			unset($store->is_new);
+			
+			db_ignore_slave();
+			
+			return $store;
+		}
+		catch (Exception $e) {
+			$transaction->rollback();
+			watchdog_exception('fm_commerce_store', $e, NULL, WATCHDOG_ERROR);
+			return FALSE;
+		}
+	} //End save();	
+	
 }
