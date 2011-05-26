@@ -7,7 +7,7 @@ class fm_commerce_store_handler_field_store_link_edit extends fm_commerce_store_
   function construct() {
     parent::construct();
 
-    $this->additional_fields['type'] = 'type';
+    $this->additional_fields['uid'] = 'uid';
   }
 
   function render($values) {
