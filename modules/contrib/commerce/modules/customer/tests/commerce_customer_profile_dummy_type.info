@@ -1,0 +1,14 @@
+name = "Commerce customer module tests"
+description = "Support module for customer profile related testing."
+package = Testing
+dependencies[] = commerce
+version = VERSION
+core = 7.x
+hidden = TRUE
+
+; Information added by drupal.org packaging script on 2011-05-20
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commerce"
+datestamp = "1305850315"
+

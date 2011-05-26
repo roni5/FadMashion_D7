@@ -1,0 +1,15 @@
+name = Commerce
+description = Defines features and functions common to the Commerce modules.
+package = Commerce
+core = 7.x
+
+; Tests
+files[] = tests/commerce_base.test
+files[] = tests/commerce.test
+
+; Information added by drupal.org packaging script on 2011-05-20
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commerce"
+datestamp = "1305850315"
+
