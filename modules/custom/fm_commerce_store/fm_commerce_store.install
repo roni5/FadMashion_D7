@@ -1,0 +1,48 @@
+/**
+ * Implements hook_schema().
+ */
+function fm_commerce_store_schema() {
+  $schema = array();
+
+  $schema['fm_commerce_store'] = array(
+    'description' => "Base table for the fm_commerce_store entity.",
+    'fields' => array(
+      'store_id' => array(
+        'description' => 'The primary identifier of a store.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Human-readable name of the store.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that created this Store.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Boolean indicating whether or not the store is Active or Disabled.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the store was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('store_id'),
+   
+  );
+
+  return $schema;
+}
+

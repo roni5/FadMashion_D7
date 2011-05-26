@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implements hook_permission().
+ */
+function fm_commerce_store_permission() {
+  $permissions = array(
+    'administer stores' => array(
+      'title' => t('Administer stores'),
+      'description' => t('Allows users to perform any action on stores.'),
+      'restrict access' => TRUE,
+    ),
+    'access stores' => array(
+      'title' => t('Access stores'),
+      'description' => t('Allows users to view lists of stores in the Store admin and reference lists.'),
+    ),
+  );
+
+  return $permissions;
+}
