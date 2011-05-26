@@ -3,7 +3,7 @@
 /**
  * Field handler to present a link to delete a product.
  */
-class fm_commerce_store_handler_field_store_link_delete extends commerce_product_handler_field_product_link {
+class fm_commerce_store_handler_field_store_link_delete extends fm_commerce_store_handler_field_store_link {
   function construct() {
     parent::construct();
 

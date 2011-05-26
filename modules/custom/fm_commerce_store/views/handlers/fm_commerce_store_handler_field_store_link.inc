@@ -7,7 +7,7 @@ class fm_commerce_store_handler_field_store_link extends views_handler_field {
   function construct() {
     parent::construct();
 
-    $this->additional_fields['product_id'] = 'store_id';
+    $this->additional_fields['store_id'] = 'store_id';
   }
 
   function option_definition() {
