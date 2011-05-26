@@ -3,3 +3,11 @@ name = Fadmashion Store Entity
 description = Main module to define overall Store entity
 core = 7.x
 package = Fadmashion
+
+; Views handlers
+files[] = views/handlers/fm_commerce_store_handler_field_store.inc
+files[] = views/handlers/fm_commerce_store_handler_field_store_link.inc
+files[] = views/handlers/fm_commerce_store_handler_field_store_link_operations.inc
+files[] = views/handlers/fm_commerce_store_handler_field_store_link_edit.inc
+files[] = views/handlers/fm_commerce_store_handler_field_store_link_delete.inc
+files[] = views/handlers/fm_commerce_store_handler_argument_store_id.inc
