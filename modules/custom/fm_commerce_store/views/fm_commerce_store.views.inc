@@ -8,6 +8,8 @@
  * Implements hook_views_data()
  */
 function fm_commerce_store_views_data() {
+	
+	drupal_set_message('test');
   $data = array();
 
   $data['fm_commerce_store']['table']['group']  = t('FM Commerce Store');
