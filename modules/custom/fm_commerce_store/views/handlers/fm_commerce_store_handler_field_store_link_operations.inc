@@ -18,7 +18,7 @@ class fm_commerce_store_handler_field_store_link_operations extends views_handle
   function render($values) {
     $product_id = $this->get_value($values, 'store_id');
 
-    $links = menu_contextual_links('fm-commerce-store', 'admin/commerce/store', array(store_id));
+    $links = menu_contextual_links('fm-commerce-store', 'admin/commerce/store', array($store_id));
 
     if (!empty($links)) {
       //drupal_add_css(drupal_get_path('module', 'commerce_product') . '/theme/commerce_product_views.css');
