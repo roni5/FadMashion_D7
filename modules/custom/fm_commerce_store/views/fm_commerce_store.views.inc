@@ -46,7 +46,7 @@ function fm_commerce_store_views_data() {
     'title' => t('Name'),
     'help' => t('The title of the Store used for administrative display.'),
     'field' => array(
-      'handler' => 'views_handler_field',
+      'handler' => 'fm_commerce_store_handler_field_store',
       'click sortable' => TRUE,
     ),
     'filter' => array(
