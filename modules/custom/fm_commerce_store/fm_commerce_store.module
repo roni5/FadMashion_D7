@@ -35,9 +35,9 @@ function fm_commerce_store_menu() {
   );
   $items['admin/commerce/stores/%fm_commerce_store'] = array(
     'title callback' => 'fm_commerce_store_title',
-    'title arguments' => array(4),
+    'title arguments' => array(3),
     'page callback' => 'fm_commerce_store_edit_page',
-    'page arguments' => array(4),
+    'page arguments' => array(3),
     'access arguments' => array( 'administer stores'),
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     'file' => 'fm_commerce_store.admin.inc',
@@ -51,7 +51,7 @@ function fm_commerce_store_menu() {
   $items['admin/commerce/stores/%fm_commerce_store/delete'] = array(
     'title' => 'Delete',
     'page callback' => 'fm_commerce_store_form_delete_page',
-    'page arguments' => array(4),
+    'page arguments' => array(3),
     'access arguments' => array('administer stores'),
     'type' => MENU_LOCAL_TASK,
     'context' => MENU_CONTEXT_INLINE,
