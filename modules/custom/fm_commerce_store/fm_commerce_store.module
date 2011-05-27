@@ -78,6 +78,9 @@ function fm_commerce_store_views_api() {
  */
 function fm_commerce_store_menu_alter(&$items) {
   // Transform the field UI tabs into contextual links.
+  
+	var_dump($items);
+	
     $items['admin/commerce/stores/fields']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
     $items['admin/commerce/stores/display']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
   
