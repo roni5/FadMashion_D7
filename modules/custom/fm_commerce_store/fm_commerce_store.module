@@ -74,6 +74,18 @@ function fm_commerce_store_views_api() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ */
+function fm_commerce_store_menu_alter(&$items) {
+  // Transform the field UI tabs into contextual links.
+    $items['admin/commerce/stores/fields']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
+    $items['admin/commerce/stores/display']['context'] = MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE;
+  
+}
+
+
+
+/**
  * Menu item title callback: returns the name of a store for its pages.
  *
  * @param $store
@@ -99,6 +111,15 @@ function fm_commerce_store_entity_info() {
       'module' => 'fm_commerce_store',
       'base table' => 'fm_commerce_store',
       'fieldable' => TRUE,
+      'bundles' => array(
+        'fm_commerce_store' => array(
+          'label' => t('FM Commerce Store'),
+          'admin' => array(
+            'path' => 'admin/commerce/stores',
+            'access arguments' => array('administer stores'),
+          ),
+        ),
+      ),
       'entity keys' => array(
         'id' => 'store_id',
         'label' => 'name',

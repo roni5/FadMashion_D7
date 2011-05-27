@@ -20,7 +20,7 @@ class fm_commerce_store_handler_field_store_link_delete extends fm_commerce_stor
       return;
     }*/
 
-    $text = !empty($this->options['text']) ? $this->options['text'] : t('edit');
+    $text = !empty($this->options['text']) ? $this->options['text'] : t('delete');
 
     return l($text, 'admin/commerce/store/' . $store->store_id . '/delete', array('query' => drupal_get_destination()));
   }
