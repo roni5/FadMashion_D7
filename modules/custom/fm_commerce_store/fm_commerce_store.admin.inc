@@ -58,7 +58,7 @@ function fm_commerce_store_form($form, &$form_state, $store) {
   $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save store'),
-    '#suffix' => l('Cancel', 'admin/commerce/config/stores/'),
+    '#suffix' => l('Cancel', 'admin/commerce/stores/'),
   );
 
   return $form;
@@ -76,7 +76,7 @@ function fm_commerce_store_form_submit($form, &$form_state) {
 
   fm_commerce_store_save($store);
   drupal_set_message(t('Your store has been saved.'));
-  $form_state['redirect'] = 'admin/commerce/config/stores/';
+  $form_state['redirect'] = 'admin/config/stores/';
 }
 
 /**
@@ -98,7 +98,7 @@ function commerce_offer_store_delete_form($form, &$form_state, $store) {
 
   $form = confirm_form($form,
     t('Are you sure you want to delete the %name store?', array('%name' => $store->name)),
-    'admin/commerce/config/stores/',
+    'admin/commerce/stores/',
     '<p>' . t('This action cannot be undone.') . '</p>',
     t('Delete'),
     t('Cancel'),
@@ -117,5 +117,5 @@ function commerce_offer_store_delete_form_submit($form, &$form_state) {
 
   drupal_set_message(t('The store %name has been deleted.', array('%name' => $store->name)));
   watchdog('commerce_offer', 'Deleted store %name.', array('%name' => $store->name), WATCHDOG_NOTICE);
-  $form_state['redirect'] = 'admin/commerce/config/stores/';
+  $form_state['redirect'] = 'admin/commerce/stores/';
 }

@@ -22,6 +22,6 @@ class fm_commerce_store_handler_field_store_link_edit extends fm_commerce_store_
 
     $text = !empty($this->options['text']) ? $this->options['text'] : t('edit');
 
-    return l($text, 'admin/commerce/store/' . $store->store_id . '/edit', array('query' => drupal_get_destination()));
+    return l($text, 'admin/commerce/stores/' . $store->store_id . '/edit', array('query' => drupal_get_destination()));
   }
 }
