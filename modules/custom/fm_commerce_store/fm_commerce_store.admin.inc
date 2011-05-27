@@ -76,7 +76,7 @@ function fm_commerce_store_form_submit($form, &$form_state) {
 
   fm_commerce_store_save($store);
   drupal_set_message(t('Your store has been saved.'));
-  $form_state['redirect'] = 'admin/config/stores/';
+  $form_state['redirect'] = 'admin/commerce/stores/';
 }
 
 /**
