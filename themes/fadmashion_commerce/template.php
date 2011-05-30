@@ -2,7 +2,7 @@
 function fadmashion_commerce_preprocess_node(&$variables) {
 	$node_type = str_replace('-', '_', $variables['node']->type);
   $variables['theme_hook_suggestions'][] = 'node__' . $node_type;
-  
+  print var_dump($variables);
 }
 
 
