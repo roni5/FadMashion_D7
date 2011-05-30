@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+/* CSS Document */
+*{padding: 0; margin: 0; border: none;}
+#wrapper{text-align: center; background: url(../images/bg_header.jpg) top left repeat-x; width: 100%;}
+.container{width:1000px; text-align: left; margin: 0 auto; color: #322f2c; font-family:"museo-sans-1","museo-sans-2", Helvetica; }
+a{font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; text-decoration:none; color: #0f6da3; font-size: 12px;}
+a:hover{color: #2e92cc;}
+p{font-size: 13px; margin: 0 0 7px 0; }
+h1{font-weight:100; }
+h1 span{font-weight: 700}
+h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
+h2 a{font-size: 14px;}
+ul{list-style-type: none;}
+.button {margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
+background:-moz-linear-gradient(100% 100% 90deg,#796655,#9f958d);
+background:-webkit-gradient(linear,0% 0,0% 100%,from(#9f958d),to(#796655));
+background-image:-o-linear-gradient(#9f958d,#796655);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#9f958d',EndColorStr='#796655');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#9f958d', EndColorStr='#796655')";
+color:#fff}
+
+
+#header{color: #fff}
+#header .row1{height: 32px; color: #c7b79f; }
+#header .row2{height: 59px;}
+#header .learnMore{color: #fff; font-size: 12px;}
+#header .row1 p{padding: 8px 0 0 0; font-size: 12px;}
+
