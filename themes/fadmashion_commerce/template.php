@@ -1,8 +1,9 @@
 <?php
 function fadmashion_commerce_preprocess_node(&$variables) {
-	//$path = drupal_lookup_path('alias', 'node/'.$variables['node']->nid);
-  //$variables['theme_hook_suggestion'] = 'node__'.$path;
+	$node_type = str_replace('-', '_', $variables['node']->type);
+  $variables['theme_hook_suggestions'][] = 'node__' . $node_type;
 }
+
 
 function fadmashion_commerce_preprocess_page(&$variables) {
 	
@@ -36,6 +37,7 @@ function fadmashion_commerce_css_alter(&$css) {
     unset($css[path_to_theme().'/css/style.css']);
   }
 }
+
 
 
 ?>
