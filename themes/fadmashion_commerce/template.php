@@ -21,5 +21,16 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 
 }
 
+function fadmashion_commerce_css_alter(&$css) {
+	$url_alias = drupal_get_path_alias($_GET['q']);
+  $split_url = explode('/', $url_alias);
+  
+  //Use splash template only for URL's that have a splash as the first item in the URL
+  if($split_url[0] == 'intro')
+  {
+    unset($css[path_to_theme().'/css/style.css']);
+  }
+}
+
 
 ?>

@@ -22,6 +22,25 @@ color:#fff}
 #header{color: #fff}
 #header .row1{height: 32px; color: #c7b79f; }
 #header .row2{height: 59px;}
-#header .learnMore{color: #fff; font-size: 12px;}
-#header .row1 p{padding: 8px 0 0 0; font-size: 12px;}
+#header .learnMore{color: #fff; font-size: 12px; }
+#header .row1 p{padding: 8px 0 0 0; font-size: 12px;width:700px; float:left;}
+
+#accountNav{float: right; height: 32px; border-left: 1px solid #3c3734;}
+#accountNav a{color:#c7b79f; padding: 0 14px; line-height: 32px; height:32px; float: left; font-style:normal; font-size: 11px;font-family:"museo-sans-1","museo-sans-2", Helvetica;}
+#accountNav a:hover{}
+.flag{padding: 0px 8px 0 0; position: relative; top: 3px;}
+.menu{ padding-right:0px;background: url(../images/arrow_small.png) center right no-repeat;}
+.menu a{ margin-right: 10px;}
+.tree li{float: left;border-left: 1px solid #24201c; border-right: 1px solid #3c3734;}
+
+.logo{float: left; margin-top: 15px;}
+
+.navBox{margin: 16px 0 0 20px}
+.navBox, .nav, .nav li{float: left; list-style-type:none;}
+.nav{background: url(../images/bg_nav.png) top left repeat-x; height: 27px; color: #fff; padding-left: 4px;}
+.nav li{font-size: 14px; padding: 5px 15px 0 5px; color: #cdc6c0; }
+.nav li.active{color: #fff;}
+.navBox img{float: left; }
+
+
 
