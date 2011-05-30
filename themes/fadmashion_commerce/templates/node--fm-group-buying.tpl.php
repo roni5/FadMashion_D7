@@ -79,5 +79,5 @@
  */
 ?>
     <?php
-      print render($field_images);
+      print render($field_product_reference);
     ?>
