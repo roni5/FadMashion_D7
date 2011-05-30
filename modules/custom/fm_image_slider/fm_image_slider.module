@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function fm_image_slider_theme() {
+  return array(
+    'fm_image_slider_formatter' => array(
+      'variables' => array(
+        'pictures' => array(),
+      ),
+      'file' => 'fm_image_slider.theme.inc',
+    ),
+  );
+}
+
+function fm_image_slider_field_formatter_info() {
+	return array(
+    'nivo_slider' => array(
+      'label' => t('FM Nivo Slider'),
+      'field types' => array('image'),
+    ),
+  );
+}
+
+function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+	
+	$element = array();
+	$settings = $display['settings'];
+	//print var_dump($items);
+	switch ($display['type']) {
+		case 'nivo_slider':
+			$element = array(
+        '#theme' => 'fm_image_slider_formatter',
+        '#pictures' => $items,
+      );
+			break;
+	}
+	return $element;
+}

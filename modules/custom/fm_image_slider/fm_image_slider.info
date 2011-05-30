@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Image Slider - Nivo
+description = Defines Nivo image formatter for FM products
+core = 7.x
+package = Fadmashion
