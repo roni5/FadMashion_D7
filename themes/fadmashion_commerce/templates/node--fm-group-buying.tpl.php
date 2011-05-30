@@ -79,5 +79,5 @@
  */
 ?>
     <?php
-      print $field_images;
+      print render($field_images);
     ?>
