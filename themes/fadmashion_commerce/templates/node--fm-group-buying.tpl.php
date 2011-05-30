@@ -78,6 +78,8 @@
  * @see template_process()
  */
 ?>
-    <?php
-      print render($field_product_reference);
-    ?>
+
+<div class="photos">
+<?php print render($content['product:field_images']); ?>
+</div>
+
