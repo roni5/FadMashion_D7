@@ -16,9 +16,14 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_js(path_to_theme().'/js/FM_form.js');
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/front.css');
-    $variables['theme_hook_suggestion'] = 'page__'.$split_url[0] ;
+    $variables['theme_hook_suggestions'][] = 'page__'.$split_url[0] ;
   }
-
+  
+  // Add template suggestions based on content type
+  if (isset($variables['node'])) { 
+  	$node_type = str_replace('-', '_', $variables['node']->type);
+    $variables['theme_hook_suggestions'][] = "page__type__" . $node_type;
+  }
 }
 
 function fadmashion_commerce_css_alter(&$css) {
