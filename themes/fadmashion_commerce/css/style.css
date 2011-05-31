@@ -23,7 +23,7 @@ color:#fff}
 #header .row1{height: 32px; color: #c7b79f; }
 #header .row2{height: 59px;}
 #header .learnMore{color: #fff; font-size: 12px; }
-#header .row1 p{padding: 8px 0 0 0; font-size: 12px;width:700px; float:left;}
+#header .row1 p{padding: 8px 0 0 0; font-size: 12px;}
 
 #accountNav{float: right; height: 32px; border-left: 1px solid #3c3734;}
 #accountNav a{color:#c7b79f; padding: 0 14px; line-height: 32px; height:32px; float: left; font-style:normal; font-size: 11px;font-family:"museo-sans-1","museo-sans-2", Helvetica;}
