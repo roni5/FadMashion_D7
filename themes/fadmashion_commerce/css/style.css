@@ -42,5 +42,26 @@ color:#fff}
 .nav li.active{color: #fff;}
 .navBox img{float: left; }
 
+/* Right-hand Sidebar Layout */
+#content, 
+#oontent .column1, 
+#content .column2, 
+.mainContent, 
+.photos, 
+.info, 
+.designerInfo,
+.sidebar{float: left; display: inline;}
+
+#content{width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 760px 0 repeat-y;}
+.sidebarRight .column1{width: 765px;float: left }
+.sidebarRight .column2{width:234px;  }
+.sidebarRight .mainContent{width: 740px;}
+.sidebarRight .photos{width: 401px;}
+
+.sidebarRight .sidebar{padding-left: 25px;}
+.sidebarRight .info{   }
+.info p{width: 330px; margin-bottom: 5px;}
+
+
 
 
