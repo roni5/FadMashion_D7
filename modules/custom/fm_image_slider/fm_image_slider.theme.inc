@@ -11,6 +11,9 @@
  * @ingroup themeable
  */
 function theme_fm_image_slider_formatter($variables) {
+	
+	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider.js');
+	
   $pictures = $variables['pictures'];
   $image_style = $variables['image_style'];
   
