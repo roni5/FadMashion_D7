@@ -8,8 +8,18 @@
  * 
  * March 2010
  */
- 
- 
+
+#slider .nivo-controlNav {
+bottom:-105px;
+position:absolute;
+}
+#slider .nivo-controlNav img {
+  display:inline; /* Unhide the thumbnails */
+  position:relative;
+  margin-right:10px;
+  width: 80px;
+}
+
 /* The Nivo Slider styles */
 .nivoSlider {
 	position:relative;
