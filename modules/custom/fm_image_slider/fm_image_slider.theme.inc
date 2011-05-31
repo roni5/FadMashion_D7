@@ -22,8 +22,8 @@ function theme_fm_image_slider_formatter($variables) {
   $output = '<div id="slider" class="nivoSlider">';
   foreach($pictures as $picture) {
   	
-  if ($style_name = $variables['product_thumb_style']) {
-    $rel_path = image_style_url($style_name, $image['path']);
+  if ($thumb_style = $variables['product_thumb_style']) {
+    $rel_path = image_style_url($thumb_style, $image['path']);
   }
   else {
     $rel_path = file_create_url($image['path']);
@@ -33,7 +33,7 @@ function theme_fm_image_slider_formatter($variables) {
       'path' => $picture['uri'],
       'alt' => $picture['alt'],
       'title' => $picture['title'],
-      'rel' => $rel_path,
+      'attributes' => array('rel' => $rel_path),
       'style_name' => $image_style
     );
     
