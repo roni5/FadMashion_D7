@@ -49,7 +49,7 @@ function fm_image_slider_field_formatter_settings_form($field, $instance, $view_
 function fm_image_slider_field_formatter_settings_summary($field, $instance, $view_mode) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
-
+drupal_set_message(drupal_json_encode($settings));
   $summary = array();
 
   $image_styles = image_style_options(FALSE);
