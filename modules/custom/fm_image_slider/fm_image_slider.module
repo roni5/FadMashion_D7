@@ -8,7 +8,8 @@ function fm_image_slider_theme() {
     'fm_image_slider_formatter' => array(
       'variables' => array(
         'pictures' => array(),
-        'image_style' => ''
+        'image_style' => '',
+        'thumb_style' => '',
       ),
       'file' => 'fm_image_slider.theme.inc',
     ),
@@ -20,7 +21,7 @@ function fm_image_slider_field_formatter_info() {
     'nivo_slider' => array(
       'label' => t('FM Nivo Slider'),
       'field types' => array('image'),
-	    'settings' => array('product_image_style' => ''),
+	    'settings' => array('product_image_style' => '', 'product_thumb_style' => ''),
     ),
   );
 }
@@ -39,6 +40,14 @@ drupal_set_message(drupal_json_encode($settings));
     '#title' => t('Product image style'),
     '#type' => 'select',
     '#default_value' => $settings['product_image_style'],
+    '#empty_option' => t('None (original image)'),
+    '#options' => $image_styles,
+  );
+  
+  $element['product_thumb_style'] = array(
+    '#title' => t('Product Thumb style'),
+    '#type' => 'select',
+    '#default_value' => $settings['product_thumb_style'],
     '#empty_option' => t('None (original image)'),
     '#options' => $image_styles,
   );
@@ -61,10 +70,17 @@ function fm_image_slider_field_formatter_settings_summary($field, $instance, $vi
   // Styles could be lost because of enabled/disabled modules that defines
   // their styles in code.
   if (isset($image_styles[$settings['product_image_style']])) {
-    $summary[] = t('Node image style: @style', array('@style' => $image_styles[$settings['product_image_style']]));
+    $summary[] = t('Product image style: @style', array('@style' => $image_styles[$settings['product_image_style']]));
   }
   else {
-    $summary[] = t('Node image style: Original image');
+    $summary[] = t('Product image style: Original image');
+  }
+  
+  if (isset($image_styles[$settings['product_thumb_style']])) {
+    $summary[] = t('Product thumb style: @style', array('@style' => $image_styles[$settings['product_thumb_style']]));
+  }
+  else {
+    $summary[] = t('Product thumb style: Original image');
   }
   return implode('<br />', $summary);
 }
@@ -80,6 +96,7 @@ function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $in
         '#theme' => 'fm_image_slider_formatter',
         '#pictures' => $items,
 			  '#image_style' => $display['settings']['product_image_style'],
+			  '#thumb_style' => $display['settings']['product_thumb_style']
       );
 			break;
 	}

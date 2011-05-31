@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
         animSpeed:300, // Slide transition speed
         pauseTime:99999999999, // How long each slide will show
         startSlide:0, // Set starting Slide (0 index)
-        directionNav:true, // Next & Prev navigation
+        directionNav:false, // Next & Prev navigation
         directionNavHide:true, // Only show on hover
         controlNav:true, // 1,2,3... navigation
         controlNavThumbs:true, // Use thumbnails for Control Nav

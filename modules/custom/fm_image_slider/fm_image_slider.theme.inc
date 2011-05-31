@@ -21,10 +21,19 @@ function theme_fm_image_slider_formatter($variables) {
   
   $output = '<div id="slider" class="nivoSlider">';
   foreach($pictures as $picture) {
+  	
+  if ($style_name = $variables['product_thumb_style']) {
+    $rel_path = image_style_url($style_name, $image['path']);
+  }
+  else {
+    $rel_path = file_create_url($image['path']);
+  }
+  
     $image = array(
       'path' => $picture['uri'],
       'alt' => $picture['alt'],
       'title' => $picture['title'],
+      'rel' => $rel_path,
       'style_name' => $image_style
     );
     
