@@ -43,6 +43,29 @@ function fm_image_slider_field_formatter_settings_form($field, $instance, $view_
   return $element;
 }
 
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function fm_image_slider_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $summary = array();
+
+  $image_styles = image_style_options(FALSE);
+  // Unset possible 'No defined styles' option.
+  unset($image_styles['']);
+  // Styles could be lost because of enabled/disabled modules that defines
+  // their styles in code.
+  if (isset($image_styles[$settings['product_image_style']])) {
+    $summary[] = t('Node image style: @style', array('@style' => $image_styles[$settings['product_image_style']]));
+  }
+  else {
+    $summary[] = t('Node image style: Original image');
+  }
+  return implode('<br />', $summary);
+}
+
 function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
 	
 	$element = array();
