@@ -20,6 +20,7 @@ function fm_image_slider_field_formatter_info() {
     'nivo_slider' => array(
       'label' => t('FM Nivo Slider'),
       'field types' => array('image'),
+	    'settings' => array('product_image_style' => ''),
     ),
   );
 }
@@ -30,6 +31,8 @@ function fm_image_slider_field_formatter_info() {
 function fm_image_slider_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
+  
+drupal_set_message(drupal_json_encode($settings));
 
   $image_styles = image_style_options(FALSE);
   $element['product_image_style'] = array(
@@ -49,7 +52,7 @@ function fm_image_slider_field_formatter_settings_form($field, $instance, $view_
 function fm_image_slider_field_formatter_settings_summary($field, $instance, $view_mode) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
-drupal_set_message(drupal_json_encode($settings));
+  
   $summary = array();
 
   $image_styles = image_style_options(FALSE);
