@@ -4,7 +4,7 @@
  */
 
 jQuery(document).ready(function() {
-	$('#slider').nivoSlider({
+	jQuery('#slider').nivoSlider({
         effect:'fade', // Specify sets like: 'fold,fade,sliceDown'
         slices:15, // For slice animations
         boxCols: 8, // For box animations

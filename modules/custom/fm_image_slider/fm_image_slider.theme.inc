@@ -13,6 +13,8 @@
 function theme_fm_image_slider_formatter($variables) {
 	
 	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider.js');
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.nivo.slider.pack.js');
+	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/nivo-slider.css');
 	
   $pictures = $variables['pictures'];
   $image_style = $variables['image_style'];
