@@ -12,6 +12,7 @@
  */
 function theme_fm_image_slider_formatter($variables) {
   $pictures = $variables['pictures'];
+  $image_style = $variables['image_style'];
   
   $output = '<div id="slider" class="nivoSlider">';
   foreach($pictures as $picture) {
@@ -19,6 +20,7 @@ function theme_fm_image_slider_formatter($variables) {
       'path' => $picture['uri'],
       'alt' => $picture['alt'],
       'title' => $picture['title'],
+      'style_name' => $image_style
     );
     
     // If the title is empty use alt or the node title in that order.
@@ -31,7 +33,7 @@ function theme_fm_image_slider_formatter($variables) {
       }
     }
     
-    $output .= theme('image', $image); 
+    $image = theme('image_style', $image); 
   }
   $output .= '</div>';
   

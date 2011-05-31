@@ -8,6 +8,7 @@ function fm_image_slider_theme() {
     'fm_image_slider_formatter' => array(
       'variables' => array(
         'pictures' => array(),
+        'image_style' => ''
       ),
       'file' => 'fm_image_slider.theme.inc',
     ),
@@ -23,6 +24,25 @@ function fm_image_slider_field_formatter_info() {
   );
 }
 
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function fm_image_slider_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $image_styles = image_style_options(FALSE);
+  $element['product_image_style'] = array(
+    '#title' => t('Product image style'),
+    '#type' => 'select',
+    '#default_value' => $settings['product_image_style'],
+    '#empty_option' => t('None (original image)'),
+    '#options' => $image_styles,
+  );
+
+  return $element;
+}
+
 function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
 	
 	$element = array();
@@ -33,8 +53,10 @@ function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $in
 			$element = array(
         '#theme' => 'fm_image_slider_formatter',
         '#pictures' => $items,
+			  '#image_style' => $display['settings']['product_image_style'],
       );
 			break;
 	}
 	return $element;
 }
+
