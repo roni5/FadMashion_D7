@@ -1,0 +1,26 @@
+<?php
+
+function fm_deals_menu() {
+	
+	$items['deals'] = array(
+    'page callback' => 'fm_deals_page',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+}
+
+function fm_deals_page($nid = '') {
+	if(empty($nid)) {
+		$nid = fm_deals_get_default_deal();
+	}
+}
+
+function fm_deals_form_fm_group_buying_node_form_alter (&$form, &$form_state, $form_id) {
+	// Add a checkbox to registration form about agreeing to terms of use.
+  $form['terms_of_use'] = array(
+    '#type' => 'checkbox', 
+    '#title' => t("I agree with the website's terms and conditions."), 
+    '#required' => TRUE,
+  );
+	
+}

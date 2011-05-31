@@ -80,6 +80,15 @@
 ?>
 
 <div class="photos">
-<?php print render($content['product:field_images']); ?>
+  <?php print render($content['product:field_images']); ?>
 </div>
+<div class="info">
+<h1 class="pageTitle">30-MINUTE <span>DEALS</span></h1>
+<div class="timer">
+   <div class="col1">Items Left: <span>35</span></div>
+   <div class="col2">Time  Left: <span>29:14</span></div>
+</div>
+</div> <!--end info -->
+
+
 
