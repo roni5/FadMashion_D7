@@ -9,18 +9,60 @@ function fm_deals_menu() {
   );
 }
 
+function fm_deals_preprocess_node(&$vars) {
+	if(isset($vars['field_sale_price']) && isset($vars['elements']['product:commerce_price'])) {
+		//Calculate Percentage for product sale
+		$sale_price = $vars['node']->field_sale_price['und'][0]['amount'];
+		$original_price = $vars['elements']['product:commerce_price']['#object']->commerce_price['und'][0]['amount'];
+    $raw_value = round(1 - ($sale_price/$original_price), 2);
+    $value = ($raw_value * 100). '%';
+    $vars['sale_percentage'] = $value;
+    
+    //Product Quick tabs details
+    $quicktabs = new stdClass();
+    $tabs['product_details'] = array(
+            'title' => t('Details'),
+            'type' => 'freetext',
+            'text' => theme('fm_deals_product_summary'),
+    );
+    $tabs['product_shipping'] = array(
+            'title' => t('Shipping'),
+            'type' => 'freetext',
+            'text' => t('Free Text2'),
+    );
+    $tabs['product_returns'] = array(
+            'title' => t('Returns'),
+            'type' => 'freetext',
+            'text' => t('Free Text2'),
+    );
+    $quicktabs->tabs = $tabs;
+    $quicktabs->table = 'quicktabs';
+    $quicktabs->ajax= '0';
+    $quicktabs->style = 'default';
+    $quicktabs->type = 'Normal';
+    $quicktabs->default_tab = 'tabcontent';
+    $quicktabs->hide_empty_tabs = '0';
+    $quicktabs->machine_name = 'fm_product_details';
+    
+    $qt = quicktabs_render($quicktabs);
+    $vars['detail_tabs'] = $qt;
+    //var_dump($quicktabs);
+
+	}
+}
+
 function fm_deals_page($nid = '') {
 	if(empty($nid)) {
 		$nid = fm_deals_get_default_deal();
 	}
+	
+	node_view(node_load($nid), 'full');
 }
 
 function fm_deals_form_fm_group_buying_node_form_alter (&$form, &$form_state, $form_id) {
-	// Add a checkbox to registration form about agreeing to terms of use.
-  $form['terms_of_use'] = array(
-    '#type' => 'checkbox', 
-    '#title' => t("I agree with the website's terms and conditions."), 
-    '#required' => TRUE,
-  );
+	
+}
+
+function fm_deals_get_default_deal() {
 	
 }

@@ -88,6 +88,20 @@
    <div class="col1">Items Left: <span>35</span></div>
    <div class="col2">Time  Left: <span>29:14</span></div>
 </div>
+<br clear="all">
+<div class="pricing">
+    <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
+    <div class="exclusive">Exclusive Deal<h3><?php print render($content['field_sale_price']); ?></h3></div>
+    <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>
+</div>
+<div class="itemOptions">
+<div class="box"> 
+<?php print render($content['field_product_reference']); ?>
+</div>
+</div> <!-- end itemOptions -->
+
+<?php print render($detail_tabs); ?>
+                    
 </div> <!--end info -->
 
 

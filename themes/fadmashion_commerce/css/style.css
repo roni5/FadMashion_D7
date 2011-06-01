@@ -11,7 +11,7 @@ h1 span{font-weight: 700}
 h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
-.button {margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
+.form-submit {cursor: pointer; margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
 background:-moz-linear-gradient(100% 100% 90deg,#796655,#9f958d);
 background:-webkit-gradient(linear,0% 0,0% 100%,from(#9f958d),to(#796655));
 background-image:-o-linear-gradient(#9f958d,#796655);
@@ -46,11 +46,7 @@ color:#fff}
 #content, 
 #oontent .column1, 
 #content .column2, 
-.mainContent, 
-.photos, 
-.info, 
-.designerInfo,
-.sidebar{float: left; display: inline;}
+.mainContent, .photos, .info, .designerInfo,.sidebar{float: left; display: inline;}
 
 #content{width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 760px 0 repeat-y;}
 .sidebarRight .column1{width: 765px;float: left }
@@ -61,6 +57,66 @@ color:#fff}
 .sidebarRight .sidebar{padding-left: 25px;}
 .sidebarRight .info{   }
 .info p{width: 330px; margin-bottom: 5px;}
+
+/* Deals */
+.photos{padding-bottom: 100px;}
+
+.timer{background: url(../images/bg_timer.jpg) top left repeat-x;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; height: 42px; color: #d9cac9; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font-weight:normal; font-size: 13px;  width: 332px;}
+.timer span{; font-style:normal; font-size:20px; color: #fff; position: relative; top: 2px; padding-left: 5px; font-weight: 500; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
+.timer .col1, .timer .col2{float: left; width: 165px; text-align:center; height: 34px; padding-top: 8px;}
+.timer .col1{ border-right: 1px solid #943530;}
+.timer .col2{border-left: 1px solid #b65953;}
+
+h1.pageTitle{color: #b83838; font-size: 23px; text-align:center; padding-bottom: 8px; }
+h1.itemName{font-size: 18px;  font-weight: 700;}
+
+a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; padding: 0 13px 0 0px;}
+
+.pricing{margin-bottom: 3px; width: 332px;  font-size: 12px; padding: 0 0 14px 0;float: left; display: block; clear: both;}
+.pricing div{float: left; width: 110px; text-align:center; display: inline}
+.pricing .original{color: #998e82;background: url(../images/dotted_vertical.png) top right repeat-y;}
+.pricing .original h3{ text-decoration: line-through;}
+.pricing .exclusive{}
+.pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top left repeat-y;}
+.pricing h3{font-size: 22px; font-weight:700; padding-top: 6px;}
+
+.itemOptions{ width: 332px; background: url(../images/bg_itemOptions.jpg) top left repeat-y; clear: both; margin-bottom: 14px; text-align:center;}
+.itemOptions .frame{display: block; }
+.itemOptions .box{padding: 10px 10px 5px 10px; font-size: 12px; }
+.itemOptions .button{font-size: 15px; font-weight:300; padding: 6px 30px; margin: 0;}
+.itemOptions .options{text-align: left;}
+
+.quicktabs_wrapper{background: #f0eeea; padding: 4px; margin: 15px 0;}
+ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
+.quicktabs_tabs li.active{background: #fff;}
+.quicktabs_main{background: #fff; display: block; clear: both; padding: 10px; }
+
+#quicktabs-fm_product_details ul{width: 330px;}
+#quicktabs-fm_product_details li{width: 80px; padding: 4px 0; text-align:center;}
+#quicktabs-fm_product_details li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
+
+
+.designerInfo{width: 740px; border-top: 3px solid #f0efed; padding: 10px 0 0 0; margin-top: 10px;}
+.designerInfo h1{font-size: 16px; margin-bottom: 15px;}
+.designerInfo .col1, .designerInfo .col2{float: left;}
+
+.quote{ width: 574px; background: url(../images/bg_quote.jpg) top left repeat-y; font-size: 14px; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 20px; margin-bottom: 15px;}
+.quote .top{ background: url(../images/bg_quote_top.jpg) top left no-repeat;}
+.quote .bg{ background: url(../images/bg_quote_bottom.jpg) bottom left no-repeat;}
+.quoteImg1{background: url(../images/bg_quote1.png) 30px 12px no-repeat; padding: 15px;}
+.quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 15px 15px 15px 45px;}
+
+.subCol{float: left; width: 250px; padding: 0 30px 0 0; position: relative; left: 30px;}
+.subCol h1{margin-bottom: 10px;}
+.subCol ul{float: left; list-style-type: none;}
+.subCol li{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 0px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
+.press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
+.source {color: #767272; font-size: 11px; padding-bottom: 5px;}
+.buttons{clear: both; width:150px; padding: 6px 0 0 0;}
+.buttons a{display: block; padding: 7px 0 7px 20px;border-bottom: 1px solid #f0eeea;}
+.buttons .store{background: url(../images/icon_store.jpg) 0px 9px no-repeat;}
+.buttons .chat{background: url(../images/icon_chat.jpg) 0px 9px no-repeat;}
+
 
 
 
