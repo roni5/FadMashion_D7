@@ -95,9 +95,9 @@
     <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>
 </div>
 <div class="itemOptions">
-<div class="box"> 
-<?php print render($content['field_product_reference']); ?>
-</div>
+<img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_top.jpg">
+<div class="box"> <?php print render($content['field_product_reference']); ?></div>
+<img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_bottom.jpg">
 </div> <!-- end itemOptions -->
 
 <?php print render($detail_tabs); ?>
