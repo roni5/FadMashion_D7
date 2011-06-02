@@ -38,6 +38,22 @@ function fm_deals_commerce_currency_info() {
    );
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function fm_deals_form_alter(&$form, $form_state, $form_id) {
+	if( strpos($form_id, 'commerce_cart_add_to_cart_form') == 0) {
+		$form['submit']['#value'] = "Purchase Now";
+		$form['#submit'][] = 'fm_deals_cart_submit';
+  }
+}
+
+//REDIRECTS Deals page TO STEP 2 after submit
+function fm_deals_cart_submit ($form, &$form_state) {
+   //code here
+   $form_state['redirect'] = 'checkout'; 
+}
+
 function fm_deals_format_price($amount, $currency, $object) {
 	
   // Separate the negative symbol from the number itself.

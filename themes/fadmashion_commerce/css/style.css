@@ -85,6 +85,12 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .itemOptions .box{padding: 10px 10px 5px 10px; font-size: 12px; }
 .itemOptions .button{font-size: 15px; font-weight:300; padding: 6px 30px; margin: 0;}
 .itemOptions .options{text-align: left;}
+.itemOptions .form-submit {
+font-size:15px;
+font-weight:300;
+margin:0;
+padding:6px 30px;
+}
 
 .quicktabs_wrapper{background: #f0eeea; padding: 4px; margin: 15px 0;}
 ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
