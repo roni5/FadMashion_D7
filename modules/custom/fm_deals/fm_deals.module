@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Implements hook_menu().
+ */
 function fm_deals_menu() {
 	
 	$items['deals'] = array(
@@ -9,21 +12,104 @@ function fm_deals_menu() {
   );
 }
 
+/**
+ * Implements hook_theme().
+ */
+function fm_deals_theme() {
+	return array(
+    'fm_deals_product_details' => array(
+	     'variables' => array(
+         'title' => '',
+	       'description' => '',
+	       'product' => NULL 
+	    )
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_currency_info().
+ */
+function fm_deals_commerce_currency_info() {
+  return array(
+    'USD' => array(
+      'format_callback' => 'fm_deals_format_price'
+    ),
+   );
+}
+
+function fm_deals_format_price($amount, $currency, $object) {
+	
+  // Separate the negative symbol from the number itself.
+  if ($amount < 0) {
+    $negative = TRUE;
+    $price = abs($amount);
+  }
+  else {
+    $negative = FALSE;
+  }
+  
+  // FM Custom - make 0 decimal.
+  $price = number_format(commerce_currency_round($amount, $currency), 0, $currency['decimal_separator'], $currency['thousands_separator']);
+
+  // Establish the replacement values to format this price for its currency.
+  $replacements = array(
+    '@code_before' => $currency['code_placement'] == 'before' ? $currency['code'] : '',
+    '@symbol_before' => $currency['symbol_placement'] == 'before' ? $currency['symbol'] : '',
+    '@price' => $price,
+    '@symbol_after' => $currency['symbol_placement'] == 'after' ? $currency['symbol'] : '',
+    '@code_after' => $currency['code_placement'] == 'after' ? $currency['code'] : '',
+    '@negative' => $negative ? '-' : '',
+  );
+
+  return trim(t('@code_before @negative@symbol_before@price @symbol_after @code_after', $replacements));
+	
+}
+
+
 function fm_deals_preprocess_node(&$vars) {
-	if(isset($vars['field_sale_price']) && isset($vars['elements']['product:commerce_price'])) {
-		//Calculate Percentage for product sale
-		$sale_price = $vars['node']->field_sale_price['und'][0]['amount'];
-		$original_price = $vars['elements']['product:commerce_price']['#object']->commerce_price['und'][0]['amount'];
-    $raw_value = round(1 - ($sale_price/$original_price), 2);
-    $value = ($raw_value * 100). '%';
-    $vars['sale_percentage'] = $value;
+	
+	
+	if($vars['node']->type == 'fm_group_buying') {
+	  $wrapper = entity_metadata_wrapper('node', $vars['node']);
+	  
+	  $field = field_info_field('field_product_reference');
+	  if ($field['cardinality'] == 1) {
+      $product = $wrapper->field_product_reference->value();
+	  }
+    else {
+      $product = $wrapper->field_product_reference->get(0)->value();
+    }
     
-    //Product Quick tabs details
+	  if(isset($vars['field_sale_price']) && isset($vars['elements']['product:commerce_price'])) {
+		  //Calculate Percentage for product sale
+		  $sale_price = field_get_items('node', $vars['node'], 'field_sale_price');
+		  $sale_price = $sale_price[0]['amount'];
+ 		
+		  $original_price = field_get_items('commerce_product', $product, 'commerce_price');
+		  $original_price = $original_price[0]['amount'];
+		
+      $raw_value = round(1 - ($sale_price/$original_price), 2);
+      $value = ($raw_value * 100). '%';
+      $vars['sale_percentage'] = $value;
+	  }
+    
+	  //Create quicktabs for Product Details
+	  $description = field_get_items('node', $vars['node'], 'field_description_global');
+	  $description = $description[0]['value'];
+	  if(!isset($description)) {
+	  	//If description is not set on Node than use the description of the first product listed
+	  	$description = field_get_items('commerce_product', $product, 'field_description');
+	    $description = $description[0]['value'];
+	  }
+	  $title = $vars['node']->title;
+	  
     $quicktabs = new stdClass();
     $tabs['product_details'] = array(
             'title' => t('Details'),
             'type' => 'freetext',
-            'text' => theme('fm_deals_product_summary'),
+            'text' => theme('fm_deals_product_details', 
+                             array('title' => $title, 'description' => $description, 'product' => $product) ),
     );
     $tabs['product_shipping'] = array(
             'title' => t('Shipping'),
@@ -40,16 +126,27 @@ function fm_deals_preprocess_node(&$vars) {
     $quicktabs->ajax= '0';
     $quicktabs->style = 'default';
     $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = 'tabcontent';
+    $quicktabs->default_tab = 'product_details';
     $quicktabs->hide_empty_tabs = '0';
     $quicktabs->machine_name = 'fm_product_details';
     
     $qt = quicktabs_render($quicktabs);
     $vars['detail_tabs'] = $qt;
-    //var_dump($quicktabs);
-
 	}
 }
+
+
+function theme_fm_deals_product_details($vars) {
+	$title = $vars['title'];
+  $description = $vars['description'];
+  $product = $vars['product'];
+  
+  $output = '<h1 class="itemName">' . $title . '</h1>';
+  $output .= '<p>' . $description . '</p>';
+  return $output;
+}
+
+
 
 function fm_deals_page($nid = '') {
 	if(empty($nid)) {
@@ -57,10 +154,6 @@ function fm_deals_page($nid = '') {
 	}
 	
 	node_view(node_load($nid), 'full');
-}
-
-function fm_deals_form_fm_group_buying_node_form_alter (&$form, &$form_state, $form_id) {
-	
 }
 
 function fm_deals_get_default_deal() {
