@@ -42,7 +42,9 @@ function fm_deals_commerce_currency_info() {
  * Implements hook_form_alter().
  */
 function fm_deals_form_alter(&$form, $form_state, $form_id) {
-	if( strpos($form_id, 'commerce_cart_add_to_cart_form') == 0) {
+	$posi = strpos($form_id, 'commerce_cart_add_to_cart_form');  //posi is equal to 6
+  if (is_numeric($posi)){
+		var_dump(strpos($form_id, 'commerce_cart_add_to_cart_form'));
 		$form['submit']['#value'] = "Purchase Now";
 		$form['#submit'][] = 'fm_deals_cart_submit';
   }
@@ -82,10 +84,12 @@ function fm_deals_format_price($amount, $currency, $object) {
 	
 }
 
+/*
+ * implementation of hook_preprocess_node()
+ */
 
 function fm_deals_preprocess_node(&$vars) {
-	
-	
+	//Add  Variables to fm_group_buying node tempalte
 	if($vars['node']->type == 'fm_group_buying') {
 	  $wrapper = entity_metadata_wrapper('node', $vars['node']);
 	  
