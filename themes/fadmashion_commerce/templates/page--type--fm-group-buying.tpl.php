@@ -5,8 +5,13 @@
 	   <div class="column1">
 	     <div class="mainContent">
 	        <?php print render($page['content']); ?>
+	     </div><!-- end mainContent -->
+	   </div> <!-- end column1 -->
+	   <div class="column2">
+	     <div class="sidebar">
+	       <?php print render($page['sidebar_second']); ?>
 	     </div>
-	    </div>
+	   </div>
 	 </div>
 
 </div><!--wrapper-->

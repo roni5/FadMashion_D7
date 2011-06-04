@@ -11,7 +11,7 @@ h1 span{font-weight: 700}
 h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
-.form-submit {cursor: pointer; margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
+.form-submit, .button {font-family:"museo-sans-1","museo-sans-2",Helvetica; font-style: normal; cursor: pointer; margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
 background:-moz-linear-gradient(100% 100% 90deg,#796655,#9f958d);
 background:-webkit-gradient(linear,0% 0,0% 100%,from(#9f958d),to(#796655));
 background-image:-o-linear-gradient(#9f958d,#796655);
@@ -122,6 +122,18 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .buttons a{display: block; padding: 7px 0 7px 20px;border-bottom: 1px solid #f0eeea;}
 .buttons .store{background: url(../images/icon_store.jpg) 0px 9px no-repeat;}
 .buttons .chat{background: url(../images/icon_chat.jpg) 0px 9px no-repeat;}
+
+/* Sidebar */
+#block-fm-deals-fm-deals-preview {width: 208px; text-align:center;  background-color:#f0eeea; /*
+background:-moz-linear-gradient(100% 100% 90deg,#efecea,#ffffff);
+background:-webkit-gradient(linear,0% 0,0% 100%,from(#efecea),to(#ffffff));
+background-image:-o-linear-gradient(#efecea,#ffffff);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#efecea');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efecea')"; */border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
+#block-fm-deals-fm-deals-preview h2{background: #8c7968; color: #fff; padding: 5px 0; border-top-left-radius: 4px; border-top-right-radius: 4px; font-size: 12px;}
+#block-fm-deals-fm-deals-preview  h1{padding: 0 3px; margin: 12px 0 1px 0; font-size: 15px; font-weight:700}
+#upNext h2 a{font-size: 13px;}
+#block-fm-deals-fm-deals-preview .button {margin: 18px 0; padding: 5px; width: 160px; font-size: 12px;}
+
 
 
 

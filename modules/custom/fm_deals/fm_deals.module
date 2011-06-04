@@ -10,7 +10,38 @@ function fm_deals_menu() {
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
+  
+  return $items;
 }
+
+/*
+ * implements hook_block_info()
+ */
+function fm_deals_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_deals_preview'] = array(
+	  'info' => t('Preview Deals'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_deals_block_view($block_name = '') {
+  if($block_name == 'fm_deals_preview') {
+  	$content = fm_deals_preview_block_content();
+    $block = array(
+      'subject' => t('Coming up Next'),
+      'content' => $content
+    );
+  }
+  return $block;
+}
+
 
 /**
  * Implements hook_theme().
@@ -23,6 +54,10 @@ function fm_deals_theme() {
 	       'description' => '',
 	       'product' => NULL 
 	    )
+    ),
+    'fm_deals_preview' => array(
+	     'variables' => array('node' => NULL, 'image' => ''),
+       'template' => 'fm_deals_preview'
     ),
   );
 }
@@ -42,9 +77,8 @@ function fm_deals_commerce_currency_info() {
  * Implements hook_form_alter().
  */
 function fm_deals_form_alter(&$form, $form_state, $form_id) {
-	$posi = strpos($form_id, 'commerce_cart_add_to_cart_form');  //posi is equal to 6
+	$posi = strpos($form_id, 'commerce_cart_add_to_cart_form');  
   if (is_numeric($posi)){
-		var_dump(strpos($form_id, 'commerce_cart_add_to_cart_form'));
 		$form['submit']['#value'] = "Purchase Now";
 		$form['#submit'][] = 'fm_deals_cart_submit';
   }
@@ -91,15 +125,7 @@ function fm_deals_format_price($amount, $currency, $object) {
 function fm_deals_preprocess_node(&$vars) {
 	//Add  Variables to fm_group_buying node tempalte
 	if($vars['node']->type == 'fm_group_buying') {
-	  $wrapper = entity_metadata_wrapper('node', $vars['node']);
-	  
-	  $field = field_info_field('field_product_reference');
-	  if ($field['cardinality'] == 1) {
-      $product = $wrapper->field_product_reference->value();
-	  }
-    else {
-      $product = $wrapper->field_product_reference->get(0)->value();
-    }
+	  $product = fm_deals_get_product($vars['node']);
     
 	  if(isset($vars['field_sale_price']) && isset($vars['elements']['product:commerce_price'])) {
 		  //Calculate Percentage for product sale
@@ -155,6 +181,18 @@ function fm_deals_preprocess_node(&$vars) {
 	}
 }
 
+function fm_deals_get_product($node) {
+    $wrapper = entity_metadata_wrapper('node', $node);
+	  
+	  $field = field_info_field('field_product_reference');
+	  if ($field['cardinality'] == 1) {
+      $product = $wrapper->field_product_reference->value();
+	  }
+    else {
+      $product = $wrapper->field_product_reference->get(0)->value();
+    }
+    return $product;
+}
 
 function theme_fm_deals_product_details($vars) {
 	$title = $vars['title'];
@@ -172,10 +210,52 @@ function fm_deals_page($nid = '') {
 	if(empty($nid)) {
 		$nid = fm_deals_get_default_deal();
 	}
-	
-	node_view(node_load($nid), 'full');
+	return node_view(node_load($nid), 'full');
 }
 
+//Get the deal that needs to be active right now.  
 function fm_deals_get_default_deal() {
 	
+	$query = new EntityFieldQuery();
+  $entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
+                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
+                    ->range(0, 5)
+                    ->execute();
+  
+  $first_node = array_shift($entities['node']);
+  return $first_node->nid;
 }
+
+function fm_deals_preview_block_content() {
+	$query = new EntityFieldQuery();
+  
+	$entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
+                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
+                    ->range(1, 5)
+                    ->execute();
+  $first_node = array_shift($entities['node']);
+  $node = node_load($first_node->nid);
+  
+  $product = fm_deals_get_product($node);
+  $images = field_get_items('commerce_product', $product, 'field_images');
+  //Get First Image
+  $first_image = $images[0];
+  $image = array(
+      'path' => $first_image['uri'],
+      'alt' => $first_image['alt'],
+      'title' => $first_image['title'],
+      'style_name' => 'fm_preview_block_thumb'
+    );
+    
+  $themed_image = theme('image_style', $image);
+  return theme('fm_deals_preview', array('node' => $node, 'image' => $themed_image));
+  
+}
+
+

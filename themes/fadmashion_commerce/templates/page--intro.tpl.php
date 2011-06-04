@@ -55,6 +55,7 @@ jQuery(function($){
 	      			<?php print $messages; ?>
 	    			</div></div> <!-- /.section, /#messages -->
 	  			<?php endif; ?>
+
   			</div>
   			
   			<?php if($is_front): ?>
