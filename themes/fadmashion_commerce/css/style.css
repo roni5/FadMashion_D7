@@ -11,7 +11,7 @@ h1 span{font-weight: 700}
 h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
-.form-submit, .button {font-family:"museo-sans-1","museo-sans-2",Helvetica; font-style: normal; cursor: pointer; margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
+.form-submit, .button a{font-family:"museo-sans-1","museo-sans-2",Helvetica; font-style: normal; cursor: pointer; margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
 background:-moz-linear-gradient(100% 100% 90deg,#796655,#9f958d);
 background:-webkit-gradient(linear,0% 0,0% 100%,from(#9f958d),to(#796655));
 background-image:-o-linear-gradient(#9f958d,#796655);
@@ -132,7 +132,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-deals-fm-deals-preview h2{background: #8c7968; color: #fff; padding: 5px 0; border-top-left-radius: 4px; border-top-right-radius: 4px; font-size: 12px;}
 #block-fm-deals-fm-deals-preview  h1{padding: 0 3px; margin: 12px 0 1px 0; font-size: 15px; font-weight:700}
 #upNext h2 a{font-size: 13px;}
-#block-fm-deals-fm-deals-preview .button {margin: 18px 0; padding: 5px; width: 160px; font-size: 12px;}
+#block-fm-deals-fm-deals-preview .button {padding: 18px 0; }
+#block-fm-deals-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 
 
 
