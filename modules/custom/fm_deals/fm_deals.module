@@ -239,23 +239,27 @@ function fm_deals_preview_block_content() {
                     ->fieldOrderBy('field_start_time', 'value', 'ASC')
                     ->range(1, 5)
                     ->execute();
-  $first_node = array_shift($entities['node']);
-  $node = node_load($first_node->nid);
+  if(isset($entities['node'])) {
+   $first_node = array_shift($entities['node']);
+    $node = node_load($first_node->nid);
   
-  $product = fm_deals_get_product($node);
-  $images = field_get_items('commerce_product', $product, 'field_images');
-  //Get First Image
-  $first_image = $images[0];
-  $image = array(
-      'path' => $first_image['uri'],
-      'alt' => $first_image['alt'],
-      'title' => $first_image['title'],
-      'style_name' => 'fm_preview_block_thumb'
-    );
+    $product = fm_deals_get_product($node);
+    $images = field_get_items('commerce_product', $product, 'field_images');
+    //Get First Image
+    $first_image = $images[0];
+    $image = array(
+        'path' => $first_image['uri'],
+        'alt' => $first_image['alt'],
+        'title' => $first_image['title'],
+        'style_name' => 'fm_preview_block_thumb'
+      );
     
-  $themed_image = theme('image_style', $image);
-  return theme('fm_deals_preview', array('node' => $node, 'image' => $themed_image));
-  
+    $themed_image = theme('image_style', $image);
+    return theme('fm_deals_preview', array('node' => $node, 'image' => $themed_image));
+  }
+  else {
+  	return '';
+  }
 }
 
 
