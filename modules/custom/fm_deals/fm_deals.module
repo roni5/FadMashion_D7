@@ -11,7 +11,27 @@ function fm_deals_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  $items['admin/fadmashion/deals'] = array(
+    'title' => t('Deals Listing'), 
+    'description' => t('Listing of all Upcoming Deals'),
+    'page callback' => 'fm_deals_list',
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'fm_deals.admin.inc',
+  );
+  
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function fm_deals_permission() {
+  return array(
+    'administer deals list' => array(
+      'title' => t('View Deals List'),
+    ),
+  );
 }
 
 /*
@@ -52,11 +72,12 @@ function fm_deals_theme() {
 	     'variables' => array(
          'title' => '',
 	       'description' => '',
-	       'product' => NULL 
+	       'product' => NULL,
+	       'store' => NULL
 	    )
     ),
     'fm_deals_preview' => array(
-	     'variables' => array('node' => NULL, 'image' => ''),
+	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
        'template' => 'fm_deals_preview'
     ),
   );
@@ -126,7 +147,10 @@ function fm_deals_preprocess_node(&$vars) {
 	//Add  Variables to fm_group_buying node tempalte
 	if($vars['node']->type == 'fm_group_buying') {
 	  $product = fm_deals_get_product($vars['node']);
-    
+		$store = fm_deals_get_store($product);  
+		
+		$vars['store'] = $store;
+		
 	  if(isset($vars['field_sale_price']) && isset($vars['elements']['product:commerce_price'])) {
 		  //Calculate Percentage for product sale
 		  $sale_price = field_get_items('node', $vars['node'], 'field_sale_price');
@@ -155,7 +179,7 @@ function fm_deals_preprocess_node(&$vars) {
             'title' => t('Details'),
             'type' => 'freetext',
             'text' => theme('fm_deals_product_details', 
-                             array('title' => $title, 'description' => $description, 'product' => $product) ),
+                             array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) ),
     );
     $tabs['product_shipping'] = array(
             'title' => t('Shipping'),
@@ -194,12 +218,22 @@ function fm_deals_get_product($node) {
     return $product;
 }
 
+function fm_deals_get_store($product) {
+	$store_ref = field_get_items('commerce_product', $product, 'field_store_reference');
+	$store_id = $store_ref[0]['store_id'];
+	
+	$stores = fm_commerce_store_load_multiple(array($store_id));
+	return $stores[$store_id];
+}
+
 function theme_fm_deals_product_details($vars) {
 	$title = $vars['title'];
   $description = $vars['description'];
   $product = $vars['product'];
+  $store = $vars['store'];
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
+  $output .= '<h2>' . l($store->name, 'test') . '</h2>';
   $output .= '<p>' . $description . '</p>';
   return $output;
 }
@@ -244,6 +278,8 @@ function fm_deals_preview_block_content() {
     $node = node_load($first_node->nid);
   
     $product = fm_deals_get_product($node);
+    $store = fm_deals_get_store($product);  
+    
     $images = field_get_items('commerce_product', $product, 'field_images');
     //Get First Image
     $first_image = $images[0];
@@ -255,7 +291,7 @@ function fm_deals_preview_block_content() {
       );
     
     $themed_image = theme('image_style', $image);
-    return theme('fm_deals_preview', array('node' => $node, 'image' => $themed_image));
+    return theme('fm_deals_preview', array('node' => $node, 'store' => $store, 'image' => $themed_image));
   }
   else {
   	return '';

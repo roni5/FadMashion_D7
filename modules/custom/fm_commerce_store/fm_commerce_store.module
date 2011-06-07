@@ -58,6 +58,14 @@ function fm_commerce_store_menu() {
     'file' => 'fm_commerce_store.admin.inc',
     'weight' => 20,
   );
+  
+  $items['fm_commerce_store/autocomplete'] = array(
+    'title' => 'commerce_store autocomplete',
+    'page callback' => 'fm_commerce_store_autocomplete',
+    'access arguments' => array('access stores'),
+    'type' => MENU_CALLBACK,
+  );
+  
 
 
   return $items;
@@ -224,3 +232,132 @@ class FMStoreController extends DrupalDefaultEntityController {
 	} //End save();	
 	
 }
+
+function fm_commerce_store_autocomplete() {
+  $field = field_info_field($field_name);
+
+  $matches = array();
+
+  // The user enters a comma-separated list of tags. We only autocomplete the last tag.
+  $tags_typed = drupal_explode_tags($string);
+  $tag_last = drupal_strtolower(array_pop($tags_typed));
+
+  if (!empty($tag_last)) {
+    $prefix = count($tags_typed) ? implode(', ', $tags_typed) . ', ' : '';
+
+    // Determine the type of autocomplete match to use when searching.
+    $match = isset($field['widget']['autocomplete_match']) ? $field['widget']['autocomplete_match'] : 'contains';
+
+    // Get an array of matching stores.
+    //$stores = commerce_offer_match_stores($field, $tag_last, $match, array(), 10);
+
+    // Loop through the products and convert them into autocomplete output.
+    foreach ($stores as $store_id => $name) {
+      $key = "$name ($store_id)";
+      // Names containing commas or quotes must be wrapped in quotes.
+      if (strpos($key, ',') !== FALSE || strpos($key, '"') !== FALSE) {
+        $key = '"' . str_replace('"', '""', $key) . '"';
+      }
+      $matches[$prefix . $key] = '<div class="reference-autocomplete">' . $name . '</div>';
+    }
+  }
+
+  drupal_json_output($matches);
+}
+
+/**
+ * Fetches an array of all stores matching the given parameters.
+ *
+ * @param $field
+ *   The field description.
+ * @param $string
+ *   Optional string to filter store names on (used by autocomplete).
+ * @param $match
+ *   Operator to match filtered store names against, can be any of:
+ *   'contains', 'equals', 'starts_with'
+ * @param $ids
+ *   Optional store ids to lookup (used when $string and $match arguments are
+ *   not given).
+ * @param $limit
+ *   If non-zero, limit the size of the result set.
+ *
+ * @return
+ *   An array of valid stores in the form:
+ *   array(
+ *     store_id => name,
+ *     ...
+ *   )
+ */
+function fm_commerce_match_stores($field, $string = '', $match = 'contains', $ids = array(), $limit = NULL) {
+  $results = &drupal_static(__FUNCTION__, array());
+
+  // Create unique id for static cache.
+  $cid = implode(':', array(
+    $field['field_name'],
+    $match,
+    ($string !== '' ? $string : implode('-', $ids)),
+    $limit,
+  ));
+
+  if (!isset($results[$cid])) {
+    $matches = _fm_commerce_match_stores($string, $match, $ids, $limit);
+
+    // Store the results.
+    $results[$cid] = !empty($matches) ? $matches : array();
+  }
+
+  return $results[$cid];
+}
+
+/**
+ * Helper function for commerce_offer_match_stores().
+ *
+ * Returns an array of stores matching the specific parameters.
+ */
+function _fm_commerce_match_stores($string = '', $match = 'contains', $ids = array(), $limit = NULL) {
+  // Build the query object with the necessary fields.
+  $query = db_select('fm_commerce_store', 'cs');
+  $query->fields('cs', array('store_id', 'name'));
+
+  if ($string !== '') {
+    $args = array();
+
+    // Build a where clause.
+    switch ($match) {
+      case 'contains':
+        $operator = 'LIKE';
+        $string = '%' . db_like($string) . '%';
+        break;
+      case 'starts_with':
+        $operator = 'LIKE';
+        $string = db_like($string) . '%';
+        break;
+      case 'equals':
+      default:
+        $operator = '=';
+        break;
+    }
+
+    $query->condition('name', $string, $operator);
+  }
+  elseif ($ids) {
+    $query->condition('store_id', $ids, 'IN');
+  }
+
+  // Order the results by store name.
+  $query->orderBy('name');
+  // Add a limit if specified.
+  if ($limit) {
+    $query->range(0, $limit);
+  }
+  // Execute the query and build the results array.
+  $result = $query->execute();
+
+  $matches = array();
+  foreach ($result->fetchAll() as $store) {
+    $matches[$store->store_id] = check_plain($store->name);
+  }
+
+  return $matches;
+}
+

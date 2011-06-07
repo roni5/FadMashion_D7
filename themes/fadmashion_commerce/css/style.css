@@ -114,8 +114,8 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 
 .subCol{float: left; width: 250px; padding: 0 30px 0 0; position: relative; left: 30px;}
 .subCol h1{margin-bottom: 10px;}
-.subCol ul{float: left; list-style-type: none;}
-.subCol li{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 0px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
+.subCol .field-items{float: left; list-style-type: none;}
+.subCol .field-item{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 2px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
 .press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
 .source {color: #767272; font-size: 11px; padding-bottom: 5px;}
 .buttons{clear: both; width:150px; padding: 6px 0 0 0;}
@@ -131,11 +131,21 @@ background-image:-o-linear-gradient(#efecea,#ffffff);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#efecea');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efecea')"; */border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 #block-fm-deals-fm-deals-preview h2{background: #8c7968; color: #fff; padding: 5px 0; border-top-left-radius: 4px; border-top-right-radius: 4px; font-size: 12px;}
 #block-fm-deals-fm-deals-preview  h1{padding: 0 3px; margin: 12px 0 1px 0; font-size: 15px; font-weight:700}
-#upNext h2 a{font-size: 13px;}
+#block-fm-deals-fm-deals-preview h3 a{font-size: 13px; font-weight: normal;}
 #block-fm-deals-fm-deals-preview .button {padding: 18px 0; }
 #block-fm-deals-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 
 
+/* Footer */
+#footer{background:#f9f8f6 url(../images/bg_footer.jpg) top left repeat-x; clear: both;margin-top: 30px;}
+#footer .container{padding: 15px 0 10px 0;}
+#footer .links{margin-bottom: 15px;}
+#footer .links a{margin-right: 14px;}
+#footer .copyright{font-size: 11px; width: 500px;color: #a0978f;}
+#footer .box{float: right; width: 400px;}
+#footer h1{text-transform: uppercase; font-size: 13px; font-weight: 500;}
+#footer .subCol{float: left; width: 150px; text-align:center;}
+#footer .subCol img{margin: 0 3px;}
 
 
 

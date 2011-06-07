@@ -11,3 +11,5 @@ files[] = views/handlers/fm_commerce_store_handler_field_store_link_operations.i
 files[] = views/handlers/fm_commerce_store_handler_field_store_link_edit.inc
 files[] = views/handlers/fm_commerce_store_handler_field_store_link_delete.inc
 files[] = views/handlers/fm_commerce_store_handler_argument_store_id.inc
+
+dependencies[] = commerce

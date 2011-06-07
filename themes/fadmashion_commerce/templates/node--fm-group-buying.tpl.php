@@ -80,7 +80,7 @@
 ?>
 
 <div class="photos">
-  <?php print render($content['product:field_images']); ?>
+  <?php render($content['product:field_images']); ?>
 </div>
 <div class="info">
 <h1 class="pageTitle">30-MINUTE <span>DEALS</span></h1>
@@ -100,9 +100,30 @@
 <img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_bottom.jpg">
 </div> <!-- end itemOptions -->
 
-<?php print render($detail_tabs); ?>
-                    
+<?php print render($detail_tabs); ?>                  
 </div> <!--end info -->
 
+<div class="designerInfo">
+<h1>MORE ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
+<div class="col1">
+<?php print render($content['store:field_logo']); ?>
+</div> <!-- End designerInfo Col1 -->
+<div class="col2">
+<div class="quote"><div class="top"><div class="bg">
+<div class="quoteImg1"><div class="quoteImg2"><?php print render($content['store:field_quote']); ?></div></div>
+</div></div> </div><!-- End col2 quote--> 
+
+<div class="subCol">
+<h1>Quick Facts</h1>
+<?php print render($content['store:field_quick_facts']); ?>
+</div>
+
+<div class="subCol">
+<h1>Press</h1>
+<p><?php print render($content['store:field_press']); ?></p>
+</div>
+
+</div> <!-- End designerInfo Col2 -->
+</div> <!-- End designerInfo -->
 
 

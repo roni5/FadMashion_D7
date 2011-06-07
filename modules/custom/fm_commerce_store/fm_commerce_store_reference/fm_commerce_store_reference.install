@@ -1,0 +1,28 @@
+<?php
+
+
+/**
+ * Implements hook_field_schema().
+ */
+function fm_commerce_store_reference_field_schema($field) {
+  if ($field['type'] == 'fm_commerce_store_reference') {
+    return array(
+      'columns' => array(
+        'store_id' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+        ),
+      ),
+      'indexes' => array(
+        'store_id' => array('store_id'),
+      ),
+      'foreign keys' => array(
+        'store_id' => array(
+          'table' => 'fm_commerce_store',
+          'columns' => array('store_id' => 'store_id'),
+        ),
+      ),
+    );
+  }
+}
