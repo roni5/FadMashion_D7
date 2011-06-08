@@ -9,6 +9,9 @@
  * March 2010
  */
 
+#slider {
+  height: 451px;
+}
 #slider .nivo-controlNav {
 bottom:-105px;
 position:absolute;
