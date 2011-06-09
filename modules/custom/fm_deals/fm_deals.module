@@ -287,7 +287,7 @@ function fm_deals_preview_block_content() {
         'path' => $first_image['uri'],
         'alt' => $first_image['alt'],
         'title' => $first_image['title'],
-        'style_name' => 'fm_big_product_crop_image'
+        'style_name' => 'fm_preview_block_thumb'
       );
     
     $themed_image = theme('image_style', $image);
