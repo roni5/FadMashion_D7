@@ -10,6 +10,7 @@ stylesheets[all][] = css/style.css
 stylesheets[all][] = css/colorbox.css
 
 scripts[] = js/fm_form.js
+scripts[] = js/colorbox_load.js
 
 regions[pre_header] = Pre Header
 regions[header] = Header
