@@ -13,7 +13,6 @@ jQuery(document).ready(function() {
         controlNavThumbs:true, // Use thumbnails for Control Nav
         controlNavThumbsFromRel:true, // Use image rel for thumbs
         keyboardNav:true, // Use left & right arrows
-        manualAdvance:true, // Force manual transitions
     });
 
 });
