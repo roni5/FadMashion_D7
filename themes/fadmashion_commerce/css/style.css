@@ -135,7 +135,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-deals-fm-deals-preview .button {padding: 18px 0; }
 #block-fm-deals-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 
-#facebook{padding: 12px;margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
+#facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 
 
 /* Footer */
