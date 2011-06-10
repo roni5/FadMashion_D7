@@ -255,7 +255,7 @@ function fm_deals_group_details(&$vars) {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Time Until Deal Starts:<span class="countdown">00:00</span></div>';
 		$untilTime = $start_time;
 		
-		$purchaseDetails = '<div class="button"><a href="#">Notify Me</a></div>';
+		$purchaseDetails = '<div class="button"><a href="#">Remind Me</a></div>';
 	}
 	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
 		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
@@ -263,6 +263,10 @@ function fm_deals_group_details(&$vars) {
 		$untilTime = $end_time;
 		
 		$purchaseDetails = render($vars['content']['field_product_reference']);
+	} 
+	else {
+		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$purchaseDetails = '<div class="button"><a href="#">Notify Me</a></div>';
 	}
 	
 	//If start time is LESS THAN NOW this is ACTIVE
