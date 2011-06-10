@@ -66,6 +66,8 @@ color:#fff}
 .timer .col1, .timer .col2{float: left; width: 165px; text-align:center; height: 34px; padding-top: 8px;}
 .timer .col1{ border-right: 1px solid #943530;}
 .timer .col2{border-left: 1px solid #b65953;}
+/*Override countdown style*/
+.timer .hasCountdown { background-color: transparent; border: 0px solid #000; display: inline;}
 
 h1.pageTitle{color: #b83838; font-size: 23px; text-align:center; padding-bottom: 8px; }
 h1.itemName{font-size: 18px;  font-weight: 700;}
@@ -98,7 +100,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .quicktabs_main{min-height: 290px; background: #fff; display: block; clear: both; padding: 10px; }
 
 #quicktabs-fm_product_details ul{width: 330px;}
-#quicktabs-fm_product_details li{width: 80px; padding: 4px 0; text-align:center;}
+#quicktabs-fm_product_details li{min-width: 80px; padding: 4px; text-align:center;}
 #quicktabs-fm_product_details li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 
 
@@ -124,16 +126,16 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .buttons .chat{background: url(../images/icon_chat.jpg) 0px 9px no-repeat;}
 
 /* Sidebar */
-#block-fm-deals-fm-deals-preview {width: 208px; text-align:center;  background-color:#f0eeea; /*
+#block-fm-deals-preview-fm-deals-preview {width: 208px; text-align:center;  background-color:#f0eeea; /*
 background:-moz-linear-gradient(100% 100% 90deg,#efecea,#ffffff);
 background:-webkit-gradient(linear,0% 0,0% 100%,from(#efecea),to(#ffffff));
 background-image:-o-linear-gradient(#efecea,#ffffff);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#efecea');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#efecea')"; */border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
-#block-fm-deals-fm-deals-preview h2{background: #8c7968; color: #fff; padding: 5px 0; border-top-left-radius: 4px; border-top-right-radius: 4px; font-size: 12px;}
-#block-fm-deals-fm-deals-preview  h1{padding: 0 3px; margin: 12px 0 1px 0; font-size: 15px; font-weight:700}
-#block-fm-deals-fm-deals-preview h3 a{font-size: 13px; font-weight: normal;}
-#block-fm-deals-fm-deals-preview .button {padding: 18px 0; }
-#block-fm-deals-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
+#block-fm-deals-preview-fm-deals-preview h2{background: #8c7968; color: #fff; padding: 5px 0; border-top-left-radius: 4px; border-top-right-radius: 4px; font-size: 12px;}
+#block-fm-deals-preview-fm-deals-preview  h1{padding: 0 3px; margin: 12px 0 1px 0; font-size: 15px; font-weight:700}
+#block-fm-deals-preview-fm-deals-preview h3 a{font-size: 13px; font-weight: normal;}
+#block-fm-deals-preview-fm-deals-preview .button {padding: 18px 0; }
+#block-fm-deals-preview-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 
 #facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 

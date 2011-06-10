@@ -1,0 +1,166 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function fm_deals_preview_menu() {
+	
+	$items['deals_preview'] = array(
+    'page callback' => 'fm_deals_preview_page',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['deals_preview/%date'] = array(
+    'page callback' => 'fm_deals_preview_page',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fm_deals_preview_page($date = '') {
+	if(empty($date)) {
+		$date = fm_deals_preview_get_default_date();
+	}
+	
+	$nodes = fm_deals_preview_nodes($date);
+	
+	$rendered_items = array();
+	
+	foreach($nodes as $node) {
+		$product = fm_deals_get_product($node);
+    $store = fm_deals_get_store($product);  
+		$themed_image = fm_deals_preview_get_image($product);
+		
+		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));
+	}
+	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
+	
+	print $output;
+	exit;
+
+}
+
+function fm_deals_preview_get_default_date() {
+	$startDate = strtotime("last Tuesday");
+	return date('Y-m-d', $startDate);
+}
+
+function fm_deals_preview_nodes($startDate, $timeLength = '') {
+	
+	if(empty($timeLength)) {
+		$timeLength = '+1 week';
+	}
+	
+	$endDate = strtotime($timeLength, strtotime($startDate));
+	$endDate = date('Y-m-d', $endDate);
+	
+	$query = new EntityFieldQuery();
+	$entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value', array($startDate, $endDate), 'BETWEEN')
+                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
+                    ->execute();
+
+  if(isset($entities['node'])) {
+    return node_load_multiple(array_keys($entities['node']));
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fm_deals_preview_theme() {
+	return array(
+    'fm_deals_preview_block' => array(
+	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
+       'template' => 'fm_deals_preview_block'
+    ),
+    'fm_deals_preview_item' => array(
+	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
+       'template' => 'fm_deals_preview_item'
+    ),
+    'fm_deals_preview_week' => array(
+	     'variables' => array('date' => '', 'items' => array()),
+       'template' => 'fm_deals_preview_week'
+    ),
+  );
+}
+
+/*
+ * implements hook_block_info()
+ */
+function fm_deals_preview_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_deals_preview'] = array(
+	  'info' => t('Preview Deals'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_deals_preview_block_view($block_name = '') {
+  if($block_name == 'fm_deals_preview') {
+  	$content = fm_deals_preview_block_content();
+    $block = array(
+      'subject' => t('Coming up Next'),
+      'content' => $content
+    );
+  }
+  return $block;
+}
+
+function fm_deals_preview_block_content() {
+	$query = new EntityFieldQuery();
+  
+	$entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
+                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
+                    ->range(1, 5)
+                    ->execute();
+               
+  if(isset($entities['node'])) {
+   $first_node = array_shift($entities['node']);
+    $node = node_load($first_node->nid);
+  
+    $product = fm_deals_get_product($node);
+    $store = fm_deals_get_store($product);  
+    
+    $themed_image = fm_deals_preview_get_image($product);
+    
+    return theme('fm_deals_preview_block', array('node' => $node, 'store' => $store, 'image' => $themed_image));
+  }
+  else {
+  	return '';
+  }
+}
+
+function fm_deals_preview_get_image($product) {
+	$images = field_get_items('commerce_product', $product, 'field_images');
+  
+	//Get First Image
+  $first_image = $images[0];
+  $image = array(
+      'path' => $first_image['uri'],
+      'alt' => $first_image['alt'],
+      'title' => $first_image['title'],
+      'style_name' => 'fm_preview_block_thumb'
+  );
+  
+  return theme('image_style', $image);
+   
+}

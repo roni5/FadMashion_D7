@@ -34,33 +34,8 @@ function fm_deals_permission() {
   );
 }
 
-/*
- * implements hook_block_info()
- */
-function fm_deals_block_info() {
-	$blocks = array();
-	
-	//Define the Preview Block
-	$blocks['fm_deals_preview'] = array(
-	  'info' => t('Preview Deals'),
-	  'cache' => DRUPAL_NO_CACHE
-	);
-	return $blocks;
-}
 
-/*
- * Implements hook_block_view
- */
-function fm_deals_block_view($block_name = '') {
-  if($block_name == 'fm_deals_preview') {
-  	$content = fm_deals_preview_block_content();
-    $block = array(
-      'subject' => t('Coming up Next'),
-      'content' => $content
-    );
-  }
-  return $block;
-}
+
 
 
 /**
@@ -151,6 +126,9 @@ function fm_deals_preprocess_node(&$vars) {
 		
 		$vars['store'] = $store;
 		
+		//Set Time Until for Countdown
+		$details= fm_deals_group_details($vars);
+		
 	  if(isset($vars['field_sale_price']) && isset($vars['elements']['product:commerce_price'])) {
 		  //Calculate Percentage for product sale
 		  $sale_price = field_get_items('node', $vars['node'], 'field_sale_price');
@@ -182,15 +160,15 @@ function fm_deals_preprocess_node(&$vars) {
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) ),
     );
     $tabs['product_shipping'] = array(
-            'title' => t('Shipping'),
+            'title' => t('Shipping & Returns'),
             'type' => 'freetext',
             'text' => t('Free Text2'),
     );
-    $tabs['product_returns'] = array(
+   /*$tabs['product_returns'] = array(
             'title' => t('Returns'),
             'type' => 'freetext',
             'text' => t('Free Text2'),
-    );
+    );*/
     $quicktabs->tabs = $tabs;
     $quicktabs->table = 'quicktabs';
     $quicktabs->ajax= '0';
@@ -263,39 +241,36 @@ function fm_deals_get_default_deal() {
   return $first_node->nid;
 }
 
-function fm_deals_preview_block_content() {
-	$query = new EntityFieldQuery();
+function fm_deals_group_details(&$vars) {
+	$node = $vars['node'];
+	
+	$start_time = $node->field_start_time['und'][0]['value'];
+	$end_time = $node->field_start_time['und'][0]['value2'];
+	
+	$unixStartTime = strtotime($start_time);
+	$unixEndTime = strtotime($end_time);
+	
+	//If start time is GREATER THAN NOW than disabled.
+	if(REQUEST_TIME < $unixStartTime) {
+		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Time Until Deal Starts:<span class="countdown">00:00</span></div>';
+		$untilTime = $start_time;
+		
+		$purchaseDetails = '<div class="button"><a href="#">Notify Me</a></div>';
+	}
+	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
+		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
+               <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
+		$untilTime = $end_time;
+		
+		$purchaseDetails = render($vars['content']['field_product_reference']);
+	}
+	
+	//If start time is LESS THAN NOW this is ACTIVE
+	jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", strtotime($untilTime)), 'format' => 'MS', "layout" => '{mnn}:{snn}'));
   
-	$entities = $query->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', 'fm_group_buying')
-                    ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
-                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
-                    ->range(1, 5)
-                    ->execute();
-  if(isset($entities['node'])) {
-   $first_node = array_shift($entities['node']);
-    $node = node_load($first_node->nid);
-  
-    $product = fm_deals_get_product($node);
-    $store = fm_deals_get_store($product);  
-    
-    $images = field_get_items('commerce_product', $product, 'field_images');
-    //Get First Image
-    $first_image = $images[0];
-    $image = array(
-        'path' => $first_image['uri'],
-        'alt' => $first_image['alt'],
-        'title' => $first_image['title'],
-        'style_name' => 'fm_preview_block_thumb'
-      );
-    
-    $themed_image = theme('image_style', $image);
-    return theme('fm_deals_preview', array('node' => $node, 'store' => $store, 'image' => $themed_image));
-  }
-  else {
-  	return '';
-  }
+	$vars['groupDetails'] = $timerDetails;
+	$vars['purchaseDetails'] = $purchaseDetails;
 }
+
 
 

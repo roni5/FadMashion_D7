@@ -1,0 +1,7 @@
+; $Id: $
+name = FM Deals Preview Page
+description = Main Preview Deals page 
+core = 7.x
+package = Fadmashion
+
+dependencies[] = fm_deals

@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Registration Functionality
+description = Create the User 
+core = 7.x
+package = Fadmashion

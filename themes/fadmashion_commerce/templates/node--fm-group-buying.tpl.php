@@ -84,10 +84,7 @@
 </div>
 <div class="info">
 <h1 class="pageTitle">30-MINUTE <span>DEALS</span></h1>
-<div class="timer">
-   <div class="col1">Items Left: <span>35</span></div>
-   <div class="col2">Time  Left: <span>29:14</span></div>
-</div>
+<div class="timer"><?php print $groupDetails;?></div>
 <br clear="all">
 <div class="pricing">
     <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
@@ -96,7 +93,7 @@
 </div>
 <div class="itemOptions">
 <img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_top.jpg">
-<div class="box"> <?php print render($content['field_product_reference']); ?></div>
+<div class="box"> <?php print $purchaseDetails;  ?></div>
 <img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_bottom.jpg">
 </div> <!-- end itemOptions -->
 
