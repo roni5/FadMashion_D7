@@ -142,7 +142,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 /********* Overlays ***************/
 
 /* Preview */
-#dealPreview{ float: left; text-align:center;}
+#dealPreview{ float: left; text-align:center; font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #dealPreview h1{font-size: 26px;margin: 0 0 4px 0;}
 #dealPreview h2 {color: #92857a; font-size: 14px;}
 
