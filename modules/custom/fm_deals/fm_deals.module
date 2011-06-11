@@ -230,13 +230,23 @@ function fm_deals_page($nid = '') {
 function fm_deals_get_default_deal() {
 	
 	$query = new EntityFieldQuery();
+	//First try to get the deal that is happening right now.
+	
+	$endDate = strtotime($timeLength, strtotime($startDate));
+	$endDate = date('Y-m-d', $endDate);
+	
+	$query = new EntityFieldQuery();
+	
   $entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value2', REQUEST_TIME, '<')
                     ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
                     ->fieldOrderBy('field_start_time', 'value', 'ASC')
                     ->range(0, 5)
                     ->execute();
+                    
+   var_dump($entities);
   
   $first_node = array_shift($entities['node']);
   return $first_node->nid;
