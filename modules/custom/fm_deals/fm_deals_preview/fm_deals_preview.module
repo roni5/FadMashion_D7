@@ -123,7 +123,7 @@ function fm_deals_preview_block_view($block_name = '') {
 		}
 		else {
 			$nid = $default_nid;
-			$header = '<h2 style="background-color: #B83838;">Active Deal</h2>';
+			$header = '<h2 style="background-color: #B83838;">On Sale NOW!</h2>';
 		}
 	
   	$content = $header . fm_deals_preview_block_content($nid);
