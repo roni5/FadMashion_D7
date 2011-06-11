@@ -107,7 +107,7 @@
 </div> <!-- End designerInfo Col1 -->
 <div class="col2">
 <div class="quote"><div class="top"><div class="bg">
-<div class="quoteImg1"><div class="quoteImg2"><?php print render($content['store:field_quote']); ?></div></div>
+<div class="quoteImg1"><div class="quoteImg2"><?php print render($content['store:field_quote']); ?></div><div style="float:right;"><?php print render($content['store:field_quote_byline']); ?></div></div>
 </div></div> </div><!-- End col2 quote--> 
 
 <div class="subCol">

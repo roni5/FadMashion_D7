@@ -10,8 +10,6 @@
 function fm_commerce_store_views_data() {
 	
   $data = array();
-
-	drupal_set_message('test:'.function_exists('fm_commerce_store_views_data'));
 	
   $data['fm_commerce_store']['table']['group']  = t('FM Commerce Store');
 
