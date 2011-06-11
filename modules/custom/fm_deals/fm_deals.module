@@ -220,36 +220,52 @@ function theme_fm_deals_product_details($vars) {
 
 function fm_deals_page($nid = '') {
 	if(empty($nid)) {
-		$nid = fm_deals_get_default_deal();
+		$default = fm_deals_get_default_deal();
+		$nid = $default['nid'];
 	}
 	
-	drupal_goto('node/' . $nid);
+	if(!empty($nid)) {
+		drupal_goto('node/' . $nid);
+	}
+	else {
+		drupal_set_message('There was an error in the system.  Please contact us so we can quickly resolve', 'error+');
+	}
+	
 }
 
-//Get the deal that needs to be active right now.  
+//Get the deal that needs to be active right now.  MUST return some node value.
 function fm_deals_get_default_deal() {
+	
+	$request_time = date('Y-m-d H:i:s', REQUEST_TIME);
 	
 	$query = new EntityFieldQuery();
 	//First try to get the deal that is happening right now.
-	
-	$endDate = strtotime($timeLength, strtotime($startDate));
-	$endDate = date('Y-m-d', $endDate);
-	
-	$query = new EntityFieldQuery();
-	
   $entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value2', REQUEST_TIME, '<')
-                    ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
+                    ->fieldCondition('field_start_time', 'value', $request_time, '<')
+                    ->fieldCondition('field_start_time', 'value2', $request_time, '>')
                     ->fieldOrderBy('field_start_time', 'value', 'ASC')
-                    ->range(0, 5)
                     ->execute();
-                    
-   var_dump($entities);
-  
-  $first_node = array_shift($entities['node']);
-  return $first_node->nid;
+  if(isset($entities['node'])) {
+    $first_node = array_shift($entities['node']);
+    return array('nid' => $first_node->nid, 'active' => true);
+  }
+  else {
+  	//If there is no active deal than get the next upcoming deal
+  	$query = new EntityFieldQuery();
+  	$entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value', $request_time, '>')
+                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
+                    ->execute();
+                    var_dump($entities);
+    if(isset($entities['node'])) {
+      $first_node = array_shift($entities['node']);
+      return array('nid' => $first_node->nid, 'active' => false);
+    }
+  }
 }
 
 function fm_deals_group_details(&$vars) {
