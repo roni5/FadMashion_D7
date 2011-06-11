@@ -116,16 +116,25 @@ function fm_deals_preview_block_view($block_name = '') {
   	
   	$default_nid = fm_deals_get_default_deal();
   	
+  	if(false) {
+  		$nid = fm_deals_preview_block_nid();
+  		$subject = t('Coming up Next');
+		}
+		else {
+			$nid = $default_nid;
+			$subject = '<span>' . t('Active Deal') .'</span>';
+		}
+	
   	$content = fm_deals_preview_block_content($default_nid);
     $block = array(
-      'subject' => t('Coming up Next'),
+      'subject' => $subject,
       'content' => $content
     );
   }
   return $block;
 }
 
-function fm_deals_preview_block_node() {
+function fm_deals_preview_block_nid() {
 	$query = new EntityFieldQuery();
   
 	$entities = $query->entityCondition('entity_type', 'node')
