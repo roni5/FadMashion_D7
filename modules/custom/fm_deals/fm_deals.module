@@ -260,10 +260,23 @@ function fm_deals_get_default_deal() {
                     ->fieldCondition('field_start_time', 'value', $request_time, '>')
                     ->fieldOrderBy('field_start_time', 'value', 'ASC')
                     ->execute();
-                    var_dump($entities);
     if(isset($entities['node'])) {
       $first_node = array_shift($entities['node']);
       return array('nid' => $first_node->nid, 'active' => false);
+    }
+    else {
+    	//IN the last case (should not go through), but if it does show the most previous deal
+      $query = new EntityFieldQuery();
+  	  $entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->fieldCondition('field_start_time', 'value2', $request_time, '<')
+                    ->fieldOrderBy('field_start_time', 'value', 'DESC')
+                    ->execute();
+      if(isset($entities['node'])) {
+        $first_node = array_shift($entities['node']);
+        return array('nid' => $first_node->nid, 'active' => false);
+      }
     }
   }
 }
