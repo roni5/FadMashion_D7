@@ -222,7 +222,8 @@ function fm_deals_page($nid = '') {
 	if(empty($nid)) {
 		$nid = fm_deals_get_default_deal();
 	}
-	return node_view(node_load($nid), 'full');
+	
+	drupal_goto('node/' . $nid);
 }
 
 //Get the deal that needs to be active right now.  
