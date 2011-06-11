@@ -38,6 +38,19 @@ function fm_deals_preview_page($date = '') {
     $store = fm_deals_get_store($product);  
 		$themed_image = fm_deals_preview_get_image($product);
 		
+		node_build_content($node);
+		
+		//Add the percentage savings
+		$sale_price = field_get_items('node', $node, 'field_sale_price');
+		$sale_price = $sale_price[0]['amount'];
+ 		
+		$original_price = field_get_items('commerce_product', $product, 'commerce_price');
+		$original_price = $original_price[0]['amount'];
+		
+    $raw_value = round(1 - ($sale_price/$original_price), 2);
+    $value = ($raw_value * 100). '%';
+    $node->sale_percentage = $value;
+      
 		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));
 	}
 	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
@@ -176,6 +189,7 @@ function fm_deals_preview_get_image($product) {
       'path' => $first_image['uri'],
       'alt' => $first_image['alt'],
       'title' => $first_image['title'],
+      'attributes' => array('class' => 'itemThumb'),
       'style_name' => 'fm_preview_block_thumb'
   );
   
