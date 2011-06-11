@@ -252,7 +252,7 @@ function fm_deals_group_details(&$vars) {
 	
 	//If start time is GREATER THAN NOW than disabled.
 	if(REQUEST_TIME < $unixStartTime) {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("F d  g:ia", $unixStartTime) . '</span></div>';
+		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ g:ia", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
 		$purchaseDetails = '<div class="button"><a href="#">Remind Me</a></div>';
