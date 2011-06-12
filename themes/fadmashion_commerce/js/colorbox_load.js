@@ -20,12 +20,17 @@ Drupal.behaviors.initColorboxLoad = {
       maxHeight:settings.colorbox.maxHeight,
       initialWidth: settings.colorbox.initialWidth,
       initialHeight: settings.colorbox.initialHeight,
-      height: '1000px',
+      width:function(){
+          return $.urlParam('width', $(this).attr('href'));
+        },
+      height:function(){
+            return $.urlParam('height', $(this).attr('href'));
+          },
       innerWidth:function(){
-        return $.urlParam('width', $(this).attr('href'));
+        return $.urlParam('innerWidth', $(this).attr('href'));
       },
       innerHeight:function(){
-        return $.urlParam('height', $(this).attr('href'));
+        return $.urlParam('innerHeight', $(this).attr('href'));
       },
       iframe:function(){
         return $.urlParam('iframe', $(this).attr('href'));
