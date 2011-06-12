@@ -286,6 +286,7 @@ function fm_deals_group_details(&$vars) {
 	$status = fm_deals_get_status($node);
 	
 	$start_time = $node->field_start_time['und'][0]['value'];
+	$end_time = $node->field_start_time['und'][0]['value2'];
 	$unixStartTime = strtotime($start_time);
 	
 	//If start time is GREATER THAN NOW than disabled.
