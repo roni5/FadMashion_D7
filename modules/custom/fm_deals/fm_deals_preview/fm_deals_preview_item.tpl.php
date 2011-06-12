@@ -6,7 +6,7 @@
               <div class="exclusive">Exclusive<br>Deal<h3><?php print render($node->content['field_sale_price']); ?></h3></div>
               <div class="savings">Savings<h3><?php print $node->sale_percentage; ?></h3></div>
         </div><!--pricing--> 
-        <?php print $image; ?>
+        <?php print l($image, 'node/' . $nid, array('html' => true)); ?>
         <h1 class="itemName"><?php print $node->title; ?></h1>
         <h2>by <a href="#"><?php print l($store->name, 'test'); ?></a></h2>
        
