@@ -85,6 +85,8 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .itemOptions{ width: 332px; background: url(../images/bg_itemOptions.jpg) top left repeat-y; clear: both; margin-bottom: 14px; text-align:center;}
 .itemOptions .frame{display: block; }
 .itemOptions .box{padding: 10px 10px 5px 10px; font-size: 12px; }
+.itemOptions .product_button_text{margin-top: 10px; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; text-align: center;}
+
 .itemOptions .options{text-align: left;}
 .itemOptions .form-submit, .button a {
 font-size:15px;

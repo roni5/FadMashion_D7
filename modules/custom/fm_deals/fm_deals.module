@@ -34,10 +34,6 @@ function fm_deals_permission() {
   );
 }
 
-
-
-
-
 /**
  * Implements hook_theme().
  */
@@ -297,7 +293,8 @@ function fm_deals_group_details(&$vars) {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
-		$purchaseDetails = '<div class="button"><a href="#">Remind Me</a></div>';
+		$purchaseDetails .= '<div class="button"><a href="#">Be there first!</a></div>';
+		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
 	}
 	elseif ($status == 'active') {
 		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
@@ -311,7 +308,8 @@ function fm_deals_group_details(&$vars) {
 	} 
 	else {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
-		$purchaseDetails = '<div class="button"><a href="#">Notify Me</a></div>';
+		$purchaseDetails = '<div class="button"><a href="#">Remind Me</a></div>';
+		$purchaseDetails = '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p>';
 	}
 	
 	$vars['groupDetails'] = $timerDetails;
