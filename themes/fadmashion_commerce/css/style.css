@@ -137,6 +137,12 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-deals-preview-fm-deals-preview .button {padding: 18px 0; }
 #block-fm-deals-preview-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 
+.feedback {margin-top: 15px;}
+.feedback h1{font-size: 16px; margin-bottom: 8px;}
+.feedback .row{background: url(../images/dotted_horizontal.png) top left repeat-x; padding: 15px 0;}
+.feedback .row h1{font-size: 15px;}
+
+
 #facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 
 /********* Overlays ***************/
