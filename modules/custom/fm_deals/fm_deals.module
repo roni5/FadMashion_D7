@@ -309,7 +309,7 @@ function fm_deals_group_details(&$vars) {
 	else {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
 		$purchaseDetails = '<div class="button"><a href="#">Remind Me</a></div>';
-		$purchaseDetails = '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p>';
+		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p>';
 	}
 	
 	$vars['groupDetails'] = $timerDetails;
