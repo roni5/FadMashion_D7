@@ -139,7 +139,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 .feedback {margin-top: 15px;}
 .feedback h1{font-size: 16px; margin-bottom: 8px;}
-.feedback .row{background: url(../images/dotted_horizontal.png) top left repeat-x; padding: 15px 0;}
+.feedback .row{font-size: 13px; background: url(../images/dotted_horizontal.png) top left repeat-x; padding: 15px 0;}
 .feedback .row h1{font-size: 15px;}
 
 
