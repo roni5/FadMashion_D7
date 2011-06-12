@@ -83,7 +83,7 @@
   <?php print render($content['product:field_images']); ?>
 </div>
 <div class="info">
-<h1 class="pageTitle">30-MINUTE <span>DEALS</span></h1>
+<h1 class="pageTitle">1-HOUR GROUP <span>DEALS</span></h1>
 <div class="timer"><?php print $groupDetails;?></div>
 <br clear="all">
 <div class="pricing">
@@ -97,6 +97,7 @@
 <img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_bottom.jpg">
 </div> <!-- end itemOptions -->
 
+<?php print $product_details; ?>    
 <?php print render($detail_tabs); ?>                  
 </div> <!--end info -->
 

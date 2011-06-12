@@ -152,13 +152,16 @@ function fm_deals_preprocess_node(&$vars) {
 	  }
 	  $title = $vars['node']->title;
 	  
+	  $vars['product_details'] = theme('fm_deals_product_details', 
+                             array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) );
+	  
     $quicktabs = new stdClass();
-    $tabs['product_details'] = array(
+    /*$tabs['product_details'] = array(
             'title' => t('Details'),
             'type' => 'freetext',
             'text' => theme('fm_deals_product_details', 
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) ),
-    );
+    );*/
     $tabs['product_shipping'] = array(
             'title' => t('Shipping & Returns'),
             'type' => 'freetext',
