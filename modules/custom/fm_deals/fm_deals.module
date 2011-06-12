@@ -173,7 +173,7 @@ function fm_deals_preprocess_node(&$vars) {
     $quicktabs->ajax= '0';
     $quicktabs->style = 'default';
     $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = 'product_details';
+    $quicktabs->default_tab = 'product_shipping';
     $quicktabs->hide_empty_tabs = '0';
     $quicktabs->machine_name = 'fm_product_details';
     

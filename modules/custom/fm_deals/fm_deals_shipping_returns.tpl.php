@@ -1,4 +1,4 @@
-<h2>$9.99 Shipping Anywhere in the US</h2>
+<h2><b>$9.99</b> Shipping Anywhere in the US</h2>
 
 <h2>Return Policy</h2>
 <p>Due to the nature of our Deal offers, currently there is a no return policy.  
