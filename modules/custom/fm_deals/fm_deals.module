@@ -283,21 +283,19 @@ function fm_deals_get_default_deal() {
 
 function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];
+	$status = fm_deals_get_status($node);
 	
 	$start_time = $node->field_start_time['und'][0]['value'];
-	$end_time = $node->field_start_time['und'][0]['value2'];
-	
 	$unixStartTime = strtotime($start_time);
-	$unixEndTime = strtotime($end_time);
 	
 	//If start time is GREATER THAN NOW than disabled.
-	if(REQUEST_TIME < $unixStartTime) {
+	if($status == 'upcoming') {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
 		$purchaseDetails = '<div class="button"><a href="#">Remind Me</a></div>';
 	}
-	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
+	elseif ($status == 'active') {
 		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
 		$untilTime = $end_time;
@@ -316,5 +314,26 @@ function fm_deals_group_details(&$vars) {
 	$vars['purchaseDetails'] = $purchaseDetails;
 }
 
+function fm_deals_get_status($node) {
+  
+	$start_time = $node->field_start_time['und'][0]['value'];
+	$end_time = $node->field_start_time['und'][0]['value2'];
+	
+	$unixStartTime = strtotime($start_time);
+	$unixEndTime = strtotime($end_time);
+	
+	//If start time is GREATER THAN NOW than disabled.
+	if(REQUEST_TIME < $unixStartTime) {
+		$status = 'upcoming';
+	}
+	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
+		$status = 'active';
+	} 
+	else {
+		$status = 'ended';
+	}
+	
+	return $status;
+}
 
 

@@ -30,7 +30,6 @@ function fm_deals_preview_page($date = '') {
 	}
 	
 	$nodes = fm_deals_preview_nodes($date);
-	
 	$rendered_items = array();
 	
 	foreach($nodes as $node) {
@@ -50,6 +49,10 @@ function fm_deals_preview_page($date = '') {
     $raw_value = round(1 - ($sale_price/$original_price), 2);
     $value = ($raw_value * 100). '%';
     $node->sale_percentage = $value;
+    
+    //Check for what state the item is in and attach to node
+    $status = fm_deals_get_status($node);
+    $node->deal_status = $status;
       
 		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));
 	}
