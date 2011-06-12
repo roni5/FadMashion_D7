@@ -20,6 +20,7 @@ Drupal.behaviors.initColorboxLoad = {
       maxHeight:settings.colorbox.maxHeight,
       initialWidth: settings.colorbox.initialWidth,
       initialHeight: settings.colorbox.initialHeight,
+      height: '1000px',
       innerWidth:function(){
         return $.urlParam('width', $(this).attr('href'));
       },
