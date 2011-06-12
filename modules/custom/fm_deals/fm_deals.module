@@ -47,9 +47,9 @@ function fm_deals_theme() {
 	       'store' => NULL
 	    )
     ),
-    'fm_deals_preview' => array(
-	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
-       'template' => 'fm_deals_preview'
+    'fm_deals_shipping_returns' => array(
+	     'variables' => array('product' => NULL, 'store' => NULL),
+       'template' => 'fm_deals_shipping_returns'
     ),
   );
 }
@@ -161,7 +161,7 @@ function fm_deals_preprocess_node(&$vars) {
     $tabs['product_shipping'] = array(
             'title' => t('Shipping & Returns'),
             'type' => 'freetext',
-            'text' => t('Free Text2'),
+            'text' => theme('fm_deals_shipping_returns', array('product' => $product, 'store' => $store) ),
     );
    /*$tabs['product_returns'] = array(
             'title' => t('Returns'),
