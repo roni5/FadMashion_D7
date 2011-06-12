@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 /* CSS Document */
-*{padding: 0; margin: 0; border: none; font-family:"museo-sans-1","museo-sans-2",Helvetica;}
+*{padding: 0; margin: 0; border: none;}
 #wrapper{text-align: center; background: url(../images/bg_header.jpg) top left repeat-x; width: 100%;}
 .container{width:1000px; text-align: left; margin: 0 auto; color: #322f2c; font-family:"museo-sans-1","museo-sans-2", Helvetica; }
 a{font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; text-decoration:none; color: #0f6da3; font-size: 12px;}
@@ -147,8 +147,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #dealPreview h2 {color: #92857a; font-size: 14px;}
 
 
-.dealFrame{width: 245px; border: 1px solid #dedcd4; float: left; margin: 13px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; height: 475px;}
-.dealFrame .pricing{margin: 15px 0; font-size: 11px; font-weight: 700; float: left;  width: 245px; height: 30px; font-family: luc }
+.dealFrame{ font-family:"museo-sans-1","museo-sans-2",Helvetica; width: 245px; border: 1px solid #dedcd4; float: left; margin: 13px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; height: 475px;}
+.dealFrame .pricing{margin: 15px 0; font-size: 11px; font-weight: 700; float: left;  width: 245px; height: 30px; }
 .dealFrame .pricing div{float: left; width: 81px; text-align:center; display: inline}
 .dealFrame .pricing .original{color: #998e82;background:  url(../images/dotted_vertical.png) top right repeat-y;}
 .dealFrame .pricing .original h3{ text-decoration: line-through;}
