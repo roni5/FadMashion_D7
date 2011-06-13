@@ -143,7 +143,7 @@ function fm_deals_preview_block_view($block_name = '') {
   	$status = $default['status'];
   	
   	if($this_nid == $default_nid) {
-  		$nid = fm_deals_preview_block_nid();
+  		$nid = fm_deals_preview_block_nid($default_nid, $status);
   		$header = '<h2>' . t('Coming up Next') .'</h2>';
 		}
 		else {
@@ -152,7 +152,10 @@ function fm_deals_preview_block_view($block_name = '') {
 			  $header = '<h2 style="background-color: #B83838;">On Sale Now!</h2>';
 			}
 			else if($status == 'upcoming'){
-				$header = '<h2>' . t('Coming up Next') .'</h2>';
+				$header = '<h2>' . t('Upcoming Deal') .'</h2>';
+			}
+		  else {
+				$header = '<h2>' . t('Last Deal') .'</h2>';
 			}
 		}
 	
@@ -164,16 +167,30 @@ function fm_deals_preview_block_view($block_name = '') {
   return $block;
 }
 
-function fm_deals_preview_block_nid() {
+function fm_deals_preview_block_nid($default_nid, $status) {
+	
+	//Load the default node
+	$default_page_node = node_load($default_nid);
+	
 	$query = new EntityFieldQuery();
   
-	$entities = $query->entityCondition('entity_type', 'node')
+	$request_time = date('Y-m-d H:i:s', REQUEST_TIME);
+	
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value', REQUEST_TIME, '>')
-                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
-                    ->range(1, 5)
-                    ->execute();
+                    ->fieldCondition('field_start_time', 'value', $request_time, '>')
+                    ->fieldOrderBy('field_start_time', 'value', 'ASC');
+	
+	if($status == 'active') {
+    //If the default_nid is ACTIVE than get the upcoming node
+  	$entities = $query->execute();
+	}
+	elseif($status == 'upcoming') {
+		$entities = $query->range(1, 5)->execute();
+	}
+                    
   if(isset($entities['node'])) {
     $first_node = array_shift($entities['node']);
     return $first_node->nid;
