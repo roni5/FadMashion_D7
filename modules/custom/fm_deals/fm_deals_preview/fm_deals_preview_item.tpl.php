@@ -16,10 +16,10 @@ $unixStartTime = strtotime($start_time);
     <h2>by <a href="#"><?php print l($store->name, 'test'); ?></a></h2>
     <div class="buttons">
     <?php if($node->deal_status == 'active') { ?>
-    <a href="#" class="button red">View Now</a>
+    <div class="button"><a href="#" class=" red">View Now</a></div>
     <?php } else if($node->deal_status == 'upcoming') { ?>
-    <a href="#" class="button">Preview</a>
-    <a href="#" class="button">Remind Me</a>
+    <div class="button"><a href="#" >Preview</a></div>
+    <div class="button"><a href="#">Remind Me</a></div>
      <?php }  ?>
      </div>
  </div>

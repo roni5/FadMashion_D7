@@ -17,6 +17,9 @@ background:-webkit-gradient(linear,0% 0,0% 100%,from(#9f958d),to(#796655));
 background-image:-o-linear-gradient(#9f958d,#796655);
 filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#9f958d',EndColorStr='#796655');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#9f958d', EndColorStr='#796655')";
 color:#fff}
+.checked{background-image: url(../images/b_bg_green.jpg)}
+.red{background-image: url(../images/b_bg_red.jpg)}
+
 
 
 #header{color: #fff}
