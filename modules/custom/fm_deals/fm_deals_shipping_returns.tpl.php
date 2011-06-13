@@ -7,4 +7,4 @@
 If you have an issue or would like a different size please contact us directly and one of our customer support team will contact you </p>
 <?php }?>
 
-<p>Read about our <?php print l('Shipping and Returns', 'pages/shipping_returns');?> and policy for more info</p>
+<p style="margin-top: 20px;">Read about our <?php print l('Shipping and Returns', 'pages/shipping_returns');?> and policy for more info</p>
