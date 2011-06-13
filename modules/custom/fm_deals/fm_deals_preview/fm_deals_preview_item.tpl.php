@@ -16,7 +16,7 @@ $unixStartTime = strtotime($start_time);
     <h2>by <a href="#"><?php print l($store->name, 'test'); ?></a></h2>
     <div class="buttons">
     <?php if($node->deal_status == 'active') { ?>
-    <div class="button"><a href="#" class=" red">View Now</a></div>
+    <div class="button"><a href="#" class="red">View Now</a></div>
     <?php } else if($node->deal_status == 'upcoming') { ?>
     <div class="button"><a href="#" >Preview</a></div>
     <div class="button"><a href="#">Remind Me</a></div>
