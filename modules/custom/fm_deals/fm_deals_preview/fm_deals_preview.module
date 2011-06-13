@@ -190,6 +190,9 @@ function fm_deals_preview_block_nid($default_nid, $status) {
 	elseif($status == 'upcoming') {
 		$entities = $query->range(1, 5)->execute();
 	}
+	else {
+		return $default_nid;
+	}
                     
   if(isset($entities['node'])) {
     $first_node = array_shift($entities['node']);
