@@ -159,7 +159,7 @@ function fm_deals_preprocess_node(&$vars) {
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) ),
     );*/
     $tabs['product_shipping'] = array(
-            'title' => t('Shipping & Returns'),
+            'title' => t('Shipping'),
             'type' => 'freetext',
             'text' => theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) ),
     );
