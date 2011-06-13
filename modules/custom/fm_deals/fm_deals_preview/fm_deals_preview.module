@@ -185,10 +185,12 @@ function fm_deals_preview_block_nid($default_nid, $status) {
 	
 	if($status == 'active') {
     //If the default_nid is ACTIVE than get the upcoming node
+    
   	$entities = $query->execute();
 	}
 	elseif($status == 'upcoming') {
 		$entities = $query->range(1, 5)->execute();
+		var_dump($entities);
 	}
 	else {
 		return $default_nid;
