@@ -248,7 +248,7 @@ function fm_deals_get_default_deal() {
                     ->execute();
   if(isset($entities['node'])) {
     $first_node = array_shift($entities['node']);
-    return array('nid' => $first_node->nid, 'active' => true);
+    return array('nid' => $first_node->nid, 'status' => 'active');
   }
   else {
   	//If there is no active deal than get the next upcoming deal
@@ -261,7 +261,7 @@ function fm_deals_get_default_deal() {
                     ->execute();
     if(isset($entities['node'])) {
       $first_node = array_shift($entities['node']);
-      return array('nid' => $first_node->nid, 'active' => false);
+      return array('nid' => $first_node->nid, 'status' => 'upcoming');
     }
     else {
     	//IN the last case (should not go through), but if it does show the most previous deal
@@ -274,7 +274,7 @@ function fm_deals_get_default_deal() {
                     ->execute();
       if(isset($entities['node'])) {
         $first_node = array_shift($entities['node']);
-        return array('nid' => $first_node->nid, 'active' => false);
+        return array('nid' => $first_node->nid, 'status' => 'ended');
       }
     }
   }

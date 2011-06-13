@@ -137,8 +137,10 @@ function fm_deals_preview_block_info() {
 function fm_deals_preview_block_view($block_name = '') {
   if($block_name == 'fm_deals_preview') {
   	
+  	$this_nid = arg(1);
   	$default = fm_deals_get_default_deal();
   	$default_nid = $default['nid'];
+  	$status = $default['status'];
   	
   	if($this_nid == $default_nid) {
   		$nid = fm_deals_preview_block_nid();
@@ -146,13 +148,12 @@ function fm_deals_preview_block_view($block_name = '') {
 		}
 		else {
 			$nid = $default_nid;
-			if($default['active']) {
+			if($status == 'active') {
 			  $header = '<h2 style="background-color: #B83838;">On Sale Now!</h2>';
 			}
-			else {
+			else if($status == 'upcoming'){
 				$header = '<h2>' . t('Coming up Next') .'</h2>';
 			}
-			
 		}
 	
   	$content = $header . fm_deals_preview_block_content($nid);
