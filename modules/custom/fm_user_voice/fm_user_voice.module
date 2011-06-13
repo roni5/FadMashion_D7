@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_page_alter().
+ */
+function fm_user_voice_page_alter(&$page) {
+    $output = <<<EOT
+<script type="text/javascript">
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/LYEupaqZu3zmVKkgGxHOQ.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
+EOT;
+    $page['page_bottom']['uservoice'] = array('#markup' => $output);
+}
