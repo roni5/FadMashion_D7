@@ -56,6 +56,9 @@ function fm_deals_preview_page($date = '') {
       
 		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));
 	}
+	
+	$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
+	
 	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
 	
 	print $output;
@@ -102,6 +105,10 @@ function fm_deals_preview_theme() {
     'fm_deals_preview_item' => array(
 	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
        'template' => 'fm_deals_preview_item'
+    ),
+    'fm_deals_preview_social_item' => array(
+	     'variables' => array('nextDate' => ''),
+       'template' => 'fm_deals_preview_social_item'
     ),
     'fm_deals_preview_week' => array(
 	     'variables' => array('date' => '', 'items' => array()),
