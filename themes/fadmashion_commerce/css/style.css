@@ -166,7 +166,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .dealFrame .pricing .savings h3{font-size: 26px;margin-top: 5px;}
 .dealFrame .pricing h3{font-size: 18px; font-weight:700; padding-top: 6px; margin: 0;}
 .dealFrame .buttons{float: left; text-align:center; width: 245px; display:}
-.dealFrame .button {width: 80px; padding: 5px 15px; text-align:center; margin: 0; display:inline;}
+.dealFrame .button a{width: 80px; padding: 5px 15px; text-align:center; margin: 0; display:inline;}
 
 .dealFrame .itemThumb{ margin: 6px 0 14px 0; text-align:center; border: 1px solid #eae7e5;}
 #dealPreview .dealFrame h1.itemName{font-size: 14px; margin-bottom: 4px;}
