@@ -14,4 +14,12 @@ $unixStartTime = strtotime($start_time);
     <?php print l($image, 'node/' . $node->nid, array('html' => true)); ?>
     <h1 class="itemName"><?php print $node->title; ?></h1>
     <h2>by <a href="#"><?php print l($store->name, 'test'); ?></a></h2>
+    <div class="buttons">
+    <?php if($node->deal_status == 'active') { ?>
+    <a href="#" class="button red">View Now</a>
+    <?php } else if($node->deal_status == 'upcoming') { ?>
+    <a href="#" class="button">Preview</a>
+    <a href="#" class="button">Remind Me</a>
+     <?php }  ?>
+     </div>
  </div>
