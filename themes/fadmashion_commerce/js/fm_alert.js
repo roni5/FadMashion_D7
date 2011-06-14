@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 			type: "POST", 
 			url: href_val ,
 			complete: function(data){  
-			       alert('done');
+				jQuery("msg-text").html(data.msg);
 			}  
 		});
 	});

@@ -17,7 +17,7 @@ function fm_deals_notify_add_reminder($nid) {
 	
 	$message = fm_deals_notify_return_message();
 	
-	print $message;
+	print array('msg' => $message);;
 	exit;
 }
 
