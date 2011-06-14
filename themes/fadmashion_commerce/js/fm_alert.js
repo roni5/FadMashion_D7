@@ -17,7 +17,8 @@ jQuery(document).ready(function() {
 			url: href_val ,
 			complete: function(data){  
 				jQuery(".msg-text").html(data.responseText);
-				timeout = setTimeout('fm_clearAlertBox()', "2000");
+				alignCenter();
+				timeout = setTimeout('fm_clearAlertBox()', "4000");
 			}  
 		});
 	});
