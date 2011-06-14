@@ -14,6 +14,16 @@ function fm_deals_notify_menu() {
 }
 
 function fm_deals_notify_add_reminder($nid) {
+	global $user;
+	
+	$id = db_insert('fm_deals_notify')
+    ->fields(array(
+      'nid' => $reg_code,
+      'uid' => $user->uid,
+      'timestamp' => REQUEST_TIME,
+      'sent' => 0
+    ))
+  ->execute();
 	
 	$message = fm_deals_notify_return_message();
 	
