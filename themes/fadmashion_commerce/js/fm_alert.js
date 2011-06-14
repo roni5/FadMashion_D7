@@ -16,9 +16,15 @@ jQuery(document).ready(function() {
 			type: "POST", 
 			url: href_val ,
 			complete: function(data){  
-				jQuery("msg-text").html(data.msg);
+				jQuery(".msg-text").html(data.msg);
+				timeout = setTimeout('fm_clearAlertBox()', "2000");
 			}  
 		});
 	});
 
 });
+
+function fm_ClearAlertBox() {
+	$(".msg-box-cont").fadeOut(100);
+	$(".msg-box-cont").remove();
+}
