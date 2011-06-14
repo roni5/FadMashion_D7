@@ -3,7 +3,7 @@
 function fm_deals_notify_menu() {
 	
 	$items['deals/notify/%'] = array(
-    'title' => t('Fadmashion Rewards'),
+    'title' => t('Fadmashion Notify'),
 	  'page arguments' => array(2), 
     'page callback' => 'fm_deals_notify_add_reminder',
     'access callback' => TRUE,
@@ -17,7 +17,7 @@ function fm_deals_notify_add_reminder($nid) {
 	
 	$message = fm_deals_notify_return_message();
 	
-	print array('msg' => $message);;
+	drupal_json_output(array('msg' => $message));
 	exit;
 }
 
