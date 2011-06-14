@@ -10,6 +10,7 @@ function fm_deals_notify_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  return $items;
 }
 
 function fm_deals_notify_add_reminder($nid) {
