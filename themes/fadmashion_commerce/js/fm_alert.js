@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 		var href_val = this.attr('href');
 		jQuery.ajax({
 			type: "POST", 
-			url: href_val 
+			url: href_val ,
 			complete: function(data){  
 			       alert(data);
 			}  
