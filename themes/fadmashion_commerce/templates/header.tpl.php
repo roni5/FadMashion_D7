@@ -3,7 +3,6 @@
             	<div id="accountNav">
                 <ul class="tree">
                 <li class="menu"><a href="#">Anish</a></li>
-                <li class="menu"><a href="#">My Cart</a></li>
                 <li class="menu"><a href="#"><img class="flag" src="images/icon_flag_usa.png">$ USD</a></li>
                 <li><a href="#">Help</a></li>
                </ul> </div>
