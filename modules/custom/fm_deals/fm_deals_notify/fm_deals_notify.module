@@ -18,7 +18,7 @@ function fm_deals_notify_add_reminder($nid) {
 	
 	$id = db_insert('fm_deals_notify')
     ->fields(array(
-      'nid' => $reg_code,
+      'nid' => $nid,
       'uid' => $user->uid,
       'timestamp' => REQUEST_TIME,
       'sent' => 0
