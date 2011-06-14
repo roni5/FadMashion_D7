@@ -12,13 +12,13 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 		jQuery("a.alert").jAlert('Processing Request...', "warning");
 		var href_val = jQuery(this).attr('href');
-		/*jQuery.ajax({
+		jQuery.ajax({
 			type: "POST", 
 			url: href_val ,
 			complete: function(data){  
-			       alert(data);
+			       alert('done');
 			}  
-		});*/
+		});
 	});
 
 });
