@@ -25,6 +25,10 @@ jQuery(document).ready(function() {
 });
 
 function fm_ClearAlertBox() {
-	$(".msg-box-cont").fadeOut(100);
-	$(".msg-box-cont").remove();
+	if($(".msg-box-cont").length){
+		clearTimeout(timeout);
+		$(".msg-box-cont").fadeOut('fast',function(){
+			$(this).remove();
+		});
+	}	
 }
