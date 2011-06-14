@@ -32,12 +32,19 @@ jQuery(function($){
 											{//Slide 3
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
-											}
-											,
+											},
 											{//Slide 4
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
-											}	 	  
+											},
+											{//Slide 5
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_1.jpg',
+                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
+											},
+											{//Slide 6
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_2.jpg',
+                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
+											}	 	 	  	  
 									]
 	}); 
 });
