@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 			type: "POST", 
 			url: href_val ,
 			complete: function(data){  
-				jQuery(".msg-text").html(data.msg);
+				jQuery(".msg-text").html(data.responseText);
 				timeout = setTimeout('fm_clearAlertBox()', "2000");
 			}  
 		});
