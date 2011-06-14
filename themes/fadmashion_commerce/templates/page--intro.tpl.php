@@ -13,8 +13,8 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		vertical_center   : 0,
-		slide_interval : 10000,
-		transition_speed : 1200,
+		slide_interval : 8000,
+		transition_speed : 1000,
 		slideshow : 1, 
 		navigation              :   1,		//Slideshow controls on/off
 		thumbnail_navigation    :   1,		//Thumbnail navigation
