@@ -1,1 +1,27 @@
 <?php
+
+function fm_deals_notify_menu() {
+	
+	$items['deals/notify/%'] = array(
+    'title' => t('Fadmashion Rewards'),
+	  'page arguments' => array(2), 
+    'page callback' => 'fm_deals_notify_add_reminder',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+}
+
+function fm_deals_notify_add_reminder($nid) {
+	
+	$message = fm_deals_notify_return_message();
+	
+	print $message;
+	exit;
+}
+
+function fm_deals_notify_return_message() {
+	
+	$message = t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
+	return $message;
+}

@@ -8,9 +8,12 @@ core = 7.x
 stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/colorbox.css
+stylesheets[all][] = css/jalert.css
 
+scripts[] = js/fm_alert.js
 scripts[] = js/fm_form.js
 scripts[] = js/colorbox_load.js
+scripts[] = js/jquery.jalert.js
 
 regions[pre_header] = Pre Header
 regions[header] = Header

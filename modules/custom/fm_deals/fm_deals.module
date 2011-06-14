@@ -293,7 +293,7 @@ function fm_deals_group_details(&$vars) {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
-		$purchaseDetails .= '<div class="button"><a href="#">Remind Me</a></div>';
+		$purchaseDetails .= '<div class="button"><a class="alert" href="deals/notify/' . $node->nid . '">Remind Me</a></div>';
 		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
 	}
 	elseif ($status == 'active') {
