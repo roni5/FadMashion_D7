@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 
 });
 
-function fm_ClearAlertBox() {
+function fm_clearAlertBox() {
 	if($(".msg-box-cont").length){
 		clearTimeout(timeout);
 		$(".msg-box-cont").fadeOut('fast',function(){
