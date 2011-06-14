@@ -25,9 +25,9 @@ jQuery(document).ready(function() {
 });
 
 function fm_clearAlertBox() {
-	if($(".msg-box-cont").length){
+	if(jQuery(".msg-box-cont").length){
 		clearTimeout(timeout);
-		$(".msg-box-cont").fadeOut('fast',function(){
+		jQuery(".msg-box-cont").fadeOut('fast',function(){
 			$(this).remove();
 		});
 	}	
