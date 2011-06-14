@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 	
 	jQuery("a.alert").click(function (e){
 		e.preventDefault();
-		jQuery("body").jAlert('Processing Request...', "warning", "body", 'none');
+		jQuery("body").jAlert('Hold on for a sec...', "warning", "body", 'none');
 		var href_val = jQuery(this).attr('href');
 		jQuery.ajax({
 			type: "POST", 
