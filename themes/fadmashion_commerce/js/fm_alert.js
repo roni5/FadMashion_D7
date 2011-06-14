@@ -9,7 +9,7 @@
 jQuery(document).ready(function() {
 	
 	jQuery("a.alert").click(function (){
-		jQuery("a.alert").jAlert('Processing Request...', "warning", 'warningboxid');
+		jQuery("a.alert").jAlert('Processing Request...', "warning");
 		var href_val = this.attr('href');
 		jQuery.ajax({
 			type: "POST", 
@@ -18,6 +18,7 @@ jQuery(document).ready(function() {
 			       alert(data);
 			}  
 		});
+		return false;
 	});
 
 });
