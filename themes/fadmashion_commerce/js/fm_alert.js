@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
 	jQuery("a.alert").click(function (e){
 		e.preventDefault();
 		jQuery("a.alert").jAlert('Processing Request...', "warning");
-		var href_val = $(this).attr('href');
+		var href_val = jQuery(this).attr('href');
 		/*jQuery.ajax({
 			type: "POST", 
 			url: href_val ,
