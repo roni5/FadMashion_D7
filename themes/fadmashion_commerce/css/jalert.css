@@ -25,6 +25,10 @@ body{
 	border:0px;
 }
 
+.msg-box-cont tbody {
+  border-top: 0px solid #000;	
+}
+
 .msg-box-cont a{
 	color:#000;
 }
