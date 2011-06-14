@@ -1,0 +1,7 @@
+; $Id: $
+name = FM Deals Notification
+description = Adds functionality to the deals page that allows the system to notify users before  adeal starts
+core = 7.x
+package = Fadmashion
+
+dependencies[] = fm_deals

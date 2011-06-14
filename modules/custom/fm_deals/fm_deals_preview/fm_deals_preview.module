@@ -67,7 +67,7 @@ function fm_deals_preview_page($date = '') {
 }
 
 function fm_deals_preview_get_default_date() {
-	$startDate = strtotime("last Tuesday");
+	$startDate = strtotime("last Monday");
 	return date('Y-m-d', $startDate);
 }
 

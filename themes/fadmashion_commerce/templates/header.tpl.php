@@ -7,7 +7,7 @@
                 <li class="menu"><a href="#"><img class="flag" src="images/icon_flag_usa.png">$ USD</a></li>
                 <li><a href="#">Help</a></li>
                </ul> </div>
-                <p>Lorem Ipsum dolor sit amet. <a class="learnMore" href="#">Learn More</a></p>
+                <p>Fresh Design Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
             </div>
             <div class="row2"> 
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
@@ -15,7 +15,7 @@
       			    </a>
               <div class="navBox"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_nav_left.png">
                     <ul class="nav">
-                        <li class="active">30-Minute Deals</li>      
+                        <li class="active">Deals</li>      
                         <li>Shop</li>         
                         <li>Socialize</li>     
                         <li>Rewards</li>

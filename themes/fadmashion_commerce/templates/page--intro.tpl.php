@@ -13,7 +13,7 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		vertical_center   : 0,
-		slideshow : 0, 
+		slideshow : 1, 
 		navigation              :   1,		//Slideshow controls on/off
 		thumbnail_navigation    :   1,		//Thumbnail navigation
 		slide_counter           :   1,		//Display slide numbers
@@ -21,12 +21,15 @@ jQuery(function($){
 		slides 					:  	[		//Slideshow Images
 											{//Slide 1
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
-											  title: 'Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/?width=600&height=400&iframe=true"> Daniella Kallmeyer</a>'
+											  title: 'Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'
 											},	
-
 											{//Slide 2
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/splash_photo.jpg',
-                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Jonathan Simkhai</a>'
+                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Jonathan Simkhai</a>'
+											}
+											{//Slide 3
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
+                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
 											}	  
 									]
 	}); 
