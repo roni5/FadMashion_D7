@@ -13,7 +13,7 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		vertical_center   : 0,
-		slide_interval : 7000,
+		slide_interval : 7800,
 		transition_speed : 1000,
 		slideshow : 1, 
 		navigation              :   1,		//Slideshow controls on/off
