@@ -85,8 +85,6 @@ function fm_deals_preview_nodes($startDate, $timeLength = '') {
 	$endDate = strtotime($timeLength, strtotime($startDate));
 	$endDate = date('Y-m-d', $endDate);
 	
-	var_dump($startDate, $endDate);
-	
 	$query = new EntityFieldQuery();
 	$entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
