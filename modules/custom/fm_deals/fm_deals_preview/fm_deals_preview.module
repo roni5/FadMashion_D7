@@ -72,14 +72,14 @@ function fm_deals_preview_page_content($date = '') {
 }
 
 function fm_deals_preview_get_default_date() {
-	$startDate = strtotime("last Tuesday");
+	$startDate = strtotime("next Monday");
 	return date('Y-m-d', $startDate);
 }
 
 function fm_deals_preview_nodes($startDate, $timeLength = '') {
 	
 	if(empty($timeLength)) {
-		$timeLength = '+1 week';
+		$timeLength = '+1 day';
 	}
 	
 	$endDate = strtotime($timeLength, strtotime($startDate));

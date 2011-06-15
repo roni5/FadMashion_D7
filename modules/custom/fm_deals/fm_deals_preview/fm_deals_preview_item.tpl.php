@@ -5,7 +5,7 @@ $unixStartTime = strtotime($start_time);
 ?>
 
 <div class="dealFrame <?php print ($node->deal_status == 'active' ? 'onSale' : '');?>">
-  <div class="dealHeader <?php print ($node->deal_status == 'ended' ? 'ended' : '');?>"><?php ($node->deal_status == 'upcoming' ? print date("l, F d @ ga T", strtotime($node->field_start_time['und'][0]['value'])) : ($node->deal_status == 'active' ? print t('On Sale Now') : print t('This sale has ended'))) ?></div>
+  <div class="dealHeader <?php print ($node->deal_status == 'ended' ? 'ended' : '');?>"><?php ($node->deal_status == 'upcoming' ? print t('Deal Starts on ') . date("ga T", strtotime($node->field_start_time['und'][0]['value'])) : ($node->deal_status == 'active' ? print t('On Sale Now') : print t('This sale has ended'))) ?></div>
     <div class="pricing">
       <div class="original">Original<br>Price<h3><?php print render($node->content['product:commerce_price']); ?></h3></div>
       <div class="exclusive">Exclusive<br>Deal<h3><?php print render($node->content['field_sale_price']); ?></h3></div>

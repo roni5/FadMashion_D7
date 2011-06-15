@@ -49,9 +49,9 @@ function fm_deals_notify_add_reminder($nid) {
     
 	}
 	else {
-		db_query('DELETE FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $user->uid));
+		$result = db_query('DELETE FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $user->uid));
   
-		$message = t('Okay, you\'ve been removed.');
+		$message = t('Okay, we\'ve removed you from the list');
 		$replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => false, 'nid' => $nid));
     $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
     
