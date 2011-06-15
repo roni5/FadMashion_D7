@@ -43,7 +43,10 @@ function fm_deals_notify_add_reminder($nid) {
     ->execute();
     
     $message =  t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
-    $event_vars = array('jquery_selector' => '.itemOptions .box .button',  'replacementHTML' => theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid)));
+    
+    $replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid));
+    $event_vars = array('jquery_selector' => '.itemOptions .box .button',  'replacementHTML' => $replacement_button);
+    
 	}
 	else {
 		$message = t('You are already on the list.');
@@ -80,10 +83,14 @@ function theme_fm_deals_notify_remind_me_button($vars) {
 	$nid =  $vars['nid'];
 	
 	if(!$exists) {
-	  $output =  l(t('Remind Me'), 'deals/notify/' . $nid, array('attributes' => array('class' => 'alert green')));
+	  $output =  l(t('Remind Me'), 'deals/notify/' . $nid, array('attributes' => array('class' => array('alert', 'green') )));
 	}
 	else {
-		$output =  l('<img class="check" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/check.png">' . t('You\'re Covered'), 'deals/notify/' . $nid, array('html' => true, 'attributes' => array('class' => 'alert red')));
+		$output =  l('<img class="check" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/check.png">' . t('You\'re Covered'), 
+		              'deals/notify/' . $nid, 
+		               array('html' => true, 
+		                     'attributes' => array('class' => array('alert', 'red'))
+		            ));
 	}
   
 	return $output;
