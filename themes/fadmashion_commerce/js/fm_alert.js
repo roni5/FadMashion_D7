@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
 	
 	jQuery("a.alert").click(function (e){
 		e.preventDefault();
+		jQuery.scrollTo(0);
 		jQuery("body").jAlert('Hold on for a sec...', "warning", "body", 'none');
 		var href_val = jQuery(this).attr('href');
 		jQuery.ajax({
@@ -18,8 +19,16 @@ jQuery(document).ready(function() {
 			success: function(data){  
 				jQuery(".msg-text").html(data.message);
 				fm_alignAlertCenter(jQuery("body"));
-				timeout = setTimeout('fm_clearAlertBox()', "3000");	
-			}
+				timeout = setTimeout('fm_clearAlertBox()', "3000");
+				
+				var eventFunc = data.event;
+				var eventVars = data.vars;
+				
+				if (eventFunc) {
+					eventFunc.call(eventVars);
+				}
+				
+			},
 			error: function() {
 				jQuery(".msg-text").html("Sorry there was an issue.  Please try again in a few minutes.");
 				fm_alignAlertCenter(jQuery("body"));
@@ -51,4 +60,8 @@ function fm_alignAlertCenter(containterObj) {
     //get the y (top) position of the container
     jQuery(".msg-box-cont").css("left",actual_left+"px");
 	
+}
+
+function fm_changeButtonState(vars) {
+	alert('test');
 }

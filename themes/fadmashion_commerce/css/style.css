@@ -11,14 +11,11 @@ h1 span{font-weight: 700}
 h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
-.form-submit, .button a{font-family:"museo-sans-1","museo-sans-2",Helvetica; font-style: normal; cursor: pointer; margin: 10px 0; padding: 5px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background-color:#796655;
-background:-moz-linear-gradient(100% 100% 90deg,#796655,#9f958d);
-background:-webkit-gradient(linear,0% 0,0% 100%,from(#9f958d),to(#796655));
-background-image:-o-linear-gradient(#9f958d,#796655);
-filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#9f958d',EndColorStr='#796655');-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorStr='#9f958d', EndColorStr='#796655')";
-color:#fff}
-.checked{background-image: url(../images/b_bg_green.jpg)}
-.red{background-image: url(../images/b_bg_red.jpg)}
+.form-submit, .button a{cursor:pointer; -moz-border-radius:4px 4px 4px 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent; color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style:normal; margin:10px 0;}
+.checked{background-image: url(../images/b_bg_green.jpg) !important}
+.red{background-image: url(../images/b_bg_red.jpg) !important}
+.form-submit:hover, .button a:hover {background-position: left bottom;}
+.check {margin-right:5px;}
 
 
 

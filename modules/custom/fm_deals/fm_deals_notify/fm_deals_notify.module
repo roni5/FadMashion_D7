@@ -13,10 +13,23 @@ function fm_deals_notify_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_theme().
+ */
+function fm_deals_notify_theme() {
+	return array(
+    'fm_deals_notify_remind_me_button' => array(
+	     'variables' => array(
+         'exists' => false,
+	       'nid' => ''
+	    )
+    ),
+  );
+}
 function fm_deals_notify_add_reminder($nid) {
 	global $user;
 	
-	$exists = fm_deals_notify_entry_exists($nid, $uid);
+	$exists = fm_deals_notify_entry_exists($nid, $user->uid);
 	
 	if(!$exists) {
 	  $id = db_insert('fm_deals_notify')
@@ -28,13 +41,15 @@ function fm_deals_notify_add_reminder($nid) {
       ))
     ->execute();
     
-    $message = fm_deals_notify_return_message();
+    $message =  t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
+    $event_func_vars = array('new_button' => theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid)));
 	}
 	else {
 		$message = t('You are already on the list.');
 	}
 	
-	drupal_json_output(array('message' => $message, 'event' => ''));
+	//Return message to
+	drupal_json_output(array('message' => $message, 'event' => 'fm_changeButtonState', 'vars' => $event_func_vars));
 	exit;
 }
 
@@ -50,12 +65,25 @@ function fm_deals_notify_entry_exists($nid, $uid) {
   }
 }
 
-function fm_deals_notify_get_button() {
+function fm_deals_notify_get_button($node) {
+	global $user;
+	$exists = fm_deals_notify_entry_exists($node->nid, $user->uid);
 	
+	$output = theme('fm_deals_notify_remind_me_button', array('exists' => $exists, 'nid' => $node->nid));
+	
+	return $output;
 }
 
-function fm_deals_notify_return_message() {
+function theme_fm_deals_notify_remind_me_button($vars) {
+	$exists = $vars['exists'];
+	$nid =  $vars['nid'];
 	
-	$message = t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
-	return $message;
+	if(!$exists) {
+	  $output =  l(t('Remind Me'), 'deals/notify/' . $nid, array('attributes' => array('class' => 'alert red')));
+	}
+	else {
+		$output =  l('<img class="check" src="' . drupal_get_path("theme","fadmashion_commerce") . '/images/check.png">' . t('You\'re Covered'), 'deals/notify/' . $nid, array('html' => true, 'attributes' => array('class' => 'alert checked')));
+	}
+  
+	return $output;
 }
