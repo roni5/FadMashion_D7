@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 
 function fm_initAlertBox() {
 	
-	jQuery("a.alert").click(function (e){
+	jQuery("a.alert").once('init-alertbox-processed').click(function (e){
 		e.preventDefault();
 		jQuery.scrollTo(0);
 		jQuery("body").jAlert('Processing, one sec...', "warning", "body", 'none');
@@ -40,7 +40,7 @@ function fm_initAlertBox() {
 					window[eventFunc](eventVars);
 				}
 				
-				Drupal.attachBehaviors(this);
+				Drupal.attachBehaviors("a.alert");
 				
 			},
 			error: function() {
