@@ -16,9 +16,9 @@ $unixStartTime = strtotime($start_time);
     <h2>by <?php print l($store->name, 'test'); ?></h2>
     <div class="buttons">
     <?php if($node->deal_status == 'active') { ?>
-    <div class="button"><?php l('View Now', 'node/' . $node->nid );?></div>
+    <div class="button"><?php print l('View Now', 'node/' . $node->nid );?></div>
     <?php } else if($node->deal_status == 'upcoming') { ?>
-    <div class="button"><?php l('Preview', 'node/' . $node->nid );?></div>
+    <div class="button"><?php print l('Preview', 'node/' . $node->nid );?></div>
     <div class="button"><a href="#">Remind Me</a></div>
      <?php }  ?>
      </div>
