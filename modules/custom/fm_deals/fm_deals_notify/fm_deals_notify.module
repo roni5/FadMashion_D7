@@ -16,19 +16,42 @@ function fm_deals_notify_menu() {
 function fm_deals_notify_add_reminder($nid) {
 	global $user;
 	
-	$id = db_insert('fm_deals_notify')
-    ->fields(array(
-      'nid' => $nid,
-      'uid' => $user->uid,
-      'timestamp' => REQUEST_TIME,
-      'sent' => 0
-    ))
-  ->execute();
+	$exists = fm_deals_notify_entry_exists($nid, $uid);
 	
-	$message = fm_deals_notify_return_message();
+	if(!$exists) {
+	  $id = db_insert('fm_deals_notify')
+      ->fields(array(
+        'nid' => $nid,
+        'uid' => $user->uid,
+        'timestamp' => REQUEST_TIME,
+        'sent' => 0
+      ))
+    ->execute();
+    
+    $message = fm_deals_notify_return_message();
+	}
+	else {
+		$message = t('You are already on the list.');
+	}
 	
-	print $message;
+	drupal_json_output(array('messsage' => $message));
 	exit;
+}
+
+function fm_deals_notify_entry_exists($nid, $uid) {
+	$result = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $uid));
+  
+	$obj = $result->fetchObject();
+  if($obj) {
+  	return true;
+  }
+  else {
+  	return false;
+  }
+}
+
+function fm_deals_notify_get_button() {
+	
 }
 
 function fm_deals_notify_return_message() {

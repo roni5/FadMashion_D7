@@ -15,8 +15,8 @@ jQuery(document).ready(function() {
 		jQuery.ajax({
 			type: "POST", 
 			url: href_val ,
-			complete: function(data){  
-				jQuery(".msg-text").html(data.responseText);
+			onSuccess: function(data){  
+				jQuery(".msg-text").html(data.message);
 				fm_alignAlertCenter(jQuery("body"));
 				timeout = setTimeout('fm_clearAlertBox()', "3000");
 			}  
