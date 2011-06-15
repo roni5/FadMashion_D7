@@ -15,15 +15,18 @@ jQuery(document).ready(function() {
 		jQuery.ajax({
 			type: "POST", 
 			url: href_val ,
-			onSuccess: function(data){  
+			success: function(data){  
 				jQuery(".msg-text").html(data.message);
 				fm_alignAlertCenter(jQuery("body"));
 				timeout = setTimeout('fm_clearAlertBox()', "3000");
+				
+				
 			}  
 		});
 	});
 
 });
+
 
 function fm_clearAlertBox() {
 	if(jQuery(".msg-box-cont").length){
