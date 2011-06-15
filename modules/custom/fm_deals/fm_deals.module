@@ -12,7 +12,7 @@ function fm_deals_menu() {
   );
   
   $items['deals/preview'] = array(
-    'page callback' => 'fm_deals_page',
+    'page callback' => 'fm_deals_preview_page_content',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
@@ -25,7 +25,6 @@ function fm_deals_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'fm_deals.admin.inc',
   );
-  
   return $items;
 }
 

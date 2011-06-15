@@ -22,9 +22,17 @@ function fm_deals_preview_menu() {
 }
 
 /**
- * Implements hook_theme().
+ * Implements main ajax call back for preview deals window
  */
 function fm_deals_preview_page($date = '') {
+	print fm_deals_preview_page_content($date);
+	exit;
+}
+
+/**
+ * Implements main content for preview deals window
+ */
+function fm_deals_preview_page_content($date = '') {
 	if(empty($date)) {
 		$date = fm_deals_preview_get_default_date();
 	}
@@ -60,10 +68,7 @@ function fm_deals_preview_page($date = '') {
 	$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
 	
 	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
-	
-	print $output;
-	exit;
-
+	return $output;
 }
 
 function fm_deals_preview_get_default_date() {

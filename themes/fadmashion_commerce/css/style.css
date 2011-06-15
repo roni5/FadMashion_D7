@@ -142,6 +142,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 #facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 
+/*  Deals PReview Page */
+.page-deals-preview .mainContent { width: 100% }
+.page-deals-preview .mainContent .dealFrame{ margin:  13px 5px; width: 240px;}
+
 /********* Overlays ***************/
 
 /* Preview */
