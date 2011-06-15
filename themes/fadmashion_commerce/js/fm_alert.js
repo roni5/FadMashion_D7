@@ -7,6 +7,18 @@
  */
 
 jQuery(document).ready(function() {
+	fm_initAlertBox();
+});
+
+(function ($) {
+	Drupal.behaviors.fm_initAlertBox = {
+	  attach: function (context, settings) {
+	    fm_initAlertBox();
+	  }
+	};
+})(jQuery);
+
+function fm_initAlertBox() {
 	
 	jQuery("a.alert").click(function (e){
 		e.preventDefault();
@@ -28,6 +40,8 @@ jQuery(document).ready(function() {
 					window[eventFunc](eventVars);
 				}
 				
+				Drupal.attachBehaviors(this);
+				
 			},
 			error: function() {
 				jQuery(".msg-text").html("Sorry there was an issue.  Please try again in a few minutes.");
@@ -36,8 +50,7 @@ jQuery(document).ready(function() {
 			}  
 		});
 	});
-
-});
+}
 
 
 function fm_clearAlertBox() {
