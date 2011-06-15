@@ -72,7 +72,7 @@ function fm_deals_preview_page_content($date = '') {
 }
 
 function fm_deals_preview_get_default_date() {
-	$startDate = strtotime("last Monday");
+	$startDate = strtotime("last Tuesday");
 	return date('Y-m-d', $startDate);
 }
 
@@ -84,6 +84,8 @@ function fm_deals_preview_nodes($startDate, $timeLength = '') {
 	
 	$endDate = strtotime($timeLength, strtotime($startDate));
 	$endDate = date('Y-m-d', $endDate);
+	
+	var_dump($startDate, $endDate);
 	
 	$query = new EntityFieldQuery();
 	$entities = $query->entityCondition('entity_type', 'node')
