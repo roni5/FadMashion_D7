@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 				var eventVars = data.vars;
 				
 				if (eventFunc) {
-					eventFunc.call(eventVars);
+					window[eventFunc](eventVars);
 				}
 				
 			},
@@ -62,6 +62,9 @@ function fm_alignAlertCenter(containterObj) {
 	
 }
 
-function fm_changeButtonState(vars) {
-	alert('test');
+function fm_replaceHtml(vars) {
+	var selector = vars['jquery_selector'];
+	var replacementHTML = vars['replacementHTML'];
+	
+	jQuery(selector).html(replacementHTML);
 }

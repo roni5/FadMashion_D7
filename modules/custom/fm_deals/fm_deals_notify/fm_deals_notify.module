@@ -31,6 +31,7 @@ function fm_deals_notify_add_reminder($nid) {
 	
 	$exists = fm_deals_notify_entry_exists($nid, $user->uid);
 	
+	$event_vars = array();
 	if(!$exists) {
 	  $id = db_insert('fm_deals_notify')
       ->fields(array(
@@ -42,14 +43,14 @@ function fm_deals_notify_add_reminder($nid) {
     ->execute();
     
     $message =  t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
-    $event_func_vars = array('new_button' => theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid)));
+    $event_vars = array('jquery_selector' => '.itemOptions .box .button',  'replacementHTML' => theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid)));
 	}
 	else {
 		$message = t('You are already on the list.');
 	}
 	
 	//Return message to
-	drupal_json_output(array('message' => $message, 'event' => 'fm_changeButtonState', 'vars' => $event_func_vars));
+	drupal_json_output(array('message' => $message, 'event' => 'fm_replaceHtml', 'vars' => $event_vars));
 	exit;
 }
 
