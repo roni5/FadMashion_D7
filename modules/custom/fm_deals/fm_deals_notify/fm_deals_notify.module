@@ -45,7 +45,7 @@ function fm_deals_notify_add_reminder($nid) {
     $message =  t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
     
     $replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid));
-    $event_vars = array('jquery_selector' => '.itemOptions .box .button',  'replacementHTML' => $replacement_button);
+    $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
     
 	}
 	else {

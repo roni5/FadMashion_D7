@@ -11,6 +11,12 @@ function fm_deals_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  $items['deals/preview'] = array(
+    'page callback' => 'fm_deals_page',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   $items['admin/fadmashion/deals'] = array(
     'title' => t('Deals Listing'), 
     'description' => t('Listing of all Upcoming Deals'),
@@ -296,23 +302,27 @@ function fm_deals_group_details(&$vars) {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
-		$purchaseDetails .= '<div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
+		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
 		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
+		$purchaseDetails .= '</div>';
 	}
 	elseif ($status == 'active') {
 		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
 		$untilTime = $end_time;
 		
-		$purchaseDetails = render($vars['content']['field_product_reference']);
-	  //If start time is LESS THAN NOW this is ACTIVE
+		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
+		$purchaseDetails .= '<div class="box">' .render($vars['content']['field_product_reference']) . '</div>';
+	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
+	  
+		//If start time is LESS THAN NOW this is ACTIVE
 	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", strtotime($untilTime)), 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
   
 	} 
 	else {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
-		$purchaseDetails = '<div class="button"><a href="#">Notify Me</a></div>';
-		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p>';
+		$purchaseDetails = '<div class="notify"><div class="button"><a href="#">Notify Me</a></div>';
+		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
 	}
 	
 	$vars['groupDetails'] = $timerDetails;
