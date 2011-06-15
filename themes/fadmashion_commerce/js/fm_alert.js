@@ -18,9 +18,12 @@ jQuery(document).ready(function() {
 			success: function(data){  
 				jQuery(".msg-text").html(data.message);
 				fm_alignAlertCenter(jQuery("body"));
-				timeout = setTimeout('fm_clearAlertBox()', "3000");
-				
-				
+				timeout = setTimeout('fm_clearAlertBox()', "3000");	
+			}
+			error: function() {
+				jQuery(".msg-text").html("Sorry there was an issue.  Please try again in a few minutes.");
+				fm_alignAlertCenter(jQuery("body"));
+				timeout = setTimeout('fm_clearAlertBox()', "3000");	
 			}  
 		});
 	});
