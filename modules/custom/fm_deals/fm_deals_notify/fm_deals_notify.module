@@ -34,7 +34,7 @@ function fm_deals_notify_add_reminder($nid) {
 		$message = t('You are already on the list.');
 	}
 	
-	drupal_json_output(array('messsage' => $message));
+	drupal_json_output(array('message' => $message, 'event' => ''));
 	exit;
 }
 
