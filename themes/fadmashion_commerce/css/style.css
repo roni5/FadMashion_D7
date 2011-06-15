@@ -12,7 +12,7 @@ h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
 .form-submit, .button a{cursor:pointer; -moz-border-radius:4px 4px 4px 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent; color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style:normal; margin:10px 0;}
-.checked{background-image: url(../images/b_bg_green.jpg) !important}
+.green{background-image: url(../images/b_bg_green.jpg) !important}
 .red{background-image: url(../images/b_bg_red.jpg) !important}
 .form-submit:hover, .button a:hover {background-position: left bottom;}
 .check {margin-right:5px;}

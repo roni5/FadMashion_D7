@@ -72,6 +72,9 @@ function fm_deals_form_alter(&$form, $form_state, $form_id) {
 	$posi = strpos($form_id, 'commerce_cart_add_to_cart_form');  
   if (is_numeric($posi)){
 		$form['submit']['#value'] = "Purchase Now";
+		$form['submit']['#attributes'] = array(
+		'class' => array('green')
+    );
 		$form['#submit'][] = 'fm_deals_cart_submit';
   }
 }
