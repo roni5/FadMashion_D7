@@ -88,7 +88,7 @@ function theme_fm_deals_notify_remind_me_button($vars) {
 	$nid =  $vars['nid'];
 	
 	if(!$exists) {
-	  $output =  l(t('Remind Me'), 'deals/notify/' . $nid, array('attributes' => array('class' => array('alert', 'green') )));
+	  $output =  l(t('Remind Me'), 'deals/notify/' . $nid, array('attributes' => array('class' => array('alert', 'red') )));
 	}
 	else {
 		$output =  l('<img class="check" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/check.png">' . t('You\'re Covered'), 

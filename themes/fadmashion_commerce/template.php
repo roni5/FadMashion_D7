@@ -8,6 +8,14 @@ function fadmashion_commerce_preprocess_node(&$variables) {
 
 function fadmashion_commerce_preprocess_page(&$variables) {
 	
+	global $user;
+	
+	//Add user Variables
+	$loaded_user = user_load($user->uid);
+	$variables['user'] = $loaded_user;
+	$variables['user_first_name'] = $loaded_user->field_first_name['und'][0]['value'];
+
+	
   $url_alias = drupal_get_path_alias($_GET['q']);
   $split_url = explode('/', $url_alias);
   
