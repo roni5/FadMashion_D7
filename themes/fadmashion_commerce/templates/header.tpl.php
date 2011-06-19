@@ -14,9 +14,8 @@
       			    </a>
               <div class="navBox"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_nav_left.png">
                     <ul class="nav">
-                        <li class="active">Today's Deal</li>      
-                        <li>Preview Upcoming Deals</li>
-                        <li>Vote Up!</li>
+                        <li><?php print l('1-Hour Deals', 'deals'); ?></li>
+                        <li><?php print l('Voting Booth', 'voting'); ?></li>
                         </ul><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_nav_right.png"></div>
             </div>
 	 </div><!--header-->

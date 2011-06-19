@@ -236,7 +236,7 @@ function theme_fm_deals_product_details($vars) {
   $store = $vars['store'];
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
-  $output .= '<h2>' . l($store->name, 'test') . '</h2>';
+  $output .= '<h2 style="color: #aaa">Learn more about ' . l($store->name, 'test') . '</h2>';
   $output .= '<p>' . $description . '</p>';
   return $output;
 }
