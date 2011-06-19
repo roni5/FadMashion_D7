@@ -172,7 +172,7 @@ function fm_deals_preprocess_node(&$vars) {
 	  $materials_care = field_get_items('commerce_product', $product, 'field_materials_care');
 	  
 	  
-	  if(isset($materials_care)) {
+	  if(!empty($materials_care)) {
 	  	$materials_care = $materials_care[0]['value'];
       $tabs['product_details'] = array(
               'title' => t('Details'),

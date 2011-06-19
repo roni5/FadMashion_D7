@@ -14,12 +14,10 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   	//Add user Variables
   	$loaded_user = user_load($user->uid);
   	$variables['user'] = $loaded_user;
-	  
-	  if(isset($loaded_user->field_first_name)) {
+	  if(!empty($loaded_user->field_first_name)) {
 	  	$first_name = $loaded_user->field_first_name['und'][0]['value'];
 	    $variables['user_first_name'] = $first_name;
 	  }
-	  
 	}
 
 	
