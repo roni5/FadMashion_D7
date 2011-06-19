@@ -179,7 +179,7 @@ function fm_deals_preprocess_node(&$vars) {
               'type' => 'freetext',
               'text' => $materials_care
       );
-      $default_tab = 'product_details';
+      $default_tab = 'product_shipping';
 	  }
 	  else {
 	  	$default_tab = 'product_shipping';
