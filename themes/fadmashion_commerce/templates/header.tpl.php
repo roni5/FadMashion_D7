@@ -2,9 +2,9 @@
         	<div class="row1">
             	<div id="accountNav">
                 <ul class="tree">
-                <li class="menu"><a href="#"><?php print $user_first_name; ?></a></li>
-                <li class="menu"><a href="#"><img class="flag" src="images/icon_flag_usa.png">$ USD</a></li>
-                <li><a href="#">Help</a></li>
+                <li class="menu"><a href="#"></a> <?php print $user_first_name; ?></a></li>
+                <li class="menu"><a href="#"><img class="flag" src="images/icon_flag_usa.png">My Orders</a></li>
+                <li><a href="#">Invite Friends</a></li>
                </ul> </div>
                 <p>Fresh Design Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
             </div>

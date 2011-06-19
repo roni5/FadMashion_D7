@@ -1,0 +1,8 @@
+; $Id: $
+name = Fadmashion shipping profile type entity
+description = Main module to define a commerce shipping module
+core = 7.x
+package = Fadmashion
+
+
+dependencies[] = commerce

@@ -167,6 +167,23 @@ function fm_deals_preprocess_node(&$vars) {
             'text' => theme('fm_deals_product_details', 
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) ),
     );*/
+    
+	  
+	  $materials_care = field_get_items('commerce_product', $product, 'field_materials_care');
+	  
+	  
+	  if(isset($materials_care)) {
+	  	$materials_care = $materials_care[0]['value'];
+      $tabs['product_details'] = array(
+              'title' => t('Details'),
+              'type' => 'freetext',
+              'text' => $materials_care
+      );
+      $default_tab = 'product_details';
+	  }
+	  else {
+	  	$default_tab = 'product_shipping';
+	  }
     $tabs['product_shipping'] = array(
             'title' => t('Shipping'),
             'type' => 'freetext',
@@ -182,7 +199,7 @@ function fm_deals_preprocess_node(&$vars) {
     $quicktabs->ajax= '0';
     $quicktabs->style = 'default';
     $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = 'product_shipping';
+    $quicktabs->default_tab = $default_tab;
     $quicktabs->hide_empty_tabs = '0';
     $quicktabs->machine_name = 'fm_product_details';
     
@@ -321,7 +338,7 @@ function fm_deals_group_details(&$vars) {
 	} 
 	else {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
-		$purchaseDetails = '<div class="notify"><div class="button"><a href="#">Notify Me</a></div>';
+		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
 		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
 	}
 	

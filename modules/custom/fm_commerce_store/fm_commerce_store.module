@@ -102,7 +102,7 @@ function fm_commerce_store_menu_alter(&$items) {
  *   A page title of the format "Store: [name]".
  */
 function fm_commerce_store_title($store) {
-  return t('Store: @name', array('@name' => $store->name));
+  return t('Shop: @name', array('@name' => $store->name));
 }
 
 /**
