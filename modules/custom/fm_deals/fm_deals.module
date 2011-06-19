@@ -7,13 +7,13 @@ function fm_deals_menu() {
 	
 	$items['deals'] = array(
     'page callback' => 'fm_deals_page',
-    'access callback' => TRUE,
+	  'access arguments' => array('view deals'),
     'type' => MENU_NORMAL_ITEM,
   );
   
   $items['deals/preview'] = array(
     'page callback' => 'fm_deals_preview_page_content',
-    'access callback' => TRUE,
+    'access arguments' => array('view deals'),
     'type' => MENU_NORMAL_ITEM,
   );
   
@@ -34,7 +34,10 @@ function fm_deals_menu() {
 function fm_deals_permission() {
   return array(
     'administer deals list' => array(
-      'title' => t('View Deals List'),
+      'title' => t('View Deals List Admin List'),
+    ),
+    'view deals' => array(
+      'title' => t('View Deals Page'),
     ),
   );
 }

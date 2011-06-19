@@ -7,14 +7,14 @@ function fm_deals_preview_menu() {
 	
 	$items['deals_preview'] = array(
     'page callback' => 'fm_deals_preview_page',
-    'access callback' => TRUE,
+	  'access arguments' => array('view deals'),
     'type' => MENU_NORMAL_ITEM,
   );
   
   $items['deals_preview/%date'] = array(
     'page callback' => 'fm_deals_preview_page',
     'page arguments' => array(1),
-    'access callback' => TRUE,
+    'access arguments' => array('view deals'),
     'type' => MENU_NORMAL_ITEM,
   );
   
