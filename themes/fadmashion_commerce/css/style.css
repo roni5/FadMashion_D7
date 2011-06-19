@@ -38,8 +38,9 @@ ul{list-style-type: none;}
 .navBox{margin: 16px 0 0 20px}
 .navBox, .nav, .nav li{float: left; list-style-type:none;}
 .nav{background: url(../images/bg_nav.png) top left repeat-x; height: 27px; color: #fff; padding-left: 4px;}
-.nav li{font-size: 14px; padding: 5px 15px 0 5px; color: #cdc6c0; }
-.nav li.active{color: #fff;}
+.nav li a {font-style: normal; font-size: 14px; padding: 5px 15px 0 5px; color: #cdc6c0; }
+.nav li a:hover{color: #fff;}
+.nav li a.active{color: #fff;}
 .navBox img{float: left; }
 
 /* Right-hand Sidebar Layout */
