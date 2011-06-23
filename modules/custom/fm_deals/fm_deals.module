@@ -407,7 +407,9 @@ function fm_deals_size_options($product) {
 	$sizes = array();
 	foreach($header as $pos => $size) {
 		//check if it isn't 
-		$sizes[$size] = $size; 
+		if($size != '') {
+		  $sizes[$size] = $size;
+		} 
 	}
 	return $sizes;
 }
