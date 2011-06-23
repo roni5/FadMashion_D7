@@ -1,0 +1,54 @@
+<?php
+
+
+
+/**
+ * Implements hook_form_field_ui_field_edit_form_alter().
+ * Add the imagecrop setting to an imagefield.
+ */
+function fm_commerce_color_form_field_ui_field_edit_form_alter(&$form, $form_state) {
+
+  if ($form['#field']['type'] == 'image') {
+      
+  	 $form['instance']['settings']['fm_color_hex'] = array(
+        '#type' => 'checkboxes',
+        '#options' => array('enable'  => t('Enable Colors for HEX')),
+        '#title' => t('Product Color Field'),
+        '#description' => t('Show hex colors for this Image field'),
+        '#weight' => 12,
+        '#default_value' => isset($form_state['build_info']['args'][0]['settings']['fm_color_hex']) ? $form_state['build_info']['args'][0]['settings']['fm_color_hex'] : array(),
+      );
+  }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function fm_commerce_color_element_info_alter(&$type) {
+
+	$type['managed_file']['#process'][] = 'process_fm_commerce_color_form_element';
+}
+
+function process_fm_commerce_color_form_element($element) {
+  
+	$item = $element['#value'];
+  $item['fid'] = $element['fid']['#value'];
+  
+  
+  if(isset($element['#entity_type'])) {
+	  $instance = field_info_instance($element['#entity_type'], $element['#field_name'], $element['#bundle']);
+ 
+     $element['fm_commerce_color_hex'] = array(
+      '#type' => 'jquery_colorpicker',
+      '#title' => t('Product Color'),
+      '#default_value' => isset($item['fm_commerce_color_hex']) ? $item['fm_commerce_color_hex'] : '',
+      '#weight' => -1,
+      '#access' => (bool) $item['fid'] && $instance['settings']['fm_color_hex'],
+    );
+  }  
+  
+  
+  return $element;
+}
+
+

@@ -77,11 +77,50 @@ function fm_deals_commerce_currency_info() {
  * Implements hook_form_alter().
  */
 function fm_deals_form_alter(&$form, $form_state, $form_id) {
+	
 	$posi = strpos($form_id, 'commerce_cart_add_to_cart_form');  
   if (is_numeric($posi)){
+  	
+  	drupal_add_library('jquery_plugin', 'validate');
+  	
+  	$node = $form_state['build_info']['args']['4']['options']['entity'];
+	  $product = fm_deals_get_product($node);
+	  
+	  $colors = fm_deals_color_options($product);
+	  $sizes = fm_deals_size_options($product);
+	  
+	  //ADD color options to cart form
+	  if (count($colors) > 1) {
+	    $form['colors'] = array(
+	       '#type' => 'select',
+	       '#title' => t('Select Colors'),
+	       '#options' => $colors,
+         '#weight' => -1,
+	      '#attributes' => array('size' => count($colors))
+	    );
+	  }
+    if (count($sizes) > 1) {
+	    $form['sizes'] = array(
+	       '#type' => 'select',
+	       '#title' => t('Select Sizes'),
+	       '#options' => $sizes,
+         '#weight' => -5,
+	       '#attributes' => array('size' => count($sizes))
+	    );
+	  }
+	   
+	  if(count($colors) > 1 || count($sizes) > 1) {
+	    $form['#attached']['js'] = array(
+        drupal_get_path('module', 'fm_commerce_color') . '/fm_commerce_color.js',
+        drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
+      );
+	  }
+	  
+	  $form['#id'] = "commerce-cart-add-to-cart-form";
+	  
 		$form['submit']['#value'] = "Purchase Now";
 		$form['submit']['#attributes'] = array(
-		'class' => array('red')
+		  'class' => array('red')
     );
 		$form['#submit'][] = 'fm_deals_cart_submit';
   }
@@ -158,19 +197,13 @@ function fm_deals_preprocess_node(&$vars) {
 	  	$description = field_get_items('commerce_product', $product, 'field_description');
 	    $description = $description[0]['value'];
 	  }
-	  $title = $vars['node']->title;
+	  
+	  $title = $product->title;
 	  
 	  $vars['product_details'] = theme('fm_deals_product_details', 
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) );
 	  
     $quicktabs = new stdClass();
-    /*$tabs['product_details'] = array(
-            'title' => t('Details'),
-            'type' => 'freetext',
-            'text' => theme('fm_deals_product_details', 
-                             array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) ),
-    );*/
-    
 	  
 	  $materials_care = field_get_items('commerce_product', $product, 'field_materials_care');
 	  
@@ -315,12 +348,15 @@ function fm_deals_group_details(&$vars) {
 	$end_time = $node->field_start_time['und'][0]['value2'];
 	$unixStartTime = strtotime($start_time);
 	
+	$color_options = fm_deals_color_options($node);
+	//
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
-		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
+		$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
+		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
 		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
 		$purchaseDetails .= '</div>';
 	}
@@ -339,13 +375,43 @@ function fm_deals_group_details(&$vars) {
 	} 
 	else {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
-		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
+		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
 		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
 	}
 	
 	$vars['groupDetails'] = $timerDetails;
 	$vars['purchaseDetails'] = $purchaseDetails;
 }
+
+function fm_deals_color_options($product) {
+	$images = field_get_items('commerce_product', $product, 'field_images');
+	
+	$colors = array();
+	foreach($images as $pos => $image) {
+		//check if it isn't 
+		if($image['fm_commerce_color_hex'] != 'ffffff') {
+		  $colors[$image['fm_commerce_color_hex']] = $pos;
+		  
+		}
+	}
+	
+	return $colors;
+}
+
+function fm_deals_size_options($product) {
+	
+	$product_sizes = field_get_items('commerce_product', $product, 'field_product_sizes');
+  $tableData = $product_sizes[0]['tabledata'];
+  $header = $tableData[0];
+	
+	$sizes = array();
+	foreach($header as $pos => $size) {
+		//check if it isn't 
+		$sizes[$size] = $size; 
+	}
+	return $sizes;
+}
+
 
 function fm_deals_get_status($node) {
   
