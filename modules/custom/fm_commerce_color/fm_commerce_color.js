@@ -13,18 +13,26 @@ jQuery(document).ready(function() {
 	    	onkeyup: false,
 	    	wrapper: 'div id="message_box"',
 	 });
-	 jQuery("#commerce-cart-add-to-cart-form #edit-sizes").rules("add", {
-    	 required: true,
-    	 messages: {
-    		   required: "Select a size",
-        }
-    });
-	 jQuery("#commerce-cart-add-to-cart-form #edit-colors").rules("add", {
-    	 required: true,
-    	 messages: {
-  		   required: "Select a Color",
-          }
-    });
+	 
+	 var sizes = jQuery("#commerce-cart-add-to-cart-form #edit-sizes")
+	 if(sizes.length) {
+		 sizes.rules("add", {
+    	   required: true,
+    	   messages: {
+    		   required: "Select a seze",
+            }
+        });
+     }
+	 
+	 var colors = jQuery("#commerce-cart-add-to-cart-form #edit-colors");
+	 if(colors.length) {
+		 colors.rules("add", {
+    	   required: true,
+    	   messages: {
+    		   required: "Select a Color",
+            }
+        });
+     }
 	    
 	    
 	//Enable Javascript Color functionality for Fadmashion Commerce
