@@ -120,7 +120,9 @@ function fm_invite_rewards_popup() {
  */
 function fm_invite_js_alter(&$javascript) {
 	//ADD more options to default colorbox javascript
-	if(isset($javascript['sites/all/modules/contrib/colorbox/js/colorbox_load.js'])) {
+	global $theme;
+	
+	if($theme == 'fadmashion_commerce' && isset($javascript['sites/all/modules/contrib/colorbox/js/colorbox_load.js'])) {
 		$javascript['sites/all/modules/contrib/colorbox/js/colorbox_load.js']['data'] = path_to_theme() . '/js/colorbox_load.js';
 	}
 }
