@@ -83,10 +83,11 @@
   <?php print render($content['product:field_images']); ?>
 </div>
 <div class="info">
-<h1 class="pageTitle">1-HOUR  <span>GROUP DEALS</span></h1>
+<h1 class="pageTitle">1-HOUR  <span>DEALS</span></h1>
 <div class="timer"><?php print $groupDetails;?></div>
 <br clear="all">
 <div class="pricing">
+
     <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
     <div class="exclusive">Group Price<h3><?php print render($content['field_sale_price']); ?></h3></div>
     <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>

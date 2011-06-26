@@ -1,0 +1,29 @@
+<?php 
+/**
+ * Implementation of hook_schema_alter().
+ */
+function fm_deals_schema_alter(&$schema) {
+  if (isset($schema['commerce_line_item'])) {
+    $schema['contact']['fields']['address'] = array(
+      'type' => 'varchar',
+      'length' => 256,
+      'not null' => TRUE,
+      'default' => '',
+    );
+    $schema['contact']['fields']['phone'] = array(
+      'type' => 'varchar',
+      'length' => 32,
+      'not null' => TRUE,
+      'default' => '',
+    );
+    $schema['contact']['fields']['fax'] = array(
+      'type' => 'varchar',
+      'length' => 32,
+      'not null' => TRUE,
+      'default' => '',
+    );
+  }
+}
+?>
+
+?>

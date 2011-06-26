@@ -389,7 +389,7 @@ function fm_deals_color_options($product) {
 	$colors = array();
 	foreach($images as $pos => $image) {
 		//check if it isn't 
-		if($image['fm_commerce_color_hex'] != 'ffffff') {
+		if(!empty($image['fm_commerce_color_hex'])  && $image['fm_commerce_color_hex'] != 'ffffff') {
 		  $colors[$image['fm_commerce_color_hex']] = $pos;
 		  
 		}

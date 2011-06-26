@@ -778,6 +778,7 @@ function commerce_product_line_item_add_form_submit(&$line_item, $element, &$for
   // Load the selected product.
   $product = commerce_product_load($element['actions']['product_id']['#value']);
 
+  var_dump('inside form_submit');
   // Populate the line item with the product data.
   commerce_product_line_item_populate($line_item, $product);
 }
@@ -806,6 +807,8 @@ function commerce_product_line_item_new($product, $quantity = 1, $order_id = 0, 
     'quantity' => $quantity,
   ));
 
+  var_dump('item new -' . $display_uri);
+  
   // Populate it with the product information.
   commerce_product_line_item_populate($line_item, $product, $display_uri);
 
@@ -825,7 +828,8 @@ function commerce_product_line_item_new($product, $quantity = 1, $order_id = 0, 
  *     product line item to; defaults to NULL for no display.
  */
 function commerce_product_line_item_populate($line_item, $product, $display_uri = NULL) {
-  // Set the label to be the product SKU.
+
+	// Set the label to be the product SKU.
   $line_item->line_item_label = $product->sku;
 
   // Wrap the line item and product to easily set field information.
@@ -839,6 +843,7 @@ function commerce_product_line_item_populate($line_item, $product, $display_uri 
   if (is_array($display_uri) && !empty($display_uri['path'])) {
     $line_item_wrapper->commerce_display_path = $display_uri['path'];
     $line_item->data['display_uri'] = $display_uri;
+	
   }
   else {
     $line_item_wrapper->commerce_display_path = '';

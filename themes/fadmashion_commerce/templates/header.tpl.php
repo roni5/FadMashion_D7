@@ -3,14 +3,14 @@
             	<div id="accountNav">
                 <ul class="tree">
                 <li class="menu"><?php print l($user_first_name, 'user'); ?></li>
-                <li class="menu"><a href="#"><img class="flag" src="images/icon_flag_usa.png">My Orders</a></li>
-                <li><a href="#">Invite Friends</a></li>
+                <li class="menu"><a href="#">My Orders</a></li>
+                <li><a href="#">+ Invite Friends</a></li>
                </ul> </div>
-                <p>Fresh Design Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
+                <p>Discover Fashion Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
             </div>
             <div class="row2"> 
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
-        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('Home'); ?>" />
+        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
       			    </a>
               <div class="navBox"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_nav_left.png">
                     <ul class="nav">

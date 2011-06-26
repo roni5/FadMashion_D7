@@ -194,6 +194,28 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .weekButton:hover{background-position: bottom right;}
 .check{margin-right: 5px;}
 
+/********* Checkout ***********/
+.page-checkout #wrapper{background-image: url(../images/bg_header_checkout.jpg)}
+.page-checkout .title{color: #ccad97; border-left: 1px solid #574d46; height: 30px; line-height: 30px; padding: 0 0 0 16px; float: left; position: relative; left: 20px; top: 14px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;}
+.page-checkout #header .button{float: right; padding: 6px 9px; margin-top: 17px;}
+
+.page-checkout #content{width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 704px 0 repeat-y;}
+.page-checkout .sidebarRight .column1{width: 682px;background: ; padding-right: 25px; }
+.page-checkout .sidebarRight .column2{width:267px; background: }
+.page-checkout.sidebarRight .sidebar{ background: ; width: 100%; }
+
+.customer_profile_shipping {margin-bottom: 25px;}
+
+.page-checkout fieldset{ background: #faf8f6; float: left; width: 680px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
+.page-checkout fieldset legend {width: 100%; background: #e2d9d0; border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; }
+.checkoutPanel .header .pad{padding: 10px;}
+.checkoutPanel .header .dropdown{float: right; }
+.checkoutPanel .header .dropdown .form-select{width: 200px; height: auto;}
+.checkoutPanel .header .dropdown span{font-size: 13px;}
+.checkoutPanel .form{margin: 25px; float: left;}
+.checkoutPanel .header .form-select{position: relative; top: -3px;}
+
+
 
 /* Footer */
 #footer{background:#f9f8f6 url(../images/bg_footer.jpg) top left repeat-x; clear: both;margin-top: 30px;}
