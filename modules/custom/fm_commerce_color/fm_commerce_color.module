@@ -43,7 +43,7 @@ function process_fm_commerce_color_form_element($element) {
       '#title' => t('Product Color'),
       '#default_value' => isset($item['fm_commerce_color_hex']) ? $item['fm_commerce_color_hex'] : '',
       '#weight' => -1,
-      '#access' => (bool) $item['fid'] && $instance['settings']['fm_color_hex'],
+      '#access' => (bool) $item['fid'] && isset($instance['settings']['fm_color_hex']) && $instance['settings']['fm_color_hex'],
     );
   }  
   
