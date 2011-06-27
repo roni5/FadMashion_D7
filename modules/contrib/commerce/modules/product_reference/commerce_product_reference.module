@@ -778,7 +778,6 @@ function commerce_product_line_item_add_form_submit(&$line_item, $element, &$for
   // Load the selected product.
   $product = commerce_product_load($element['actions']['product_id']['#value']);
 
-  var_dump('inside form_submit');
   // Populate the line item with the product data.
   commerce_product_line_item_populate($line_item, $product);
 }

@@ -57,9 +57,11 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 
 //REDIRECTS Deals page TO STEP 2 after submit
 function fm_commerce_cart_submit ($form, &$form_state) {
-	var_dump($form_state);
+	$node_entity = $form_state['values']['display_uri']['options']['entity'];
+	var_dump($node_entity->nid);
+	exit();
    //code here
-   $form_state['redirect'] = 'checkout'; 
+   //$form_state['redirect'] = 'checkout'; 
 }
 
 function fm_commerce_color_options($product) {
