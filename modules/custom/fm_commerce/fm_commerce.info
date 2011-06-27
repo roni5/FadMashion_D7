@@ -1,0 +1,7 @@
+; $Id: $
+name = Fadmashion commerce
+description = Main module to define Fadmashion commerce
+core = 7.x
+package = Fadmashion
+
+dependencies[] = commerce

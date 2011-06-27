@@ -806,8 +806,6 @@ function commerce_product_line_item_new($product, $quantity = 1, $order_id = 0, 
     'order_id' => $order_id,
     'quantity' => $quantity,
   ));
-
-  var_dump('item new -' . $display_uri);
   
   // Populate it with the product information.
   commerce_product_line_item_populate($line_item, $product, $display_uri);
