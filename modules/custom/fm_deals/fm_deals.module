@@ -290,7 +290,7 @@ function fm_deals_group_details(&$vars) {
 	$end_time = $node->field_start_time['und'][0]['value2'];
 	$unixStartTime = strtotime($start_time);
 	
-	$color_options = fm_deals_color_options($node);
+	$color_options = fm_commerce_color_options($node);
 	//
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
