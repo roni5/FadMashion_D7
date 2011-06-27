@@ -185,6 +185,7 @@ function fm_deals_preprocess_node(&$vars) {
 }
 
 function fm_deals_get_product($node) {
+	
     $wrapper = entity_metadata_wrapper('node', $node);
 	  
 	  $field = field_info_field('field_product_reference');
