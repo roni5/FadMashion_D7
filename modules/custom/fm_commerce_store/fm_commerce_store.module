@@ -230,6 +230,33 @@ class FMStoreController extends DrupalDefaultEntityController {
 		}
 	} //End save();	
 	
+	public function delete($store) {
+		if (!empty($store)) {
+      $store_id = $store->store_id;
+      
+      try {
+        db_delete('fm_commerce_store')
+          ->condition('store_id', $store_id, 'IN')
+          ->execute();
+
+        // Ignore slave server temporarily to give time for the
+        // saved product to be propagated to the slave.
+        db_ignore_slave();
+      }
+      catch (Exception $e) {
+        $transaction->rollback();
+        watchdog_exception('fm_commerce_store', $e);
+        throw $e;
+      }
+
+      // Clear the page and block and product_load_multiple caches.
+      cache_clear_all();
+      $this->resetCache();
+    }
+
+    return TRUE;
+	}
+	
 }
 
 function fm_commerce_store_autocomplete() {
