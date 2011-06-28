@@ -230,14 +230,12 @@ class FMStoreController extends DrupalDefaultEntityController {
 		}
 	} //End save();	
 	
-	public function delete($store) {
-		if (!empty($store)) {
-      $store_id = $store->store_id;
-      
+	public function delete($store_id) {
+		if (!empty($store_id)) {
       $transaction = db_transaction();
       try {
         db_delete('fm_commerce_store')
-          ->condition('store_id', $store_id, 'IN')
+          ->condition('store_id', array($store_id), 'IN')
           ->execute();
 
         // Ignore slave server temporarily to give time for the

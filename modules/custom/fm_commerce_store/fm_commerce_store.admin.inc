@@ -113,7 +113,7 @@ function commerce_offer_store_delete_form($form, &$form_state, $store) {
  */
 function commerce_offer_store_delete_form_submit($form, &$form_state) {
   $store = $form_state['store'];
-  entity_get_controller('fm_commerce_store')->delete($store);
+  entity_get_controller('fm_commerce_store')->delete($store->store_id);
 
   drupal_set_message(t('The store %name has been deleted.', array('%name' => $store->name)));
   watchdog('commerce_offer', 'Deleted store %name.', array('%name' => $store->name), WATCHDOG_NOTICE);
