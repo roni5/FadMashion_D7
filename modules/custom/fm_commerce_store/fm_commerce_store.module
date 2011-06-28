@@ -174,9 +174,7 @@ function fm_commerce_store_load_multiple($store_ids = array(), $conditions = arr
 
 function fm_commerce_store_save($store) {
 	$store = entity_get_controller('fm_commerce_store')->save($store);
-	var_dump($store);
 }
-
 
 class FMStoreController extends DrupalDefaultEntityController {
 	public function create() {
