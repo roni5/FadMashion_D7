@@ -234,6 +234,7 @@ class FMStoreController extends DrupalDefaultEntityController {
 		if (!empty($store)) {
       $store_id = $store->store_id;
       
+      $transaction = db_transaction();
       try {
         db_delete('fm_commerce_store')
           ->condition('store_id', $store_id, 'IN')
