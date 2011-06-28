@@ -2,7 +2,7 @@
         	<div class="row1">
             	<div id="accountNav">
                 <ul class="tree">
-                <li class="menu"><?php print l($user_first_name, 'user'); ?></li>
+                <li class="menu"></li>
                 <li class="menu"><a href="#">My Orders</a></li>
                 <li><a href="#">+ Invite Friends</a></li>
                </ul> </div>
