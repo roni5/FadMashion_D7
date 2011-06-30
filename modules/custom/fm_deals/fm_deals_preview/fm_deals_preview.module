@@ -104,7 +104,7 @@ function fm_deals_preview_nodes($startDate, $timeLength = '') {
 function fm_deals_preview_theme() {
 	return array(
     'fm_deals_preview_block' => array(
-	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
+	     'variables' => array('node' => NULL, 'product' => NULL, 'store' => NULL, 'image' => ''),
        'template' => 'fm_deals_preview_block'
     ),
     'fm_deals_preview_item' => array(
@@ -216,7 +216,7 @@ function fm_deals_preview_block_content($nid) {
   $store = fm_deals_get_store($product);  
     
   $themed_image = fm_deals_preview_get_image($product);    
-  return theme('fm_deals_preview_block', array('node' => $node, 'store' => $store, 'image' => $themed_image));
+  return theme('fm_deals_preview_block', array('node' => $node, 'product' => $product, 'store' => $store, 'image' => $themed_image));
 }
 
 function fm_deals_preview_get_image($product) {
