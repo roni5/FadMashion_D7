@@ -87,6 +87,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   
   $discount_line_item = NULL;
   // Loop through the line items looking for products.
+  var_dump($order_wrapper->commerce_line_items);
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
      // If this line item matches the product being added...
      if (empty($discount_line_item) &&
@@ -123,6 +124,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   // Save the updated order.
   commerce_order_save($order);
   
+  exit();
    //code here
   $form_state['redirect'] = 'checkout'; 
 }
