@@ -145,6 +145,8 @@ function fm_commerce_deals_discout_line_item_new() {
   $line_item->line_item_label = fm_commerce_discount_title($line_item);
   $line_item->quantity = 1;
 
+  var_dump($line_item);
+  
   return $line_item;
 }
 
