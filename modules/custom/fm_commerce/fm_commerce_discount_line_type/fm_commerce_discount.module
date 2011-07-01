@@ -151,14 +151,7 @@ function fm_commerce_deals_discout_line_item_new($order_id) {
   // Populate the line item with the product data.
   $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
   $line_item_wrapper->line_item_label = fm_commerce_discount_title($line_item);
-  $line_item_wrapper->commerce_unit_price->amount = commerce_currency_decimal_to_amount(100, 'USD');
-  $line_item_wrapper->commerce_unit_price->currency_code = 'USD';
-  $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
-    $line_item_wrapper->commerce_unit_price->value(),
-    'base_price',
-    $line_item_wrapper->commerce_unit_price->value(),
-    TRUE
-  );
+  
   
   return $line_item;
 }

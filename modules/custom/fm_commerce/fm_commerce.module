@@ -70,6 +70,10 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	
 	
 	//ADD the Discount Line Type
+	
+	$node = node_load($node_entity->nid);
+  $sale_price = $node->field_sale_price['und'][0]['amount'];
+
 	global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
@@ -98,6 +102,15 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	
 	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
 	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
+	
+	$discount_line_item_wrapper->commerce_unit_price->amount = commerce_currency_decimal_to_amount($sale_price, 'USD');
+  $discount_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+  $discount_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+    $discount_line_item_wrapper->commerce_unit_price->value(),
+    'base_price',
+    $discount_line_item_wrapper->commerce_unit_price->value(),
+    TRUE
+  );
 	
   // Save the line item now so we get its ID.
   $discount_line_item = commerce_line_item_save($discount_line_item);
