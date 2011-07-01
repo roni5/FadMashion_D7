@@ -97,6 +97,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   }
   
   if (empty($discount_line_item)) { 
+  	var_dump('inside');
     $discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id);
     
     $discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
@@ -113,6 +114,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
     //Add it to the order's line item reference value.
     $order_wrapper->commerce_line_items[] = $discount_line_item;
   } else {
+  	var_dump('outside');
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
   	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
   }
@@ -123,6 +125,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   // Save the updated order.
   commerce_order_save($order);
   
+  exit();
    //code here
   $form_state['redirect'] = 'checkout'; 
 }
