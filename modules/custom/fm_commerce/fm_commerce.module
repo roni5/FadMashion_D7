@@ -115,6 +115,12 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   // Save the line item now so we get its ID.
   $discount_line_item = commerce_line_item_save($discount_line_item);
   
+  // Add it to the order's line item reference value.
+  $order_wrapper->commerce_line_items[] = $discount_line_item;
+    
+  // Save the updated order.
+  commerce_order_save($order);
+  
    //code here
   $form_state['redirect'] = 'checkout'; 
 }
