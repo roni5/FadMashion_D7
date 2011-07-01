@@ -68,6 +68,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	
 	$line_item = commerce_line_item_save($line_item);
 	
+	
 	//ADD the Discount Line Type
 	global $user;
 	// First attempt to load the customer's shopping cart order.
@@ -79,18 +80,30 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   }
   // Wrap the order for easy access to field data.
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
- 
-  $discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id);
+  
+  $discount_line_item = NULL;
+  // Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+     // If this line item matches the product being added...
+     if (empty($line_item) &&
+         $line_item_wrapper->type->value() == 'deals_discount' ) {
+       // Exit this loop with the $line_item intact so it gets updated.
+       $discount_line_item = $line_item_wrapper->value();
+     }
+  }
+
+  if (empty($discount_line_item)) { 
+    $discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id);
+  }
 	
 	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
 	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
 	
   // Save the line item now so we get its ID.
   $discount_line_item = commerce_line_item_save($discount_line_item);
-  var_dump($discount_line_item);
   
    //code here
-   //$form_state['redirect'] = 'checkout'; 
+  $form_state['redirect'] = 'checkout'; 
 }
 
 function fm_commerce_color_options($product) {
