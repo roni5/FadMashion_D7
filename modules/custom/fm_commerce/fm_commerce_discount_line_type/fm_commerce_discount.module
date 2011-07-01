@@ -154,6 +154,8 @@ function fm_commerce_deals_discout_line_item_new($order_id) {
   $line_item->line_item_label = fm_commerce_discount_title($line_item);
   $line_item->quantity = 1;
 
+  // Save the line item now so we get its ID.
+  $line_item = commerce_line_item_save($line_item);
   var_dump($line_item);
   
   return $line_item;
