@@ -79,18 +79,15 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   }
   // Wrap the order for easy access to field data.
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-  
-	$discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id);
+
+  $deal_node = node_load($node_entity->nid);
+  $deal_wrapper = entity_metadata_wrapper('node', $deal_node);
+  $sale_price = $deal_wrapper->field_sale_price->value;
+ 
+  $discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id, $sale_price);
+	
 	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
 	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
-	
-	$discount_line_item = commerce_line_item_save($discount_line_item);
-	
-	
-	var_dump($discount_line_item);
-	
-	var_dump($line_item->commerce_total);
-	
 	
 	exit();
    //code here

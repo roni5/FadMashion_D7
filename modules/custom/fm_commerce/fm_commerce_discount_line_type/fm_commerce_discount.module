@@ -138,7 +138,7 @@ function fm_commerce_discount_add_form_submit(&$line_item, $element, &$form_stat
  * @return
  *   Line item object with default values.
  */
-function fm_commerce_deals_discout_line_item_new($order_id) {
+function fm_commerce_deals_discout_line_item_new($order_id, $sale_price) {
 
   
   // Create the new line item.
@@ -151,7 +151,7 @@ function fm_commerce_deals_discout_line_item_new($order_id) {
   var_dump($line_item);
   
   $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-  $line_item_wrapper->commerce_unit_price = 100;
+  $line_item_wrapper->commerce_unit_price = $sale_price;
   
   // Populate it with the discount information.
   $line_item_wrapper->line_item_label = fm_commerce_discount_title($line_item);
