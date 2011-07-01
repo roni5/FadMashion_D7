@@ -68,8 +68,19 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	
 	$line_item = commerce_line_item_save($line_item);
 	
-	//ADD the Diescount amount
-	$discount_line_item = fm_commerce_deals_discout_line_item_new();
+	//ADD the Discount Line Type
+	global $user;
+	// First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($user->uid);
+
+  // If no order existed, create one now.
+  if (empty($order)) {
+    return NULL;
+  }
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+	$discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id);
 	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
 	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
 	
