@@ -115,7 +115,7 @@ function fm_commerce_discount_add_form_submit(&$line_item, $element, &$form_stat
   // Populate the line item with the product data.
   $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
   
-  $line_item_wrapper->field_deal_node_reference = 4;
+  $line_item_wrapper->field_deal_node_reference = $element['actions']['deal_node_reference']['#value'];
   
   $line_item_wrapper->commerce_unit_price->amount = commerce_currency_decimal_to_amount($element['actions']['discount_amount']['#value'], $element['actions']['currency_code']['#value']);
   $line_item_wrapper->commerce_unit_price->currency_code = $element['actions']['currency_code']['#value'];
