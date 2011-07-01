@@ -138,7 +138,7 @@ function fm_commerce_discount_add_form_submit(&$line_item, $element, &$form_stat
  * @return
  *   Line item object with default values.
  */
-function fm_commerce_deals_discout_line_item_new($order_id, $sale_price) {
+function fm_commerce_deals_discout_line_item_new($order_id) {
 
   
   // Create the new line item.
