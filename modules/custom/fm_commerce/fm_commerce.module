@@ -85,7 +85,10 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
 	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
 	
-	exit();
+  // Save the line item now so we get its ID.
+  $discount_line_item = commerce_line_item_save($discount_line_item);
+  var_dump($discount_line_item);
+  
    //code here
    //$form_state['redirect'] = 'checkout'; 
 }
