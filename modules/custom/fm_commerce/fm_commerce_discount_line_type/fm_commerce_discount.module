@@ -1,0 +1,155 @@
+<?php
+
+
+/**
+ * Allows you to prepare line item data before it is saved on insert or update.
+ *
+ * @param $line_item
+ *   The line item object to be saved.
+ *
+ * @see rules_invoke_all()
+ */
+function fm_commerce_discount_commerce_line_item_presave_insert(&$line_item) {
+  // No example.
+  $lkasjdf= $line_item['aslkdflaksfd'];
+  
+}
+
+/**
+ * Implements hook_commerce_line_item_info().
+ */
+function fm_commerce_discount_commerce_line_item_type_info() {
+  return array(
+    'deals_discount' => array(
+      'type' => 'deals_discount',
+      'name' => t('FM Deals Discount'),
+      'description' => t('Reference a shipping type with info about price and delivery.'),
+      'add_form_submit_value' => t('Add a FM Deal Discount'),
+      'base' => 'fm_commerce_discount'
+    ),
+  );
+}
+
+/**
+ * Ensures the shipping line item type contains a field for shippong method.
+ *
+ * This function is called by the line item module when it is enabled or this
+ * module is enabled. It invokes this function using the configuration_callback
+ * as specified above.
+ */
+function fm_commerce_discount_configuration() {
+  // TODO: Maybe we should create our own field type to reference the shipping
+  // method. Since we only want to store it's name, list_text should sufice.
+
+$field = field_info_field('shipping_method');
+  $instance = field_info_instance('commerce_line_item', 'shipping', 'shipping_method');
+
+  if (empty($field)) {
+    $field = array(
+      'cardinality' => 1,
+      'entity_types' => array('commerce_line_item'),
+      'translatable' => FALSE,
+      'locked' => TRUE,
+      'field_name' => 'shipping_method',
+      'type' => 'list_text',
+      'settings' => array(
+        'allowed_values_function' => 'commerce_shipping_get_shipping_methods_options',
+      ),
+
+    );
+    $field = field_create_field($field);
+  }
+
+  if (empty($instance)) {
+    $instance = array(
+      'field_name' => 'shipping_method',
+      'entity_type' => 'commerce_line_item',
+      'bundle' => 'shipping',
+      'label' => t('Shipping method'),
+      'required' => TRUE,
+      'settings' => array(),
+      'weight' => 0,
+
+      'display' => array(
+        'display' => array(
+          'label' => 'hidden',
+        ),
+      ),
+    );
+    field_create_instance($instance);
+  }
+  
+}
+
+
+/**
+ * Returns an appropriate title for this line item.
+ */
+function fm_commerce_discount_title($line_item) {
+  return t('Discount');
+}
+
+
+/**
+ * Returns the elements necessary to add a product line item through a line item
+ *   manager widget.
+ */
+function fm_commerce_discount_add_form($form_state) {
+  $order = $form_state['commerce_order'];
+  $form = array();
+
+  $form['discount_amount'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Discount Amount'),
+    '#default_value' => $default_amount,
+    '#size' => 10,
+  );
+
+  // Build a currency options list from all enabled currencies.
+  $options = array();
+  foreach (commerce_currencies(TRUE) as $currency_code => $currency) {
+    $options[$currency_code] = check_plain($currency['code']);
+  }
+
+  $form['currency_code'] = array(
+    '#type' => 'select',
+    '#title' => t('Currency'),
+    '#options' => $options,
+    '#default_value' => commerce_default_currency(),
+  );
+
+  return $form;
+}
+
+/**
+ * Adds the selected shippng information to a line item added via a line item
+ *   manager widget.
+ *
+ * @param $line_item
+ *   The newly created line item object.
+ * @param $element
+ *   The array representing the widget form element.
+ * @param $form_state
+ *   The present state of the form upon the latest submission.
+ * @param $form
+ *   The actual form array.
+ *
+ * @return
+ *   NULL if all is well or an error message if something goes wrong.
+ */
+function fm_commerce_discount_add_form_submit(&$line_item, $element, &$form_state, $form) {
+  $order = $form_state['commerce_order'];
+
+  // Populate the line item with the product data.
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+  
+  //Its a discounted amount so need to multiply by -1
+  $line_item_wrapper->commerce_unit_price->amount = -1 * commerce_currency_decimal_to_amount($element['actions']['discount_amount']['#value'], $element['actions']['currency_code']['#value']);
+  $line_item_wrapper->commerce_unit_price->currency_code = $element['actions']['currency_code']['#value'];
+  $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+    $line_item_wrapper->commerce_unit_price->value(),
+    'base_price',
+    $line_item_wrapper->commerce_unit_price->value(),
+    TRUE
+  );
+}
