@@ -96,37 +96,33 @@ function fm_commerce_cart_submit ($form, &$form_state) {
      }
   }
   
-  var_dump($discount_line_item);
-  
   if (empty($discount_line_item)) { 
-  	var_dump('inside line item');
     $discount_line_item = fm_commerce_deals_discout_line_item_new($order->order_id);
-  }
-  exit();
-  
-	
-	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
-	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
-	
-	$discount_line_item_wrapper->commerce_unit_price->amount = $sale_price;
-  $discount_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
-  $discount_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
-    $discount_line_item_wrapper->commerce_unit_price->value(),
-    'base_price',
-    $discount_line_item_wrapper->commerce_unit_price->value(),
-    TRUE
-  );
-	
-  // Save the line item now so we get its ID.
-  $discount_line_item = commerce_line_item_save($discount_line_item);
-  
-  // Add it to the order's line item reference value.
-  $order_wrapper->commerce_line_items[] = $discount_line_item;
     
+    $discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
+	  $discount_line_item_wrapper->commerce_unit_price->amount = $sale_price;
+    $discount_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+    $discount_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+    $discount_line_item_wrapper->commerce_unit_price->value(),
+      'base_price',
+      $discount_line_item_wrapper->commerce_unit_price->value(),
+      TRUE
+    );
+    
+    $discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
+    //Add it to the order's line item reference value.
+    $order_wrapper->commerce_line_items[] = $discount_line_item;
+  } else {
+  	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
+  	$discount_line_item_wrapper->field_deal_node_reference = $node_entity->nid;
+  }
+    // Save the line item now so we get its ID.
+  $discount_line_item = commerce_line_item_save($discount_line_item);
+    
+  
   // Save the updated order.
   commerce_order_save($order);
   
-  exit();
    //code here
   $form_state['redirect'] = 'checkout'; 
 }
