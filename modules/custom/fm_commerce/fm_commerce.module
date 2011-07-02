@@ -59,11 +59,13 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 function fm_commerce_cart_submit ($form, &$form_state) {
 	$node_entity = $form_state['values']['display_uri']['options']['entity'];
 	
-	var_dump($form_state['values']);
-	
 	$line_item = $form_state['line_item'];
 	$line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
 	$line_item_wrapper->field_node_reference = $node_entity->nid;
+	
+	
+	var_dump($line_item);
+	exit();
 	
 	//SPECIAL FOR QUANTITIES OF 1
 	$line_item_wrapper->quantity = 1;
