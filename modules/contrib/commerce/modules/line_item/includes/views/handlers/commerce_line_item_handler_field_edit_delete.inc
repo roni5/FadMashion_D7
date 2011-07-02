@@ -23,7 +23,6 @@ class commerce_line_item_handler_field_edit_delete extends commerce_line_item_ha
       '#name' => 'delete-line-item-' . $line_item_id,
       '#attributes' => array('class' => array('delete-line-item')),
     );
-
     // Add a default delete submit handler.
     $this->form[$line_item_id]['#submit'] = array('commerce_line_item_line_item_views_delete_form_submit');
 
