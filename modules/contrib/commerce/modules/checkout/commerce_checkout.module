@@ -611,7 +611,6 @@ function commerce_checkout_pane_callback($checkout_pane, $callback) {
     module_load_include(array_pop($parts), $checkout_pane['module'], implode('.', $parts));
   }
 
-  var_dump($checkout_pane);
   // If the specified callback function exists, return it.
   if (!empty($checkout_pane['callbacks'][$callback]) &&
       function_exists($checkout_pane['callbacks'][$callback])) {
