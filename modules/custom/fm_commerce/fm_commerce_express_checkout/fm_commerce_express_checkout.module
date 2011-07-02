@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function fm_commerce_express_checkout_menu() {
+	
+	$items['express-checkout'] = array(
+    'page callback' => 'fm_commerce_express_checkout_page',
+	  'access arguments' => array('view deals'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+function fm_commerce_express_checkout_page() {
+	return 'test';
+}
