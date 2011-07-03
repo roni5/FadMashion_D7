@@ -1,0 +1,63 @@
+<?php
+
+/*
+ * implements hook_block_info()
+ */
+function fm_commerce_cart_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_commerce_cart'] = array(
+	  'info' => t('FM Order Summary'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_commerce_cart_block_view($block_name = '') {
+  if($block_name == 'fm_commerce_cart') {
+  	
+  	$output = '<div class="summary">';
+  	$output .= '<div class="header"><a href="#">Show Details</a>Order Summary</div>';
+  	
+  	
+  global $user;
+	// First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($user->uid);
+
+  // If no order existed, create one now.
+  if (empty($order)) {
+  	drupal_set_message('There was an error with your order, please contact the admin for issues', 'error');
+    drupal_goto();
+  }
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $discount_line_item = NULL;
+  // Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+     // If this line item matches the product being added...
+     if (empty($discount_line_item) &&
+         $line_item_wrapper->type->value() == 'deals_discount' ) {
+       // Exit this loop with the $line_item intact so it gets updated.
+       $discount_line_item = $line_item_wrapper->value();
+     }
+  }
+  
+  $output .= '<div class="pad">';
+  $output .=     ' <a class="expand" href="#">3 items in total:</a>
+        <a class="expand" href="#">Shipping:</a>
+        <div class="alert"><span>Deal expires in 14:34</span></div>';
+ $output .='</div>';
+  
+  $output .= '</div>';
+  
+    $block = array(
+      'content' => $output
+    );
+  }
+  return $block;
+}

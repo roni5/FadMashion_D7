@@ -129,7 +129,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   commerce_order_save($order);
   
    //code here
-  $form_state['redirect'] = 'express-checkout'; 
+  //$form_state['redirect'] = 'express-checkout'; 
 }
 
 function fm_commerce_color_options($product) {
