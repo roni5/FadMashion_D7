@@ -1,5 +1,4 @@
+asdfa
 <?php
-print 'test';
-var_dump($form);
-
+drupal_render($form);
 ?>
