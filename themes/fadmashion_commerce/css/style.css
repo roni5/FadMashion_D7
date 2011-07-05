@@ -253,7 +253,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad, .summary .pad a {color:#322F2C;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .alert {background:url("../images/bg_summary_alert.png") no-repeat scroll left top transparent;color:#FFFFFF;font-size:14px;height:35px;line-height:42px;width:233px;}
 #block-fm-commerce-cart-fm-commerce-cart  .summary .alert span { padding-left:29px;}
-
+#block-fm-commerce-cart-fm-commerce-cart {position: absolute;}
 	
 /* Footer */
 #footer{background:#f9f8f6 url(../images/bg_footer.jpg) top left repeat-x; clear: both;margin-top: 30px;}
