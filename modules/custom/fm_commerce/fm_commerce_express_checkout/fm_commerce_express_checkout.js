@@ -10,6 +10,7 @@ var address2, address2_bill;
 var city, city_bill;
 var state, state_bill;
 var zip, zip_bill;
+var full_name, full_name_bill;
 
 jQuery(document).ready(function() {
 	 setCheckoutFormVariables();
@@ -24,9 +25,14 @@ jQuery(document).ready(function() {
 	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
 		 billingCheckedEvent();
 	 }
+	 
+	 addFullNameEvent();
 });
 
 function setCheckoutFormVariables() {
+	full_name = jQuery('#shipping #edit-field-shipping-address-und-0-name-line');
+	full_name_bill = jQuery('#billing #edit-credit-card-owner');
+	 
 	 address1 = jQuery('#shipping #edit-field-shipping-address-und-0-thoroughfare');
 	 address1_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-thoroughfare');
 
@@ -41,6 +47,17 @@ function setCheckoutFormVariables() {
 
 	 zip = jQuery('#shipping #edit-field-shipping-address-und-0-postal-code');
 	 zip_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-postal-code');
+}
+
+function addFullNameEvent() {
+	full_name_bill.val(full_name.val());
+	full_name.keyup (function() {
+		full_name_bill.val(jQuery(this).val());
+	});
+	
+	full_name_bill.keyup(function() {
+		full_name.unbind("keyup");
+	});
 }
 
 function addBillingCheckedEvents() {
