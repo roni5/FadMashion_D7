@@ -160,7 +160,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     $form = $variables['form'];
     
     //DISPLAY Shipping information on Form
-    $field_name = 'field_address';
+    $field_name = 'field_shipping_address';
     $language = $form[$field_name]['#language'];
     
     $output = '<div id="shipping" class="checkoutPanel">';
