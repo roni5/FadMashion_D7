@@ -35,19 +35,19 @@ function addBillingCheckedEvents() {
 
 }
 
-var address1 = jQuery('#shipping #edit-field-address-und-0-thoroughfare');
+var address1 = jQuery('#shipping #edit-field-shipping-address-und-0-thoroughfare');
 var address1_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-thoroughfare');
 
-var address2 = jQuery('#shipping #edit-field-address-und-0-premise');
+var address2 = jQuery('#shipping #edit-field-shipping-address-und-0-premise');
 var address2_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-premise');
 
-var city = jQuery('#shipping #edit-field-address-und-0-locality');
+var city = jQuery('#shipping #edit-field-shipping-address-und-0-locality');
 var city_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-locality');
 
-var state = jQuery('#shipping #edit-field-address-und-0-administrative-area');
+var state = jQuery('#shipping #edit-field-shipping-address-und-0-administrative-area');
 var state_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-administrative-area');
 
-var zip = jQuery('#shipping #edit-field-address-und-0-postal-code');
+var zip = jQuery('#shipping #edit-field-shipping-address-und-0-postal-code');
 var zip_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-postal-code');
 
 
