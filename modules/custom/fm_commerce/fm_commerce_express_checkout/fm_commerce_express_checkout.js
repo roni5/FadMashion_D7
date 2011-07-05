@@ -98,7 +98,7 @@ function billingUnCheckedEvent() {
 	address1.unbind("keyup");
 	address2.unbind("keyup");
 	city.unbind("keyup");
-	state.unbind("keyup");
+	state.unbind("change");
 	zip.unbind("keyup");
 
 }
