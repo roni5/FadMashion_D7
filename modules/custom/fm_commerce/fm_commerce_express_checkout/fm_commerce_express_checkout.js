@@ -28,9 +28,10 @@ jQuery(document).ready(function() {
 	 
 	 addFullNameEvent();
 	 
-	 jQuery('#block-fm-commerce-cart-fm-commerce-cart').scrollFollow({
+	 jQuery('.column2').scrollFollow({
 		 speed: 500,
 		 offset: 40,
+		 container: 'content'
 	 });
 });
 
