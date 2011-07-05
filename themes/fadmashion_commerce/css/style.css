@@ -207,7 +207,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .page-express-checkout  .title{color: #ccad97; border-left: 1px solid #574d46; height: 30px; line-height: 30px; padding: 0 0 0 16px; float: left; position: relative; left: 20px; top: 14px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;}
 .page-express-checkout  #header .button a{float: right; padding: 6px 9px; margin-top: 17px;}
 
-.page-express-checkout  #content{width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 704px 0 repeat-y;}
+.page-express-checkout  #content{position: relative; width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 704px 0 repeat-y;}
 .page-express-checkout  .sidebarRight .column1{width: 682px;background: ; padding-right: 25px; }
 .page-express-checkout  .sidebarRight .column2{width:267px; background: }
 .page-express-checkout  .sidebarRight .sidebar{width: 100%}
