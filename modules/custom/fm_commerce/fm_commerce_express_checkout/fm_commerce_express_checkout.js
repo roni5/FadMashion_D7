@@ -68,7 +68,6 @@ function billingCheckedEvent() {
 	  });
 	
 	//ADD individual form events to attach to shipping fields
-	alert(address1.val());
 	address1_bill.val(address1.val());
 	address1.keyup (function() {
 		address1_bill.val(jQuery(this).val());
@@ -82,7 +81,7 @@ function billingCheckedEvent() {
 		city_bill.val(jQuery(this).val());
 	});
 	state_bill.val(state.val());
-	state.keyup (function() {
+	state.change (function() {
 		state_bill.val(jQuery(this).val());
 	});
 	zip_bill.val(zip.val());
