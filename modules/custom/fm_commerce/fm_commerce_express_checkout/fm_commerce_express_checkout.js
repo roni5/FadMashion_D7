@@ -4,6 +4,13 @@
  * 
  */
 
+
+var address1, address1_bill;
+var address2, address2_bill;
+var city, city_bill;
+var state, state_bill;
+var zip, zip_bill;
+
 jQuery(document).ready(function() {
 	
 	 jQuery('#fm-commerce-express-checkout-form').validate({
@@ -16,7 +23,26 @@ jQuery(document).ready(function() {
 	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
 		 billingCheckedEvent();
 	 }
+	 
+	 setCheckoutFormVariables();
 });
+
+function setCheckoutFormVariables() {
+	 address1 = jQuery('#shipping #edit-field-shipping-address-und-0-thoroughfare');
+	 address1_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-thoroughfare');
+
+	 address2 = jQuery('#shipping #edit-field-shipping-address-und-0-premise');
+	 address2_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-premise');
+
+	 city = jQuery('#shipping #edit-field-shipping-address-und-0-locality');
+	 city_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-locality');
+
+	 state = jQuery('#shipping #edit-field-shipping-address-und-0-administrative-area');
+	 state_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-administrative-area');
+
+	 zip = jQuery('#shipping #edit-field-shipping-address-und-0-postal-code');
+	 zip_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-postal-code');
+}
 
 function addBillingCheckedEvents() {
   var box = jQuery('#edit-billing-info');
@@ -35,20 +61,6 @@ function addBillingCheckedEvents() {
 
 }
 
-var address1 = jQuery('#shipping #edit-field-shipping-address-und-0-thoroughfare');
-var address1_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-thoroughfare');
-
-var address2 = jQuery('#shipping #edit-field-shipping-address-und-0-premise');
-var address2_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-premise');
-
-var city = jQuery('#shipping #edit-field-shipping-address-und-0-locality');
-var city_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-locality');
-
-var state = jQuery('#shipping #edit-field-shipping-address-und-0-administrative-area');
-var state_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-administrative-area');
-
-var zip = jQuery('#shipping #edit-field-shipping-address-und-0-postal-code');
-var zip_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-postal-code');
 
 
 function billingCheckedEvent() {
@@ -57,6 +69,7 @@ function billingCheckedEvent() {
 	  });
 	
 	//ADD individual form events to attach to shipping fields
+	alert(address1.val());
 	address1_bill.val(address1.val());
 	address1.keyup (function() {
 		address1_bill.val(jQuery(this).val());
