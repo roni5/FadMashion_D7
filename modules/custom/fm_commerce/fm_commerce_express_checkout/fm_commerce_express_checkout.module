@@ -7,13 +7,23 @@ function fm_commerce_express_checkout_menu() {
 	
 	$items['express-checkout'] = array(
     'page callback' => 'fm_commerce_express_checkout_page',
-	  'access arguments' => array('view deals'),
+	  'access arguments' => array('view express checkout'),
     'type' => MENU_NORMAL_ITEM,
   );
   
   return $items;
 }
 
+/**
+ * Implements hook_permission().
+ */
+function fm_deals_permission() {
+  return array(
+    'view express checkout' => array(
+      'title' => t('View Express Checkout Page'),
+    ),
+  );
+}
 function fm_commerce_express_checkout_page() {
 	
 	return drupal_get_form('fm_commerce_express_checkout_form');
