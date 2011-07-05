@@ -37,7 +37,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   field_attach_form('commerce_customer_profile', $shipping_profile, $form, $form_state);
 
   // Tweak the form to remove the fieldset from Shipping address fields.
-  $field_name = 'field_address';
+  $field_name = 'field_shipping_address';
   $language = $form[$field_name]['#language'];
 
   foreach (element_children($form[$field_name][$language]) as $delta) {
