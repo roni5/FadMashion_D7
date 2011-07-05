@@ -17,7 +17,7 @@ function fm_commerce_express_checkout_menu() {
 /**
  * Implements hook_permission().
  */
-function fm_deals_permission() {
+function fm_commerce_express_checkout_permission() {
   return array(
     'view express checkout' => array(
       'title' => t('View Express Checkout Page'),
