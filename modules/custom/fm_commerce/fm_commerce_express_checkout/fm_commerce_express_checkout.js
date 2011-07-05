@@ -12,7 +12,8 @@ var state, state_bill;
 var zip, zip_bill;
 
 jQuery(document).ready(function() {
-	
+	 setCheckoutFormVariables();
+	 
 	 jQuery('#fm-commerce-express-checkout-form').validate({
 	    	errorClass: 'invalid',
 	    	onkeyup: false,
@@ -23,8 +24,6 @@ jQuery(document).ready(function() {
 	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
 		 billingCheckedEvent();
 	 }
-	 
-	 setCheckoutFormVariables();
 });
 
 function setCheckoutFormVariables() {
