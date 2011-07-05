@@ -20,6 +20,11 @@ ul{list-style-type: none;}
 .asterik {float:right;font-size:11px;}
 .form-item .form-required, .asterik span {color:#BC4038;}
 
+.message_box { color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
+.message_box .error { -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
+label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; color: #fff; border: 0px solid #000; }
+
+
 
 
 #header{color: #fff}
@@ -234,7 +239,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .completeOrder {float:left; font-size:12px; text-align:right;}
 .completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;width:150px;}
 
-#billing .form {border-right:1px solid #E2D9D0;}
+#billing .form {border-right:1px solid #E2D9D0; width: 315px; float: left;}
+#billing .sameAddress {font-size:12px;padding:10px 0;}
+#billing .billingAddress {float:left;margin:25px 0;text-align:left;width:280px;}
+.saveTo {-moz-border-radius:5px 5px 5px 5px;background:none repeat scroll 0 0 #E2D9D0;clear:both;display:block;font-size:12px;padding:7px;width:160px;}
+.saveTo .form-item{float: none; font-size: 12px; padding:0;}
 
 /* Checkout Block */
 #block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7;}

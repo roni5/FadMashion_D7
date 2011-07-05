@@ -48,13 +48,24 @@ function fm_commerce_express_checkout_form($form, $form_state) {
     
     $form[$field_name][$language][$delta]['name_line']['#weight'] = -6;
     $form[$field_name][$language][$delta]['country']['#weight'] = -5;
+    $form[$field_name][$language][$delta]['country']['#disabled'] = TRUE;
     
     $form[$field_name][$language][$delta]['postal_code']['#attributes'] = array('class' => array('narrow'));
     $form[$field_name][$language][$delta]['administrative_area']['#attributes'] = array('class' => array('narrow'));
 
     $form[$field_name][$language][$delta]['thoroughfare']['#title'] = t('Address 1');
+    $form[$field_name][$language][$delta]['thoroughfare']['#prefix'] = '<br clear="all">';
+    
     $form[$field_name][$language][$delta]['premise']['#title'] = t('Address 2');
+    
+    $form[$field_name][$language][$delta]['locality']['#prefix'] = '<br clear="all">';
   }
+  
+  $form['saveto'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Save To Address Book?'),
+    '#default_value' => true
+  );
   
   /* Add BILLING Profile to Form */
   $billing_profile = commerce_customer_profile_new('billing', $order->uid);
@@ -72,7 +83,31 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   $language = $form[$field_name]['#language'];
 
   foreach (element_children($form[$field_name][$language]) as $delta) {
+  	if ($form[$field_name][$language][$delta]['#type'] != 'submit') {
+      $form[$field_name][$language][$delta]['#type'] = 'container';
+    }
+    
+     unset($form[$field_name][$language][$delta]['name_line']);
+    unset($form[$field_name][$language][$delta]['country']);
+    
+    $form[$field_name][$language][$delta]['postal_code']['#attributes'] = array('class' => array('narrow'));
+    $form[$field_name][$language][$delta]['administrative_area']['#attributes'] = array('class' => array('narrow'));
+
+    $form[$field_name][$language][$delta]['thoroughfare']['#title'] = t('Address 1');
+    $form[$field_name][$language][$delta]['premise']['#title'] = t('Address 2');
   }
+  
+  /* ADD Credit card form */
+  module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+  $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '', 'type' => '' ));
+  
+  //CHANGE default form theme stuff
+  $form['payment_details']['credit_card']['owner'] ['#title'] = t('Name on Credit Card');
+  $form['payment_details']['credit_card']['owner'] ['#weight'] = -5;
+  $form['payment_details']['credit_card']['exp_month'] ['#attributes'] = array('class' => array('narrow'));
+  $form['payment_details']['credit_card']['exp_year'] ['#attributes'] = array('class' => array('narrow'));
+  $form['payment_details']['credit_card']['code']['#attributes'] = array('class' => array('narrow'));
+  
   
   $form['complete_purchase'] = array(
     '#type' => 'submit',
@@ -90,21 +125,34 @@ function fm_commerce_express_checkout_form($form, $form_state) {
           'data' => $path . '/fm_commerce_express_checkout.js',
       ),
   );
+  
 
   return $form;
   
   
 }
 
+function fm_commerce_express_checkout_form_validate($form, $form_state) {
+  module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+
+  // Validate the credit card fields.
+  $settings = array(
+    'form_parents' => array_merge($form_parents, array('credit_card')),
+  );
+
+  if (!commerce_payment_credit_card_validate($pane_values['credit_card'], $settings)) {
+    return FALSE;
+  }
+}
+
+function fm_commerce_express_checkout_form_submit($form, $form_state) {
+
+}
+
 function fm_commerce_express_checkout_get_profile_form($profile = NULL) {
 
 }
 
-/*function fm_commerce_express_checkout_form_alter(&$form, &$form_state, $form_id) {
-	if($form_id == 'commerce_checkout_form_checkout') {
-	  $form['#theme'] = 'fm_commerce_express_checkout';
-	}
-}*/
 
 function theme_fm_commerce_express_checkout_form($variables)
 {
@@ -122,8 +170,9 @@ function theme_fm_commerce_express_checkout_form($variables)
                 </div></div>';
     $output .= '<div class="form">';
     
-    $output .= '<div class="asterik"><span>*</span> = required</div>';
-    $output .= drupal_render_children($form[$field_name]); 
+   // $output .= '<div class="asterik"><span>*</span> = required</div>';
+    $output .= drupal_render($form[$field_name]); 
+    $output .= '<div class="saveTo">' . drupal_render($form['saveto']) . '</div>';
     $output .= '</div>';
     
     $output .= '</div>';
@@ -139,10 +188,12 @@ function theme_fm_commerce_express_checkout_form($variables)
     
     $output .= '<div id="billing">';
     $output .= '<div class="form">';
-    $output .= 'test';
+    $output .= drupal_render($form['payment_details']); 
     $output .= '</div>';
     
     $output .= '<div class="billingAddress">';
+    $output .= t('Billing Address');
+    $output .= '<div class="sameAddress"><input checked="checked" type="checkbox" id="edit-billing-info" name="revision" value="1" class="form-checkbox">  <label class="option" for="edit-revision">Same as shipping address </label></div>';
     $output .= drupal_render_children($form[$field_name]); 
     $output .= '</div>';
     $output .= '</div>';
