@@ -66,8 +66,9 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	$product = $line_item_wrapper->commerce_product->value();
 	//SPECIAL FOR QUANTITIES OF 1
 	$line_item_wrapper->quantity = 1;
-	
 	$line_item = commerce_line_item_save($line_item);
+	
+	$ref_line_item_id = $line_item->line_item_id;
 	
 	
 	//ADD the Discount Line Type
@@ -112,7 +113,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
       TRUE
     );
     
-    $discount_line_item_wrapper->field_product_line_item = $line_item->line_item_id;
+    $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
     
     // Save the line item now so we get its ID.
     $discount_line_item = commerce_line_item_save($discount_line_item);

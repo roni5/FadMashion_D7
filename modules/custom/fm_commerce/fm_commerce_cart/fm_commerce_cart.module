@@ -93,6 +93,8 @@ function fm_commerce_cart_block_view($block_name = '') {
      }
   }
   
+  var_dump($product_line_items);
+  var_dump($discount_line_items);
   
   $output .= '<div class="pad">';
   $output .= implode('', $product_line_items);
