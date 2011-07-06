@@ -3,6 +3,13 @@
 <?php include('header-checkout.tpl.php');?>
 	 <div id="content" class="sidebarRight">
 	   <div class="column1">
+	     
+<?php if ($messages): ?>
+      <div id="messages"><div class="section clearfix">
+         <?php print $messages; ?>
+       </div></div> <!-- /.section, /#messages -->
+       <?php endif; ?>
+  
 	     <div class="mainContent">
 	        <?php print render($page['content']); ?>
 	     </div><!-- end mainContent -->
