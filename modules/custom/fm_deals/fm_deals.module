@@ -66,11 +66,11 @@ function fm_deals_theme() {
  * Implements hook_commerce_currency_info().
  */
 function fm_deals_commerce_currency_info() {
-  return array(
+  /*return array(
     'USD' => array(
       'format_callback' => 'fm_deals_format_price'
     ),
-   );
+   );*/
 }
 
 

@@ -14,6 +14,31 @@ function fm_commerce_cart_block_info() {
 	return $blocks;
 }
 
+function fm_commerce_cart_theme() {
+	return array(
+    'fm_commerce_cart_line_item' => array(
+	     'variables' => array(
+         'title' => '',
+	       'price' => '',
+	       'red' => false
+	    )
+    ),
+  );
+}
+
+function theme_fm_commerce_cart_line_item($vars) {
+	$title = $vars['title'];
+	$price = $vars['price'];
+	$red = $vars['red'];
+	
+	$line_item_val = '<div class="item_wrapper">';
+  $line_item_val .= '<div class="item_title">' . $title . '</div>';
+  $line_item_val .= '<div class="item_value ' .($red ? 'red_val' : '') . '">' . $price . '</div>';
+  $line_item_val .= '</div>';
+  
+  return $line_item_val;
+}
+
 /*
  * Implements hook_block_view
  */
@@ -38,24 +63,57 @@ function fm_commerce_cart_block_view($block_name = '') {
   // Wrap the order for easy access to field data.
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
-  $discount_line_item = NULL;
+  $product_line_items = array();
+  $discount_line_items = array();
   // Loop through the line items looking for products.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
-     // If this line item matches the product being added...
-     if (empty($discount_line_item) &&
-         $line_item_wrapper->type->value() == 'deals_discount' ) {
+  
+  	if ($line_item_wrapper->type->value() == 'product' ) {
        // Exit this loop with the $line_item intact so it gets updated.
-       $discount_line_item = $line_item_wrapper->value();
+       
+       $product = $line_item_wrapper->commerce_product->value();
+       $title = $product->title;
+       $retail_price = $line_item_wrapper->commerce_total->value();
+       
+       $product_line_items[] = theme('fm_commerce_cart_line_item', array('title' => $title, 
+                                     'price' => commerce_currency_format($retail_price['amount'], $retail_price['currency_code']))
+                                    );
+     }
+     
+     // If this line item matches the product being added...
+     if ($line_item_wrapper->type->value() == 'deals_discount' ) {
+       // Exit this loop with the $line_item intact so it gets updated.
+	     $discount_price = $line_item_wrapper->commerce_total->value();
+	     //$discount_time = $line_item_wrapper->field_product_line_item->field_node_reference->field_start_time->value();
+	     var_dump($line_item_wrapper->field_product_line_item);
+       $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
+                                     'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
+                                     'red' => true)
+                                    );
      }
   }
   
-  $output .= '<div class="pad">';
-  $output .=     ' <a class="expand" href="#">3 items in total:</a>
-        <a class="expand" href="#">Shipping:</a>
-        <div class="alert"><span>Deal expires in 14:34</span></div>';
- $output .='</div>';
   
-  $output .= '</div>';
+  $output .= '<div class="pad">';
+  $output .= implode('', $product_line_items);
+  $output .= implode('', $discount_line_items);
+  $output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
+  
+  $untilTime = date("F d, Y g:i a", strtotime($discount_time['value2']));
+  //If start time is LESS THAN NOW this is ACTIVE
+	jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
+  
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  $output .= '<div id="item_total_wrapper">';
+  $output .= theme('fm_commerce_cart_line_item', array('title' => 'Total', 
+                                     'price' => commerce_currency_format($total['amount'], $total['currency_code'], NULL, true),
+                                    ));
+   $output .= '</div>';
+                                    
+  $output .='</div>';  //end class="pad"
+  
+  $output .= '</div>'; //End class="summary"
   
     $block = array(
       'content' => $output

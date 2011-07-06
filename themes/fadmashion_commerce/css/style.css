@@ -246,15 +246,23 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .saveTo .form-item{float: none; font-size: 12px; padding:0;}
 
 /* Checkout Block */
-#block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7;}
+#block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7; width: 267px;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .header {background:none repeat scroll 0 0 #917F6F; color:#FFFFFF; height:36px; line-height:36px; padding:0 12px; }
 #block-fm-commerce-cart-fm-commerce-cart .summary .header a {color:#FFFFFF; float:right;}
-#block-fm-commerce-cart-fm-commerce-cart .summary .pad {padding:14px;}
+#block-fm-commerce-cart-fm-commerce-cart .summary .pad {padding:14px 30px 14px 14px; font-size: 13px; }
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad, .summary .pad a {color:#322F2C;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .alert {background:url("../images/bg_summary_alert.png") no-repeat scroll left top transparent;color:#FFFFFF;font-size:14px;height:35px;line-height:42px;width:233px;}
-#block-fm-commerce-cart-fm-commerce-cart  .summary .alert span { padding-left:29px;}
+#block-fm-commerce-cart-fm-commerce-cart  .summary .alert div { padding-left:29px;}
 #block-fm-commerce-cart-fm-commerce-cart {position: absolute;}
-	
+
+#block-fm-commerce-cart-fm-commerce-cart  .item_wrapper {overflow: auto;line-height: 30px;}
+#block-fm-commerce-cart-fm-commerce-cart  #item_total_wrapper {font-weight: bold; font-size: 15px; border-top: 1px solid #aaa; margin-top: 20px; padding-top: 5px;}
+#block-fm-commerce-cart-fm-commerce-cart  .item_title {float: left; width: 170px;}
+#block-fm-commerce-cart-fm-commerce-cart  .item_value {float: right;}
+#block-fm-commerce-cart-fm-commerce-cart  .item_value.red_val {color: #BC4038}
+#block-fm-commerce-cart-fm-commerce-cart .hasCountdown {background-color:transparent;border:0 solid #000000;display:inline;}
+
+
 /* Footer */
 #footer{background:#f9f8f6 url(../images/bg_footer.jpg) top left repeat-x; clear: both;margin-top: 30px;}
 #footer .container{padding: 15px 0 10px 0;}
