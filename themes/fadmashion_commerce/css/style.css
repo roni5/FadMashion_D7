@@ -255,7 +255,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-commerce-cart-fm-commerce-cart  .summary .alert div { padding-left:29px;}
 #block-fm-commerce-cart-fm-commerce-cart {position: absolute;}
 
-#block-fm-commerce-cart-fm-commerce-cart  .item_wrapper {overflow: auto;line-height: 30px;}
+#block-fm-commerce-cart-fm-commerce-cart  .item_wrapper {overflow: hidden;line-height: 30px;}
 #block-fm-commerce-cart-fm-commerce-cart  #item_total_wrapper {font-weight: bold; font-size: 15px; border-top: 1px solid #aaa; margin-top: 20px; padding-top: 5px;}
 #block-fm-commerce-cart-fm-commerce-cart  .item_title {float: left; width: 170px;}
 #block-fm-commerce-cart-fm-commerce-cart  .item_value {float: right;}
