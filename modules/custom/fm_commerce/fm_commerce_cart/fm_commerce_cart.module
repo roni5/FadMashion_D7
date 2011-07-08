@@ -84,11 +84,15 @@ function fm_commerce_cart_block_view($block_name = '') {
      if ($line_item_wrapper->type->value() == 'deals_discount' ) {
        // Exit this loop with the $line_item intact so it gets updated.
 	     $discount_price = $line_item_wrapper->commerce_total->value();
-	     $discount_time = $line_item_wrapper->field_product_line_item->field_node_reference->field_start_time->value();
-       $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
+	     
+	     
+	     if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
+	       $discount_time = $line_item_wrapper->field_product_line_item->field_node_reference->field_start_time->value();
+         $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
                                      'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
                                      'red' => true)
                                     );
+	     }
      }
   }
   
@@ -99,7 +103,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   $output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
   
   $untilTime = date("F d, Y g:i a", strtotime($discount_time['value2']));
-  //If start time is LESS THAN NOW this is ACTIVE
+
 	jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
   
   

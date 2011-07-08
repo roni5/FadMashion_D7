@@ -235,9 +235,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 #shipping.checkoutPanel {margin-bottom:25px;}
 
+.form-item-commerce-customer-address-und-0-country, .form-item-commerce-customer-address-und-0-name-line{display: none}
+
 .checkoutFooter {border-top:2px solid #E5E1DD; float:left; margin-top:25px; padding:12px 0; width:680px;}
 .completeOrder {float:left; font-size:12px; text-align:right;}
-.completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;width:150px;}
+.completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:left;font-size:16px;padding:10px 14px;text-align:center;width:150px;}
 
 #billing .form {border-right:1px solid #E2D9D0; width: 315px; float: left;}
 #billing .sameAddress {font-size:12px;padding:10px 0;}

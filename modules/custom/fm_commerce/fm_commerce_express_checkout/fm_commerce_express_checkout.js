@@ -10,7 +10,7 @@ var address2, address2_bill;
 var city, city_bill;
 var state, state_bill;
 var zip, zip_bill;
-var full_name, full_name_bill;
+var full_name, full_name_card, full_name_bill;
 
 jQuery(document).ready(function() {
 	 setCheckoutFormVariables();
@@ -19,6 +19,16 @@ jQuery(document).ready(function() {
 	    	errorClass: 'invalid',
 	    	onkeyup: false,
 	    	wrapper: 'div class="message_box"',
+	    	submitHandler: function(form) {
+	    		billingUnCheckedEvent();
+	    		
+	    	    var $this = jQuery('input.form-submit');
+	    	    $this.attr('disabled', true);
+	    	    //$this.hide();
+	    	   
+	    		
+	    		form.submit();
+			},
 	 });
 	 
 	 addBillingCheckedEvents();
@@ -28,16 +38,20 @@ jQuery(document).ready(function() {
 	 
 	 addFullNameEvent();
 	 
-	 jQuery('#block-fm-commerce-cart-fm-commerce-cart').scrollFollow({
+	 var cart = jQuery("#block-fm-commerce-cart-fm-commerce-cart")
+	 if(cart.length) {
+	   cart.scrollFollow({
 		 speed: 500,
 		 offset: 20,
 		 container: 'content'
-	 });
+	   });
+	 }
 });
 
 function setCheckoutFormVariables() {
 	full_name = jQuery('#shipping #edit-field-shipping-address-und-0-name-line');
-	full_name_bill = jQuery('#billing #edit-credit-card-owner');
+	full_name_bill = jQuery('#billing #edit-commerce-customer-address-und-0-name-line');
+	full_name_card = jQuery('#billing #edit-credit-card-owner');
 	 
 	 address1 = jQuery('#shipping #edit-field-shipping-address-und-0-thoroughfare');
 	 address1_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-thoroughfare');
@@ -56,14 +70,17 @@ function setCheckoutFormVariables() {
 }
 
 function addFullNameEvent() {
-	full_name_bill.val(full_name.val());
+	full_name_card.val(full_name.val());
 	full_name.keyup (function() {
+		full_name_card.val(jQuery(this).val());
 		full_name_bill.val(jQuery(this).val());
 	});
 	
-	full_name_bill.keyup(function() {
+	full_name_card.keyup(function() {
 		full_name.unbind("keyup");
+		full_name_bill.val(jQuery(this).val());
 	});
+	
 }
 
 function addBillingCheckedEvents() {

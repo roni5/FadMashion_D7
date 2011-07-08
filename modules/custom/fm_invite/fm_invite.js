@@ -27,6 +27,16 @@ Drupal.behaviors.addFMRequestEmail= {
 })(jQuery);
  */
 
+jQuery(document).ready(function() {
+  if (document.cookie.indexOf('visited=true') === -1) {
+      var expires = new Date();
+      expires.setDate(expires.getDate()+30);
+      document.cookie = "visited=true; expires="+expires.toUTCString();
+ 
+      jQuery.colorbox({html:"Welcome!"});
+  }
+});
+
 /**
  * Submit Invitation E-mail form
  */
