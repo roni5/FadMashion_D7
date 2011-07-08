@@ -59,14 +59,14 @@ function fm_commerce_discount_add_form($form_state) {
   $order = $form_state['commerce_order'];
   $form = array();
 
-  $form['deal_node_reference'] = array(
+  /*$form['deal_node_reference'] = array(
     '#type' => 'textfield',
     '#default_value' => NULL,
     '#title' => t('Deal Node Reference'),
     //'#element_validate' => array('node_reference_autocomplete_validate'),
     //'#value_callback' => 'node_reference_autocomplete_value',
     //'#autocomplete_path' => $instance['widget']['settings']['autocomplete_path'] . '/' . $instance['entity_type'] . '/' . $instance['bundle'] . '/' . $field['field_name'],
-  );
+  );*/
   
   $form['discount_amount'] = array(
     '#type' => 'textfield',
@@ -115,7 +115,7 @@ function fm_commerce_discount_add_form_submit(&$line_item, $element, &$form_stat
   // Populate the line item with the product data.
   $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
   
-  $line_item_wrapper->field_deal_node_reference = $element['actions']['deal_node_reference']['#value'];
+ // $line_item_wrapper->field_deal_node_reference = $element['actions']['deal_node_reference']['#value'];
   
   $line_item_wrapper->commerce_unit_price->amount = commerce_currency_decimal_to_amount($element['actions']['discount_amount']['#value'], $element['actions']['currency_code']['#value']);
   $line_item_wrapper->commerce_unit_price->currency_code = $element['actions']['currency_code']['#value'];

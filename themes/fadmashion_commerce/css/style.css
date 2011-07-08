@@ -249,7 +249,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 /* Checkout Block */
 #block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7; width: 267px;}
-#block-fm-commerce-cart-fm-commerce-cart .summary .header {background:none repeat scroll 0 0 #917F6F; color:#FFFFFF; height:36px; line-height:36px; padding:0 12px; }
+#block-fm-commerce-cart-fm-commerce-cart .summary .header {background: #917f6f; padding: 0 12px; height: 36px; line-height: 36px;border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; color: #fff;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .header a {color:#FFFFFF; float:right;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad {padding:14px 30px 14px 14px; font-size: 13px; }
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad, .summary .pad a {color:#322F2C;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;}

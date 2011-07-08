@@ -291,14 +291,14 @@ function fm_deals_group_details(&$vars) {
 	$end_time = $node->field_start_time['und'][0]['value2'];
 	$unixStartTime = strtotime($start_time);
 	
-	$color_options = fm_commerce_color_options($node);
+	//$color_options = fm_commerce_color_options($node);
 	//
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
 		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$untilTime = $start_time;
 		
-		$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
+		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
 		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
 		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
 		$purchaseDetails .= '</div>';

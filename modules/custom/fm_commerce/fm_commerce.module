@@ -19,7 +19,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  //$sizes = fm_commerce_color_options($product);
 	  
 	  //ADD color options to cart form
-	  if (count($colors) > 1) {
+	  /*if (count($colors) > 1) {
 	    $form['colors'] = array(
 	       '#type' => 'select',
 	       '#title' => t('Select Colors'),
@@ -43,7 +43,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
         drupal_get_path('module', 'fm_commerce_color') . '/fm_commerce_color.js',
         drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
       );
-	  }
+	  }*/
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
@@ -57,6 +57,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 
 //REDIRECTS Deals page TO STEP 2 after submit
 function fm_commerce_cart_submit ($form, &$form_state) {
+
+  
+  
 	$node_entity = $form_state['values']['display_uri']['options']['entity'];
 	
 	$line_item = $form_state['line_item'];
@@ -65,33 +68,39 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	
 	$product = $line_item_wrapper->commerce_product->value();
 	//SPECIAL FOR QUANTITIES OF 1
-	$line_item_wrapper->quantity = 1;
+	$line_item->quantity = 1;
 	$line_item = commerce_line_item_save($line_item);
+	
+	// Clear the line item cache so the updated quantity will be available to
+  // the ensuing load instead of the original quantity as loaded above.
+  entity_get_controller('commerce_line_item')->resetCache(array($line_item->line_item_id));
 	
 	$ref_line_item_id = $line_item->line_item_id;
 	
 	
 	//ADD the Discount Line Type
-	
 	$node = node_load($node_entity->nid);
 	$retail_price = $product->commerce_price['und'][0]['amount'];
   $sale_price = $node->field_sale_price['und'][0]['amount'];
   $discount = -1 * ($retail_price - $sale_price);
-
+  
+  	
 	global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
-
+  
+  	
   // If no order existed, create one now.
   if (empty($order)) {
     return NULL;
   }
   // Wrap the order for easy access to field data.
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-  
+  	
   $discount_line_item = NULL;
   // Loop through the line items looking for products.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  	
      // If this line item matches the product being added...
      if (empty($discount_line_item) &&
          $line_item_wrapper->type->value() == 'deals_discount' ) {
@@ -122,7 +131,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
     $order_wrapper->commerce_line_items[] = $discount_line_item;
   } else {
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
-  	$discount_line_item_wrapper->field_product_line_item = $node_entity->nid;
+  	$discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
   	
   	$discount_line_item = commerce_line_item_save($discount_line_item);
   }

@@ -100,12 +100,13 @@ function fm_commerce_cart_block_view($block_name = '') {
   $output .= '<div class="pad">';
   $output .= implode('', $product_line_items);
   $output .= implode('', $discount_line_items);
-  $output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
   
-  $untilTime = date("F d, Y g:i a", strtotime($discount_time['value2']));
-
-	jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
   
+  if(isset($discount_time)) {
+  	$output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
+    $untilTime = date("F d, Y g:i a", strtotime($discount_time['value2']));
+	  jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
+  }
   
   $total = $order_wrapper->commerce_order_total->value();
   $output .= '<div id="item_total_wrapper">';
