@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
       expires.setDate(expires.getDate()+30);
       document.cookie = "visited=true; expires="+expires.toUTCString();
  
-      jQuery.colorbox({href:"/invite/rewards?id=195", width: 518, height: 326});
+      jQuery.colorbox({title:'Invite Friends and Earn Rewards', href:"/invite/rewards?id=195", width: 518, height: 326});
   }
 });
 
