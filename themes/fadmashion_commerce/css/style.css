@@ -231,6 +231,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .checkoutPanel .form-item input:focus { border-color: #BC4038 }
 .checkoutPanel select:focus { border-color: #BC4038; }
 
+.checkoutPanel .form-item input:disabled { background-image: none; }
+
+
+
 .checkoutPanel .form-item .narrow{width: 100px;}
 .checkoutPanel .form-item .long{width: 500px;}
 
