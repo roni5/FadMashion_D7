@@ -109,10 +109,8 @@ function fm_commerce_cart_block_view($block_name = '') {
   }
   
   $total = $order_wrapper->commerce_order_total->value();
-  $output .= '<div id="item_total_wrapper">';
-  $output .= theme('fm_commerce_cart_line_item', array('title' => 'Total', 
-                                     'price' => commerce_currency_format($total['amount'], $total['currency_code'], NULL, true),
-                                    ));
+  $output .= '<div class="total">Total: ';
+  $output .=  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
    $output .= '</div>';
                                     
   $output .='</div>';  //end class="pad"

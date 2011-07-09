@@ -38,7 +38,8 @@ jQuery(document).ready(function() {
 	 
 	 addFullNameEvent();
 	 
-	 var cart = jQuery("#block-fm-commerce-cart-fm-commerce-cart")
+	 //Right column follow
+	 var cart = jQuery(".column2")
 	 if(cart.length) {
 	   cart.scrollFollow({
 		 speed: 500,

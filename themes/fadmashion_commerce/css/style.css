@@ -209,8 +209,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 .page-express-checkout  #content{position: relative; width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 704px 0 repeat-y;}
 .page-express-checkout  .sidebarRight .column1{width: 682px;background: ; padding-right: 25px; }
-.page-express-checkout  .sidebarRight .column2{width:267px; background: }
+.page-express-checkout  .sidebarRight .column2{position: absolute; width:267px; background: }
 .page-express-checkout  .sidebarRight .sidebar{width: 100%}
+
 	
 .customer_profile_shipping {margin-bottom: 25px;}
 
@@ -248,14 +249,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .saveTo .form-item{float: none; font-size: 12px; padding:0;}
 
 /* Checkout Block */
-#block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7; width: 267px;}
+#block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7; width: 267px; margin-bottom: 20px;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .header {background: #917f6f; padding: 0 12px; height: 36px; line-height: 36px;border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; color: #fff;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .header a {color:#FFFFFF; float:right;}
-#block-fm-commerce-cart-fm-commerce-cart .summary .pad {padding:14px 30px 14px 14px; font-size: 13px; }
+#block-fm-commerce-cart-fm-commerce-cart .summary .pad {padding: 14px; font-size: 13px; }
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad, .summary .pad a {color:#322F2C;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .alert {background:url("../images/bg_summary_alert.png") no-repeat scroll left top transparent;color:#FFFFFF;font-size:14px;height:35px;line-height:42px;width:233px;}
 #block-fm-commerce-cart-fm-commerce-cart  .summary .alert div { padding-left:29px;}
-#block-fm-commerce-cart-fm-commerce-cart {position: absolute;}
+
 
 #block-fm-commerce-cart-fm-commerce-cart  .item_wrapper {overflow: hidden;line-height: 30px;}
 #block-fm-commerce-cart-fm-commerce-cart  #item_total_wrapper {font-weight: bold; font-size: 15px; border-top: 1px solid #aaa; margin-top: 20px; padding-top: 5px;}
@@ -264,6 +265,31 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-commerce-cart-fm-commerce-cart  .item_value.red_val {color: #BC4038}
 #block-fm-commerce-cart-fm-commerce-cart .hasCountdown {background-color:transparent;border:0 solid #000000;display:inline;}
 
+#block-fm-commerce-cart-fm-commerce-cart .total {border-top:1px solid #F1EDE8;font-size:15px;margin-top:6px;padding:5px 0 0;text-align:right;}
+
+#block-views-nodequeue-1-block h1 {font-size:16px;margin-bottom:8px;}
+#block-views-nodequeue-1-block ul li{margin: 0; background:url("../images/dotted_horizontal.png") repeat-x scroll left top transparent;padding:15px 0; }
+	
+#block-views-nodequeue-1-block ul li .views-field-title a{font-size:14px;margin:0;}
+
+
+/* IE/Win - Fix animation bug - #4615 */
+.ui-accordion { width: 100%; }
+.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.ui-accordion .ui-accordion-li-fix { display: inline; }
+.ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
+.ui-accordion .ui-accordion-header a { display: block;  font-size: 15px; padding: .5em .5em .5em .7em; }
+.ui-accordion-icons .ui-accordion-header a { padding-left: 1.4em; color: #0F6DA3;}
+.ui-accordion .ui-accordion-header .ui-icon { position: absolute;  top: 50%; margin-top: -8px; }
+.ui-accordion .ui-accordion-content { padding-left: 20px; font-size: 12px; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.ui-accordion .ui-accordion-content-active { display: block; }
+
+.ui-state-active .ui-icon { background: url(../images/b_collapse.png) no-repeat scroll 0 0 transparent;}
+.ui-state-default .ui-icon { background: url(../images/b_expand.png) no-repeat scroll 0 0 transparent;}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active,
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default  {background:url("../images/dotted_horizontal.png") repeat-x scroll left top transparent;border:0px solid #AAAAAA;color:#212121;font-weight:normal;}
+
+.ui-widget-content {border: 0px solid #000; }
 
 /* Footer */
 #footer{background:#f9f8f6 url(../images/bg_footer.jpg) top left repeat-x; clear: both;margin-top: 30px;}
