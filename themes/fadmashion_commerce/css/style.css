@@ -281,7 +281,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .ui-accordion .ui-accordion-header a { display: block;  font-size: 15px; padding: .5em .5em .5em .7em; }
 .ui-accordion-icons .ui-accordion-header a { padding-left: 1.4em; color: #0F6DA3;}
 .ui-accordion .ui-accordion-header .ui-icon { position: absolute;  top: 50%; margin-top: -8px; }
-.ui-accordion .ui-accordion-content { padding-left: 20px; font-size: 12px; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.ui-accordion .ui-accordion-content { padding-left: 20px; font-size: 11px; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
 .ui-accordion .ui-accordion-content-active { display: block; }
 
 .ui-state-active .ui-icon { background: url(../images/b_collapse.png) no-repeat scroll 0 0 transparent;}
