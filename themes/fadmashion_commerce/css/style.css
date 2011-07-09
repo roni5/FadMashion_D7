@@ -267,7 +267,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 #block-fm-commerce-cart-fm-commerce-cart .total {border-top:1px solid #F1EDE8;font-size:15px;margin-top:6px;padding:5px 0 0;text-align:right;}
 
-#block-views-nodequeue-1-block h1 {font-size:16px;margin-bottom:8px;}
+#block-views-nodequeue-1-block h2 {font-size:16px;margin-bottom:8px;}
 #block-views-nodequeue-1-block ul li{margin: 0; background:url("../images/dotted_horizontal.png") repeat-x scroll left top transparent;padding:15px 0; }
 	
 #block-views-nodequeue-1-block ul li .views-field-title a{font-size:14px;margin:0;}
@@ -280,15 +280,16 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
 .ui-accordion .ui-accordion-header a { display: block;  font-size: 15px; padding: .5em .5em .5em .7em; }
 .ui-accordion-icons .ui-accordion-header a { padding-left: 1.4em; color: #0F6DA3;}
-.ui-accordion .ui-accordion-header .ui-icon { position: absolute;  top: 50%; margin-top: -8px; }
+.ui-accordion .ui-accordion-header .ui-icon { position: absolute;  top: 50%; left: 0; margin-top: -8px; }
 .ui-accordion .ui-accordion-content { padding-left: 20px; font-size: 11px; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
 .ui-accordion .ui-accordion-content-active { display: block; }
 
-.ui-state-active .ui-icon { background: url(../images/b_collapse.png) no-repeat scroll 0 0 transparent;}
-.ui-state-default .ui-icon { background: url(../images/b_expand.png) no-repeat scroll 0 0 transparent;}
+.ui-state-active .ui-icon { background: url(../images/b_collapse.png) no-repeat scroll 0 1px transparent;}
+.ui-state-default .ui-icon { background: url(../images/b_expand.png) no-repeat scroll 0 1px transparent;}
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active,
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default  {background:url("../images/dotted_horizontal.png") repeat-x scroll left top transparent;border:0px solid #AAAAAA;color:#212121;font-weight:normal;}
-
+.ui-state-hover .ui-icon{background-position: left bottom}
+	
 .ui-widget-content {border: 0px solid #000; }
 
 /* Footer */
