@@ -117,7 +117,7 @@
 
 <div class="subCol">
 <h1>Press</h1>
-<p><?php var_dump($content['store:field_press']); //print render($content['store:field_press']); ?></p>
+<p><?php print render($content['store:field_press']); //print render($content['store:field_press']); ?></p>
 </div>
 
 </div> <!-- End designerInfo Col2 -->
