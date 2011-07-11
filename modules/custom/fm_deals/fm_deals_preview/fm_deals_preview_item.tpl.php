@@ -12,7 +12,7 @@ $unixStartTime = strtotime($start_time);
     <div class="pricing">
       <div class="original">Original<br>Price<h3><?php print render($node->content['product:commerce_price']); ?></h3></div>
       <div class="exclusive">Exclusive<br>Deal<h3><?php print render($node->content['field_sale_price']); ?></h3></div>
-      <div class="savings">Savings<h3><?php print $node->sale_percentage; ?></h3></div>
+      <div class="savings">Negotiated Savings<h3><?php print $node->sale_percentage; ?></h3></div>
     </div><!--pricing--> 
     <div class="buttons">
     <?php if($node->deal_status == 'active') { ?>
