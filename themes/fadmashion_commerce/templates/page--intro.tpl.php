@@ -5,6 +5,11 @@
  * @file
  * FadMashion Commerce Splash page implementation.
  */
+
+global $user;
+if($user->uid) {
+	drupal_goto('deals');
+}
 ?>
 
 <script>

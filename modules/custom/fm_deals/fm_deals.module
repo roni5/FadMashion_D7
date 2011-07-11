@@ -220,16 +220,10 @@ function theme_fm_deals_product_details($vars) {
 
 
 /*
- * Site Homepage.  Do re-directs here if user is not logged in.
+ * Site Logged in Homepage for deals
  */
 function fm_deals_page($nid = '') {
 
-	global $user;
-	if(!$user->uid) {
-		//Redirect the user to the intro page
-		drupal_goto('intro');
-	}
-	
 	if(empty($nid)) {
 		$default = fm_deals_get_default_deal();
 		$nid = $default['nid'];

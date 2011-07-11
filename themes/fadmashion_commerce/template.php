@@ -35,10 +35,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/front.css');  
     
-    //Goto the homepage 
-    if($user->uid) {
-    	drupal_goto();
-    }
+    
     
     $variables['front_intro'] = false;
     if(count($split_url) == 1) {
