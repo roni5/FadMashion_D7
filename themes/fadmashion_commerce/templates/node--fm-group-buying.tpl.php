@@ -115,7 +115,7 @@
 <?php print render($content['store:field_quick_facts']); ?>
 </div>
 
-<div class="subCol">
+<div class="subCol press">
 <h1>Press</h1>
 <p><?php print render($content['store:field_press']); //print render($content['store:field_press']); ?></p>
 </div>

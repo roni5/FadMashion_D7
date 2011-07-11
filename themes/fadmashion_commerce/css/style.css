@@ -133,6 +133,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .subCol h1{margin-bottom: 10px;}
 .subCol .field-items{float: left; list-style-type: none;}
 .subCol .field-item{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 2px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
+.press .field-item {background-image: none; padding: 0px;}
 .press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
 .source {color: #767272; font-size: 11px; padding-bottom: 5px;}
 .buttons{clear: both; width:150px; padding: 6px 0 0 0;}
