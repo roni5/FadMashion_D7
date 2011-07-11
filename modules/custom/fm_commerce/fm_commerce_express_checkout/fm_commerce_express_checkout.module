@@ -38,7 +38,14 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   $form_state['order'] = $order;
   
   /* ADD Shipping Profile to Form */
-  $shipping_profile = commerce_customer_profile_new('shipping', $order->uid);
+  
+  if(!isset($_GET['shipping'])) {
+    $shipping_profile = commerce_customer_profile_new('shipping', $order->uid);
+  }
+  else{
+  	$shipping_id = $_GET['shipping'];
+  	$shipping_profile = commerce_customer_profile_load($shipping_id);
+  }
   
   $form['shipping_customer_profile'] = array(
     '#type' => 'value',
@@ -218,7 +225,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     
     $output = '<div id="shipping" class="checkoutPanel">';
     $output .= '<div class="header"><div class="pad">
-                  <div class="dropdown"><span>Address Book:</span> <select id="edit-customer-profile-billing-commerce-customer-address-und-0-country" name="customer_profile_billing[commerce_customer_address][und][0][country]" class="form-select required ajax-processed"><option>2310 E. Huntingdon St.</option></select></div>
+                  <div class="dropdown"><span>Address Book:</span> ' . fm_commerce_express_checkout_profiles_options('shipping') . ' </div>
                   Shipping Information
                 </div></div>';
     $output .= '<div class="form">';
@@ -234,8 +241,8 @@ function theme_fm_commerce_express_checkout_form($variables)
     $language = $form[$field_name]['#language'];
     
     $output .= '<div class="checkoutPanel">';
-    $output .= '<div class="header"><div class="pad">
-                  <div class="dropdown"><span>Address Book:</span> <select id="edit-customer-profile-billing-commerce-customer-address-und-0-country" name="customer_profile_billing[commerce_customer_address][und][0][country]" class="form-select required ajax-processed"><option>2310 E. Huntingdon St.</option></select></div>
+    $output .= '<div class="header"><div class="pad">';
+    $output .= '
                   Billing Information
                 </div></div>';
     
@@ -260,6 +267,40 @@ function theme_fm_commerce_express_checkout_form($variables)
     
     // return the output
     return $output;
+}
+
+function fm_commerce_express_checkout_profiles_options($type) {
+	//<select id="edit-customer-profile-billing-commerce-customer-address-und-0-country" name="customer_profile_billing[commerce_customer_address][und][0][country]" class="form-select required ajax-processed"><option>2310 E. Huntingdon St.</option></select>
+  global $user;
+	
+	$query = db_select('commerce_customer_profile', 'cp');
+  $profile_id_alias = $query->addField('cp', 'profile_id');
+  $profile_uid_alias = $query->addField('cp', 'uid');
+  $profile_type_alias = $query->addField('cp', 'type');
+  
+  $query->condition('cp.type', array($type), 'IN');
+  $query->condition('cp.uid', $user->uid, '=');
+
+  // Execute the query and build the results array.
+  $result = $query->execute();
+
+  $loaded_profiles = array();
+
+ 
+  foreach ($result->fetchAll() as $profile) {
+  	$loaded_profiles[] = $profile->profile_id;
+  }
+  
+  //TODO: Optimize query to include entire load in one query
+  $profiles = commerce_customer_profile_load_multiple($loaded_profiles);
+  
+  
+  $output = '<select id="edit-customer-profile-shipping-commerce-customer-address-und-0-country">';
+  foreach($profiles as $id => $profile) {
+    $output .= '<option value="' . $id . '">' . $profile->field_shipping_address['und'][0]['thoroughfare'] . '</option>';
+  }
+  $output .= '</select>';
+  return $output;
 }
 
 function fm_commerce_express_checkout_theme($variables)

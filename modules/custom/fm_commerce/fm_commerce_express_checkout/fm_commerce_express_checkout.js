@@ -72,6 +72,8 @@ function setCheckoutFormVariables() {
 
 function addFullNameEvent() {
 	full_name_card.val(full_name.val());
+	full_name_bill.val(full_name.val());
+	
 	full_name.keyup (function() {
 		full_name_card.val(jQuery(this).val());
 		full_name_bill.val(jQuery(this).val());

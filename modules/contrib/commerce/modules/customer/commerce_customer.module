@@ -829,6 +829,8 @@ function commerce_customer_field_widget_info_alter(&$info) {
  */
 function commerce_customer_options_list($field) {
   $options = array();
+  
+  var_dump($field);
 
   // Loop through all customer matches.
   foreach (commerce_customer_match_customer_profiles($field) as $profile_id => $data) {

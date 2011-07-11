@@ -11,7 +11,6 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	//Add Global javascript and CSS
 	drupal_add_library('jquery_plugin', 'validate');
 	
-	
 	global $user;
 	
 	if($user->uid) {
@@ -35,6 +34,11 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_js(path_to_theme().'/js/FM_form.js');
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/front.css');  
+    
+    //Goto the homepage 
+    if($user->uid) {
+    	drupal_goto();
+    }
   }
   
   // Add template suggestions based on content type
