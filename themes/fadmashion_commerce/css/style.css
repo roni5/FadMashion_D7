@@ -174,7 +174,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 
 .dealFrame{ font-family:"museo-sans-1","museo-sans-2",Helvetica; width: 245px; border: 1px solid #dedcd4; float: left; margin: 13px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; height: 475px;}
-.dealFrame .pricing{margin: 15px 0; font-size: 11px; font-weight: 700; float: left;  width: 245px; height: 30px; }
+.dealFrame .pricing{margin: 0 0 15px; font-size: 11px; font-weight: 700; float: left;  width: 245px; height: 30px; }
 .dealFrame .pricing div{float: left; width: 81px; text-align:center; display: inline}
 .dealFrame .pricing .original{color: #998e82;background:  url(../images/dotted_vertical.png) top right repeat-y;}
 .dealFrame .pricing .original h3{ text-decoration: line-through;}
@@ -186,7 +186,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .dealFrame .button { display: inline;}
 	
 .dealFrame .itemThumb{ margin: 6px 0 14px 0; text-align:center; border: 1px solid #eae7e5;}
-#dealPreview .dealFrame h1.itemName{font-size: 14px; margin-bottom: 4px;}
+#dealPreview .dealFrame h1.itemName{font-size: 14px; margin-bottom: 4px; margin-top: 15px;}
 #dealPreview .dealFrame h2, #dealPreview .dealFrame h2 a{font-size: 12px; margin-bottom: 8px;}
 
 .dealHeader{height: 16px; font-size: 14px; background: #7a6857; color: #fff; padding: 8px 0;border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px;}
