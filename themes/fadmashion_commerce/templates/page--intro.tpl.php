@@ -61,7 +61,7 @@ jQuery(function($){
       </div>
       
       
-	     <div class="pad <?php $is_front ? print 'extend' : ''?>" id="invite">
+	     <div class="pad <?php $front_intro ? print 'extend' : ''?>" id="invite">
 					<?php print render($page['featured']);?>
 		       <?php if ($messages): ?>
 	    			<div id="message_box"><div class="section clearfix">
@@ -71,7 +71,7 @@ jQuery(function($){
 
   			</div>
   			
-  			<?php if($is_front): ?>
+  			<?php if($front_intro): ?>
   			<div class="quote">
 <p style="font-size: 15px; line-height: 22px;">"Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."</p>
 <a class="colorbox-load" title="myfashionlife" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- myfashionlife</div>

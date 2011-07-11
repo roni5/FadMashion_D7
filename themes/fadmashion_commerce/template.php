@@ -39,6 +39,11 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     if($user->uid) {
     	drupal_goto();
     }
+    
+    $variables['front_intro'] = false;
+    if(count($split_url) == 1) {
+    	$variables['front_intro'] = true;
+    }
   }
   
   // Add template suggestions based on content type
