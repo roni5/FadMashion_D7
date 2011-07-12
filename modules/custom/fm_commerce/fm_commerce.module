@@ -138,7 +138,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
      // If this line item matches the product being added...
-     if (empty($discount_line_item) &&
+     if (empty($shipping_line_item) &&
          $line_item_wrapper->type->value() == 'shipping' ) {
        // Exit this loop with the $line_item intact so it gets updated.
        $shipping_line_item = $line_item_wrapper->value();
@@ -148,6 +148,8 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   if (empty($shipping_line_item)) { 
   	
   	$shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
+  	var_dump($shipping_method);
+  	exit();
     $shipping_line_item = commerce_shipping_line_item_new($shipping_method);
     $shipping_line_item->order_id = $order->order_id;
     $shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
