@@ -13,7 +13,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
   	drupal_add_library('jquery_plugin', 'validate');
   	
   	$node = $form_state['build_info']['args']['4']['options']['entity'];
-	  $product = fm_deals_get_product($node);
+	  $product = fm_commerce_get_product($node);
 	  
 	  //$colors = fm_commerce_color_options($product);
 	  //$sizes = fm_commerce_color_options($product);
