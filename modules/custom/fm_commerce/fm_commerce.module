@@ -151,7 +151,8 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   if (empty($shipping_line_item)) { 
   	
   	drupal_set_message(drupal_json_encode($store->field_shipping_rate));
-  	$shipping_rate = $sale_price = $store->field_shipping_rate['und'][0]['amount'];
+  	$shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  	
   	
   	$shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
     $shipping_line_item = commerce_line_item_new('shipping');

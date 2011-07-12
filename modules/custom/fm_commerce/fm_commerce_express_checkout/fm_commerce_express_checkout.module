@@ -37,8 +37,13 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   $order = commerce_cart_order_load($user->uid);
   $form_state['order'] = $order;
   
-  /* ADD Shipping Profile to Form */
+  // If no order existed, create one now.
+  if (empty($order)) {
+  	drupal_set_message('There was an error with your order, please contact the admin for issues', 'error');
+    drupal_goto();
+  }
   
+  /* ADD Shipping Profile to Form */
   if( !isset($_GET['shipping']) || $_GET['shipping'] == 'new' ) {
     $shipping_profile = commerce_customer_profile_new('shipping', $order->uid);
   }

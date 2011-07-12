@@ -66,6 +66,9 @@ function fm_commerce_cart_block_view($block_name = '') {
   $product_line_items = array();
   $shipping_line_items = array();
   $discount_line_items = array();
+  
+  $line_item_wrapper->line_item_id->value();
+  
   // Loop through the line items looking for products.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   
@@ -84,7 +87,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   			$shipping_price = $line_item_wrapper->commerce_total->value();
   			$shipping_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Shipping', 
                                      'price' => commerce_currency_format($shipping_price['amount'], $shipping_price['currency_code']),
-                                     'red' => true)
+                                     )
                                     );
   			break;
   		case 	'deals_discount':
@@ -130,4 +133,8 @@ function fm_commerce_cart_block_view($block_name = '') {
     );
   }
   return $block;
+}
+
+function fm_commerce_cart_clear_order() {
+	
 }
