@@ -39,7 +39,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   
   /* ADD Shipping Profile to Form */
   
-  if(!isset($_GET['shipping'])) {
+  if( !isset($_GET['shipping']) || $_GET['shipping'] == 'new' ) {
     $shipping_profile = commerce_customer_profile_new('shipping', $order->uid);
   }
   else{
@@ -171,7 +171,16 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   
   
   /*SHIPPING ADDRESS SUBMIT*/
+  
   $profile = $form_state['values']['shipping_customer_profile'];
+  
+ //If Address 1 field is not equal than a different address so save as a new one
+  $form_address1 = $form_state['values']['field_shipping_address']['und'][0]['thoroughfare']; 
+ 
+  if(!empty($profile->profile_id) && $form_address1 != $profile->field_shipping_address['und'][0]['thoroughfare']) {
+  	$profile = commerce_customer_profile_new('shipping', $order->uid);
+  }
+  
 
   // Ensure the profile is active.
   $profile->status = TRUE;
@@ -185,7 +194,12 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   field_attach_submit('commerce_customer_profile', $profile, $form, $form_state);
 
   // Save the profile.
-  commerce_customer_profile_save($profile);
+  $save = $form_state['values']['saveto'];
+  
+ 
+  if($save) {
+    commerce_customer_profile_save($profile);
+  } 
   
   
    /*BILLING ADDRESS SUBMIT*/
@@ -294,12 +308,23 @@ function fm_commerce_express_checkout_profiles_options($type) {
   //TODO: Optimize query to include entire load in one query
   $profiles = commerce_customer_profile_load_multiple($loaded_profiles);
   
-  
-  $output = '<select id="edit-customer-profile-shipping-commerce-customer-address-und-0-country">';
-  foreach($profiles as $id => $profile) {
-    $output .= '<option value="' . $id . '">' . $profile->field_shipping_address['und'][0]['thoroughfare'] . '</option>';
+	if(!isset($_GET['shipping'])) {
+    $shipping_id = 'new';
   }
+  else{
+  	$shipping_id = $_GET['shipping'];
+  	$shipping_profile = commerce_customer_profile_load($shipping_id);
+  }
+  
+  $output = '<select class="shipping_address_select" id="edit-customer-profile-shipping-commerce-customer-address-und-0-country">';
+  foreach($profiles as $id => $profile) {
+    $output .= '<option ' . ($shipping_id == $id ? 'selected="selected"' : ''). ' value="' . $id . '">' . $profile->field_shipping_address['und'][0]['thoroughfare'] . '</option>';
+  }
+  $output .= '<option ' . ($shipping_id == 'new' ? 'selected="selected"' : '') . ' value="new">   ---- New Address ----</option>';
   $output .= '</select>';
+  
+  drupal_add_js('var full_path = "' . url('express-checkout', array('absolute' => true)) . '";', 'inline');
+  
   return $output;
 }
 

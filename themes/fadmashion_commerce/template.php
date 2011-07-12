@@ -10,7 +10,6 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	
 	//Add Global javascript and CSS
 	drupal_add_library('jquery_plugin', 'validate');
-	
 	global $user;
 	
 	if($user->uid) {

@@ -47,7 +47,12 @@ jQuery(document).ready(function() {
 		 container: 'content'
 	   });
 	 }
+	 
+	 jQuery(".shipping_address_select").change(function() {
+		 window.location.href = full_path + '&shipping=' + this.value;
+	 });
 });
+
 
 function setCheckoutFormVariables() {
 	full_name = jQuery('#shipping #edit-field-shipping-address-und-0-name-line');
