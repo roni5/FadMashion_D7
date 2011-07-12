@@ -58,6 +58,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 //REDIRECTS Deals page TO STEP 2 after submit
 function fm_commerce_cart_submit ($form, &$form_state) {
 
+	//Clear default add to cart messages. 
+	$messages = drupal_get_messages();
+	
   global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
