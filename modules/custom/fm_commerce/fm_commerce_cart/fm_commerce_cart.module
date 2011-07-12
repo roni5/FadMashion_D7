@@ -67,8 +67,6 @@ function fm_commerce_cart_block_view($block_name = '') {
   $shipping_line_items = array();
   $discount_line_items = array();
   
-  $line_item_wrapper->line_item_id->value();
-  
   // Loop through the line items looking for products.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   
