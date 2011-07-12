@@ -41,8 +41,8 @@ function fm_deals_preview_page_content($date = '') {
 	$rendered_items = array();
 	
 	foreach($nodes as $node) {
-		$product = fm_deals_get_product($node);
-    $store = fm_deals_get_store($product);  
+		$product = fm_commerce_get_product($node);
+    $store = fm_commerce_get_store($product);  
 		$themed_image = fm_deals_preview_get_image($product);
 		
 		node_build_content($node);
@@ -212,8 +212,8 @@ function fm_deals_preview_block_nid($default_nid, $status) {
 function fm_deals_preview_block_content($nid) {
   $node = node_load($nid);
   
-  $product = fm_deals_get_product($node);
-  $store = fm_deals_get_store($product);  
+  $product = fm_commerce_get_product($node);
+  $store = fm_commerce_get_store($product);  
     
   $themed_image = fm_deals_preview_get_image($product);    
   return theme('fm_deals_preview_block', array('node' => $node, 'product' => $product, 'store' => $store, 'image' => $themed_image));
