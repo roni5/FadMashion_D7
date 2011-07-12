@@ -114,9 +114,9 @@ function fm_commerce_cart_block_view($block_name = '') {
 
   	//If timer is expired 
   	drupal_set_message(drupal_json_encode(REQUEST_TIME));
-  	drupal_set_message(drupal_json_encode($discount_time['value2']));
+  	drupal_set_message(drupal_json_encode(strtotime($discount_time['value2'])));
   	
-  	if(REQUEST_TIME > $discount_time['value2']) {
+  	if(REQUEST_TIME > strtotime($discount_time['value2'])) {
   		 commerce_order_status_update($order, 'canceled');
        drupal_set_message('The Deal has expired.  Still interested? Contact us and we can figure something out.');
        drupal_goto();
