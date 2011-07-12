@@ -335,4 +335,20 @@ function fm_deals_get_status($node) {
 	return $status;
 }
 
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function fm_deals_commerce_order_state_info() {
+  $order_states = array();
+
+  $order_states['expired_deals'] = array(
+    'name' => 'expired_deals',
+    'title' => t('Expired: Timed Deals'),
+    'description' => t('Orders in this state are expired by the 1 hour deal.'),
+    'weight' => -10,
+    'default_status' => 'expired_deals',
+  );
+  
+  return $order_states;
+}
 
