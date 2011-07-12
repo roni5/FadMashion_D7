@@ -145,7 +145,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
      }
   }
   
-  var_dump(shipping_plugin_get_plugins());
+  var_dump(shipping_plugin_get_plugin('quotes', 'flat_rate'));
   exit();
   
   if (empty($shipping_line_item)) { 
