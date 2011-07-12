@@ -79,7 +79,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	$product = $line_item_wrapper->commerce_product->value();
 	$store = fm_commerce_get_store($product);
 	
-	//SPECIAL FOR QUANTITIES OF 1
+	//SPECIAL FOR Deals functionality, make only 1.
 	$line_item->quantity = 1;
 	$line_item = commerce_line_item_save($line_item);
 	
@@ -135,6 +135,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   	$discount_line_item = commerce_line_item_save($discount_line_item);
   }
   
+  //SHIPPING LINE ITEM
   $shipping_line_item = NULL;
   // Loop through the line items looking for Shipping.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {

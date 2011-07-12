@@ -64,25 +64,31 @@ function fm_commerce_cart_block_view($block_name = '') {
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
   $product_line_items = array();
+  $shipping_line_items = array();
   $discount_line_items = array();
   // Loop through the line items looking for products.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   
-  	if ($line_item_wrapper->type->value() == 'product' ) {
-       // Exit this loop with the $line_item intact so it gets updated.
-       
-       $product = $line_item_wrapper->commerce_product->value();
+  	switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		 $product = $line_item_wrapper->commerce_product->value();
        $title = $product->title;
        $retail_price = $line_item_wrapper->commerce_total->value();
        
        $product_line_items[] = theme('fm_commerce_cart_line_item', array('title' => $title, 
                                      'price' => commerce_currency_format($retail_price['amount'], $retail_price['currency_code']))
                                     );
-     }
-     
-     // If this line item matches the product being added...
-     if ($line_item_wrapper->type->value() == 'deals_discount' ) {
-       // Exit this loop with the $line_item intact so it gets updated.
+  			break;
+  		
+  		case 'shipping':
+  			$shipping_price = $line_item_wrapper->commerce_total->value();
+  			$shipping_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Shipping', 
+                                     'price' => commerce_currency_format($shipping_price['amount'], $shipping_price['currency_code']),
+                                     'red' => true)
+                                    );
+  			break;
+  		case 	'deals_discount':
+  	   // Exit this loop with the $line_item intact so it gets updated.
 	     $discount_price = $line_item_wrapper->commerce_total->value();
 	     
 	     
@@ -93,12 +99,14 @@ function fm_commerce_cart_block_view($block_name = '') {
                                      'red' => true)
                                     );
 	     }
-     }
+  		 break;
+  	}
   }
   
   
   $output .= '<div class="pad">';
   $output .= implode('', $product_line_items);
+  $output .= implode('', $shipping_line_items);
   $output .= implode('', $discount_line_items);
   
   
