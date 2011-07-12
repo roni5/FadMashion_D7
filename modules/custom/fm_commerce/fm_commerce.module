@@ -77,6 +77,8 @@ function fm_commerce_cart_submit ($form, &$form_state) {
 	$line_item_wrapper->field_node_reference = $node_entity->nid;
 	
 	$product = $line_item_wrapper->commerce_product->value();
+	$store = fm_commerce_get_store($product);
+	
 	//SPECIAL FOR QUANTITIES OF 1
 	$line_item->quantity = 1;
 	$line_item = commerce_line_item_save($line_item);
@@ -147,13 +149,16 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   
   if (empty($shipping_line_item)) { 
   	
+  	drupal_set_message(drupal_json_encode($store->field_shipping_rate));
+  	$shipping_rate = $sale_price = $store->field_shipping_rate['und'][0]['amount'];
+  	
   	$shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
-  	var_dump($shipping_method);
-  	exit();
-    $shipping_line_item = commerce_shipping_line_item_new($shipping_method);
+    $shipping_line_item = commerce_line_item_new('shipping');
+    $shipping_line_item->line_item_label = 'Flat Rate Shipping';
+    $shipping_line_item->quantity = 1;
     $shipping_line_item->order_id = $order->order_id;
     $shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
-	  $shipping_line_item_wrapper->commerce_unit_price->amount = $discount;
+	  $shipping_line_item_wrapper->commerce_unit_price->amount = $shipping_rate;
     $shipping_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
     $shipping_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
     $shipping_line_item_wrapper->commerce_unit_price->value(),
@@ -208,4 +213,26 @@ function fm_commerce_size_options($product) {
 		} 
 	}
 	return $sizes;
+}
+
+function fm_commerce_get_product($node) {
+	
+    $wrapper = entity_metadata_wrapper('node', $node);
+	  
+	  $field = field_info_field('field_product_reference');
+	  if ($field['cardinality'] == 1) {
+      $product = $wrapper->field_product_reference->value();
+	  }
+    else {
+      $product = $wrapper->field_product_reference->get(0)->value();
+    }
+    return $product;
+}
+
+function fm_commerce_get_store($product) {
+	$store_ref = field_get_items('commerce_product', $product, 'field_store_reference');
+	$store_id = $store_ref[0]['store_id'];
+	
+	$stores = fm_commerce_store_load_multiple(array($store_id));
+	return $stores[$store_id];
 }
