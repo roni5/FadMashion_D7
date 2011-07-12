@@ -15,8 +15,8 @@ function fm_deals_list() {
   foreach($entities['node'] as $node) {
   	$node = node_load($node->nid);
   
-    $product = fm_deals_get_product($node);
-    $store = fm_deals_get_store($product);
+    $product = fm_commerce_get_product($node);
+    $store = fm_commerce_get_store($product);
     
     $product_name = field_get_items('commerce_product', $product, 'name');
    
