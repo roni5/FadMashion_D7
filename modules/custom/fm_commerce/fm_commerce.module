@@ -145,15 +145,12 @@ function fm_commerce_cart_submit ($form, &$form_state) {
      }
   }
   
-  var_dump(shipping_plugin_get_plugin('quotes', 'flat_rate'));
-  exit();
-  
   if (empty($shipping_line_item)) { 
   	
-  	$shipping_method = shipping_plugin_get_plugin('quotes', 'commerce_shipping_plugin_flat_rate');
+  	$shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
     $shipping_line_item = commerce_shipping_line_item_new($shipping_method);
     $shipping_line_item->order_id = $order->order_id;
-    $shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
+    $shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
 	  $shipping_line_item_wrapper->commerce_unit_price->amount = $discount;
     $shipping_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
     $shipping_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
@@ -164,10 +161,10 @@ function fm_commerce_cart_submit ($form, &$form_state) {
     );
     
     // Save the line item now so we get its ID.
-    $discount_line_item = commerce_line_item_save($discount_line_item);
+    $shipping_line_item = commerce_line_item_save($shipping_line_item);
      
     //Add it to the order's line item reference value.
-    $order_wrapper->commerce_line_items[] = $discount_line_item;
+    $order_wrapper->commerce_line_items[] = $shipping_line_item;
   } else {
   	
   }
