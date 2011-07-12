@@ -57,7 +57,7 @@ function fm_commerce_cart_block_view($block_name = '') {
 
   // If no order existed, create one now.
   if (empty($order)) {
-  	drupal_set_message('There was an error with your order, please contact the admin for issues', 'error');
+  	drupal_set_message('We couldn\'t find your order, please contact the admin for issues', 'error');
     drupal_goto();
   }
   // Wrap the order for easy access to field data.
