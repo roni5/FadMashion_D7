@@ -150,30 +150,31 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   
   if (empty($shipping_line_item)) { 
   	
-  	drupal_set_message(drupal_json_encode($store->field_shipping_rate));
-  	$shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  	if(isset($store->field_shipping_rate) && !empty( $store->field_shipping_rate['und'][0]['amount'])) {
   	
+  	  $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
   	
-  	$shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
-    $shipping_line_item = commerce_line_item_new('shipping');
-    $shipping_line_item->line_item_label = 'Flat Rate Shipping';
-    $shipping_line_item->quantity = 1;
-    $shipping_line_item->order_id = $order->order_id;
-    $shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
-	  $shipping_line_item_wrapper->commerce_unit_price->amount = $shipping_rate;
-    $shipping_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
-    $shipping_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
-    $shipping_line_item_wrapper->commerce_unit_price->value(),
-      'base_price',
+  	  $shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
+      $shipping_line_item = commerce_line_item_new('shipping');
+      $shipping_line_item->line_item_label = 'Flat Rate Shipping';
+      $shipping_line_item->quantity = 1;
+      $shipping_line_item->order_id = $order->order_id;
+      $shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
+	    $shipping_line_item_wrapper->commerce_unit_price->amount = $shipping_rate;
+      $shipping_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+      $shipping_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
       $shipping_line_item_wrapper->commerce_unit_price->value(),
-      TRUE
-    );
+        'base_price',
+        $shipping_line_item_wrapper->commerce_unit_price->value(),
+        TRUE
+      );
     
-    // Save the line item now so we get its ID.
-    $shipping_line_item = commerce_line_item_save($shipping_line_item);
+      // Save the line item now so we get its ID.
+      $shipping_line_item = commerce_line_item_save($shipping_line_item);
      
-    //Add it to the order's line item reference value.
-    $order_wrapper->commerce_line_items[] = $shipping_line_item;
+      //Add it to the order's line item reference value.
+      $order_wrapper->commerce_line_items[] = $shipping_line_item;
+  	}
   } else {
   	
   }
