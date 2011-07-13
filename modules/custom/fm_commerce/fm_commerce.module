@@ -57,43 +57,6 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
-function fm_commerce_cart_validate($form, &$form_state) {
-	
-	global $user;
-	// First attempt to load the customer's shopping cart order.
-  $order = commerce_cart_order_load($user->uid);
-  
-  // If no order existed, create one now.
-  if (empty($order)) {
-    return NULL;
-  }
-  // Wrap the order for easy access to field data.
-  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-  
-  $discount_line_item = NULL;
-  $shipping_line_item = NULL;
-  // Loop through the line items looking for discounts.
-  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
-  	
-     // If this line item matches the product being added...
-     if (empty($discount_line_item) &&
-         $line_item_wrapper->type->value() == 'deals_discount' ) {
-       
-         if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
-	         $discount_time = $line_item_wrapper->field_product_line_item->field_node_reference->field_start_time->value();
-	       }
-     }
-  }
-  
- if(isset($discount_time)) {
-  	//If timer is expired Cancel the order
-  	if(REQUEST_TIME > strtotime($discount_time['value2'])) {
-  		 commerce_order_status_update($order, 'expired');
-               drupal_set_message('A previous Deal has been expired.');
-  	}
- } 
-}
-
 //REDIRECTS Deals page TO STEP 2 after submit
 function fm_commerce_cart_submit($form, &$form_state) {
 
@@ -276,4 +239,47 @@ function fm_commerce_get_store($product) {
 	
 	$stores = fm_commerce_store_load_multiple(array($store_id));
 	return $stores[$store_id];
+}
+
+function fm_commerce_clean_expired_orders() {
+	
+	global $user;
+	
+	if(!$user->uid) {
+		return NULL;
+	}
+	
+	// First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($user->uid);
+  
+  // If no order existed, create one now.
+  if (empty($order)) {
+    return NULL;
+  }
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $discount_line_item = NULL;
+  $shipping_line_item = NULL;
+  // Loop through the line items looking for discounts.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  	
+     // If this line item matches the product being added...
+     if (empty($discount_line_item) &&
+         $line_item_wrapper->type->value() == 'deals_discount' ) {
+       
+         if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
+	         $discount_time = $line_item_wrapper->field_product_line_item->field_node_reference->field_start_time->value();
+	       }
+     }
+  }
+  
+  drupal_set_message(drupal_json_encode($discount_time));
+ if(isset($discount_time)) {
+  	//If timer is expired Cancel the order
+  	if(REQUEST_TIME > strtotime($discount_time['value2'])) {
+  		 commerce_order_status_update($order, 'expired');
+       drupal_set_message('A previous Deal in your cart has expired.');
+  	}
+  }
 }

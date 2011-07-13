@@ -20,7 +20,12 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	  	$first_name = $loaded_user->field_first_name['und'][0]['value'];
 	    $variables['user_first_name'] = $first_name;
 	  }
+	  
+	  //Clean Expired Orders for user
+	  fm_commerce_clean_expired_orders()
 	}
+	
+	
 
 	
   $url_alias = drupal_get_path_alias($_GET['q']);
