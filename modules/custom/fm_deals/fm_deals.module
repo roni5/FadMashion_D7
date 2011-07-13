@@ -347,7 +347,7 @@ function fm_deals_commerce_order_state_info() {
     'title' => t('Expire'),
     'description' => t('Orders in this state are expired by a deal timer end.'),
     'weight' => -10,
-    'default_status' => 'expired_deals',
+    'default_status' => 'expired',
   );
   
   return $order_states;
@@ -358,11 +358,11 @@ function fm_deals_commerce_order_state_info() {
  */
 function fm_deals_commerce_order_status_info() {
   $order_statuses = array();
-
-   $order_statuses['expired_deals'] = array(
-    'name' => 'expired_deals',
+ 
+   $order_statuses['expired'] = array(
+    'name' => 'expired',
     'title' => t('Expired Deal'),
-    'state' => 'expired_deals',
+    'state' => 'expired',
   );
 
   return $order_statuses;
