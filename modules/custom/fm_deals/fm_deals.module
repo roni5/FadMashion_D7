@@ -341,7 +341,6 @@ function fm_deals_get_status($node) {
 function fm_deals_commerce_order_state_info() {
   $order_states = array();
 
-  drupal_set_message('tesasalkj');
   $order_states['expired'] = array(
     'name' => 'expired',
     'title' => t('Expire'),
