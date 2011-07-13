@@ -89,7 +89,7 @@ function fm_commerce_cart_validate($form, &$form_state) {
   	//If timer is expired Cancel the order
   	if(REQUEST_TIME > strtotime($discount_time['value2'])) {
   		 commerce_order_status_update($order, 'expired');
-       drupal_set_message('A previous Deal has been expired.  ');
+               drupal_set_message('A previous Deal has been expired.');
   	}
  } 
 }
