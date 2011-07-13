@@ -274,7 +274,9 @@ function fm_commerce_clean_expired_orders() {
      }
   }
   
-  drupal_set_message(drupal_json_encode($discount_time));
+  drupal_set_message(drupal_json_encode(strtotime($discount_time)));
+  drupal_set_message(drupal_json_encode(REQUEST_TIME));
+  
  if(isset($discount_time)) {
   	//If timer is expired Cancel the order
   	if(REQUEST_TIME > strtotime($discount_time['value2'])) {
