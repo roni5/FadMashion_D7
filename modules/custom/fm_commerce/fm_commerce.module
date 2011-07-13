@@ -240,6 +240,12 @@ function fm_commerce_get_store($product) {
 	return $stores[$store_id];
 }
 
+/*
+ * Logic is run on ever page (reffer to template.php preprocess_page) 
+ * to check to see if there is are expired deals in the cart, if so update status
+ * of order to expire
+ */
+
 function fm_commerce_clean_expired_orders() {
 	
 	global $user;
