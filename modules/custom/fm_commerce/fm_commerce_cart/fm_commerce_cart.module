@@ -132,7 +132,3 @@ function fm_commerce_cart_block_view($block_name = '') {
   }
   return $block;
 }
-
-function fm_commerce_cart_cancel_order() {
-	
-}
