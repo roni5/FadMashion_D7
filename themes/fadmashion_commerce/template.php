@@ -22,11 +22,8 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	  }
 	  
 	  //Clean Expired Orders for user
-	  fm_commerce_clean_expired_orders()
+	  fm_commerce_clean_expired_orders();
 	}
-	
-	
-
 	
   $url_alias = drupal_get_path_alias($_GET['q']);
   $split_url = explode('/', $url_alias);
