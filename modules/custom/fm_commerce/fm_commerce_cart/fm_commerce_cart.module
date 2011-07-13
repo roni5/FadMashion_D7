@@ -120,10 +120,9 @@ function fm_commerce_cart_block_view($block_name = '') {
   	}
   	
   	$untilTime = date("F d, Y g:i a", strtotime($discount_time['value2']));
-  	$sinceTime = date("F d, Y g:i a", strtotime(REQUEST_TIME));
   	
   	$output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
-	  jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, "since" => $sinceTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
+	  jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
   }
   
   $total = $order_wrapper->commerce_order_total->value();
