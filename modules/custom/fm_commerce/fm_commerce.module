@@ -52,7 +52,6 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 		  'class' => array('red')
     );
     
-    $form['#validate'][] = 'fm_commerce_cart_validate';
 		$form['#submit'][] = 'fm_commerce_cart_submit';
   }
 }
