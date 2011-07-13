@@ -341,14 +341,30 @@ function fm_deals_get_status($node) {
 function fm_deals_commerce_order_state_info() {
   $order_states = array();
 
-  $order_states['expired_deals'] = array(
-    'name' => 'expired_deals',
-    'title' => t('Expired: Timed Deals'),
-    'description' => t('Orders in this state are expired by the 1 hour deal.'),
+  drupal_set_message('tesasalkj');
+  $order_states['expired'] = array(
+    'name' => 'expired',
+    'title' => t('Expire'),
+    'description' => t('Orders in this state are expired by a deal timer end.'),
     'weight' => -10,
     'default_status' => 'expired_deals',
   );
   
   return $order_states;
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function fm_deals_commerce_order_status_info() {
+  $order_statuses = array();
+
+   $order_statuses['expired_deals'] = array(
+    'name' => 'expired_deals',
+    'title' => t('Expired Deal'),
+    'state' => 'expired_deals',
+  );
+
+  return $order_statuses;
 }
 
