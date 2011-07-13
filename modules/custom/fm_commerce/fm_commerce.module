@@ -64,7 +64,6 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
-  
   	
   // If no order existed, create one now.
   if (empty($order)) {
@@ -100,6 +99,7 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   $discount = -1 * ($retail_price - $sale_price);
 
   $discount_line_item = NULL;
+  $shipping_line_item = NULL;
   // Loop through the line items looking for discounts.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
@@ -108,6 +108,13 @@ function fm_commerce_cart_submit ($form, &$form_state) {
          $line_item_wrapper->type->value() == 'deals_discount' ) {
        // Exit this loop with the $line_item intact so it gets updated.
        $discount_line_item = $line_item_wrapper->value();
+     }
+     
+     // If this line item matches the product being added...
+     if (empty($shipping_line_item) &&
+         $line_item_wrapper->type->value() == 'shipping' ) {
+       // Exit this loop with the $line_item intact so it gets updated.
+       $shipping_line_item = $line_item_wrapper->value();
      }
   }
   
@@ -139,17 +146,6 @@ function fm_commerce_cart_submit ($form, &$form_state) {
   }
   
   //SHIPPING LINE ITEM
-  $shipping_line_item = NULL;
-  // Loop through the line items looking for Shipping.
-  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
-  	
-     // If this line item matches the product being added...
-     if (empty($shipping_line_item) &&
-         $line_item_wrapper->type->value() == 'shipping' ) {
-       // Exit this loop with the $line_item intact so it gets updated.
-       $shipping_line_item = $line_item_wrapper->value();
-     }
-  }
   
   if (empty($shipping_line_item)) { 
   	
