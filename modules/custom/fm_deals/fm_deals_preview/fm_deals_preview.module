@@ -59,7 +59,7 @@ function fm_deals_preview_page_content($date = '') {
     $node->sale_percentage = $value;
     
     //Check for what state the item is in and attach to node
-    $status = fm_deals_get_status($node);
+    $status = fm_deals_states_get_status($node);
     $node->deal_status = $status;
       
 		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));

@@ -10,6 +10,10 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	
 	//Add Global javascript and CSS
 	drupal_add_library('jquery_plugin', 'validate');
+	drupal_add_library('system', 'jquery.form');
+	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders').'/fm_commerce_orders.js');
+	
+	
 	global $user;
 	
 	if($user->uid) {
@@ -22,7 +26,9 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	  }
 	  
 	  //Clean Expired Orders for user
-	  fm_commerce_clean_expired_orders();
+	  if(module_exists('fm_deals_states')) {
+	    fm_deals_states_clean_expired_deals();
+	  }
 	}
 	
   $url_alias = drupal_get_path_alias($_GET['q']);

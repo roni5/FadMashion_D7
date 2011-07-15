@@ -1,0 +1,175 @@
+<?php
+
+
+function fm_deals_states_get_status($node) {
+  
+	$start_time = $node->field_start_time['und'][0]['value'];
+	$end_time = $node->field_start_time['und'][0]['value2'];
+	
+	$unixStartTime = strtotime($start_time);
+	$unixEndTime = strtotime($end_time);
+	
+	//If start time is GREATER THAN NOW than disabled.
+	if(REQUEST_TIME < $unixStartTime) {
+		$status = 'upcoming';
+	}
+	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
+		$status = 'active';
+	} 
+	else {
+		$status = 'ended';
+	}
+	
+	return $status;
+}
+
+function fm_deals_states_purchased_deal($deal_node) {
+  global $user;
+  
+  $orders = array();
+  $orders = commerce_order_load_multiple(array(), array('status' => 'deal_off', 'uid' => $user->uid));
+  $orders += commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
+  
+  foreach ($orders as $order) {
+ 	  $node = fm_deals_states_get_order_node($order);
+    if($deal_node->nid == $node->nid) {
+    	return true;
+    } 
+  }
+	return false;
+}
+
+function fm_deals_states_deal_on($node) {
+ 
+	return true;
+}
+
+/*
+ * Logic is run on ever page (reffer to template.php preprocess_page) 
+ * to check to see if there is are expired deals in the cart, if so update status
+ * of order to expire
+ */
+
+//TODO:  BIG performance hit that this is being done on every page load.  ORders should be updated after a node event is triggered
+function fm_deals_states_clean_expired_deals() {
+	
+ global $user;
+	
+	if(!$user->uid) {
+		return NULL;
+	}
+	
+	// First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($user->uid);
+  
+  // if the cart order is not empty than check to see if it isexpired
+  if (!empty($order)) {
+    $node = fm_deals_states_get_order_node($order);
+    if(fm_deals_states_get_status($node) == 'ended') {
+      commerce_order_status_update($order, 'deal_expired');
+      drupal_set_message('The deal in your cart has expired.');
+    } 	
+  }
+  
+ //Second, load up previous orders and go through each one and update those 
+ $expired_orders = commerce_order_load_multiple(array(), array('status' => 'deal_off', 'uid' => $user->uid));
+ 
+ foreach ($expired_orders as $order) {
+ 	  $node = fm_deals_states_get_order_node($order);
+    if(fm_deals_states_get_status($node) == 'ended') {
+    	if(fm_deals_states_deal_on($node)) {
+    		commerce_order_status_update($order, 'deal_payed');
+    	} else {
+        commerce_order_status_update($order, 'deal_expired_refund');
+        drupal_set_message('The deal for ' . $product->title . ' did not go on.  You will be fully refunded for your troubles..');
+    	}
+    } 
+ }
+ 
+ 
+}
+
+//Get the deal node off the order
+function fm_deals_states_get_order_node($order) {
+ 
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $discount_line_item = NULL;
+  $shipping_line_item = NULL;
+  // Loop through the line items looking for discounts.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  	
+     // If this line item matches the product being added...
+     if (empty($discount_line_item) &&
+         $line_item_wrapper->type->value() == 'deals_discount' ) {
+       
+         if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
+         	 $product = $line_item_wrapper->field_product_line_item;
+	         $node = $line_item_wrapper->field_product_line_item->field_node_reference->value();
+	       }
+     }
+  }
+  
+  if(isset($node)) {
+  	//If timer is expired Cancel the order
+  	return $node;
+  }
+}
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function fm_deals_states_commerce_order_state_info() {
+  $order_states = array();
+
+  $order_states['deal'] = array(
+    'name' => 'deal',
+    'title' => t('Deal State'),
+    'description' => t('Orders in this state are part of a timed deal.'),
+    'weight' => -10,
+    'default_status' => 'deal_expired',
+  );
+  
+  return $order_states;
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function fm_deals_states_commerce_order_status_info() {
+  $order_statuses = array();
+ 
+  
+  
+  $order_statuses['deal_off'] = array(
+    'name' => 'deal_off',
+    'title' => t('Live Deal: Off'),
+    'state' => 'deal',
+  );
+  
+   $order_statuses['deal_expired'] = array(
+    'name' => 'deal_expired',
+    'title' => t('Deal Expired: Timed w/no checkout'),
+    'state' => 'deal',
+  );
+  $order_statuses['deal_expired_refund'] = array(
+    'name' => 'deal_expired_refund',
+    'title' => t('Deal Expired: Needs Refund'),
+    'state' => 'deal',
+  );
+  
+  $order_statuses['deal_refunded'] = array(
+    'name' => 'deal_refunded',
+    'title' => t('Deal Completed: Refunded'),
+    'state' => 'deal',
+  );
+  
+  $order_statuses['deal_payed'] = array(
+    'name' => 'deal_payed',
+    'title' => t('Deal Completed: Fully Payed'),
+    'state' => 'deal',
+  );
+
+  return $order_statuses;
+}

@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
 function clearAllForms() {
   //Call the Form clear and restore
   jQuery("input.clear-defaults").cleardefault();
+  jQuery("textarea.clear-defaults").cleardefault();
 };
 
 jQuery.fn.cleardefault = function() {

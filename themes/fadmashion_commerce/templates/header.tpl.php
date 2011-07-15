@@ -3,8 +3,8 @@
             	<div id="accountNav">
                 <ul class="tree">
                 <li class="menu"></li>
-                <li class="menu"><a href="#">My Orders</a></li>
-                <li><a href="#">+ Invite Friends</a></li>
+                <li><?php print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
+                <li> <?php print l('+ Invite Friends, Earn Rewards', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 450), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends and Earn Rewards') )  ); ?></li>
                </ul> </div>
                 <p>Discover Fashion Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
             </div>

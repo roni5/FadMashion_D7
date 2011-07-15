@@ -2,7 +2,10 @@
 
 /*
  * implements hook_block_info()
+ * 
+ * 
  */
+//TODO: SEE If we can make this a block from views.
 function fm_commerce_cart_block_info() {
 	$blocks = array();
 	

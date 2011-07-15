@@ -160,13 +160,18 @@ function fm_commerce_express_checkout_form($form, $form_state) {
 }
 
 function fm_commerce_express_checkout_form_validate($form, $form_state) {
-  $profile = $form_state['values']['billing_customer_profile'];
+	
+  $shipping_profile = $form_state['values']['shipping_customer_profile'];
+
+  // Notify field widgets to validate their data.
+  field_attach_form_validate('commerce_customer_profile', $shipping_profile, $form, $form_state);
+	
+	$profile = $form_state['values']['billing_customer_profile'];
 
   // Notify field widgets to validate their data.
   field_attach_form_validate('commerce_customer_profile', $profile, $form, $form_state);
 
   return TRUE;
-
 }
 
 function fm_commerce_express_checkout_form_submit($form, $form_state) {
@@ -176,10 +181,10 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   
   
   /*SHIPPING ADDRESS SUBMIT*/
-  
   $profile = $form_state['values']['shipping_customer_profile'];
   
- //If Address 1 field is not equal than a different address so save as a new one
+  //TODO: ADD more checks besides just address to see if it has changed
+  //If Address 1 field is not equal than a different address so save as a new one
   $form_address1 = $form_state['values']['field_shipping_address']['und'][0]['thoroughfare']; 
  
   if(!empty($profile->profile_id) && $form_address1 != $profile->field_shipping_address['und'][0]['thoroughfare']) {
@@ -206,7 +211,6 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
     commerce_customer_profile_save($profile);
   } 
   
-  
    /*BILLING ADDRESS SUBMIT*/
   $billing_profile = $form_state['values']['billing_customer_profile'];
 
@@ -221,18 +225,32 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 
   // Notify field widgets.
   field_attach_submit('commerce_customer_profile', $billing_profile, $form, $form_state);
-    var_dump($billing_profile);
-  
+ 
   // Save the profile.
   commerce_customer_profile_save($billing_profile);
-  
-  
 	$order = commerce_order_save($order);
+	
+	//Update Status Info - Set to completed if 
+	$node = fm_deals_states_get_order_node($order);
+	$deal_state = fm_deals_states_deal_on($node);
+	if($deal_state) {
+		//ADD payment stuff
+    $order = commerce_order_status_update($order, 'deal_payed');
+	}
+	else {
+		$order = commerce_order_status_update($order, 'deal_off');
+	}
+	
+	
+  //commerce_checkout_complete($order);
+  
+  //Redirect here
+  
+
 }
 
 
-
-
+//TODO: Needs to be in a theme file
 function theme_fm_commerce_express_checkout_form($variables)
 {
     // Isolate the form definition form the $variables array
