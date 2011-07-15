@@ -17,8 +17,15 @@ ul{list-style-type: none;}
 .form-submit:hover, .button a:hover {background-position: left bottom;}
 .check {margin-right:5px;}
 
+label{font-weight: normal;}
+.form-text, .form-text-readonly {border:medium none;height:26px;padding-left:4px;width:185px;}
+.form-textarea {padding: 4px; border: 1px solid #ddd; }
+	
 .asterik {float:right;font-size:11px;}
 .form-item .form-required, .asterik span {color:#BC4038;}
+
+.ajax-button { float: left; }
+#submitLoader{background:url("../images/colorbox/loading.gif") no-repeat scroll 5px 5px #FFFFFF; float:left; height:32px; margin:-7px 0 0 7px; width:32px;}
 
 .message_box { color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
 .message_box .error { -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
@@ -194,11 +201,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .onSale{border-color:#a22b24; }
 .ended{color: #cbbdb0;}
 
-.social{ padding: 50px 0; border-bottom: 1px solid #eae7e5; text-align:center; font-size: 14px; line-height:19px; margin: 0 20px; color: #92857a; }
+.socialItem{ padding: 50px 0; border-bottom: 1px solid #eae7e5; text-align:center; font-size: 14px; line-height:19px; margin: 0 20px; color: #92857a; }
 #dealPreview .dealFrame .social h1{font-size: 22px; margin: 10px 0;color: #322f2c;}
-.social a, .weekButton a{font-family:"museo-sans-1","museo-sans-2", Helvetica; font-size: 14px; font-style: normal;}
+.socialItem a, .weekButton a{font-family:"museo-sans-1","museo-sans-2", Helvetica; font-size: 14px; font-style: normal;}
 .weekButton a{color: #92857a;92857a}
-.social img{display: block; margin: 0 auto;}
+.socialItem img{display: block; margin: 0 auto;}
 .weekButton{background: url(../images/bg_arrow_large.jpg) top right no-repeat; height: 30px;width: 100px; font-size: 15px; margin: 0 auto; padding-right: 28px; font-style:normal; color: #92857a; margin-top: 84px; }
 .weekButton:hover{background-position: bottom right;}
 .check{margin-right: 5px;}
@@ -277,8 +284,56 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 	
 #block-views-nodequeue-1-block ul li .views-field-title a{font-size:14px;margin:0;}
 
+/* Order List*/
+#orders-list table  { width: 100%; text-align: center; margin: 10px; }
+#orders-list table th { text-align: center }
+#orders-list table thead { background-color: #ddd; }
+#orders-list table tr td { padding: 10px 0;}
+#orders-list table tr, #order-detail table tr {background-color: #F8F8F8}
 
-/* IE/Win - Fix animation bug - #4615 */
+#orders-list .order-date {color: #888; }
+#orders-list .retail-price {font-size: 12px; display: inline; margin-left: 10px; color: #555; text-decoration: line-through; }
+#orders-list .sale-price { display: inline; }
+
+#order-detail{margin-top: 20px;}
+#order-detail #col1 {float: left; width: 400px;;padding-right: 20px; border-right: 1px solid #aaa; margin-right: 20px;}
+#order-detail #col2 { float: left; width: 260px;}
+#order-detail #col1 .field-name-commerce-line-items  table{margin: 0 0 5px; width: 100%;}
+#order-detail .field-name-commerce-line-items table tr td {padding: 10px}
+#order-detail .field-name-commerce-order-total {float: right;}
+#order-detail .field-name-commerce-order-total table tr{background-color: #fff; border: 0px solid #000}
+#order-detail .field-name-commerce-order-total table tbody {border: 0px solid #000;}
+#order-detail .field-name-commerce-order-total table tbody td {padding: 10px;}
+
+#order-detail .field-name-commerce-customer-shipping, #order-detail .field-name-commerce-customer-billing {width: 200px; float: left; margin-top: 20px;}
+#order-detail .field-name-commerce-customer-shipping {clear: both}
+
+#fm-commerce-orders-support-form .form-submit { padding: 6px 12px; font-size: 14px; margin: 0;}
+#support-success-message {border: 1px solid #ddd; padding: 5px; background-color: #F8F8F8; font-size: 16px; color: #1D1C1A}
+/* Rewards Pop-up */
+
+.signupBox {text-align:center; float:left; height:229px; margin-right:8px; padding:0; width:164px;}
+.share { float:left; text-align: center; padding:24px 0 15px 70px;}
+#signup5 {background:url("../images/bg_signups_5.jpg") no-repeat scroll left top transparent;}
+#signup15 {background:url("../images/bg_signups_15.jpg") no-repeat scroll left top transparent; }
+#signup25 {background:url("../images/bg_signups_25.jpg") no-repeat scroll left top transparent; }
+
+.signupBox h1 {color:#FFFFFF; font-size:47px; font-weight:100; line-height:47px; margin:24px 0 4px;}
+h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times New Roman",Times,serif;font-size:15px;font-style:italic;font-weight:normal;margin:0;}
+.signupBox h3 {border-bottom:1px solid #948D86; color:#8A7D71 font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:13px; font-style:normal; font-weight:300; line-height:13px; margin:0 26px 16px; padding-bottom:12px; }
+.signupBox p {color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:14px; font-weight:100; line-height:18px; margin:0; padding:0 20px; }
+.signupBox p.value { color:#D7CBC2; font-weight:700; margin-top:14px; }
+.social {float:left;width:111px;}
+.socialIcon {margin:0 5px 0 0; float:left}
+.rewards_link {float:left;}
+
+/* Invite Form */
+
+#fm-invite-send-email-form .form-text, #fm-invite-send-email-form .form-textarea {border:1px solid #DDDDDD;width:274px;background-image:none;}
+#fm-invite-send-email-form .form-submit { padding: 6px 12px; font-size: 14px}
+
+
+/* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
 .ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
 .ui-accordion .ui-accordion-li-fix { display: inline; }

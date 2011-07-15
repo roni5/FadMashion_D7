@@ -262,7 +262,7 @@ function fm_invite_send_email_form() {
   $form['submit'] = array(
     '#type' => 'submit', 
     '#value' => t('Send'),
-    '#attributes' => array('class' => array('ajax-button')),
+    '#attributes' => array('class' => array('ajax-button', 'red')),
   
   );
   

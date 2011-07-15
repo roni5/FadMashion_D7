@@ -1,0 +1,201 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function fm_commerce_orders_menu() {
+	
+	$items['my-orders'] = array(
+    'page callback' => 'fm_commerce_orders_page',
+	  'access arguments' => array('view deals'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['my-orders/%'] = array(
+    'page callback' => 'fm_commerce_orders_detail_page',
+	  'access arguments' => array('view deals'),
+    'page arguments' => array(1),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+function fm_commerce_orders_theme() {
+	return array(
+    'fm_commerce_orders_detail' => array(
+	    'template' => 'fm_commerce_orders_detail',
+	    'variables' => array('order_id' => null, 'content' => '', 'customer_service_form' => '')
+    ),
+  );
+}
+
+/*
+ * Defines the basic Order Page with status's for 
+ */
+function fm_commerce_orders_page() {
+	
+	$content = fm_commerce_orders_full_list();
+	$header = t('My Orders');
+	
+
+  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    // special ajax here 
+     $output = '<div id="cboxTitle-manual">' . $header . '</div>';
+     print $output.$content;
+     exit;
+  } 
+  else {
+  	 $output = '<h1>' . $header . '</h1>';
+     return $output.$content;
+  }
+
+ 
+}
+
+function fm_commerce_orders_full_list() {
+	
+	$output .= '<div id="orders-list">';
+	
+	/*$quicktabs = new stdClass();
+	  
+  $tabs['orders_purchased'] = array(
+            'title' => t('Purchased'),
+            'type' => 'freetext',
+            'text' => fm_commerce_orders_purchased_tab(),
+  );
+  $tabs['orders_refunded'] = array(
+            'title' => t('Refunded'),
+            'type' => 'freetext',
+            'text' => 'test2'
+  );
+  $tabs['orders_all'] = array(
+              'title' => t('All'),
+              'type' => 'freetext',
+              'text' => 'test3'
+  );
+	  
+  $quicktabs->tabs = $tabs;
+  $quicktabs->table = 'quicktabs';
+  $quicktabs->ajax= '0';
+  $quicktabs->style = 'default';
+  $quicktabs->type = 'Normal';
+  $quicktabs->default_tab = 'orders_purchased';
+  $quicktabs->hide_empty_tabs = '0';
+  $quicktabs->machine_name = 'fm_order_list';
+    
+  $qt = quicktabs_render($quicktabs);
+  
+	$output .= render($qt);*/
+	$output .= fm_commerce_orders_purchased_tab();
+	$output .= '</div>';
+	
+	return $output;
+}
+
+function fm_commerce_orders_detail_page($order_id) {
+	$order = commerce_order_load($order_id);
+	
+	$vars = array();
+	
+	$vars['content'] = commerce_order_ui_order_view($order, 'customer'); 
+  $vars['order_id'] = $order_id;
+
+  $vars['customer_service_form'] = drupal_get_form('fm_commerce_orders_support_form');
+ 
+	$content = theme('fm_commerce_orders_detail', $vars);
+	
+	
+  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    // special ajax here 
+     $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' >> Order #' .   $order_id;
+     $output = '<div id="cboxTitle-manual">' . $header . '</div>';
+     print $content;
+     exit;
+  } 
+  else {
+  	 $header =  l('My Orders', 'my-orders', array( 'attributes' => array('title' => t('My Orders') )) ) . ' >> Order #' .   $order_id;
+  	 $output = '<h1>' . $header . '<h1>';
+     return $content;
+  }
+  
+}
+
+function fm_commerce_orders_support_form() {
+  
+  $form['message'] = array(
+    '#type' => 'textarea', 
+    '#row' => 4, 
+    '#cols' => 30,
+    '#default_value' => t('Tell us what you need help with.'),
+    '#attributes' => array('class' => array('clear-defaults')),
+    '#required' => TRUE
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Send'),
+    '#attributes' => array('class' => array('ajax-button', 'red')),
+  );
+  
+  return $form;
+}
+
+function fm_commerce_orders_purchased_tab() {
+	global $user;
+	
+	//Second, load up previous orders and go through each one and update those 
+ $orders = commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
+ 
+ if(count($orders) == 0) {
+  return '<div class="no-orders">You currently have no purchases</div>'; 	
+ }
+ 
+ $rows = array();
+ $header = array('Order #', 'Item', 'Total Price', ''  );
+	
+ foreach($orders as $order) {
+		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+		
+ 	  $total = $order_wrapper->commerce_order_total->value();
+    $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+  
+    $row_info = fm_commerce_orders_row_info($order);
+		$rows[] = array('<div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
+		  '<div class="product-title">' . $row_info['title'] . '</div>' ,
+		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price">'  . $row_info['retail'] . '</div>',
+		  l('Order Summary', 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', 
+		     ))) 
+		);
+	}
+	
+	
+	return theme ('table', array('rows' => $rows));
+}
+
+//Get row info for the table.  Outputs Product, product price & node price
+function fm_commerce_orders_row_info($order) {
+ 
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $discount_line_item = NULL;
+  $shipping_line_item = NULL;
+  // Loop through the line items looking for discounts.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  	
+     // If this line item matches the product being added...
+     if (empty($discount_line_item) &&
+         $line_item_wrapper->type->value() == 'product' ) {
+         	  
+  		   $product = $line_item_wrapper->commerce_product->value();
+         $title = $product->title;
+         $retail_price = $line_item_wrapper->commerce_total->value();
+         $retail_price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
+         
+         $node = $line_item_wrapper->field_node_reference->value();
+         $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']); 
+     }
+  }
+  
+  return array('title' => $title, 'retail' => $retail_price, 'sale' => $sale_price);  
+}

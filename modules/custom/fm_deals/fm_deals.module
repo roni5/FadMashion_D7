@@ -268,7 +268,7 @@ function fm_deals_get_default_deal() {
 
 function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];
-	$status = fm_deals_get_status($node);
+	$status = fm_deals_states_get_status($node);
 	
 	$start_time = $node->field_start_time['und'][0]['value'];
 	$end_time = $node->field_start_time['und'][0]['value2'];
@@ -293,7 +293,13 @@ function fm_deals_group_details(&$vars) {
 		$untilTime = $end_time;
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
-		$purchaseDetails .= '<div class="box">' .render($vars['content']['field_product_reference']) . '</div>';
+		$purchaseDetails .= '<div class="box">';
+		if(!fm_deals_states_purchased_deal($node)) { 
+		  $purchaseDetails .= render($vars['content']['field_product_reference']);
+		} else {
+			$purchaseDetails .= 'Thank you for your Purchase!';
+		}
+		$purchaseDetails .=  '</div>';
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
@@ -313,57 +319,5 @@ function fm_deals_group_details(&$vars) {
 
 
 
-function fm_deals_get_status($node) {
-  
-	$start_time = $node->field_start_time['und'][0]['value'];
-	$end_time = $node->field_start_time['und'][0]['value2'];
-	
-	$unixStartTime = strtotime($start_time);
-	$unixEndTime = strtotime($end_time);
-	
-	//If start time is GREATER THAN NOW than disabled.
-	if(REQUEST_TIME < $unixStartTime) {
-		$status = 'upcoming';
-	}
-	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
-		$status = 'active';
-	} 
-	else {
-		$status = 'ended';
-	}
-	
-	return $status;
-}
 
-/**
- * Implements hook_commerce_order_state_info().
- */
-function fm_deals_commerce_order_state_info() {
-  $order_states = array();
-
-  $order_states['expired'] = array(
-    'name' => 'expired',
-    'title' => t('Expire'),
-    'description' => t('Orders in this state are expired by a deal timer end.'),
-    'weight' => -10,
-    'default_status' => 'expired',
-  );
-  
-  return $order_states;
-}
-
-/**
- * Implements hook_commerce_order_status_info().
- */
-function fm_deals_commerce_order_status_info() {
-  $order_statuses = array();
- 
-   $order_statuses['expired'] = array(
-    'name' => 'expired',
-    'title' => t('Expired Deal'),
-    'state' => 'expired',
-  );
-
-  return $order_statuses;
-}
 
