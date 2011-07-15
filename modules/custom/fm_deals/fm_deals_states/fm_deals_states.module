@@ -28,7 +28,7 @@ function fm_deals_states_purchased_deal($deal_node) {
   
   $orders = array();
   $orders = commerce_order_load_multiple(array(), array('status' => 'deal_off', 'uid' => $user->uid));
-  $orders += commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
+  //$orders += commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
   
   foreach ($orders as $order) {
  	  $node = fm_deals_states_get_order_node($order);

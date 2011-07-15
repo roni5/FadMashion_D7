@@ -29,7 +29,8 @@ function fm_commerce_express_checkout_page() {
 	return drupal_get_form('fm_commerce_express_checkout_form');
 }
 
-
+//Replace the drupal commerce checkout form with our own 
+//preffer having complete control of fomrs rather than doing through commerce admin (anish)
 function fm_commerce_express_checkout_form($form, $form_state) {
 
   global $user;
@@ -160,7 +161,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
 }
 
 function fm_commerce_express_checkout_form_validate($form, $form_state) {
-	
+
   $shipping_profile = $form_state['values']['shipping_customer_profile'];
 
   // Notify field widgets to validate their data.
@@ -170,6 +171,17 @@ function fm_commerce_express_checkout_form_validate($form, $form_state) {
 
   // Notify field widgets to validate their data.
   field_attach_form_validate('commerce_customer_profile', $profile, $form, $form_state);
+  
+  module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+
+  // Validate the credit card fields.
+  $settings = array(
+    'form_parents' => array('credit_card'),
+  );
+
+  /*if (!commerce_payment_credit_card_validate($form_state['values']['credit_card'], $settings)) {
+    return FALSE;
+  }*/
 
   return TRUE;
 }
@@ -177,6 +189,14 @@ function fm_commerce_express_checkout_form_validate($form, $form_state) {
 function fm_commerce_express_checkout_form_submit($form, $form_state) {
    // Load a fresh copy of the order stored in the form.
   $order = commerce_order_load($form_state['order']->order_id);
+  
+  //GEt payment methods for credit card
+  $order->payment_methods = array();
+  rules_invoke_all('commerce_payment_methods', $order);
+  
+  //There is only one payment method - Authorize.net so just use that one.  
+  $payment_method = array_shift($order->payment_methods);
+  
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
   
@@ -211,6 +231,8 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
     commerce_customer_profile_save($profile);
   } 
   
+  $order_wrapper->commerce_customer_shipping = $profile;
+  
    /*BILLING ADDRESS SUBMIT*/
   $billing_profile = $form_state['values']['billing_customer_profile'];
 
@@ -228,11 +250,17 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
  
   // Save the profile.
   commerce_customer_profile_save($billing_profile);
+  $order_wrapper->commerce_customer_billing = $billing_profile;
 	$order = commerce_order_save($order);
-	
+
 	//Update Status Info - Set to completed if 
 	$node = fm_deals_states_get_order_node($order);
 	$deal_state = fm_deals_states_deal_on($node);
+	
+	//Call payment gateway
+	$charge = $order_wrapper->commerce_order_total->value();
+	//$result = commerce_authnet_aim_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
+	
 	if($deal_state) {
 		//ADD payment stuff
     $order = commerce_order_status_update($order, 'deal_payed');
@@ -241,8 +269,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 		$order = commerce_order_status_update($order, 'deal_off');
 	}
 	
-	
-  //commerce_checkout_complete($order);
+	//commerce_checkout_complete($order);
   
   //Redirect here
   

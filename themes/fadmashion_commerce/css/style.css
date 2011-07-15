@@ -285,6 +285,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-views-nodequeue-1-block ul li .views-field-title a{font-size:14px;margin:0;}
 
 /* Order List*/
+
+#orders-list, #order-detail{ font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size: 13px;} 
 #orders-list table  { width: 100%; text-align: center; margin: 10px; }
 #orders-list table th { text-align: center }
 #orders-list table thead { background-color: #ddd; }

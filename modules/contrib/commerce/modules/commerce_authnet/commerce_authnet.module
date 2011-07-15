@@ -198,7 +198,7 @@ function commerce_authnet_aim_submit_form_submit($payment_method, $pane_form, $p
       $description[] = round($line_item_wrapper->quantity->value()) . 'x ' . $line_item_wrapper->line_item_label->value();
     }
   }
-
+  
   // Prepare the billing address for use in the request.
   $billing_address = $order_wrapper->commerce_customer_billing->commerce_customer_address->value();
 
@@ -227,7 +227,7 @@ function commerce_authnet_aim_submit_form_submit($payment_method, $pane_form, $p
     'x_cust_id' => substr($order->uid, 0, 20),
     'x_customer_ip' => substr(ip_address(), 0, 15),
   );
-
+	
   // Submit the request to Authorize.Net.
   $response = commerce_authnet_aim_request($payment_method, $nvp);
 

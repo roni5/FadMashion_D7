@@ -108,14 +108,14 @@ function fm_commerce_orders_detail_page($order_id) {
   if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     // special ajax here 
      $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' >> Order #' .   $order_id;
-     $output = '<div id="cboxTitle-manual">' . $header . '</div>';
-     print $content;
+     $header = '<div id="cboxTitle-manual">' . $header . '</div>';
+     print $header.$content;
      exit;
   } 
   else {
   	 $header =  l('My Orders', 'my-orders', array( 'attributes' => array('title' => t('My Orders') )) ) . ' >> Order #' .   $order_id;
-  	 $output = '<h1>' . $header . '<h1>';
-     return $content;
+  	 $header = '<h1>' . $header . '<h1>';
+     return $header.$content;
   }
   
 }
