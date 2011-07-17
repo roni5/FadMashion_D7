@@ -227,6 +227,8 @@ function fm_deals_preview_get_image($product) {
   $first_image = field_get_items('node', $first_image, 'field_product_image');
   $first_image = $first_image[0];
   
+  var_dump($first_image['uri']);
+  
   $image = array(
       'path' => $first_image['uri'],
       'alt' => $first_image['alt'],
