@@ -80,7 +80,7 @@
 ?>
 
 <div class="photos">
-  <?php print render($content['product:field_images']); ?>
+  <?php print render($content['product:field_product_images']); ?>
 </div>
 <div class="info">
 <h1 class="pageTitle">1-HOUR  <span>DEALS</span></h1>

@@ -1,0 +1,8 @@
+; $Id: $
+name = Fadmashion Product Images 
+description = Add field to Categorize Product Images
+core = 7.x
+package = Fadmashion
+
+
+dependencies[] = commerce
