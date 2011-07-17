@@ -27,8 +27,6 @@ function theme_fm_image_slider_formatter($variables) {
   	$picture = field_get_items('node', $picture, 'field_product_image');
     $picture = $picture[0];
     
-    var_dump($picture);
-  
     $image = array(
       'path' => $picture['uri'],
       'alt' => $picture['alt'],
