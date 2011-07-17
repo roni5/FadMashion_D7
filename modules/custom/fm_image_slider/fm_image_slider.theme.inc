@@ -23,6 +23,12 @@ function theme_fm_image_slider_formatter($variables) {
   $output = '<div id="slider" class="nivoSlider">';
   foreach($pictures as $picture) {
 
+  	$picture = node_load($picture['nid']);
+  	$picture = field_get_items('node', $picture, 'field_product_image');
+    $picture = $picture[0];
+    
+    var_dump($picture);
+  
     $image = array(
       'path' => $picture['uri'],
       'alt' => $picture['alt'],

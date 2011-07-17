@@ -288,12 +288,12 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 #orders-list, #order-detail{ font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size: 13px;} 
 #orders-list table  { width: 100%; text-align: center; margin: 10px; }
-#orders-list table th { text-align: center }
+#orders-list table th { text-align: center; background-color: #fff; font-weight: normal; color: #888;padding: 10px 0 2px; }
 #orders-list table thead { background-color: #ddd; }
 #orders-list table tr td { padding: 10px 0;}
-#orders-list table tr, #order-detail table tr {background-color: #F8F8F8}
+#orders-list table tr td, #order-detail table tr td{background-color: #F8F8F8}
 
-#orders-list .order-date {color: #888; }
+#orders-list .order-date {color: #888; font-size: 11px;}
 #orders-list .retail-price {font-size: 12px; display: inline; margin-left: 10px; color: #555; text-decoration: line-through; }
 #orders-list .sale-price { display: inline; }
 
@@ -301,15 +301,20 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #order-detail #col1 {float: left; width: 400px;;padding-right: 20px; border-right: 1px solid #aaa; margin-right: 20px;}
 #order-detail #col2 { float: left; width: 260px;}
 #order-detail #col1 .field-name-commerce-line-items  table{margin: 0 0 5px; width: 100%;}
+
+#order-detail #col1 .field-name-commerce-line-items  table th {border-bottom: n} 
+	
+	
 #order-detail .field-name-commerce-line-items table tr td {padding: 10px}
 #order-detail .field-name-commerce-order-total {float: right;}
-#order-detail .field-name-commerce-order-total table tr{background-color: #fff; border: 0px solid #000}
+#order-detail .field-name-commerce-order-total table tr td{background-color: #fff; border: 0px solid #000}
 #order-detail .field-name-commerce-order-total table tbody {border: 0px solid #000;}
 #order-detail .field-name-commerce-order-total table tbody td {padding: 10px;}
 
 #order-detail .field-name-commerce-customer-shipping, #order-detail .field-name-commerce-customer-billing {width: 200px; float: left; margin-top: 20px;}
 #order-detail .field-name-commerce-customer-shipping {clear: both}
-
+.order-status-detail {margin: 0 0 10px; padding: 10px;}
+	 
 #fm-commerce-orders-support-form .form-submit { padding: 6px 12px; font-size: 14px; margin: 0;}
 #support-success-message {border: 1px solid #ddd; padding: 5px; background-color: #F8F8F8; font-size: 16px; color: #1D1C1A}
 /* Rewards Pop-up */

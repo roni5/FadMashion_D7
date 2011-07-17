@@ -24,7 +24,10 @@ function fm_commerce_orders_theme() {
 	return array(
     'fm_commerce_orders_detail' => array(
 	    'template' => 'fm_commerce_orders_detail',
-	    'variables' => array('order_id' => null, 'content' => '', 'customer_service_form' => '')
+	    'variables' => array('order_id' => null, 'status' => '',  'content' => '', 'customer_service_form' => '')
+    ),
+    'fm_commerce_orders_status' => array(
+	    'variables' => array('status' => null)
     ),
   );
 }
@@ -55,38 +58,8 @@ function fm_commerce_orders_page() {
 function fm_commerce_orders_full_list() {
 	
 	$output .= '<div id="orders-list">';
-	
-	/*$quicktabs = new stdClass();
-	  
-  $tabs['orders_purchased'] = array(
-            'title' => t('Purchased'),
-            'type' => 'freetext',
-            'text' => fm_commerce_orders_purchased_tab(),
-  );
-  $tabs['orders_refunded'] = array(
-            'title' => t('Refunded'),
-            'type' => 'freetext',
-            'text' => 'test2'
-  );
-  $tabs['orders_all'] = array(
-              'title' => t('All'),
-              'type' => 'freetext',
-              'text' => 'test3'
-  );
-	  
-  $quicktabs->tabs = $tabs;
-  $quicktabs->table = 'quicktabs';
-  $quicktabs->ajax= '0';
-  $quicktabs->style = 'default';
-  $quicktabs->type = 'Normal';
-  $quicktabs->default_tab = 'orders_purchased';
-  $quicktabs->hide_empty_tabs = '0';
-  $quicktabs->machine_name = 'fm_order_list';
-    
-  $qt = quicktabs_render($quicktabs);
-  
-	$output .= render($qt);*/
-	$output .= fm_commerce_orders_purchased_tab();
+
+	$output .= fm_commerce_orders_list();
 	$output .= '</div>';
 	
 	return $output;
@@ -99,7 +72,7 @@ function fm_commerce_orders_detail_page($order_id) {
 	
 	$vars['content'] = commerce_order_ui_order_view($order, 'customer'); 
   $vars['order_id'] = $order_id;
-
+  $vars['status'] = $order->status;
   $vars['customer_service_form'] = drupal_get_form('fm_commerce_orders_support_form');
  
 	$content = theme('fm_commerce_orders_detail', $vars);
@@ -107,13 +80,13 @@ function fm_commerce_orders_detail_page($order_id) {
 	
   if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     // special ajax here 
-     $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' >> Order #' .   $order_id;
+     $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' > Order #' .   $order_id;
      $header = '<div id="cboxTitle-manual">' . $header . '</div>';
      print $header.$content;
      exit;
   } 
   else {
-  	 $header =  l('My Orders', 'my-orders', array( 'attributes' => array('title' => t('My Orders') )) ) . ' >> Order #' .   $order_id;
+  	 $header =  l('My Orders', 'my-orders', array( 'attributes' => array('title' => t('My Orders') )) ) . ' > Order #' .   $order_id;
   	 $header = '<h1>' . $header . '<h1>';
      return $header.$content;
   }
@@ -140,18 +113,20 @@ function fm_commerce_orders_support_form() {
   return $form;
 }
 
-function fm_commerce_orders_purchased_tab() {
+function fm_commerce_orders_list() {
 	global $user;
 	
 	//Second, load up previous orders and go through each one and update those 
- $orders = commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
+ $orders = commerce_order_load_multiple(array(), array('status' => array('deal_payed', 'cart', 'deal_expired'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
   return '<div class="no-orders">You currently have no purchases</div>'; 	
  }
  
+ rsort($orders);
+ 
  $rows = array();
- $header = array('Order #', 'Item', 'Total Price', ''  );
+ $header = array('Invoice', 'Item', 'Price', 'Order Status', ''  );
 	
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -160,16 +135,16 @@ function fm_commerce_orders_purchased_tab() {
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
   
     $row_info = fm_commerce_orders_row_info($order);
-		$rows[] = array('<div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
+		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
 		  '<div class="product-title">' . $row_info['title'] . '</div>' ,
 		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price">'  . $row_info['retail'] . '</div>',
-		  l('Order Summary', 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', 
-		     ))) 
+		  '<div class="order-status">' . theme('fm_commerce_orders_status', array('status' => $order->status)) . '</div>', 
+		  '<div class="order-link">' . fm_commerce_orders_status_link($order) . '</div>' 
 		);
 	}
 	
 	
-	return theme ('table', array('rows' => $rows));
+	return theme ('table', array('rows' => $rows, 'header' => $header));
 }
 
 //Get row info for the table.  Outputs Product, product price & node price
@@ -198,4 +173,44 @@ function fm_commerce_orders_row_info($order) {
   }
   
   return array('title' => $title, 'retail' => $retail_price, 'sale' => $sale_price);  
+}
+
+function fm_commerce_orders_status_link($order) {
+	$text = '';
+	
+	switch($order->status) {
+		case 'cart':
+			$text = 'Checkout';
+		  break;
+		case 'deal_expired':
+			$text = 'Check Refund Status';
+		  break;
+		default:
+			$text = 'View Summary';
+		  break;
+			
+	}
+	
+	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+	
+}
+
+function theme_fm_commerce_orders_status($vars) {
+	$status = $vars['status'];
+	
+	switch($status) {
+		case 'deal_payed':
+		  return '<div class="status-deal-payed">Payed</div>';
+		  break;
+		case 'deal_expired':
+			return '<div class="status-expired">Expired</div>';
+		  break;
+		case 'cart':
+			return '<div class="status-cart">Shopping Cart</div>';
+		  break;
+			
+	}
+	
+	return $status;
+	
 }

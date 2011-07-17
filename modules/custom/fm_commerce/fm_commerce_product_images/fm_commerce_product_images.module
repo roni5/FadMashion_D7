@@ -1,0 +1,14 @@
+<?php
+
+function fm_commerce_product_images_field_info() {
+	return array(
+	  'product_image_settings' => array(
+	    'label' => t('Image Settings'),
+	    'description' => t('Adds image settings like Color, picture angle, etc. to product images'),
+	    'instance_settings' => array(
+	      'color_hex' => '',
+	      'color_title'
+	    )
+	  )
+	);
+}
