@@ -27,7 +27,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	  
 	  //Clean Expired Orders for user
 	  if(module_exists('fm_deals_states')) {
-	    //fm_deals_states_clean_expired_deals();
+	    fm_deals_states_clean_expired_deals();
 	  }
 	}
 	

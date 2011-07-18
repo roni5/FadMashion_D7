@@ -132,6 +132,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
       TRUE
     );
     
+    $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
     
     // Save the line item now so we get its ID.
     $discount_line_item = commerce_line_item_save($discount_line_item);
@@ -140,6 +141,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
     $order_wrapper->commerce_line_items[] = $discount_line_item;
   } else {
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
+  	$discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
   	
   	$discount_line_item = commerce_line_item_save($discount_line_item);
   }
