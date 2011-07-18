@@ -108,13 +108,17 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .itemOptions .form-submit, .itemOptions  .button a {font-size:15px;font-weight:300;margin:0;padding:6px 30px;}
 .notify {border-bottom:1px solid #F0EFED;border-top:1px solid #F0EFED;margin:0 0 20px;padding:20px 0;text-align:center;}
 
-#commerce-cart-add-to-cart-form label {float: left;}
+.itemOptions label {float:left;text-align:left;width:60px;}
+.itemOptions .form-item{margin: 0 0 0 0 !important}
+.form-item-sizes, .form-item-colors{float: left;padding:0 0 18px; height: 20px;}
+.form-item-colors .selectBox a, .form-item-sizes .selectBox a, .form-item-sizes .selectBox-label  {background:none repeat scroll 0 0 #FFFFFF;border:1px solid #CAC9C6;cursor:pointer;float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;height:20px;line-height:20px;margin:-3px 2px 0;width:20px;}
+.form-item-sizes .selectBox-label {height: auto; width: auto; padding: 0 3px;}
+.form-item-sizes .selectBox-options li.selectBox-selected a, .form-item-sizes   .selectBox-label{background:none repeat scroll 0 0 #0F6DA3;color:#FFFFFF;}
+.form-item-colors .selectBox-options li.selectBox-selected {background:url("../images/arrow_color.png") no-repeat scroll center bottom transparent;padding-bottom:5px;}
 .form-item-colors .selectBox-options li,  .form-item-sizes .selectBox-options li{float:left; }
-.form-item-colors .selectBox-options li a, .form-item-sizes .selectBox-options li a{border: 1px solid #ddd; margin-left: 10px; width: 20px; height:20px; float:left; cursor: pointer; }
-.form-item-colors .selectBox-options li.selectBox-selected a{border: 1px solid #000; }
-.form-item-sizes .selectBox-options li.selectBox-selected a {background-color: #C8DEF4 }
-.form-item-sizes .selectBox-options li a {font-style: normal; padding: 2px; background-color: #fff}
-.form-item-sizes {height: 40px; }
+.form-item-sizes .selectBox-options li.selectBox-selected a {background:none repeat scroll 0 0 #0F6DA3;color:#FFFFFF;}
+.form-item-colors .colorName {padding-right:5px; float: left; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style: normal; color:#322F2C}
+.form-item-colors .selectBox-options { float: left}
 
 .quicktabs_wrapper{background: #f0eeea; padding: 4px; margin: 15px 0;}
 ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}

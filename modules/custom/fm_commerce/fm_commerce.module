@@ -18,29 +18,41 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  $colors = fm_commerce_color_options($product);
 	  $sizes = fm_commerce_size_options($product);
 	  
+	  
 	  //ADD color options to cart form
 	  if (count($colors) > 0) {
+	  	
+	    $default_color = array_keys($colors);
+	    $default_color = array_shift($default_color); 
+	    
 	    $form['colors'] = array(
 	       '#type' => 'select',
-	       '#title' => t('Select Colors'),
+	       '#title' => t('Color') . ':',
 	       '#options' => $colors,
          '#weight' => -1,
-	      '#attributes' => array('size' => count($colors))
+	       '#default_value' => $default_color,
+	       '#attributes' => array('size' => count($colors) > 1 ? count($colors) : 2),
+	       '#suffix' => '<br clear="all">',
+	       '#prefix' => '<di'
 	    );
 	  }
-    if (count($sizes) > 0) {
+    if (count($sizes) > 1) {
+    	
+	    $default_size = array_keys($sizes);
+	    $default_size = array_shift($default_size); 
+	    
 	    $form['sizes'] = array(
 	       '#type' => 'select',
-	       '#title' => t('Select Sizes'),
+	       '#title' => t('Size') . ':',
 	       '#options' => $sizes,
          '#weight' => -5,
-	       '#attributes' => array('size' => count($sizes))
+	       '#default_value' => $default_size,
+	       '#attributes' => array('size' => count($sizes) > 1 ? count($sizes) : 2),
+	       '#suffix' => '<br clear="all">'
 	    );
 	  }
-	   var_dump(count($colors));
-	  	var_dump(drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js');
-	  if(count($colors) > 0 || count($sizes) > 0) {
-	  	var_dump('test');
+	  
+	  if(count($colors) > 0 || count($sizes) > 1) {
 	    $form['#attached']['js'] = array(
         drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js',
         drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
@@ -199,9 +211,11 @@ function fm_commerce_color_options($product) {
 		$hex = field_get_items('node', $picture, 'field_color_hex');
 		$hex = $hex[0]['jquery_colorpicker'];
 		
+		$color_name = field_get_items('node', $picture, 'field_color_name');
+		
 		//check if it isn't 
 		if(!empty($hex)  && $hex != 'ffffff') {
-		  $colors[$hex] = $pos;
+		  $colors[$hex . '_' . $color_name[0]['value']] = $pos;
 		  
 		}
 	}
