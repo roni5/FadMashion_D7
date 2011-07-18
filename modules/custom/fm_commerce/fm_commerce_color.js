@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 		 sizes.rules("add", {
     	   required: true,
     	   messages: {
-    		   required: "Select a seze",
+    		   required: "Select a size",
             }
         });
      }
