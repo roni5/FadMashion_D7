@@ -29,6 +29,9 @@ function fm_commerce_orders_theme() {
     'fm_commerce_orders_status' => array(
 	    'variables' => array('status' => null)
     ),
+    'fm_commerce_orders_extra_info' => array(
+	    'variables' => array('color' => '', 'size' => '')
+    ),
   );
 }
 
@@ -136,8 +139,8 @@ function fm_commerce_orders_list() {
   
     $row_info = fm_commerce_orders_row_info($order);
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
-		  '<div class="product-title">' . $row_info['title'] . '</div>' ,
-		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price">'  . $row_info['retail'] . '</div>',
+		  '<div class="product-title">' . $row_info['title'] . '</div>' . theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])) ,
+		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price"> (orig. '  . $row_info['retail'] . ')</div>',
 		  '<div class="order-status">' . theme('fm_commerce_orders_status', array('status' => $order->status)) . '</div>', 
 		  '<div class="order-link">' . fm_commerce_orders_status_link($order) . '</div>' 
 		);
@@ -168,11 +171,16 @@ function fm_commerce_orders_row_info($order) {
          $retail_price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
          
          $node = $line_item_wrapper->field_node_reference->value();
-         $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']); 
+         $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']);
+
+         $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
+         
+         $color = $line_item_wrapper->field_order_color->value();
+         $size = $line_item_wrapper->field_order_size->value();
      }
   }
   
-  return array('title' => $title, 'retail' => $retail_price, 'sale' => $sale_price);  
+  return array('title' => $title, 'retail' => $retail_price, 'sale' => $sale_price, 'diff' => $diff, 'color' => $color, 'size' => $size);  
 }
 
 function fm_commerce_orders_status_link($order) {
@@ -193,6 +201,36 @@ function fm_commerce_orders_status_link($order) {
 	}
 	
 	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+	
+}
+
+function theme_fm_commerce_orders_extra_info($vars) {
+	$color = $vars['color'];
+	$size = $vars['size'];
+	
+	$output = '<div class="order-extra-info">';
+	
+	if(isset($color)) {
+	  $color = explode('_', $color );
+	  $color_name = $color[1];
+	  $output .= '<span class="order-color">' . $color[1] . '</span>' ;
+	  
+	  if(isset($size)) {
+	    $output .= ', ';
+	    $output .= '<span class="order-size">Size ' . $size . '</span>';
+	  }
+	} elseif(isset($size)) {
+	  $output .= '<span class="order-size">Size ' . $size . '</span>';
+	}
+	
+	$output .= '</div>';
+	
+	if(isset($size) || isset($color)) {
+		return $output;
+	}
+	else {
+		return '';
+	}
 	
 }
 

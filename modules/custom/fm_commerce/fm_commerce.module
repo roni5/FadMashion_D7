@@ -73,6 +73,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 //REDIRECTS Deals page TO STEP 2 after submit
 function fm_commerce_cart_submit($form, &$form_state) {
 
+	$values = $form_state['values'];
+	
+	
 	//Clear default add to cart messages. 
 	$messages = drupal_get_messages();
 	
@@ -92,6 +95,13 @@ function fm_commerce_cart_submit($form, &$form_state) {
 	$line_item = $form_state['line_item'];
 	$line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
 	$line_item_wrapper->field_node_reference = $node_entity->nid;
+	
+	if(isset($values['sizes']) && !empty($values['sizes'])) {
+	  $line_item_wrapper->field_order_size = $values['sizes'];
+	}
+  if(isset($values['colors']) && !empty($values['colors'])) {
+	  $line_item_wrapper->field_order_color = $values['colors'];
+	}
 	
 	$product = $line_item_wrapper->commerce_product->value();
 	$store = fm_commerce_get_store($product);

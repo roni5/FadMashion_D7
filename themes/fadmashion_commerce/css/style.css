@@ -280,7 +280,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-commerce-cart-fm-commerce-cart  .item_value {float: right;}
 #block-fm-commerce-cart-fm-commerce-cart  .item_value.red_val {color: #BC4038}
 #block-fm-commerce-cart-fm-commerce-cart .hasCountdown {background-color:transparent;border:0 solid #000000;display:inline;}
-
+#block-fm-commerce-cart-fm-commerce-cart .order-extra-info {font-size: 11px; color: #888}
+	
 #block-fm-commerce-cart-fm-commerce-cart .total {border-top:1px solid #F1EDE8;font-size:15px;margin-top:6px;padding:5px 0 0;text-align:right;}
 
 #block-views-nodequeue-1-block h2 {font-size:16px;margin-bottom:8px;}
@@ -297,9 +298,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #orders-list table tr td { padding: 10px 0;}
 #orders-list table tr td, #order-detail table tr td{background-color: #F8F8F8}
 
-#orders-list .order-date {color: #888; font-size: 11px;}
-#orders-list .retail-price {font-size: 12px; display: inline; margin-left: 10px; color: #555; text-decoration: line-through; }
-#orders-list .sale-price { display: inline; }
+#orders-list .order-date, #orders-list .order-extra-info, #orders-list  .retail-price {color: #888; font-size: 11px;}
+
 
 #order-detail{margin-top: 20px;}
 #order-detail #col1 {float: left; width: 400px;;padding-right: 20px; border-right: 1px solid #aaa; margin-right: 20px;}
