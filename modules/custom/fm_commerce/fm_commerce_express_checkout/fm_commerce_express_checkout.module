@@ -62,7 +62,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   field_attach_form('commerce_customer_profile', $shipping_profile, $form, $form_state);
 
   // Tweak the form to remove the fieldset from Shipping address fields.
-  $field_name = 'commerce_customer_address';
+  $field_name = 'field_shipping_address';
   $language = $form[$field_name]['#language'];
 
   foreach (element_children($form[$field_name][$language]) as $delta) {
@@ -205,9 +205,9 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   
   //TODO: ADD more checks besides just address to see if it has changed
   //If Address 1 field is not equal than a different address so save as a new one
-  $form_address1 = $form_state['values']['commerce_customer_address']['und'][0]['thoroughfare']; 
+  $form_address1 = $form_state['values']['field_shipping_address']['und'][0]['thoroughfare']; 
  
-  if(!empty($profile->profile_id) && $form_address1 != $profile->commerce_customer_address['und'][0]['thoroughfare']) {
+  if(!empty($profile->profile_id) && $form_address1 != $profile->field_shipping_address['und'][0]['thoroughfare']) {
   	$profile = commerce_customer_profile_new('shipping', $order->uid);
   }
   
@@ -284,7 +284,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     $form = $variables['form'];
     
     //DISPLAY Shipping information on Form
-    $field_name = 'commerce_customer_address';
+    $field_name = 'field_shipping_address';
     $language = $form[$field_name]['#language'];
     
     $output = '<div id="shipping" class="checkoutPanel">';
@@ -368,7 +368,7 @@ function fm_commerce_express_checkout_profiles_options($type) {
   
   $output = '<select class="shipping_address_select" id="edit-customer-profile-shipping-commerce-customer-address-und-0-country">';
   foreach($profiles as $id => $profile) {
-    $output .= '<option ' . ($shipping_id == $id ? 'selected="selected"' : ''). ' value="' . $id . '">' . $profile->commerce_customer_address['und'][0]['thoroughfare'] . '</option>';
+    $output .= '<option ' . ($shipping_id == $id ? 'selected="selected"' : ''). ' value="' . $id . '">' . $profile->field_shipping_address['und'][0]['thoroughfare'] . '</option>';
   }
   $output .= '<option ' . ($shipping_id == 'new' ? 'selected="selected"' : '') . ' value="new">   ---- New Address ----</option>';
   $output .= '</select>';
