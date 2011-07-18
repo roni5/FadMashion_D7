@@ -24,7 +24,7 @@ function fm_deals_list() {
     $start_time = format_date(strtotime($node->field_start_time['und'][0]['value'] ), 'custom', "F j, Y, g:i a", $node->field_start_time['und'][0]['timezone']);
     $end_time = format_date(strtotime($node->field_start_time['und'][0]['value2'] ), 'custom', "F j, Y, g:i a", $node->field_start_time['und'][0]['timezone']);
     
-    var_dump($node->field_start_time['und'][0]['timezone']);
+    //var_dump($node->field_start_time['und'][0]['timezone']);
     $rows[] = array(l($product->title, 'node/' . $node->nid),
       $start_time, 
       $end_time,

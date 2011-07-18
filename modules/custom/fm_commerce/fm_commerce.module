@@ -15,11 +15,11 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
   	$node = $form_state['build_info']['args']['4']['options']['entity'];
 	  $product = fm_commerce_get_product($node);
 	  
-	  //$colors = fm_commerce_color_options($product);
-	  //$sizes = fm_commerce_color_options($product);
+	  $colors = fm_commerce_color_options($product);
+	  $sizes = fm_commerce_size_options($product);
 	  
 	  //ADD color options to cart form
-	  /*if (count($colors) > 1) {
+	  if (count($colors) > 0) {
 	    $form['colors'] = array(
 	       '#type' => 'select',
 	       '#title' => t('Select Colors'),
@@ -40,10 +40,10 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	   
 	  if(count($colors) > 1 || count($sizes) > 1) {
 	    $form['#attached']['js'] = array(
-        drupal_get_path('module', 'fm_commerce_color') . '/fm_commerce_color.js',
+        drupal_get_path('module', 'fm_commerce') . '/fm_commerce_color.js',
         drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
       );
-	  }*/
+	  }
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
@@ -189,13 +189,17 @@ function fm_commerce_cart_submit($form, &$form_state) {
 
 
 function fm_commerce_color_options($product) {
-	$images = field_get_items('commerce_product', $product, 'field_images');
+	$images = field_get_items('commerce_product', $product, 'field_product_images');
 	
 	$colors = array();
 	foreach($images as $pos => $image) {
+		$picture = node_load($image['nid']);
+		$hex = field_get_items('node', $picture, 'field_color_hex');
+		$hex = $hex[0]['jquery_colorpicker'];
+		
 		//check if it isn't 
-		if(!empty($image['fm_commerce_color_hex'])  && $image['fm_commerce_color_hex'] != 'ffffff') {
-		  $colors[$image['fm_commerce_color_hex']] = $pos;
+		if(!empty($hex)  && $hex != 'ffffff') {
+		  $colors[$hex] = $pos;
 		  
 		}
 	}
