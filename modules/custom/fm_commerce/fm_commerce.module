@@ -40,7 +40,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	   
 	  if(count($colors) > 1 || count($sizes) > 1) {
 	    $form['#attached']['js'] = array(
-        drupal_get_path('module', 'fm_commerce') . '/fm_commerce_color.js',
+        drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js',
         drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
       );
 	  }
