@@ -6,7 +6,7 @@
                 <li><?php print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
                 <li> <?php print l('+ Invite Friends, Earn Rewards', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 450), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends and Earn Rewards') )  ); ?></li>
                </ul> </div>
-                <p>Discover Fashion Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
+                <p>We're in Alpha! <a class="learnMore" href="#">Learn More</a></p>
             </div>
             <div class="row2"> 
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
