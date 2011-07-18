@@ -28,7 +28,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	      '#attributes' => array('size' => count($colors))
 	    );
 	  }
-    if (count($sizes) > 1) {
+    if (count($sizes) > 0) {
 	    $form['sizes'] = array(
 	       '#type' => 'select',
 	       '#title' => t('Select Sizes'),
@@ -37,10 +37,12 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#attributes' => array('size' => count($sizes))
 	    );
 	  }
-	   
-	  if(count($colors) > 1 || count($sizes) > 1) {
+	   var_dump(count($colors));
+	  	var_dump(drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js');
+	  if(count($colors) > 0 || count($sizes) > 0) {
+	  	var_dump('test');
 	    $form['#attached']['js'] = array(
-        drupal_get_path('module', 'fm_commerce') . '/fm_commerce_color.js',
+        drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js',
         drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
       );
 	  }
@@ -132,6 +134,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
       TRUE
     );
     
+    $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
     
     // Save the line item now so we get its ID.
     $discount_line_item = commerce_line_item_save($discount_line_item);
@@ -140,6 +143,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
     $order_wrapper->commerce_line_items[] = $discount_line_item;
   } else {
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
+  	$discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
   	
   	$discount_line_item = commerce_line_item_save($discount_line_item);
   }

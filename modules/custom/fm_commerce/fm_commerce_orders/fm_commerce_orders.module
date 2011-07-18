@@ -181,6 +181,7 @@ function fm_commerce_orders_status_link($order) {
 	switch($order->status) {
 		case 'cart':
 			$text = 'Checkout';
+			return l($text, 'express-checkout');
 		  break;
 		case 'deal_expired':
 			$text = 'Check Refund Status';
