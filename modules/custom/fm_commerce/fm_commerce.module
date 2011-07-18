@@ -37,9 +37,10 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#attributes' => array('size' => count($sizes))
 	    );
 	  }
-	   
-	  if(count($colors) > 0 || count($sizes) > 0) {
+	   var_dump(count($colors));
 	  	var_dump(drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js');
+	  if(count($colors) > 0 || count($sizes) > 0) {
+	  	var_dump('test');
 	    $form['#attached']['js'] = array(
         drupal_get_path('module', 'fm_commerce') . '/js/fm_commerce_color.js',
         drupal_get_path('theme', 'fadmashion_commerce') . '/js/jquery.selectBox.min.js'
