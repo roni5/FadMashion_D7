@@ -203,14 +203,13 @@ function fm_commerce_cart_submit($form, &$form_state) {
 
 
 function fm_commerce_color_options($product) {
-	return array();
 	$images = field_get_items('commerce_product', $product, 'field_product_images');
 	
 	$colors = array();
 	foreach($images as $pos => $image) {
 		$picture = node_load($image['nid']);
-		$hex = field_get_items('node', $picture, 'field_color_hex');
-		$hex = $hex[0]['jquery_colorpicker'];
+		$hex = field_get_items('node', $picture, 'field_color_code');
+		$hex = $hex[0]['value'];
 		
 		$color_name = field_get_items('node', $picture, 'field_color_name');
 		
