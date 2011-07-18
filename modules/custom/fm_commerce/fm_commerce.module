@@ -203,6 +203,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
 
 
 function fm_commerce_color_options($product) {
+	return array();
 	$images = field_get_items('commerce_product', $product, 'field_product_images');
 	
 	$colors = array();
