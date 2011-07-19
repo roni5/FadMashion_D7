@@ -3,33 +3,39 @@
 // http://developers.facebook.com/docs/reference/javascript/
 window.fbAsyncInit = function() {
 
-  if (typeof(Drupal.settings.fb) == 'undefined') {
-    debugger; // this should not be reached.
+  if (Drupal.settings.fb) {
+    FB.init(Drupal.settings.fb.fb_init_settings);
   }
-  FB.init(Drupal.settings.fb.fb_init_settings);
 
-  FB.XFBML.parse();
-
-  // Async function to complete init, only if session state is unknown.
-  // (Avoid doing this when third-party cookies disabled.)
-  if (!Drupal.settings.fb.fb_init_settings.session) {
+  if (FB._apiKey) {
+    // Check the login status.  If offline_access granted, this
+    // is the only whay to know if user has logged out of facebook.
     FB.getLoginStatus(function(response) {
-      var status = {'session' : response.session, 'response': response};
-      jQuery.event.trigger('fb_init', status);  // Trigger event for third-party modules.
-
-      FB_JS.sessionChange(response);
-
-      FB_JS.eventSubscribe();
+      FB_JS.initFinal(response);
     });
   }
   else {
-    jQuery.event.trigger('fb_init', {'session' : Drupal.settings.fb.fb_init_settings.session});  // Trigger event for third-party modules.
-    FB_JS.eventSubscribe();
-    FB_JS.sessionSanityCheck();
+    // No application.  Not safe to call FB.getLoginStatus().
+    // We still want to initialize XFBML, third-party modules, etc.
+    FB_JS.initFinal({'session' : null});
   }
 };
 
 FB_JS = function(){};
+
+/**
+ * Finish initializing, whether there is an application or not.
+ */
+FB_JS.initFinal = function(response) {
+  var status = {'session' : response.session, 'response': response};
+  jQuery.event.trigger('fb_init', status);  // Trigger event for third-party modules.
+
+  FB_JS.sessionChange(response); // This will act only if fbu changed.
+
+  FB_JS.eventSubscribe();
+
+  FB.XFBML.parse();
+}
 
 /**
  * Tell facebook to notify us of events we may need to act on.
@@ -41,11 +47,6 @@ FB_JS.eventSubscribe = function() {
   // Q: what the heck is "edge.create"? A: the like button was clicked.
   FB.Event.subscribe('edge.create', FB_JS.edgeCreate);
 
-  // Other events that may be of interest...
-  //FB.Event.subscribe('auth.login', FB_JS.debugHandler);
-  //FB.Event.subscribe('auth.logout', FB_JS.debugHandler);
-  //FB.Event.subscribe('auth.statusChange', FB_JS.debugHandler);
-  //FB.Event.subscribe('auth.sessionChange', FB_JS.debugHandler);
 }
 
 /**
@@ -140,7 +141,7 @@ FB_JS.sessionChange = function(response) {
       status.changed = true;
     }
   }
-  else if (Drupal.settings.fb.fbu) {
+  else if (Drupal.settings.fb && Drupal.settings.fb.fbu) {
     // A user has logged out.
     status.changed = true;
 
@@ -160,14 +161,10 @@ FB_JS.sessionChange = function(response) {
 
 };
 
+// edgeCreate is handler for Like button.
 FB_JS.edgeCreate = function(href, widget) {
   var status = {'href': href};
   FB_JS.ajaxEvent('edge.create', status);
-};
-
-// Helper function for developers.
-FB_JS.debugHandler = function(response) {
-  debugger;
 };
 
 // JQuery pseudo-event handler.
@@ -247,21 +244,6 @@ FB_JS.deleteCookie = function( name, path, domain ) {
     ( ( path ) ? ";path=" + path : "") +
     ( ( domain ) ? ";domain=" + domain : "" ) +
     ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
-};
-
-// Test the FB settings to see if we are still truly connected to facebook.
-FB_JS.sessionSanityCheck = function() {
-  if (!Drupal.settings.fb.checkSemaphore) {
-    Drupal.settings.fb.checkSemaphore=true;
-    FB.api('/me', function(response) {
-      if (response.id != Drupal.settings.fb.fbu) {
-	// We are no longer connected.
-	var status = {'changed': true, 'fbu': null, 'check_failed': true};
-	jQuery.event.trigger('fb_session_change', status);
-      }
-      Drupal.settings.fb.checkSemaphore=null;
-    });
-  }
 };
 
 

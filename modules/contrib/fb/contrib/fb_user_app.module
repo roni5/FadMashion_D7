@@ -154,10 +154,10 @@ function fb_user_app_track($fb, $fb_app) {
   if ((variable_get(FB_USER_APP_VAR_TRACK_USERS, TRUE) && $fb_user_type = "user") ||
       (variable_get(FB_USER_APP_VAR_TRACK_PAGES, TRUE) && $fb_user_type = "page")) {
 
-    $fb_session_key = isset($fb_session['access_token']) ? $fb_session['access_token'] : '';
+    $access_token = isset($fb_session['access_token']) ? $fb_session['access_token'] : '';
     $result1 = db_query("UPDATE {fb_user_app} SET time_access=:time, session_key=:token, session_key_expires=:expires, user_type=:type WHERE apikey=:apikey AND fbu=:fbu", array(
                           ':time' => REQUEST_TIME,
-                          ':token' => $fb_session_key,
+                          ':token' => $access_token,
                           ':expires' => $fb_session['expires'],
                           ':type' => $fb_user_type,
                           ':apikey' => $fb_app->apikey,
@@ -183,7 +183,7 @@ function fb_user_app_track($fb, $fb_app) {
                                ':fbu' => $fbu,
                                ':added' => $data['is_app_user'],
                                ':user_type' => $fb_user_type,
-                               ':session_key' => $fb_session_key,
+                               ':session_key' => $access_token,
                                ':session_key_expires' => $fb_session['expires'],
                                ':time_access' => REQUEST_TIME,
                                ':proxied_email' => $data['email'] ? $data['email'] : ($data['proxied_email'] ? $data['proxied_email'] : ''), // test accounts will not have

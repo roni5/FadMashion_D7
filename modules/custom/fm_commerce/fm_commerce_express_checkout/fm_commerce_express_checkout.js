@@ -24,8 +24,7 @@ jQuery(document).ready(function() {
 	    		
 	    	    var $this = jQuery('input.form-submit');
 	    	    $this.attr('disabled', true);
-	    	    //$this.hide();
-	    	   
+	    	    $this.attr('value', 'You Rock!');
 	    		
 	    		form.submit();
 			},
@@ -53,6 +52,12 @@ jQuery(document).ready(function() {
 	 });
 });
 
+function checkoutFormSuccess(responseText, statusText, xhr, $form) {
+	formSuccess();
+	jQuery('#cboxTitle').html('<span style="font-size: 16px; color: #1D1C1A">Thank You! Your e-mail has been sent.</span>');
+	jQuery('#cboxLoadedContent').html('<div></div>');
+	jQuery.colorbox.resize();
+}
 
 function setCheckoutFormVariables() {
 	full_name = jQuery('#shipping #edit-field-shipping-address-und-0-name-line');

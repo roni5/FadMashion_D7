@@ -276,10 +276,10 @@ function fb_admin_set_properties_form_submit($form, &$form_state) {
         fb_admin_get_app_properties($fb_app);
         if ($fb_app->fba_id && $fb_app->canvas_name && module_exists('fb_app')) {
           // @TODO - clean this up or move it to fb_app.module.  fb.module should have no knowledge of fb_app table.
-          db_query("UPDATE {fb_app} SET canvas='%s' WHERE fba_id = %d", array(
-                     $fb_app->canvas_name,
-                     $fb_app->fba_id,
-                   ));
+          db_update('fb_app')
+            ->fields(array('canvas' => $fb_app->canvas_name))
+            ->condition('fba_id', $fb_app->fba_id, '=')
+            ->execute();
         }
 
       } catch (Exception $e) {
