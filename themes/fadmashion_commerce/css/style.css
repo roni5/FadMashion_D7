@@ -16,6 +16,7 @@ ul{list-style-type: none;}
 .red{background-image: url(../images/b_bg_red.jpg) !important}
 .form-submit:hover, .button a:hover {background-position: left bottom;}
 .check {margin-right:5px;}
+.form-submit:disabled { background-image:  url(../images/b_bg_green.jpg) !important;  }
 
 label{font-weight: normal;}
 .form-text, .form-text-readonly {border:medium none;height:26px;padding-left:4px;width:185px;}

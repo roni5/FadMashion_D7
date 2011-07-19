@@ -225,18 +225,18 @@ function fb_app_user($op, &$edit, &$account, $category = NULL) {
                                      'profile_update_time',
                                      'status',
                                    )));
+            if (isset($info) && count($info)) {
+              $output = theme('fb_app_user_info', $fb_app, $info[0]);
+
+              $items[$fb_app->label] = array(
+                '#title' => $fb_app->title,
+                '#type' => 'fieldset',
+                'value' => array('#value' => $output),
+              );
+            }
           } catch (Exception $e) {
             fb_log_exception($e, "Failed to get Facebook user info for account $fbu");
           }
-        }
-        if (isset($info) && count($info)) {
-          $output = theme('fb_app_user_info', $fb_app, $info[0]);
-
-          $items[$fb_app->label] = array(
-            '#title' => $fb_app->title,
-            '#type' => 'fieldset',
-            'value' => array('#value' => $output),
-          );
         }
       }
     }

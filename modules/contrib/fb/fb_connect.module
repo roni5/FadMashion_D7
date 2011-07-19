@@ -234,8 +234,8 @@ function fb_connect_block_configure($delta = '') {
   $form['config']['user_not_connected']['#description'] = t('Settings when local user is registered, and not connected to Facebook.  Typically the facebook id will be linked to the local id after the user clicks the connect button.');
   $form['config']['user_not_connected']['body']['#description'] = t('Suggestion: %default .', array('%default' => $orig_defaults['user_not_connected']['body']['value']));
   $form['config']['connected']['#title'] = t('Connected user');
-  $form['config']['connected']['#description'] = t('Settings when local user is connected to Facebook.  You may render facebook\'s logout button, and/or information about the user.  Consider using <a target="_blank" href="!xfbml_url">XFBML</a> such as &lt;fb:name uid=!fbu&gt;&lt;/fb:name&gt; or &lt;fb:profile-pic uid=!fbu&gt;&lt;/fb:profile-pic&gt;', array('xfbml_url' => 'http://wiki.developers.facebook.com/index.php/XFBML'));
-  $form['config']['connected']['body']['#description'] .= t('Note that <strong>!fbu</strong> will be replaced with the user\'s facebook id.<br/>Suggestion: %default .', array('%default' => $orig_defaults['connected']['body']['value']));
+  $form['config']['connected']['#description'] = t('Settings when local user is connected to Facebook.  You may render facebook\'s logout button, and/or information about the user.  Consider using <a target="_blank" href="!xfbml_url">XFBML</a> such as &lt;fb:name uid=!fbu&gt;&lt;/fb:name&gt; or &lt;fb:profile-pic uid=!fbu&gt;&lt;/fb:profile-pic&gt;', array('!xfbml_url' => 'http://wiki.developers.facebook.com/index.php/XFBML'));
+  $form['config']['connected']['body']['#description'] = t('Note that <strong>!fbu</strong> will be replaced with the user\'s facebook id.<br/>Suggestion: %default .', array('%default' => $orig_defaults['connected']['body']['value']));
 
   return $form;
 }

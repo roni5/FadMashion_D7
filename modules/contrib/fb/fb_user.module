@@ -227,8 +227,10 @@ function _fb_user_check_and_goto() {
     if ($uid != $GLOBALS['user']->uid) {
       // during user processing, we started a new session.
       if (!fb_controls(FB_USER_CONTROL_NO_REDIRECT)) {
-        // Pass _fb_user_fbu to avoid infinite refreshes.
-        drupal_goto(request_path(), array('_fb_user_fbu' => $fbu));
+        // No longer passing _fb_user_fbu, because it causes problem when logging out of one frame then refreshing a frame with that parameter in the URL.
+        drupal_goto(request_path(), array(
+                      //'_fb_user_fbu' => $fbu, // Avoid refresh loop, disabled for now.  Still needed?
+                    ));
       }
     }
   }
@@ -818,7 +820,7 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
           '#collapsible' => false,
         );
 
-        $fb_button = theme('fb_login_button', t('Connect with Facebook'));
+        $fb_button = theme('fb_login_button', array('text' => t('Connect with Facebook')));
         $form['fb_user']['button'] = array(
           '#markup' => $fb_button,
           '#weight' => -1,
@@ -1101,16 +1103,17 @@ function _fb_user_get_fbu($uid) {
   if (!isset($cache[$uid])) {
     // Look up this user in the authmap
     $result = db_query("SELECT fbu FROM {fb_user} WHERE uid = :uid", array(
-                                   ':uid' => $uid,
+                         ':uid' => $uid,
                                  ))->fetchObject();
     if ($result) {
       $cache[$uid] = $result->fbu;
     }
+    else {
+      $cache[$uid] = NULL;
+    }
   }
 
-  if (isset($cache[$uid])) {
-    return $cache[$uid];
-  }
+  return $cache[$uid];
 }
 
 //// token module hooks.

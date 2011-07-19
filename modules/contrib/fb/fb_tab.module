@@ -19,7 +19,10 @@ define('FB_TAB_PATH_VIEW', 'fb_tab/view');
 define('FB_TAB_PATH_FORM', 'fb_tab/config');
 define('FB_TAB_PATH_FORM_ARGS', 2);
 
-define('FB_TAB_VAR_PROCESS', 'fb_tab_process_page');
+define('FB_TAB_VAR_PROCESS_FBML', 'fb_tab_process_fbml');
+define('FB_TAB_VAR_PROCESS_IFRAME', 'fb_tab_process_iframe');
+define('FB_TAB_VAR_PROCESS_ABSOLUTE', 'fb_tab_process_absolute_links');
+define('FB_TAB_VAR_PROCESS_TO_CANVAS', 'fb_tab_process_to_canvas');
 
 function fb_tab_menu() {
   $items = array();
@@ -44,6 +47,17 @@ function fb_tab_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  // Admin pages
+  $items[FB_PATH_ADMIN .'/fb_tab'] = array(
+    'title' => 'Page Tabs',
+    'description' => 'Configure Tabs',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fb_tab_admin_settings'),
+    'access arguments' => array(FB_PERM_ADMINISTER),
+    'file' => 'fb_tab.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
@@ -63,10 +77,42 @@ function fb_tab_fb($op, $data, &$return) {
     if (fb_is_fb_admin_page()) {
       require drupal_get_path('module', 'fb_tab') . '/fb_tab.admin.inc';
     }
+
+    if (fb_is_tab()) {
+      // Include our javascript.
+      drupal_add_js(array(
+                      'fb_tab' => array(
+                        'fbu' => fb_facebook_user(),
+                        'uid' => $GLOBALS['user']->uid,
+                        'canvas' => $fb_app->canvas,
+                      ),
+                    ), 'setting');
+      drupal_add_js(drupal_get_path('module', 'fb_tab') . '/fb_tab.js');
+    }
   }
-  elseif ($op == FB_OP_CURRENT_APP) {
-    if (fb_is_tab() && isset($_REQUEST['fb_sig_api_key'])) {
+  elseif ($op == FB_OP_CURRENT_APP && fb_is_tab()) {
+    if ($id = fb_settings(FB_SETTINGS_CB)) {
+      // Using fb_url_rewrite.
+      $fb_app = fb_get_app(array('id' => $id));
+
+      if (!$fb_app) {
+        // DEPRECATED.  For backward compatibility, accept apikey in FB_SETTINGS_CB
+        $fb_app = fb_get_app(array('apikey' => $id));
+      }
+
+    }
+    elseif ($id = fb_settings(FB_SETTINGS_ID)) {
+      // New SDK includes ID when session is present.
+      $fb_app = fb_get_app(array('id' => $id));
+    }
+
+    // Old, deprecated, FBML tabs.
+    elseif (isset($_REQUEST['fb_sig_api_key'])) {
       $return = fb_get_app(array('apikey' => $_REQUEST['fb_sig_api_key']));
+    }
+
+    if ($fb_app) {
+      $return = $fb_app;
     }
   }
   elseif ($op == FB_OP_INITIALIZE) {
@@ -75,7 +121,19 @@ function fb_tab_fb($op, $data, &$return) {
       if (!isset($GLOBALS['custom_theme'])) {
         $GLOBALS['custom_theme'] = $config['custom_theme'];
       }
-      $use_ob = variable_get(FB_TAB_VAR_PROCESS, TRUE);
+      if (fb_settings(FB_SETTINGS_TYPE) == FB_SETTINGS_TYPE_PAGE_TAB &&
+          variable_get(FB_TAB_VAR_PROCESS_IFRAME, TRUE)) {
+        // Process iframe
+        $use_ob = TRUE;
+      }
+      elseif (fb_settings(FB_SETTINGS_TYPE) == FB_SETTINGS_TYPE_PROFILE &&
+          variable_get(FB_TAB_VAR_PROCESS_FBML, TRUE)) {
+        // Process FBML
+        $use_ob = TRUE;
+      }
+      else {
+        $use_ob = FALSE;
+      }
 
       // Hack to init the theme before _drupal_maintenance_theme initializes the wrong one.
       if (variable_get('site_offline', FALSE)) {
@@ -88,19 +146,37 @@ function fb_tab_fb($op, $data, &$return) {
         $GLOBALS['fb_tab_post_process'] = TRUE;
       }
 
-
     }
   }
   elseif ($op == FB_OP_EXIT && fb_is_tab()) {
     if (isset($GLOBALS['fb_tab_post_process']) && $GLOBALS['fb_tab_post_process']) {
       $output = ob_get_contents();
       ob_end_clean();
-      //print '<pre>' . htmlentities($output) . '</pre>'; flush();
-      $output = fb_canvas_process($output, array(
-                  'add_target' => FALSE,
-                  'absolute_links' => TRUE,
-                ));
+      include_once(drupal_get_path('module', 'fb') . '/fb.process.inc');
 
+      if (variable_get(FB_TAB_VAR_PROCESS_TO_CANVAS, TRUE)) {
+        $to_canvas = $fb_app->canvas;
+      }
+      else {
+        $to_canvas = FALSE;
+      }
+
+      if (fb_settings(FB_SETTINGS_TYPE) == FB_SETTINGS_TYPE_PAGE_TAB) {
+        // Process iframe
+        $output = fb_process($output, array(
+                               'add_target' => '_top',
+                               'absolute_links' => TRUE,
+                               'to_canvas' => $to_canvas,
+                             ));
+      }
+      elseif (fb_settings(FB_SETTINGS_TYPE) == FB_SETTINGS_TYPE_PROFILE) {
+        // Process FBML (deprecated)
+        $output = fb_process($output, array(
+                               'add_target' => FALSE,
+                               'absolute_links' => TRUE,
+                               'to_canvas' => $to_canvas,
+                             ));
+      }
       if (isset($output)) {
         print($output);
       }
@@ -184,7 +260,7 @@ function fb_tab_view() {
   $fb_app = $GLOBALS['_fb_app'];
   $fb = $GLOBALS['_fb'];
 
-  $profile_id = fb_settings(FB_SETTINGS_PROFILE_ID);
+  $profile_id = fb_settings(FB_SETTINGS_CB_PAGE);
 
   $config = fb_tab_fetch_config($fb_app, $profile_id);
 
@@ -196,9 +272,6 @@ function fb_tab_view() {
   );
 
   $content = fb_invoke(FB_TAB_OP_VIEW, $data, array(), FB_TAB_HOOK);
-
-  //print('<pre>' . print_r($data, 1) . '</pre>'); flush();
-  //print(print_r($content, 1)); flush();
 
   return drupal_render($content);
 }
@@ -219,9 +292,9 @@ function fb_tab_config_form($form_state, $profile_id) {
     'config' => isset($config['data']) ? $config['data'] : NULL,
   );
 
-  //$fbu = fb_facebook_user($fb);
-  $fbu = fb_require_authorization($fb);
   try {
+    //$fbu = fb_facebook_user($fb);
+    $fbu = fb_require_authorization($fb);
     $page_info = $fb->api($profile_id, array(
                             'access_token' => fb_get_token($fb),
                           ));
@@ -374,7 +447,7 @@ function fb_tab_pages() {
  */
 function fb_tab_config_url($profile_id = NULL, $options = array()) {
   if (!$profile_id) {
-    $profile_id = fb_settings(FB_SETTINGS_PROFILE_ID);
+    $profile_id = fb_settings(FB_SETTINGS_CB_PAGE);
   }
   return url(FB_TAB_PATH_FORM . '/' . $profile_id, $options);
 }

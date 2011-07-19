@@ -25,6 +25,42 @@ function fb_tab_fb_admin($op, $data, &$return) {
   }
 }
 
+
+/**
+ * Form builder; Configure settings for this site.
+ *
+ * @ingroup forms
+ * @see system_settings_form()
+ */
+function fb_tab_admin_settings() {
+
+  $form['process_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Tab URL processing'),
+    '#description' => t('This option alters links, so that instead of changing the iframe\'s URL, they change the top frame.  This adds some overhead to each tab served. Still, most sites will want this enabled.'),
+  );
+  $form['process_settings'][FB_TAB_VAR_PROCESS_IFRAME] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable processing on iframe tabs.'),
+    '#default_value' => variable_get(FB_TAB_VAR_PROCESS_IFRAME, TRUE),
+    '#description' => t('Uncheck if you want the user to stay on the tab, instead of linking to canvas page or website. <br/>If unchecked, settings below have no effect.'),
+  );
+  $form['process_settings'][FB_TAB_VAR_PROCESS_TO_CANVAS] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Links send user to canvas pages.'),
+    '#default_value' => variable_get(FB_TAB_VAR_PROCESS_TO_CANVAS, TRUE),
+    '#description' => t('If unchecked, links send user to normal website.'),
+  );
+  $form['process_settings'][FB_TAB_VAR_PROCESS_ABSOLUTE] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Replace absolute hrefs, not just relative links.'),
+    '#default_value' => variable_get(FB_TAB_VAR_PROCESS_ABSOLUTE, TRUE),
+  );
+
+  return system_settings_form($form);
+}
+
+
 /**
  * See fb_tab_form_alter.
  */
