@@ -57,8 +57,9 @@ function fb_connect_app_init($fb_app) {
                   'fbu' => $fbu,
                   'fb_app' => $fb_app,
                   'fb' => $fb));
+      
     }
-
+    
     // Remember which app we've initialized.
     _fb_connect_set_app($fb_app);
     _fb_connect_add_js($fb_app, $fb);
