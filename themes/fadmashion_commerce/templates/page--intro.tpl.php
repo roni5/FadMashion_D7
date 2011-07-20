@@ -11,6 +11,7 @@ global $user;
 if($user->uid) {
 	fm_deals_page();
 }
+
 ?>
 
 <script>
@@ -28,23 +29,23 @@ jQuery(function($){
 		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
 		slides 					:  	[		//Slideshow Images
 											{//Slide 1
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
+												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
 											  title: 'Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'
 											},	
 											{//Slide 2
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/splash_photo.jpg',
+												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/splash_photo.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Jonathan Simkhai</a>'
 											},
 											{//Slide 3
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
+												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.daisyandelizabeth.com/" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
 											},
 											{//Slide 4
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg',
+												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.thevisiontrain.com" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Nicole Baker</a>'
 											},
 											{//Slide 5
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_2.jpg',
+												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_2.jpg',
                         title: 'Designer: <a target="_blank" href="http://nettiekent.com/home.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Nettie Kent</a>'
 											}	 	 	  	  
 									]
@@ -52,7 +53,6 @@ jQuery(function($){
 });
 
 </script>
-
 
 <div id="wrap">
   <div id="main">
@@ -64,30 +64,19 @@ jQuery(function($){
       			</a>
         </div>
         <?php print render($page['content']); ?>
+        <?php print render($page['featured']);?>
       </div>
       
-      
-	     <div class="pad <?php $front_intro ? print 'extend' : ''?>" id="invite">
-					<?php print render($page['featured']);?>
-		       <?php if ($messages): ?>
-	    			<div id="message_box"><div class="section clearfix">
-	      			<?php print $messages; ?>
-	    			</div></div> <!-- /.section, /#messages -->
-	  			<?php endif; ?>
-
-  			</div>
   			
   			<?php if($front_intro): ?>
-  			<div class="quote">
-<p style="font-size: 15px; line-height: 22px;">"Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."</p>
-<a class="colorbox-load" title="myfashionlife" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- myfashionlife</div>
-</div> 
+  			<div class="login">
+  			  <div class="pad"> 
+  			 <?php print render($page['triptych_first']);?></div>
+</div>
         <?php endif;  ?>
 			 
       
 		</div>
 	</div>
 </div>
-<div id="footer">
-    <?php print render($page['footer']); ?>
-</div>
+

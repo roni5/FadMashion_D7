@@ -8,6 +8,8 @@ input[type="button"], input[type="submit"], button {cursor:pointer;}
 a {text-decoration: none }
 a:hover {text-decoration: underline; }
 
+.button, .form-submit {-moz-border-radius:4px 4px 4px 4px;background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
+
 /* content  */
 
 #box{ width: 320px; margin: 3% 0 0 6%;; float: left;}
@@ -15,11 +17,27 @@ a:hover {text-decoration: underline; }
 #box p{margin: 0 0 13px 0; color: #c8b8b0;font-size: 15px; line-height:18px; position: relative; top: -4px;  }
 
 span{color: #fff; font-weight:500}
-h1{font-size: 25px; line-height: 31px; font-weight: 100; margin: 0 0 10px 0; color: #fff;}
-h2{font-size: 20px; line-height: 28px; font-weight: 300; margin: 0 0 0px 0;}
+h1 {color:#FFFFFF;font-size:22px;font-weight:300;margin:0 0 2px;}
+h2 {color:#C5B5A8;font-size:15px;font-weight:700;line-height:22px;margin:0 0 8px;}
+h2 span {color:#FFFFFF;font-weight:700;}
 .logo{border-bottom: 1px solid #392d26; margin-top: 0px; margin-bottom: 16px; padding-bottom: 12px;}
 .logo img{margin-bottom: 12px; }
 
+.register {padding:30px 0 0;}
+.register .button {font-size:14px;padding:7px 18px;}
+.red {background-image:url("../images/b_bg_red.jpg");}
+.buttonFB {display:block;margin:25px 0;}
+
+#block-user-login {height: 93px; }
+.login h2 {font-weight: normal; color:#C5B5A8;font-size:13px;line-height:13px;margin:0 0 6px;padding:0;text-transform:uppercase;}
+.login {height: auto; overflow: auto; background: none repeat scroll 0 0 #000000; }
+.login .form-text {color: #72655C; font-size: 12px; width: 121px; background:url("../images/bg_field.jpg") repeat-x scroll left top transparent;
+border:1px solid #CBC1BE; height: 23px; line-height: 23px;  margin:4px 0 2px;  padding-left:4px;}
+.login .form-item, .login .form-actions {margin: 0px !important; display: inline}
+.login .form-submit {float:right;font-size:12px;line-height:13px;padding:5px 10px; width: 64px; margin-right: 3px;  }
+.login  .form-submit:hover {background-position: left bottom;}
+.login a.forgotPassword {color:#8A766B;font-family:Georgia,"Times New Roman",Times,serif;font-size:11px;font-style:italic;position:relative;top:6px;}
+.login a.forgotPassword:hover {text-decoration: none; color: #fff; }
 .form-item input.error, .form-item textarea.error, .form-item select.error {
 border:0px solid red !important;
 }
@@ -28,10 +46,7 @@ label { font-size: 12px; color:black;font-weight: normal !important; margin-bott
 .form-item .description {color: #8f837a }
 
 #fm-invite-request-form .form-text, #fm-invite-request-form .form-button, #fm-invite-request-form .form-text-readonly{float: left;}
-.form-textarea, .form-text, .form-text-readonly{ margin: 0 5px 0 0;  color: #72655c; font-size: 12px; }
 .form-text, .form-text-readonly { width: 185px; height: 26px; background: url(../images/bg_email.jpg) top left  repeat-x; padding-left: 4px;  border: none;}
-.form-submit{  background: url(../images/bg_button.png) no-repeat scroll top right; color: #fff; display: block;  height: 26px; width: 64px; text-decoration: none; line-height: 26px; padding-top: 0px}
-.form-submit:hover{background-position: 0 -26px;}
 
 #fm-invite-request-form .form-submit {background: url(../images/bg_button_red.png) no-repeat scroll top right;}
 #fm-invite-request-form .form-submit:hover {background-position: 0 -26px;}

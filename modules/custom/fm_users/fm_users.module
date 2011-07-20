@@ -1,1 +1,37 @@
 <?php
+
+/**
+ * Implements hook_form_alter().
+ * 
+ * changes the user login form to be something else
+ */
+function fm_users_form_alter(&$form, $form_state, $form_id) {
+	
+	$posi = strpos($form_id, 'user_login_block');  
+  if (is_numeric($posi)){
+	  unset($form['name']['#title']);
+	  unset($form['pass']['#title']);
+	  $form['links']['#markup'] = '<a class="forgotPassword" href="#">Forgot password?</a>';
+  	
+  	$form['name']['#default_value'] = t('Email');
+  	$form['name']['#attributes'] = array('class' => array('clear-defaults'));
+  	
+  	$form['pass']['#default_value'] = t('Password');
+  	$form['pass']['#attributes'] = array('class' => array('clear-defaults'));
+ 	
+  	$form['pass']['#attributes'] = array('class' => array('clear-defaults'));
+  }
+}
+
+function fm_users_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    // Move my_module_rdf_mapping() to the end of the list. module_implements()
+    // iterates through $implementations with a foreach loop which PHP iterates
+    // in the order that the items were added, so to move an item to the end of
+    // the array, we remove it and then add it.
+    $group = $implementations['fm_users'];
+    unset($implementations['fm_users']);
+    $implementations['fm_users'] = $group;
+    var_dump($implementations);
+  }
+}
