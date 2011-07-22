@@ -185,12 +185,13 @@ function fb_user_fb($op, $data, &$return) {
   elseif ($op == FB_OP_AJAX_EVENT) {
     // fb.js has notified us of an event via AJAX. Not the same as facebook event callback above.
     if ($data['event_type'] == 'session_change' && isset($data['event_data']['fbu'])) {
+    	watchdog('fb', "FAcebook Login event called");
       // A user has logged in.
       // Don't trust fbu from $data['event_data'], too easy to spoof.
       // Don't set fb_user if SESSION[fb_user_fbu], could be an old session not properly cleaned up.
       if (($fbu = fb_facebook_user($data['fb'])) &&
           $fbu != fb_get_fbu($GLOBALS['user'])) {
-
+        watchdog('fb', "call authorize user");
         // In ajax callback, there's no reason to redirect even if user
         // changes. But we should honor session, as even ajax can set a new
         // cookie.
@@ -497,18 +498,19 @@ function fb_user_form_alter(&$form, &$form_state, $form_id) {
     unset($form['submit']);
     unset($form['delete']);
   }
-
+	
   // Add name and email to some forms.
   if (isset($GLOBALS['_fb'])) {
     $fb = $GLOBALS['_fb'];
     if (!$GLOBALS['user']->uid && // No alters to user add form.
-        (($form_id == 'user_register' && variable_get(FB_USER_VAR_ALTER_REGISTER, TRUE)) ||
+        (($form_id == 'user_register_form' && variable_get(FB_USER_VAR_ALTER_REGISTER, TRUE)) ||
          ($form_id == 'user_login' && variable_get(FB_USER_VAR_ALTER_LOGIN, TRUE)) ||
          ($form_id == 'user_login_block' && variable_get(FB_USER_VAR_ALTER_LOGIN_BLOCK, TRUE)))) {
-
+         
       if ($fbu = fb_facebook_user()) {
         // Facebook user has authorized app.
-
+         
+      	
         // Show user name and picture.
         $form['fb_user'] = array(
           'name' => array(

@@ -2,8 +2,8 @@
 	<div class="container">
 <?php include('header.tpl.php');?>
 	 <div id="content" class="sidebarRight">
-	   <div class="column1">
-	   
+
+	   <div class="column1">   
 	   <?php if ($messages): ?>
       <div id="messages"><div class="section clearfix">
          <?php print $messages; ?>
