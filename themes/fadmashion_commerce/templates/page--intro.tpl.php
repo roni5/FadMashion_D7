@@ -72,13 +72,27 @@ jQuery(function($){
         <?php print render($page['featured']);?>
       </div>
       
-  			
-  			<?php if(!empty($page['triptych_first'])): ?>
+      
+      <?php if(!empty($page['triptych_first'])): ?>
+      <div id="invite" class="pad extend">
+  			  <?php print render($page['triptych_first']);?>
+  			  </div>
+      <?php endif;  ?> 
+      
+  			<?php if(!empty($page['triptych_middle'])): ?>
   			<div class="login">
   			  <div class="pad"> 
-  			 <?php print render($page['triptych_first']);?></div>
-</div>
+  			 <?php print render($page['triptych_middle']);?></div>
+        </div>
         <?php endif;  ?>
+        
+        
+        <?php if(!empty($page['triptych_last'])): ?>
+  			<div class="quote">
+  			 <?php print render($page['triptych_middle']);?>
+        </div>
+        <?php endif;  ?>
+        </div>
 			 
       
 		</div>
