@@ -6,9 +6,8 @@
  * FadMashion Commerce Splash page implementation.
  */
 
-
 global $user;
-if($user->uid) {
+if(user_access('view deals')) {
 	fm_deals_page();
 }
 
@@ -60,15 +59,21 @@ jQuery(function($){
       <div class="pad">
         <div class="logo">
 	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-        			<img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
+        			<img src="<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
       			</a>
         </div>
+        <?php if ($messages): ?>
+          <div id="messages"><div class="section clearfix">
+          <?php print $messages; ?>
+          </div></div> <!-- /.section, /#messages -->
+       <?php endif; ?>
+       
         <?php print render($page['content']); ?>
         <?php print render($page['featured']);?>
       </div>
       
   			
-  			<?php if($front_intro): ?>
+  			<?php if(!empty($page['triptych_first'])): ?>
   			<div class="login">
   			  <div class="pad"> 
   			 <?php print render($page['triptych_first']);?></div>

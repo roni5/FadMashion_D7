@@ -18,6 +18,8 @@ ul{list-style-type: none;}
 .check {margin-right:5px;}
 .form-submit:disabled { background-image:  url(../images/b_bg_green.jpg) !important;  }
 
+#fb_js_pb{display: none;}
+
 label{font-weight: normal;}
 .form-text, .form-text-readonly {border:medium none;height:26px;padding-left:4px;width:185px;}
 .form-textarea {padding: 4px; border: 1px solid #ddd; }
