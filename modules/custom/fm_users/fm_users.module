@@ -157,7 +157,8 @@ function fm_users_module_implements_alter(&$implementations, $hook) {
     // the array, we remove it and then add it.
     $group = $implementations['fm_users'];
     unset($implementations['fm_users']);
-    $implementations['fm_users'] = $group;
+    $implementations['fm_users'] =  $group;
     
+    var_dump($implementations);
   }
 }
