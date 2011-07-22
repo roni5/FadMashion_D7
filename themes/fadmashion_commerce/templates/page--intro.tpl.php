@@ -28,23 +28,23 @@ jQuery(function($){
 		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
 		slides 					:  	[		//Slideshow Images
 											{//Slide 1
-												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/two_gowns.jpg', 
 											  title: 'Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'
 											},	
 											{//Slide 2
-												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/splash_photo.jpg',
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/splash_photo.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Jonathan Simkhai</a>'
 											},
 											{//Slide 3
-												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.daisyandelizabeth.com/" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
 											},
 											{//Slide 4
-												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg',
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg',
                         title: 'Designer: <a target="_blank" href="http://www.thevisiontrain.com" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Nicole Baker</a>'
 											},
 											{//Slide 5
-												image : '<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_2.jpg',
+												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_2.jpg',
                         title: 'Designer: <a target="_blank" href="http://nettiekent.com/home.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Nettie Kent</a>'
 											}	 	 	  	  
 									]
@@ -59,7 +59,7 @@ jQuery(function($){
       <div class="pad">
         <div class="logo">
 	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-        			<img src="<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
+        			<img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
       			</a>
         </div>
         <?php if ($messages): ?>
