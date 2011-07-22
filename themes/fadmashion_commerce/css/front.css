@@ -90,8 +90,7 @@ label a, label a:hover{text-decoration: underline;}
 div.password-confirm {display: none !important;}
 
 #fm-invite-request-form .form-text, #fm-invite-request-form .form-button, #fm-invite-request-form .form-text-readonly{float: left;}
-
-#fm-invite-request-form .form-submit {background: url(../images/bg_button_red.png) no-repeat scroll top right;}
+#fm-invite-request-form .form-text {width: 185px;} 
 #fm-invite-request-form .form-submit:hover {background-position: 0 -26px;}
 
 #message_box { margin: -10px 0 10px; width: 100%; color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px;  }
@@ -110,6 +109,7 @@ background-image:none;
 
 #invite{padding: 12px;}
 #invite.pad{background:#322b25; background: url("../images/bg_invite.png") repeat scroll 0% 0% transparent !important;}
+
 
 .extend{position: relative; left: -8px; width: 276px; border-radius: 5px;}
 .extend .content {left: 8px; position: relative;}
