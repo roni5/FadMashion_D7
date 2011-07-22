@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
      });
     jQuery("#user-login-form #edit-pass").rules("add", {
   	   remote: {
-  		   url: "http://localhost/fadmashion_d7/?q=fm_users/auth",
+  		   url: base_path + "?q=fm_users/auth",
   		   type: "post",
   		   data: {username: function(){return  jQuery("#user-login-form #edit-name").val(); }}
   	   },
@@ -61,7 +61,7 @@ jQuery(document).ready(function() {
 	 	 notEqual: "Email",
 	     email: true,
 	     remote: {
-	  		   url: "http://localhost/fadmashion_d7/?q=fm_users/email-verify",
+	  		   url: base_path + "?q=fm_users/email-verify",
 	  		   type: "post",
 	  	 },
 	     messages: { 

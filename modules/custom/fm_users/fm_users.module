@@ -129,6 +129,8 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  
   		break;	
   }
+  
+  drupal_add_js('var base_path = "' . check_plain(url('', array('absolute' =>true))) . '";', 'inline');
 }
 
 //Generate Username from first and last name.
