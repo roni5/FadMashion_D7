@@ -91,7 +91,7 @@ div.password-confirm {display: none !important;}
 
 #fm-invite-request-form .form-text, #fm-invite-request-form .form-button, #fm-invite-request-form .form-text-readonly{float: left;}
 #fm-invite-request-form .form-text {width: 185px;} 
-#fm-invite-request-form .form-submit:hover {background-position: 0 -26px;}
+#fm-invite-request-form .form-submit {margin: 4px 0 3px 3px; padding: 5px 12px;}
 
 #message_box { margin: -10px 0 10px; width: 100%; color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px;  }
 #message_box .error { -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
