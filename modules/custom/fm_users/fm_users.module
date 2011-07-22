@@ -159,7 +159,5 @@ function fm_users_module_implements_alter(&$implementations, $hook) {
     unset($implementations['fm_users']);
     $implementations['fm_users'] =  $group;
     
-    var_dump($implementations);
-    exit();
   }
 }
