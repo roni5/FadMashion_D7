@@ -91,7 +91,7 @@ jQuery(function($){
         
         <?php if(!empty($page['triptych_last'])): ?>
   			<div class="quote">
-  			 <?php print render($page['triptych_middle']);?>
+  			 <?php print render($page['triptych_last']);?>
         </div>
         <?php endif;  ?>
         </div>
