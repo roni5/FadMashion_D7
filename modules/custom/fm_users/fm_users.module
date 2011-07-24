@@ -104,11 +104,12 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   		$form['account']['pass']['#weight'] = -11;
   		
   		$form['field_first_name']['#weight'] = -50;
-  		$form['field_first_name']['#default_value'] = t('First Name');
-  	  $form['field_first_name']['#attributes'] = array('class' => array('clear-defaults'));
+  		$form['field_first_name']['und'][0]['value']['#default_value'] = t('First Name');
+  		//$form['field_first_name']['#default_value'] = t('First Name');
+  	  $form['field_first_name']['und'][0]['value']['#attributes'] = array('class' => array('clear-defaults'));
   		$form['field_last_name']['#weight'] = -49;
-  		$form['field_last_name']['#default_value'] = t('Last Name');
-  	  $form['field_last_name']['#attributes'] = array('class' => array('clear-defaults'));
+  		$form['field_last_name']['und'][0]['value']['#default_value'] = t('Last Name');
+  	  $form['field_last_name']['und'][0]['value']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['field_last_name']['#suffix'] = '<div style="clear: both; display: block;margin: 0px; font-size: 1px;"></div>';
   	  
   	  $form['field_tos']['und']['#title'] = t('I agree to the ') . l('terms of service', '#');
