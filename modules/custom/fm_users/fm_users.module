@@ -124,8 +124,10 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['pass-confirm-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Confirm Password'), 
-  	     //'#weight' => 1,
+  	     '#weight' => 1,
   	  );
+  	  
+  	  var_dump($form);
   	  
   		break;	
   }
