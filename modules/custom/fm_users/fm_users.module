@@ -118,16 +118,16 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['actions']['submit']['#value'] = t('Sign me up!');
   	  $form['actions']['submit']['#attributes'] = array('class' => array('red'));
   	  
-  	  /*$form['pass-clear'] = array(
+  	  $form['pass-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Password'), 
-  	     '#weight' => 0,
+  	     '#weight' => 20,
   	  );
   	  $form['pass-confirm-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Confirm Password'), 
-  	     '#weight' => 1,
-  	  );*/
+  	     '#weight' => 21,
+  	  );
   	  
   		break;	
   }
