@@ -114,6 +114,8 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  
   	  $form['field_tos']['und']['#title'] = t('I agree to the ') . l('terms of service', '#');
   	  $form['field_newsletter_week']['und']['#title'] = t('Sign me up for weekly Deal Reminders');
+  	  $form['field_tos']['und']['#weight'] = 2;
+  	  $form['field_newsletter_week']['und']['#weight'] = 3;
   	  
   	  $form['actions']['submit']['#value'] = t('Sign me up!');
   	  $form['actions']['submit']['#attributes'] = array('class' => array('red'));
