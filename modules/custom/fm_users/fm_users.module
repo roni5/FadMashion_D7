@@ -127,7 +127,7 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	     '#weight' => 1,
   	  );
   	  
-  	  var_dump($form);
+  	  var_dump($form['field_first_name']);
   	  
   		break;	
   }
