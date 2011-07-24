@@ -96,16 +96,16 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   		unset($form['account']['mail']['#description']);
   		$form['account']['mail']['#default_value'] = t('Email');
   	  $form['account']['mail']['#attributes'] = array('class' => array('clear-defaults'));
-  	  $form['account']['mail']['#weight'] = -48;
+  	  //$form['account']['mail']['#weight'] = -48;
   		
   		unset($form['account']['pass']['#title']);
   		unset($form['account']['pass']['#description']);
-  		$form['account']['pass']['#weight'] = -11;
+  		//$form['account']['pass']['#weight'] = -11;
   		
-  		$form['field_first_name']['#weight'] = -50;
+  		//$form['field_first_name']['#weight'] = -50;
   		$form['field_first_name']['#default_value'] = t('First Name');
   	  $form['field_first_name']['#attributes'] = array('class' => array('clear-defaults'));
-  		$form['field_last_name']['#weight'] = -49;
+  		//$form['field_last_name']['#weight'] = -49;
   		$form['field_last_name']['#default_value'] = t('Last Name');
   	  $form['field_last_name']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['field_last_name']['#suffix'] = '<div style="clear: both; display: block;margin: 0px; font-size: 1px;"></div>';
@@ -119,12 +119,12 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['pass-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Password'), 
-  	     '#weight' => 0,
+  	     //'#weight' => 0,
   	  );
   	  $form['pass-confirm-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Confirm Password'), 
-  	     '#weight' => 1,
+  	     //'#weight' => 1,
   	  );
   	  
   		break;	
