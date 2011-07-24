@@ -123,12 +123,12 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['pass-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Password'), 
-  	     '#weight' => 20,
+  	     '#weight' => 4,
   	  );
   	  $form['pass-confirm-clear'] = array(
   	     '#type' => 'textfield', 
          '#default_value' => t('Confirm Password'), 
-  	     '#weight' => 21,
+  	     '#weight' => 5,
   	  );
   	  
   		break;	
