@@ -101,9 +101,11 @@ jQuery(function($){
 	</div>
 </div>
 
+<?php if(!empty($page['<?php endif;  ?>'])): ?>
 <div id="footer">
 <?php print render($page['footer']); ?>
 </div>
+<?php endif;  ?>
 
 
 
