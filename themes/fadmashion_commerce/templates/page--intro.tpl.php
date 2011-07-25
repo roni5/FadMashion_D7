@@ -101,3 +101,9 @@ jQuery(function($){
 	</div>
 </div>
 
+<div id="footer">
+<?php print render($page['footer']); ?>
+</div>
+
+
+
