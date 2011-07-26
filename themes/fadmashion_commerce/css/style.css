@@ -14,6 +14,9 @@ ul{list-style-type: none;}
 .form-submit, .button a{cursor:pointer; -moz-border-radius:4px 4px 4px 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent; color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style:normal; margin:10px 0;}
 .green{background-image: url(../images/b_bg_green.jpg) !important}
 .red{background-image: url(../images/b_bg_red.jpg) !important}
+.white{font-size: 15px; font-style: normal; background:#e9e5e0  url(../images/b_bg_white.jpg) top left repeat-x; border: 1px solid #e0dbd6; color: #0f6da3;}
+.white:hover{color: #0f6da3}
+
 .form-submit:hover, .button a:hover {background-position: left bottom;}
 .check {margin-right:5px;}
 .form-submit:disabled { background-image:  url(../images/b_bg_green.jpg) !important;  }
@@ -68,7 +71,7 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 #content .column2, 
 .mainContent, .photos, .info, .designerInfo,.sidebar{float: left; display: inline;}
 
-#content{width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 760px 0 repeat-y;}
+#content{width: 1000px; margin-top: 66px;background: url(../images/dotted_vertical.png) 760px 0 repeat-y;}
 .sidebarRight .column1{width: 765px;float: left }
 .sidebarRight .column2{width:234px;  }
 .sidebarRight .mainContent{width: 740px;}
@@ -77,6 +80,20 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 .sidebarRight .sidebar{padding-left: 25px;}
 .sidebarRight .info{   }
 .info p{width: 310px; margin-top: 5px; margin-bottom: 5px;}
+
+#sectionHeader{width: 100%; background: #f5f4f1; position: absolute; top: 155px; left: 0px; padding: 0; color: #cf3333;}
+#sectionHeader .pad{padding:  15px 0; margin: 0 auto; width: 1000px;}
+#sectionHeader .title {float: left; border-right: 1px solid #dbd6d0; padding-right: 15px;margin-right: 15px; font-weight: 100; font-size: 18px; display: inline; position: relative; top: -2px;}
+#sectionHeader .title span{font-weight: 700;}
+#sectionHeader .text{float: left; font-size: 13px; display: inline;color: #3f3c39; }
+#sectionHeader .icons{float: left; margin-left: 5px; position: relative; top: -3px;}
+#sectionHeader .icons img{width: 24px;}
+#sectionHeader .icons a{margin-left: 6px;}
+#sectionHeader #content{margin-top: 66px;}
+#sectionHeader .tweet{float: right; color: #3f3c39; width: 430px; font-size: 12px; position: relative; top: -7px;}
+#sectionHeader .tweet img{width: 22px; float: left; margin: 0 5px 5px;}
+                                                         
+                                                         
 
 /* Deals */
 .photos{padding-bottom: 100px;}
@@ -137,11 +154,12 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .designerInfo h1{font-size: 16px; margin-bottom: 15px;}
 .designerInfo .col1, .designerInfo .col2{float: left;}
 
-.quote{ width: 574px; background: url(../images/bg_quote.jpg) top left repeat-y; font-size: 14px; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 20px; margin-bottom: 15px;}
+.quote{ width: 574px; background: url(../images/bg_quote.jpg) top left repeat-y; margin-bottom: 15px;}
 .quote .top{ background: url(../images/bg_quote_top.jpg) top left no-repeat;}
 .quote .bg{ background: url(../images/bg_quote_bottom.jpg) bottom left no-repeat;}
 .quoteImg1{background: url(../images/bg_quote1.png) 30px 12px no-repeat; padding: 15px;}
-.quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 15px 15px 15px 45px;}
+.quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 10px 15px 15px 45px; font-size: 16px; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 20px;}
+
 
 .subCol{float: left; width: 250px; padding: 0 30px 0 0; position: relative; left: 30px;}
 .subCol h1{margin-bottom: 10px;}
@@ -171,6 +189,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .feedback h1{font-size: 16px; margin-bottom: 8px;}
 .feedback .row{font-size: 13px; background: url(../images/dotted_horizontal.png) top left repeat-x; padding: 15px 0;}
 .feedback .row h1{font-size: 15px;}
+.feedback p img{float:left;margin:0 8px 26px 0;}
 
 
 #facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
