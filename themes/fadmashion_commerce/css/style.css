@@ -81,7 +81,7 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 .sidebarRight .info{   }
 .info p{width: 310px; margin-top: 5px; margin-bottom: 5px;}
 
-#sectionHeader{width: 100%; background: #f5f4f1; position: absolute; top: 155px; left: 0px; padding: 0; color: #cf3333;}
+#sectionHeader{width: 100%; background: #f5f4f1; position: absolute; left: 0px; padding: 0; color: #cf3333;}
 #sectionHeader .pad{padding:  15px 0; margin: 0 auto; width: 1000px;}
 #sectionHeader .title {float: left; border-right: 1px solid #dbd6d0; padding-right: 15px;margin-right: 15px; font-weight: 100; font-size: 18px; display: inline; position: relative; top: -2px;}
 #sectionHeader .title span{font-weight: 700;}
