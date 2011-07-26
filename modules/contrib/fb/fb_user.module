@@ -407,12 +407,10 @@ function _fb_user_process_authorized_user() {
     // First check if map already exists.
     $account = fb_user_get_local_user($fbu, $fb_app);
     $config = _fb_user_get_config($fb_app);
-watchdog('fb_fm', '$account');
     if (!$account) {
       if ($GLOBALS['user']->uid > 0 &&
           $config['map_account'][FB_USER_OPTION_MAP_ALWAYS]) {
         // Create map for logged in user.
-        watchdog('fb_fm', 'Presave FAcebook map');
         $mapped = _fb_user_create_map();
       }
       if (!$mapped &&
