@@ -75,6 +75,8 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['pass']['#default_value'] = t('Password');
   	  $form['pass']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['pass']['#weight'] = -18;
+  	  $form['pass']['#suffix'] = '<div style="clear: both; display: block;margin: 0px; font-size: 1px;"></div>';
+  	  
  	
   	  $form['pass']['#attributes'] = array('class' => array('clear-defaults'));
   	  
