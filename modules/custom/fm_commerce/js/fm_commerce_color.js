@@ -38,7 +38,7 @@ jQuery(document).ready(function() {
 		//Enable Javascript Color functionality for Fadmashion sizes
 		jQuery('.form-item-sizes select').selectBox();
 		
-	/*Enable Javascript Color functionality for Fadmashion Commerce
+	//Enable Javascript Color functionality for Fadmashion Commerce
 		jQuery('.form-item-colors select').selectBox();
 		
 		//Change color options to div structures

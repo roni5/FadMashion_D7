@@ -33,7 +33,6 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#default_value' => $default_color,
 	       '#attributes' => array('size' => count($colors) > 1 ? count($colors) : 2),
 	       '#suffix' => '<br clear="all">',
-	       '#prefix' => '<di'
 	    );
 	  }
     if (count($sizes) > 1) {
