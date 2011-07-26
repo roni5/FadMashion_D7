@@ -158,7 +158,7 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	     $info = $GLOBALS['_fb']->api($fbu);
 	     //var_dump( $info);
 		   //exit();
-		   watchdog('fb_fm', 'Presave FAcebook user');
+		   watchdog('fb_fm', drupal_json_encode($info));
 	  }
 
 	}
