@@ -51,7 +51,7 @@ jQuery(document).ready(function() {
 			jQuery(this).attr('title', title);
 			jQuery(this).attr('pos', val);
 			jQuery(this).html('');
-		});*/
+		});
 		
 		
 		/*jQuery('.form-item-colors li a').click(function() {
