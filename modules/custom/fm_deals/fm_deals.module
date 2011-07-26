@@ -284,7 +284,7 @@ function fm_deals_group_details(&$vars) {
 		
 		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
 		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
-		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
+		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 minutes before the deal is on)</p>';
 		$purchaseDetails .= '</div>';
 	}
 	elseif ($status == 'active') {

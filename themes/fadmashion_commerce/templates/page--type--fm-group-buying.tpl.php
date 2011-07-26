@@ -1,6 +1,16 @@
 <div align="center" id="wrapper">
 	<div class="container">
 <?php include('header.tpl.php');?>
+
+            
+    <?php if(!empty($page['featured'])): ?>
+      <div id="sectionHeader">
+      <div class="pad">
+  			  <?php print render($page['featured']);?>
+  			  </div></div>
+      <?php endif;  ?> 
+      
+      
 	 <div id="content" class="sidebarRight">
 
 	   <div class="column1">   
