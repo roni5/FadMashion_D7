@@ -152,12 +152,11 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	else { 
 	  $fbu = fb_facebook_user();
 	  if(isset($fbu)) {
-	  	
-	var_dump($edit);
-	
-	$info = $GLOBALS['_fb']->api($fbu);
-	var_dump( $info);
-		exit();
+	     //var_dump($edit);
+	     $info = $GLOBALS['_fb']->api($fbu);
+	     //var_dump( $info);
+		   //exit();
+		   watchdog('fb_fm', 'Presave FAcebook user');
 	  }
 
 	}
