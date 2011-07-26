@@ -101,7 +101,7 @@
 </div> <!--end info -->
 
 <div class="designerInfo">
-<h1>MORE ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
+<h1>ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
 <div class="col1">
 <?php print render($content['store:field_logo']); ?>
 </div> <!-- End designerInfo Col1 -->
