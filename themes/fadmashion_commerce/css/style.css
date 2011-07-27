@@ -115,6 +115,7 @@ h1.pageTitle{color: #b83838; font-size: 23px; text-align:center; padding-bottom:
 h1.itemName{font-size: 18px;  font-weight: 700;}
 h2.details-store{margin: 7px 0;}
 h2.details-store .store-name{cursor: pointer;}
+h2.details-store .store-name:hover {text-decoration:underline;}
 
 a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; padding: 0 13px 0 0px;}
 
