@@ -113,6 +113,8 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 
 h1.pageTitle{color: #b83838; font-size: 23px; text-align:center; padding-bottom: 8px; }
 h1.itemName{font-size: 18px;  font-weight: 700;}
+h2.details-store{margin: 7px 0;}
+h2.details-store .store-name{cursor: pointer;}
 
 a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; padding: 0 13px 0 0px;}
 
