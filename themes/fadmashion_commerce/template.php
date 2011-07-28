@@ -60,8 +60,9 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   }
   
     
-  //Nave Tool Tips
-  $options['voting-header'] = array(
+  if(module_exists('beautytips')) {
+    //Nave Tool Tips
+    $options['voting-header'] = array(
       'cssSelect' => '#voting-header',
       'trigger' => array('hover'),
 	    'positions' => array('bottom'),
@@ -70,9 +71,10 @@ function fadmashion_commerce_preprocess_page(&$variables) {
       'style' => 'hulu',
       'spikeLength' => 5,
        'spikeGirth' => 10,
-  'overlap' => 15,
+      'overlap' => 15,
     );
-  beautytips_add_beautytips($options);
+    beautytips_add_beautytips($options);
+  }
   
 }
 
