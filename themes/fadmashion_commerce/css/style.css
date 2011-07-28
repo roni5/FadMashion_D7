@@ -69,6 +69,8 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 .nav li.active a{color: #fff; }
 .navBox img{float: left; }
 
+div.messages{width: 690px;}
+
 
 /* Right-hand Sidebar Layout */
 #content, 
