@@ -54,10 +54,20 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   if (isset($variables['node'])) { 
   	$node_type = str_replace('-', '_', $variables['node']->type);
     $variables['theme_hook_suggestions'][] = "page__type__" . $node_type;
+    $variables['menu_active'] = 'featured';
   }
-  if($split_url[0] == 'deals') {
+  /*if($split_url[0] == 'deals') {
   	$variables['theme_hook_suggestions'][] = "page__type__fm_group_buying" ;
+  }*/
+  
+  //Manual header ACTIVE state
+  if($split_url[0] == 'deals') {
+  	if($split_url[1] == 'preview') {
+  	  $variables['menu_active'] = 'preview';
+  	}
   }
+  
+  var_dump($split_url[0]);
   
     
   if(module_exists('beautytips')) {
