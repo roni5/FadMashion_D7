@@ -66,7 +66,7 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 .nav{/*background: url(../images/bg_nav.png) top left repeat-x;*/ height: 59px; color: #fff; padding-left: 4px;}
 .nav li a{font-family:"museo-sans-1","museo-sans-2", Helvetica;font-size: 16px; font-style: normal; color: #cdc6c0; height: 59px; line-height: 59px;  font-weight: 500; padding: 0 15px; }
 .nav li.active {background: url(../images/nav_arrow.png) bottom center no-repeat;}
-.nav li.active a{color: #fff; }
+.nav li.active a, .nav li a:hover{color: #fff; }
 .navBox img{float: left; }
 
 div.messages{width: 690px;}
