@@ -63,7 +63,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   //Nave Tool Tips
   $options['voting-header'] = array(
       'cssSelect' => '#voting-header',
-      'trigger' => array('mouseover'),
+      'trigger' => array('hover'),
 	    'positions' => array('bottom'),
 	    'fill' =>  "rgb(255, 255, 255)",
 	    'width' => '100px',
