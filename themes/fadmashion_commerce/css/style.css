@@ -51,24 +51,24 @@ label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px
 #header .learnMore{color: #fff; font-size: 12px; }
 #header .row1 p{padding: 8px 0 0 0; font-size: 12px;}
 
-#accountNav{float: right; height: 32px; border-left: 1px solid #3c3734;}
+#accountNav{float: right; height: 32px; }
 #accountNav a{color:#c7b79f; padding: 0 14px; line-height: 32px; height:32px; float: left; font-style:normal; font-size: 11px;font-family:"museo-sans-1","museo-sans-2", Helvetica;}
-#accountNav a:hover{}
+#accountNav a:hover{color: #fff}
 .flag{padding: 0px 8px 0 0; position: relative; top: 3px;}
 .menu{ padding-right:0px;background: url(../images/arrow_small.png) center right no-repeat;}
 .menu a{ margin-right: 10px;}
-.tree li{float: left;border-left: 1px solid #24201c; border-right: 1px solid #3c3734;}
+.tree li{float: left;}
 
 .logo{float: left; margin-top: 15px;}
 
-.navBox{margin: 16px 0 0 20px}
+.navBox{margin: 0 0 0 20px}
 .navBox, .nav, .nav li{float: left; list-style-type:none;}
-.nav{background: url(../images/bg_nav.png) top left repeat-x; height: 27px; color: #fff; padding-left: 4px;}
-.nav li { padding: 5px 15px 0 5px; }
-.nav li a {font-family:"museo-sans-1","museo-sans-2", Helvetica; font-style: normal; font-size: 14px; color: #cdc6c0; }
-.nav li a:hover{color: #fff;}
-.nav li a.active{color: #fff;}
+.nav{/*background: url(../images/bg_nav.png) top left repeat-x;*/ height: 59px; color: #fff; padding-left: 4px;}
+.nav li a{font-size: 16px; font-style: normal; color: #cdc6c0; height: 59px; line-height: 59px;  font-weight: 500; padding: 0 15px; }
+.nav li.active {background: url(../images/nav_arrow.png) bottom center no-repeat;}
+.nav li.active a{color: #fff; }
 .navBox img{float: left; }
+
 
 /* Right-hand Sidebar Layout */
 #content, 
