@@ -59,6 +59,21 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   	$variables['theme_hook_suggestions'][] = "page__type__fm_group_buying" ;
   }
   
+    
+  //Nave Tool Tips
+  $options['voting-header'] = array(
+      'cssSelect' => '#voting-header',
+      'trigger' => array('mouseover'),
+	    'positions' => array('bottom'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    'width' => '100px',
+      'style' => 'hulu',
+      'spikeLength' => 5,
+       'spikeGirth' => 10,
+  'overlap' => 15,
+    );
+  beautytips_add_beautytips($options);
+  
 }
 
 function fadmashion_commerce_css_alter(&$css) {
