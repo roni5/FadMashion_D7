@@ -206,8 +206,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 
 /*  Deals PReview Page */
-.page-deals-preview .mainContent { width: 100% }
-.page-deals-preview .mainContent .dealFrame{ margin:  13px 5px; width: 240px;}
+.page-deals-preview #content {background:none repeat scroll 0 0 transparent;width:1000px; margin-top: 20px;}
+.page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF;float:left;margin-left:45px;text-align:center;width:930px;}
+
+
 
 /********* Overlays ***************/
 
