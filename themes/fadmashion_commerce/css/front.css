@@ -20,7 +20,7 @@ a:hover {text-decoration: underline; }
 
 span{color: #fff; font-weight:500}
 h1 {color:#FFFFFF;font-size:22px;font-weight:300;margin:0 0 2px;}
-h2 {color:#C5B5A8;font-size:15px;font-weight:700;line-height:22px;margin:0 0 8px;}
+h2 {font-size: 13px; line-height: 18px; font-weight: 300; margin: 0 0 8px 0; color: #c5b5a8;}
 h2 span {color:#FFFFFF;font-weight:700;}
 h3 {color:#8A766B;font-family:Georgia,"Times New Roman",Times,serif;font-size:11px;font-style:italic;font-weight:normal;margin:0 0 7px;text-align:right;}
 .logo{border-bottom: 1px solid #392d26; margin-top: 0px; margin-bottom: 16px; padding-bottom: 12px;}
@@ -59,7 +59,7 @@ h3 {color:#8A766B;font-family:Georgia,"Times New Roman",Times,serif;font-size:11
 .login{background: #000;}
 .login .pad{}
 .login h2{font-size: 13px; line-height: 13px; text-transform:uppercase; margin: 0 0 6px 0;padding: 0; color: #c5b5a8;}
-.login .form-submit{float: right; font-size: 12px; padding: 5px; line-height: 13px;}
+.login .form-submit{float: right; font-size: 12px; padding: 4px 6px; line-height: 13px;}
 .login .form-text{width: 121px;}
 .login .form-item{float: left; width: 130px;}
 .login a.forgotPassword{font-size: 11px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; position: relative; top: 6px; color: #8a766b;}

@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 	    		
 	    	    var $this = jQuery('input.form-submit');
 	    	    $this.attr('disabled', true);
-	    	    $this.attr('value', 'You Rock!');
+	    	    $this.attr('value', 'Processing...');
 	    		
 	    		form.submit();
 			},

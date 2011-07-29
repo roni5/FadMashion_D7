@@ -85,7 +85,9 @@ jQuery(function($){
   			<div class="login">
   			  <div class="pad"> 
   			 <?php print render($page['triptych_middle']);?></div>
+        <br clear="all" />
         </div>
+        
         <?php endif;  ?>
         
         
