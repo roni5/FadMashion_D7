@@ -208,7 +208,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 /*  Deals PReview Page */
 .page-deals-preview #content {background:none repeat scroll 0 0 transparent;width:1000px; margin-top: 20px;}
 .page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF;float:left;margin-left:45px;text-align:center;width:930px;}
-.page-deals-preview h1{color:#B83838;font-size:23px;padding-bottom:8px;text-align:center;}
+.page-deals-preview h1.pageTitle{color:#B83838;font-size:23px;padding-bottom:8px;text-align:center;}
 
 
 /********* Overlays ***************/
