@@ -50,7 +50,7 @@ h3 {color:#8A766B;font-family:Georgia,"Times New Roman",Times,serif;font-size:11
 #edit-field-first-name input, #edit-field-last-name input {width: 121px;display: inline;}
 #edit-field-first-name { margin-right: 5px; float: left; }
 .button, .form-submit {border: none; padding: 6px 12px;margin: 10px 0; border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background: url(../images/b_bg_brown.jpg) top left; repeat: repeat-x; font-size: 12px; color: #fff; font-family:"museo-sans-1","museo-sans-2", Helvetica; font-style: normal;}
-.button:hover, .form-submit:hover{text-decoration: underline;background-position: bottom left; color: #fff; cursor:pointer;}
+.button:hover, .form-submit:hover{text-decoration: none !important;background-position: bottom left; color: #fff; cursor:pointer;}
 .red{background-image: url(../images/b_bg_red.jpg)}
 
 
