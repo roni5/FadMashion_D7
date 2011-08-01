@@ -51,7 +51,7 @@ function theme_fm_image_slider_formatter($variables) {
       }
     }
     
-    //$output .= theme('image_style', $image); 
+    $output .= theme('image_style', $image); 
   }
   $output .= '</div>';
   

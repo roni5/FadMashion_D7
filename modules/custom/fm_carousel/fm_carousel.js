@@ -12,7 +12,12 @@ jQuery(document).ready(function() {
     howitworks_block.hide();
     
 	if(howitworks_block.length) {
-		fmDisplayDropDown();
+		if (document.cookie.indexOf('visited=true') === -1) {
+		      var expires = new Date();
+		      expires.setDate(expires.getDate()+30);
+		      document.cookie = "visited=true; expires="+expires.toUTCString();
+		      fmDisplayDropDown();
+		}
 		
 		//add close button 
 		howitworks_block.prepend('<a class="close" href="javascript:fmCloseDropDown()">&nbsp;</a>');
