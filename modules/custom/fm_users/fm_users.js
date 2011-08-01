@@ -38,9 +38,9 @@ jQuery(document).ready(function() {
            remote: jQuery.format("Wrong password")
        },
     
-  	 });
+  	 });*/
    }
-   //End Login VAlidate*/
+   //End Login VAlidate
   
   //Validate Registration page
   if(jQuery('#user-register-form').length) {

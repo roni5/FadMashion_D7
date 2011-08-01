@@ -31,7 +31,7 @@ function fmDisplayDropDown() {
 		fmCloseDropDown();
 	});
 	
-	jQuery("#block-views-nodequeue-2-block .content").bind('click', false);
+	jQuery(".content", howitworks_block).bind('click', false);
 
 	
 

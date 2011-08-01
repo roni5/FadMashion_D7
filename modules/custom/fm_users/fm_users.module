@@ -86,6 +86,8 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	     '#weight' => -19,
   	  );
   	  
+      $form['#validate'] =  array('logintoboggan_user_login_validate',  'fm_users_login_name_validate', 'user_login_authenticate_validate', 'user_login_final_validate');
+  	  
   	  break;
   	case 'user_register_form':
   		//ADD JS for User validation and AJAXY functionality
@@ -156,10 +158,11 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	  if(isset($fbu)) {
 	     //var_dump($edit);
 	     $info = $GLOBALS['_fb']->api($fbu);
-	     //var_dump( $info);
-		   //exit();
 		   $edit['field_first_name']['und'][0]['value'] = $info['first_name'];
 		   $edit['field_last_name']['und'][0]['value'] = $info['last_name'];
+		   if(!fm_users_check_activate($info['email'])) {
+		     $edit['status'] = 0;
+		   }
 	  }
 
 	}
@@ -185,16 +188,37 @@ function fm_users_register_submit($form, &$form_state) {
 	$mail = $values['mail'];
 	$user = user_load($values['uid']);
 	
-	if(fm_users_check_activate($user)) {
-		$user->status = 0;
-		user_save();
-		
+	if(!fm_users_check_activate($user)) {
+		user_save($user, array('status' => 0));
 		//Redirect here
    $form_state['redirect'] = 'intro/private'; 
 	}
 }
 
+//special validator to redirect on non-activated account
+function fm_users_login_name_validate($form, &$form_state)  {
+	 
+  if (isset($form_state['values']['name']) && user_is_blocked($form_state['values']['name'])) {
+    form_set_error('name', t('Sorry, Fadmashion is currently in Private launch.  You\'ll be hearing from us soon for your account activation'));
+  }
+}
+
 function fm_users_check_activate($user) {
 	$mail = $user->mail;
-	
+	return false;
+}
+
+function fm_users_fb_user($op, $data, $return) {
+	if($op == FB_USER_OP_POST_EXTERNAL_LOGIN) {
+		if(isset($data['account'])) {
+	    $account = $data['account'];
+	    $mail = $account->mail;
+	   
+	    if(!fm_users_check_activate($mail)) {
+	      _fb_logout();
+	      drupal_goto('intro/private');
+	      
+	    }
+		}
+	}
 }
