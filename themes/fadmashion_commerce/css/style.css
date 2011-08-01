@@ -11,7 +11,7 @@ h1 span{font-weight: 700}
 h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
-.form-submit, a.button {cursor:pointer; -moz-border-radius:4px 4px 4px 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent; color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style:normal; margin:10px 0;}
+.form-submit, a.button {cursor:pointer; -moz-border-radius:4px 4px 4px 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent; color:#FFFFFF; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style:normal; margin:10px 0;padding: 6px 12px}
 .green{background-image: url(../images/b_bg_green.jpg) !important}
 .red{background-image: url(../images/b_bg_red.jpg) !important}
 a.button.white{font-size: 15px; font-style: normal; background:#e9e5e0  url(../images/b_bg_white.jpg) top left repeat-x; border: 1px solid #e0dbd6; color: #0f6da3;}
@@ -473,6 +473,30 @@ h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times
 #footer h1{text-transform: uppercase; font-size: 13px; font-weight: 500;}
 #footer .subCol{float: left; width: 150px; text-align:center;}
 #footer .subCol img{margin: 0 3px;}
+
+
+
+/* FAQ */
+#static .column1 {width: 680px;}
+#static h1{text-align: left; font-size: 20px; margin: 30px 0 6px 0; padding: 0; color: #b83838;}
+#static h1.pageTitle{color: #b83838; font-size: 23px; text-align:left; padding-bottom: 0px; margin: 0; }
+#static h1.section {border-top: 1px solid #eee8e3; font-size: 15px; font-weight:700; color: #938070; padding: 10px 0 0 0; margin: 40px 0 15px 0; letter-spacing:2px; }
+#static h2{margin: 8px 0 4px 0; color: #938070; font-weight: 700;}
+#static h3{font-size: 16px; margin: 0 0 5px 0;}
+#static p{margin: 0 0 12px 0; font-size: 14px; line-height: 19px;}
+#static a{font-size: 14px;}
+#static ul{margin: 16px 0;}
+#static li{background: url(../images/arrow_bullet.jpg) 12px 5px no-repeat; padding: 0 0 0 26px; font-size: 14px; margin: 4px 0;}
+
+#static .whatis{background: #f9f8f6;border-radius:8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; padding: 20px;}
+#static .whatis h1{margin: 0 0 10px 0; padding: 0; }
+#static .whatis h2{margin: 20px 0 6px 0; font-size: 25px; font-weight: 100;}
+
+.jumpList{margin: 15px 0; padding: 8px 0; border-top: 1px solid #eee8e3; border-bottom: 1px solid #eee8e3; font-size: 13px; color: #938070;}
+.jumpList a{margin: 0 10px; }
+
+.notMember{float: right; text-align:right;margin-top: 20px;}
+.notMember .button{margin-left: 10px;}
 
 
 

@@ -42,13 +42,17 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/front.css');  
     
-    
-    
     $variables['front_intro'] = false;
     if(count($split_url) == 1) {
     	$variables['front_intro'] = true;
     }
   }
+  
+  $static_pages = array('faq', 'about');
+  if(in_array($split_url[0], $static_pages)) {
+    $variables['theme_hook_suggestions'][] = 'page__static';
+  }
+  
   
   // Add template suggestions based on content type
   if (isset($variables['node'])) { 
