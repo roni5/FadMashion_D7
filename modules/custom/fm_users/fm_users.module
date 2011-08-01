@@ -188,12 +188,53 @@ function fm_users_register_submit($form, &$form_state) {
 	$mail = $values['mail'];
 	$user = user_load($values['uid']);
 	
-	if(!fm_users_check_activate($user)) {
+	//Check to see if active
+	if(!fm_users_check_activate($mail)) {
 		user_save($user, array('status' => 0));
 		//Redirect here
-		drupal_set_message('Fadmashion is private', 'error');
-   $form_state['redirect'] = 'intro/rewards'; 
+	  drupal_set_message(t('Sorry, Fadmashion is currently in a Private beta phase.  You\'ll be hearing from us soon for your account activation'), 'error');
+    $id  = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
+	} else {
+		 user_save($user, array('status' => 1));
+     drupal_goto();		
 	}
+   //check it didn't request an invite, than add it and generate process.  
+  $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
+	$obj = $result->fetchObject();
+	if(!$obj) {
+			 $reg_code = fm_invite_generate_code();
+	     $id = db_insert('fm_invite')
+           ->fields(array(
+            'reg_code' => $reg_code,
+            'referred_by_id' => $referred_by_id,
+            'email' => $form_state['values']['mail'],
+            'timestamp' => time(),
+            'link_back_views' => 0
+          ))->execute();
+       
+        // Send the confirmation email.
+        $params = array(
+            'subject' => 'Thank you.  Read about our special offer...',
+            'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
+         );
+  
+         $email = variable_get('site_mail', 'admin@fadmashion.com');
+  
+        drupal_mail(
+           'fm_invite',
+           'confirmation',
+           $form_state['values']['mail'],
+           language_default(),
+           $params,
+           'Fadmashion <' . $email . '> '
+         );
+   
+    
+		} else {
+			$id = $obj->id;
+		}
+ 	
+		drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
 }
 
 //special validator to redirect on non-activated account
@@ -205,9 +246,9 @@ function fm_users_login_name_validate($form, &$form_state)  {
 }
 
 function fm_users_check_activate($mail) {
-	$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $email));
+	$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $mail));
   $mail = $result->fetchObject();
-	if(!$inviter) {
+	if($mail) {
 		if($mail->active) {
 			return true;
 		}
