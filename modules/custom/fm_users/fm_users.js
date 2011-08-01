@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 	  fmPasswordClearDefaults(jQuery("#user-login-form #edit-pass"), 
 			  jQuery("#user-login-form #edit-pass-clear"));
 	  
-    jQuery('#user-login-form').validate({
+    /*jQuery('#user-login-form').validate({
     	errorClass: 'invalid',
   	    onkeyup: false,
   	    wrapper: 'div id="message_box"',
@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
     
   	 });
    }
-   //End Login VAlidate
+   //End Login VAlidate*/
   
   //Validate Registration page
   if(jQuery('#user-register-form').length) {

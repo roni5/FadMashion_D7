@@ -1,0 +1,20 @@
+<?php
+/**
+ * Implements hook_jcarousel_skin_info().
+ */
+function fm_carousel_jcarousel_skin_info() {
+  $skins = array();
+
+  $skins['fadmashion'] = array(
+    'title' => t('Fadmashion'),
+    'file' => 'skins/jcarousel-fm.css',
+  );
+
+  return $skins;
+}
+
+
+
+function fm_carousel_jcarousel_options_alter() {
+  //TODO: Enable Pagination to show little dots.  
+}

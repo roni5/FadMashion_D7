@@ -58,6 +58,8 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   }
   //Manual header ACTIVE state
   if($split_url[0] == 'deals') {
+  	//Add How it Works carousel drop-down 
+  	drupal_add_js(drupal_get_path('module', 'fm_carousel').'/fm_carousel.js');
   	if($split_url[1] == 'preview') {
   	  $variables['menu_active'] = 'preview';
   	}

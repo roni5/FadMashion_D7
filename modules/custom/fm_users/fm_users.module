@@ -133,6 +133,8 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	     '#weight' => 5,
   	  );
   	  
+  	  $form['#submit'][] = 'fm_users_register_submit';
+  	  
   		break;	
   }
   
@@ -143,7 +145,6 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
 function fm_users_user_presave (&$edit, $account, $category) {
 	// Make sure that our form value 'mymodule_foo' is stored as 'mymodule_bar'.
 	
-	watchdog('fb_fm', 'Presave FAcebook user1');
 	//Generate name from registration form
 	if(isset($edit['field_first_name']) && isset($edit['field_last_name'])) {
 	  $first_name = $edit['field_first_name']['und'][0]['value'];
@@ -151,7 +152,6 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	  $edit['name'] = $first_name . ' ' . $last_name;
 	}
 	else { 
-		watchdog('fb_fm', 'Presave FAcebook user2');
 	  $fbu = fb_facebook_user();
 	  if(isset($fbu)) {
 	     //var_dump($edit);
@@ -160,8 +160,6 @@ function fm_users_user_presave (&$edit, $account, $category) {
 		   //exit();
 		   $edit['field_first_name']['und'][0]['value'] = $info['first_name'];
 		   $edit['field_last_name']['und'][0]['value'] = $info['last_name'];
-		   watchdog('fb_fm', drupal_json_encode($info));
-		   watchdog('fb_fm', drupal_json_encode($edit));
 	  }
 
 	}
@@ -178,4 +176,25 @@ function fm_users_module_implements_alter(&$implementations, $hook) {
     $implementations['fm_users'] =  $group;
     
   }
+}
+
+function fm_users_register_submit($form, &$form_state) {
+	 
+	//check to see if an active e-mail sent.
+	$values = $form_state['values'];
+	$mail = $values['mail'];
+	$user = user_load($values['uid']);
+	
+	if(fm_users_check_activate($user)) {
+		$user->status = 0;
+		user_save();
+		
+		//Redirect here
+   $form_state['redirect'] = 'intro/private'; 
+	}
+}
+
+function fm_users_check_activate($user) {
+	$mail = $user->mail;
+	
 }

@@ -7,7 +7,10 @@
       <div id="sectionHeader">
       <div class="pad">
   			  <?php print render($page['featured']);?>
-  			  </div></div>
+  			  </div>
+  			  <div class="shadow">&nbsp;</div>
+  	</div>
+  	  
       <?php endif;  ?> 
       
       
