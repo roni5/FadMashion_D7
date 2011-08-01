@@ -191,7 +191,8 @@ function fm_users_register_submit($form, &$form_state) {
 	if(!fm_users_check_activate($user)) {
 		user_save($user, array('status' => 0));
 		//Redirect here
-   $form_state['redirect'] = 'intro/private'; 
+		drupal_set_message('Fadmashion is private', 'error');
+   $form_state['redirect'] = 'intro/rewards'; 
 	}
 }
 
@@ -203,8 +204,17 @@ function fm_users_login_name_validate($form, &$form_state)  {
   }
 }
 
-function fm_users_check_activate($user) {
-	$mail = $user->mail;
+function fm_users_check_activate($mail) {
+	$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $email));
+  $mail = $result->fetchObject();
+	if(!$inviter) {
+		if($mail->active) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	return false;
 }
 
@@ -215,8 +225,8 @@ function fm_users_fb_user($op, $data, $return) {
 	    $mail = $account->mail;
 	   
 	    if(!fm_users_check_activate($mail)) {
-	      _fb_logout();
-	      drupal_goto('intro/private');
+	      //_fb_logout();
+	      //drupal_goto('intro/private');
 	      
 	    }
 		}
