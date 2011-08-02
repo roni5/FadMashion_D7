@@ -192,7 +192,7 @@ function fm_users_register_submit($form, &$form_state) {
 	if(!fm_users_check_activate($mail)) {
 		user_save($user, array('status' => 0));
 		//Redirect here
-	  drupal_set_message(t('Sorry, Fadmashion is currently in a Private beta phase.  You\'ll be hearing from us soon for your account activation'), 'error');
+	  drupal_set_message(t('Fadmashion is currently in private launch. You are now in the queue and will receive an email from us when your invitation is prepared.'), 'error');
     $id  = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
 	} else {
 		 user_save($user, array('status' => 1));
