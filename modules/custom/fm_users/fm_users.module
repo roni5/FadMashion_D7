@@ -202,6 +202,11 @@ function fm_users_register_submit($form, &$form_state) {
   $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
 	$obj = $result->fetchObject();
 	if(!$obj) {
+		  
+		$referred_by_id = null;
+	  if($inviter = fm_invite_load_from_session()) {
+    	 	$referred_by_id = $inviter->id;
+	   }
 			 $reg_code = fm_invite_generate_code();
 	     $id = db_insert('fm_invite')
            ->fields(array(
@@ -211,6 +216,11 @@ function fm_users_register_submit($form, &$form_state) {
             'timestamp' => time(),
             'link_back_views' => 0
           ))->execute();
+   
+    if(isset($_SESSION[FM_INVITE_SESSION])) {
+	     unset($_SESSION[FM_INVITE_SESSION]);
+   } 
+  
        
         // Send the confirmation email.
         $params = array(
