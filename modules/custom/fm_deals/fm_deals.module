@@ -194,7 +194,7 @@ function theme_fm_deals_product_details($vars) {
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
   
-  $output .= '<h2 class="details-store" style="color: #aaa">ABOUT ' .  theme('fm_commerce_store_name', array('store' => $store)) . '</h2>';
+  $output .= '<h2 class="details-store" style="color: #aaa">' .  theme('fm_commerce_store_name', array('store' => $store)) . '</h2>';
   $output .= '<p>' . $description . '</p>';
   $output .= '<script>jQuery(".details-store .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
   
