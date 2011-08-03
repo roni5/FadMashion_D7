@@ -48,7 +48,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     }
   }
   
-  $static_pages = array('faq', 'about');
+  $static_pages = array('faq', 'about', 'not-authorized', 'access-denied');
   if(in_array($split_url[0], $static_pages)) {
     $variables['theme_hook_suggestions'][] = 'page__static';
   }
