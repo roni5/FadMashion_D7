@@ -89,7 +89,7 @@ div.messages{width: 690px;}
 .info p{width: 310px; margin-top: 5px; margin-bottom: 5px;}
 
 #sectionHeader{z-index: 10; width: 100%; background: #f5f4f1; position: absolute; left: 0px; padding: 0; }
-#sectionHeader .pad{padding:  15px 0; margin: 0 auto; width: 1000px;}
+#sectionHeader .pad{padding:  13px 0; margin: 0 auto; width: 1000px;}
 #sectionHeader .title {float: left; border-right: 1px solid #dbd6d0; padding-right: 15px;margin-right: 15px; font-weight: 100; font-size: 18px; display: inline; position: relative; top: -2px;}
 #sectionHeader .title span{font-weight: 700;}
 #sectionHeader .text{float: left; font-size: 13px; display: inline;color: #3f3c39; }
@@ -156,7 +156,7 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 
 .itemOptions .options{text-align: left;}
 .itemOptions .form-submit, .itemOptions  .button a {font-size:15px;font-weight:300;margin:0;padding:6px 30px;}
-.notify {border-bottom:1px solid #F0EFED;border-top:1px solid #F0EFED;margin:0 0 20px;padding:20px 0;text-align:center;}
+.notify {border-bottom:1px solid #F0EFED;border-top:1px solid #F0EFED;margin:0 0 20px;padding:30px 0 20px;text-align:center;}
 
 .itemOptions label {float:left;text-align:left;width:60px;}
 .itemOptions .form-item{margin: 0 0 0 0 !important}
@@ -195,7 +195,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .subCol h1{margin-bottom: 10px;}
 .subCol .field-items{float: left; list-style-type: none;}
 .subCol .field-item{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 2px no-repeat; padding: 0 0 0 12px;margin: 0 0 12px 0;}
-.press .field-item {width: 250px; border-bottom: 1px solid #aaa; background-image: none; padding: 0px;}
+.press .field-item {width: 250px; border-bottom: 1px solid #f0efed; background-image: none; padding: 0px;}
 .press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
 .source {color: #767272; font-size: 11px; padding-bottom: 5px;}
 .buttons{clear: both; width:150px; padding: 6px 0 0 0;}

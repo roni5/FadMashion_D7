@@ -37,7 +37,7 @@ function fm_commerce_store_theme() {
 function theme_fm_commerce_store_name($vars) {
 	$store = $vars['store'];
 	
-	$output = '<span ref="store-info-' . $store->store_id. '" class="store-name">' . $store->name . '</span>';
+	$output = '<div ref="store-info-' . $store->store_id. '" class="store-name">' . $store->name . '</div>';
 	$logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
 	$logo = render($logo);
 	$output .= '<div id="store-info-' . $store->store_id . '" style="display: none">' . $logo . '</div>';
