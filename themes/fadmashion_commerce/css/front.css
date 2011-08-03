@@ -8,14 +8,14 @@ input[type="button"], input[type="submit"], button {cursor:pointer;}
 a {text-decoration: none }
 a:hover {text-decoration: underline; }
 
-.button, .form-submit {-moz-border-radius:4px 4px 4px 4px;background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
+.button, .form-submit {-moz-border-radius:4px; -webkit-border-radius: 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
 
 #fb_js_pb{display: none;}
 .form-item input.error {border: 1px solid #CBC1BE}
 
 /* content  */
 
-#box{ width: 320px; margin: 3% 0 0 6%;; float: left;}
+#box{ width: 320px; margin: 6% 0 0 6%;; float: left;}
 #box .pad{padding: 30px;background: url(../images/bg.png);}
 #box p{margin: 0 0 13px 0; color: #c8b8b0;font-size: 15px; line-height:18px; position: relative; top: -4px;  }
 
