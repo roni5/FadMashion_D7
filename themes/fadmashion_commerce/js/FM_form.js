@@ -9,6 +9,14 @@ jQuery(document).ready(function() {
 	      return;
 	}
 	
+
+	jQuery(".jumpList a").click(function (e){
+	  var val = jQuery(this).attr('href');
+	  jQuery.scrollTo('.' + val, 800);
+	  return false;
+	});
+
+	
 	//ADD validator for clear forms 
     jQuery.validator.addMethod("notEqual", function(value, element, param) {
 	  return this.optional(element) || value !== param; alert('test');
