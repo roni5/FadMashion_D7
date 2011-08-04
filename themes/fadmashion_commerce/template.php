@@ -50,6 +50,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   
   $static_pages = array('faq', 'about', 'not-authorized', 'access-denied');
   if(in_array($split_url[0], $static_pages)) {
+  	drupal_add_css(path_to_theme().'/css/static.css');  
     $variables['theme_hook_suggestions'][] = 'page__static';
   }
   
@@ -97,6 +98,11 @@ function fadmashion_commerce_css_alter(&$css) {
   {
     unset($css[path_to_theme().'/css/style.css']);
   }
+  $static_pages = array('faq', 'about', 'not-authorized', 'access-denied');
+  if(in_array($split_url[0], $static_pages)) {
+  	unset($css[path_to_theme().'/css/style.css']);
+  }
+  
 }
 
 
