@@ -42,7 +42,8 @@ label{font-weight: normal;}
 .message_box .error { -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
 label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; color: #fff; border: 0px solid #000; }
 
-
+tr td {background-color:#f9f8f6;}
+tr.even, tr.odd{background-color:#f9f8f6;border-bottom:1px solid #eee8e3;}
 
 
 #header{color: #fff}
@@ -227,7 +228,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 /*  Deals PReview Page */
 .page-deals-preview #content {background:none repeat scroll 0 0 transparent;width:1000px; margin-top: 20px;}
-.page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF;float:left;margin-left:45px;text-align:center;width:930px;}
+.page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF;margin-top: -25px; float:left;margin-left:45px;text-align:center;width:930px;}
 .page-deals-preview h1.pageTitle{color:#B83838;font-size:23px;padding-bottom:8px;text-align:center;}
 
 
@@ -352,7 +353,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #orders-list table th { text-align: center; background-color: #fff; font-weight: normal; color: #888;padding: 10px 0 2px; }
 #orders-list table thead { background-color: #ddd; }
 #orders-list table tr td { padding: 10px 0;}
-#orders-list table tr td, #order-detail table tr td{background-color: #F8F8F8}
 
 #orders-list .order-date, #orders-list .order-extra-info, #orders-list  .retail-price {color: #888; font-size: 11px;}
 

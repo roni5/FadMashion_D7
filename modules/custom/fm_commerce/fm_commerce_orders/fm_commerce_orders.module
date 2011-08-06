@@ -147,7 +147,7 @@ function fm_commerce_orders_list() {
 	}
 	
 	
-	return theme ('table', array('rows' => $rows, 'header' => $header));
+	return theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
 }
 
 //Get row info for the table.  Outputs Product, product price & node price
