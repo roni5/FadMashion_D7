@@ -45,6 +45,6 @@ function fmCloseDropDown() {
 	default_block.show();
 	jQuery('#sectionHeader').removeClass('dropped');
 	
-	jQuery(document).unbind('click');
+	//jQuery(document).unbind('click');
 	jQuery("#block-views-nodequeue-2-block .content").unbind('click', false);
 }
