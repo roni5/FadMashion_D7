@@ -283,7 +283,10 @@ function fm_deals_group_details(&$vars) {
 	//
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
+		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
+		$timerDetails .= '</div>';
+		
 		//$timerDetails .= '<div class="dealNeeded"></div>';
 		$untilTime = $start_time;
 		
@@ -292,12 +295,14 @@ function fm_deals_group_details(&$vars) {
 		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 minutes before the deal is on)</p>';
 		$purchaseDetails .= '</div>';
 		
-		
+	
 	}
 	elseif ($status == 'active') {
-		$timerDetails = '<div class="col1">Items Bought: <span>' . 3 . '</span></div>
+		$timerDetails = '<div class="timer rounded-top">';
+		$timerDetails .= '<div class="col1">Items Bought: <span>' . 3 . '</span></div>
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
 		$timerDetails .= '<div class="dealNeeded rounded-bottom">2 items more to get deal</div>';
+		$timerDetails .= '</div>';
 		$untilTime = $end_time;
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
@@ -315,7 +320,10 @@ function fm_deals_group_details(&$vars) {
   
 	} 
 	else {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$timerDetails = '<div class="timer rounded-top">';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$timerDetails .= '</div>';
+		
 		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
 		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
 	}

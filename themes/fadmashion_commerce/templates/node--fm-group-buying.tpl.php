@@ -84,7 +84,7 @@
 </div>
 <div class="info">
  <h1 class="pageTitle">1-HOUR  <span>DEALS</span></h1>
-<div class="timer rounded-top"><?php print $groupDetails;?></div>
+<?php print $groupDetails;?>
 <br clear="all">
 <div class="pricing">
 
