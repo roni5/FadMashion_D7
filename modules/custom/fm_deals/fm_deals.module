@@ -320,7 +320,7 @@ function fm_deals_group_details(&$vars) {
   
 	} 
 	else {
-		$timerDetails = '<div class="timer rounded-top">';
+		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
 		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
 		$timerDetails .= '</div>';
 		
