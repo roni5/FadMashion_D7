@@ -297,7 +297,7 @@ function fm_deals_group_details(&$vars) {
 	elseif ($status == 'active') {
 		$timerDetails = '<div class="col1">Items Bought: <span>' . 3 . '</span></div>
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
-		$timerDetails .= '<div class="dealNeeded">2 items more to get deal</div>';
+		$timerDetails .= '<div class="dealNeeded rounded-bottom">2 items more to get deal</div>';
 		$untilTime = $end_time;
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
