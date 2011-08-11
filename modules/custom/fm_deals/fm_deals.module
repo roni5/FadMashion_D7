@@ -151,7 +151,7 @@ function fm_deals_preprocess_node(&$vars) {
     
 	  $default_tab = 'product_shipping';
 	 if(!empty($details)) {
-	 	  $details_text = '<ul>';
+	 	  $details_text = '<ul class="details-list">';
 	 	  foreach($details as $detail) {
 	 	  	$details_text .= '<li>' . $detail['value'] . '</li>';
 	 	  }
