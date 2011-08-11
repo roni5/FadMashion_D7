@@ -151,13 +151,15 @@ function fm_deals_preprocess_node(&$vars) {
     
 	  $default_tab = 'product_shipping';
 	 if(!empty($details)) {
-	 	  var_dump($details);
-	 	  exit();
-	  	$details = $details[0]['value'];
+	 	  $details_text = '<ul>';
+	 	  foreach($details as $detail) {
+	 	  	$details_text .= '<li>' . $detail['value'] . '</li>';
+	 	  }
+	 	  $details_text .= '</ul>';
       $tabs['product_details'] = array(
               'title' => t('Details'),
               'type' => 'freetext',
-              'text' => $materials_care
+              'text' => $details_text
       );
       $default_tab = 'product_details';
 	  }  
