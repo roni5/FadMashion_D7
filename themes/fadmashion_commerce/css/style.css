@@ -183,7 +183,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #quicktabs-fm_product_details li{min-width: 80px; padding: 4px; text-align:center;}
 #quicktabs-fm_product_details li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 
-.details-list li {padding: 0 0 0 12px; text-aligh: left; font-size: 12px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
+.details-list li {padding: 0 0 0 12px !important; text-align: left; font-size: 12px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
 
 .designerInfo{width: 740px; border-top: 3px solid #f0efed; padding: 10px 0 0 0; margin-top: 10px;}
 .designerInfo h1{font-size: 16px; margin-bottom: 15px;}
