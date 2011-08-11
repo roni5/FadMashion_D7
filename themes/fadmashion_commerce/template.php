@@ -12,6 +12,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	drupal_add_library('jquery_plugin', 'validate');
 	drupal_add_library('system', 'jquery.form');
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders').'/fm_commerce_orders.js');
+	drupal_add_js(path_to_theme().'/js/jquery.cookie.js');
 	
 	
 	global $user;

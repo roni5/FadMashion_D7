@@ -12,7 +12,11 @@ jQuery(document).ready(function() {
     howitworks_block.hide();
     
 	if(howitworks_block.length) {
-		fmDisplayDropDown();
+		
+		if(jQuery.cookie('carousel') != 'true') {
+		  jQuery.cookie('carousel', 'true');
+		  fmDisplayDropDown();
+		} 
 		
 		//add close button 
 		howitworks_block.prepend('<a class="close" href="javascript:fmCloseDropDown()">&nbsp;</a>');
