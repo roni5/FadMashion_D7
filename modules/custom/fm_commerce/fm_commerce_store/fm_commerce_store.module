@@ -25,6 +25,7 @@ function fm_commerce_store_theme() {
     'fm_commerce_store_name' => array(
 	     'variables' => array(
          'store' => NULL,
+	       'beauty_tips' => true
 	    )
     ),
     'fm_commerce_store_hover' => array(
@@ -36,13 +37,16 @@ function fm_commerce_store_theme() {
 
 function theme_fm_commerce_store_name($vars) {
 	$store = $vars['store'];
+	$beauty_tips = $vars['beauty_tips'];
 	
 	$output = '<div ref="store-info-' . $store->store_id. '" class="store-name">' . $store->name . '</div>';
-	$logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
-	$logo = render($logo);
-	$output .= '<div id="store-info-' . $store->store_id . '" style="display: none">' . $logo . '</div>';
 	
-	$options['bt_drupal_help_page'] = array(
+	if($beauty_tips) {
+	  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
+	  $logo = render($logo);
+	  $output .= '<div id="store-info-' . $store->store_id . '" style="display: none">' . $logo . '</div>';
+	
+	  $options['bt_drupal_help_page'] = array(
       'cssSelect' => '.store-name',
       'trigger' => array('hover', 'click'),
 	    'positions' => array('top'),
@@ -51,8 +55,9 @@ function theme_fm_commerce_store_name($vars) {
 	    'contentSelector' => " $('#' + $(this).attr('ref')).html()",
 	    'width' => '150px',
       'style' => 'hulu',
-    );
-  beautytips_add_beautytips($options);
+      );
+    beautytips_add_beautytips($options);
+	}
     
 	return $output;
 }
