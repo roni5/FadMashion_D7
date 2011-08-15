@@ -49,6 +49,7 @@ jQuery(document).ready(function() {
 			var val = jQuery(this).html();
 			jQuery(this).attr('style', 'background-color: #' + code);
 			jQuery(this).attr('title', title);
+			jQuery(this).attr('class', 'beautytips');
 			jQuery(this).attr('pos', val);
 			jQuery(this).html('');
 		});

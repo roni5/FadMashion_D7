@@ -1,0 +1,80 @@
+@CHARSET "ISO-8859-1";
+*{padding: 0; margin: 0;font-family:"museo-sans-1","museo-sans-2", Helvetica;}
+.container{width:680px; text-align: left; margin: 0 auto; color: #3f3c39; height: 100%; }
+a{font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; text-decoration:none; color: #0f6da3; font-size: 12px;}
+a:hover{color: #2e92cc;}
+img{border: none;}
+p{font-size: 13px; margin: 0 0 7px 0; }
+h1{font-weight:100; }
+h1 span{font-weight: 700}
+h1.pageTitle{color: #b83838; font-size: 23px; text-align:center; padding-bottom: 8px; }
+h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
+h2 a{font-size: 14px;}
+ul{list-style-type: none;}
+.button, .form-submit {border: none; padding: 6px 12px;margin: 10px 0; border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; background: url(../images/b_bg_brown.jpg) top left; repeat: repeat-x; font-size: 12px; color: #fff; font-family:"museo-sans-1","museo-sans-2", Helvetica; font-style: normal;}
+.button:hover, .form-submit:hover{background-position: bottom left; color: #fff; cursor:pointer;}
+.red{background-image: url(../images/b_bg_red.jpg)}
+
+#header{color: #fff}
+#header .row2{height: 59px;}
+#header .learnMore{color: #fff; font-size: 12px;}
+#stickyHeader{ position: fixed; top: 0; left: 0; width: 100%; background: url(../images/bg_header.jpg) top left repeat-x; background-position: fixed; z-index:999}
+#stickyHeader .box{width: 680px; margin: 0 auto; }
+.white{background: #fff;}
+
+.logo{float: left; margin-top: 15px;}
+
+
+/* Right-hand Sidebar Layout */
+#content, 
+#oontent .column1, 
+#content .column2, 
+.mainContent, 
+.photos, 
+.info, 
+.designerInfo,
+.sidebar
+{float: left; display: inline;}
+
+
+#content{width: 680px; margin-top: 170px;}
+.sidebarRight .column1{width: 765px;float: left }
+.sidebarRight .column2{width:234px;}
+.sidebarRight .mainContent{width: 740px;}
+.sidebarRight .photos{width: 401px;}
+.sidebarRight .sidebar{padding-left: 25px;}
+
+
+/* Footer */
+#footer{background:#f9f8f6 url(../images/bg_footer.jpg) top left repeat-x; clear: both;margin-top: 30px;}
+#footer .container{padding: 15px 0 10px 0;}
+#footer .links{margin-bottom: 15px;}
+#footer .links a{margin-right: 14px;}
+#footer .copyright{font-size: 11px; width: 500px;color: #a0978f;}
+#footer .box{float: right; width: 400px;}
+#footer h1{text-transform: uppercase; font-size: 13px; font-weight: 500;}
+#footer .subCol{float: left; width: 150px; text-align:center;}
+#footer .subCol img{margin: 0 3px;}
+
+
+/* FAQ */
+#faq .column1 {width: 680px;}
+#faq h1{text-align: left; font-size: 20px; margin: 30px 0 6px 0; padding: 0; color: #b83838;}
+#faq h1.pageTitle{color: #b83838; font-size: 23px; text-align:left; padding-bottom: 0px; margin: 0; }
+#faq h1.section {border-top: 1px solid #eee8e3; font-size: 15px; font-weight:700; color: #938070; padding: 10px 0 0 0; margin: 40px 0 15px 0; letter-spacing:2px; }
+#faq h2{margin: 8px 0 4px 0; color: #938070; font-weight: 700;}
+#faq h3{font-size: 16px; margin: 0 0 5px 0;}
+#faq p{margin: 0 0 12px 0; font-size: 14px; line-height: 19px;}
+#faq a{font-size: 14px;}
+#faq ul{margin: 16px 0;}
+#faq li{background: url(../images/arrow_bullet.jpg) 12px 5px no-repeat; padding: 0 0 0 26px; font-size: 14px; margin: 4px 0;}
+
+#faq .whatis{background: #f9f8f6;border-radius:8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; padding: 20px;}
+#faq .whatis h1{margin: 0 0 10px 0; padding: 0; }
+#faq .whatis h2{margin: 20px 0 6px 0; font-size: 25px; font-weight: 100;}
+
+.jumpList{margin: 15px 0; padding: 8px 0; border-top: 1px solid #eee8e3; border-bottom: 1px solid #eee8e3; font-size: 13px; color: #938070;}
+.jumpList a{margin: 0 10px; }
+
+.notMember{float: right; text-align:right;margin-top: 23px; font-size: 14px;}
+.notMember .button{margin-left: 10px;}

@@ -166,7 +166,8 @@ function fm_invite_request_form() {
   
   $form['submit'] = array(
     '#type' => 'submit', 
-    '#value' => t('Invite Me')
+    '#value' => t('Invite Me!'),
+    '#attributes' => array('class' => array('red')),
   );
   
   return $form;

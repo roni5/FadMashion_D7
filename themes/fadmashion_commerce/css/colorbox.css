@@ -40,8 +40,8 @@
         #cboxClose{position:absolute; top:0; right:0; display:block; color:#444;}
     
     
-#cboxTitle-manual{font-family:"museo-sans-1","museo-sans-2",Helvetica;position:absolute; color:#1D1C1A; font-weight: 100; font-size: 22px; padding: 20px 0; top:0px; left:0; text-align:center; width:100%;}
-#cboxTitle-manual a {font-weight: 100; font-size: 22px;
+#cboxTitle, #cboxTitle-manual{font-family:"museo-sans-1","museo-sans-2",Helvetica;position:absolute; color:#1D1C1A; font-weight: 100; font-size: 22px; padding: 20px 0; top:0px; left:0; text-align:center; width:100%;}
+#cboxTitle-manual a {font-weight: 100; font-size: 22px;}
 /*
   The following fixes a problem where IE7+ replaces a PNG's alpha transparency with a black fill
   when an alpha filter (opacity change) is set on the element or ancestor element.

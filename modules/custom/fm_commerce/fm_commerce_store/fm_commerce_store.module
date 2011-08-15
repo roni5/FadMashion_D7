@@ -19,12 +19,62 @@ function fm_commerce_store_permission() {
   return $permissions;
 }
 
+
+function fm_commerce_store_theme() {
+	return array(
+    'fm_commerce_store_name' => array(
+	     'variables' => array(
+         'store' => NULL,
+	       'beauty_tips' => true
+	    )
+    ),
+    'fm_commerce_store_hover' => array(
+      'variables' => array('store' => NULL),
+      'template' => 'fm_commerce_store_hover'
+    )
+  );
+}
+
+function theme_fm_commerce_store_name($vars) {
+	$store = $vars['store'];
+	$beauty_tips = $vars['beauty_tips'];
+	
+	$output = '<div ref="store-info-' . $store->store_id. '" class="store-name">' . $store->name . '</div>';
+	
+	if($beauty_tips) {
+	  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
+	  $logo = render($logo);
+	  $output .= '<div id="store-info-' . $store->store_id . '" style="display: none">' . $logo . '</div>';
+	
+	  $options['bt_drupal_help_page'] = array(
+      'cssSelect' => '.store-name',
+      'trigger' => array('hover', 'click'),
+	    'positions' => array('top'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    //'ajaxPath' => array("$(this).attr('ref')"),
+	    'contentSelector' => " $('#' + $(this).attr('ref')).html()",
+	    'width' => '150px',
+      'style' => 'hulu',
+      );
+    beautytips_add_beautytips($options);
+	}
+    
+	return $output;
+}
+
+function fm_commerce_store_hover($store_id) {
+	$store = fm_commerce_store_load($store_id);
+	
+	print theme('fm_commerce_store_hover', array('store' => $store));
+	exit();
+}
+
 /**
  * Implements hook_menu().
  */
 function fm_commerce_store_menu() {
   $items = array();
-
+  
   // admin/commerce/stores is defined by Views.
   $items['admin/commerce/stores/add'] = array(
     'title' => 'Add a store',
@@ -62,6 +112,15 @@ function fm_commerce_store_menu() {
   $items['fm_commerce_store/autocomplete'] = array(
     'title' => 'commerce_store autocomplete',
     'page callback' => 'fm_commerce_store_autocomplete',
+    'access arguments' => array('access stores'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  
+   $items['fm_commerce_store/hover'] = array(
+    'title' => 'commerce_store_hover',
+    'page callback' => 'fm_commerce_store_hover',
+    'page arguments' => array(2),
     'access arguments' => array('access stores'),
     'type' => MENU_CALLBACK,
   );

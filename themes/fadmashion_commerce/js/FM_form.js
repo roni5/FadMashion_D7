@@ -4,6 +4,15 @@
 
 jQuery(document).ready(function() {
 	clearAllForms();
+	
+	if (!jQuery.isFunction(jQuery.validator)) {
+	      return;
+	}
+	
+	//ADD validator for clear forms 
+    jQuery.validator.addMethod("notEqual", function(value, element, param) {
+	  return this.optional(element) || value !== param; alert('test');
+	}, "This field is required");
 });
 
 /*
@@ -13,6 +22,7 @@ function clearAllForms() {
   //Call the Form clear and restore
   jQuery("input.clear-defaults").cleardefault();
   jQuery("textarea.clear-defaults").cleardefault();
+  jQuery(".clear-defaults input").cleardefault();
 };
 
 jQuery.fn.cleardefault = function() {
@@ -91,6 +101,23 @@ function formPreLoader(formData, jqForm, options) {
 }
 function formSuccess(responseText, statusText, xhr, $form)  {
 	jQuery('#submitLoader').remove();
+}
+
+
+function fmPasswordClearDefaults(actualPassword, fakePassword) {
+	fakePassword.show();
+	actualPassword.hide();
+	fakePassword.focus(function() {
+		fakePassword.hide();
+		actualPassword.show();
+		actualPassword.focus();
+    });
+	actualPassword.blur(function() {
+		if(actualPassword.val() == '') {
+			fakePassword.show();
+		        actualPassword.hide();
+		    }
+		});
 }
 
 

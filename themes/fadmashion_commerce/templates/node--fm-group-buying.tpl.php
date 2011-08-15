@@ -83,8 +83,8 @@
   <?php print render($content['product:field_product_images']); ?>
 </div>
 <div class="info">
-<h1 class="pageTitle">1-HOUR  <span>DEALS</span></h1>
-<div class="timer"><?php print $groupDetails;?></div>
+ <h1 class="pageTitle">1-HOUR  <span>DEALS</span></h1>
+<?php print $groupDetails;?>
 <br clear="all">
 <div class="pricing">
 
@@ -101,7 +101,7 @@
 </div> <!--end info -->
 
 <div class="designerInfo">
-<h1>MORE ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
+<h1>ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
 <div class="col1">
 <?php print render($content['store:field_logo']); ?>
 </div> <!-- End designerInfo Col1 -->

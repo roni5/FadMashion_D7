@@ -147,10 +147,24 @@ function fm_deals_preprocess_node(&$vars) {
 	  
     $quicktabs = new stdClass();
 	  
-	  $materials_care = field_get_items('commerce_product', $product, 'field_materials_care');
-	  
-	  
-    $tabs['product_shipping'] = array(
+	  $details = field_get_items('commerce_product', $product, 'field_details');
+    
+	  $default_tab = 'product_shipping';
+	 if(!empty($details)) {
+	 	  $details_text = '<ul class="details-list">';
+	 	  foreach($details as $detail) {
+	 	  	$details_text .= '<li>' . $detail['value'] . '</li>';
+	 	  }
+	 	  $details_text .= '</ul>';
+      $tabs['product_details'] = array(
+              'title' => t('Details'),
+              'type' => 'freetext',
+              'text' => $details_text
+      );
+      $default_tab = 'product_details';
+	  }  
+	 
+	 $tabs['product_shipping'] = array(
             'title' => t('Shipping'),
             'type' => 'freetext',
             'text' => theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) ),
@@ -160,22 +174,13 @@ function fm_deals_preprocess_node(&$vars) {
             'type' => 'freetext',
             'text' => theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) ),
     );
-    
-	 if(!empty($materials_care)) {
-	  	$materials_care = $materials_care[0]['value'];
-      $tabs['product_details'] = array(
-              'title' => t('Details'),
-              'type' => 'freetext',
-              'text' => $materials_care
-      );
-	  }
 	  
     $quicktabs->tabs = $tabs;
     $quicktabs->table = 'quicktabs';
     $quicktabs->ajax= '0';
     $quicktabs->style = 'default';
     $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = 'product_shipping';
+    $quicktabs->default_tab = $default_tab;
     $quicktabs->hide_empty_tabs = '0';
     $quicktabs->machine_name = 'fm_product_details';
     
@@ -193,8 +198,12 @@ function theme_fm_deals_product_details($vars) {
   $store = $vars['store'];
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
-  $output .= '<h2 style="color: #aaa">Learn more about ' . l($store->name, 'test') . '</h2>';
+  
+  $output .= '<h2 class="details-store" style="color: #aaa">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</h2>';
   $output .= '<p>' . $description . '</p>';
+  $output .= '<script>jQuery(".details-store .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
+  
+  
   return $output;
 }
 
@@ -279,17 +288,26 @@ function fm_deals_group_details(&$vars) {
 	//
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
+		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
+		$timerDetails .= '</div>';
+		
+		//$timerDetails .= '<div class="dealNeeded"></div>';
 		$untilTime = $start_time;
 		
 		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
 		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
-		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
+		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 minutes before the deal is on)</p>';
 		$purchaseDetails .= '</div>';
+		
+	
 	}
 	elseif ($status == 'active') {
-		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
+		$timerDetails = '<div class="timer rounded-top">';
+		$timerDetails .= '<div class="col1">Items Bought: <span>' . 3 . '</span></div>
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
+		$timerDetails .= '<div class="dealNeeded rounded-bottom">2 items more to get deal</div>';
+		$timerDetails .= '</div>';
 		$untilTime = $end_time;
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
@@ -307,7 +325,10 @@ function fm_deals_group_details(&$vars) {
   
 	} 
 	else {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$timerDetails .= '</div>';
+		
 		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
 		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
 	}

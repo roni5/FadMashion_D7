@@ -22,6 +22,10 @@ position:absolute;
   margin-right:10px;
   width: 80px;
 }
+#slider .nivo-controlNav .nivo-control.active img {border: 1px solid #a5332c;}
+#slider .nivo-controlNav .nivo-control img {border: 1px solid #efefea ;}
+
+
 
 /* The Nivo Slider styles */
 .nivoSlider {

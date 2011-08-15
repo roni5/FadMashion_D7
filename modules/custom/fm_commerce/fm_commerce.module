@@ -33,7 +33,6 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#default_value' => $default_color,
 	       '#attributes' => array('size' => count($colors) > 1 ? count($colors) : 2),
 	       '#suffix' => '<br clear="all">',
-	       '#prefix' => '<di'
 	    );
 	  }
     if (count($sizes) > 1) {
@@ -61,7 +60,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
-		$form['submit']['#value'] = "Purchase Now";
+		$form['submit']['#value'] = "Buy It!";
 		$form['submit']['#attributes'] = array(
 		  'class' => array('red')
     );

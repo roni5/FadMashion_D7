@@ -10,6 +10,11 @@ function fm_commerce_express_checkout_menu() {
 	  'access arguments' => array('view express checkout'),
     'type' => MENU_NORMAL_ITEM,
   );
+  $items['express-checkout/confirmation'] = array(
+    'page callback' => 'fm_commerce_express_checkout_confirmation_page',
+	  'access arguments' => array('view express checkout'),
+    'type' => MENU_NORMAL_ITEM,
+  );
   
   return $items;
 }
@@ -27,6 +32,10 @@ function fm_commerce_express_checkout_permission() {
 function fm_commerce_express_checkout_page() {
 	
 	return drupal_get_form('fm_commerce_express_checkout_form');
+}
+
+function fm_commerce_express_checkout_confirmation_page() {
+	return theme('fm_commerce_express_checkout_confirmation');
 }
 
 //Replace the drupal commerce checkout form with our own 
@@ -179,6 +188,7 @@ function fm_commerce_express_checkout_form_validate($form, $form_state) {
     'form_parents' => array('credit_card'),
   );
 
+  //VAlidate credit card fields
   /*if (!commerce_payment_credit_card_validate($form_state['values']['credit_card'], $settings)) {
     return FALSE;
   }*/
@@ -272,7 +282,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	//commerce_checkout_complete($order);
   
   //Redirect here
-  exit();
+  drupal_goto('express-checkout/confirmation');
 
 }
 
@@ -384,6 +394,10 @@ function fm_commerce_express_checkout_theme($variables)
     (
         'fm_commerce_express_checkout_form' => array(
             'render element' => 'form',
+        ),
+        'fm_commerce_express_checkout_confirmation' => array(
+	        'variables' => array('order' => NULL, 'invoice' => NULL),
+          'template' => 'fm_commerce_express_checkout_confirmation'
         ),
     );
 }
