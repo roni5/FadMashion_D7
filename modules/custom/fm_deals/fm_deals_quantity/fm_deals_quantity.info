@@ -1,7 +1,0 @@
-; $Id: $
-name = FM Deals Quantity Management
-description =  Deals Quantity Fields and Info
-core = 7.x
-package = Fadmashion
-
-dependencies[] = fm_deals

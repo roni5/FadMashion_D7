@@ -51,7 +51,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   if($block_name == 'fm_commerce_cart') {
   	
   	$output = '<div class="summary">';
-  	$output .= '<div class="header"><a href="#">Show Details</a>Order Summary</div>';
+  	$output .= '<div class="header rounded-top"><a href="#">Show Details</a>Order Summary</div>';
   	
   	
   global $user;

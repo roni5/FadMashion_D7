@@ -269,7 +269,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	
 	//Call payment gateway
 	$charge = $order_wrapper->commerce_order_total->value();
-	//$result = commerce_authnet_aim_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
+	//$result = commerce_payflow_pro_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
 	
 	if($deal_state) {
 		//ADD payment stuff
@@ -279,7 +279,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 		$order = commerce_order_status_update($order, 'deal_off');
 	}
 	
-	//commerce_checkout_complete($order);
+	commerce_checkout_complete($order);
   
   //Redirect here
   drupal_goto('express-checkout/confirmation');
@@ -298,7 +298,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     $language = $form[$field_name]['#language'];
     
     $output = '<div id="shipping" class="checkoutPanel">';
-    $output .= '<div class="header"><div class="pad">
+    $output .= '<div class="header rounded-top"><div class="pad">
                   <div class="dropdown"><span>Address Book:</span> ' . fm_commerce_express_checkout_profiles_options('shipping') . ' </div>
                   Shipping Information
                 </div></div>';
@@ -315,7 +315,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     $language = $form[$field_name]['#language'];
     
     $output .= '<div class="checkoutPanel">';
-    $output .= '<div class="header"><div class="pad">';
+    $output .= '<div class="header rounded-top"><div class="pad">';
     $output .= '
                   Billing Information
                 </div></div>';

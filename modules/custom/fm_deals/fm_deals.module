@@ -303,10 +303,12 @@ function fm_deals_group_details(&$vars) {
 	
 	}
 	elseif ($status == 'active') {
+		$qty_purchased = fm_deals_qty_purchased($node->nid);
+		$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
 		$timerDetails = '<div class="timer rounded-top">';
-		$timerDetails .= '<div class="col1">Items Bought: <span>' . 3 . '</span></div>
+		$timerDetails .= '<div class="col1">Items Bought: <span>' . $qty_purchased . '</span></div>
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
-		$timerDetails .= '<div class="dealNeeded rounded-bottom">2 items more to get deal</div>';
+		$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
 		$timerDetails .= '</div>';
 		$untilTime = $end_time;
 		
@@ -335,6 +337,29 @@ function fm_deals_group_details(&$vars) {
 	
 	$vars['groupDetails'] = $timerDetails;
 	$vars['purchaseDetails'] = $purchaseDetails;
+}
+
+function fm_deals_qty_purchased($nid) {
+	//TODO: PERFORMANCE: Do this all in one query
+	
+	//load line items that reference this node id
+	$query = new EntityFieldQuery();
+	$line_item_results = $query->entityCondition('entity_type', 'commerce_line_item')
+	      ->entityCondition('bundle', 'product')
+	      ->fieldCondition('field_node_reference', 'nid', $nid)
+	      ->execute();
+	
+	$count = 0;
+	//load orders with the line item and check if cart status is correct
+  foreach($line_item_results['commerce_line_item'] as $line_item_id => $commerce_line_item) {
+  	 $line_item = commerce_line_item_load($line_item_id);
+  	 $order = commerce_order_load($line_item->order_id);
+  	 if($order->status == 'deal_payed' || $order->status == 'deal_off') {
+  	 	$count++;
+  	 }
+	}
+	return $count;
+	
 }
 
 

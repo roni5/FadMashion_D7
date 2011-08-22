@@ -34,6 +34,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#attributes' => array('size' => count($colors) > 1 ? count($colors) : 2),
 	       '#suffix' => '<br clear="all">',
 	    );
+	    $form['color-hovers'] = array(
+	       '#markup' => theme('fm_commerce_stock_hovers', array('colors' => $colors, 'product' => $product))
+	    );
 	  }
     if (count($sizes) > 1) {
     	
@@ -48,6 +51,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#default_value' => $default_size,
 	       '#attributes' => array('size' => count($sizes) > 1 ? count($sizes) : 2),
 	       '#suffix' => '<br clear="all">'
+	    );
+	     $form['sizes-hovers'] = array(
+	       '#markup' => theme('fm_commerce_stock_hovers', array('sizes' => $sizes, 'product' => $product))
 	    );
 	  }
 	  
@@ -269,6 +275,10 @@ function fm_commerce_get_store($product) {
 	return $stores[$store_id];
 }
 
+function fm_commerce_color_array($color) {
+	$color = explode('_', $color);
+	return array('hex' => $color[0], 'name' => $color[1]);
+} 
 
 
 

@@ -39,7 +39,7 @@ function theme_fm_commerce_store_name($vars) {
 	$store = $vars['store'];
 	$beauty_tips = $vars['beauty_tips'];
 	
-	$output = '<div ref="store-info-' . $store->store_id. '" class="store-name">' . $store->name . '</div>';
+	$output = '<div ' . ($beauty_tips ? 'ref="store-info-' . $store->store_id. '"' : '') .  ' class="store-name">' . $store->name . '</div>';
 	
 	if($beauty_tips) {
 	  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');

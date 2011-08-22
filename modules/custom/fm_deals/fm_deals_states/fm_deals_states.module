@@ -23,6 +23,20 @@ function fm_deals_states_get_status($node) {
 	return $status;
 }
 
+function fm_deals_states_status_msg($node, $qty_purchased) {
+	$qty_min = intval(field_get_items('node', $node, 'field_quantity_min'));
+	
+	if($qty_purchased >= $qty_min) {
+		$output = '<div class="deal-on">' . t('Deal is On!') . '</div>';
+	}
+	else {
+		$qty_left = $qty_min - $qty_purchased;
+		$output = '<div class="deal-off">' . $qty_left . t(' item' . ($qty_left == 1 ? '' : 's') . ' more to get deal') . '</div>';
+	}
+	return $output;
+	
+}
+
 function fm_deals_states_purchased_deal($deal_node) {
   global $user;
   
@@ -40,8 +54,15 @@ function fm_deals_states_purchased_deal($deal_node) {
 }
 
 function fm_deals_states_deal_on($node) {
- 
-	return true;
+  $qty_min = intval(field_get_items('node', $node, 'field_quantity_min'));
+	$qty_purchased = fm_deals_qty_purchased($node->nid);
+	
+	if($qty_purchased >= $qty_min) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 /*

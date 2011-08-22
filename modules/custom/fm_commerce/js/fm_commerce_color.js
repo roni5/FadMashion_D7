@@ -47,13 +47,36 @@ jQuery(document).ready(function() {
 			var code = vals[0];
 			var title = vals[1];
 			var val = jQuery(this).html();
+			var qty_info = jQuery('#qty-' + jQuery(this).attr('rel'));
+			
+			if(qty_info.attr('val') == '' || qty_info.attr('val') == 0) {
+				jQuery(this).parent().addClass('selectBox-disabled');
+			}
+			
 			jQuery(this).attr('style', 'background-color: #' + code);
-			jQuery(this).attr('title', title);
-			jQuery(this).attr('class', 'beautytips');
+			jQuery(this).attr('title', qty_info.html()  + ' (' + title + ')');
 			jQuery(this).attr('pos', val);
 			jQuery(this).html('');
 		});
+		jQuery('.form-item-sizes .selectBox-options li a').each(function() {
 		
+			var qty_info = jQuery('#qty-' + jQuery(this).attr('rel'));
+			
+			if(qty_info.attr('val') == '' || qty_info.attr('val') == 0) {
+				jQuery(this).parent().addClass('selectBox-disabled');
+			}
+			
+			jQuery(this).attr('title', qty_info.html());
+		});
+		
+		jQuery('.selectBox-selected').each(function() {
+		  if(jQuery(this).hasClass('selectBox-disabled')) {
+			  jQuery(this).removeClass('selectBox-selected');
+			  var parent = jQuery(this).parent();
+			  //find the next one and add the class there
+			  jQuery('li:not(.selectBox-disabled)', parent).first().addClass('selectBox-selected');
+		  }
+		});
 		
 		/*jQuery('.form-item-colors li a').click(function() {
 			var title = jQuery('.form-item-colors .selectBox-selected a').attr('title');
