@@ -49,13 +49,19 @@ function fm_commerce_stock_decrease_by_line_item($line_item) {
 	  
 	  $color = $line_item_wrapper->field_order_color->value();
 	  $size = $line_item_wrapper->field_order_size->value();
+	  
 	
     // The product SKU that will have its stock level adjusted.
     $sku = $line_item->line_item_label;
     $product = commerce_product_load_by_sku($sku);
     $qty = (int) $line_item->quantity;
-    // Subtract the sold amount from the available stock level.
-    fm_commerce_stock_adjust($product, array('color' => array('value' => $color, 'qty' => -$qty), 'size' => array('value' => $size, 'qty' => -$qty)) );
+    if(empty($color) && empty($size)) { 
+      fm_commerce_stock_adjust($product, array('none' => array('qty' => -$qty) ));
+    }
+    else { 
+    	// Subtract the sold amount from the available stock level.
+      fm_commerce_stock_adjust($product, array('color' => array('value' => $color, 'qty' => -$qty), 'size' => array('value' => $size, 'qty' => -$qty)) );
+    }
     
   }
 }
@@ -112,6 +118,14 @@ function fm_commerce_stock_adjust($product, $values = array()) {
   	$new_stock[$size] = '' . (intval($new_stock[$size]) + intval($qty)) . '';
   	$new_stock = serialize($new_stock);
   	$product->{STOCK_FIELD}['und'][0]['stock_sizes'] = $new_stock;
+  }
+  if (isset($values['none'])) { 
+  	$qty = $values['none']['qty'];
+  	
+  	$current_stock = $commerce_stock[0]['stock_none'];
+  	$new_stock = $current_stock;
+  	$new_stock = '' . (intval($new_stock) + intval($qty)) . '';
+  	$product->{STOCK_FIELD}['und'][0]['stock_none'] = $new_stock;
   }
   
   commerce_product_save($product);

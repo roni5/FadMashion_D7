@@ -314,7 +314,7 @@ function fm_deals_group_details(&$vars) {
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
 		$purchaseDetails .= '<div class="box">';
-		if(!($order_id = fm_deals_states_purchased_deal($node))) { 
+		if(($order_id = fm_deals_states_purchased_deal($node))) { 
 		  $purchaseDetails .= render($vars['content']['field_product_reference']);
 		} else {
 			$purchaseDetails .= '<div>Thank you for your ';

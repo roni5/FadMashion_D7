@@ -89,6 +89,10 @@ function fm_commerce_stock_field_schema($field)
 			'type' => 'text',
 			'size' => 'big',
 		),
+		'stock_none' => array(
+			'type' => 'text',
+			'size' => 'big',
+		),
 	);
 	return array
 	(
@@ -110,6 +114,9 @@ function fm_commerce_stock_field_is_empty($item, $field) {
 		foreach($item['stock_sizes'] as $size) {
 			if(!empty($size)) { return FALSE; }
 		}
+	}
+  if(isset($item['stock_none'])) {
+		return FALSE; 
 	}
 	
 	return TRUE;
@@ -139,7 +146,7 @@ function fm_commerce_stock_field_widget_form(&$form, &$form_state, $field, $inst
 	$colors = fm_commerce_color_options($product);
   $sizes = fm_commerce_size_options($product);
   
-  if(!empty($colors)) {
+  if(count($colors) > 1) {
   	$default_value = (isset($items[$delta]['stock_colors'])) ? $items[$delta]['stock_colors'] : '';
   	$default_value = unserialize($default_value);
   	
@@ -188,7 +195,7 @@ function fm_commerce_stock_field_widget_form(&$form, &$form_state, $field, $inst
   	
   }
   
-  if(!empty($sizes)) {
+  if(count($sizes) > 1) {
   	$default_value = (isset($items[$delta]['stock_sizes'])) ? $items[$delta]['stock_sizes'] : '';
   	$default_value = unserialize($default_value);
   	
@@ -228,8 +235,21 @@ function fm_commerce_stock_field_widget_form(&$form, &$form_state, $field, $inst
     );
   }
   
-  if(!empty($colors) && !empty($sizes)) {
-    
+  if(count($colors) <= 1 && count($sizes) <= 1) {
+  	$default_value = (isset($items[$delta]['stock_none'])) ? $items[$delta]['stock_none'] : '';
+  	
+    $element['stock_none'] = array(
+      '#title' => t('Qty. Stock'),
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#collapsible' => FALSE,
+     );
+    $element['stock_none']['none'] = array(
+			'#title' => t('Inventory'),
+			'#type' => 'textfield',
+	    '#size' => 5, 
+	    '#default_value' => $default_value,
+		 );
   }
 		
 	return $element;
@@ -242,8 +262,11 @@ function fm_commerce_stock_get_qty($product, $type, $value) {
 	  $value = explode('_', $value );
 	  $value = $value[1];
 	}
-	else {
+	else if($type == 'size'){
 		$values = unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
+	}
+	else {
+		$values = $product->{STOCK_FIELD}['und'][0]['stock_none'];
 	}
 	
 	return $values[$value];
