@@ -26,7 +26,8 @@ a.button.white:hover{color: #0f6da3}
 
 .form-submit:hover, a.button:hover {background-position: left bottom;}
 .check {margin-right:5px;}
-.form-submit:disabled { background-image:  url(../images/b_bg_green.jpg) !important;  }
+.form-submit:disabled { opacity: .4;}
+.form-submit:disabled:hover {background-position: left top;}
 
 #fb_js_pb{display: none;}
 

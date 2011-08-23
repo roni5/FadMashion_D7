@@ -31,6 +31,24 @@ function fm_commerce_stock_theme() {
   );
 }
 
+/**
+ * Implements hook_form_alter().
+ *
+ * Alters the add-to-cart form to show out-of-stock items and add a validator.
+ */
+function fm_commerce_stock_form_alter(&$form, &$form_state, $form_id){
+  if (strpos($form_id, "commerce_cart_add_to_cart_form") === 0) {
+  	$product = commerce_product_load($form['product_id']['#value']);
+      
+    if(!fm_commerce_stock_has_stock($product)){
+      $form['submit']['#value'] = t('Out of Stock');
+      $form['submit']['#disabled'] = TRUE;
+      $form['submit']['#attributes'] = array('class' => array('out-of-stock', 'red'));   
+    }
+  }
+}
+  
+
 /*
  * Display the hover overs for the color and size options
  */
@@ -256,7 +274,7 @@ function fm_commerce_stock_field_widget_form(&$form, &$form_state, $field, $inst
 }
 
 
-function fm_commerce_stock_get_qty($product, $type, $value) {
+function fm_commerce_stock_get_qty($product, $type, $value = '') {
 	if($type == 'color') {
 	  $values = unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
 	  $value = explode('_', $value );
@@ -266,12 +284,29 @@ function fm_commerce_stock_get_qty($product, $type, $value) {
 		$values = unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
 	}
 	else {
-		$values = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+		$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+		return $value;
 	}
 	
 	return $values[$value];
 	
 }
+
+function fm_commerce_stock_has_stock($product) {
+	$colors =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
+	foreach($colors as $color) {
+		if(isset($color)  && $color > 0) {return true;}
+	}
+  $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
+	foreach($sizes as $size) {
+		if(isset($color)  && $color > 0) {return true;}
+	}
+	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+	if(isset($value) && $value > 0) {return true;}
+	
+	return false;
+}
+	
 
 function fm_commerce_stock_update($product, $type, $value, $update_qty) {
 	

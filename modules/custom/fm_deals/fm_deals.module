@@ -318,7 +318,7 @@ function fm_deals_group_details(&$vars) {
 		  $purchaseDetails .= render($vars['content']['field_product_reference']);
 		} else {
 			$purchaseDetails .= '<div>Thank you for your ';
-			$purchaseDetails .= l('Purchase', 'my-orders/' . $order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+			$purchaseDetails .= l('purchase', 'my-orders/' . $order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
 			$purchaseDetails .= '!</div>';
 		}
 		$purchaseDetails .=  '</div>';
