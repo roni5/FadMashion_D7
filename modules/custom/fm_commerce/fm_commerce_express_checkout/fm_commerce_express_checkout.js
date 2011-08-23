@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 	    		
 	    	    var $this = jQuery('input.form-submit');
 	    	    $this.attr('disabled', true);
-	    	    $this.attr('value', 'Processing...');
+	    	    $this.attr('value', 'Making Payment...');
 	    		
 	    		form.submit();
 			},

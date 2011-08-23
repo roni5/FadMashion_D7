@@ -7,7 +7,7 @@ a{font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; tex
 a:hover{color: #2e92cc;}
 p{font-size: 13px; margin: 0 0 7px 0; }
 h1{font-weight:100; }
-h1 span{font-weight: 700}
+h1 span{font-weight: bold}
 h2{font-size: 14px; font-weight:normal;margin: 0 0 10px 0;}
 h2 a{font-size: 14px;}
 ul{list-style-type: none;}
@@ -318,8 +318,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .form-item-commerce-customer-address-und-0-country, .form-item-commerce-customer-address-und-0-name-line{display: none}
 
 .checkoutFooter {border-top:2px solid #E5E1DD; float:left; margin-top:25px; padding:12px 0; width:680px;}
-.completeOrder {float:left; font-size:12px; text-align:right;}
-.completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:left;font-size:16px;padding:10px 14px;text-align:center;width:150px;}
+.completeOrder {float:right; font-size:12px; text-align:right;}
+.completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;}
 
 #billing .form {border-right:1px solid #E2D9D0; width: 315px; float: left;}
 #billing .sameAddress {font-size:12px;padding:10px 0;}
