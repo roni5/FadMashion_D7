@@ -90,7 +90,7 @@ div.messages{width: 690px;}
 
 .sidebarRight .sidebar{padding-left: 25px;}
 .sidebarRight .info{   }
-.info p{width: 310px; margin-top: 5px; margin-bottom: 5px;}
+.info p{width: 310px; font-size: 14px; margin-top: 5px; margin-bottom: 5px;}
 
 #sectionHeader{z-index: 10; width: 100%; background: #f5f4f1; position: absolute; left: 0px; padding: 0; }
 #sectionHeader .pad{padding:  13px 0; margin: 0 auto; width: 1000px;}
@@ -184,7 +184,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #quicktabs-fm_product_details li{min-width: 80px; padding: 4px; text-align:center;}
 #quicktabs-fm_product_details li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 
-.details-list li {padding: 0 0 0 12px !important; text-align: left !important; font-size: 12px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
+.details-list li {padding: 0 0 0 12px !important; text-align: left !important; font-size: 14px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
 
 .designerInfo{width: 740px; border-top: 3px solid #f0efed; padding: 10px 0 0 0; margin-top: 10px;}
 .designerInfo h1{font-size: 16px; margin-bottom: 15px;}
@@ -279,7 +279,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 /********* Checkout ***********/
 .page-express-checkout  #wrapper{background-image: url(../images/bg_header_checkout.jpg)}
 .page-express-checkout  .title{color: #ccad97; border-left: 1px solid #574d46; height: 30px; line-height: 30px; padding: 0 0 0 16px; float: left; position: relative; left: 20px; top: 14px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;}
-.page-express-checkout  #header .button a{float: right; padding: 6px 9px; margin-top: 17px;}
+.express-checkout  #header .button {float: right; padding: 6px 9px; margin-top: 17px;}
 
 .page-express-checkout  #content{position: relative; width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 704px 0 repeat-y;}
 .page-express-checkout  .sidebarRight .column1{width: 682px;background: ; padding-right: 25px; padding-bottom: 30px;}

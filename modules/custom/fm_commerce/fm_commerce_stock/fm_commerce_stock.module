@@ -227,6 +227,10 @@ function fm_commerce_stock_field_widget_form(&$form, &$form_state, $field, $inst
       '#markup' => '</table>',
     );
   }
+  
+  if(!empty($colors) && !empty($sizes)) {
+    
+  }
 		
 	return $element;
 }

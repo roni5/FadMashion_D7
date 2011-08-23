@@ -1,4 +1,4 @@
-<div id="header">
+<div class="express-checkout" id="header">
   <div class="row2">
      <?php print l('Continue Shopping', '', array('attributes' => array('class' => array('button') ) ));?>
      <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >

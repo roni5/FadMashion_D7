@@ -314,10 +314,12 @@ function fm_deals_group_details(&$vars) {
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
 		$purchaseDetails .= '<div class="box">';
-		if(!fm_deals_states_purchased_deal($node)) { 
+		if(!($order_id = fm_deals_states_purchased_deal($node))) { 
 		  $purchaseDetails .= render($vars['content']['field_product_reference']);
 		} else {
-			$purchaseDetails .= 'Thank you for your Purchase!';
+			$purchaseDetails .= '<div>Thank you for your ';
+			$purchaseDetails .= l('Purchase', 'my-orders/' . $order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+			$purchaseDetails .= '!</div>';
 		}
 		$purchaseDetails .=  '</div>';
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';

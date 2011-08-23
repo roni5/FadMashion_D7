@@ -24,7 +24,8 @@ function fm_deals_states_get_status($node) {
 }
 
 function fm_deals_states_status_msg($node, $qty_purchased) {
-	$qty_min = intval(field_get_items('node', $node, 'field_quantity_min'));
+	$qty_min = field_get_items('node', $node, 'field_quantity_min');
+	$qty_min = intval($qty_min[0]['value']);
 	
 	if($qty_purchased >= $qty_min) {
 		$output = '<div class="deal-on">' . t('Deal is On!') . '</div>';
@@ -47,7 +48,7 @@ function fm_deals_states_purchased_deal($deal_node) {
   foreach ($orders as $order) {
  	  $node = fm_deals_states_get_order_node($order);
     if($deal_node->nid == $node->nid) {
-    	return true;
+    	return $order->order_id;
     } 
   }
 	return false;
