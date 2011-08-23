@@ -154,13 +154,13 @@ function fm_deals_preview_block_view($block_name = '') {
 		else {
 			$nid = $default_nid;
 			if($status == 'active') {
-			  $header = '<h2 style="background-color: #B83838;">On Sale Now!</h2>';
+			  $header = '<h2 class="rounded-top" style="background-color: #B83838;">On Sale Now!</h2>';
 			}
 			else if($status == 'upcoming'){
-				$header = '<h2 lass="rounded-top">' . t('Upcoming Deal') .'</h2>';
+				$header = '<h2 class="rounded-top">' . t('Upcoming Deal') .'</h2>';
 			}
 		  else {
-				$header = '<h2 lass="rounded-top">' . t('Last Deal') .'</h2>';
+				$header = '<h2 class="rounded-top">' . t('Last Deal') .'</h2>';
 			}
 		}
 	
