@@ -1,7 +1,8 @@
 
+<?php print l('Back to My Orders','my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load', 'back') )) );?>
 
-<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  </div>
-
+<div class="orderDetails-col1" >
+<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  </div><br>
 <div class="orderDetails">
      <?php foreach($product_line_items as $product_line_item) {print $product_line_item; } ?>
      <br clear="all">
@@ -24,8 +25,13 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
             </div>
 </div>
 
+</div>
+
+
 <div class="assistance">
  <div class="pad"><h1>Need Assistance?</h1>
 <?php print render($customer_service_form);?>
  </div>
 </div>
+
+

@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 /* CSS Document */
-*{padding: 0; margin: 0; border: none;}
+*{padding: 0; margin: 0; border: none;font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #wrapper{text-align: center; background: url(../images/bg_header.jpg) top left repeat-x; width: 100%;}
 .container{width:1000px; text-align: left; margin: 0 auto; color: #322f2c; font-family:"museo-sans-1","museo-sans-2", Helvetica; }
 a{font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; text-decoration:none; color: #0f6da3; font-size: 12px;}
@@ -411,6 +411,25 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .totals .col2{text-align: right; width: 70px; }
 .totals .discount{color: #be4038;}
 .totals .total{font-size: 16px;border-top: 1px solid #ded9cf; margin-top: 5px; padding-top: 8px;}
+
+/* Popup Order Details*/
+#cboxContent .orderDetails-col1{ width: 580px; float:left;}
+#cboxContent .orderDetails {width: auto;}
+#cboxContent .orderDetails .col2{ width: 470px;}
+#cboxContent  .orderDetails .price{float: right; text-align:right; width: 200px;}
+#cboxContent  .totals .col1{text-align: right; width: 470px; }
+#cboxContent .totals .col2{text-align: right; width: 70px; }
+#cboxContent .orderNumber{ width: 560px;}
+#cboxContent  .orderNumber b{color: #be4038;}
+#cboxContent  .back {background:url("../images/arrow_blue_left.jpg") no-repeat scroll 0 4px transparent;padding-left:12px; position: absolute; top: 10px;left: 10px;}
+
+
+.assistance{float: left;}
+.assistance .pad{padding-left: 30px;}
+.assistance h1{font-size: 20px; text-align:left;}
+.assistance .form-textarea{padding: 10px; border: 1px solid #ded9cf; resize: none; width: 230px; height: 150px; font-size: 13px;}
+
+
 
 .addresses{background: #fff; float: left; font-size: 12px; margin: 15px 0 0 0; line-height: 16px; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .addresses div{float: left; width: 200px; padding: 0 15px 0 0;}

@@ -90,7 +90,7 @@ function fm_commerce_orders_detail_page($order_id) {
   if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     // special ajax here 
      $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' > Order #' .   $order_id;
-     $header = '<div id="cboxTitle-manual">' . $header . '</div>';
+     $header = '<div id="cboxTitle-manual">' . t('Order Details') . '</div>';
      print $header.$content;
      exit;
   } 
@@ -244,7 +244,7 @@ function fm_commerce_orders_status_link($order) {
 			
 	}
 	
-	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '940px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
 	
 }
 
