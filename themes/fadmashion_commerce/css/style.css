@@ -415,7 +415,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 /* Popup Order Details*/
 #cboxContent .orderDetails-col1{ width: 580px; float:left;}
 #cboxContent .orderDetails {width: auto;}
-#cboxContent .orderDetails .col2{ width: 470px;}
+#cboxContent .orderDetails .col2{ width: 450px;}
 #cboxContent  .orderDetails .price{float: right; text-align:right; width: 200px;}
 #cboxContent  .totals .col1{text-align: right; width: 470px; }
 #cboxContent .totals .col2{text-align: right; width: 70px; }
