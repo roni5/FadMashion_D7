@@ -8,7 +8,7 @@
 <div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'my-orders/' . $order->order_id, array( 'query' => array('width' => '940px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', ))); ?>, or contact us anytime.</div>
 
 <div class="orderDetails">
-     <?php foreach($product_line_items as $product_line_item) {print $product_line_item; } ?>
+     <?php foreach($product_line_items as $product_line_item) {print $product_line_item; print '<br clear="all">'; } ?>
      <br clear="all">
      <div class="totals">
      <?php foreach($totals_line_items as $total_line_item) {print $total_line_item; } ?>
