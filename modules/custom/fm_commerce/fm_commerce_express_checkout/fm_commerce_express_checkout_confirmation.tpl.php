@@ -9,7 +9,6 @@
 
 <div class="orderDetails">
      <?php foreach($product_line_items as $product_line_item) {print $product_line_item; print '<br clear="all">'; } ?>
-     <br clear="all">
      <div class="totals">
      <?php foreach($totals_line_items as $total_line_item) {print $total_line_item; } ?>
      </div><!-- totals-->     
