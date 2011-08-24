@@ -311,7 +311,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     
    // $output .= '<div class="asterik"><span>*</span> = required</div>';
     $output .= drupal_render($form[$field_name]); 
-    $output .= '<div class="saveTo">' . drupal_render($form['saveto']) . '</div>';
+    $output .= '<div class="saveTo rounded-top rounded-bottom">' . drupal_render($form['saveto']) . '</div>';
     $output .= '</div>';
     
     $output .= '</div>';
