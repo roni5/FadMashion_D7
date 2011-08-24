@@ -425,7 +425,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 
 .assistance{float: left;}
-.assistance .pad{padding-left: 30px;}
+.assistance .pad{padding-left: 30px; padding-top: 28px;}
 .assistance h1{font-size: 20px; text-align:left;}
 .assistance .form-textarea{padding: 10px; border: 1px solid #ded9cf; resize: none; width: 230px; height: 150px; font-size: 13px;}
 
