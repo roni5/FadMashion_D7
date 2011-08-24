@@ -1,42 +1,30 @@
+
+
 <div class="header">
    <a class="print" href="#">PRINT THIS PAGE</a>
    <h1>Thank You!</h1>
    <h2>Your order has been successfully placed.</h2>
 </div>
-<div class="orderNumber"><span>Order #38723409834</span>  View the status of your order <a href="0">here</a>, or contact us anytime.</div>
+<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', ))); ?>, or contact us anytime.</div>
 
 <div class="orderDetails">
-  <div class="col1">
-     <img class="thumb" src="images/fpo_photo.jpg">
-   </div><!-- col1-->
-   <div class="col2">
-      <div class="price">$200.00</div>     
-         <div class="itemName">Fringe Leather Earrings</div>
-				 <div class="option"><span>Color:</span>  Black</div>
-         <div class="option"><span>Quantity:</span>  1</div>
-     </div><!-- col2-->
+     <?php foreach($product_line_items as $product_line_item) {print $product_line_item; } ?>
      <br clear="all">
      <div class="totals">
-        <div class="discount"><div class="col1">Exclusive Discount</div><div class="col2"> -$100.00</div></div>
-        <div class="shipping"><div class="col1">Shipping &amp; Handling</div><div class="col2">FREE</div></div>
-        <div class="tax"><div class="col1">Tax</div><div class="col2">$4.25</div></div>
-        <div class="total"><div class="col1">Total</div><div class="col2">$104.25</div></div>
+     <?php foreach($totals_line_items as $total_line_item) {print $total_line_item; } ?>
      </div><!-- totals-->     
- </div>   <!--  -->
+ </div>  
+<?php 
+$order_view = commerce_order_ui_order_view($order, 'customer');
+?> 
  <div class="addresses">
             <div class="billing">
             <h1>Billing</h1>
-            Owen Linton<br>
-            2310 E. Huntingdon St.<br>
-            Philadelphia, PA  19125<br>
-            USA
+            <?php print render($order_view['commerce_customer_billing']); ?>
             </div>
             
                <div class="shipping">
             <h1>Shipping</h1>
-            Owen Linton<br>
-            2310 E. Huntingdon St.<br>
-            Philadelphia, PA  19125<br>
-            USA
+            <?php print render($order_view['commerce_customer_shipping']); ?>
             </div>
 </div>

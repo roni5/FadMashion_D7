@@ -24,10 +24,18 @@ function fm_commerce_orders_theme() {
 	return array(
     'fm_commerce_orders_detail' => array(
 	    'template' => 'fm_commerce_orders_detail',
-	    'variables' => array('order_id' => null, 'status' => '',  'content' => '', 'customer_service_form' => '')
+	    'variables' => array( 'customer_service_form' => '', 'order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL)
     ),
     'fm_commerce_orders_status' => array(
 	    'variables' => array('status' => null)
+    ),
+    'fm_commerce_orders_product_summary' => array(
+      'template' => 'fm_commerce_orders_product_summary',
+      'variables' => array('title' => '', 'qty' => '', 'price' => '', 'color' => '', 'size' => '', 'thumb' => '')
+    ),
+    'fm_commerce_orders_totals_summary' => array(
+    'template' => 'fm_commerce_orders_totals_summary',
+      'variables' => array('title' => '', 'extra_classes' => '', 'price' => '')
     ),
     'fm_commerce_orders_extra_info' => array(
 	    'variables' => array('color' => '', 'size' => '')
@@ -72,11 +80,9 @@ function fm_commerce_orders_detail_page($order_id) {
 	$order = commerce_order_load($order_id);
 	
 	$vars = array();
-	
-	$vars['content'] = commerce_order_ui_order_view($order, 'customer'); 
-  $vars['order_id'] = $order_id;
-  $vars['status'] = $order->status;
+  $vars['order'] = $order;
   $vars['customer_service_form'] = drupal_get_form('fm_commerce_orders_support_form');
+  $vars += fm_commerce_orders_detail_vars($order_id);
  
 	$content = theme('fm_commerce_orders_detail', $vars);
 	
@@ -94,6 +100,44 @@ function fm_commerce_orders_detail_page($order_id) {
      return $header.$content;
   }
   
+}
+
+/*
+ * Get order variables for details table
+ */
+function fm_commerce_orders_detail_vars($order_id) {
+	$vars = array();
+  $order = commerce_order_load($order_id);
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	
+  $product_line_items = array();
+  $totals_line_items = array();
+  
+  // Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  
+  	switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+       $product_line_items[] = fm_commerce_orders_product_summary($line_item_wrapper);
+       break;
+  		
+  		default:
+  			$totals_line_items[] = fm_commerce_orders_totals_summary($line_item_wrapper); 
+  			break;
+  	}
+  }
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  $price = commerce_currency_format($total['amount'], $total['currency_code']);
+  $totals_line_items[] = theme('fm_commerce_orders_totals_summary', array('title' => 'Total', 'price' => $price, 'extra_classes' => 'total'));
+  
+  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+  
+	$vars['order'] = $order;
+	$vars['product_line_items'] = $product_line_items;
+	$vars['totals_line_items'] = $totals_line_items;
+	
+	return $vars;
 }
 
 function fm_commerce_orders_support_form() {
@@ -251,5 +295,60 @@ function theme_fm_commerce_orders_status($vars) {
 	}
 	
 	return $status;
+	
+}
+
+function fm_commerce_orders_product_summary($line_item_wrapper) {
+	$product = $line_item_wrapper->commerce_product->value();
+	
+	$title = $product->title;
+  $retail_price = $line_item_wrapper->commerce_total->value();
+  $price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
+  
+  $color = $line_item_wrapper->field_order_color->value();
+  $size = $line_item_wrapper->field_order_size->value();
+  
+  $images = field_get_items('commerce_product', $product, 'field_product_images');
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+  
+  $first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image = array(
+      'path' => $first_image['uri'],
+      'alt' => $first_image['alt'],
+      'title' => $first_image['title'],
+      'attributes' => array('class' => 'thumb'),
+      'style_name' => 'fm_thumb_product_image'
+  );
+  
+  $thumb = theme('image_style', $image);
+  
+  return theme('fm_commerce_orders_product_summary', array('title' => $title, 'qty' => $qty, 'price' => $price, 'color' => $color, 'size' => $size, 'thumb' => $thumb));
+}
+
+function fm_commerce_orders_totals_summary($line_item_wrapper) {
+	$price = $line_item_wrapper->commerce_total->value();
+	$type = $line_item_wrapper->type->value();
+	 
+	$price = commerce_currency_format($price['amount'], $price['currency_code']);
+	
+	switch($type) {
+		case 'shipping':
+			$title = t('Shipping');
+			$classes = array('shipping');
+			break;
+		case 'deals_discount':
+			$title = t('Exclusive Discount');
+			$classes = array('discount');
+			break;
+	  case 'tax':
+			$title = t('Tax');
+			break;
+	}
+	
+	return theme('fm_commerce_orders_totals_summary', array('title' => $title, 'price' => $price, 'extra_classes' => implode(' ', $classes)));
+	
 	
 }

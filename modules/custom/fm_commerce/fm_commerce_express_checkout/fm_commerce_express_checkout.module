@@ -35,7 +35,11 @@ function fm_commerce_express_checkout_page() {
 }
 
 function fm_commerce_express_checkout_confirmation_page() {
-	return theme('fm_commerce_express_checkout_confirmation');
+	
+	$order_id = $_GET['order-id'];
+	$vars = fm_commerce_orders_detail_vars($order_id);
+	
+	return theme('fm_commerce_express_checkout_confirmation', $vars);
 }
 
 //Replace the drupal commerce checkout form with our own 
@@ -282,7 +286,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	commerce_checkout_complete($order);
   
   //Redirect here
-  drupal_goto('express-checkout/confirmation');
+  drupal_goto('express-checkout/confirmation', array('query' => array('order-id' => $order->order_id) ));
 
 }
 
@@ -396,7 +400,7 @@ function fm_commerce_express_checkout_theme($variables)
             'render element' => 'form',
         ),
         'fm_commerce_express_checkout_confirmation' => array(
-	        'variables' => array('order' => NULL, 'invoice' => NULL),
+	        'variables' => array('order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL),
           'template' => 'fm_commerce_express_checkout_confirmation'
         ),
     );
