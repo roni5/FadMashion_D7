@@ -1,7 +1,7 @@
 
 
 <div class="header">
-   <a class="print" href="#">PRINT THIS PAGE</a>
+   <a class="print" href="javascript:window.print();">PRINT THIS PAGE</a>
    <h1>Thank You!</h1>
    <h2>Your order has been successfully placed.</h2>
 </div>
