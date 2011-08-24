@@ -37,6 +37,7 @@ function fm_commerce_express_checkout_page() {
 function fm_commerce_express_checkout_confirmation_page() {
 	
 	$order_id = $_GET['order-id'];
+	if(!isset($order_id)) { drupal_goto();}
 	$vars = fm_commerce_orders_detail_vars($order_id);
 	
 	return theme('fm_commerce_express_checkout_confirmation', $vars);
