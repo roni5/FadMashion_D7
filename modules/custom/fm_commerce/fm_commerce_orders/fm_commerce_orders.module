@@ -306,6 +306,10 @@ function fm_commerce_orders_product_summary($line_item_wrapper) {
   $price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
   
   $color = $line_item_wrapper->field_order_color->value();
+  if(isset($color) && !empty($color)) {
+  	$color = fm_commerce_color_array($color);
+  	$color = $color['name'];
+  }
   $size = $line_item_wrapper->field_order_size->value();
   
   $images = field_get_items('commerce_product', $product, 'field_product_images');
