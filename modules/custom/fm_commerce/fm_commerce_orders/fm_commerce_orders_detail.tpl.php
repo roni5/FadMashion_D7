@@ -29,7 +29,7 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
 
 
 <div class="assistance">
- <div class="pad"><h1>Need Assistance?</h1>
+ <div class="pad">
 <?php print render($customer_service_form);?>
  </div>
 </div>

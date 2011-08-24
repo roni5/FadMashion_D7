@@ -146,7 +146,7 @@ function fm_commerce_orders_support_form() {
     '#type' => 'textarea', 
     '#row' => 4, 
     '#cols' => 30,
-    '#default_value' => t('Tell us what you need help with.'),
+    '#default_value' => t('Need Assistance? Tell us what you need help with.'),
     '#attributes' => array('class' => array('clear-defaults')),
     '#required' => TRUE
   );
