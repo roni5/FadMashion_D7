@@ -174,7 +174,7 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .form-item-sizes .selectBox-options li.selectBox-selected a {background:none repeat scroll 0 0 #0F6DA3;color:#FFFFFF;}
 .form-item-colors .colorName {padding-right:5px; float: left; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style: normal; color:#322F2C}
 .form-item-colors .selectBox-options { float: left}
-.form-item-colors .selectBox-disabled a, .form-item-sizes .selectBox-disabled a{background: url("../images/no_color.png") no-repeat scroll 0 0 transparent}
+.form-item-colors .selectBox-disabled a, .form-item-sizes .selectBox-disabled a{background: url("../images/sold_out.png") no-repeat scroll 0 0 transparent}
 
 .quicktabs_wrapper{background: #f0eeea; padding: 4px; margin: 15px 0;}
 ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
