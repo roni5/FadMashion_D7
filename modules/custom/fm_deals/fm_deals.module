@@ -20,7 +20,7 @@ function fm_deals_menu() {
   $items['admin/fadmashion/deals'] = array(
     'title' => t('Deals Listing'), 
     'description' => t('Listing of all Upcoming Deals'),
-    'page callback' => 'fm_deals_list',
+    'page callback' => 'fm_deals_admin_page',
     'access arguments' => array('administer deals list'),
     'type' => MENU_NORMAL_ITEM,
     'file' => 'fm_deals.admin.inc',
@@ -214,8 +214,7 @@ function theme_fm_deals_product_details($vars) {
 function fm_deals_page($nid = '') {
 
 	if(empty($nid)) {
-		$default = fm_deals_get_default_deal();
-		$nid = $default['nid'];
+		$nid = fm_deals_get_default_deal();
 	}
 	
 	if(!empty($nid)) {
@@ -230,9 +229,20 @@ function fm_deals_page($nid = '') {
 //Get the deal that needs to be active right now.  MUST return some node value.
 function fm_deals_get_default_deal() {
 	
-	$request_time = date('Y-m-d H:i:s', REQUEST_TIME);
+	//Get nid from the schedule page that falls under the 
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime < :request_time && endTime > :request_time', array(':request_time' => REQUEST_TIME))->fetchObject();
 	
-	$query = new EntityFieldQuery();
+	if(empty($result)) {
+		$time_slot = fm_deals_time_slots(1, REQUEST_TIME);
+	  $nids = fm_deals_random_nids(1);
+	  fm_deals_insert_schedule($time_slot, $nids);
+	  return array_shift($nids);
+	} else {
+		return $result->nid;
+	}
+	
+	//OLD CODE
+	/*$query = new EntityFieldQuery();
 	//First try to get the deal that is happening right now.
   $entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
@@ -272,8 +282,96 @@ function fm_deals_get_default_deal() {
         return array('nid' => $first_node->nid, 'status' => 'ended');
       }
     }
-  }
+  }*/
 }
+
+
+/*
+ * Given a number, select in {random} order of nids to be added to schedule
+ * 
+ * conditions - 1.  no repeats of nids
+ *              2.  is not out of stock
+ *              3.  status is active
+ */
+function fm_deals_random_nids($num) {
+
+	$query = new EntityFieldQuery();
+	$entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->execute();  
+  $nodes = $entities['node'];
+  shuffle($nodes);
+  
+  $ret = array();
+  
+  $i = 0;
+  while($i < $num) {
+  	$result = array_shift($nodes);
+  	if(fm_deals_has_stock($result->nid) && !isset($ret[$result->nid])) {
+  	  $ret[$result->nid] = $result->nid;
+  	  $i++;
+  	}
+  }
+  return $ret;
+}
+
+/*
+ * Generate $num of time slots starting at $time
+ */
+function fm_deals_time_slots($num, $start_time) {
+
+	//Get the start of the hour
+	$start_time = mktime(date('G', $start_time), 0, 0, date('m', $start_time), date('d', $start_time), date('y', $start_time));
+	
+	$ret = array();
+	$ret[] = $start_time;
+  
+  $i = 1;
+  while($i < $num) {
+  	$time = strtotime('+1 hour', $start_time);
+  	$ret[] = $time;
+  	$i++;
+  }
+  
+  return $ret;
+  
+}
+
+function fm_deals_insert_schedule($time_slots, $nids) {
+	if(count($time_slots) != count($nids)) {
+	  drupal_set_message('Time slots and Nids need to be the same size', 'error');
+	}
+	
+	foreach($time_slots as $start_time) {
+		$end_time = strtotime('+1 hour', $start_time);
+		$nid = array_shift($nids);
+		$nid = db_insert('fm_deals_schedule')->fields(array('nid' => $nid, 'startTime' => $start_time, 'endTime' => $end_time))->execute();
+	}
+	
+}
+
+function fm_deals_has_stock($nid) {
+	$node = node_load($nid);
+	if($node->type == 'fm_group_buying') {
+		$product = fm_commerce_get_product($node);
+		//return fm_commerce_stock_has_stock($product);
+		return true;
+	}
+	else {return false;}
+}
+
+//Get the most upcoming start time of the most upcoming deal 
+function fm_deals_start_time($nid) {
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE :request_time < endTime AND nid = :nid', array(':request_time' => REQUEST_TIME, 'nid' => $nid))->fetchObject();
+	if(empty($result)) {
+		drupal_set_message('Error getting start time for deal node ' . $nid, 'error');
+		return; 
+	} else {
+	  return $result->starttime;	
+	}
+}
+	
 
 function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];

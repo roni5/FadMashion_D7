@@ -3,22 +3,22 @@
 
 function fm_deals_states_get_status($node) {
   
-	$start_time = $node->field_start_time['und'][0]['value'];
-	$end_time = $node->field_start_time['und'][0]['value2'];
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime < :request_time && endTime > :request_time', array(':request_time' => REQUEST_TIME))->fetchObject();
 	
-	$unixStartTime = strtotime($start_time);
-	$unixEndTime = strtotime($end_time);
-	
-	//If start time is GREATER THAN NOW than disabled.
-	if(REQUEST_TIME < $unixStartTime) {
-		$status = 'upcoming';
-	}
-	elseif (REQUEST_TIME > $unixStartTime  && REQUEST_TIME < $unixEndTime) {
+	if($node->nid == $result->nid) {
 		$status = 'active';
-	} 
-	else {
-		$status = 'ended';
+	} else {
+		//Check to see if it is upcoming in the next week
+		$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE nid = :nid &&  startTime > :request_time && endTime < :next_week ', 
+		                   array(':request_time' => REQUEST_TIME, ':next_week' => strtotime('+1 week', REQUEST_TIME), ':nid' => $node->nid))->fetchObject();
+		if(isset($result)) {
+		   $status = 'upcoming';
+		}
+		else {
+		   $status = 'ended';
+		}
 	}
+	
 	
 	return $status;
 }

@@ -1,5 +1,7 @@
 <?php
 
+define(PREVIEW_SPOTS, 6);
+
 /**
  * Implements hook_menu().
  */
@@ -11,12 +13,6 @@ function fm_deals_preview_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
-  $items['deals_preview/%date'] = array(
-    'page callback' => 'fm_deals_preview_page',
-    'page arguments' => array(1),
-    'access arguments' => array('view deals'),
-    'type' => MENU_NORMAL_ITEM,
-  );
   
   return $items;
 }
@@ -24,20 +20,17 @@ function fm_deals_preview_menu() {
 /**
  * Implements main ajax call back for preview deals window
  */
-function fm_deals_preview_page($date = '') {
-	print fm_deals_preview_page_content($date);
+function fm_deals_preview_page() {
+	print fm_deals_preview_page_content();
 	exit;
 }
 
 /**
  * Implements main content for preview deals window
  */
-function fm_deals_preview_page_content($date = '') {
-	if(empty($date)) {
-		$date = fm_deals_preview_get_default_date();
-	}
-	
-	$nodes = fm_deals_preview_nodes($date);
+function fm_deals_preview_page_content() {
+
+	$nodes = fm_deals_preview_nodes();
 	$rendered_items = array();
 	
 	foreach($nodes as $node) {
@@ -65,37 +58,42 @@ function fm_deals_preview_page_content($date = '') {
 		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));
 	}
 	
-	$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
+	//$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
 	
 	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
 	return $output;
 }
 
-function fm_deals_preview_get_default_date() {
-	$startDate = strtotime("next Monday");
-	return date('Y-m-d', $startDate);
-}
 
-function fm_deals_preview_nodes($startDate, $timeLength = '') {
+function fm_deals_preview_nodes() {
 	
-	if(empty($timeLength)) {
-		$timeLength = '+1 day';
+	//Get nid from the schedule page that falls under the 
+	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	$i = 0;
+	$ret = array();
+	while($i < PREVIEW_SPOTS) {
+		//Get nid from the schedule page that falls under the 
+	   $results = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
+	   if(empty($results)) {
+	   	  do {
+	   	    $nids = fm_deals_random_nids(1);
+	   	    $nid = array_shift($nids);
+	   	  } while (isset($ret[$nid]));
+	   	  
+	   	  $time_slot = fm_deals_time_slots(1, $next_hour_start_time);
+	      fm_deals_insert_schedule($time_slot, array($nid => $nid));
+	      
+	      $ret[$nid] = $nid;
+	      
+	   } else{
+	   	$ret[$results->nid] = $results->nid;
+	   }
+		
+		$next_hour_start_time = mktime(date('G', $next_hour_start_time)+1, 0, 0, date('m', $next_hour_start_time), date('d', $next_hour_start_time), date('y', $next_hour_start_time));
+		$i++;
 	}
 	
-	$endDate = strtotime($timeLength, strtotime($startDate));
-	$endDate = date('Y-m-d', $endDate);
-	
-	$query = new EntityFieldQuery();
-	$entities = $query->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', 'fm_group_buying')
-                    ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value', array($startDate, $endDate), 'BETWEEN')
-                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
-                    ->execute();
-
-  if(isset($entities['node'])) {
-    return node_load_multiple(array_keys($entities['node']));
-  }
+	return node_load_multiple($ret);
 }
 
 /**
@@ -143,12 +141,11 @@ function fm_deals_preview_block_view($block_name = '') {
   if($block_name == 'fm_deals_preview') {
   	
   	$this_nid = arg(1);
-  	$default = fm_deals_get_default_deal();
-  	$default_nid = $default['nid'];
+  	$default_nid = fm_deals_get_default_deal();
   	$status = $default['status'];
   	
   	if($this_nid == $default_nid) {
-  		$nid = fm_deals_preview_block_nid($default_nid, $status);
+  		$nid = fm_deals_preview_block_nid();
   		$header = '<h2 class="rounded-top">' . t('Coming up Next') .'</h2>';
 		}
 		else {
@@ -163,6 +160,7 @@ function fm_deals_preview_block_view($block_name = '') {
 				$header = '<h2 class="rounded-top">' . t('Last Deal') .'</h2>';
 			}
 		}
+		
 	
   	$content = $header . fm_deals_preview_block_content($nid);
     $block = array(
@@ -172,46 +170,26 @@ function fm_deals_preview_block_view($block_name = '') {
   return $block;
 }
 
-function fm_deals_preview_block_nid($default_nid, $status) {
+function fm_deals_preview_block_nid() {
 	
-	//Load the default node
-	$default_page_node = node_load($default_nid);
+	//Get nid from the schedule page that falls under the 
+	$results = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime > :request_time ORDER BY startTime ASC', array(':request_time' => REQUEST_TIME))->fetchObject();
 	
-	$query = new EntityFieldQuery();
-  
-	$request_time = date('Y-m-d H:i:s', REQUEST_TIME);
-	
-	$query = new EntityFieldQuery();
-	$query->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', 'fm_group_buying')
-                    ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value', $request_time, '>')
-                    ->fieldOrderBy('field_start_time', 'value', 'ASC');
-	
-	if($status == 'active') {
-    //If the default_nid is ACTIVE than get the upcoming node
-    
-  	$entities = $query->execute();
+ if(empty($results)) {
+ 	  $next_hour_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+		$time_slot = fm_deals_time_slots(1, $next_hour_time);
+	  $nids = fm_deals_random_nids(1);
+	  fm_deals_insert_schedule($time_slot, $nids);
+	  return array_shift($nids);
+	} else {
+		return $results->nid;
 	}
-	elseif($status == 'upcoming') {
-		$entities = $query->range(1, 5)->execute();
-	}
-	else {
-		return $default_nid;
-	}
-                    
-  if(isset($entities['node'])) {
-    $first_node = array_shift($entities['node']);
-    return $first_node->nid;
-  }
-  else {
-  	return $default_nid;
-  }
+	
 }
 
 function fm_deals_preview_block_content($nid) {
   $node = node_load($nid);
-  
+    
   $product = fm_commerce_get_product($node);
   $store = fm_commerce_get_store($product);  
     

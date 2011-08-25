@@ -233,7 +233,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #facebook{padding: 12px; width: 184px; margin: 15px 0; background: #f3f5f9;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px;}
 
 /*  Deals PReview Page */
-.page-deals-preview #content {background:none repeat scroll 0 0 transparent;width:1000px; margin-top: 20px;}
+.page-deals-preview #content {background:none repeat scroll 0 0 transparent;width:1000px; }
 .page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF;margin-top: -25px; float:left;margin-left:45px;text-align:center;width:930px;}
 .page-deals-preview h1.pageTitle{color:#B83838;font-size:23px;padding-bottom:8px;text-align:center;}
 
@@ -246,7 +246,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #dealPreview h2 {color: #92857a; font-size: 14px;}
 
 
-.dealFrame{ font-family:"museo-sans-1","museo-sans-2",Helvetica; width: 245px; border: 1px solid #dedcd4; float: left; margin: 13px;border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; height: 475px;}
+.dealFrame{ font-family:"museo-sans-1","museo-sans-2",Helvetica; width: 245px; border: 1px solid #dedcd4; float: left; margin: 13px; height: 475px;}
 .dealFrame .pricing{float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:11px;font-weight:700;height:30px;margin:15px 0;width:245px;}
 .dealFrame .pricing div{float: left; width: 81px; text-align:center; display: inline}
 .dealFrame .pricing .original{color: #998e82;background:  url(../images/dotted_vertical.png) top right repeat-y;}

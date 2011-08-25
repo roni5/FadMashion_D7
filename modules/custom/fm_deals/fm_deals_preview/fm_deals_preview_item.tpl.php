@@ -1,11 +1,11 @@
 
 <?php //Get unix start time
-$start_time = $node->field_start_time['und'][0]['value'];
-$unixStartTime = strtotime($start_time);	
+
+$start_time = fm_deals_start_time($node->nid);
 ?>
 
-<div class="dealFrame <?php print ($node->deal_status == 'active' ? 'onSale' : '');?>">
-  <div class="dealHeader <?php print ($node->deal_status == 'ended' ? 'ended' : '');?>"><?php ($node->deal_status == 'upcoming' ? print t('Starts @') . '<b>' . date(" ga T", strtotime($node->field_start_time['und'][0]['value'])) . '</b>' : ($node->deal_status == 'active' ? print t('On Sale Now') : print t('This sale has ended'))) ?></div>
+<div class="dealFrame rounded-bottom <?php print ($node->deal_status == 'active' ? 'onSale' : '');?>">
+  <div class="dealHeader <?php print ($node->deal_status == 'ended' ? 'ended' : '');?>"><?php ($node->deal_status == 'upcoming' ? print t('Starts @') . '<b>' . date(" ga T", $start_time) . '</b>' : ($node->deal_status == 'active' ? print t('On Sale Now') : print t('This sale has ended'))) ?></div>
     
     <div class="pricing">
       <div class="original">Original<br>Price<h3><?php print render($node->content['product:commerce_price']); ?></h3></div>

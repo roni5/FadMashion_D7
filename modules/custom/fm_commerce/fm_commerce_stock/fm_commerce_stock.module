@@ -41,7 +41,7 @@ function fm_commerce_stock_form_alter(&$form, &$form_state, $form_id){
   	$product = commerce_product_load($form['product_id']['#value']);
       
     if(!fm_commerce_stock_has_stock($product)){
-      $form['submit']['#value'] = t('Out of Stock');
+      $form['submit']['#value'] = t('Sold Out');
       $form['submit']['#disabled'] = TRUE;
       $form['submit']['#attributes'] = array('class' => array('out-of-stock', 'red'));   
     }
@@ -306,8 +306,4 @@ function fm_commerce_stock_has_stock($product) {
 	
 	return false;
 }
-	
 
-function fm_commerce_stock_update($product, $type, $value, $update_qty) {
-	
-}
