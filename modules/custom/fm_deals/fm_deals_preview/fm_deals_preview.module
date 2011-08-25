@@ -68,10 +68,10 @@ function fm_deals_preview_page_content() {
 function fm_deals_preview_nodes() {
 	
 	//Get nid from the schedule page that falls under the 
-	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	$next_hour_start_time = mktime(date('G', REQUEST_TIME), 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	$i = 0;
 	$ret = array();
-	while($i < PREVIEW_SPOTS) {
+	while($i < PREVIEW_SPOTS + 1) {
 		//Get nid from the schedule page that falls under the 
 	   $results = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
 	   if(empty($results)) {
