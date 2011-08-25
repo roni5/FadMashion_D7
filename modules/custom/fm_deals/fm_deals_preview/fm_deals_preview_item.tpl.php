@@ -1,7 +1,8 @@
 
 <?php //Get unix start time
 
-$start_time = fm_deals_start_time($node->nid);
+$start_time = fm_deals_time($node->nid);
+$start_time = $start_time['start'];
 ?>
 
 <div class="dealFrame rounded-bottom <?php print ($node->deal_status == 'active' ? 'onSale' : '');?>">

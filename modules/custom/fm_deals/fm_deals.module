@@ -362,13 +362,13 @@ function fm_deals_has_stock($nid) {
 }
 
 //Get the most upcoming start time of the most upcoming deal 
-function fm_deals_start_time($nid) {
+function fm_deals_time($nid) {
 	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE :request_time < endTime AND nid = :nid', array(':request_time' => REQUEST_TIME, 'nid' => $nid))->fetchObject();
 	if(empty($result)) {
 		drupal_set_message('Error getting start time for deal node ' . $nid, 'error');
 		return; 
 	} else {
-	  return $result->starttime;	
+	  return array('start' => $result->starttime, 'end' => $result->endtime);	
 	}
 }
 	
@@ -377,9 +377,9 @@ function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];
 	$status = fm_deals_states_get_status($node);
 	
-	$start_time = $node->field_start_time['und'][0]['value'];
-	$end_time = $node->field_start_time['und'][0]['value2'];
-	$unixStartTime = strtotime($start_time);
+	$time = fm_deals_time($node->nid);
+	$unixStartTime = $time['start'];
+	$unixEndTime = $time['end'];
 	
 	$purchaseDetails = '';
 	//$color_options = fm_commerce_color_options($node);
@@ -389,9 +389,6 @@ function fm_deals_group_details(&$vars) {
 		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
 		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
 		$timerDetails .= '</div>';
-		
-		//$timerDetails .= '<div class="dealNeeded"></div>';
-		$untilTime = $start_time;
 		
 		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
 		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
@@ -408,7 +405,7 @@ function fm_deals_group_details(&$vars) {
                <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
 		$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
 		$timerDetails .= '</div>';
-		$untilTime = $end_time;
+		$untilTime = $unixEndTime;
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
 		$purchaseDetails .= '<div class="box">';
@@ -424,7 +421,7 @@ function fm_deals_group_details(&$vars) {
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", strtotime($untilTime)), 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
+	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
   
 	} 
 	else {
