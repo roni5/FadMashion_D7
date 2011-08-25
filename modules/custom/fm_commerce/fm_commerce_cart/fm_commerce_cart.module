@@ -98,7 +98,8 @@ function fm_commerce_cart_block_view($block_name = '') {
 	     
 	     
 	     if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
-	       $discount_time = $line_item_wrapper->field_product_line_item->field_node_reference->field_start_time->value();
+	       $node = $line_item_wrapper->field_product_line_item->field_node_reference->value();
+	       $discount_time = fm_deals_time($node->nid);
          $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
                                      'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
                                      'red' => true)
@@ -115,7 +116,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   
   
   if(isset($discount_time)) {
-  	$untilTime = date("F d, Y g:i a", strtotime($discount_time['value2']));
+  	$untilTime = date("F d, Y g:i a", $discount_time['end']);
   	
   	$output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
 	  jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
