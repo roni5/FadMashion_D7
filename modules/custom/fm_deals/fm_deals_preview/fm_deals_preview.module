@@ -93,6 +93,9 @@ function fm_deals_preview_nodes() {
 		$i++;
 	}
 	
+	//pop off the first one because it would be the current one and not the preview one
+	array_shift($ret);
+	
 	return node_load_multiple($ret);
 }
 
