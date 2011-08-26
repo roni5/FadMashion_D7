@@ -181,6 +181,14 @@ function fm_commerce_cart_submit($form, &$form_state) {
   } else {
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
   	$discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
+  	$discount_line_item_wrapper->commerce_unit_price->amount = $discount;
+    $discount_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+    $discount_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+    $discount_line_item_wrapper->commerce_unit_price->value(),
+      'base_price',
+      $discount_line_item_wrapper->commerce_unit_price->value(),
+      TRUE
+    );
   	$discount_line_item = commerce_line_item_save($discount_line_item);
   }
   
