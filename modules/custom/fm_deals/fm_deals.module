@@ -355,8 +355,8 @@ function fm_deals_has_stock($nid) {
 	$node = node_load($nid);
 	if($node->type == 'fm_group_buying') {
 		$product = fm_commerce_get_product($node);
-		//return fm_commerce_stock_has_stock($product);
-		return true;
+		return fm_commerce_stock_has_stock($product);
+		//return true;
 	}
 	else {return false;}
 }

@@ -134,6 +134,16 @@ function fm_commerce_cart_submit($form, &$form_state) {
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
      // If this line item matches the product being added...
+     if ($line_item_wrapper->type->value() == 'product' ) {
+       // remove line items that don't have the current active deals
+       $node = $line_item_wrapper->field_node_reference->value(); 
+       if($node->nid != $node_entity->nid) {
+       //if(true) {
+         //remove line item
+         $line_item_wrapper->delete();
+       }
+     }
+     
      if (empty($discount_line_item) &&
          $line_item_wrapper->type->value() == 'deals_discount' ) {
        // Exit this loop with the $line_item intact so it gets updated.
