@@ -466,6 +466,7 @@ h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times
 
 #fm-invite-send-email-form .form-text, #fm-invite-send-email-form .form-textarea {border:1px solid #DDDDDD;width:274px;background-image:none;}
 #fm-invite-send-email-form .form-submit { padding: 6px 12px; font-size: 14px}
+#fm-invite-send-email-form label {display: block; color: black; font-weight: normal;}
 
 
 /* Global ACCORDIAN STYLING*/
