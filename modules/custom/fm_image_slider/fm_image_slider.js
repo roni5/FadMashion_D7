@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
         directionNav:false, // Next & Prev navigation
         directionNavHide:true, // Only show on hover
         controlNav:true, // 1,2,3... navigation
-        controlNavThumbs:true, // Use thumbnails for Control Nav
+        controlNavThumbs: showThumbs, // Use thumbnails for Control Nav
         controlNavThumbsFromRel:true, // Use image rel for thumbs
         keyboardNav:true, // Use left & right arrows
         manualAdvance:true,
