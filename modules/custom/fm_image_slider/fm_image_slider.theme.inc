@@ -21,7 +21,7 @@ function theme_fm_image_slider_formatter($variables) {
   $thumb_style = $variables['thumb_style'];
   
   //show thumbs or not
-  drupal_add_js('var showThumbs = ' . false . ';', 'inline');
+  drupal_add_js('var showThumbs = ' . 0 . ';', 'inline');
   
   
   $output = '<div id="slider" class="nivoSlider">';
