@@ -90,7 +90,7 @@ div.messages{width: 690px;}
 .sidebarRight .photos{width: 401px;}
 
 .sidebarRight .sidebar{padding-left: 25px;}
-.sidebarRight .info{   }
+.sidebarRight .info{ width: 338px; }
 .info p{width: 310px; font-size: 14px; margin-top: 5px; margin-bottom: 5px;}
 
 #sectionHeader{z-index: 10; width: 100%; background: #f5f4f1; position: absolute; left: 0px; padding: 0; }
