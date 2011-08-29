@@ -353,6 +353,8 @@ function fm_invite_get_invite_url() {
 	   }
   }
   
+  var_dump($user->uid);
+  var_dump($inviter);
   var_dump($reg_code);
   exit();
   
