@@ -35,10 +35,10 @@ function theme_fm_image_slider_formatter($variables) {
     );
     
     if ($thumb_style) {
-      $image['attributes']['rel'] = image_style_url($thumb_style, $image['path']);
+      //$image['attributes']['rel'] = image_style_url($thumb_style, $image['path']);
     }
     else {
-      $image['attributes']['rel'] = file_create_url($image['path']);
+      //$image['attributes']['rel'] = file_create_url($image['path']);
     }
    
     // If the title is empty use alt or the node title in that order.
