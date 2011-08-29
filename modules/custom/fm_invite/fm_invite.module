@@ -342,7 +342,7 @@ function fm_invite_get_invite_url() {
 	   	 $id = db_insert('fm_invite')
                ->fields(array(
                  'reg_code' => $reg_code,
-                 'referred_by_id' => '',
+                 'referred_by_id' => NULL,
                  'email' => $user->mail,
                  'timestamp' => time(),
                  'link_back_views' => 0
