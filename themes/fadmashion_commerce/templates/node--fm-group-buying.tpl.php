@@ -97,7 +97,8 @@
 </div> <!-- end itemOptions -->
 
 <?php print $product_details; ?>    
-<?php print render($detail_tabs); ?>                  
+<?php print render($detail_tabs); ?>  
+<?php if($is_admin) {print theme('item_list', array('items' => $admin_links));}?>                
 </div> <!--end info -->
 
 <div class="designerInfo">

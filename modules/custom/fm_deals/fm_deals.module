@@ -115,6 +115,19 @@ function fm_deals_preprocess_node(&$vars) {
 		
 		$vars['store'] = $store;
 		
+		$admin_links = array();
+		$admin_links[] = l('Edit Deal', 'node/' . $vars['node']->nid . '/edit');
+		$admin_links[] = l('Edit Product', 'admin/commerce/products/' . $product->product_id  . '/edit' );
+		$admin_links[] = l('Edit Shop', 'admin/commerce/stores/' . $store->store_id  . '/edit' );
+		$i = 0;
+		$images = field_get_items('commerce_product', $product, 'field_product_images');
+		foreach($images as $image) {
+			$admin_links[] = l('Edit Image ' . $i, 'node/' . $image->nid . '/edit');
+			$i++;
+		}
+		
+		$vars['admin_links'] = $admin_links;
+		
 		//Set Time Until for Countdown
 		$details= fm_deals_group_details($vars);
 		
