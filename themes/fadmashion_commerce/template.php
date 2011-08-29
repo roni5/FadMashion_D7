@@ -11,6 +11,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
 	//Add Global javascript and CSS
 	drupal_add_library('jquery_plugin', 'validate');
 	drupal_add_library('system', 'jquery.form');
+	 drupal_add_js(path_to_theme().'/js/fm_form.js');
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders').'/fm_commerce_orders.js');
 	drupal_add_js(drupal_get_path('module', 'fm_invite').'/fm_invite.js');
 	drupal_add_js(path_to_theme().'/js/jquery.cookie.js');
@@ -40,7 +41,6 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   //Use splash template only for URL's that have a splash as the first item in the URL
   if($split_url[0] == 'intro') {
     drupal_add_js(path_to_theme().'/js/supersized.min.js');
-    drupal_add_js(path_to_theme().'/js/FM_form.js');
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/front.css');  
     
