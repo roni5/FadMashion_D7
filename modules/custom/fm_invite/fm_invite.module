@@ -306,6 +306,8 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	else {
 		$email = variable_get('site_mail', 'admin@fadmashion.com');
 	}
+	$from = $form_state['values']['name']. ' <' . $email . '> ';
+	watchdog('fm', $from);
 	
   drupal_mail(
       'fm_invite',
@@ -313,7 +315,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $form_state['values']['to'],
       language_default(),
       $params,
-      $form_state['values']['name']. ' <' . $email . '> '
+      $from
    ); 
    
    /*SEND SAME TO ADMIN*/
