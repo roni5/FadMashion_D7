@@ -308,8 +308,6 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	}
 	$from = $form_state['values']['name']. ' <' . $email . '> ';
 	
-	watchdog('fm', !empty($_GET['id']));
-	watchdog('fm', $from);
 	
   drupal_mail(
       'fm_invite',
