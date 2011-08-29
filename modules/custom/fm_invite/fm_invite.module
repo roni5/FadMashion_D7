@@ -354,6 +354,7 @@ function fm_invite_get_invite_url() {
   }
   
   var_dump($reg_code);
+  exit();
   
   if(isset($reg_code)) {
 	  $reg_code_url =  url('invite/' . $reg_code, array('absolute' => TRUE));
