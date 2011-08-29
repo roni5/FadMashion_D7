@@ -353,11 +353,9 @@ function fm_invite_get_invite_url() {
 	   }
   }
   
-  if(isset($inviter)) {
-	  if(!$inviter) {
-	  	drupal_set_message('Not a valid link', 'error');
-	  	drupal_goto();
-	  }
+  var_dump($reg_code);
+  
+  if(isset($reg_code)) {
 	  $reg_code_url =  url('invite/' . $reg_code, array('absolute' => TRUE));
 	  return $reg_code_url;
 	}
