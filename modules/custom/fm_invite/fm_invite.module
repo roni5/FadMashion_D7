@@ -109,9 +109,9 @@ function fm_invite_twitter_text($reg_code_url = '') {
 
 
 function fm_invite_rewards_popup() {
-	$id = $_GET['id'];
+	$reg_code_url = fm_invite_get_invite_url();
 	
-	$output = theme('fm_invite_rewards_popup', reg_code_url);
+	$output = theme('fm_invite_rewards_popup', $reg_code_url);
 	print $output;
 	exit;
 }
@@ -326,15 +326,39 @@ function fm_invite_share_info() {
 }
 
 function fm_invite_get_invite_url() {
+	global $user;
   if(isset($_GET['id'])) {
+  	//Splash page invite rewards pop-up
 		$id = $_GET['id'];
-	  $result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
+		$result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
 	  $inviter = $result->fetchObject();
+	  $reg_code = $inviter->reg_code;
+  } elseif($user->uid) {
+  	//User logged in popped-up
+  	 $result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $user->mail));
+	   $inviter = $result->fetchObject();
+	   if(empty($inviter)) {
+	   	 $reg_code = fm_invite_generate_code();
+	   	 $id = db_insert('fm_invite')
+               ->fields(array(
+                 'reg_code' => $reg_code,
+                 'referred_by_id' => '',
+                 'email' => $user->mail,
+                 'timestamp' => time(),
+                 'link_back_views' => 0
+             ))
+            ->execute();
+	   } else {
+	   	 $reg_code = $inviter->reg_code;
+	   }
+  }
+  
+  if(isset($inviter)) {
 	  if(!$inviter) {
 	  	drupal_set_message('Not a valid link', 'error');
 	  	drupal_goto();
 	  }
-	  $reg_code_url =  url('invite/'.$inviter->reg_code, array('absolute' => TRUE));
+	  $reg_code_url =  url('invite/' . $reg_code, array('absolute' => TRUE));
 	  return $reg_code_url;
 	}
 	else {
