@@ -296,7 +296,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
   );
   
   //Get the submitted e-mail address for From address
-	if(isset($_GET['id'])) {
+	if(!empty($_GET['id'])) {
 		$id = $_GET['id'];
 	  $email = db_query('SELECT email FROM {fm_invite} WHERE id = :id', array(':id' => $id))->fetchField();
 	}
@@ -308,7 +308,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	}
 	$from = $form_state['values']['name']. ' <' . $email . '> ';
 	
-	watchdog('fm', isset($_GET['id']));
+	watchdog('fm', !empty($_GET['id']));
 	watchdog('fm', $from);
 	
   drupal_mail(
