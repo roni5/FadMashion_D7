@@ -327,6 +327,7 @@ function fm_invite_share_info() {
 
 function fm_invite_get_invite_url() {
 	global $user;
+	
   if(isset($_GET['id'])) {
   	//Splash page invite rewards pop-up
 		$id = $_GET['id'];
@@ -353,7 +354,7 @@ function fm_invite_get_invite_url() {
 	   }
   }
   
-  var_dump($user->uid);
+  var_dump($user);
   var_dump($inviter);
   var_dump($reg_code);
   exit();
