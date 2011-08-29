@@ -14,6 +14,19 @@ function fm_users_menu() {
   return $items;	
 }
 
+function fm_users_fullname($uid = '') {
+	if(empty($uid)) {
+		global $user;
+		$uid = $user->uid;
+	}
+	
+	$user_loaded = user_load($uid);
+  $first_name = $user_loaded->field_first_name['und'][0]['value'];
+  $last_name = $user_loaded->field_last_name['und'][0]['value'];
+	
+	return $first_name . ' ' . $last_name;
+}
+
 function fm_users_email_verify() {
   $mail = $_POST['mail'];
   if ($val = db_query("SELECT mail FROM {users} WHERE LOWER(mail) = LOWER(:mail)", array(

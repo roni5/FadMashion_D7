@@ -233,14 +233,28 @@ function fm_invite_request_form_submit($form, &$form_state) {
 
 function fm_invite_send_email_form() {
 	
-	$form['name'] = array(
+	global $user;
+	if($user->uid) {
+		
+		$form['name'] = array(
     '#type' => 'textfield', 
     '#size' => 25, 
 	  '#maxlength' => 255,
     '#title' => t('From').':',
-	  '#attributes' => array('class' => array('clear-defaults')),
-	  '#default_value' => 'Enter Name', 
-  );
+	  '#default_value' => fm_users_fullname(), 
+		);
+	}
+	else {
+		$form['name'] = array(
+      '#type' => 'textfield', 
+      '#size' => 25, 
+	    '#maxlength' => 255,
+      '#title' => t('From').':',
+	    '#attributes' => array('class' => array('clear-defaults')),
+	    '#default_value' => 'Enter Name', 
+    );
+	}
+	
   
   $form['to'] = array(
     '#type' => 'textfield', 
@@ -285,6 +299,9 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	if(isset($_GET['id'])) {
 		$id = $_GET['id'];
 	  $email = db_query('SELECT email FROM {fm_invite} WHERE id = :id', array(':id' => $id))->fetchField();
+	}
+	else if($user->uid) {
+		$email = $user->mail;
 	}
 	else {
 		$email = variable_get('site_mail', 'admin@fadmashion.com');
