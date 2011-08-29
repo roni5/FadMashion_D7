@@ -119,10 +119,10 @@ function fm_deals_preprocess_node(&$vars) {
 		$admin_links[] = l('Edit Deal', 'node/' . $vars['node']->nid . '/edit');
 		$admin_links[] = l('Edit Product', 'admin/commerce/products/' . $product->product_id  . '/edit' );
 		$admin_links[] = l('Edit Shop', 'admin/commerce/stores/' . $store->store_id  . '/edit' );
-		$i = 0;
+		$i = 1;
 		$images = field_get_items('commerce_product', $product, 'field_product_images');
 		foreach($images as $image) {
-			$admin_links[] = l('Edit Image ' . $i, 'node/' . $image->nid . '/edit');
+			$admin_links[] = l('Edit Image ' . $i, 'node/' . $image['nid'] . '/edit');
 			$i++;
 		}
 		
