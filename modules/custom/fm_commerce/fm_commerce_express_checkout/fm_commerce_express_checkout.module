@@ -134,7 +134,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   
   /* ADD Credit card form */
   module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
-  $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '', 'type' => '' ));
+  $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '' ));
   
   //CHANGE default form theme stuff
   $form['payment_details']['credit_card']['owner'] ['#title'] = t('Name on Credit Card');
@@ -210,7 +210,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   rules_invoke_all('commerce_payment_methods', $order);
   
   //There is only one payment method - Authorize.net so just use that one.  
-  $payment_method = array_shift($order->payment_methods);
+  $payment_method = $order->payment_methods['paypal_wpp|commerce_payment_paypal_wpp'];
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
@@ -274,21 +274,31 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	
 	//Call payment gateway
 	$charge = $order_wrapper->commerce_order_total->value();
-	//$result = commerce_payflow_pro_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
+	
+	$result = commerce_paypal_wpp_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
+	
+	if(!is_null($result) && $result == false) {
+	 return;
+	}
 	
 	if($deal_state) {
 		//ADD payment stuff
     $order = commerce_order_status_update($order, 'deal_payed');
-	}
-	else {
+    $order = commerce_order_capture_payment();
+  }
+  else {
 		$order = commerce_order_status_update($order, 'deal_off');
 	}
-	
+	  
 	commerce_checkout_complete($order);
   
   //Redirect here
   drupal_goto('express-checkout/confirmation', array('query' => array('order-id' => $order->order_id) ));
-
+	
+	
+	
+	
+	
 }
 
 

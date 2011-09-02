@@ -83,13 +83,13 @@ function fm_deals_states_clean_expired_deals() {
 	
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
-  
+   
   // if the cart order is not empty than check to see if it isexpired
   if (!empty($order)) {
     $node = fm_deals_states_get_order_node($order);
-    if(fm_deals_states_get_status($node) == 'ended') {
+    if(fm_deals_states_get_status($node) != 'active') {
       commerce_order_status_update($order, 'deal_expired');
-      drupal_set_message('The deal in your cart has expired.');
+      drupal_set_message('Your cart is expired.');
     } 	
   }
   
@@ -98,13 +98,11 @@ function fm_deals_states_clean_expired_deals() {
  
  foreach ($expired_orders as $order) {
  	  $node = fm_deals_states_get_order_node($order);
-    if(fm_deals_states_get_status($node) == 'ended') {
+    if(fm_deals_states_get_status($node) != 'ended') {
     	if(fm_deals_states_deal_on($node)) {
-    		commerce_order_status_update($order, 'deal_payed');
-    	} else {
-        commerce_order_status_update($order, 'deal_expired_refund');
-        drupal_set_message('The deal for ' . $product->title . ' did not go on.  You will be fully refunded for your troubles..');
-    	}
+    		//Add logic to Capture Authorize deal
+    		//commerce_order_status_update($order, 'deal_payed');
+    	} 
     } 
  }
  

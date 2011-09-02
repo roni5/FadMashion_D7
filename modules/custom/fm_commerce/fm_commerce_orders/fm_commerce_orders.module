@@ -164,7 +164,7 @@ function fm_commerce_orders_list() {
 	global $user;
 	
 	//Second, load up previous orders and go through each one and update those 
- $orders = commerce_order_load_multiple(array(), array('status' => array('deal_payed', 'cart', 'deal_expired'), 'uid' => $user->uid));
+ $orders = commerce_order_load_multiple(array(), array('status' => array('deal_payed', 'cart', 'deal_off'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
   return '<div class="no-orders">You currently have no purchases</div>'; 	
@@ -235,11 +235,8 @@ function fm_commerce_orders_status_link($order) {
 			$text = 'Checkout';
 			return l($text, 'express-checkout');
 		  break;
-		case 'deal_expired':
-			$text = 'Check Refund Status';
-		  break;
 		default:
-			$text = 'View Summary';
+			$text = 'Summary';
 		  break;
 			
 	}
@@ -288,6 +285,9 @@ function theme_fm_commerce_orders_status($vars) {
 		case 'deal_expired':
 			return '<div class="status-expired">Expired</div>';
 		  break;
+		case 'deal_off': 
+			return '<div class="status-expired">Pending</div>' . '<div class="order-extra-info">(' . t('Deal is Off')  . ')</div>';
+			break;
 		case 'cart':
 			return '<div class="status-cart">Shopping Cart</div>';
 		  break;

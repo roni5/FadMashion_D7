@@ -74,8 +74,6 @@ th {border-bottom:3px solid #EEE8E3;}
 .nav li.active a, .nav li a:hover{color: #fff; }
 .navBox img{float: left; }
 
-div.messages{width: 690px;}
-
 
 /* Right-hand Sidebar Layout */
 #content, 
@@ -479,6 +477,7 @@ h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times
 .ui-accordion .ui-accordion-header .ui-icon { position: absolute;  top: 50%; left: 0; margin-top: -8px; }
 .ui-accordion .ui-accordion-content { padding-left: 20px; font-size: 11px; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
 .ui-accordion .ui-accordion-content-active { display: block; }
+.ui-accordion .ui-accordion-header a span {font-family: Georgia, "Times New Roman", Times, serif;}
 
 .ui-state-active .ui-icon { background: url(../images/b_collapse.png) no-repeat scroll 0 1px transparent;}
 .ui-state-default .ui-icon { background: url(../images/b_expand.png) no-repeat scroll 0 1px transparent;}
