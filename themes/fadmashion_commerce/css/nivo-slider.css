@@ -10,7 +10,7 @@
  */
 
 #slider {
-  height: 451px;
+  min-height: 451px;
 }
 #slider .nivo-controlNav {
 bottom:-105px;
