@@ -24,10 +24,11 @@ function fm_deals_states_get_status($node) {
 }
 
 function fm_deals_states_status_msg($node, $qty_purchased) {
+	$status = fm_deals_states_status($node, $qty_purchased);
 	$qty_min = field_get_items('node', $node, 'field_quantity_min');
 	$qty_min = intval($qty_min[0]['value']);
 	
-	if($qty_purchased >= $qty_min) {
+	if($status) {
 		$output = '<div class="deal-on">' . t('Deal is On!') . '</div>';
 	}
 	else {
@@ -38,11 +39,24 @@ function fm_deals_states_status_msg($node, $qty_purchased) {
 	
 }
 
+function fm_deals_states_status($node, $qty_purchased) {
+  $qty_min = field_get_items('node', $node, 'field_quantity_min');
+	$qty_min = intval($qty_min[0]['value']);
+	
+	if($qty_purchased >= $qty_min) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	return false;
+}
+
 function fm_deals_states_purchased_deal($deal_node) {
   global $user;
   
   $orders = array();
-  $orders = commerce_order_load_multiple(array(), array('status' => 'deal_off', 'uid' => $user->uid));
+  $orders = commerce_order_load_multiple(array(), array('status' => 'fm_orders_authorized', 'uid' => $user->uid));
   //$orders += commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
   
   foreach ($orders as $order) {
@@ -88,7 +102,7 @@ function fm_deals_states_clean_expired_deals() {
   if (!empty($order)) {
     $node = fm_deals_states_get_order_node($order);
     if(fm_deals_states_get_status($node) != 'active') {
-      commerce_order_status_update($order, 'deal_expired');
+      commerce_order_status_update($order, 'fm_orders_expired');
       drupal_set_message('Your cart is expired.');
     } 	
   }
@@ -137,59 +151,4 @@ function fm_deals_states_get_order_node($order) {
   }
 }
 
-/**
- * Implements hook_commerce_order_state_info().
- */
-function fm_deals_states_commerce_order_state_info() {
-  $order_states = array();
 
-  $order_states['deal'] = array(
-    'name' => 'deal',
-    'title' => t('Deal State'),
-    'description' => t('Orders in this state are part of a timed deal.'),
-    'weight' => -10,
-    'default_status' => 'deal_expired',
-  );
-  
-  return $order_states;
-}
-
-/**
- * Implements hook_commerce_order_status_info().
- */
-function fm_deals_states_commerce_order_status_info() {
-  $order_statuses = array();
- 
-  
-  
-  $order_statuses['deal_off'] = array(
-    'name' => 'deal_off',
-    'title' => t('Live Deal: Off'),
-    'state' => 'deal',
-  );
-  
-   $order_statuses['deal_expired'] = array(
-    'name' => 'deal_expired',
-    'title' => t('Deal Expired: Timed w/no checkout'),
-    'state' => 'deal',
-  );
-  $order_statuses['deal_expired_refund'] = array(
-    'name' => 'deal_expired_refund',
-    'title' => t('Deal Expired: Needs Refund'),
-    'state' => 'deal',
-  );
-  
-  $order_statuses['deal_refunded'] = array(
-    'name' => 'deal_refunded',
-    'title' => t('Deal Completed: Refunded'),
-    'state' => 'deal',
-  );
-  
-  $order_statuses['deal_payed'] = array(
-    'name' => 'deal_payed',
-    'title' => t('Deal Completed: Fully Payed'),
-    'state' => 'deal',
-  );
-
-  return $order_statuses;
-}

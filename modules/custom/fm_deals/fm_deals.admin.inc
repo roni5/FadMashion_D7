@@ -29,7 +29,7 @@ function fm_deals_admin_page() {
 
 function fm_deals_list($entities) {
 	 
-  $header = array('Product Name',  'Qty Min', 'Qty Purchased','Deal Status', 'Stock' ,'Store Name', 'Operations' );
+  $header = array('Product Name',  'Qty Min', 'Deal Status', 'Orders', 'Stock' ,'Store Name', 'Operations' );
   $rows = array();
   foreach($entities['node'] as $node) {
   	$node = node_load($node->nid);
@@ -44,17 +44,59 @@ function fm_deals_list($entities) {
     //$end_time = format_date(strtotime($node->field_start_time['und'][0]['value2'] ), 'custom', "F j, Y, g:i a", $node->field_start_time['und'][0]['timezone']);
     
     //var_dump($node->field_start_time['und'][0]['timezone']);
-    $qty = fm_deals_qty_purchased($node->nid);
+    $orders = fm_deals_orders($node->nid);
+    
     $rows[] = array(l($product->title, 'node/' . $node->nid),
-      $qty_min, $qty, fm_deals_states_status_msg($node, $qty),
+      $qty_min, 
+      fm_deals_states_status_msg($node, $qty),
+      (count($orders) > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . count($orders) .  ')' : t('No Orders Placed')), 
       fm_deals_has_stock($node->nid) ? 'Has Stock' : '<span style="color: red;">Out of Stock</span>',
       $store->name,
       l('edit deal', 'node/'.$node->nid.'/edit') . ' | ' . l('edit product', 'admin/commerce/products/' . $product->product_id  . '/edit' )
 		);
   }
 	
-  
-	$output = theme ('table', array('header' => $header, 'rows' => $rows));
+	$output =  theme ('table', array('header' => $header, 'rows' => $rows));
 	
 	return $output;
+}
+
+function fm_deals_admin_orders($nid) {
+	$orders = fm_deals_orders($nid);
+	$orders = array_reverse($orders);
+	$statuses = fm_commerce_orders_commerce_order_status_info();
+	
+	if(count($orders)) {
+	  $header = array('Order Id',  'Name', 'Time', 'Payment Status', 'Unpaid Balance', 'Actions');
+	  
+    $rows = array();
+    foreach ($orders as $order) {
+    	$status = $order->status;
+    	switch ($status) {
+    		case 'fm_orders_authorized':
+    		  $actions = l('Capture', 'admin/fadmashion/wpp/capture/' . $order->order_id, array('query' => drupal_get_destination()) );
+    		  $actions .= ' | ' . l('Void', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
+    		  break; 
+    		default:
+    			break;
+    	}
+    	$balance = commerce_payment_order_balance($order);
+    	$balance = commerce_currency_format($balance['amount'], $balance['currency_code']);
+  	  $rows[] = array(
+  	    l($order->order_id, 'admin/commerce/orders/' . $order->order_id),
+  	    fm_users_fullname($order->uid),
+  	    date('M D Y', $order->changed),
+  	    $statuses[$status]['title'],
+  	    $balance. ' (' .l('payment history', 'admin/commerce/orders/' . $order->order_id . '/payment') . ')',
+  	    $actions
+   	  );
+    }
+   	
+   	$output =  theme ('table', array('header' => $header, 'rows' => $rows));
+  } else {
+  	$output = t('No Orders Have Been Placed Yet for this Deal');
+  }
+  
+	return $output;
+	
 }

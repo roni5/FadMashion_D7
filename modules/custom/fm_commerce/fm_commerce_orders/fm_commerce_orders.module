@@ -43,6 +43,56 @@ function fm_commerce_orders_theme() {
   );
 }
 
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function fm_commerce_orders_commerce_order_state_info() {
+  $order_states = array();
+
+  $order_states['deal'] = array(
+    'name' => 'deal',
+    'title' => t('Deal State'),
+    'description' => t('Orders in this state are part of a timed deal.'),
+    'weight' => -10,
+    'default_status' => 'fm_orders_expired',
+  );
+  
+  return $order_states;
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function fm_commerce_orders_commerce_order_status_info() {
+  $order_statuses = array();
+  
+  $order_statuses['fm_orders_authorized'] = array(
+    'name' => 'fm_orders_authorized',
+    'title' => t('Authorized, Waiting for Capture'),
+    'state' => 'deal',
+  );
+  
+   $order_statuses['fm_orders_expired'] = array(
+    'name' => 'fm_orders_expired',
+    'title' => t('Deal Expired w/o checkout'),
+    'state' => 'deal',
+  );
+  $order_statuses['fm_orders_captured'] = array(
+    'name' => 'fm_orders_captured',
+    'title' => t('Captured after Deal Is Through'),
+    'state' => 'deal',
+  );
+  
+  $order_statuses['fm_orders_voided'] = array(
+    'name' => 'fm_orders_voided',
+    'title' => t('Void Order when Deal doesn\'t go through'),
+    'state' => 'deal',
+  );
+
+  return $order_statuses;
+}
+
+
 /*
  * Defines the basic Order Page with status's for 
  */
@@ -164,7 +214,7 @@ function fm_commerce_orders_list() {
 	global $user;
 	
 	//Second, load up previous orders and go through each one and update those 
- $orders = commerce_order_load_multiple(array(), array('status' => array('deal_payed', 'cart', 'deal_off'), 'uid' => $user->uid));
+ $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
   return '<div class="no-orders">You currently have no purchases</div>'; 	
@@ -279,19 +329,21 @@ function theme_fm_commerce_orders_status($vars) {
 	$status = $vars['status'];
 	
 	switch($status) {
-		case 'deal_payed':
-		  return '<div class="status-deal-payed">Payed</div>';
+		case 'fm_orders_captured':
+		  return '<div class="status-deal-payed">Payed</div>' . '<div class="order-extra-info">' . t('Waiting to be Shipped')  . '</div>';
 		  break;
-		case 'deal_expired':
+		case 'fm_orders_voided':
+		  return '<div class="status-deal-payed">Voided</div>' . '<div class="order-extra-info">' . t('Deal Cancelled')  . '</div>';
+		  break;
+		case 'fm_orders_expired':
 			return '<div class="status-expired">Expired</div>';
 		  break;
-		case 'deal_off': 
-			return '<div class="status-expired">Pending</div>' . '<div class="order-extra-info">(' . t('Deal is Off')  . ')</div>';
+		case 'fm_orders_authorized': 
+			return '<div class="status-expired">Pending</div>' . '<div class="order-extra-info">' . t('Share with Friends')  . '</div>';
 			break;
 		case 'cart':
 			return '<div class="status-cart">Shopping Cart</div>';
-		  break;
-			
+		  break;		
 	}
 	
 	return $status;
