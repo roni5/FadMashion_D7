@@ -55,7 +55,7 @@ function fm_deals_preview_page_content() {
     $status = fm_deals_states_get_status($node);
     $node->deal_status = $status;
       
-		$rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'image' => $themed_image));
+	  $rendered_items[] = theme('fm_deals_preview_item', array('node' => $node, 'store' => $store, 'product' => $product, 'image' => $themed_image));
 	}
 	
 	//$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
@@ -109,7 +109,7 @@ function fm_deals_preview_theme() {
        'template' => 'fm_deals_preview_block'
     ),
     'fm_deals_preview_item' => array(
-	     'variables' => array('node' => NULL, 'store' => NULL, 'image' => ''),
+	     'variables' => array('node' => NULL, 'product' => NULL, 'store' => NULL, 'image' => ''),
        'template' => 'fm_deals_preview_item'
     ),
     'fm_deals_preview_social_item' => array(

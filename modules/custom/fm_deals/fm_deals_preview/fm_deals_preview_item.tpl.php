@@ -14,7 +14,7 @@ $start_time = $start_time['start'];
       <div class="savings">Savings<h3><?php print $node->sale_percentage; ?></h3></div>
     </div><!--pricing--> 
     <?php print l($image, 'node/' . $node->nid, array('html' => true)); ?>
-    <h1 class="itemName"><?php print $node->title; ?></h1>
+    <h1 class="itemName"><?php print $product->title; ?></h1>
     <h2>by <?php print theme('fm_commerce_store_name', array('store' => $store)); ?></h2>
     <div class="buttons">
     <?php if($node->deal_status == 'active') { ?>
