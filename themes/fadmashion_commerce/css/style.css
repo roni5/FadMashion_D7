@@ -164,7 +164,7 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .itemOptions label {float:left;text-align:left;width:60px;}
 .itemOptions .form-item{margin: 0 0 0 0 !important}
 .form-item-sizes, .form-item-colors{float: left;padding:0 0 18px; height: 20px;}
-.form-item-colors .selectBox a, .form-item-sizes .selectBox a, .form-item-sizes .selectBox-label  {background:none repeat scroll 0 0 #FFFFFF;border:1px solid #CAC9C6;cursor:pointer;float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;height:20px;line-height:20px;margin:-3px 2px 0;width:20px;}
+.form-item-colors .selectBox a, .form-item-sizes .selectBox a, .form-item-sizes .selectBox-label  {background:none repeat scroll 0 0 #FFFFFF;border:1px solid #CAC9C6;cursor:pointer;float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;height:20px;line-height:20px;margin:-3px 2px 0;min-width:20px;padding: 0 3px;}
 .form-item-sizes .selectBox-label {height: auto; width: auto; padding: 0 3px;}
 .form-item-sizes .selectBox-options li.selectBox-selected a, .form-item-sizes   .selectBox-label{background:none repeat scroll 0 0 #0F6DA3;color:#FFFFFF;}
 .form-item-colors .selectBox-options li.selectBox-selected {background:url("../images/arrow_color.png") no-repeat scroll center bottom transparent;padding-bottom:5px;}
@@ -183,7 +183,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #quicktabs-fm_product_details li{min-width: 80px; padding: 4px; text-align:center;}
 #quicktabs-fm_product_details li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 
-.details-list li {padding: 0 12px !important; text-align: left !important; font-size: 14px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
+.details-list li {padding: 0 12px !important; text-align: left !important; margin-bottom: 4px; font-size: 14px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
 
 .designerInfo{width: 740px; border-top: 3px solid #f0efed; padding: 10px 0 0 0; margin-top: 10px;}
 .designerInfo h1{font-size: 16px; margin-bottom: 15px;}

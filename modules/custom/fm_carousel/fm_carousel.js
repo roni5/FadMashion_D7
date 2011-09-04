@@ -13,10 +13,10 @@ jQuery(document).ready(function() {
     
 	if(howitworks_block.length) {
 		
-		if(jQuery.cookie('carousel') != 'true') {
+		/*if(jQuery.cookie('carousel') != 'true') {
 		  jQuery.cookie('carousel', 'true');
 		  fmDisplayDropDown();
-		} 
+		} */
 		
 		//add close button 
 		howitworks_block.prepend('<a class="close" href="javascript:fmCloseDropDown()">&nbsp;</a>');
