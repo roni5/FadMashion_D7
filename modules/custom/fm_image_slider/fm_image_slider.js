@@ -16,5 +16,9 @@ jQuery(document).ready(function() {
         manualAdvance:true,
         pauseTime:6000, 
     });
+	
+	if(!showThumbs) {
+		jQuery('.photos').addClass('no-thumbs');
+	}
 
 });
