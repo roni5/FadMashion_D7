@@ -2,7 +2,7 @@
 <div id="footer">
     <div class="container">
     <div class="box">
-    <div class="subCol"><h1>Have a question?</h1><a href="#">Contact us anytime</a></div>
+    <?php //<div class="subCol"><h1>Have a question?</h1><a href="#">Contact us anytime</a></div> ?>
        
  
     </div>
