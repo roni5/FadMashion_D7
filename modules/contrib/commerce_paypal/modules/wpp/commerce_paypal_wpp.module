@@ -47,7 +47,7 @@ function commerce_paypal_wpp_default_settings() {
  */
 function commerce_paypal_wpp_settings_form($settings = NULL) {
   module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
-  $settings += commerce_paypal_wpp_default_settings();
+  $settings = commerce_paypal_wpp_default_settings();
 
   $form = array();
 
