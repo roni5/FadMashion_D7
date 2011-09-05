@@ -113,7 +113,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .jcarousel-skin-fadmashion .views-field-field-graphic {float: left;}
 .jcarousel-skin-fadmashion .views-field-body {color: #322F2C; width:520px;font-weight:300;line-height:20px;padding:20px 40px 20px 30px;}
 
-.region-featured #block-views-nodequeue-2-block {display: none;}
+.region-featured #block-views-nodequeue-2-block { width: 0px}
 #block-views-nodequeue-2-block h2 {color:#7C6B5B;font-size:16px;font-weight:100;text-align:center;text-transform:uppercase; }                                                   
 .region-featured #block-views-nodequeue-2-block .close {background:url("../images/b_close.png") no-repeat scroll left top transparent;display:block;float:right;height:12px;width:12px;}
 .region-featured #block-views-nodequeue-2-block .close:hover{background-position: bottom left; }

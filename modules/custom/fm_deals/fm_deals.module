@@ -389,8 +389,8 @@ function fm_deals_has_stock($nid) {
 function fm_deals_time($nid) {
 	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE :request_time < endTime AND nid = :nid', array(':request_time' => REQUEST_TIME, 'nid' => $nid))->fetchObject();
 	if(empty($result)) {
-		drupal_set_message('Error getting start time for deal node ' . $nid, 'error');
-		return; 
+		//drupal_set_message('Error getting start time for deal node ' . $nid, 'error');
+		return NULL; 
 	} else {
 	  return array('start' => $result->starttime, 'end' => $result->endtime);	
 	}

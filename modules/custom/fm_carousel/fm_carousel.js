@@ -10,6 +10,7 @@ jQuery(document).ready(function() {
 	howitworks_block = jQuery('#block-views-nodequeue-2-block');
     default_block = jQuery('#block-block-7');
     howitworks_block.hide();
+    howitworks_block.css('width', 'auto');
     
 	if(howitworks_block.length) {
 		
@@ -20,7 +21,6 @@ jQuery(document).ready(function() {
 		
 		//add close button 
 		howitworks_block.prepend('<a class="close" href="javascript:fmCloseDropDown()">&nbsp;</a>');
-		
 	}
 	
 });
