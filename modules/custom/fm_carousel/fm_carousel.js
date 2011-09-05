@@ -11,6 +11,7 @@ jQuery(document).ready(function() {
     default_block = jQuery('#block-block-7');
     howitworks_block.hide();
     howitworks_block.css('width', 'auto');
+    howitworks_block.css('height', 'auto');
     
 	if(howitworks_block.length) {
 		
