@@ -411,7 +411,8 @@ function fm_deals_group_details(&$vars) {
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
 		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
-		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date(" @ ga", $unixStartTime) . '</span></div>';
+		
 		$timerDetails .= '</div>';
 		
 		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
