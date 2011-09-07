@@ -87,9 +87,8 @@
 <?php print $groupDetails;?>
 <br clear="all">
 <div class="pricing">
-
     <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
-    <div class="exclusive">Exclusive Deal<h3><?php print render($content['field_sale_price']); ?></h3></div>
+    <div class="exclusive">Exclusive Price<h3><?php print render($content['field_sale_price']); ?></h3></div>
     <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>
 </div>
 <div class="itemOptions">

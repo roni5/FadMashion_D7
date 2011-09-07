@@ -69,7 +69,10 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   	drupal_add_js(drupal_get_path('module', 'fm_carousel').'/fm_carousel.js');
   	if($split_url[1] == 'preview') {
   	  $variables['menu_active'] = 'preview';
+  	} else if(fm_deals_states_get_status($variables['node'])  != 'active') {
+  		$variables['menu_active'] = '';
   	}
+  	
   }
   
     
