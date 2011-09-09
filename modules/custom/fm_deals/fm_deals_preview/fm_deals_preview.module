@@ -72,6 +72,7 @@ function fm_deals_preview_nodes($pop_up = false) {
 	  $next_hour_start_time = mktime(date('G', REQUEST_TIME), 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	}
 	else {
+		//Show live sale event if it isn't in the pop-up
 		$next_hour_start_time = mktime(date('G', REQUEST_TIME)-1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	}
 	$i = 0;
