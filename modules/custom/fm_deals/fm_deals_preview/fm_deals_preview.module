@@ -1,6 +1,7 @@
 <?php
 
 define(PREVIEW_SPOTS, 6);
+define(PREVIEW_BLOCK_SPOTS, 2);
 
 /**
  * Implements hook_menu().
@@ -152,18 +153,19 @@ function fm_deals_preview_block_view($block_name = '') {
   	$this_nid = arg(1);
   	$default_nid = fm_deals_get_default_deal();
   	$status = $default['status'];
+  	$nids = array();
   	
   	if($this_nid == $default_nid) {
-  		$nid = fm_deals_preview_block_nid();
+  		$nids = fm_deals_preview_block_nids();
   		$header = '<h2 class="rounded-top">' . t('Coming up Next') .'</h2>';
 		}
 		else {
-			$nid = $default_nid;
+			$nids[] = $default_nid;
 			$header = '<h2 class="rounded-top" style="background-color: #B83838;">On Sale Now!</h2>';
 		}
 		
 	
-  	$content = $header . fm_deals_preview_block_content($nid);
+  	$content = $header . fm_deals_preview_block_content($nids);
     $block = array(
       'content' => $content
     );
@@ -171,31 +173,46 @@ function fm_deals_preview_block_view($block_name = '') {
   return $block;
 }
 
-function fm_deals_preview_block_nid() {
+function fm_deals_preview_block_nids() {
 	
 	//Get nid from the schedule page that falls under the 
-	$results = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime > :request_time ORDER BY startTime ASC', array(':request_time' => REQUEST_TIME))->fetchObject();
+	$results = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime > :request_time ORDER BY startTime ASC', array(':request_time' => REQUEST_TIME));
 	
+	//If there are no preview spots available, generate them
  if(empty($results)) {
  	  $next_hour_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 		$time_slot = fm_deals_time_slots(1, $next_hour_time);
-	  $nids = fm_deals_random_nids(1);
+	  $nids = fm_deals_random_nids(PREVIEW_BLOCK_SPOTS);
 	  fm_deals_insert_schedule($time_slot, $nids);
-	  return array_shift($nids);
+	  return $nids;
 	} else {
-		return $results->nid;
+		$nids = array();
+		$i = 0;
+		foreach($results as $result) {
+			if($i < PREVIEW_BLOCK_SPOTS) {
+		    $nids[] = $result->nid;
+			}
+			$i++;
+		}
+		return $nids;
 	}
 	
 }
 
-function fm_deals_preview_block_content($nid) {
-  $node = node_load($nid);
+function fm_deals_preview_block_content($nids) {
+  $output = '';
+	foreach($nids as $nid) {
+	  $node = node_load($nid);
     
-  $product = fm_commerce_get_product($node);
-  $store = fm_commerce_get_store($product);  
+    $product = fm_commerce_get_product($node);
+    $store = fm_commerce_get_store($product);  
     
-  $themed_image = fm_deals_preview_get_image($product);    
-  return theme('fm_deals_preview_block', array('node' => $node, 'product' => $product, 'store' => $store, 'image' => $themed_image));
+    $themed_image = fm_deals_preview_get_image($product);
+    $output .= theme('fm_deals_preview_block', array('node' => $node, 'product' => $product, 'store' => $store, 'image' => $themed_image));
+	} 
+	   
+  $output .= '<div id="upNext">' . l('Preview More Deals', 'deals_preview', array('query' => array('width' => '910px'),  'attributes' => array('class' => array('colorbox-load', 'button'))) ) . '<br></div>';
+  return $output;
 }
 
 function fm_deals_preview_get_image($product) {
