@@ -299,7 +299,7 @@ function fm_commerce_stock_has_stock($product) {
 	}
   $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
 	foreach($sizes as $size) {
-		if(isset($color)  && $color > 0) {return true;}
+		if(isset($size)  && $size > 0) {return true;}
 	}
 	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
 	if(isset($value) && $value > 0) {return true;}
