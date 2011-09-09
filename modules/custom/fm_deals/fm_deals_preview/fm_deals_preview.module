@@ -21,16 +21,16 @@ function fm_deals_preview_menu() {
  * Implements main ajax call back for preview deals window
  */
 function fm_deals_preview_page() {
-	print fm_deals_preview_page_content();
+	print fm_deals_preview_page_content(true);
 	exit;
 }
 
 /**
  * Implements main content for preview deals window
  */
-function fm_deals_preview_page_content() {
+function fm_deals_preview_page_content($pop_up = false) {
 
-	$nodes = fm_deals_preview_nodes();
+	$nodes = fm_deals_preview_nodes($pop_up);
 	$rendered_items = array();
 	
 	foreach($nodes as $node) {
@@ -65,10 +65,15 @@ function fm_deals_preview_page_content() {
 }
 
 
-function fm_deals_preview_nodes() {
+function fm_deals_preview_nodes($pop_up = false) {
 	
 	//Get nid from the schedule page that falls under the 
-	$next_hour_start_time = mktime(date('G', REQUEST_TIME)-1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	if($pop_up) {
+	  $next_hour_start_time = mktime(date('G', REQUEST_TIME), 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	}
+	else {
+		$next_hour_start_time = mktime(date('G', REQUEST_TIME)-1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	}
 	$i = 0;
 	$ret = array();
 	while($i < PREVIEW_SPOTS + 1) {
