@@ -165,6 +165,7 @@ function fm_deals_preprocess_node(&$vars) {
 	  }
 	  
 	  $title = $product->title;
+	  drupal_set_title($title . ' - By ' . $store->name);
 	  
 	  $vars['product_details'] = theme('fm_deals_product_details', 
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) );
