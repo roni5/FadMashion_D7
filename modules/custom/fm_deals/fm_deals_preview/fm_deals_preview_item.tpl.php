@@ -5,7 +5,7 @@ $start_time = fm_deals_time($node->nid);
 $start_time = $start_time['start'];
 ?>
 
-<div class="dealFrame rounded-bottom <?php print ($node->deal_status == 'active' ? 'onSale' : '');?>">
+<div class="dealFrame rounded-top rounded-bottom <?php print ($node->deal_status == 'active' ? 'onSale' : '');?>">
   <div class="dealHeader <?php print ($node->deal_status == 'ended' ? 'ended' : '');?>"><?php ($node->deal_status == 'upcoming' ? print t('Starts @') . '<b>' . date(" ga T", $start_time) . '</b>' : ($node->deal_status == 'active' ? print t('On Sale Now') : print t('This sale has ended'))) ?></div>
     
     <div class="pricing">
