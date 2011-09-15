@@ -29,9 +29,10 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
 
 
 <div class="assistance">
- <div class="pad">
-<?php print render($customer_service_form);?>
- </div>
+ <?php /* <div class="pad">
+ print render($customer_service_form);
+ </div> */ ?>
+ 
 </div>
 
 
