@@ -280,7 +280,7 @@ function fm_commerce_stock_get_qty($product, $type, $value = '') {
 	  $value = explode('_', $value );
 	  $value = $value[1];
 	}
-	else if($type == 'size'){
+	else if($type == 'sizes'){
 		$values = unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
 		var_dump($product->{STOCK_FIELD});
 		var_dump($values);
