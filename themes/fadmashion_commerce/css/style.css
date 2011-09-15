@@ -156,7 +156,7 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .pricing{margin-bottom: 3px; width: 332px;  font-size: 12px; padding: 0 0 14px 0;float: left; display: block; clear: both;}
 .pricing div{float: left; width: 110px; text-align:center; display: inline}
 .pricing .original{color: #998e82;background: url(../images/dotted_vertical.png) top right repeat-y;}
-.pricing .original h3 .field-item { background: url(../images/strikethrough.jpg) left center repeat-x; padding: 0 8px;}
+.pricing .original h3 .field-item { background: url(../images/strikethrough.jpg) left center repeat-x; }
 .pricing .exclusive{}
 .pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top left repeat-y;}
 .pricing h3{font-size: 22px; font-weight:700; padding-top: 6px;}
