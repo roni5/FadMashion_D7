@@ -389,7 +389,7 @@ function fm_deals_group_details(&$vars) {
                         <td width="110" align="right">Items Bought:</td>
                         <td width="56" align="left" class="sep1"><span>' . $qty_purchased . '</span></td>
                         <td width="75" align="right" class="sep2">Time  Left:</td>
-                        <td width="70" align="left"><div class="countdown"><span class="countdown">00:00</span></div></td>
+                        <td width="70" align="left"><span class="countdown">00:00</span></td>
                         </tr>
                         </tbody></table>';
 		$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
