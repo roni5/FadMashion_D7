@@ -166,7 +166,7 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .itemOptions label {float:left;text-align:left;width:60px;}
 .itemOptions .form-item{margin: 0 0 0 0 !important}
 .form-item-sizes, .form-item-colors{float: left;padding:0 0 18px; height: 20px;}
-.form-item-colors .selectBox a, .form-item-sizes .selectBox a, .form-item-sizes .selectBox-label  {background:none repeat scroll 0 0 #FFFFFF;border:1px solid #CAC9C6;cursor:pointer;float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;height:20px;line-height:20px;margin:-3px 2px 0;min-width:20px;padding: 0 3px;}
+.form-item-colors .selectBox a, .form-item-sizes .selectBox a, .form-item-sizes .selectBox-label  {background:none repeat scroll 0 0 #FFFFFF;border:1px solid #CAC9C6;cursor:pointer;float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;height:20px;line-height:20px;margin:-3px 2px 0;min-width:15px;padding: 0 3px;}
 .form-item-sizes .selectBox-label {height: auto; width: auto; padding: 0 3px;}
 .form-item-sizes .selectBox-options li.selectBox-selected a, .form-item-sizes   .selectBox-label{background:none repeat scroll 0 0 #0F6DA3;color:#FFFFFF;}
 .form-item-colors .selectBox-options li.selectBox-selected {background:url("../images/arrow_color.png") no-repeat scroll center bottom transparent;padding-bottom:5px;}
