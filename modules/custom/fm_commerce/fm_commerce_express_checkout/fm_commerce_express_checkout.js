@@ -39,13 +39,13 @@ jQuery(document).ready(function() {
 	 
 	 //Right column follow
 	 var cart = jQuery(".column2")
-	 if(cart.length) {
+	 /*if(cart.length) {
 	   cart.scrollFollow({
 		 speed: 500,
 		 offset: 20,
 		 container: 'content'
 	   });
-	 }
+	 }*/
 	 
 	 jQuery(".shipping_address_select").change(function() {
 		 window.location.href = full_path + '&shipping=' + this.value;
