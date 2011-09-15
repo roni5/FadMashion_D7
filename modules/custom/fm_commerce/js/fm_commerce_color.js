@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
 		
 			var qty_info = jQuery('#qty-' + jQuery(this).attr('rel'));
 			
-			if(qty_info.attr('val') == '' || qty_info.attr('val') == 0) {
+			if(qty_info.attr('val') == '' || qty_info.attr('val') == '0') {
 				jQuery(this).parent().addClass('selectBox-disabled');
 			}
 			
