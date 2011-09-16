@@ -24,6 +24,10 @@ function fm_deals_notify_theme() {
 	       'nid' => ''
 	    )
     ),
+    'fm_deals_notify_mail' => array(
+	        'variables' => array('product' => NULL, 'shop' => NULL, 'thumb' => NULL),
+          'template' => 'fm_deals_notify_mail'
+     ),
   );
 }
 function fm_deals_notify_add_reminder($nid) {
@@ -99,4 +103,48 @@ function theme_fm_deals_notify_remind_me_button($vars) {
 	}
   
 	return $output;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function fm_deals_notify_cron() {
+	global $user;
+	
+	$nid = 287;
+	$node = node_load($nid);
+	$product = fm_commerce_get_product($node);
+	
+	$params = array(
+    'subject' => 'Deal Reminder: ' . $product->title,
+	  'product' => $product
+  );
+  
+	$email = variable_get('site_mail', 'admin@fadmashion.com');
+  global $user;
+	drupal_mail(
+      'fm_deals_notify',
+      'reminder',
+      'misternyce@gmail.com',
+      language_default(),
+      $params,
+      'Fadmashion <' . $email . '> '
+   ); 
+}
+	/**
+ * Implements hook_mail().
+ */
+function fm_deals_notify_mail($key, &$message, $params) {
+  $message['module'] = 'fm_deals_notify';
+	$message['key'] = $key;
+	$product = $params['product'];
+	$shop = fm_commerce_get_store($product);
+	
+	$message['subject'] = $params['subject'];
+	
+  $image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
+
+	$message['body'] = theme('fm_deals_notify_mail', 
+	                         array('product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	
 }
