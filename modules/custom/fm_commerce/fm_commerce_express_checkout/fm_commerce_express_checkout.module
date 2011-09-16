@@ -315,7 +315,12 @@ function fm_commerce_express_checkout_mail($key, &$message, $params) {
 	$message['key'] = $key;
 	$message['subject'] = $params['subject'];
 	$order = $params['order'];
-	$message['body'] = 'test';
+	
+	$product = fm_commerce_get_order_product($order);
+	$shop = fm_commerce_get_store($product);
+	
+	$message['body'] = theme('fm_commerce_express_checkout_confirmation_mail', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop) );
 	
   return $message;
 }
@@ -432,6 +437,10 @@ function fm_commerce_express_checkout_theme($variables)
         'fm_commerce_express_checkout_confirmation' => array(
 	        'variables' => array('order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL),
           'template' => 'fm_commerce_express_checkout_confirmation'
+        ),
+        'fm_commerce_express_checkout_confirmation_mail' => array(
+	        'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL),
+          'template' => 'fm_commerce_express_checkout_confirmation_mail'
         ),
     );
 }

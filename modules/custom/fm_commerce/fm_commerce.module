@@ -283,6 +283,21 @@ function fm_commerce_get_product($node) {
     return $product;
 }
 
+function fm_commerce_get_order_product($order) {
+	
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	// Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+    switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		 $product = $line_item_wrapper->commerce_product->value();
+       return $product;
+       break;
+    }
+  }
+    
+}
+
 function fm_commerce_get_store($product) {
 	$store_ref = field_get_items('commerce_product', $product, 'field_store_reference');
 	$store_id = $store_ref[0]['store_id'];
