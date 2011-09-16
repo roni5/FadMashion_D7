@@ -1,6 +1,6 @@
 <td valign="top" class="content" style="width: 485px; background: #f3efeb; border-top: 3px solid #dfd7d0; border-bottom: 3px solid #dfd7d0; font-family:Arial, Helvetica, sans-serif; color: #3d3732; padding-top: 16px;">
 <div class="bar" style="background: #A5332C; height: 36px; line-height: 36px; font-size: 18px; font-weight:bold; color: #fff; position: relative; top: -18px; padding-left: 8px;">
-<img align="absmiddle" src="<?php print url('', array('absolute' => true); ?>/images/bar_timer_icon.jpg"> Your deal is on</div>
+<img align="absmiddle" src="<?php print url('', array('absolute' => true)); ?>/images/bar_timer_icon.jpg"> Your deal is on</div>
 
 	<table cellspacing="0" cellpadding="0" class="message" style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2dcd6"><tbody><tr>
 <td class="col1" style="width: 146px; vertical-align: top;"><a href="#" style="color: #1c7eb4;"><?php print $thumb; ?><img src="<?php print $theme_url;?>/images/mail_view_item.jpg"></a></td>
