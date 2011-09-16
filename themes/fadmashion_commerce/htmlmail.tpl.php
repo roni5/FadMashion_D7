@@ -12,5 +12,12 @@
 <tr>
 <td class="headerSide">&nbsp;</td>
 </tr>
-<?php print $body;?>
+<tr>
+<td class="side" style="background:#000; background: #f3efeb; border-top: 3px solid #dfd7d0; border-bottom: 3px solid #dfd7d0;">&nbsp;</td>
+
+<td valign="top" class="content" style="width: 485px; background: #f3efeb; border-top: 3px solid #dfd7d0; border-bottom: 3px solid #dfd7d0; font-family:Arial, Helvetica, sans-serif; color: #3d3732; padding-top: 16px;">
+  <?php print $body;?>
+</td>
+<td class="side" style="background:#000; background: #f3efeb; border-top: 3px solid #dfd7d0; border-bottom: 3px solid #dfd7d0;">&nbsp;</td>
+</tr>
 </tbody></table>
