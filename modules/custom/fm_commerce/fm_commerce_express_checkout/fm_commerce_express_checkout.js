@@ -48,7 +48,7 @@ jQuery(document).ready(function() {
 	 }*/
 	 
 	 jQuery(".shipping_address_select").change(function() {
-		 window.location.href = full_path + '&shipping=' + this.value;
+		 window.location.href = full_path + '?shipping=' + this.value;
 	 });
 });
 
