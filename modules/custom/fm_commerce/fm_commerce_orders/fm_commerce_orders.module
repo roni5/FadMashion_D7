@@ -364,7 +364,7 @@ function fm_commerce_orders_product_summary($line_item_wrapper) {
   }
   $size = $line_item_wrapper->field_order_size->value();
   
-  $thumb = fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
+  $thumb = fm_commerce_product_image_thumb($product, 'fm_product_confirm');
   
   return theme('fm_commerce_orders_product_summary', array('title' => $title, 'qty' => $qty, 'price' => $price, 'color' => $color, 'size' => $size, 'thumb' => $thumb));
 }
