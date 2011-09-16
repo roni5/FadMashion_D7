@@ -284,14 +284,43 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	$order = commerce_order_status_update($order, 'fm_orders_authorized');
 	
 	commerce_checkout_complete($order);
+	
+	$params = array(
+    'subject' => 'Order Confirmation #' . $order->order_id,
+	  'order' => $order
+  );
+  
+  global $user;
+	drupal_mail(
+      'fm_commerce_express_checkout',
+      'order_confirmation',
+      $user->mail,
+      language_default(),
+      $params,
+      $from
+   ); 
   
   //Redirect here
   drupal_goto('express-checkout/confirmation', array('query' => array('order-id' => $order->order_id) ));
 	
+
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fm_commerce_express_checkout_mail($key, &$message, $params) {
+	$message['module'] = 'fm_commerce_express_checkout';
+	$message['key'] = $key;
+	$message['subject'] = $params['subject'];
+	$order = $params['order'];
 	
+	  
+	if($key == 'order_confirmation') {
+	  $message['body'] = 'test';
+	}
 	
-	
-	
+  return $message;
 }
 
 
