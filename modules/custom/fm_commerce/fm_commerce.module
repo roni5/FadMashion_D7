@@ -311,5 +311,26 @@ function fm_commerce_color_array($color) {
 	return array('hex' => $color[0], 'name' => $color[1]);
 } 
 
+function fm_commerce_product_image_thumb($product, $image_style, $attributes = array('class' => 'thumb')) {
+
+  $images = field_get_items('commerce_product', $product, 'field_product_images');
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+  
+  $first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image = array(
+      'path' => $first_image['uri'],
+      'alt' => $first_image['alt'],
+      'title' => $first_image['title'],
+      'attributes' => $attributes,
+      'style_name' => $image_style
+  );
+
+  
+  return theme('image_style', $image);
+}
+
 
 
