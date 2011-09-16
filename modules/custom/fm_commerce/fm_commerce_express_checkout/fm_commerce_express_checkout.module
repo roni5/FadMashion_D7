@@ -315,11 +315,7 @@ function fm_commerce_express_checkout_mail($key, &$message, $params) {
 	$message['key'] = $key;
 	$message['subject'] = $params['subject'];
 	$order = $params['order'];
-	
-	  
-	if($key == 'order_confirmation') {
-	  $message['body'] = 'test';
-	}
+	$message['body'] = 'test';
 	
   return $message;
 }
