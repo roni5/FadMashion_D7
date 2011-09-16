@@ -133,7 +133,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .scheduled .col1, .scheduled .col2{ padding: 12px 0 0 0; height: 50px;}
 .scheduled span{font-size: 18px;}
 .timer .col1, .timer .col2{padding-top: 13px; height: 25px;}
-.timerTbl{height: 52px;border-collapse: seperate;}
+.timerTbl{height: 52px;border-collapse: separate;}
 .sep1{border-right: 1px solid #943530; padding-left: 6px;}
 .sep2{border-left: 1px solid #b65935;padding-right: 6px;}
 
