@@ -321,6 +321,8 @@ function fm_commerce_express_checkout_mail($key, &$message, $params) {
 	
 	$message['body'] = theme('fm_commerce_express_checkout_confirmation_mail', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop) );
+	var_dump($message['body']);
+	exit();
 	
   return $message;
 }
