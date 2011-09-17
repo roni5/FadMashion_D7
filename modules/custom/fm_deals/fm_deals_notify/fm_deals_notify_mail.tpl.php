@@ -7,7 +7,7 @@
 <?php 
 $html = $thumb;
 $html .= '<img style="border: none;" src="' . url('', array('absolute' => true)) . drupal_get_path("theme","fadmashion_commerce")  . '/images/mail_view_item.jpg">';
-print l($html, 'node/' . $nid, array('absolute' => true));
+print l($html, 'node/' . $nid, array('absolute' => true, 'html' => true));
 ?>
 </td>
 
