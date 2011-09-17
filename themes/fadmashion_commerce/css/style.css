@@ -94,7 +94,8 @@ th {border-bottom:3px solid #EEE8E3;}
 .sidebarRight .sidebar{padding-left: 25px;}
 .sidebarRight .info{ width: 338px; }
 .info p{width: 310px; font-size: 13px; margin-top: 5px; margin-bottom: 5px;}
-
+.info #description {font-size: 14px;}
+	
 #sectionHeader{z-index: 10; width: 100%; background: #f5f4f1; position: absolute; left: 0px; padding: 0; }
 #sectionHeader .pad{padding:  13px 0; margin: 0 auto; width: 1000px;}
 #sectionHeader .title {float: left; border-right: 1px solid #dbd6d0; padding-right: 15px;margin-right: 15px; font-weight: 100; font-size: 18px; display: inline; position: relative; top: -2px;}
