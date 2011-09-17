@@ -1,6 +1,6 @@
 
 <?php if ($isShipping) {?>
-<h2><b>$9.99</b> Shipping Anywhere in the US</h2>
+<p><b>$9.99</b> Shipping Anywhere in the US</p>
 <p>Shipping Time: <b>4-5 weeks</b></p>
 <p style="margin-top: 20px;">Read more about <?php print l('Shipping', 'faq');?> in our FAQ's</p>
 <?php } else {?>
