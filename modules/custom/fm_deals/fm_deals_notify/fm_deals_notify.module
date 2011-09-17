@@ -25,7 +25,7 @@ function fm_deals_notify_theme() {
 	    )
     ),
     'fm_deals_notify_mail' => array(
-	        'variables' => array('product' => NULL, 'shop' => NULL, 'thumb' => NULL),
+	        'variables' => array('product' => NULL, 'nid' => NULL, 'shop' => NULL, 'thumb' => NULL),
           'template' => 'fm_deals_notify_mail'
      ),
   );
@@ -117,6 +117,7 @@ function fm_deals_notify_cron() {
 	
 	$params = array(
     'subject' => 'Deal Reminder: ' . $product->title,
+	  'nid' => $nid, 
 	  'product' => $product
   );
   
@@ -145,6 +146,6 @@ function fm_deals_notify_mail($key, &$message, $params) {
   $image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
 
 	$message['body'] = theme('fm_deals_notify_mail', 
-	                         array('product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	                         array('nid' => $params['nid'], 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	
 }
