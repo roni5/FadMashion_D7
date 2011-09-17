@@ -210,6 +210,10 @@ function fm_commerce_orders_support_form() {
   return $form;
 }
 
+function fm_commerce_orders_support_form_submit() {
+	
+}
+
 function fm_commerce_orders_list() {
 	global $user;
 	
