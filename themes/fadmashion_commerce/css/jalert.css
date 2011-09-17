@@ -48,7 +48,6 @@ body{
 	margin-left:4px;
 	margin-right:4px;
 	font-family:"museo-sans-1","museo-sans-2", Helvetica; 
-	font-weight: bold;
 	background-color: transparent;
 }
 
@@ -83,8 +82,8 @@ body{
 }
 
 .msg-warning{
-	border:1px solid #FFCC00;
-	background-color:#FFFF99;
+	border:1px solid #F5F4F1;;
+	background-color: #F5F4F1;
 }
 .msg-warning a:hover{
 	color:#FF3300;
