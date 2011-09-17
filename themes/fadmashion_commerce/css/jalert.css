@@ -49,6 +49,7 @@ body{
 	margin-right:4px;
 	font-family:"museo-sans-1","museo-sans-2", Helvetica; 
 	font-weight: bold;
+	background-color: transparent;
 }
 
 .msg-icon{
