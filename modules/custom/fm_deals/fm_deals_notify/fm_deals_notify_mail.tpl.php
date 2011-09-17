@@ -3,7 +3,7 @@
 <img align="absmiddle" src="<?php print url('', array('absolute' => true)) . drupal_get_path("theme","fadmashion_commerce"); ?>/images/bar_timer_icon.jpg"> Your deal is on</div>
 
 	<table cellspacing="0" cellpadding="0" class="message" style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2dcd6"><tbody><tr>
-<td class="col1" style="width: 146px; vertical-align: top;"><a href="#" style="color: #1c7eb4;"><?php print $thumb; ?><img src="<?php print $theme_url;?>/images/mail_view_item.jpg"></a></td>
+<td class="col1" style="width: 146px; vertical-align: top;"><a href="#" style="color: #1c7eb4;"><?php print $thumb; ?><img src="<?php print url('', array('absolute' => true)) . drupal_get_path("theme","fadmashion_commerce"); ?>/images/mail_view_item.jpg"></a></td>
     <td class="col2" style="vertical-align: top;">
     <div class="itemName" style="font-size: 16px; font-weight: bold; line-height: 20px; margin-bottom: 4px;"><?php print $product->title; ?></div>
 <div class="designer" style="font-size: 12px; padding-bottom: 10px; border-bottom: 1px solid #e2dcd6;">by <?php print $shop->name; ?></div>
