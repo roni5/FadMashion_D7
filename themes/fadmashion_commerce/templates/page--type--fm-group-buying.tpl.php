@@ -1,6 +1,7 @@
 <div align="center" id="wrapper">
 	<div class="container">
 <?php include('header.tpl.php');?>
+<script> fmCloseDropDown(); </script>
 
             
     <?php if(!empty($page['featured'])): ?>
