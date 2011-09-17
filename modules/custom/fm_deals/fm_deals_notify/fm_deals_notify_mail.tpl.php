@@ -15,7 +15,7 @@ print l($html, 'node/' . $nid, array('absolute' => true, 'html' => true));
 <td class="col2" style="vertical-align: top;padding-left: 25px; ">
 <div class="itemName" style="font-size: 16px; font-weight: bold; line-height: 20px; margin-bottom: 4px;"><?php print $product->title; ?></div>
 <div class="designer" style="font-size: 12px; padding-bottom: 10px; border-bottom: 1px solid #e2dcd6;">by <?php print $shop->name; ?></div>
-<p style="margin-bottom: 10px; margin-top: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">This is a reminder that in 15 minutes, the deal you were interested in on Fadmashion will start. Check out the <?php print l('preview page', 'deals/preview', array('absolute' => true));?> and get ready to shop!</p>
+<p style="margin-bottom: 10px; margin-top: 10px; font-size: 14px; line-height: 18px; ">This is a reminder that in 15 minutes, the deal you were interested in on Fadmashion will start. Check out the <?php print l('preview page', 'deals/preview', array('absolute' => true));?> and get ready to shop!</p>
 <p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Enjoy!</p>
 <p class="signature" style="margin-bottom:10px;font-size:12px;line-height:18px;margin-top:0;font-style:italic;">- The Fadmashion Team</p>
 </td>
