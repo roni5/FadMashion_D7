@@ -110,7 +110,7 @@ function theme_fm_deals_notify_remind_me_button($vars) {
  */
 function fm_deals_notify_cron() {
 
-	$next_hour_start_time = mktime(date('G', REQUEST_TIME), 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	$row = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
 	$nid = $row->nid;
 	var_dump($next_hour_start_time);
