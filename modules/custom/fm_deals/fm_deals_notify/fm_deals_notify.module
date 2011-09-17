@@ -109,9 +109,13 @@ function theme_fm_deals_notify_remind_me_button($vars) {
  * Implements hook_cron().
  */
 function fm_deals_notify_cron() {
-	global $user;
+
+	$next_hour_start_time = mktime(date('G', REQUEST_TIME), 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	$row = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
+	$nid = $row->nid;
+	var_dump($next_hour_start_time);
+	var_dump($nid);
 	
-	$nid = 287;
 	$node = node_load($nid);
 	$product = fm_commerce_get_product($node);
 	
@@ -121,16 +125,25 @@ function fm_deals_notify_cron() {
 	  'product' => $product
   );
   
-	$email = variable_get('site_mail', 'admin@fadmashion.com');
-  global $user;
-	drupal_mail(
+  $email = variable_get('site_mail', 'admin@fadmashion.com');
+  
+  $results = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND sent = 0', array(':nid' => $nid));
+	while($row = $results->fetchObject()) {
+		$user = user_load($row->uid);
+		var_dump($row->uid);
+		
+		/*drupal_mail(
       'fm_deals_notify',
       'reminder',
-      'misternyce@gmail.com',
+      $user->mail,
       language_default(),
       $params,
       'Fadmashion <' . $email . '> '
-   ); 
+    );*/
+     
+	}
+	
+	
 }
 	/**
  * Implements hook_mail().
