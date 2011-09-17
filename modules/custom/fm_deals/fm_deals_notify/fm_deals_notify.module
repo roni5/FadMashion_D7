@@ -110,37 +110,43 @@ function theme_fm_deals_notify_remind_me_button($vars) {
  */
 function fm_deals_notify_cron() {
 
+	//Make sure it is 15 minutes before only
+	$next_fortyfive_time = mktime(date('G', REQUEST_TIME), 45, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
-	$row = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
-	$nid = $row->nid;
 	
-	$node = node_load($nid);
-	$product = fm_commerce_get_product($node);
+	if(REQUEST_TIME >= $next_fortyfive_time && REQUEST_TIME <= $next_hour_start_time) {
+	  $row = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
+	  $nid = $row->nid;
 	
-	$params = array(
-    'subject' => 'Deal Reminder: ' . $product->title,
-	  'nid' => $nid, 
-	  'product' => $product
-  );
-  
-  $email = variable_get('site_mail', 'admin@fadmashion.com');
-  
-  $results = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND sent = 0', array(':nid' => $nid));
-	while($row = $results->fetchObject()) {
-		$user = user_load($row->uid);
-		
-		drupal_mail(
-      'fm_deals_notify',
-      'reminder',
-      $user->mail,
-      language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+	  $node = node_load($nid);
+	  $product = fm_commerce_get_product($node);
+	
+	  $params = array(
+      'subject' => 'Deal Reminder: ' . $product->title,
+	    'nid' => $nid, 
+	    'product' => $product
     );
+  
+    $email = variable_get('site_mail', 'admin@fadmashion.com');
+    
+    $results = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND sent = 0', array(':nid' => $nid));
+  	while($row = $results->fetchObject()) {
+		  $user = user_load($row->uid);
+  		
+		  drupal_mail(
+        'fm_deals_notify',
+        'reminder',
+        $user->mail,
+        language_default(),
+        $params,
+        'Fadmashion <' . $email . '> '
+      );
+  	}
      
     db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, ':uid' => $user->uid));
+	} else{
+		var_dump('test');
 	}
-	
 	
 }
 	/**
