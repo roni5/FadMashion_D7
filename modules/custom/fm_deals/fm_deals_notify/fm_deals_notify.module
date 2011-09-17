@@ -113,8 +113,6 @@ function fm_deals_notify_cron() {
 	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	$row = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
 	$nid = $row->nid;
-	var_dump($next_hour_start_time);
-	var_dump($nid);
 	
 	$node = node_load($nid);
 	$product = fm_commerce_get_product($node);
@@ -130,17 +128,17 @@ function fm_deals_notify_cron() {
   $results = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND sent = 0', array(':nid' => $nid));
 	while($row = $results->fetchObject()) {
 		$user = user_load($row->uid);
-		var_dump($row->uid);
 		
-		/*drupal_mail(
+		drupal_mail(
       'fm_deals_notify',
       'reminder',
       $user->mail,
       language_default(),
       $params,
       'Fadmashion <' . $email . '> '
-    );*/
+    );
      
+    db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, ':uid' => $user->uid));
 	}
 	
 	
