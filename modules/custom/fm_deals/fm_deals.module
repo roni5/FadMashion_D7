@@ -458,6 +458,29 @@ function fm_deals_orders($nid) {
 	
 }
 
+//Get social information 
+function fm_deals_fb_social_info($nid = 254 ) {
+	$node = node_load($nid);
+	$product = fm_commerce_get_product($node);
+	
+	$images = field_get_items('commerce_product', $product, 'field_product_images');
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+	$first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image_path = image_style_path($style_name, $first_image['uri']);
+  $description = t('Test1');
+  $name = t('test');
+
+  return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
+}
+  
+  
+	
+	
+	
+}
 
 
 
