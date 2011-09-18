@@ -412,7 +412,7 @@ function fm_commerce_orders_fb_social_info($order_id) {
 
   $percent = fm_deals_percentage($node, $product);
   $title = $product->title;
-  $name = 'Just Bought ' . $title . ' - By ' . $shop->name;
+  $name = 'Just Bought!! ' . $title;
   $status = fm_deals_states_get_status($node);
   $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
   $url = url('node/' . $nid, array('absolute' => true));
