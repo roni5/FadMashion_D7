@@ -114,7 +114,7 @@ function fm_invite_facebookshare( url, thumb_path) {
 			     link: url,
 			     picture: thumb_path,
 			     description: 'Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour!  Request an invitation today and get your own social rewards link to invite friends and earn priority access',
-			     message: 'Just joined FadMashion for up to 60% off Independent Designs! Check it out and share your own link so we can both earn Social Shopping Rewards.'
+			     message: 'Just joined FadMashion for up to 60% off Independent Designs! .'
 			   },
 			   function(response) {
 			   }

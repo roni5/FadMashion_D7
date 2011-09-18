@@ -53,6 +53,8 @@ function fm_initAlertBox() {
 }
 
 
+
+
 function fm_clearAlertBox() {
 	if(jQuery(".msg-box-cont").length){
 		clearTimeout(timeout);
