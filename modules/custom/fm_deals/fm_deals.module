@@ -1,5 +1,7 @@
 <?php
 
+define(FM_DEFAULT_SOCIAL_NID,  254);
+
 /**
  * Implements hook_menu().
  */
@@ -458,8 +460,24 @@ function fm_deals_orders($nid) {
 	
 }
 
-//Get social information 
-function fm_deals_fb_social_info($nid = 254 ) {
+//Get social information
+
+//Default to a node
+function fm_deals_fb_social_info($nid = NULL) {
+	
+	if($nid == NULL) {
+		$nid = FM_DEFAULT_SOCIAL_NID;
+	} else {
+		$path = $_GET['q'];
+		$path = explode('/', $path);
+		if($path[0] == 'node') {
+			$nid = $path[1];
+		} else {
+			$nid = FM_DEFAULT_SOCIAL_NID;
+		} 
+		var_dump($nid);
+	}
+	
 	$node = node_load($nid);
 	$product = fm_commerce_get_product($node);
 	$shop = fm_commerce_get_store($product);
