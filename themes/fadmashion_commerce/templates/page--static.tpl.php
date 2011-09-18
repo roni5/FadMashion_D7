@@ -7,6 +7,7 @@
 	     <div class="pad">
 	       <?php print l('Our Story', 'story');?>
 	       <?php print l('FAQ', 'faq');?>
+	       <a href="http://blog.fadmashion.com" >Blog</a>
 	     </div>
 	   </div> <!-- end column1 -->
 	   <div class="column2">
