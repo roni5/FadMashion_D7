@@ -56,8 +56,8 @@ ul{list-style-type: none;}
 #footer .links{margin-bottom: 15px;}
 #footer .links a{margin-right: 14px;}
 #footer .copyright{font-size: 11px; width: 500px;color: #a0978f;}
-#footer .box{float: right; width: 400px;}
-#footer h1{text-transform: uppercase; font-size: 13px; font-weight: 500;}
+#footer .box{float: right; }
+#footer h1{text-transform: uppercase; font-size: 13px; font-weight: 500; margin-bottom: 10px;}
 #footer .subCol{float: left; width: 150px; text-align:center;}
 #footer .subCol img{margin: 0 3px;}
 
