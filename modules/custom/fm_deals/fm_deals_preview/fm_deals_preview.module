@@ -42,15 +42,7 @@ function fm_deals_preview_page_content($pop_up = false) {
 		node_build_content($node);
 		
 		//Add the percentage savings
-		$sale_price = field_get_items('node', $node, 'field_sale_price');
-		$sale_price = $sale_price[0]['amount'];
- 		
-		$original_price = field_get_items('commerce_product', $product, 'commerce_price');
-		$original_price = $original_price[0]['amount'];
-		
-    $raw_value = round(1 - ($sale_price/$original_price), 2);
-    $value = ($raw_value * 100). '%';
-    $node->sale_percentage = $value;
+    $node->sale_percentage = fm_deals_percentage($node);
     
     //Check for what state the item is in and attach to node
     $status = fm_deals_states_get_status($node);
