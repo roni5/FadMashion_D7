@@ -479,7 +479,7 @@ function fm_deals_fb_social_info($nid = NULL) {
   $first_image = $first_image[0];
   
   
-  $image_path = image_style_url('fm_product_confirm', $first_image['uri']);
+  $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
   
 
   $percent = fm_deals_percentage($node, $product);
