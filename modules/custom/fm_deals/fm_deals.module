@@ -459,7 +459,7 @@ function fm_deals_orders($nid) {
 }
 
 //Get social information 
-function fm_deals_fb_social_info($nid = 236 ) {
+function fm_deals_fb_social_info($nid = 254 ) {
 	$node = node_load($nid);
 	$product = fm_commerce_get_product($node);
 	$shop = fm_commerce_get_store($product);
