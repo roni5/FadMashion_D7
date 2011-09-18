@@ -6,7 +6,7 @@
 	   <div class="column1">
 	     <div class="pad">
 	       <?php print l('Our Story', 'story');?>
-	       <?php print l('People', 'people');?>
+	       <?php print l('About Us', 'about');?>
 	       <?php print l('FAQ', 'faq');?>
 	     </div>
 	   </div> <!-- end column1 -->
