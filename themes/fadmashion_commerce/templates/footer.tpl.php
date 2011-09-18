@@ -11,7 +11,7 @@
     </div>
 </div>
     
-        <div class="links">   <a href="http://blog.fadmashion.com" >Blog</a><a href="mailto:info@fadmashion.com" >Contact Us</a><?php print l('FAQ', 'faq' ); ?></div>
+        <div class="links"><?php print l('Our Story');?><a href="http://blog.fadmashion.com" >Blog</a><a href="mailto:info@fadmashion.com" >Contact Us</a><?php print l('FAQ', 'faq' ); ?><?php print l('People', 'people');?></div>
         <div class="copyright">Copyright &copy; 2011, Fadmashion</div>
         <br clear="all">
     </div>
