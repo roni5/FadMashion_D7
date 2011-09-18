@@ -1,20 +1,18 @@
 <div id="header">
- <div class="notMember">
-   <?php 
-   global $user;
-   if($user->uid) {
-   	  $output = l('Continue Shopping', 'deals', array('attributes' => array('class' => array('button') ) ));
-   }
-   else {
-   	  $output = 'Not a member yet?';
-   	  $output .= l('Sign Up', 'intro/sign-up/email', array('attributes' => array('class' => array('button', 'red') ) ));
-   }
-   print $output;
-   ?>
-   
- </div>
  
    <div class="row2">
+          <?php 
+              global $user;
+              if($user->uid) {
+   	             $output = l('View Live Deal', 'deals', array('attributes' => array('class' => array('button', 'red') ) ));
+              }
+              else {
+   	             $output = l('Login', '', array('attributes' => array('class' => 'login') ));
+   	             $output .= l('Create my free account', 'intro/sign-up/email', array('attributes' => array('class' => array('button', 'red') ) ));
+               }
+              print $output;
+          ?>
+   
        <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
          <img src="<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
       </a>
