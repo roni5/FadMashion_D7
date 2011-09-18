@@ -464,7 +464,7 @@ function fm_deals_orders($nid) {
 function fm_deals_fb_social_info($nid = NULL) {
 	
 	if($nid == NULL) {
-		$nid = FM_DEFAULT_SOCIAL_NID;
+		$nid = fm_deals_get_default_deal();
 	}
 	$node = node_load($nid);
 	$product = fm_commerce_get_product($node);
