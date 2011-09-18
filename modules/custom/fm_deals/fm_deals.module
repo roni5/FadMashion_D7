@@ -474,7 +474,7 @@ function fm_deals_fb_social_info($nid = 254 ) {
   $image_path = image_style_url('fm_product_confirm', $first_image['uri']);
   
 
-  $percent = fm_deals_percentage($node);
+  $percent = fm_deals_percentage($node, $product);
   $title = $product->title;
   $name = $percent . ' off' . $title . ' - By ' . $shop->name;
   $status = fm_deals_states_get_status($node);
@@ -484,13 +484,18 @@ function fm_deals_fb_social_info($nid = 254 ) {
   return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
 }
 
-function fm_deals_percentage($node) {
+function fm_deals_percentage($node, $product = NULL) {
+	  if($product == NULL) {
+	  	$product = fm_commerce_get_product($node);
+	  }
+	  
 	  //Get the percentage savings
 		$sale_price = field_get_items('node', $node, 'field_sale_price');
 		$sale_price = $sale_price[0]['amount'];
- 		
+		
 		$original_price = field_get_items('commerce_product', $product, 'commerce_price');
 		$original_price = $original_price[0]['amount'];
+		
 		
     $raw_value = round(1 - ($sale_price/$original_price), 2);
     $value = ($raw_value * 100). '%';
