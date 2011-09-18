@@ -475,12 +475,6 @@ function fm_deals_fb_social_info($nid = 254 ) {
 
   return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
 }
-  
-  
-	
-	
-	
-}
 
 
 
