@@ -7,7 +7,7 @@
     
       <?php $social_info = fm_deals_fb_social_info();?>
       <a href="javascript:void(0);" onClick="javascript:fm_invite_facebookshare( '<?php print fm_invite_get_invite_url();?>', '<?php print $social_info['image_path']; ?>');"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_share_facebook.jpg"></a>
-      <a target="_blank" href="http://twitter.com/intent/tweet?text=<?php print fm_invite_twitter_text()?>"></a><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_share_twitter.jpg"></a>
+      <a target="_blank" href="http://twitter.com/intent/tweet?text=<?php print fm_invite_twitter_text()?>"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_share_twitter.jpg"></a>
     </div>
 </div>
     
