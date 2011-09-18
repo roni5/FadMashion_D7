@@ -462,6 +462,7 @@ function fm_deals_orders($nid) {
 function fm_deals_fb_social_info($nid = 254 ) {
 	$node = node_load($nid);
 	$product = fm_commerce_get_product($node);
+	$shop = fm_commerce_get_store($product);
 	
 	$images = field_get_items('commerce_product', $product, 'field_product_images');
 	//Get First Image
@@ -469,10 +470,15 @@ function fm_deals_fb_social_info($nid = 254 ) {
 	$first_image = field_get_items('node', $first_image, 'field_product_image');
   $first_image = $first_image[0];
   
+  
   $image_path = image_style_url('fm_product_confirm', $first_image['uri']);
-  $description = t('Test1');
-  $name = t('test');
+  
+  $title = $product->title;
+  $name = $title . ' - By ' . $shop->name;
+  $status = fm_deals_states_get_status($node);
+  $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
 
+  
   return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
 }
 
