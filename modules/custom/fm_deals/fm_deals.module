@@ -469,7 +469,7 @@ function fm_deals_fb_social_info($nid = 254 ) {
 	$first_image = field_get_items('node', $first_image, 'field_product_image');
   $first_image = $first_image[0];
   
-  $image_path = image_style_path($style_name, $first_image['uri']);
+  $image_path = image_style_url('fm_product_confirm', $first_image['uri']);
   $description = t('Test1');
   $name = t('test');
 

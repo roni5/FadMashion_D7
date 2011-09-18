@@ -27,19 +27,3 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
 <p class="signature" style="margin-bottom:10px;font-size:12px;line-height:18px;margin-top:0;font-style:italic;">- The Fadmashion Team</p>
 <br><br>
 
-
-//////////
-
-http://www.fadmashion.com/sites/default/files/styles/fm_main_product_image/public/Look2_0.jpg
-
-<?php $deals_url = url('deals', array('absolute' => true)); $theme_path = drupal_get_path("theme","fadmashion_commerce");?>
-
-<div class="tweet">Discover beautiful contemporary dresses, bags and accessories at exclusive prices, one designer at a time.  <a href="javascript:fmDisplayDropDown()">How it Works.</a></div>
-
-<div class="icons">
-<a href="javascript:void(0);" onClick="javascript:fm_deals_facebookshare( '<?php print $deals_url?>', '<?php print $theme_path?>');"><img src="/<?php print $theme_path?>/images/icon_share_facebook.jpg"></a>
-<a href="#"><img src="/<?php print $theme_path;?>/images/icon_share_twitter.jpg"></a></div> 
-
-<div class="text">Share deal with friends!</div>
-
-<?php drupal_add_js(drupal_get_path('module', 'fm_carousel').'/fm_carousel.js'); ?>
