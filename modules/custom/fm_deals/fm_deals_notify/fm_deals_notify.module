@@ -1,5 +1,7 @@
 <?php
 
+define(FM_NOTIFY_MINUTES, 5);
+
 function fm_deals_notify_menu() {
 	
 	$items['deals/notify/%'] = array(
@@ -46,7 +48,7 @@ function fm_deals_notify_add_reminder($nid) {
       ))
     ->execute();
     
-    $message =  t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
+    $message =  t('Wise Choice. Expect a reminder e-mail from us ' . FM_NOTIFY_MINUTES . ' minutes before this deal starts');
     
     $replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid));
     $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
