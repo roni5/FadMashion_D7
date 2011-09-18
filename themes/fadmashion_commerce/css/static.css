@@ -86,7 +86,7 @@ ul{list-style-type: none;}
 
 
 .subPhoto{float: left; margin: 6px 30px 20px -70px; text-align:right;}
-.subPhoto img{margin-bottom: 5px;}
+.subPhoto img{margin-bottom: 5px; width: 300px}
 .subPhoto span{color: #a49c8b; font-size: 13px; }
 .pullquote{color: #b83838; font-size: 21px; font-weight:100; padding: 20px 20px 40px 310px; line-height:24px; }
 
