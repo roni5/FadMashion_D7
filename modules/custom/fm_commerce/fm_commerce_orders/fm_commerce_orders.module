@@ -417,5 +417,5 @@ function fm_commerce_orders_fb_social_info($order_id) {
   $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
   $url = url('node/' . $nid, array('absolute' => true));
   
-  return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
+  return array('image_path' => $image_path, 'description' => $description, 'name' => $name, 'message' => $message, 'url' => $url);
 }
