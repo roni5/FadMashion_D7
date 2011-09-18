@@ -7,8 +7,9 @@
    	             $output = l('View Live Deal', 'deals', array('attributes' => array('class' => array('button', 'red') ) ));
               }
               else {
-   	             $output = l('Login', '', array('attributes' => array('class' => 'login') ));
+   	             
    	             $output .= l('Create my free account', 'intro/sign-up/email', array('attributes' => array('class' => array('button', 'red') ) ));
+   	             $output .= l('Login', '', array('attributes' => array('class' => 'login') ));
                }
               print $output;
           ?>
