@@ -460,10 +460,8 @@ function fm_deals_orders($nid) {
 	
 }
 
-//Get social information
-
-//Default to a node
-function fm_deals_fb_social_info($nid = NULL) {
+//Gets social information
+function fm_deals_social_info($nid = NULL) {
 	
 	if($nid == NULL) {
 		$nid = FM_DEFAULT_SOCIAL_NID;
@@ -487,10 +485,11 @@ function fm_deals_fb_social_info($nid = NULL) {
   $name = $percent . ' off ' . $title . ' - By ' . $shop->name;
   $status = fm_deals_states_get_status($node);
   $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
-
   
   return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
 }
+
+
 
 function fm_deals_percentage($node, $product = NULL) {
 	  if($product == NULL) {
