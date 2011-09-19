@@ -207,13 +207,26 @@ function fm_deals_preview_block_content($nids) {
   return $output;
 }
 
-function fm_deals_preview_get_image($product) {
+function fm_deals_preview_get_image($product, $color = '') {
 	$images = field_get_items('commerce_product', $product, 'field_product_images');
-	//Get First Image
-  $first_image = node_load($images[0]['nid']);
-  
+    
+	$first_image = node_load($images[0]['nid']);
   $first_image = field_get_items('node', $first_image, 'field_product_image');
   $first_image = $first_image[0];
+    
+	/*Images with Color
+	if(empty($color)) {
+
+	} else {
+		$color = explode('_', $color );
+	  $color_name = $color[1];
+	  var_dump();
+	  foreach($images as $image) {
+	  	$image_node = node_load($image['nid']);
+	  	var_dump($image_node->field_color_code);
+	  	
+	  }
+	}*/
   
   $image = array(
       'path' => $first_image['uri'],

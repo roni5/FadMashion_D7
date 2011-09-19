@@ -102,6 +102,10 @@ function fm_commerce_paypal_wpp_capture($order_id) {
   // Save the transaction information.
   commerce_payment_transaction_save($transaction);
   
+  
+  //TODO: Send out Capture Information.  
+  //drupal_mail();
+  
   drupal_goto();
 	
 }

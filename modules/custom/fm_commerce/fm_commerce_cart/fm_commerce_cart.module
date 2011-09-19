@@ -79,10 +79,12 @@ function fm_commerce_cart_block_view($block_name = '') {
        $title = $product->title;
        $retail_price = $line_item_wrapper->commerce_total->value();
        
+       $color = $line_item_wrapper->field_order_color->value();
+       $size = $line_item_wrapper->field_order_size->value();
        $product_line_items[] = theme('fm_commerce_cart_line_item', array('title' => $title, 
                                      'price' => commerce_currency_format($retail_price['amount'], $retail_price['currency_code']))
                                     ) . 
-                               theme('fm_commerce_orders_extra_info', array('color' => $line_item_wrapper->field_order_color->value(), 'size' => $line_item_wrapper->field_order_size->value()));
+                               theme('fm_commerce_orders_extra_info', array('color' => $color, 'size' => $size));
   			break;
   		
   		case 'shipping':
@@ -111,7 +113,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   
   $output .= '<div class="pad">';
  
-  $output .= fm_deals_preview_get_image($product);
+  $output .= fm_deals_preview_get_image($product, $color);
   $output .= implode('', $product_line_items);
   $output .= implode('', $shipping_line_items);
   $output .= implode('', $discount_line_items);
