@@ -45,10 +45,11 @@ function fm_deals_list($entities) {
     
     //var_dump($node->field_start_time['und'][0]['timezone']);
     $orders = fm_deals_orders($node->nid);
+    $qty_purchased = fm_deals_qty_purchased($node->nid);
     
     $rows[] = array(l($product->title, 'node/' . $node->nid),
       $qty_min, 
-      fm_deals_states_status_msg($node, $qty),
+      fm_deals_states_status_msg($node, $qty_purchased),
       (count($orders) > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . count($orders) .  ')' : t('No Orders Placed')), 
       fm_deals_has_stock($node->nid) ? 'Has Stock' : '<span style="color: red;">Out of Stock</span>',
       $store->name,
