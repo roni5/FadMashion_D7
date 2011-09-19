@@ -50,7 +50,7 @@ function fm_deals_list($entities) {
     $rows[] = array(l($product->title, 'node/' . $node->nid),
       $qty_min, 
       fm_deals_states_status_msg($node, $qty_purchased),
-      (count($orders) > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . count($orders) .  ')' : t('No Orders Placed')), 
+      ($qty_purchased > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . $qty_purchased .  ')' : t('No Orders Placed')), 
       fm_deals_has_stock($node->nid) ? 'Has Stock' : '<span style="color: red;">Out of Stock</span>',
       $store->name,
       l('edit deal', 'node/'.$node->nid.'/edit') . ' | ' . l('edit product', 'admin/commerce/products/' . $product->product_id  . '/edit' )
