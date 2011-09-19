@@ -72,6 +72,7 @@ function fm_deals_admin_orders($nid) {
     $rows = array();
     foreach ($orders as $order) {
     	$status = $order->status;
+    	var_dump($status);
     	switch ($status) {
     		case 'fm_orders_authorized':
     		  $actions = l('Capture', 'admin/fadmashion/wpp/capture/' . $order->order_id, array('query' => drupal_get_destination()) );
