@@ -165,6 +165,16 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	  $first_name = $edit['field_first_name']['und'][0]['value'];
 	  $last_name = $edit['field_last_name']['und'][0]['value'];
 	  $edit['name'] = $first_name . ' ' . $last_name;
+	  
+	  //If Duplicate name, generate another username with format "_num"
+	  $result = db_query("SELECT COUNT(*) FROM {users} WHERE name = :name", array(':name' => $edit['name']));
+    $i = 1;
+	  while($result->fetchField()) {
+       $last_name .= '_' .$i;
+       $edit['name'] = $first_name . ' ' . $last_name;
+       $result = db_query("SELECT COUNT(*) FROM {users} WHERE name = :name", array(':name' => $edit['name']));
+     };
+  
 	}
 	else { 
 	  $fbu = fb_facebook_user();
@@ -206,7 +216,6 @@ function fm_users_register_submit($form, &$form_state) {
 		user_save($user, array('status' => 0));
 		//Redirect here
 	  drupal_set_message(t('Fadmashion is currently in private launch. You are now in the queue and will receive an email from us when your invitation is prepared.'), 'error');
-    $id  = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
 	} else {
 		 user_save($user, array('status' => 1));
      drupal_goto();		
@@ -214,8 +223,8 @@ function fm_users_register_submit($form, &$form_state) {
    //check it didn't request an invite, than add it and generate process.  
   $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
 	$obj = $result->fetchObject();
-	if(!$obj) {
-		  
+	
+	if(!$obj) {	  
 		$referred_by_id = null;
 	  if($inviter = fm_invite_load_from_session()) {
     	 	$referred_by_id = $inviter->id;
@@ -230,9 +239,9 @@ function fm_users_register_submit($form, &$form_state) {
             'link_back_views' => 0
           ))->execute();
    
-    if(isset($_SESSION[FM_INVITE_SESSION])) {
-	     unset($_SESSION[FM_INVITE_SESSION]);
-   } 
+       if(isset($_SESSION[FM_INVITE_SESSION])) {
+	       unset($_SESSION[FM_INVITE_SESSION]);
+        } 
   
        
         // Send the confirmation email.
@@ -272,13 +281,12 @@ function fm_users_check_activate($mail) {
 	$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $mail));
   $mail = $result->fetchObject();
 	if($mail) {
-		if($mail->active) {
-			return true;
-		}
-		else {
-			return false;
-		}
+	  return true;
 	}
+	else {
+		return false;
+	}
+	
 	return false;
 }
 

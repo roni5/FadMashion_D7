@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 	  		   type: "post",
 	  	 },
 	     messages: { 
-	           remote: jQuery.format('E-mail registered already.  <div><a href="#">Forgot your Password?</a></div>')
+	           remote: jQuery.format('E-mail registered already.  <div><a href="http://www.fadmashin.com">Login?</a></div>')
 	     },
 	});
     jQuery("#user-register-form  #edit-field-tos-und").rules("add", {
