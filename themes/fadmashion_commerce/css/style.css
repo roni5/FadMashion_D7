@@ -44,10 +44,10 @@ label{font-weight: normal;}
 
 .message_box { color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
 .message_box .error, .messages.error   { background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
-.messages {width: auto; font-size: 14px; -moz-border-radius:4px;  -webkit-border-radius: 4px;}
+.messages {width: auto !important; font-size: 14px; -moz-border-radius:4px;  -webkit-border-radius: 4px;}
 .messages a{text-decoration:underline;}
 
-.messages.status {background:none repeat scroll 0 0 #62973D; padding:5px; width:180px; color: #fff; border: 0px solid #000;}
+.messages.status {background:none repeat scroll 0 0 #62973D; padding:5px; color: #fff; border: 0px solid #000;width: auto !important; }
 
 label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; color: #fff; border: 0px solid #000; }
 
