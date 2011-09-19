@@ -335,7 +335,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 }
 
 function fm_invite_email_message() {
-	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch. Sign up too and we can both shop up to 60% off independent designs. To get priority access plus free shipping just signup and invite your friends!');
+	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch. Sign up too and we can both shop up to 60% off independent designs. To get priority access just signup and invite your friends!');
 	return $message;
 }
 

@@ -170,9 +170,10 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	  $result = db_query("SELECT COUNT(*) FROM {users} WHERE name = :name", array(':name' => $edit['name']));
     $i = 1;
 	  while($result->fetchField()) {
-       $last_name .= '_' .$i;
-       $edit['name'] = $first_name . ' ' . $last_name;
+       $new_last_name = $last_name . '_' .$i;
+       $edit['name'] = $first_name . ' ' . $new_last_name;
        $result = db_query("SELECT COUNT(*) FROM {users} WHERE name = :name", array(':name' => $edit['name']));
+       $i++;
      };
   
 	}
