@@ -431,12 +431,12 @@ function fm_deals_group_details(&$vars) {
 
 function fm_deals_qty_purchased($nid) {
 	//TODO: PERFORMANCE: Do this all in one query
-	$orders = fm_deals_orders($nid);
+	$orders = fm_deals_orders($nid, array('fm_orders_authorized', 'fm_orders_captured'));
 	
 	return count($orders);
 }
 
-function fm_deals_orders($nid) {
+function fm_deals_orders($nid, $status = array('fm_orders_authorized', 'fm_orders_captured', 'fm_orders_voided') ) {
 
 	$orders = array();
 	//load line items that reference this node id
@@ -451,7 +451,7 @@ function fm_deals_orders($nid) {
   foreach($line_item_results['commerce_line_item'] as $line_item_id => $commerce_line_item) {
   	 $line_item = commerce_line_item_load($line_item_id);
   	 $order = commerce_order_load($line_item->order_id);
-  	 if(in_array($order->status, array('fm_orders_authorized', 'fm_orders_captured'))) {
+  	 if(in_array($order->status, $status )) {
   	 	$orders[] = $order;
   	 }
 	}
