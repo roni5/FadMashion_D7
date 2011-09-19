@@ -113,6 +113,12 @@ function fm_commerce_paypal_wpp_capture($order_id) {
 //Void the payment (if the deal is cancelled after some are payed out)
 function fm_commerce_paypal_wpp_void($order_id) {
 	$order = commerce_order_load($order_id);
+	  
+	$product = fm_commerce_get_order_product($order);
+  $options = fm_commerce_get_order_options($order);
+  var_dump($options);
+  exit();
+  
 	$order->payment_methods = array();
   rules_invoke_all('commerce_payment_methods', $order);
 	$payment_method = $order->payment_methods['paypal_wpp|commerce_payment_paypal_wpp'];
@@ -179,9 +185,7 @@ function fm_commerce_paypal_wpp_void($order_id) {
   // Set the final message.
   $transaction->message = implode('<br />', $message);
   
-  $product = fm_commerce_get_order_product($order);
-  $options = fm_commerce_get_order_options($order);
-  var_dump($options);
+
   if(empty($options['color']) && empty($options['size'])) { 
      fm_commerce_stock_adjust($product, array('none' => array('qty' => 1) ));
   }
