@@ -1,6 +1,6 @@
 <?php
 
-define(FM_NOTIFY_MINUTES, 5);
+define('FM_NOTIFY_MINUTES', 5);
 
 function fm_deals_notify_menu() {
 	

@@ -1,6 +1,6 @@
 <?php
 
-define(STOCK_FIELD, 'field_fm_commerce_stock');
+define('STOCK_FIELD', 'field_fm_commerce_stock');
 
 //Define a qunatity field breakdown
 /**

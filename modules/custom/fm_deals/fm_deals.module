@@ -1,6 +1,6 @@
 <?php
 
-define(FM_DEFAULT_SOCIAL_NID,  236);
+define('FM_DEFAULT_SOCIAL_NID',  236);
 
 /**
  * Implements hook_menu().

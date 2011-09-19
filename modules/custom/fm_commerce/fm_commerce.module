@@ -1,6 +1,6 @@
 <?php
 
-define(FM_SUPPORT_MAIL, "support@fadmashion.com");
+define('FM_SUPPORT_MAIL', "support@fadmashion.com");
 
 /**
  * Implements hook_form_alter().

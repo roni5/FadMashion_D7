@@ -1,7 +1,7 @@
 <?php
 
-define(PREVIEW_SPOTS, 6);
-define(PREVIEW_BLOCK_SPOTS, 1);
+define('PREVIEW_SPOTS', 6);
+define('PREVIEW_BLOCK_SPOTS', 1);
 
 /**
  * Implements hook_menu().
