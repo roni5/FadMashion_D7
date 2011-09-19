@@ -46,7 +46,7 @@ function fm_deals_list($entities) {
     //var_dump($node->field_start_time['und'][0]['timezone']);
     $orders = fm_deals_orders($node->nid);
     $qty_purchased = fm_deals_qty_purchased($node->nid);
-    $num = db_query("SELECT COUNT(*) FROM {fm_deals_schedule} WHERE nid = :nid", array(':nid' => $node->nid));
+    $num = db_query("SELECT COUNT(*) FROM {fm_deals_schedule} WHERE nid = :nid", array(':nid' => $node->nid))->fetchField();
     
     $rows[] = array($num, l($product->title, 'node/' . $node->nid),
       $qty_min, 
