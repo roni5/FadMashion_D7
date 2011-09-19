@@ -33,7 +33,7 @@ function fm_deals_states_status_msg($node, $qty_purchased) {
 	}
 	else {
 		$qty_left = $qty_min - $qty_purchased;
-		$output = '<div class="deal-off">' . $qty_left . t(' to get deal') . '</div>';
+		$output = '<div class="deal-off">' . $qty_left . t(' more to get deal') . '</div>';
 	}
 	return $output;
 	
