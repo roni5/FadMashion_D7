@@ -64,8 +64,11 @@ function fm_deals_list($entities) {
 
 function fm_deals_admin_orders($nid) {
 	$orders = fm_deals_orders($nid);
+	$deal_node = node_load($nid);
 	$orders = array_reverse($orders);
 	$statuses = fm_commerce_orders_commerce_order_status_info();
+	
+	$output = '<h1>' . $deal_node->title . '</h1>';
 	
 	if(count($orders)) {
 	  $header = array('Order Id',  'Name', 'Time', 'Payment Status', 'Unpaid Balance', 'Actions');
@@ -94,9 +97,9 @@ function fm_deals_admin_orders($nid) {
    	  );
     }
    	
-   	$output =  theme ('table', array('header' => $header, 'rows' => $rows));
+   	$output .=  theme ('table', array('header' => $header, 'rows' => $rows));
   } else {
-  	$output = t('No Orders Have Been Placed Yet for this Deal');
+  	$output .= t('No Orders Have Been Placed Yet for this Deal');
   }
   
 	return $output;
