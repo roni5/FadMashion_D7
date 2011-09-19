@@ -300,6 +300,23 @@ function fm_commerce_get_order_product($order) {
     
 }
 
+function fm_commerce_get_order_options($order) {
+	
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	// Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+    switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		 $color = $line_item_wrapper->field_order_color->value();
+	     $size = $line_item_wrapper->field_order_size->value();
+       return array('color' => $color, 'size' => $size);
+       break;
+    }
+  }  
+}
+	  
+	  
+
 function fm_commerce_get_store($product) {
 	$store_ref = field_get_items('commerce_product', $product, 'field_store_reference');
 	$store_id = $store_ref[0]['store_id'];

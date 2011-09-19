@@ -178,6 +178,17 @@ function fm_commerce_paypal_wpp_void($order_id) {
 
   // Set the final message.
   $transaction->message = implode('<br />', $message);
+  
+  $product = fm_commerce_get_order_product($order);
+  $options = fm_commerce_get_order_options($order);
+  if(empty($options['color']) && empty($options['size'])) { 
+     fm_commerce_stock_adjust($product, array('none' => array('qty' => 1) ));
+  }
+  else { 
+    // Subtract the sold amount from the available stock level.
+     fm_commerce_stock_adjust($product, array('color' => array('value' => $options['color'], 'qty' => 1), 'size' => array('value' => $options['size'], 'qty' => 1)) );
+  }
+    
 
   // Save the transaction information.
   commerce_payment_transaction_save($transaction);
