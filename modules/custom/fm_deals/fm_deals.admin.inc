@@ -29,7 +29,7 @@ function fm_deals_admin_page() {
 
 function fm_deals_list($entities) {
 	 
-  $header = array('Product Name',  'Qty Min', 'Deal Status', 'Orders', 'Stock' ,'Store Name', 'Operations' );
+  $header = array('# Rotated', 'Product Name',  'Qty Min', 'Deal Status', 'Orders', 'Stock', 'Store Name', 'Operations' );
   $rows = array();
   foreach($entities['node'] as $node) {
   	$node = node_load($node->nid);
@@ -46,8 +46,9 @@ function fm_deals_list($entities) {
     //var_dump($node->field_start_time['und'][0]['timezone']);
     $orders = fm_deals_orders($node->nid);
     $qty_purchased = fm_deals_qty_purchased($node->nid);
+    $num = db_query("SELECT COUNT(*) FROM {fm_deals_schedule} WHERE nid = :nid", array(':nid' => $node->nid));
     
-    $rows[] = array(l($product->title, 'node/' . $node->nid),
+    $rows[] = array($num, l($product->title, 'node/' . $node->nid),
       $qty_min, 
       fm_deals_states_status_msg($node, $qty_purchased),
       (count($orders) > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . $qty_purchased .  ')' : t('No Orders Placed')), 
