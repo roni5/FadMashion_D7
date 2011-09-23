@@ -549,7 +549,7 @@ function fm_deals_block_view($block_name = '') {
 			$i++;
 		}
 		
-  	$content = theme('item_list', array('items' => $admin_links));
+  	$content = '<div style="margin: 15px 0;">' . theme('item_list', array('items' => $admin_links)) . '</div>';
     $block = array(
       'content' => $content
     );
