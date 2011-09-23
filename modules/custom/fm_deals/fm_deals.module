@@ -529,7 +529,7 @@ function fm_deals_block_info() {
 /*
  * Implements hook_block_view
  */
-function fm_deals_preview_block_view($block_name = '') {
+function fm_deals_block_view($block_name = '') {
   if($block_name == 'fm_deals_admin_links') {
   	
   	$this_nid = arg(1);
