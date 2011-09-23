@@ -237,7 +237,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-deals-preview-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 #upNext .button {display:block;font-size:12px;height:30px;line-height:30px;margin:12px auto 0;padding:0;width:160px;}
 
-.feedback {margin-top: 15px;}
+.feedback {margin: 15px 0;}
 .feedback h1{font-size: 16px; margin-bottom: 8px;}
 .feedback .row{font-size: 13px; background: url(../images/dotted_horizontal.png) top left repeat-x; padding: 15px 0;}
 .feedback .row h1{font-size: 15px;}
