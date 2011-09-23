@@ -2,8 +2,7 @@
 	<div class="container">
 <?php include('header.tpl.php');?>
 <script> fmCloseDropDown(); </script>
-
-            
+          
     <?php if(!empty($page['featured'])): ?>
       <div id="sectionHeader">
       <div class="pad">

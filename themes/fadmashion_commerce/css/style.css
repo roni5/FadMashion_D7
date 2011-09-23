@@ -142,6 +142,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .timerTbl{height: 52px;border-collapse: separate;}
 .sep1{border-right: 1px solid #943530; padding-left: 6px;}
 .sep2{border-left: 1px solid #b65935;padding-right: 6px;}
+.timezone{color: #cbbeb2;}
 
 .timerTbl td{vertical-align: middle; background-color: transparent; }
 .countdown{float: left; }

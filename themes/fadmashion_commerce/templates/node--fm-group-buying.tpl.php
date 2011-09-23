@@ -97,7 +97,7 @@
 
 <?php print $product_details; ?>    
 <?php print render($detail_tabs); ?>  
-<?php if($is_admin) {print '<h2>Admin Links</h2>'; print theme('item_list', array('items' => $admin_links));}?>                
+                
 </div> <!--end info -->
 
 <div class="designerInfo">

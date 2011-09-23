@@ -371,7 +371,7 @@ function fm_deals_group_details(&$vars) {
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
 		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
-		$timerDetails .= '<div style="text-align: center; padding-top: 8px;"><span>' . date("g:ia", $unixStartTime) . ' est</span></div>';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;"><span>' . date("g:ia", $unixStartTime) . ' <span class="timezone">EST</span></span></div>';
 		
 		$timerDetails .= '</div>';
 		
@@ -484,7 +484,7 @@ function fm_deals_fb_social_info($nid = NULL) {
   $title = $product->title;
   $name = $percent . ' off ' . $title . ' - By ' . $shop->name;
   $status = fm_deals_states_get_status($node);
-  $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
+  $description = t('Fadmashion offers Independent fashion designs at up to 60% off retail price with fresh new deals every hour! ');
   
   return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
 }
@@ -508,6 +508,53 @@ function fm_deals_percentage($node, $product = NULL) {
     $value = ($raw_value * 100). '%';
     return $value;
     
+}
+
+//Admin links
+
+/*
+ * implements hook_block_info()
+ */
+function fm_deals_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_deals_admin_links'] = array(
+	  'info' => t('Admin Links for Deal'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_deals_preview_block_view($block_name = '') {
+  if($block_name == 'fm_deals_admin_links') {
+  	
+  	$this_nid = arg(1);
+  	$node = node_load($this_nid);
+  	$product = fm_commerce_get_product($node);
+		$store = fm_commerce_get_store($product);  
+		
+		
+		$admin_links = array();
+		$admin_links[] = l('Edit Deal', 'node/' . $node->nid . '/edit');
+		$admin_links[] = l('Edit Product', 'admin/commerce/products/' . $product->product_id  . '/edit' );
+		$admin_links[] = l('Edit Shop', 'admin/commerce/stores/' . $store->store_id  . '/edit' );
+		$i = 1;
+		$images = field_get_items('commerce_product', $product, 'field_product_images');
+		foreach($images as $image) {
+			$admin_links[] = l('Edit Image ' . $i, 'node/' . $image['nid'] . '/edit');
+			$i++;
+		}
+		
+  	$content = theme('item_list', array('items' => $admin_links));
+    $block = array(
+      'content' => $content
+    );
+  }
+  return $block;
 }
 
 
