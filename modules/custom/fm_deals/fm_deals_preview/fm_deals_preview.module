@@ -176,11 +176,9 @@ function fm_deals_preview_block_nids() {
 	
 	//If there are no preview spots available, generate them
  if(!$results->rowCount()) {
- 	  var_dump('text');
  	  $next_hour_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 		$time_slot = fm_deals_time_slots(PREVIEW_BLOCK_SPOTS, $next_hour_time);
 	  $nids = fm_deals_random_nids(PREVIEW_BLOCK_SPOTS);
-	  var_dump($nids);
 	  fm_deals_insert_schedule($time_slot, $nids);
 	  return $nids;
 	} else {
