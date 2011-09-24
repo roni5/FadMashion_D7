@@ -156,6 +156,10 @@ function fm_deals_preview_block_view($block_name = '') {
 			$header = '<h2 class="rounded-top" style="background-color: #B83838;">On Sale Now!</h2>';
 		}
 		
+		if(empty($nids)) {
+			watchdog('fm', 'error getting preview nid');
+		}
+		
 	
   	$content = $header . fm_deals_preview_block_content($nids);
     $block = array(
@@ -171,9 +175,9 @@ function fm_deals_preview_block_nids() {
 	$results = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime > :request_time ORDER BY startTime ASC', array(':request_time' => REQUEST_TIME));
 	
 	//If there are no preview spots available, generate them
- if(empty($results)) {
+ if(!$results->rowCount()) {
  	  $next_hour_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
-		$time_slot = fm_deals_time_slots(1, $next_hour_time);
+		$time_slot = fm_deals_time_slots(PREVIEW_BLOCK_SPOTS, $next_hour_time);
 	  $nids = fm_deals_random_nids(PREVIEW_BLOCK_SPOTS);
 	  fm_deals_insert_schedule($time_slot, $nids);
 	  return $nids;

@@ -142,6 +142,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .timerTbl{height: 52px;border-collapse: separate;}
 .sep1{border-right: 1px solid #943530; padding-left: 6px;}
 .sep2{border-left: 1px solid #b65935;padding-right: 6px;}
+.timezone{color: #cbbeb2;}
 
 .timerTbl td{vertical-align: middle; background-color: transparent; }
 .countdown{float: left; }
@@ -236,7 +237,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-fm-deals-preview-fm-deals-preview .button a{width: 160px; padding: 5px; font-size: 12px;}
 #upNext .button {display:block;font-size:12px;height:30px;line-height:30px;margin:12px auto 0;padding:0;width:160px;}
 
-.feedback {margin-top: 15px;}
+.feedback {margin: 15px 0; height: 175px; }
 .feedback h1{font-size: 16px; margin-bottom: 8px;}
 .feedback .row{font-size: 13px; background: url(../images/dotted_horizontal.png) top left repeat-x; padding: 15px 0;}
 .feedback .row h1{font-size: 15px;}
@@ -251,6 +252,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .page-deals-preview h1.pageTitle{color:#B83838;font-size:23px;padding-bottom:8px;text-align:center;}
 .page-deals-preview  #dealPreview #preview-content {margin-left: 88px;}
 
+#block-fm-deals-fm-deals-admin-links {padding: 10px; border: 1px solid #888;}
 
 /********* Overlays ***************/
 
