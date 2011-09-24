@@ -6,11 +6,11 @@
  * FadMashion Commerce Splash page implementation.
  */
 
-
 global $user;
-if($user->uid) {
+if(user_access('view deals')) {
 	fm_deals_page();
 }
+
 ?>
 
 <script>
@@ -51,43 +51,64 @@ jQuery(function($){
 	}); 
 });
 
-</script>
 
+
+</script>
 
 <div id="wrap">
   <div id="main">
     <div id="box">
       <div class="pad">
         <div class="logo">
-	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-        			<img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
-      			</a>
+	        	<a  href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
+        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
+      			    </a>
+      			 <div class="slogan"><?php print $site_slogan; ?></div>   
         </div>
+        <?php if ($messages): ?>
+          <div id="messages"><div class="section clearfix">
+          <?php print $messages; ?>
+          </div></div> <!-- /.section, /#messages -->
+       <?php endif; ?>
+       
         <?php print render($page['content']); ?>
+        <?php print render($page['featured']);?>
       </div>
       
       
-	     <div class="pad <?php $front_intro ? print 'extend' : ''?>" id="invite">
-					<?php print render($page['featured']);?>
-		       <?php if ($messages): ?>
-	    			<div id="message_box"><div class="section clearfix">
-	      			<?php print $messages; ?>
-	    			</div></div> <!-- /.section, /#messages -->
-	  			<?php endif; ?>
-
-  			</div>
-  			
-  			<?php if($front_intro): ?>
-  			<div class="quote">
-<p style="font-size: 15px; line-height: 22px;">"Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."</p>
-<a class="colorbox-load" title="myfashionlife" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- myfashionlife</div>
-</div> 
+      <?php if(!empty($page['triptych_first'])): ?>
+      <div id="invite" class="pad extend">
+  			  <?php print render($page['triptych_first']);?>
+  			  </div>
+      <?php endif;  ?> 
+      
+  			<?php if(!empty($page['triptych_middle'])): ?>
+  			<div class="login">
+  			  <div class="pad"> 
+  			 <?php print render($page['triptych_middle']);?></div>
+        
+        </div>
+        
         <?php endif;  ?>
+        
+        
+        <?php if(!empty($page['triptych_last'])): ?>
+  			<div class="quote">
+  			 <?php print render($page['triptych_last']);?>
+        </div>
+        <?php endif;  ?>
+        </div>
 			 
       
 		</div>
 	</div>
 </div>
+
+<?php if(!empty($page['footer'])): ?>
 <div id="footer">
-    <?php print render($page['footer']); ?>
+<?php print render($page['footer']); ?>
 </div>
+<?php endif;  ?>
+
+
+

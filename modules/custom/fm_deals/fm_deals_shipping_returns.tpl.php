@@ -1,10 +1,11 @@
 
 <?php if ($isShipping) {?>
-<h2><b>$9.99</b> Shipping Anywhere in the US</h2>
+<p><b>$9.99</b> Shipping Anywhere in the US</p>
 <p>Shipping Time: <b>4-5 weeks</b></p>
+<p style="margin-top: 20px;">Read more about <?php print l('Shipping', 'faq');?> in our FAQ's</p>
 <?php } else {?>
-<p>Due to the nature of our Deal offers, currently there is a no return policy.  
-If you have an issue or would like a different size please contact us directly and one of our customer support team will contact you </p>
+<p>Due to the high discounts on in-season items that we negotiate with our designer partners, all sales are final; however exceptions may be made in the case of defective items or size change requests. For all purchase-related questions, please contact us directly and we will reply as soon as possible.
+</p>
+<p style="margin-top: 20px;">Still have questions?  Read about <?php print l('Returns', 'faq');?> in our FAQ's</p>
 <?php }?>
 
-<p style="margin-top: 20px;">Read about our <?php print l('Shipping and Returns', 'pages/shipping_returns');?> and policy for more info</p>

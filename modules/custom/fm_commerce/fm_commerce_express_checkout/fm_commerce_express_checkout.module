@@ -10,6 +10,11 @@ function fm_commerce_express_checkout_menu() {
 	  'access arguments' => array('view express checkout'),
     'type' => MENU_NORMAL_ITEM,
   );
+  $items['express-checkout/confirmation'] = array(
+    'page callback' => 'fm_commerce_express_checkout_confirmation_page',
+	  'access arguments' => array('view express checkout'),
+    'type' => MENU_NORMAL_ITEM,
+  );
   
   return $items;
 }
@@ -27,6 +32,15 @@ function fm_commerce_express_checkout_permission() {
 function fm_commerce_express_checkout_page() {
 	
 	return drupal_get_form('fm_commerce_express_checkout_form');
+}
+
+function fm_commerce_express_checkout_confirmation_page() {
+	
+	$order_id = $_GET['order-id'];
+	if(!isset($order_id)) { drupal_goto();}
+	$vars = fm_commerce_orders_detail_vars($order_id);
+	
+	return theme('fm_commerce_express_checkout_confirmation', $vars);
 }
 
 //Replace the drupal commerce checkout form with our own 
@@ -120,7 +134,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   
   /* ADD Credit card form */
   module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
-  $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '', 'type' => '' ));
+  $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '' ));
   
   //CHANGE default form theme stuff
   $form['payment_details']['credit_card']['owner'] ['#title'] = t('Name on Credit Card');
@@ -179,6 +193,7 @@ function fm_commerce_express_checkout_form_validate($form, $form_state) {
     'form_parents' => array('credit_card'),
   );
 
+  //VAlidate credit card fields
   /*if (!commerce_payment_credit_card_validate($form_state['values']['credit_card'], $settings)) {
     return FALSE;
   }*/
@@ -195,7 +210,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   rules_invoke_all('commerce_payment_methods', $order);
   
   //There is only one payment method - Authorize.net so just use that one.  
-  $payment_method = array_shift($order->payment_methods);
+  $payment_method = $order->payment_methods['paypal_wpp|commerce_payment_paypal_wpp'];
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
@@ -259,21 +274,58 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	
 	//Call payment gateway
 	$charge = $order_wrapper->commerce_order_total->value();
-	//$result = commerce_authnet_aim_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
 	
-	if($deal_state) {
-		//ADD payment stuff
-    $order = commerce_order_status_update($order, 'deal_payed');
-	}
-	else {
-		$order = commerce_order_status_update($order, 'deal_off');
+	$result = commerce_paypal_wpp_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
+	
+	if(!is_null($result) && $result == false) {
+	 return;
 	}
 	
-	//commerce_checkout_complete($order);
+	$order = commerce_order_status_update($order, 'fm_orders_authorized');
+	
+	commerce_checkout_complete($order);
+	
+	$params = array(
+    'subject' => 'Order Confirmation #' . $order->order_id,
+	  'order' => $order
+  );
+  
+  $email = variable_get('site_mail', 'admin@fadmashion.com');
+  global $user;
+	drupal_mail(
+      'fm_commerce_express_checkout',
+      'order_confirmation',
+      $user->mail,
+      language_default(),
+      $params,
+      'Fadmashion <' . $email . '> '
+   ); 
   
   //Redirect here
-  exit();
+  drupal_goto('express-checkout/confirmation', array('query' => array('order-id' => $order->order_id) ));
+	
 
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fm_commerce_express_checkout_mail($key, &$message, $params) {
+	$message['module'] = 'fm_commerce_express_checkout';
+	$message['key'] = $key;
+	$order = $params['order'];
+	
+	$product = fm_commerce_get_order_product($order);
+	$shop = fm_commerce_get_store($product);
+	
+	$message['subject'] = $params['subject'] . ': ' . $product->title ;
+	
+  $image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
+
+	$message['body'] = theme('fm_commerce_express_checkout_confirmation_mail', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+
+  return $message;
 }
 
 
@@ -288,7 +340,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     $language = $form[$field_name]['#language'];
     
     $output = '<div id="shipping" class="checkoutPanel">';
-    $output .= '<div class="header"><div class="pad">
+    $output .= '<div class="header rounded-top"><div class="pad">
                   <div class="dropdown"><span>Address Book:</span> ' . fm_commerce_express_checkout_profiles_options('shipping') . ' </div>
                   Shipping Information
                 </div></div>';
@@ -296,7 +348,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     
    // $output .= '<div class="asterik"><span>*</span> = required</div>';
     $output .= drupal_render($form[$field_name]); 
-    $output .= '<div class="saveTo">' . drupal_render($form['saveto']) . '</div>';
+    $output .= '<div class="saveTo rounded-top rounded-bottom">' . drupal_render($form['saveto']) . '</div>';
     $output .= '</div>';
     
     $output .= '</div>';
@@ -305,7 +357,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     $language = $form[$field_name]['#language'];
     
     $output .= '<div class="checkoutPanel">';
-    $output .= '<div class="header"><div class="pad">';
+    $output .= '<div class="header rounded-top"><div class="pad">';
     $output .= '
                   Billing Information
                 </div></div>';
@@ -384,6 +436,14 @@ function fm_commerce_express_checkout_theme($variables)
     (
         'fm_commerce_express_checkout_form' => array(
             'render element' => 'form',
+        ),
+        'fm_commerce_express_checkout_confirmation' => array(
+	        'variables' => array('order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL),
+          'template' => 'fm_commerce_express_checkout_confirmation'
+        ),
+        'fm_commerce_express_checkout_confirmation_mail' => array(
+	        'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
+          'template' => 'fm_commerce_express_checkout_confirmation_mail'
         ),
     );
 }

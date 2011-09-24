@@ -1,4 +1,4 @@
-<div class="dealFrame">
+<div class="dealFrame rounded-bottom">
         <div class="socialItem"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/icon_social.jpg">
         <h1>Be the first to know!</h1>
         Follow <a href="http://www.twitter.com/fadmashion">@Fadmashion</a> for deal updates or <a href="#">friend</a> us</div>

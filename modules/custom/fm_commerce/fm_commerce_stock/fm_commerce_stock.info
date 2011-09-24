@@ -1,0 +1,8 @@
+; $Id: $
+name = FM Commerce Stock
+description =  Fadmashion Product Stock
+core = 7.x
+package = Fadmashion
+
+dependencies[] = fm_commerce
+dependencies[] = rules

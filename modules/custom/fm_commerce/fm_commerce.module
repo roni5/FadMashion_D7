@@ -1,5 +1,7 @@
 <?php
 
+define('FM_SUPPORT_MAIL', "support@fadmashion.com");
+
 /**
  * Implements hook_form_alter().
  * 
@@ -33,7 +35,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#default_value' => $default_color,
 	       '#attributes' => array('size' => count($colors) > 1 ? count($colors) : 2),
 	       '#suffix' => '<br clear="all">',
-	       '#prefix' => '<di'
+	    );
+	    $form['color-hovers'] = array(
+	       '#markup' => theme('fm_commerce_stock_hovers', array('colors' => $colors, 'product' => $product))
 	    );
 	  }
     if (count($sizes) > 1) {
@@ -50,6 +54,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	       '#attributes' => array('size' => count($sizes) > 1 ? count($sizes) : 2),
 	       '#suffix' => '<br clear="all">'
 	    );
+	     $form['sizes-hovers'] = array(
+	       '#markup' => theme('fm_commerce_stock_hovers', array('sizes' => $sizes, 'product' => $product))
+	    );
 	  }
 	  
 	  if(count($colors) > 1 || count($sizes) > 1) {
@@ -61,7 +68,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
-		$form['submit']['#value'] = "Purchase Now";
+		$form['submit']['#value'] = "Buy It";
 		$form['submit']['#attributes'] = array(
 		  'class' => array('red')
     );
@@ -129,10 +136,20 @@ function fm_commerce_cart_submit($form, &$form_state) {
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
      // If this line item matches the product being added...
+     if ($line_item_wrapper->type->value() == 'product' ) {
+       // remove line items that don't have the current active deals
+       $node = $line_item_wrapper->field_node_reference->value(); 
+       if($node->nid != $node_entity->nid) {
+       //if(true) {
+         //remove line item
+         $line_item_wrapper->delete();
+       }
+     }
+     
      if (empty($discount_line_item) &&
          $line_item_wrapper->type->value() == 'deals_discount' ) {
        // Exit this loop with the $line_item intact so it gets updated.
-       $discount_line_item = $line_item_wrapper->value();
+         $discount_line_item = $line_item_wrapper->value();
      }
      
      // If this line item matches the product being added...
@@ -167,8 +184,14 @@ function fm_commerce_cart_submit($form, &$form_state) {
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
   	$discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
   	
+  	$discount_line_item_wrapper->commerce_unit_price->amount = $discount;
+    $discount_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+    
+    
+    $discount_line_item->quantity = 1;
   	$discount_line_item = commerce_line_item_save($discount_line_item);
   }
+  
   
   //SHIPPING LINE ITEM
   
@@ -262,6 +285,38 @@ function fm_commerce_get_product($node) {
     return $product;
 }
 
+function fm_commerce_get_order_product($order) {
+	
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	// Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+    switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		 $product = $line_item_wrapper->commerce_product->value();
+       return $product;
+       break;
+    }
+  }
+    
+}
+
+function fm_commerce_get_order_options($order) {
+	
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	// Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+    switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		 $color = $line_item_wrapper->field_order_color->value();
+	     $size = $line_item_wrapper->field_order_size->value();
+       return array('color' => $color, 'size' => $size);
+       break;
+    }
+  }  
+}
+	  
+	  
+
 function fm_commerce_get_store($product) {
 	$store_ref = field_get_items('commerce_product', $product, 'field_store_reference');
 	$store_id = $store_ref[0]['store_id'];
@@ -270,6 +325,31 @@ function fm_commerce_get_store($product) {
 	return $stores[$store_id];
 }
 
+function fm_commerce_color_array($color) {
+	$color = explode('_', $color);
+	return array('hex' => $color[0], 'name' => $color[1]);
+} 
+
+function fm_commerce_product_image_thumb($product, $image_style, $attributes = array('class' => 'thumb')) {
+
+  $images = field_get_items('commerce_product', $product, 'field_product_images');
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+  
+  $first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image = array(
+      'path' => $first_image['uri'],
+      'alt' => $first_image['alt'],
+      'title' => $first_image['title'],
+      'attributes' => $attributes,
+      'style_name' => $image_style
+  );
+
+  
+  return theme('image_style', $image);
+}
 
 
 

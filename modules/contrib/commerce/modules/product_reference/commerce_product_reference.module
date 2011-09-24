@@ -911,3 +911,18 @@ function commerce_product_reference_field_data_property_info($name = NULL) {
     ),
   );
 }
+
+/**
+ * Returns an array of product line item types.
+ */
+function commerce_product_line_item_types() {
+  $types = array();
+
+  foreach (commerce_line_item_types() as $type => $line_item_type) {
+    if (!empty($line_item_type['product'])) {
+      $types[] = $type;
+    }
+  }
+
+  return $types;
+}

@@ -28,13 +28,13 @@ Drupal.behaviors.addFMRequestEmail= {
  */
 
 jQuery(document).ready(function() {
-  if (document.cookie.indexOf('visited=true') === -1) {
+  /*if (document.cookie.indexOf('visited=true') === -1) {
       var expires = new Date();
       expires.setDate(expires.getDate()+30);
       document.cookie = "visited=true; expires="+expires.toUTCString();
  
       jQuery.colorbox({title:'Invite Friends and Earn Rewards', href:"/invite/rewards?id=" + invite_id, width: 600, height: 450});
-  }
+  }*/
 });
 
 /**
@@ -101,5 +101,26 @@ function inviteFormSuccess(responseText, statusText, xhr, $form) {
 	jQuery('#cboxLoadedContent').html('<div></div>');
 	jQuery.colorbox.resize();
 }
+
+
+
+function fm_invite_facebookshare( url, thumb_path) {
+	var details = 'hello';
+	
+	 FB.ui({
+			     method: 'feed',
+			     app_id: '213872101957329',
+			     name: 'Fadmashion Priority Access',
+			     link: url,
+			     picture: thumb_path,
+			     description: 'Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour!  Request an invitation today and get your own social rewards link to invite friends and earn priority access',
+			     message: 'Just joined FadMashion for up to 60% off Independent Designs! .'
+			   },
+			   function(response) {
+			   }
+			 );
+
+}
+
 
 

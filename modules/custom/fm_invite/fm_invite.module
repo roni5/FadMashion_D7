@@ -109,9 +109,9 @@ function fm_invite_twitter_text($reg_code_url = '') {
 
 
 function fm_invite_rewards_popup() {
-	$id = $_GET['id'];
+	$reg_code_url = fm_invite_get_invite_url();
 	
-	$output = theme('fm_invite_rewards_popup', reg_code_url);
+	$output = theme('fm_invite_rewards_popup', $reg_code_url);
 	print $output;
 	exit;
 }
@@ -166,7 +166,8 @@ function fm_invite_request_form() {
   
   $form['submit'] = array(
     '#type' => 'submit', 
-    '#value' => t('Invite Me')
+    '#value' => t('Invite Me!'),
+    '#attributes' => array('class' => array('red')),
   );
   
   return $form;
@@ -232,14 +233,28 @@ function fm_invite_request_form_submit($form, &$form_state) {
 
 function fm_invite_send_email_form() {
 	
-	$form['name'] = array(
+	global $user;
+	if($user->uid) {
+		
+		$form['name'] = array(
     '#type' => 'textfield', 
     '#size' => 25, 
 	  '#maxlength' => 255,
     '#title' => t('From').':',
-	  '#attributes' => array('class' => array('clear-defaults')),
-	  '#default_value' => 'Enter Name', 
-  );
+	  '#default_value' => fm_users_fullname(), 
+		);
+	}
+	else {
+		$form['name'] = array(
+      '#type' => 'textfield', 
+      '#size' => 25, 
+	    '#maxlength' => 255,
+      '#title' => t('From').':',
+	    '#attributes' => array('class' => array('clear-defaults')),
+	    '#default_value' => 'Enter Name', 
+    );
+	}
+	
   
   $form['to'] = array(
     '#type' => 'textfield', 
@@ -281,13 +296,18 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
   );
   
   //Get the submitted e-mail address for From address
-	if(isset($_GET['id'])) {
+	if(!empty($_GET['id'])) {
 		$id = $_GET['id'];
 	  $email = db_query('SELECT email FROM {fm_invite} WHERE id = :id', array(':id' => $id))->fetchField();
+	}
+	elseif($user->uid) {
+		$email = $user->mail;
 	}
 	else {
 		$email = variable_get('site_mail', 'admin@fadmashion.com');
 	}
+	$from = $form_state['values']['name']. ' <' . $email . '> ';
+	
 	
   drupal_mail(
       'fm_invite',
@@ -295,7 +315,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $form_state['values']['to'],
       language_default(),
       $params,
-      $form_state['values']['name']. ' <' . $email . '> '
+      $from
    ); 
    
    /*SEND SAME TO ADMIN*/
@@ -315,7 +335,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 }
 
 function fm_invite_email_message() {
-	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch. Sign up too and we can both shop up to 60% off independent designs. To get priority access plus free shipping just signup and invite your friends!');
+	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch. Sign up too and we can both shop up to 60% off independent designs. To get priority access just signup and invite your friends!');
 	return $message;
 }
 
@@ -325,15 +345,36 @@ function fm_invite_share_info() {
 }
 
 function fm_invite_get_invite_url() {
+	global $user;
+	
   if(isset($_GET['id'])) {
+  	//Splash page invite rewards pop-up
 		$id = $_GET['id'];
-	  $result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
+		$result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
 	  $inviter = $result->fetchObject();
-	  if(!$inviter) {
-	  	drupal_set_message('Not a valid link', 'error');
-	  	drupal_goto();
-	  }
-	  $reg_code_url =  url('invite/'.$inviter->reg_code, array('absolute' => TRUE));
+	  $reg_code = $inviter->reg_code;
+  } elseif($user->uid) {
+  	//User logged in popped-up
+  	 $result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $user->mail));
+	   $inviter = $result->fetchObject();
+	   if(empty($inviter)) {
+	   	 $reg_code = fm_invite_generate_code();
+	   	 $id = db_insert('fm_invite')
+               ->fields(array(
+                 'reg_code' => $reg_code,
+                 'referred_by_id' => NULL,
+                 'email' => $user->mail,
+                 'timestamp' => time(),
+                 'link_back_views' => 0
+             ))
+            ->execute();
+	   } else {
+	   	 $reg_code = $inviter->reg_code;
+	   }
+  }
+  
+  if(isset($reg_code)) {
+	  $reg_code_url =  url('invite/' . $reg_code, array('absolute' => TRUE));
 	  return $reg_code_url;
 	}
 	else {

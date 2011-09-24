@@ -1,5 +1,7 @@
 <?php
 
+define('FM_DEFAULT_SOCIAL_NID',  236);
+
 /**
  * Implements hook_menu().
  */
@@ -20,11 +22,22 @@ function fm_deals_menu() {
   $items['admin/fadmashion/deals'] = array(
     'title' => t('Deals Listing'), 
     'description' => t('Listing of all Upcoming Deals'),
-    'page callback' => 'fm_deals_list',
+    'page callback' => 'fm_deals_admin_page',
     'access arguments' => array('administer deals list'),
     'type' => MENU_NORMAL_ITEM,
     'file' => 'fm_deals.admin.inc',
   );
+  
+  $items['admin/fadmashion/deals/orders/%'] = array(
+    'title' => t('Orders for This Deal'), 
+    'description' => t('Listing of all Upcoming Deals'),
+    'page arguments' => array(4),
+    'page callback' => 'fm_deals_admin_orders',
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'fm_deals.admin.inc',
+  );
+  
   return $items;
 }
 
@@ -115,6 +128,19 @@ function fm_deals_preprocess_node(&$vars) {
 		
 		$vars['store'] = $store;
 		
+		$admin_links = array();
+		$admin_links[] = l('Edit Deal', 'node/' . $vars['node']->nid . '/edit');
+		$admin_links[] = l('Edit Product', 'admin/commerce/products/' . $product->product_id  . '/edit' );
+		$admin_links[] = l('Edit Shop', 'admin/commerce/stores/' . $store->store_id  . '/edit' );
+		$i = 1;
+		$images = field_get_items('commerce_product', $product, 'field_product_images');
+		foreach($images as $image) {
+			$admin_links[] = l('Edit Image ' . $i, 'node/' . $image['nid'] . '/edit');
+			$i++;
+		}
+		
+		$vars['admin_links'] = $admin_links;
+		
 		//Set Time Until for Countdown
 		$details= fm_deals_group_details($vars);
 		
@@ -141,16 +167,31 @@ function fm_deals_preprocess_node(&$vars) {
 	  }
 	  
 	  $title = $product->title;
+	  drupal_set_title($title . ' - By ' . $store->name);
 	  
 	  $vars['product_details'] = theme('fm_deals_product_details', 
                              array('store' => $store, 'title' => $title, 'description' => $description, 'product' => $product) );
 	  
     $quicktabs = new stdClass();
 	  
-	  $materials_care = field_get_items('commerce_product', $product, 'field_materials_care');
-	  
-	  
-    $tabs['product_shipping'] = array(
+	  $details = field_get_items('commerce_product', $product, 'field_details');
+    
+	  $default_tab = 'product_shipping';
+	 if(!empty($details)) {
+	 	  $details_text = '<ul class="details-list">';
+	 	  foreach($details as $detail) {
+	 	  	$details_text .= '<li>' . $detail['value'] . '</li>';
+	 	  }
+	 	  $details_text .= '</ul>';
+      $tabs['product_details'] = array(
+              'title' => t('Details'),
+              'type' => 'freetext',
+              'text' => $details_text
+      );
+      $default_tab = 'product_details';
+	  }  
+	 
+	 $tabs['product_shipping'] = array(
             'title' => t('Shipping'),
             'type' => 'freetext',
             'text' => theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) ),
@@ -160,22 +201,13 @@ function fm_deals_preprocess_node(&$vars) {
             'type' => 'freetext',
             'text' => theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) ),
     );
-    
-	 if(!empty($materials_care)) {
-	  	$materials_care = $materials_care[0]['value'];
-      $tabs['product_details'] = array(
-              'title' => t('Details'),
-              'type' => 'freetext',
-              'text' => $materials_care
-      );
-	  }
 	  
     $quicktabs->tabs = $tabs;
     $quicktabs->table = 'quicktabs';
     $quicktabs->ajax= '0';
     $quicktabs->style = 'default';
     $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = 'product_shipping';
+    $quicktabs->default_tab = $default_tab;
     $quicktabs->hide_empty_tabs = '0';
     $quicktabs->machine_name = 'fm_product_details';
     
@@ -193,8 +225,12 @@ function theme_fm_deals_product_details($vars) {
   $store = $vars['store'];
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
-  $output .= '<h2 style="color: #aaa">Learn more about ' . l($store->name, 'test') . '</h2>';
-  $output .= '<p>' . $description . '</p>';
+  
+  $output .= '<h2 class="details-store" style="color: #aaa">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</h2>';
+  $output .= '<p id="description">' . $description . '</p>';
+  $output .= '<script>jQuery(".details-store .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
+  
+  
   return $output;
 }
 
@@ -205,8 +241,7 @@ function theme_fm_deals_product_details($vars) {
 function fm_deals_page($nid = '') {
 
 	if(empty($nid)) {
-		$default = fm_deals_get_default_deal();
-		$nid = $default['nid'];
+		$nid = fm_deals_get_default_deal();
 	}
 	
 	if(!empty($nid)) {
@@ -221,93 +256,171 @@ function fm_deals_page($nid = '') {
 //Get the deal that needs to be active right now.  MUST return some node value.
 function fm_deals_get_default_deal() {
 	
-	$request_time = date('Y-m-d H:i:s', REQUEST_TIME);
+	//Get nid from the schedule page that falls under the 
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime < :request_time && endTime > :request_time', array(':request_time' => REQUEST_TIME))->fetchObject();
 	
-	$query = new EntityFieldQuery();
-	//First try to get the deal that is happening right now.
-  $entities = $query->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', 'fm_group_buying')
-                    ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value', $request_time, '<')
-                    ->fieldCondition('field_start_time', 'value2', $request_time, '>')
-                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
-                    ->execute();
-  if(isset($entities['node'])) {
-    $first_node = array_shift($entities['node']);
-    return array('nid' => $first_node->nid, 'status' => 'active');
-  }
-  else {
-  	//If there is no active deal than get the next upcoming deal
-  	$query = new EntityFieldQuery();
-  	$entities = $query->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', 'fm_group_buying')
-                    ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value', $request_time, '>')
-                    ->fieldOrderBy('field_start_time', 'value', 'ASC')
-                    ->execute();
-    if(isset($entities['node'])) {
-      $first_node = array_shift($entities['node']);
-      return array('nid' => $first_node->nid, 'status' => 'upcoming');
-    }
-    else {
-    	//IN the last case (should not go through), but if it does show the most previous deal
-      $query = new EntityFieldQuery();
-  	  $entities = $query->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', 'fm_group_buying')
-                    ->propertyCondition('status', 1)
-                    ->fieldCondition('field_start_time', 'value2', $request_time, '<')
-                    ->fieldOrderBy('field_start_time', 'value', 'DESC')
-                    ->execute();
-      if(isset($entities['node'])) {
-        $first_node = array_shift($entities['node']);
-        return array('nid' => $first_node->nid, 'status' => 'ended');
-      }
-    }
-  }
+	if(empty($result)) {
+		$time_slot = fm_deals_time_slots(1, REQUEST_TIME);
+	  $nids = fm_deals_random_nids(1);
+	  fm_deals_insert_schedule($time_slot, $nids);
+	  return array_shift($nids);
+	} else {
+		return $result->nid;
+	}
 }
+
+
+/*
+ * Given a number, select in {random} order of nids to be added to schedule
+ * 
+ * conditions - 1.  no repeats of nids
+ *              2.  is not out of stock
+ *              3.  status is active
+ */
+function fm_deals_random_nids($num) {
+
+	$query = new EntityFieldQuery();
+	$entities = $query->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', 'fm_group_buying')
+                    ->propertyCondition('status', 1)
+                    ->execute();  
+  $nodes = $entities['node'];
+  shuffle($nodes);
+  
+  $ret = array();
+  
+  $i = 0;
+  while($i < $num) {
+  	$result = array_shift($nodes);
+  	if(fm_deals_has_stock($result->nid) && !isset($ret[$result->nid])) {
+  	  $ret[$result->nid] = $result->nid;
+  	  $i++;
+  	}
+  }
+  return $ret;
+}
+
+/*
+ * Generate $num of time slots starting at $time
+ */
+function fm_deals_time_slots($num, $start_time) {
+
+	//Get the start of the hour
+	$start_time = mktime(date('G', $start_time), 0, 0, date('m', $start_time), date('d', $start_time), date('y', $start_time));
+	
+	$ret = array();
+	$ret[] = $start_time;
+  
+  $i = 1;
+  while($i < $num) {
+  	$time = strtotime('+1 hour', $start_time);
+  	$ret[] = $time;
+  	$i++;
+  }
+  
+  return $ret;
+  
+}
+
+function fm_deals_insert_schedule($time_slots, $nids) {
+	if(count($time_slots) != count($nids)) {
+	  drupal_set_message('Time slots and Nids need to be the same size', 'error');
+	}
+	
+	foreach($time_slots as $start_time) {
+		$end_time = strtotime('+1 hour', $start_time);
+		$nid = array_shift($nids);
+		$nid = db_insert('fm_deals_schedule')->fields(array('nid' => $nid, 'startTime' => $start_time, 'endTime' => $end_time))->execute();
+	}
+	
+}
+
+function fm_deals_has_stock($nid) {
+	$node = node_load($nid);
+	if($node->type == 'fm_group_buying') {
+		$product = fm_commerce_get_product($node);
+		return fm_commerce_stock_has_stock($product);
+		//return true;
+	}
+	else {return false;}
+}
+
+//Get the most upcoming start time of the most upcoming deal 
+function fm_deals_time($nid) {
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE :request_time < endTime AND nid = :nid', array(':request_time' => REQUEST_TIME, 'nid' => $nid))->fetchObject();
+	if(empty($result)) {
+		//drupal_set_message('Error getting start time for deal node ' . $nid, 'error');
+		return NULL; 
+	} else {
+	  return array('start' => $result->starttime, 'end' => $result->endtime);	
+	}
+}
+	
 
 function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];
 	$status = fm_deals_states_get_status($node);
 	
-	$start_time = $node->field_start_time['und'][0]['value'];
-	$end_time = $node->field_start_time['und'][0]['value2'];
-	$unixStartTime = strtotime($start_time);
+	$time = fm_deals_time($node->nid);
+	$unixStartTime = $time['start'];
+	$unixEndTime = $time['end'];
 	
 	$purchaseDetails = '';
 	//$color_options = fm_commerce_color_options($node);
 	//
 	//If start time is GREATER THAN NOW than disabled.
 	if($status == 'upcoming') {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Starts <span class="countdown">' . date("D, F d @ ga", $unixStartTime) . '</span></div>';
-		$untilTime = $start_time;
+		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;"><span>' . date("g:ia", $unixStartTime) . ' est</span></div>';
+		
+		$timerDetails .= '</div>';
 		
 		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
 		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
-		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail 15 before the deal is on)</p>';
+		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail ' . FM_NOTIFY_MINUTES . ' minutes before the deal starts)</p>';
 		$purchaseDetails .= '</div>';
+		
+	
 	}
 	elseif ($status == 'active') {
-		$timerDetails = '<div class="col1">Items Left: <span>35</span></div>
-               <div class="col2">Time  Left: <span class="countdown">00:00</span></div>';
-		$untilTime = $end_time;
+		$qty_purchased = fm_deals_qty_purchased($node->nid);
+		$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
+		
+		$timerDetails = '<div class="timer rounded-top">';
+		$timerDetails .= '<table cellspacing="0" cellpadding="0" class="timerTbl"><tbody><tr>
+                        <td width="110" align="right">Bought:</td>
+                        <td width="56" align="left" class="sep1"><span>' . $qty_purchased . '</span></td>
+                        <td width="75" align="right" class="sep2">Time  Left:</td>
+                        <td width="70" align="left"><span class="countdown">00:00</span></td>
+                        </tr>
+                        </tbody></table>';
+		$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
+		$timerDetails .= '</div>';
+		
+		$untilTime = $unixEndTime;
 		
 		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
 		$purchaseDetails .= '<div class="box">';
-		if(!fm_deals_states_purchased_deal($node)) { 
+    if(true) {
+		//if(!($order_id = fm_deals_states_purchased_deal($node))) { 
 		  $purchaseDetails .= render($vars['content']['field_product_reference']);
 		} else {
-			$purchaseDetails .= 'Thank you for your Purchase!';
+			$purchaseDetails .= '<div>Thank you for your ';
+			$purchaseDetails .= l('purchase', 'my-orders/' . $order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+			$purchaseDetails .= '!</div>';
 		}
 		$purchaseDetails .=  '</div>';
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", strtotime($untilTime)), 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
+	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
   
 	} 
 	else {
-		$timerDetails = '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
+		$timerDetails .= '</div>';
+		
 		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
 		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
 	}
@@ -316,6 +429,86 @@ function fm_deals_group_details(&$vars) {
 	$vars['purchaseDetails'] = $purchaseDetails;
 }
 
+function fm_deals_qty_purchased($nid) {
+	//TODO: PERFORMANCE: Do this all in one query
+	$orders = fm_deals_orders($nid, array('fm_orders_authorized', 'fm_orders_captured'));
+	
+	return count($orders);
+}
+
+function fm_deals_orders($nid, $status = array('fm_orders_authorized', 'fm_orders_captured', 'fm_orders_voided') ) {
+
+	$orders = array();
+	//load line items that reference this node id
+	$query = new EntityFieldQuery();
+	$line_item_results = $query->entityCondition('entity_type', 'commerce_line_item')
+	      ->entityCondition('bundle', 'product')
+	      ->fieldCondition('field_node_reference', 'nid', $nid)
+	      ->execute();
+	
+	$count = 0;
+	//load orders with the line item and check if cart status is correct
+  foreach($line_item_results['commerce_line_item'] as $line_item_id => $commerce_line_item) {
+  	 $line_item = commerce_line_item_load($line_item_id);
+  	 $order = commerce_order_load($line_item->order_id);
+  	 if(in_array($order->status, $status )) {
+  	 	$orders[] = $order;
+  	 }
+	}
+	
+	return $orders;
+	
+}
+
+//Gets social information
+function fm_deals_fb_social_info($nid = NULL) {
+	
+	if($nid == NULL) {
+		$nid = fm_deals_get_default_deal();
+	}
+	$node = node_load($nid);
+	$product = fm_commerce_get_product($node);
+	$shop = fm_commerce_get_store($product);
+	
+	$images = field_get_items('commerce_product', $product, 'field_product_images');
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+	$first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  
+  $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
+  
+
+  $percent = fm_deals_percentage($node, $product);
+  $title = $product->title;
+  $name = $percent . ' off ' . $title . ' - By ' . $shop->name;
+  $status = fm_deals_states_get_status($node);
+  $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
+  
+  return array('image_path' => $image_path, 'description' => $description, 'name' => $name);
+}
+
+
+
+function fm_deals_percentage($node, $product = NULL) {
+	  if($product == NULL) {
+	  	$product = fm_commerce_get_product($node);
+	  }
+	  
+	  //Get the percentage savings
+		$sale_price = field_get_items('node', $node, 'field_sale_price');
+		$sale_price = $sale_price[0]['amount'];
+		
+		$original_price = field_get_items('commerce_product', $product, 'commerce_price');
+		$original_price = $original_price[0]['amount'];
+		
+		
+    $raw_value = round(1 - ($sale_price/$original_price), 2);
+    $value = ($raw_value * 100). '%';
+    return $value;
+    
+}
 
 
 

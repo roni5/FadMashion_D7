@@ -28,7 +28,7 @@ Drupal.behaviors.addFMOrderSupportForm= {
 			});
 		},
 		
-		showErrors: showErrorsColorbox
+		//showErrors: showErrorsColorbox
     });
     
     $("#fm-commerce-orders-support-form #edit-message").rules("add", {

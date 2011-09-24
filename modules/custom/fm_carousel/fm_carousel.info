@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Carousel Skin
+description = Defines Fadmashion's Carousel skin
+core = 7.x
+package = Fadmashion

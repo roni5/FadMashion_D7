@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 	    		
 	    	    var $this = jQuery('input.form-submit');
 	    	    $this.attr('disabled', true);
-	    	    $this.attr('value', 'You Rock!');
+	    	    $this.attr('value', 'Placing Order...');
 	    		
 	    		form.submit();
 			},
@@ -39,16 +39,16 @@ jQuery(document).ready(function() {
 	 
 	 //Right column follow
 	 var cart = jQuery(".column2")
-	 if(cart.length) {
+	 /*if(cart.length) {
 	   cart.scrollFollow({
 		 speed: 500,
 		 offset: 20,
 		 container: 'content'
 	   });
-	 }
+	 }*/
 	 
 	 jQuery(".shipping_address_select").change(function() {
-		 window.location.href = full_path + '&shipping=' + this.value;
+		 window.location.href = full_path + '?shipping=' + this.value;
 	 });
 });
 

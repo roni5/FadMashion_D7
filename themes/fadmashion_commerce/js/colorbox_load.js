@@ -36,6 +36,11 @@ Drupal.behaviors.initColorboxLoad = {
         return $.urlParam('iframe', $(this).attr('href'));
       }
     });
+    
+    //Hide title if it doesn't exist
+    if($('#cboxTitle').html() == '') {
+      $('#cboxTitle').hide();
+    }
   }
 };
 

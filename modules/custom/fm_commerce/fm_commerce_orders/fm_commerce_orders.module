@@ -24,16 +24,74 @@ function fm_commerce_orders_theme() {
 	return array(
     'fm_commerce_orders_detail' => array(
 	    'template' => 'fm_commerce_orders_detail',
-	    'variables' => array('order_id' => null, 'status' => '',  'content' => '', 'customer_service_form' => '')
+	    'variables' => array( 'customer_service_form' => '', 'order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL)
     ),
     'fm_commerce_orders_status' => array(
 	    'variables' => array('status' => null)
+    ),
+    'fm_commerce_orders_product_summary' => array(
+      'template' => 'fm_commerce_orders_product_summary',
+      'variables' => array('title' => '', 'qty' => '', 'price' => '', 'color' => '', 'size' => '', 'thumb' => '')
+    ),
+    'fm_commerce_orders_totals_summary' => array(
+    'template' => 'fm_commerce_orders_totals_summary',
+      'variables' => array('title' => '', 'extra_classes' => '', 'price' => '')
     ),
     'fm_commerce_orders_extra_info' => array(
 	    'variables' => array('color' => '', 'size' => '')
     ),
   );
 }
+
+/**
+ * Implements hook_commerce_order_state_info().
+ */
+function fm_commerce_orders_commerce_order_state_info() {
+  $order_states = array();
+
+  $order_states['deal'] = array(
+    'name' => 'deal',
+    'title' => t('Deal State'),
+    'description' => t('Orders in this state are part of a timed deal.'),
+    'weight' => -10,
+    'default_status' => 'fm_orders_expired',
+  );
+  
+  return $order_states;
+}
+
+/**
+ * Implements hook_commerce_order_status_info().
+ */
+function fm_commerce_orders_commerce_order_status_info() {
+  $order_statuses = array();
+  
+  $order_statuses['fm_orders_authorized'] = array(
+    'name' => 'fm_orders_authorized',
+    'title' => t('Authorized, Waiting for Capture'),
+    'state' => 'deal',
+  );
+  
+   $order_statuses['fm_orders_expired'] = array(
+    'name' => 'fm_orders_expired',
+    'title' => t('Deal Expired w/o checkout'),
+    'state' => 'deal',
+  );
+  $order_statuses['fm_orders_captured'] = array(
+    'name' => 'fm_orders_captured',
+    'title' => t('Captured after Deal Is Through'),
+    'state' => 'deal',
+  );
+  
+  $order_statuses['fm_orders_voided'] = array(
+    'name' => 'fm_orders_voided',
+    'title' => t('Void Order when Deal doesn\'t go through'),
+    'state' => 'deal',
+  );
+
+  return $order_statuses;
+}
+
 
 /*
  * Defines the basic Order Page with status's for 
@@ -72,11 +130,9 @@ function fm_commerce_orders_detail_page($order_id) {
 	$order = commerce_order_load($order_id);
 	
 	$vars = array();
-	
-	$vars['content'] = commerce_order_ui_order_view($order, 'customer'); 
-  $vars['order_id'] = $order_id;
-  $vars['status'] = $order->status;
+  $vars['order'] = $order;
   $vars['customer_service_form'] = drupal_get_form('fm_commerce_orders_support_form');
+  $vars += fm_commerce_orders_detail_vars($order_id);
  
 	$content = theme('fm_commerce_orders_detail', $vars);
 	
@@ -84,7 +140,7 @@ function fm_commerce_orders_detail_page($order_id) {
   if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     // special ajax here 
      $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' > Order #' .   $order_id;
-     $header = '<div id="cboxTitle-manual">' . $header . '</div>';
+     $header = '<div id="cboxTitle-manual">' . t('Order Details') . '</div>';
      print $header.$content;
      exit;
   } 
@@ -96,13 +152,51 @@ function fm_commerce_orders_detail_page($order_id) {
   
 }
 
+/*
+ * Get order variables for details table
+ */
+function fm_commerce_orders_detail_vars($order_id) {
+	$vars = array();
+  $order = commerce_order_load($order_id);
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	
+  $product_line_items = array();
+  $totals_line_items = array();
+  
+  // Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  
+  	switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+       $product_line_items[] = fm_commerce_orders_product_summary($line_item_wrapper);
+       break;
+  		
+  		default:
+  			$totals_line_items[] = fm_commerce_orders_totals_summary($line_item_wrapper); 
+  			break;
+  	}
+  }
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  $price = commerce_currency_format($total['amount'], $total['currency_code']);
+  $totals_line_items[] = theme('fm_commerce_orders_totals_summary', array('title' => 'Total', 'price' => $price, 'extra_classes' => 'total'));
+  
+  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+  
+	$vars['order'] = $order;
+	$vars['product_line_items'] = $product_line_items;
+	$vars['totals_line_items'] = $totals_line_items;
+	
+	return $vars;
+}
+
 function fm_commerce_orders_support_form() {
   
   $form['message'] = array(
     '#type' => 'textarea', 
     '#row' => 4, 
     '#cols' => 30,
-    '#default_value' => t('Tell us what you need help with.'),
+    '#default_value' => t('Need Assistance? Send us a note. '),
     '#attributes' => array('class' => array('clear-defaults')),
     '#required' => TRUE
   );
@@ -116,11 +210,15 @@ function fm_commerce_orders_support_form() {
   return $form;
 }
 
+function fm_commerce_orders_support_form_submit() {
+	
+}
+
 function fm_commerce_orders_list() {
 	global $user;
 	
 	//Second, load up previous orders and go through each one and update those 
- $orders = commerce_order_load_multiple(array(), array('status' => array('deal_payed', 'cart', 'deal_expired'), 'uid' => $user->uid));
+ $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
   return '<div class="no-orders">You currently have no purchases</div>'; 	
@@ -147,7 +245,7 @@ function fm_commerce_orders_list() {
 	}
 	
 	
-	return theme ('table', array('rows' => $rows, 'header' => $header));
+	return theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
 }
 
 //Get row info for the table.  Outputs Product, product price & node price
@@ -191,16 +289,13 @@ function fm_commerce_orders_status_link($order) {
 			$text = 'Checkout';
 			return l($text, 'express-checkout');
 		  break;
-		case 'deal_expired':
-			$text = 'Check Refund Status';
-		  break;
 		default:
-			$text = 'View Summary';
+			$text = 'Summary';
 		  break;
 			
 	}
 	
-	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '940px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
 	
 }
 
@@ -238,18 +333,90 @@ function theme_fm_commerce_orders_status($vars) {
 	$status = $vars['status'];
 	
 	switch($status) {
-		case 'deal_payed':
-		  return '<div class="status-deal-payed">Payed</div>';
+		case 'fm_orders_captured':
+		  return '<div class="status-deal-payed">Payed</div>' . '<div class="order-extra-info">' . t('Waiting to be Shipped')  . '</div>';
 		  break;
-		case 'deal_expired':
+		case 'fm_orders_voided':
+		  return '<div class="status-deal-payed">Voided</div>' . '<div class="order-extra-info">' . t('Deal Cancelled')  . '</div>';
+		  break;
+		case 'fm_orders_expired':
 			return '<div class="status-expired">Expired</div>';
 		  break;
+		case 'fm_orders_authorized': 
+			return '<div class="status-expired">Pending</div>' . '<div class="order-extra-info">' . t('Share with Friends')  . '</div>';
+			break;
 		case 'cart':
 			return '<div class="status-cart">Shopping Cart</div>';
-		  break;
-			
+		  break;		
 	}
 	
 	return $status;
 	
+}
+
+function fm_commerce_orders_product_summary($line_item_wrapper) {
+	$product = $line_item_wrapper->commerce_product->value();
+	
+	$title = $product->title;
+  $retail_price = $line_item_wrapper->commerce_total->value();
+  $price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
+  
+  $color = $line_item_wrapper->field_order_color->value();
+  if(isset($color) && !empty($color)) {
+  	$color = fm_commerce_color_array($color);
+  	$color = $color['name'];
+  }
+  $size = $line_item_wrapper->field_order_size->value();
+  
+  $thumb = fm_commerce_product_image_thumb($product, 'fm_product_confirm');
+  
+  return theme('fm_commerce_orders_product_summary', array('title' => $title, 'qty' => $qty, 'price' => $price, 'color' => $color, 'size' => $size, 'thumb' => $thumb));
+}
+
+function fm_commerce_orders_totals_summary($line_item_wrapper) {
+	$price = $line_item_wrapper->commerce_total->value();
+	$type = $line_item_wrapper->type->value();
+	 
+	$price = commerce_currency_format($price['amount'], $price['currency_code']);
+	
+	switch($type) {
+		case 'shipping':
+			$title = t('Shipping');
+			$classes = array('shipping');
+			break;
+		case 'deals_discount':
+			$title = t('Exclusive Discount');
+			$classes = array('discount');
+			break;
+	  case 'tax':
+			$title = t('Tax');
+			break;
+	}
+	
+	return theme('fm_commerce_orders_totals_summary', array('title' => $title, 'price' => $price, 'extra_classes' => implode(' ', $classes)));
+}
+
+function fm_commerce_orders_fb_social_info($order_id) {
+	
+	$order = commerce_order_load($order_id);
+	$product = fm_commerce_get_order_product($order);
+	
+	$images = field_get_items('commerce_product', $product, 'field_product_images');
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+	$first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
+  
+
+  $percent = fm_deals_percentage($node, $product);
+  $title = $product->title;
+  $name = 'Just Bought!! ' . $title;
+  $status = fm_deals_states_get_status($node);
+  $description = t('Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour! ');
+  $url = url('node/' . $nid, array('absolute' => true));
+  $message = t('What do you think?');
+  
+  return array('image_path' => $image_path, 'description' => $description, 'name' => $name, 'message' => $message, 'url' => $url);
 }
