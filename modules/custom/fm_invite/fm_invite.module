@@ -9,7 +9,9 @@
  * Session names.
  */
 define('FM_INVITE_SESSION', 'invite_code');
+define('FM_INVITE_ALL_ACCESS', 'all_access_code');
 define('FM_INVITE_CONFIRM_PATH', 'intro/thankyou');
+define('FM_INVITE_SIGNUP_PATH', 'intro/sign-up/email');
 
 function fm_invite_menu() {
 	
@@ -25,6 +27,13 @@ function fm_invite_menu() {
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
+  
+  $items['invite/active'] = array(
+    'page callback' => 'fm_invite_activate',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   
   $items['invite/rewards'] = array(
     'title' => t('Fadmashion Rewards'), 
@@ -434,6 +443,29 @@ function fm_invite_load_from_session() {
     return fm_invite_load($_SESSION[FM_INVITE_SESSION]);
   }
   return FALSE;
+}
+
+/**
+ * Activates the invite to all users who recieve the special link
+ *
+ *  @return
+ *    Adds the Session variable to let the system know this session is an active one.  
+ */
+function fm_invite_activate() {
+	$_SESSION[FM_INVITE_ALL_ACCESS]  = TRUE;
+	drupal_goto(FM_INVITE_SIGNUP_PATH);
+}
+
+/**
+ *  @return
+ *    return to see if the invite is activated
+ */
+function fm_invite_is_activated() {
+	if(isset($_SESSION[FM_INVITE_ALL_ACCESS])) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
 
 
