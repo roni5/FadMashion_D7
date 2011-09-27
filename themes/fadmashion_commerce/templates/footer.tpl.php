@@ -16,3 +16,12 @@
         <br clear="all">
     </div>
 </div>
+
+
+<?php if(!empty($page['hidden'])): ?>
+<div style="display:none">
+  			  <?php print render($page['hidden']);?>
+  	  
+  	  </div>
+<?php endif;  ?> 
+ 

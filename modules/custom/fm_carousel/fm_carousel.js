@@ -9,10 +9,6 @@ jQuery(document).ready(function() {
 
 	howitworks_block = jQuery('#block-views-nodequeue-2-block');
     default_block = jQuery('#block-block-7');
-    howitworks_block.hide();
-    howitworks_block.css('width', 'auto');
-    howitworks_block.css('height', 'auto');
-    
 	if(howitworks_block.length) {
 		
 		/*if(jQuery.cookie('carousel') != 'true') {
