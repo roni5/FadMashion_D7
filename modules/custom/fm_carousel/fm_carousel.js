@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
 		} */
 		
 		//add close button 
-		howitworks_block.prepend('<a class="close" href="javascript:fmCloseDropDown()">&nbsp;</a>');
+		
 	}
 	
 });

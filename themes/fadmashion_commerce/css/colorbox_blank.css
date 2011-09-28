@@ -40,8 +40,8 @@
         .blankBox#colorbox#cboxNext{position:absolute; bottom:0; left:27px; background:url(images/controls.png) no-repeat -50px 0; width:25px; height:25px; text-indent:-9999px;}
         .blankBox#colorbox #cboxNext.hover{background-position:-50px -25px;}
         .blankBox#colorbox #cboxLoadingOverlay{background:url(../images/colorbox/loading.gif) no-repeat center center;}
-        .blankBox#colorbox #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
-        .blankBox#colorbox#cboxClose{position:absolute; top:30px; left:870px; background:url(images/controls.png) no-repeat -25px 0; width:25px; height:25px; text-indent:-9999px;}
+        .blankBox#colorbox #cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
+        .blankBox#colorbox #cboxClose{position:absolute; top:76px; left:885px; background:url(../images/controls.png) no-repeat -25px 0; width:25px; height:25px; text-indent:-9999px;}
         .blankBox#colorbox #cboxClose.hover{background-position:-25px -25px;}
 
 
