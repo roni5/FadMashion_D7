@@ -18,11 +18,11 @@ jQuery(document).ready(function() {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.
 		jQuery('.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next').hide();
 	}
-	jQuery('#block-views-nodequeue-2-block  .views-slideshow-cycle-main-frame-row').each( function () {
+	/*jQuery('#block-views-nodequeue-2-block  .views-slideshow-cycle-main-frame-row').each( function () {
 	  var body_html = jQuery('.views-field-body', this).html();
 	  jQuery(' .views-field-title', this).append(body_html);
 	  jQuery('.views-field-body', this).html('');
-	});
+	});*/
 	
 	
 	
