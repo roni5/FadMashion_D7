@@ -1,6 +1,18 @@
 <?php 
 
 define('HOWITWORKS', 1);
+
+function fm_users_opens_menu() {
+	
+	$items['fm_users_opened/%'] = array(
+    'page callback' => 'fm_users_opens_opened',
+	  'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
 /*
  * Check to see if the item has been opened already
  */
@@ -22,7 +34,6 @@ function fm_users_opens_opened($item_id, $uid = '') {
 		global $user;
 		$uid = $user->uid;
 	}
-	
 	//TODO: Define Table in Schema and use drupal_write_record instead of this.
 	 if ($exists = $result = db_query('SELECT * FROM {fm_users_opens} WHERE uid = :uid AND item_id = :item_id', array(':uid' => $uid, ':item_id' => $item_id))->fetchField()) {
      // UPDATE
@@ -43,6 +54,7 @@ function fm_users_opens_opened($item_id, $uid = '') {
       ))->execute();
    }
 	
+   exit();
   
 }
 
@@ -51,12 +63,8 @@ function fm_users_opens_init() {
 	global $user;
 	
   //How it Works Pop-up
-  
     $val = fm_users_opens_has_open(HOWITWORKS);
     drupal_add_js('var howItWorks = ' . $val . ';', 'inline');
-  if($user->uid) {
-    fm_users_opens_opened(HOWITWORKS);
-  }
   
 }
 

@@ -20,12 +20,20 @@ jQuery(document).ready(function() {
 	      href:"#block-views-nodequeue-2-block"
 	    });
 	  jQuery('#colorbox').addClass('blankBox');
+	  
+	  fmUsersOpened(1);
 	}
 	if(jQuery.browser.msie) {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.
 		jQuery('.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next').hide();
 	}
-	
-	
-	
+
 });
+
+function fmUsersOpened(item_id) {
+	jQuery.ajax({
+		   type: "GET",
+		   url: "?q=fm_users_opened/" + item_id,
+		   dataType: "script"
+		 });
+}
