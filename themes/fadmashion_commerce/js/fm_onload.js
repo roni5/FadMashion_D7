@@ -18,6 +18,9 @@ jQuery(document).ready(function() {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.
 		jQuery('.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next').hide();
 	}
+	var body_html = jQuery('#block-views-nodequeue-2-block .views-field-body').html();
+	jQuery('#block-views-nodequeue-2-block .views-field-title').append(body_html);
+	jQuery('#block-views-nodequeue-2-block .views-field-body').html('');
 	
 	
 	
