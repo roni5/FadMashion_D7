@@ -117,7 +117,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 
                                                           
          .jcarousel-skin-fadmashion .views-field-body, 
-.jcarousel-skin-fadmashion .views-field-field-graphic {float: left;}
+.jcarousel-skin-fadmashion .views-field-field-graphic {float: left; margin-top: 15px; }
 .jcarousel-skin-fadmashion .views-field-body {color: #322F2C; width:520px;font-weight:300;line-height:20px;padding:20px 40px 20px 30px;}
 
 /*.region-featured #block-views-nodequeue-2-block { width: 0px; height: 0;}
