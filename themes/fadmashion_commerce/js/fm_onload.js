@@ -14,5 +14,11 @@ jQuery(document).ready(function() {
 	    });
 	  jQuery('#colorbox').addClass('blankBox');
 	}
+	if(jQuery.browser.msie) {
+	//Remove Arrows if it is msie because the fading doesn't work well for it.
+		jQuery('.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next').hide();
+	}
+	
+	
 	
 });
