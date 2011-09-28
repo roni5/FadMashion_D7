@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
 	//HowItWorks
 	if(!howItWorks) {
 	  jQuery.colorbox({ 
-	      opacity: '.1',
+	      opacity: '.9',
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      href:"#block-views-nodequeue-2-block"
