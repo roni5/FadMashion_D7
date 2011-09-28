@@ -8,6 +8,7 @@ function fm_users_opens_has_open($item_id, $uid = '') {
 	if(empty($uid)) {
 		global $user;
 		$uid = $user->uid;
+		if(empty($uid)) { $uid = 0;} 
 	}
 	$result = db_query('SELECT * FROM {fm_users_opens} WHERE uid = :uid AND item_id = :item_id', array(':uid' => $uid, ':item_id' => $item_id))->fetchObject();
 	if($result) {
@@ -21,6 +22,7 @@ function fm_users_opens_opened($item_id, $uid = '') {
   if(empty($uid)) {
 		global $user;
 		$uid = $user->uid;
+		if(empty($uid)) { $uid = 0;} 
 	}
 	
 	//TODO: Define Table in Schema and use drupal_write_record instead of this.
