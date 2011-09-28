@@ -470,12 +470,13 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-views-nodequeue-2-block .views-field-title{width: 360px; text-align:center; padding-top: 123px;} 
 #block-views-nodequeue-2-block .views-field-body {text-align:center; }
 
-.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next {text-indent: -9999px; z-index: 9999; cursor: pointer; display: block; width: 32px;height: 32px;background-image: url(../images/arrows.png);}
-.views-slideshow-controls-text-next {position: absolute; top: 205px; right: 60px; background-position: 0 -32px;}
+.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next {text-indent: -9999px; top: 255px; z-index: 9999; cursor: pointer; display: block; width: 32px;height: 32px;background-image: url(../images/arrows.png);}
+
+.views-slideshow-controls-text-next {position: absolute;  right: 60px; background-position: 0 -32px;}
 .views-slideshow-controls-text-next:hover {background-position: -32px -32px;}
 .views-slideshow-controls-text-next:active {background-position: -64px -32px;}
 
-.views-slideshow-controls-text-previous {position: absolute; top: 205px; left: 60px; background-position: 0 0;}
+.views-slideshow-controls-text-previous {position: absolute;  left: 60px; background-position: 0 0;}
 .views-slideshow-controls-text-previous:hover {background-position: -32px 0;}
 .views-slideshow-controls-text-previous:active {background-position: -64px 0;}
 
