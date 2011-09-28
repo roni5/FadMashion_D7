@@ -48,10 +48,14 @@ function fm_users_opens_opened($item_id, $uid = '') {
 
 function fm_users_opens_init() {
 	  
+	global $user;
+	
   //How it Works Pop-up
-  $val = fm_users_opens_has_open(HOWITWORKS);
-  drupal_add_js('var howItWorks = ' . $val . ';', 'inline');
-  fm_users_opens_opened(HOWITWORKS);
+  if($user->uid) {
+    $val = fm_users_opens_has_open(HOWITWORKS);
+    drupal_add_js('var howItWorks = ' . $val . ';', 'inline');
+    fm_users_opens_opened(HOWITWORKS);
+  }
   
 }
 
