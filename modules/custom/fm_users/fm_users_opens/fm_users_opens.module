@@ -1,0 +1,58 @@
+<?php 
+
+define('HOWITWORKS', 1);
+/*
+ * Check to see if the item has been opened already
+ */
+function fm_users_opens_has_open($item_id, $uid = '') {
+	if(empty($uid)) {
+		global $user;
+		$uid = $user->uid;
+	}
+	$result = db_query('SELECT * FROM {fm_users_opens} WHERE uid = :uid AND item_id = :item_id', array(':uid' => $uid, ':item_id' => $item_id))->fetchObject();
+	if($result) {
+		return $result->opened;	
+	} else {
+		return 0;
+	}
+}
+
+function fm_users_opens_opened($item_id, $uid = '') {
+  if(empty($uid)) {
+		global $user;
+		$uid = $user->uid;
+	}
+	
+	//TODO: Define Table in Schema and use drupal_write_record instead of this.
+	 if ($exists = $result = db_query('SELECT * FROM {fm_users_opens} WHERE uid = :uid AND item_id = :item_id', array(':uid' => $uid, ':item_id' => $item_id))->fetchField()) {
+     // UPDATE
+     $num_updated = db_update('fm_users_opens') // Table name no longer needs {}
+      ->fields(array(
+      'opened' => 1,
+    ))
+    ->condition('uid', $uid, '=')
+    ->condition('item_id', $item_id, '=')
+    ->execute();
+   } else {
+     // INSERT
+     db_insert('fm_users_opens') // Table name no longer needs {
+  	   ->fields(array(
+          'uid' => $uid,
+          'item_id' => $item_id,
+          'opened' => 1,
+      ))->execute();
+   }
+	
+  
+}
+
+function fm_users_opens_init() {
+	  
+  //How it Works Pop-up
+  $val = fm_users_opens_has_open(HOWITWORKS);
+  drupal_add_js('var howItWorks = ' . $val . ';', 'inline');
+  fm_users_opens_opened(HOWITWORKS);
+  
+}
+
+

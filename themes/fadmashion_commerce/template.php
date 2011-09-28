@@ -92,6 +92,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     );
     beautytips_add_beautytips($options);
   }
+
   
 }
 
