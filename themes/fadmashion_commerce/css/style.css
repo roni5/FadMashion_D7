@@ -464,7 +464,6 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-views-nodequeue-2-block h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }
 #block-views-nodequeue-2-block h2{color:#CABFB8;text-transform: uppercase;font-size:15px;font-weight:500;left:530px;letter-spacing:3px;margin-bottom:30px;position:absolute;top:105px;}
 #block-views-nodequeue-2-block .howitworks-body p{font-size: 18px; color: #000; line-height: 25px; font-weight: 300;}
-#block-views-nodequeue-2-block .pad{padding: 19px 0 0 36px;}
 #block-views-nodequeue-2-block .views-field-field-graphic, #block-views-nodequeue-2-block .views-field-title {float: left;}
 #block-views-nodequeue-2-block .views-field-field-graphic {width: 410px;margin-top: -29px; }
 #block-views-nodequeue-2-block .views-field-title{width: 360px; text-align:center; padding-top: 123px;} 
@@ -472,11 +471,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 .views-slideshow-controls-text-previous, .views-slideshow-controls-text-next {text-indent: -9999px; top: 240px; z-index: 9999; cursor: pointer; display: block; width: 32px;height: 32px;background-image: url(../images/arrows.png);}
 
-.views-slideshow-controls-text-next {position: absolute;  right: 50px; background-position: 0 -32px;}
+.views-slideshow-controls-text-next {position: absolute;  right: 60px; background-position: 0 -32px;}
 .views-slideshow-controls-text-next:hover {background-position: -32px -32px;}
 .views-slideshow-controls-text-next:active {background-position: -64px -32px;}
 
-.views-slideshow-controls-text-previous {position: absolute;  left: 50px; background-position: 0 0;}
+.views-slideshow-controls-text-previous {position: absolute;  left: 60px; background-position: 0 0;}
 .views-slideshow-controls-text-previous:hover {background-position: -32px 0;}
 .views-slideshow-controls-text-previous:active {background-position: -64px 0;}
 
