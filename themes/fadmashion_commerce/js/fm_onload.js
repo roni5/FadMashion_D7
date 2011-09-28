@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
 	if(!howItWorks) {
 	  jQuery.colorbox({ 
 	      opacity: '.1',
-	      innerWidth: '930px', innerHeight: '530px', 
+	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      href:"#block-views-nodequeue-2-block"
 	    });
