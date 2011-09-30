@@ -469,7 +469,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #block-views-nodequeue-2-block .views-field-title{width: 360px; text-align:center; padding-top: 123px;} 
 #block-views-nodequeue-2-block .views-field-body {text-align:center; }
 
-.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next {text-indent: -9999px; top: 240px; z-index: 9999; cursor: pointer; display: block; width: 32px;height: 32px;background-image: url(../images/arrows.png);}
+.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next {text-indent: -9999px; top: 280px; z-index: 9999; cursor: pointer; display: block; width: 32px;height: 32px;background-image: url(../images/arrows.png);}
 
 .views-slideshow-controls-text-next {position: absolute;  right: 60px; background-position: 0 -32px;}
 .views-slideshow-controls-text-next:hover {background-position: -32px -32px;}
