@@ -46,7 +46,7 @@
 
 <head profile="<?php print $grddl_profile; ?>">
   <?php print $head; ?>
-  <script type="text/javascript">
+<script type="text/javascript">
   var _kmq = _kmq || [];
   function _kms(u){
     setTimeout(function(){
