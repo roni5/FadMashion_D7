@@ -37,6 +37,14 @@ function fm_deals_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'fm_deals.admin.inc',
   );
+  $items['admin/fadmashion/deals/orders'] = array(
+    'title' => t('All Orders'), 
+    'description' => t('All the Orders'),
+    'page callback' => 'fm_deals_admin_orders',
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'fm_deals.admin.inc',
+  );
   
   return $items;
 }
@@ -436,15 +444,19 @@ function fm_deals_qty_purchased($nid) {
 	return count($orders);
 }
 
-function fm_deals_orders($nid, $status = array('fm_orders_authorized', 'fm_orders_captured', 'fm_orders_voided') ) {
+function fm_deals_orders($nid = '', $status = array('fm_orders_authorized', 'fm_orders_captured', 'fm_orders_voided') ) {
 
 	$orders = array();
 	//load line items that reference this node id
 	$query = new EntityFieldQuery();
-	$line_item_results = $query->entityCondition('entity_type', 'commerce_line_item')
-	      ->entityCondition('bundle', 'product')
-	      ->fieldCondition('field_node_reference', 'nid', $nid)
-	      ->execute();
+	$query->entityCondition('entity_type', 'commerce_line_item')
+	      ->entityCondition('bundle', 'product');
+	      
+	if(!empty($nid))  {
+	  $query->fieldCondition('field_node_reference', 'nid', $nid);
+	}
+	      
+	 $line_item_results = $query->execute();
 	
 	$count = 0;
 	//load orders with the line item and check if cart status is correct

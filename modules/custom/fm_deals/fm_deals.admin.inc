@@ -63,25 +63,38 @@ function fm_deals_list($entities) {
 	return $output;
 }
 
-function fm_deals_admin_orders($nid) {
+function fm_deals_admin_orders($nid = '') {
 	$orders = fm_deals_orders($nid);
-	$deal_node = node_load($nid);
+	
 	$orders = array_reverse($orders);
 	$statuses = fm_commerce_orders_commerce_order_status_info();
-	
-	$output = '<h1>' . $deal_node->title . '</h1>';
+	if(empty($nid)) {
+	  $deal_node = node_load($nid);
+	  $output = '<h1>' . $deal_node->title . '</h1>';
+	}
+	else {
+		$output = '<h1>' . t('All Deals') . '</h1>';
+	}
 	
 	if(count($orders)) {
-	  $header = array('Order Id',  'Name', 'Time', 'Payment Status', 'Unpaid Balance', 'Actions');
+	  $header = array('Order Id',  'Name', 'Product Name', 'Time', 'Payment Status', 'Unpaid Balance', 'Actions');
 	  
     $rows = array();
     foreach ($orders as $order) {
     	$status = $order->status;
+    	$deal_node = fm_commerce_get_order_node($order);
     	$actions = '';
     	switch ($status) {
     		case 'fm_orders_authorized':
-    		  $actions = l('Capture', 'admin/fadmashion/wpp/capture/' . $order->order_id, array('query' => drupal_get_destination()) );
-    		  $actions .= ' | ' . l('Void', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
+    			if(fm_deals_states_status($deal_node)) {
+    		  		$actions .= '<div> Deal is On! </div>';
+    				  $actions .= l('Capture', 'admin/fadmashion/wpp/capture/' . $order->order_id, array('query' => drupal_get_destination()) );
+    		  		$actions .= ' | ' . l('Void', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
+    			} else {
+    				$actions .= '<div> Deal is Off </div>';
+    		  	$actions .=  l('Void Payment', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
+    			
+    			}
     		  break; 
     		default:
     			break;
@@ -91,6 +104,7 @@ function fm_deals_admin_orders($nid) {
   	  $rows[] = array(
   	    l($order->order_id, 'admin/commerce/orders/' . $order->order_id),
   	    fm_users_fullname($order->uid),
+  	    $deal_node->title, 
   	    date('M D Y', $order->changed),
   	    $statuses[$status]['title'],
   	    $balance. ' (' .l('payment history', 'admin/commerce/orders/' . $order->order_id . '/payment') . ')',
