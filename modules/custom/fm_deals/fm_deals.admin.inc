@@ -64,17 +64,18 @@ function fm_deals_list($entities) {
 }
 
 function fm_deals_admin_orders($nid = '') {
-	$orders = fm_deals_orders($nid);
-	
-	$orders = array_reverse($orders);
 	$statuses = fm_commerce_orders_commerce_order_status_info();
-	if(empty($nid)) {
+	if(!empty($nid)) {
+		$orders = fm_deals_orders($nid);
 	  $deal_node = node_load($nid);
 	  $output = '<h1>' . $deal_node->title . '</h1>';
 	}
 	else {
+		$orders = fm_deals_orders($nid, array('fm_orders_authorized', 'fm_orders_captured'));
 		$output = '<h1>' . t('All Deals') . '</h1>';
 	}
+	
+	$orders = array_reverse($orders);
 	
 	if(count($orders)) {
 	  $header = array('Order Id',  'Name', 'Product Name', 'Time', 'Payment Status', 'Unpaid Balance', 'Actions');
@@ -86,7 +87,8 @@ function fm_deals_admin_orders($nid = '') {
     	$actions = '';
     	switch ($status) {
     		case 'fm_orders_authorized':
-    			if(fm_deals_states_status($deal_node)) {
+    			$qty_purchased = fm_deals_qty_purchased($deal_node->nid);
+    			if(fm_deals_states_status($deal_node, $qty_purchased)) {
     		  		$actions .= '<div> Deal is On! </div>';
     				  $actions .= l('Capture', 'admin/fadmashion/wpp/capture/' . $order->order_id, array('query' => drupal_get_destination()) );
     		  		$actions .= ' | ' . l('Void', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
