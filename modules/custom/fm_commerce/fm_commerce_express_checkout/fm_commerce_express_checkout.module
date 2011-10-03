@@ -30,6 +30,7 @@ function fm_commerce_express_checkout_permission() {
   );
 }
 function fm_commerce_express_checkout_page() {
+	drupal_set_message('Check back in 12-24 hours for updates as we are currently fixing a technical issue related to payments.', 'error');
 	
 	return drupal_get_form('fm_commerce_express_checkout_form');
 }
