@@ -148,7 +148,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   $form['complete_purchase'] = array(
     '#type' => 'submit',
     '#value' => t('Complete Purchase'),
-    '#attributes' => array('class' => array('red', 'ajax-button'))
+    '#attributes' => array('class' => array('red', 'ajax-button'), 'disabled' => $disabled)
   );
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
