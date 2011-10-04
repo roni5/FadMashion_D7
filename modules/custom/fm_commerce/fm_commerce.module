@@ -68,11 +68,25 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
+	  $error_message = $output .= '<div id="buyit-error" style="display: none">' . t('We\'ll be back! Working to get a better Payment partner.  Please browse and enjoy the beautiful designs and let us know what you think in the customer survey ') . '</div>';
 		$form['submit']['#value'] = "Buy It";
 		$form['submit']['#attributes'] = array(
-		  'class' => array('red'),
+		  'class' => array('red', 'buyit-button'),
 		  'disabled' => 'disabled'
     );
+    
+	  $options['bt_drupal_help_page'] = array(
+      'cssSelect' => '.buyit-button',
+      'trigger' => array('hover', 'click'),
+	    'positions' => array('top'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    //'ajaxPath' => array("$(this).attr('ref')"),
+	    'contentSelector' => " $('#buyit-error').html()",
+	    'width' => '150px',
+      'style' => 'hulu',
+      );
+    beautytips_add_beautytips($options);
+    
     
 		$form['#submit'][] = 'fm_commerce_cart_submit';
   }
