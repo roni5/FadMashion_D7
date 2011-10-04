@@ -77,7 +77,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
     );
     
 	  $options['bt_drupal_buyit_error'] = array(
-      'cssSelect' => '.box',
+      'cssSelect' => '.itemOptions .box',
       'trigger' => array('hover', 'click'),
 	    'positions' => array('top'),
 	    'fill' =>  "rgb(255, 255, 255)",
