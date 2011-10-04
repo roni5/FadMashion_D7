@@ -68,14 +68,15 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
-	  $error_message = $output .= '<div id="buyit-error" style="display: none">' . t('We\'ll be back! Working to get a better Payment partner.  Please browse and enjoy the beautiful designs and let us know what you think in the customer survey ') . '</div>';
+	  $error_message =  '<div id="buyit-error" style="display: none">' . t('We\'ll be back! Working to get a better Payment partner.  Please browse and enjoy the beautiful designs and let us know what you think in the customer survey ') . '</div>';
 		$form['submit']['#value'] = "Buy It";
+		$form['submit']['#suffix'] = $error_message;
 		$form['submit']['#attributes'] = array(
 		  'class' => array('red', 'buyit-button'),
 		  'disabled' => 'disabled'
     );
     
-	  $options['bt_drupal_help_page'] = array(
+	  $options['bt_drupal_buyit_error'] = array(
       'cssSelect' => '.buyit-button',
       'trigger' => array('hover', 'click'),
 	    'positions' => array('top'),
