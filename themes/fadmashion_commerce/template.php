@@ -113,7 +113,7 @@ function fadmashion_commerce_css_alter(&$css) {
 }
 
 function fadmashion_commerce_static_pages() {
-	return array('faq', 'about', 'not-authorized', 'access-denied', 'story', 'people');
+	return array('faq', 'about', 'not-authorized', 'access-denied', 'story', 'people', 'terms-use');
 }
 
 
