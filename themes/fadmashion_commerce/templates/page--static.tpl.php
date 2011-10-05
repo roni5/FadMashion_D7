@@ -8,7 +8,6 @@
 	       <?php print l('Our Story', 'story');?>
 	       <?php print l('FAQ', 'faq');?>
 	       <a href="http://blog.fadmashion.com" >Blog</a>
-	       <?php print l('Contact', 'contact');?>
 	     </div>
 	   </div> <!-- end column1 -->
 	   <div class="column2">
