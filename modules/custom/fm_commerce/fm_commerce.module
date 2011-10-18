@@ -68,15 +68,15 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
-	  $error_message =  '<div id="buyit-error" style="display: none">' . t('We are upgrading our payment system. We welcome you to look around the site as we work on this process and thank you for your interest. Please check back soon for updates. ') . '</div>';
+	  //$error_message =  '<div id="buyit-error" style="display: none">' . t('We are upgrading our payment system. We welcome you to look around the site as we work on this process and thank you for your interest. Please check back soon for updates. ') . '</div>';
 		$form['submit']['#value'] = "Buy It";
-		$form['submit']['#suffix'] = $error_message;
+		//$form['submit']['#suffix'] = $error_message;
 		$form['submit']['#attributes'] = array(
 		  'class' => array('red', 'buyit-button'),
-		  'disabled' => 'disabled'
+		  //'disabled' => 'disabled'
     );
     
-	  $options['bt_drupal_buyit_error'] = array(
+	  /*$options['bt_drupal_buyit_error'] = array(
       'cssSelect' => '.itemOptions .box',
       'trigger' => array('hover', 'click'),
 	    'positions' => array('top'),
@@ -86,7 +86,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	    'width' => '250px',
       'style' => 'hulu',
       );
-    beautytips_add_beautytips($options);
+    beautytips_add_beautytips($options);*/
     
     
 		$form['#submit'][] = 'fm_commerce_cart_submit';
