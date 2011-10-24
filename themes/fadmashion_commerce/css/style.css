@@ -115,15 +115,16 @@ th {border-bottom:3px solid #EEE8E3;}
 font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 
 
-.views-field-field-graphic img{padding:20px 30px 20px 40px;background:url("../images/divider_dotted.png") no-repeat scroll right center transparent;}                                                          
+                                                          
          .jcarousel-skin-fadmashion .views-field-body, 
-.jcarousel-skin-fadmashion .views-field-field-graphic {float: left;}
+.jcarousel-skin-fadmashion .views-field-field-graphic {float: left; }
 .jcarousel-skin-fadmashion .views-field-body {color: #322F2C; width:520px;font-weight:300;line-height:20px;padding:20px 40px 20px 30px;}
 
-.region-featured #block-views-nodequeue-2-block { width: 0px; height: 0;}
+/*.region-featured #block-views-nodequeue-2-block { width: 0px; height: 0;}
 #block-views-nodequeue-2-block h2 {color:#7C6B5B;font-size:16px;font-weight:100;text-align:center;text-transform:uppercase; }                                                   
 .region-featured #block-views-nodequeue-2-block .close {background:url("../images/b_close.png") no-repeat scroll left top transparent;display:block;float:right;height:12px;width:12px;}
 .region-featured #block-views-nodequeue-2-block .close:hover{background-position: bottom left; }
+*/
 
 /* Deals */
 .photos{padding-bottom: 100px;}
@@ -458,10 +459,27 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .page-express-checkout-confirmation .icons{border-bottom: 1px solid  #eee8e3; padding: 6px 0 18px 0;}
 .page-express-checkout-confirmation .facebook{color: #5e76ad; font-size: 14px; font-weight: 300; padding: 18px 0;}
 
+/* How it Works Overlay */
+#block-views-nodequeue-2-block{width: 928px; padding: 0 36px; height: 528px; background: url("../images/howitworks_background.png") top left no-repeat; }
+#block-views-nodequeue-2-block h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }
+#block-views-nodequeue-2-block h2{color:#CABFB8;text-transform: uppercase;font-size:15px;font-weight:500;left:570px;letter-spacing:3px;margin-bottom:30px;position:absolute;top:125px;}
+#block-views-nodequeue-2-block .howitworks-body p{font-size: 18px; color: #000; line-height: 25px; font-weight: 300;}
+#block-views-nodequeue-2-block .views-field-field-graphic, #block-views-nodequeue-2-block .views-field-title {float: left;}
+#block-views-nodequeue-2-block .views-field-field-graphic {width: 410px;margin-top: -29px; }
+#block-views-nodequeue-2-block .views-field-title{width: 360px; text-align:center; padding-top: 123px;} 
+#block-views-nodequeue-2-block .views-field-body {text-align:center; }
 
+.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next {text-indent: -9999px; top: 280px; z-index: 9999; cursor: pointer; display: block; width: 32px;height: 32px;background-image: url(../images/arrows.png);}
 
+.views-slideshow-controls-text-next {position: absolute;  right: 60px; background-position: 0 -32px;}
+.views-slideshow-controls-text-next:hover {background-position: -32px -32px;}
+.views-slideshow-controls-text-next:active {background-position: -64px -32px;}
 
+.views-slideshow-controls-text-previous {position: absolute;  left: 60px; background-position: 0 0;}
+.views-slideshow-controls-text-previous:hover {background-position: -32px 0;}
+.views-slideshow-controls-text-previous:active {background-position: -64px 0;}
 
+.views-slideshow-controls-text-pause {display: none;}
 
 /* Rewards Pop-up */
 

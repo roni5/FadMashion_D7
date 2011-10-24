@@ -1,6 +1,8 @@
 <?php
 
 function fm_users_menu() {
+	
+  
   $items['fm_users/auth'] = array(
     'page callback' => 'fm_users_authorize',
     'access callback' => TRUE,
@@ -129,7 +131,7 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['field_last_name']['und'][0]['value']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['field_last_name']['#suffix'] = '<div style="clear: both; display: block;margin: 0px; font-size: 1px;"></div>';
   	  
-  	  $form['field_tos']['und']['#title'] = t('I agree to the ') . l('terms of service', '#');
+  	  $form['field_tos']['und']['#title'] = t('I agree to the ') . l('terms of service', 'terms-use');
   	  $form['field_newsletter_week']['und']['#title'] = t('Sign me up for weekly Deal Reminders');
   	  $form['field_tos']['und']['#weight'] = 2;
   	  $form['field_newsletter_week']['und']['#weight'] = 3;
@@ -216,7 +218,7 @@ function fm_users_register_submit($form, &$form_state) {
 	if(!fm_users_check_activate($mail)) {
 		user_save($user, array('status' => 0));
 		//Redirect here
-	  drupal_set_message(t('Fadmashion is currently in private launch. You are now in the queue and will receive an email from us when your invitation is prepared.'), 'error');
+	  drupal_set_message(t('Fadmashion is currently only open for priority members. You are now in the queue and will receive an email from us when your invitation is prepared.'), 'error');
 	} else {
 		 user_save($user, array('status' => 1));
      drupal_goto();		
@@ -274,21 +276,28 @@ function fm_users_register_submit($form, &$form_state) {
 function fm_users_login_name_validate($form, &$form_state)  {
 	 
   if (isset($form_state['values']['name']) && user_is_blocked($form_state['values']['name'])) {
-    form_set_error('name', t('Sorry, Fadmashion is currently in Private launch.  You\'ll be hearing from us soon for your account activation'));
+  	
+  	if(fm_invite_is_activated()) {
+  		$user = user_load_by_name($form_state['values']['name']);
+  		user_save($user, array('status' => 1));
+  	} else {
+      form_set_error('name', t('Sorry, Fadmashion is currently only open for priority members.  You\'ll be hearing from us soon for your account activation'));
+  	}
+  	
   }
 }
 
 function fm_users_check_activate($mail) {
 	$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $mail));
   $mail = $result->fetchObject();
-	if($mail) {
-	  return true;
+	if($mail || fm_invite_is_activated() ) {
+	  return TRUE;
 	}
 	else {
-		return false;
+		return FALSE;
 	}
 	
-	return false;
+	return FALSE;
 }
 
 function fm_users_fb_user($op, $data, $return) {

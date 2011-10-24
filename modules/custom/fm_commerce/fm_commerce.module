@@ -68,10 +68,26 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  
 	  $form['#id'] = "commerce-cart-add-to-cart-form";
 	  
+	  //$error_message =  '<div id="buyit-error" style="display: none">' . t('We are upgrading our payment system. We welcome you to look around the site as we work on this process and thank you for your interest. Please check back soon for updates. ') . '</div>';
 		$form['submit']['#value'] = "Buy It";
+		//$form['submit']['#suffix'] = $error_message;
 		$form['submit']['#attributes'] = array(
-		  'class' => array('red')
+		  'class' => array('red', 'buyit-button'),
+		  //'disabled' => 'disabled'
     );
+    
+	  /*$options['bt_drupal_buyit_error'] = array(
+      'cssSelect' => '.itemOptions .box',
+      'trigger' => array('hover', 'click'),
+	    'positions' => array('top'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    //'ajaxPath' => array("$(this).attr('ref')"),
+	    'contentSelector' => " $('#buyit-error').html()",
+	    'width' => '250px',
+      'style' => 'hulu',
+      );
+    beautytips_add_beautytips($options);*/
+    
     
 		$form['#submit'][] = 'fm_commerce_cart_submit';
   }
@@ -296,8 +312,21 @@ function fm_commerce_get_order_product($order) {
        return $product;
        break;
     }
-  }
-    
+  } 
+}
+
+function fm_commerce_get_order_node($order) {
+	
+	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+	// Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+    switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+       $node = $line_item_wrapper->field_node_reference->value(); 
+       return $node;
+       break;
+    }
+  } 
 }
 
 function fm_commerce_get_order_options($order) {

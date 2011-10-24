@@ -16,9 +16,9 @@ files[] = includes/commerce_authnet.admin.inc
 ; Simple tests
 ; files[] = tests/commerce_authnet.test
 
-; Information added by drupal.org packaging script on 2011-04-23
+; Information added by drupal.org packaging script on 2011-09-14
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "commerce_authnet"
-datestamp = "1303560286"
+datestamp = "1315958905"
 

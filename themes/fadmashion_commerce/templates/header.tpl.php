@@ -6,7 +6,10 @@
                 <li><?php print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
                 <li> <?php print l('+ Invite Friends', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 200), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends') )  ); ?></li>
                 
-                <li ><?php print l('Logout', 'user/logout')?></li>
+                <li ><?php print l('Logout', 'user/logout');
+                
+             
+                ?></li>
                </ul> 
              </div>
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >

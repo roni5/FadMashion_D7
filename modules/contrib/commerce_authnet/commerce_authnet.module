@@ -57,8 +57,8 @@ function commerce_authnet_aim_capture_access($order, $transaction) {
     return FALSE;
   }
 
-  // Allow access if the user can update payments on this order.
-  return commerce_payment_transaction_access('update', $order, $transaction);
+  // Allow access if the user can update payments on this transaction.
+  return commerce_payment_transaction_access('update', $transaction);
 }
 
 /**
@@ -194,11 +194,11 @@ function commerce_authnet_aim_submit_form_submit($payment_method, $pane_form, $p
   $description = array();
 
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
-    if ($line_item_wrapper->type->value() == 'product') {
-      $description[] = round($line_item_wrapper->quantity->value()) . 'x ' . $line_item_wrapper->line_item_label->value();
+    if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
+      $description[] = round($line_item_wrapper->quantity->value(), 2) . 'x ' . $line_item_wrapper->line_item_label->value();
     }
   }
-  
+
   // Prepare the billing address for use in the request.
   $billing_address = $order_wrapper->commerce_customer_billing->commerce_customer_address->value();
 
@@ -227,7 +227,7 @@ function commerce_authnet_aim_submit_form_submit($payment_method, $pane_form, $p
     'x_cust_id' => substr($order->uid, 0, 20),
     'x_customer_ip' => substr(ip_address(), 0, 15),
   );
-	
+
   // Submit the request to Authorize.Net.
   $response = commerce_authnet_aim_request($payment_method, $nvp);
 
