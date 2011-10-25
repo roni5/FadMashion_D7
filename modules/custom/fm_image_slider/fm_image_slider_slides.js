@@ -6,7 +6,7 @@
 jQuery(document).ready(function() {
 	
 	$(function(){
-		$('#product').slides({
+		jQuery('#product').slides({
 			preload: true,
 			preloadImage: 'img/loading.gif',
 			effect: 'slide, fade',
