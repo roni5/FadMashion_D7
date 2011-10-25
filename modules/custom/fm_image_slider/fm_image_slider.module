@@ -95,7 +95,8 @@ function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $in
 	
 	$element = array();
 	$settings = $display['settings'];
-	//print var_dump($items);
+ print var_dump($items);
+  print var_dump($display['type']);
 	switch ($display['type']) {
 		case 'image_slider':
 			$element = array(
