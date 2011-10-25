@@ -134,6 +134,8 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .photos .pagination li a img{border:1px solid #F0EEEA;}
 .photos .pagination li a img:hover{border:1px solid #A32E27;}
 .photos .slides_container img{border:1px solid #F0EEEA;}
+.photos .next {text-indent: -9999px; background:url("../images/img_nav_next.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
+.photos .prev {text-indent: -9999px; background:url("../images/img_nav_prev.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
 
 .timer{background: url(../images/bg_timer.jpg) top left repeat-x;border-top-left-radius:4px; -webkit-border-top-left-radius: 4px; -moz-borde-top-left-radius: 4px;border-top-right-radius:4px; -webkit-border-top-right-radius: 4px; -moz-borde-top-right-radius: 4px; height: 52px; color: #d9cac9; font-weight:normal; font-size: 13px;  width: 332px;}
 .timer span{ font-style:normal; font-size:20px; color: #fff; position: relative; top: 2px; padding-left: 5px; font-weight: 500; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
