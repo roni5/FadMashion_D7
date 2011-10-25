@@ -18,8 +18,8 @@ function fm_image_slider_theme() {
 
 function fm_image_slider_field_formatter_info() {
 	return array(
-    'nivo_slider' => array(
-      'label' => t('FM Nivo Slider'),
+    'image_slider' => array(
+      'label' => t('FM Main Image Slider'),
       'field types' => array('node_reference'),
 	    'settings' => array('product_image_style' => '', 'product_thumb_style' => ''),
     ),
@@ -89,9 +89,9 @@ function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $in
 	$settings = $display['settings'];
 	//print var_dump($items);
 	switch ($display['type']) {
-		case 'nivo_slider':
+		case 'image_slider':
 			$element = array(
-        '#theme' => 'fm_image_slider_formatter',
+        '#theme' => 'theme_fm_image_slider_slides_formatter',
         '#pictures' => $items,
 			  '#image_style' => $display['settings']['product_image_style'],
 			  '#thumb_style' => $display['settings']['product_thumb_style']
