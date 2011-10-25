@@ -5,7 +5,15 @@
  */
 function fm_image_slider_theme() {
   return array(
-    'fm_image_slider_formatter' => array(
+    'fm_image_slider_nivo_formatter' => array(
+      'variables' => array(
+        'pictures' => array(),
+        'image_style' => '',
+        'thumb_style' => '',
+      ),
+      'file' => 'fm_image_slider.theme.inc',
+    ),
+    'fm_image_slider_slides_formatter' => array(
       'variables' => array(
         'pictures' => array(),
         'image_style' => '',
