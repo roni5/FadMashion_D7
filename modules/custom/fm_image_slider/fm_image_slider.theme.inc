@@ -85,6 +85,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   //show thumbs or not
   drupal_add_js('var showThumbs = ' . (count($pictures) > 1 ? true : 0) . ';', 'inline');
   
+  $i = 0;
   foreach($pictures as $picture) {
 
   	$picture = node_load($picture['nid']);
@@ -93,7 +94,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
     
     $image = array(
       'path' => $picture['uri'],
-      'alt' => $picture['alt'],
+      'alt' =>$i,
       'title' => $picture['title'],
       'style_name' => $image_style
     );
@@ -101,13 +102,13 @@ function theme_fm_image_slider_slides_formatter($variables) {
     
     $image = array(
       'path' => $picture['uri'],
-      'alt' => $picture['alt'],
+      'alt' => $i,
       'title' => $picture['title'],
       'style_name' => $thumb_style
     );
     
-    $thumbs .= theme('image_style', $image);
-
+    $thumbs .= '<a href="">' . theme('image_style', $image) . '</a>';
+	  $i++;
   }
   
   $output = '<div id="product">';
