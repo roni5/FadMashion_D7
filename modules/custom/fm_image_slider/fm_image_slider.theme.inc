@@ -107,7 +107,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'style_name' => $thumb_style
     );
     
-    $thumbs .= '<a href="">' . theme('image_style', $image) . '</a>';
+    $thumbs .= '<li><a href="#">' . theme('image_style', $image) . '</a></li>';
 	  $i++;
   }
   
