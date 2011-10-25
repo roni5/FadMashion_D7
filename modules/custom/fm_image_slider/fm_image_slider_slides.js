@@ -15,4 +15,5 @@ jQuery(document).ready(function() {
 			generateNextPrev: true,
 			generatePagination: false
 		});
+		jQuery('.photos .prev').after('<a class="zoom" href="#">Enlarge</a>');
 });
