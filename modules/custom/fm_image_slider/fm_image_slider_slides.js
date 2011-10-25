@@ -5,7 +5,6 @@
 
 jQuery(document).ready(function() {
 	
-	$(function(){
 		jQuery('#product').slides({
 			preload: true,
 			preloadImage: 'img/loading.gif',
@@ -16,5 +15,4 @@ jQuery(document).ready(function() {
 			generateNextPrev: true,
 			generatePagination: false
 		});
-	});
 });
