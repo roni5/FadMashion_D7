@@ -15,5 +15,25 @@ jQuery(document).ready(function() {
 			generateNextPrev: true,
 			generatePagination: false
 		});
-		jQuery('.photos .prev').after('<a class="zoom" href="#">Enlarge</a>');
+		
+		jQuery(".zoom01").gzoom({sW: 56,
+			sH: 71,
+			lW: 372,
+			lH: 474,
+			lighbox : false
+			});
+
+		
+		/*jQuery('#zoomed').slides({
+			preload: true,
+			preloadImage: 'img/loading.gif',
+			effect: 'slide, fade',
+			crossfade: true,
+			slideSpeed: 350,
+			fadeSpeed: 500,
+			generateNextPrev: true,
+			generatePagination: false
+		});*/
+		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?width=930&height=560&inline=true#zoomed&blankBox=1">Enlarge</a>');
+		Drupal.attachBehaviors();
 });

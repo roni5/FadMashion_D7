@@ -78,6 +78,13 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider_slides.js');
 	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/slides.min.jquery.js');
 	
+	
+	//Add Zoom JS
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.gzoom.js');
+	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/jquery.gzoom.css');
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.mousewheel.min.js');
+	drupal_add_library('system', 'ui.slider');
+	
   $pictures = $variables['pictures'];
   $image_style = $variables['image_style'];
   $thumb_style = $variables['thumb_style'];
@@ -98,7 +105,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'title' => $picture['title'],
       'style_name' => $image_style
     );
+    $images .= '<div class="container"><div class="zoom01" class="zoom">';
     $images .= theme('image_style', $image);
+    $images .= '</div></div>';
     
     $image = array(
       'path' => $picture['uri'],
@@ -118,6 +127,17 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $output .= '<ul class="pagination">';
   $output .= $thumbs;
   $output .= '</ul>';
+  $output .= '</div>';
+  
+  $output .= '<div style="display:none">';
+  $output .= '<div id="zoomed">';
+  $output .= '<div class="slides_container">';
+  $output .= $images;
+  $output .= '</div>';
+  $output .= '<ul class="pagination">';
+  $output .= $thumbs;
+  $output .= '</ul>';
+  $output .= '</div>';
   $output .= '</div>';
   
   return $output;
