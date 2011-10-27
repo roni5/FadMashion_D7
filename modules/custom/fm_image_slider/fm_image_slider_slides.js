@@ -16,10 +16,10 @@ jQuery(document).ready(function() {
 			generatePagination: false
 		});
 		
-		jQuery(".zoom01").gzoom({sW: 56,
-			sH: 71,
-			lW: 372,
-			lH: 474,
+		jQuery(".zoom01").gzoom({sW: 372,
+			sH: 474,
+			lW: 586,
+			lH: 747,
 			lighbox : false
 			});
 
