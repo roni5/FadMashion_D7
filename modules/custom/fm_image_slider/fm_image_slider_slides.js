@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 			frameColor: "#F0EEEA",
 			lighbox : false
 			});
-		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=880&width=828&inline=true#zoomed">Enlarge</a>');
+		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=880&width=828&inline=true#zoomed&blankBox=1">Enlarge</a>');
 		Drupal.attachBehaviors();
 
 });
@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 				generateNextPrev: true,
 				generatePagination: false
 			});
-		  jQuery(".zoom02").gzoom({sW: 586,
+		 /* jQuery(".zoom02").gzoom({sW: 586,
 				sH: 747,
 				lW: 586,
 				lH: 747,
@@ -57,7 +57,7 @@ jQuery(document).ready(function() {
 				frameWidth: 0,
 				lighbox : false
 				});
-		  
+		  */
 	  }
 	};
 })(jQuery);
