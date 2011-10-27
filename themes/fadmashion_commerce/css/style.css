@@ -141,6 +141,10 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .photos .prev {text-indent: -9999px; background:url("../images/img_nav_prev.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
 .photos .zoom{text-indent: -9999px; background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
 
+#zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 588px;}
+#zoomed .pagination{float:left;height:623px;width:143px;}
+
+
 .timer{background: url(../images/bg_timer.jpg) top left repeat-x;border-top-left-radius:4px; -webkit-border-top-left-radius: 4px; -moz-borde-top-left-radius: 4px;border-top-right-radius:4px; -webkit-border-top-right-radius: 4px; -moz-borde-top-right-radius: 4px; height: 52px; color: #d9cac9; font-weight:normal; font-size: 13px;  width: 332px;}
 .timer span{ font-style:normal; font-size:20px; color: #fff; position: relative; top: 2px; padding-left: 5px; font-weight: 500; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 .timer .col1, .timer .col2{float: left; width: 165px; text-align:center; height: 24px; }
