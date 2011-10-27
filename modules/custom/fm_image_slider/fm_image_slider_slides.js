@@ -18,8 +18,8 @@ jQuery(document).ready(function() {
 		
 		jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
-			lW: 372,
-			lH: 474,
+			lW: 586,
+			lH: 747,
 			step: 10,
 			lighbox : false
 			});
