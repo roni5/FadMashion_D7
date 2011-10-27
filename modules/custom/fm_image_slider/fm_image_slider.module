@@ -10,6 +10,7 @@ function fm_image_slider_theme() {
         'pictures' => array(),
         'image_style' => '',
         'thumb_style' => '',
+        'zoom_style' => '',
       ),
       'file' => 'fm_image_slider.theme.inc',
     ),
@@ -18,6 +19,7 @@ function fm_image_slider_theme() {
         'pictures' => array(),
         'image_style' => '',
         'thumb_style' => '',
+        'zoom_style' => '',
       ),
       'file' => 'fm_image_slider.theme.inc',
     ),
@@ -29,7 +31,7 @@ function fm_image_slider_field_formatter_info() {
     'image_slider' => array(
       'label' => t('FM Main Image Slider'),
       'field types' => array('node_reference'),
-	    'settings' => array('product_image_style' => '', 'product_thumb_style' => ''),
+	    'settings' => array('product_image_style' => '', 'product_thumb_style' => '', 'product_zoom_style' => ''),
     ),
   );
 }
@@ -54,6 +56,14 @@ function fm_image_slider_field_formatter_settings_form($field, $instance, $view_
     '#title' => t('Product Thumb style'),
     '#type' => 'select',
     '#default_value' => $settings['product_thumb_style'],
+    '#empty_option' => t('None (original image)'),
+    '#options' => $image_styles,
+  );
+  
+  $element['product_zoom_style'] = array(
+    '#title' => t('Product Zoom style'),
+    '#type' => 'select',
+    '#default_value' => $settings['product_zoom_style'],
     '#empty_option' => t('None (original image)'),
     '#options' => $image_styles,
   );
@@ -88,6 +98,14 @@ function fm_image_slider_field_formatter_settings_summary($field, $instance, $vi
   else {
     $summary[] = t('Product thumb style: Original image');
   }
+  
+  if (isset($image_styles[$settings['product_zoom_style']])) {
+    $summary[] = t('Product zoom style: @style', array('@style' => $image_styles[$settings['product_zoom_style']]));
+  }
+  else {
+    $summary[] = t('Product zoom style: Original image');
+  }
+  
   return implode('<br />', $summary);
 }
 
@@ -101,7 +119,8 @@ function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $in
         '#theme' => 'fm_image_slider_slides_formatter',
         '#pictures' => $items,
 			  '#image_style' => $display['settings']['product_image_style'],
-			  '#thumb_style' => $display['settings']['product_thumb_style']
+			  '#thumb_style' => $display['settings']['product_thumb_style'],
+			  '#zoom_style' => $display['settings']['product_zoom_style']
       );
 			break;
 	}
