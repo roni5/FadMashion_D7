@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 			sH: 474,
 			lW: 372,
 			lH: 474,
-			step: 10
+			step: 10,
 			lighbox : false
 			});
 
