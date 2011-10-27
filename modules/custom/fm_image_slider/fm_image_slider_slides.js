@@ -37,7 +37,7 @@ jQuery(document).ready(function() {
 		  }
 		  
 		  var boxHeight = jQuery('#cboxLoadedContent').height();
-		  jQuery(".zoom02 img").panFullSize(boxHeight,588);
+		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
