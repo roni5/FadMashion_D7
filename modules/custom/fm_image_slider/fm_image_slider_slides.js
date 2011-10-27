@@ -39,7 +39,8 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 		  
-		  jQuery(".zoom02 img").panFullSize(828,300);
+		  var boxHeight = jQuery('#cboxLoadedContent').height();
+		  jQuery(".zoom02 img").panFullSize(boxHeight,300);
 		 jQuery('#zoomed').slides({
 				preload: true,
 				preloadImage: 'img/loading.gif',
