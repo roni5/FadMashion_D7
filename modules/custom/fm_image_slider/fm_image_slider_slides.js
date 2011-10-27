@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 				generateNextPrev: true,
 				generatePagination: false
 			});
-		 /* jQuery(".zoom02").gzoom({sW: 586,
+		  jQuery(".zoom02").gzoom({sW: 586,
 				sH: 747,
 				lW: 586,
 				lH: 747,
@@ -57,7 +57,7 @@ jQuery(document).ready(function() {
 				frameWidth: 0,
 				lighbox : false
 				});
-		  */
+		  
 	  }
 	};
 })(jQuery);
