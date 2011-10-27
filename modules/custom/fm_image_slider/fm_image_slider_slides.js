@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 			frameColor: "#F0EEEA",
 			lighbox : false
 			});*/
-		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=80%&width=828&inline=true#zoomed">Enlarge</a>');
+		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=80%&width=828&inline=true#zoomed&blankBox=1">Enlarge</a>');
 		Drupal.attachBehaviors();
 
 });
