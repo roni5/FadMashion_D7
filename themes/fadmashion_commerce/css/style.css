@@ -134,7 +134,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .photos .pagination li.current a img, #zoomed .pagination li.current a img{border:1px solid #A32E27; }
 .photos .pagination li a img, #zoomed .pagination li a img{border:1px solid #F0EEEA;}
 .photos .pagination li a img:hover, #zoomed .pagination li a img:hover{border:1px solid #A32E27;}
-.photos .slides_container img, #zoomed .slides_container img{border:1px solid #F0EEEA;}
+
 .photos .next, .photos .prev, .photos .zoom, #zoomed .next, #zoomed .prev, #zoomed .zoom {float: left; display: block;}
 .photos .next:hover, .photos .prev:hover, .photos .zoom:hover {background-position: bottom left;}
 .photos .next {text-indent: -9999px; background:url("../images/img_nav_next.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
@@ -147,7 +147,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #zoomed .next {left: 570px;}
 #zoomed .next {text-indent: -9999px; background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
 #zoomed .prev {text-indent: -9999px; background:url("../images/nav_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
-
+#zoomed .slides_container img{border:1px solid #F0EEEA;}
 
 .timer{background: url(../images/bg_timer.jpg) top left repeat-x;border-top-left-radius:4px; -webkit-border-top-left-radius: 4px; -moz-borde-top-left-radius: 4px;border-top-right-radius:4px; -webkit-border-top-right-radius: 4px; -moz-borde-top-right-radius: 4px; height: 52px; color: #d9cac9; font-weight:normal; font-size: 13px;  width: 332px;}
 .timer span{ font-style:normal; font-size:20px; color: #fff; position: relative; top: 2px; padding-left: 5px; font-weight: 500; font-family:"museo-sans-1","museo-sans-2", Helvetica;}

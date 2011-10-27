@@ -21,7 +21,7 @@ jQuery(document).ready(function() {
 			lW: 586,
 			lH: 747,
 			step: 10,
-			frameWidth: 0,
+			frameColor: "#F0EEEA",
 			lighbox : false
 			});
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=880&width=828&inline=true#zoomed">Enlarge</a>');
