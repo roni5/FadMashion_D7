@@ -35,22 +35,25 @@ jQuery(document).ready(function() {
 		  if(!jQuery('#zoomed').length || !jQuery('#zoomed').is(":visible")) {
 		    	return;
 		  }
-		  if(jQuery('#zoomed .slides_control').length) {
-		    	return;
-		  }
 		  
 		  var boxHeight = jQuery('#cboxLoadedContent').height();
 		  jQuery(".zoom02 img").panFullSize(boxHeight,300);
-		 jQuery('#zoomed').slides({
-				preload: true,
-				preloadImage: 'img/loading.gif',
-				effect: 'slide, fade',
-				crossfade: true,
-				slideSpeed: 350,
-				fadeSpeed: 500,
-				generateNextPrev: true,
-				generatePagination: false
-			});
+		  
+		  if(!jQuery('#zoomed .slides_control').length) {
+			  jQuery('#zoomed').slides({
+					preload: true,
+					preloadImage: 'img/loading.gif',
+					effect: 'slide, fade',
+					crossfade: true,
+					slideSpeed: 350,
+					fadeSpeed: 500,
+					generateNextPrev: true,
+					generatePagination: false
+				});
+		  }
+		  
+		  
+		 
 		 
 		 
 		 
