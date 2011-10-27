@@ -16,15 +16,15 @@ jQuery(document).ready(function() {
 			generatePagination: false
 		});
 		
-		jQuery(".zoom01").gzoom({sW: 372,
+		/*jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
 			lW: 586,
 			lH: 747,
 			step: 10,
 			frameColor: "#F0EEEA",
 			lighbox : false
-			});
-		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=880&width=828&inline=true#zoomed&blankBox=1">Enlarge</a>');
+			});*/
+		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=80%&width=828&inline=true#zoomed">Enlarge</a>');
 		Drupal.attachBehaviors();
 
 });
@@ -39,6 +39,7 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 		  
+		  jQuery(".zoom02 img").panFullSize(828,300);
 		 jQuery('#zoomed').slides({
 				preload: true,
 				preloadImage: 'img/loading.gif',
@@ -49,6 +50,9 @@ jQuery(document).ready(function() {
 				generateNextPrev: true,
 				generatePagination: false
 			});
+		 
+		 
+		 
 		 /* jQuery(".zoom02").gzoom({sW: 586,
 				sH: 747,
 				lW: 586,

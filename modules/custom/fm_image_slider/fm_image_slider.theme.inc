@@ -83,6 +83,8 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.gzoom.js');
 	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/jquery.gzoom.css');
 	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.mousewheel.min.js');
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.panFullSize.js');
+	
 	drupal_add_library('system', 'ui.slider');
 	
   $pictures = $variables['pictures'];
