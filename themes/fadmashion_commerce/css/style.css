@@ -142,7 +142,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 .photos .zoom{text-indent: -9999px; background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
 
 #zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 588px;}
-#zoomed .pagination{float:left;height:623px;width:160px;}
+#zoomed .pagination{float:left;width:160px;}
 #zoomed .next, #zoomed .prev {position: absolute; z-index: 100; top: 345px; }
 #zoomed .next {left: 570px;}
 #zoomed .next {text-indent: -9999px; background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
