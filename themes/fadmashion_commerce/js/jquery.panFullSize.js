@@ -106,7 +106,7 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
 
 
 
-            pan.mousedown(function(e){
+            pan.mouseover(function(e){
                 e.preventDefault();
                 mousedown = true;
 
@@ -119,7 +119,7 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
 
             $(document).mousemove(onpan);
 
-            $(document).mouseup(function(e){
+            $(document).mouseout(function(e){
                 onpan(e);
                 mousedown = false;
 
