@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 		  
-		  jQuery('#zoomed').slides({
+		 /* jQuery('#zoomed').slides({
 				preload: true,
 				preloadImage: 'img/loading.gif',
 				effect: 'slide, fade',
