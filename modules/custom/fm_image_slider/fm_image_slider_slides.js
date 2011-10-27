@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
 			frameWidth: 0,
 			lighbox : false
 			});
-		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?width=828&inline=true#zoomed">Enlarge</a>');
+		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="/?height=100%&width=828&inline=true#zoomed">Enlarge</a>');
 		Drupal.attachBehaviors();
 
 });
