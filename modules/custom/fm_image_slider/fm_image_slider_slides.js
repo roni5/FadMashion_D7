@@ -32,14 +32,17 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.zoomedBox = {
 	  attach: function (context, settings) {
-		  if(!jQuery('#zoomed').length || !jQuery('#zoomed').is(":visible")) {
+
+		  if(!jQuery('#zoomed').length || !jQuery('#cboxLoadedContent').length || !jQuery('#zoomed').is(":visible")) {
 		    	return;
 		  }
 		  
 		  var boxHeight = jQuery('#cboxLoadedContent').height();
-		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  var middle = boxHeight/2;
+		  jQuery("#zoomed .slides_container").height(boxHeight);
 		  jQuery("#zoomed .prev, #zoomed .next").css('top', middle.toString() + 'px');
+		  
+		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
