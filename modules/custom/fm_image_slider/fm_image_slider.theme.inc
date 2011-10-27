@@ -114,10 +114,22 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'path' => $picture['uri'],
       'alt' => $i,
       'title' => $picture['title'],
+      'style_name' => $zoom_style
+    );
+    
+    $zooms .= '<div class="container"><div class="zoom02">';
+    $zooms .= theme('image_style', $image);
+    $zooms .= '</div></div>';
+    
+    $image = array(
+      'path' => $picture['uri'],
+      'alt' => $i,
+      'title' => $picture['title'],
       'style_name' => $thumb_style
     );
     
     $thumbs .= '<li><a href="#">' . theme('image_style', $image) . '</a></li>';
+    
 	  $i++;
   }
   
@@ -133,7 +145,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $output .= '<div style="display:none">';
   $output .= '<div id="zoomed">';
   $output .= '<div class="slides_container">';
-  $output .= $images;
+  $output .= $zooms;
   $output .= '</div>';
   $output .= '<ul class="pagination">';
   $output .= $thumbs;
