@@ -35,6 +35,10 @@ jQuery(document).ready(function() {
 		  if(!jQuery('#zoomed').length || !jQuery('#zoomed').is(":visible")) {
 		    	return;
 		  }
+		  if(jQuery('#zoomed .slides_control').length) {
+		    	return;
+		  }
+		  
 		  jQuery('#zoomed').slides({
 				preload: true,
 				preloadImage: 'img/loading.gif',
