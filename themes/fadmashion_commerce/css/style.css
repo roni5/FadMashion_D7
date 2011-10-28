@@ -147,9 +147,9 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #zoomed {width: 750px;}
 #zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 588px;}
 #zoomed .pagination{float:left;width:153px;}
-#zoomed .next, #zoomed .prev, #zoomed {position: absolute; z-index: 100;  }
-#zoomed .prev {left: 14px;}
-#zoomed .next {left: 570px;}
+#zoomed .next, #zoomed .prev {position: absolute; z-index: 100;  }
+#zoomed .prev {left: -3px;}
+#zoomed .next {left: 552px;}
 #zoomed .next {background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
 #zoomed .prev {background:url("../images/nav_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
 #zoomed .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
