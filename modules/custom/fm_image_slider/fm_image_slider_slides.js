@@ -57,7 +57,7 @@ jQuery(document).ready(function() {
 					generatePagination: false,
 					animationStart: function() {
 						//Reset Pan
-						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px " + posY.toString() + "px"} )
+						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
 					}
 				});
 		  }
