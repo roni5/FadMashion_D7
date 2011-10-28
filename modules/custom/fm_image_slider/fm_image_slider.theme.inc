@@ -78,7 +78,6 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider_slides.js');
 	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/slides.min.jquery.js');
 	
-	
 	//Add Zoom JS
 	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.gzoom.js');
 	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/jquery.gzoom.css');
@@ -146,7 +145,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   }
   
   $output = '<div id="product" style="position: relative">';
-  $output .= '<div id="photo_tooltip"><b>mousewheel</b> to zoom; <b>click</b> to enlarge</div>';
+  $output .= '<div id="photo_tooltip"><b>mousewheel</b> to zoom; <b>click</b></div>';
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
@@ -170,7 +169,8 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $output .= '</div>';
   $output .= '</div>';
   
-  
+  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
+	$logo = render($logo);
   
   return $output;
 }
