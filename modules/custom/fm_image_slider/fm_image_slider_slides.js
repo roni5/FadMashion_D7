@@ -54,12 +54,13 @@ jQuery(document).ready(function() {
 					slideSpeed: 350,
 					fadeSpeed: 500,
 					generateNextPrev: true,
-					generatePagination: false
+					generatePagination: false,
+					animationStart: function() {
+						//Reset Pan
+						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px " + posY.toString() + "px"} )
+					}
 				});
 		  }
-		  
-
-		  
 		  var boxHeight = jQuery('#cboxLoadedContent').height();
 		  var middle = boxHeight/2;
 		  jQuery("#zoomed .slides_container").height(boxHeight);
@@ -67,10 +68,6 @@ jQuery(document).ready(function() {
 		  
 		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  
-		  
-		 
-		 
-		 
 		 
 		 /* jQuery(".zoom02").gzoom({sW: 586,
 				sH: 747,
