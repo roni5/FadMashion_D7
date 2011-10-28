@@ -149,7 +149,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #zoomed .next {left: 570px;}
 #zoomed .next {text-indent: -9999px; background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
 #zoomed .prev {text-indent: -9999px; background:url("../images/nav_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
-#zoomed .slides_container img{border:1px solid #F0EEEA;cursor: crosshair}
+#zoomed .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
 
 #photo_tooltip {background-color:rgba(255,255,255,0.6); display: none; z-index: 100; padding: 5px; border: 1px solid #ddd; font-size: 10px;  bottom: 0; left: 100px; position: absolute; }
 
