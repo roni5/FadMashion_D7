@@ -129,6 +129,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 /* Deals */
 .photos{padding-bottom: 10px;}
 .photos .slides_container { height: 474px; }
+.photos .slides_container img{border:1px solid #F0EEEA;}
 .photos .pagination{float: left; margin-top: 5px;}
 .photos .pagination li,  #zoomed .pagination li{float: left; margin: 0 5px 5px 0; }
 .photos .pagination li.current a img, #zoomed .pagination li.current a img{border:1px solid #A32E27; }
