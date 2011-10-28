@@ -8,6 +8,7 @@ function fm_image_slider_theme() {
     'fm_image_slider_nivo_formatter' => array(
       'variables' => array(
         'pictures' => array(),
+        'product' => NULL,
         'image_style' => '',
         'thumb_style' => '',
         'zoom_style' => '',
@@ -17,6 +18,7 @@ function fm_image_slider_theme() {
     'fm_image_slider_slides_formatter' => array(
       'variables' => array(
         'pictures' => array(),
+        'product' => NULL,
         'image_style' => '',
         'thumb_style' => '',
         'zoom_style' => '',
@@ -118,6 +120,7 @@ function fm_image_slider_field_formatter_view($entity_type, $entity, $field, $in
 			$element = array(
         '#theme' => 'fm_image_slider_slides_formatter',
         '#pictures' => $items,
+			  '#product' => $entity, 
 			  '#image_style' => $display['settings']['product_image_style'],
 			  '#thumb_style' => $display['settings']['product_thumb_style'],
 			  '#zoom_style' => $display['settings']['product_zoom_style']

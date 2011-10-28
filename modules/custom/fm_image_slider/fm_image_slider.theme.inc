@@ -87,6 +87,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	drupal_add_library('system', 'ui.slider');
 	
   $pictures = $variables['pictures'];
+  $product = $variables['product'];
   $image_style = $variables['image_style'];
   $thumb_style = $variables['thumb_style'];
   $zoom_style = $variables['zoom_style'];
@@ -145,7 +146,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   }
   
   $output = '<div id="product" style="position: relative">';
-  $output .= '<div id="photo_tooltip"><b>mousewheel</b> to zoom; <b>click</b></div>';
+  $output .= '<div id="photo_tooltip"><b>mousewheel</b> to zoom</div>';
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
@@ -156,6 +157,10 @@ function theme_fm_image_slider_slides_formatter($variables) {
   }
   $output .= '</div>';
   
+  
+  $store = fm_commerce_get_store($product);
+  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
+	
   $output .= '<div style="display:none">';
   $output .= '<div id="zoomed">';
   $output .= '<div class="slides_container">';
@@ -166,11 +171,10 @@ function theme_fm_image_slider_slides_formatter($variables) {
     $output .= $thumbs;
     $output .= '</ul>';
   }
+  $output .= $logo = render($logo);
   $output .= '</div>';
   $output .= '</div>';
   
-  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
-	$logo = render($logo);
   
   return $output;
 }
