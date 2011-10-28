@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 			preloadImage: loadingImagePath,
 			effect: 'slide, fade',
 			crossfade: true,
-			slideSpeed: 350,
+			slideSpeed: 700,
 			fadeSpeed: 500,
 			generateNextPrev: true,
 			generatePagination: false
@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
 					preloadImage: loadingImagePath,
 					effect: 'slide, fade',
 					crossfade: true,
-					slideSpeed: 350,
+					slideSpeed: 700,
 					fadeSpeed: 500,
 					generateNextPrev: true,
 					generatePagination: false,
