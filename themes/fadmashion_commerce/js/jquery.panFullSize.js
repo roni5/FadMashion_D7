@@ -186,12 +186,9 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                   }*/
                   
                   var box_y = jQuery('#zoomed .slides_container #pan').offset().top;
-                  var box_x = jQuery('#zoomed .slides_container #pan').offset().left;
                   
                   var y = e.pageY - pan.offset().top;
-                  console.log(y);
-                  var posX = -1 * ( e.clientX);
-                  var posY = -1 * ( y);
+                  var posY = -(box_height/pic_real_height) * ( y);
                   
                   if(posY > 0) {
                 	  posY = 0;
