@@ -146,7 +146,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   }
   
   $output = '<div id="product" style="position: relative">';
-  $output .= '<div id="photo_tooltip"><b>mousewheel</b> to zoom</div>';
+  $output .= '<div id="photo_tooltip">mousewheel to zoom</div>';
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
