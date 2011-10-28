@@ -93,7 +93,8 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $zoom_style = $variables['zoom_style'];
   
   //show thumbs or not
-  drupal_add_js('var showThumbs = ' . (count($pictures) > 1 ? true : 0) . ';', 'inline');
+  $show_thumbs = (count($pictures) > 1 ? true : 0);
+  drupal_add_js('var showThumbs = ' . $thumbs . ';', 'inline');
   
   $i = 0;
   foreach($pictures as $picture) {
@@ -139,9 +140,11 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
-  $output .= '<ul class="pagination">';
-  $output .= $thumbs;
-  $output .= '</ul>';
+  if($show_thumbs) {
+    $output .= '<ul class="pagination">';
+    $output .= $thumbs;
+    $output .= '</ul>';
+  }
   $output .= '</div>';
   
   $output .= '<div style="display:none">';
@@ -149,9 +152,11 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $output .= '<div class="slides_container">';
   $output .= $zooms;
   $output .= '</div>';
-  $output .= '<ul class="pagination">';
-  $output .= $thumbs;
-  $output .= '</ul>';
+  if($show_thumbs) {
+    $output .= '<ul class="pagination">';
+    $output .= $thumbs;
+    $output .= '</ul>';
+  }
   $output .= '</div>';
   $output .= '</div>';
   
