@@ -95,6 +95,10 @@ function theme_fm_image_slider_slides_formatter($variables) {
   //show thumbs or not
   $show_thumbs = (count($pictures) > 1 ? true : 0);
   
+  //Zoom Colorbox Url
+  $url = '/?height=80%&width=828&inline=true#zoomed';
+  drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
+  
   $i = 0;
   foreach($pictures as $picture) {
 
@@ -109,7 +113,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'style_name' => $image_style
     );
     $images .= '<div class="container">';
-    $images .= '<a class="colorbox-inline" href="/?height=80%&width=828&inline=true#zoomed"><div class="zoom01" class="zoom">' . theme('image_style', $image) . '</div></a>';
+    $images .= '<a class="colorbox-inline" href="' . $url . '"><div class="zoom01" class="zoom">' . theme('image_style', $image) . '</div></a>';
     $images .= '</div>';
     
     $image = array(
