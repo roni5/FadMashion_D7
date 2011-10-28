@@ -73,7 +73,7 @@ jQuery(document).ready(function() {
 					effect: 'fade',
 					crossfade: true,
 					slideSpeed: slideSpeed,
-					fadeSpeed: 50,
+					fadeSpeed: fadeSpeed,
 					generateNextPrev: true,
 					generatePagination: false,
 					animationComplete: function() {
