@@ -185,8 +185,8 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                       newY = prevY + diffY;
                   }*/
                   
-                  var box_y = jQuery('#zoomed .slides_container ').offset().top;
-                  var box_x = jQuery('#zoomed .slides_container ').offset().left;
+                  var box_y = jQuery('#zoomed .slides_container #pan').offset().top;
+                  var box_x = jQuery('#zoomed .slides_container #pan').offset().left;
                   
                   
                   console.log(box_y + ', ' + e.pageY);
