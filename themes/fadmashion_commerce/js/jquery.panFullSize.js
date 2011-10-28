@@ -191,11 +191,12 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                   var scrollRate = (box_height-pic_real_height)/box_height ;
                   var posY = scrollRate * (y);
                   
-                  if(posY > 0 || box_height > pic_real_height) {
-                	  posY = 0;
-                  }
                   if(posY <= box_height - pic_real_height) {
                 	  posY = box_height - pic_real_height;
+                  }
+
+                  if(posY > 0 || box_height > pic_real_height) {
+                	  posY = 0;
                   }
                   
                   pan.css( {backgroundPosition:  "0px " + posY.toString() + "px"} )
