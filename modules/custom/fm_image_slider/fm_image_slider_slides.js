@@ -3,6 +3,8 @@
  *  Javascript Tools to add Nivo Slider
  */
 
+var slideSpeed = 430;
+var fadeSpeed = 500;
 jQuery(document).ready(function() {
 	
 		jQuery('#product').slides({
@@ -10,8 +12,8 @@ jQuery(document).ready(function() {
 			preloadImage: loadingImagePath,
 			effect: 'slide, fade',
 			crossfade: true,
-			slideSpeed: 700,
-			fadeSpeed: 500,
+			slideSpeed: slideSpeed,
+			fadeSpeed: fadeSpeed,
 			generateNextPrev: true,
 			generatePagination: false
 		});
@@ -45,16 +47,19 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 		  
+		  var padding = 10;
 		  //Set overlay height to full document height
 		  var fullHeight = jQuery(document).height();
 		  jQuery("#cboxOverlay").height(fullHeight);
+		  jQuery('#cboxClose').css('top', '-5px');
+		  jQuery('#cboxClose').css('right', '-5px');
 		  jQuery('#cboxLoadedContent').css('margin-top', '0px');
-		  jQuery('#cboxLoadedContent').css('padding', '0px');
+		  jQuery('#cboxLoadedContent').css('padding', padding.toString() + 'px');
 		  
 		  var boxHeight = jQuery('#cboxContent').height();
-		  jQuery("#cboxLoadedContent").height(boxHeight);
+		  jQuery("#cboxLoadedContent").height(boxHeight-padding);
 		  var middle = boxHeight/2;
-		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
+		  jQuery(".zoom02 img").panFullSize(588, boxHeight-50);
 		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
@@ -62,8 +67,8 @@ jQuery(document).ready(function() {
 					preloadImage: loadingImagePath,
 					effect: 'slide, fade',
 					crossfade: true,
-					slideSpeed: 700,
-					fadeSpeed: 500,
+					slideSpeed: slideSpeed,
+					fadeSpeed: fadeSpeed,
 					generateNextPrev: true,
 					generatePagination: false,
 					animationComplete: function() {
