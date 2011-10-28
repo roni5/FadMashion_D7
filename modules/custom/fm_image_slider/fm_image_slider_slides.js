@@ -51,7 +51,8 @@ jQuery(document).ready(function() {
 		  jQuery('#cboxLoadedContent').css('margin-top', '0px');
 		  jQuery('#cboxLoadedContent').css('padding', '0px');
 		  
-		  var boxHeight = jQuery('#cboxLoadedContent').height();
+		  var boxHeight = jQuery('#cboxContent').height();
+		  jQuery("#cboxLoadedContent").height(boxHeight);
 		  var middle = boxHeight/2;
 		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  
