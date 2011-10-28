@@ -48,6 +48,8 @@ jQuery(document).ready(function() {
 		  //Set overlay height to full document height
 		  var fullHeight = jQuery(document).height();
 		  jQuery("#cboxOverlay").height(fullHeight);
+		  jQuery('#cboxLoadedContent').css('margin-top', '0px');
+		  jQuery('#cboxLoadedContent').css('padding', '0px');
 		  
 		  var boxHeight = jQuery('#cboxLoadedContent').height();
 		  var middle = boxHeight/2;

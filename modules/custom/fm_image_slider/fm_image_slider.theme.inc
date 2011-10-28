@@ -96,7 +96,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $show_thumbs = (count($pictures) > 1 ? true : 0);
   
   //Zoom Colorbox Url
-  $url = '/?height=80%&width=828&inline=true#zoomed';
+  $url = '/?height=80%&width=785&inline=true#zoomed';
   drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
   
   $loadingImagePath = drupal_get_path('theme', 'fadmashion_commerce').'/images/slides_loading.gif';
