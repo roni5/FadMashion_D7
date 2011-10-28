@@ -160,6 +160,7 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
 
              if ( mousedown ){
 
+            	 //Edit: use relative positioning of file
                   var in_areaX = true;
                   var in_areaY = true;
 
@@ -174,7 +175,7 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                   }
 
 
-                  if ( prevY + diffY >= 0 ){
+                  /*if ( prevY + diffY >= 0 ){
                       in_areaY = false;
                   }
                   if ( -(prevY + diffY) > pic_real_height - box_height ){
@@ -182,9 +183,12 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                   }
                   if (in_areaY){
                       newY = prevY + diffY;
-                  }
+                  }*/
+                  
+                  var posY = -1 * e.clientY;
+                  
 
-                  pan.css( {backgroundPosition:  newX.toString() +"px " + newY.toString() + "px"} )
+                  pan.css( {backgroundPosition:  newX.toString() +"px " + posY.toString() + "px"} )
 
 
              }
