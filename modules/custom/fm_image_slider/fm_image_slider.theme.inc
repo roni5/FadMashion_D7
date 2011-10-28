@@ -116,13 +116,11 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'style_name' => $image_style
     );
     
-    /*$images .= '<div class="container">';
-    $images .= '<a class="colorbox-inline" href="' . $url . '"><div class="zoom01" class="zoom">'
+    //$images .= '<div class="image_container">';
+    $images .= '<a class="colorbox-inline" href="' . $url . '"><div class="zoom01" class="zoom">';
     $images .= theme('image_style', $image);
     $images .= '</div></a>';
-    $images .= '</div>';*/
-    
-    $images .= theme('image_style', $image);
+    //$images .= '</div>';
     
     $image = array(
       'path' => $picture['uri'],
@@ -131,9 +129,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'style_name' => $zoom_style
     );
     
-    $zooms .= '<div class="container"><div class="zoom02">';
+    $zooms .= '<div class="zoom02">';
     $zooms .= theme('image_style', $image);
-    $zooms .= '</div></div>';
+    $zooms .= '</div>';
     
     $image = array(
       'path' => $picture['uri'],
