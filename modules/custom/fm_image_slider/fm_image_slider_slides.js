@@ -70,10 +70,10 @@ jQuery(document).ready(function() {
 			  jQuery('#zoomed').slides({
 					preload: true,
 					preloadImage: loadingImagePath,
-					effect: 'slide, fade',
+					effect: 'fade',
 					crossfade: true,
 					slideSpeed: slideSpeed,
-					fadeSpeed: fadeSpeed,
+					fadeSpeed: 50,
 					generateNextPrev: true,
 					generatePagination: false,
 					animationComplete: function() {
