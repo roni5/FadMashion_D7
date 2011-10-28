@@ -59,7 +59,7 @@ jQuery(document).ready(function() {
 					fadeSpeed: 500,
 					generateNextPrev: true,
 					generatePagination: false,
-					animationStart: function() {
+					animationComplete: function() {
 						//Reset Pan
 						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
 					}
