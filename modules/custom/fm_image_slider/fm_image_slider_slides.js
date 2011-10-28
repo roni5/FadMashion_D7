@@ -16,12 +16,12 @@ jQuery(document).ready(function() {
 			generatePagination: false
 		});
 		
-		jQuery(".photos .slides_container img").mousemove(function(e){
+		/*jQuery(".photos .slides_container img").mousemove(function(e){
 			jQuery("#photo_tooltip").fadeIn();
 	    });
 	    jQuery(".photos .slides_container img").mouseout(function(e){
 	    	jQuery("#photo_tooltip").hide();
-	    });
+	    });*/
 
 		
 		jQuery(".zoom01").gzoom({sW: 372,
