@@ -94,7 +94,6 @@ function theme_fm_image_slider_slides_formatter($variables) {
   
   //show thumbs or not
   $show_thumbs = (count($pictures) > 1 ? true : 0);
-  drupal_add_js('var showThumbs = ' . $thumbs . ';', 'inline');
   
   $i = 0;
   foreach($pictures as $picture) {
@@ -136,7 +135,8 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	  $i++;
   }
   
-  $output = '<div id="product">';
+  $output = '<div id="product" style="position: relative">';
+  $output .= '<div id="photo_tooltip"><b>mousewheel</b> to zoom; <b>click</b> to enlarge</div>';
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
@@ -159,6 +159,8 @@ function theme_fm_image_slider_slides_formatter($variables) {
   }
   $output .= '</div>';
   $output .= '</div>';
+  
+  
   
   return $output;
 }

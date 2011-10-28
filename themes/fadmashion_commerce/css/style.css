@@ -129,7 +129,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 /* Deals */
 .photos{padding-bottom: 10px;}
 .photos .slides_container { height: 474px; }
-.photos .slides_container img{border:1px solid #F0EEEA;}
+.photos .slides_container img{border:1px solid #F0EEEA; cursor: crosshair}
 .photos .pagination{float: left; margin-top: 5px;}
 .photos .pagination li,  #zoomed .pagination li{float: left; margin: 0 5px 5px 0; }
 .photos .pagination li.current a img, #zoomed .pagination li.current a img{border:1px solid #A32E27; }
@@ -149,7 +149,10 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #zoomed .next {left: 570px;}
 #zoomed .next {text-indent: -9999px; background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
 #zoomed .prev {text-indent: -9999px; background:url("../images/nav_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
-#zoomed .slides_container img{border:1px solid #F0EEEA;}
+#zoomed .slides_container img{border:1px solid #F0EEEA;cursor: crosshair}
+
+#photo_tooltip {background-color:rgba(255,255,255,0.6); display: none; z-index: 100; padding: 5px; border: 1px solid #ddd; font-size: 10px;  top: 0; position: absolute; }
+
 
 .timer{background: url(../images/bg_timer.jpg) top left repeat-x;border-top-left-radius:4px; -webkit-border-top-left-radius: 4px; -moz-borde-top-left-radius: 4px;border-top-right-radius:4px; -webkit-border-top-right-radius: 4px; -moz-borde-top-right-radius: 4px; height: 52px; color: #d9cac9; font-weight:normal; font-size: 13px;  width: 332px;}
 .timer span{ font-style:normal; font-size:20px; color: #fff; position: relative; top: 2px; padding-left: 5px; font-weight: 500; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
