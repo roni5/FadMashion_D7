@@ -16,10 +16,10 @@ jQuery(document).ready(function() {
 			generatePagination: false
 		});
 		
-		jQuery(".photos img").mousemove(function(e){
+		jQuery(".photos .slides_container img").mousemove(function(e){
 			jQuery("#photo_tooltip").fadeIn();
 	    });
-	    jQuery(".photos img").mouseout(function(e){
+	    jQuery(".photos .slides_container img").mouseout(function(e){
 	    	jQuery("#photo_tooltip").hide();
 	    });
 
