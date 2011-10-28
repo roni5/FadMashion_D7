@@ -189,7 +189,7 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                   
                   var y = e.pageY - pan.offset().top;
                   var scrollRate = (box_height-pic_real_height)/box_height ;
-                  var posY = scrollRate * -1 * (y);
+                  var posY = scrollRate * (y);
                   
                   if(posY > 0) {
                 	  posY = 0;
