@@ -99,6 +99,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $url = '/?height=80%&width=828&inline=true#zoomed';
   drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
   
+  $loadingImagePath = drupal_get_path('theme', 'fadmashion_commerce').'/images/slides_loading.gif';
+  drupal_add_js('var loadingImagePath = "' . $loadingImagePath . '";', 'inline');
+  
   $i = 0;
   foreach($pictures as $picture) {
 

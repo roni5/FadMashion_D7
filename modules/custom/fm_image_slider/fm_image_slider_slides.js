@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 	
 		jQuery('#product').slides({
 			preload: true,
-			preloadImage: 'img/loading.gif',
+			preloadImage: loadingImagePath,
 			effect: 'slide, fade',
 			crossfade: true,
 			slideSpeed: 350,
@@ -56,7 +56,7 @@ jQuery(document).ready(function() {
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
 					preload: true,
-					preloadImage: 'img/loading.gif',
+					preloadImage: loadingImagePath,
 					effect: 'slide, fade',
 					crossfade: true,
 					slideSpeed: 350,
