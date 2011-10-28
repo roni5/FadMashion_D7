@@ -171,7 +171,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
     $output .= $thumbs;
     $output .= '</ul>';
   }
-  $output .= '<div id="logo">';
+  $output .= '<div class="logo">';
   $output .= render($logo);
   $output .= '</div>';
   
