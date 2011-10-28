@@ -185,10 +185,14 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                       newY = prevY + diffY;
                   }*/
                   
-                  var posY = -1 * e.clientY;
+                  var box_y = jQuery('#zoomed .slides_container').position().top;
+                  var box_x = jQuery('#zoomed .slides_container').position().left;
+                  //console.log(box_y + ', ' + e.clientY);
+                  var posX = -1 * ( e.clientX);
+                  var posY = -1 * ( e.clientY - box_y);
                   
 
-                  pan.css( {backgroundPosition:  newX.toString() +"px " + posY.toString() + "px"} )
+                  pan.css( {backgroundPosition:  "0px " + posY.toString() + "px"} )
 
 
              }
