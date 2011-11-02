@@ -32,12 +32,8 @@ function dealExpired() {
 
 function dealTitleNotify() {
 	jQuery.titleAlert(newTitle, {
-	    requireBlur:false,
-	    stopOnFocus:false,
-	    duration:4000,
-	    interval:700
+	    duration:4000
 	});
-
 }
 
 
