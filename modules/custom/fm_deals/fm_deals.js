@@ -29,7 +29,7 @@ function dealExpired() {
 function serverSync() {
   var time = null;
   // try to get the servertime, if false we provide the current client time..
-  jQuery.ajax({
+ /* jQuery.ajax({
     url: Drupal.settings.basePath + '/?q=jquery_countdown/serversync',
     async: false,
     dataType: 'text',
@@ -39,7 +39,7 @@ function serverSync() {
     error: function(http, message, exc) {
       time = new Date();
     }
-  });
+  });*/
   return time;
 };
 

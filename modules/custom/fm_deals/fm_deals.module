@@ -421,7 +421,7 @@ function fm_deals_group_details(&$vars) {
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => TRUE,  "layout" => '{mnn}:{snn}'));
+	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
 	  
 	} 
 	else {
