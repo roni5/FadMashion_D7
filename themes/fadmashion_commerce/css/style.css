@@ -6,6 +6,7 @@ img{border: none;}
 .container{width:1000px; text-align: left; margin: 0 auto; color: #322f2c; font-family:"museo-sans-1","museo-sans-2", Helvetica; }
 a{font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; text-decoration:none; color: #0f6da3; font-size: 12px;}
 a:hover{color: #2e92cc;}
+a:focus {outline: 0px solid black;}
 p{font-size: 13px; margin: 0 0 7px 0; }
 h1{font-weight:100; }
 h1 span{font-weight: bold}
@@ -127,9 +128,35 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 */
 
 /* Deals */
-.photos{padding-bottom: 100px;}
-.photos.no-thumbs{padding-bottom: 0px !important;}
+.photos{padding-bottom: 10px;}
+.photos .slides_container { height: 474px; }
+.photos .slides_container img{border:1px solid #F0EEEA; cursor: crosshair}
+.photos .pagination{float: left; margin-top: 5px;}
+.photos .pagination li,  #zoomed .pagination li{float: left; margin: 0 5px 5px 0; }
+.photos .pagination li.current a img, #zoomed .pagination li.current a img{border:1px solid #A32E27; }
+.photos .pagination li a img, #zoomed .pagination li a img{border:1px solid #F0EEEA;}
+.photos .pagination li a img:hover, #zoomed .pagination li a img:hover{border:1px solid #A32E27;}
 
+.photos .next, .photos .prev, .photos .zoom, #zoomed .next, #zoomed .prev, #zoomed .zoom {float: left; display: block; text-indent: -9999px; overflow: hidden; }
+.photos .next:hover, .photos .prev:hover, .photos .zoom:hover {background-position: bottom left;}
+.photos .next { background:url("../images/img_nav_next.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
+.photos .prev { background:url("../images/img_nav_prev.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
+.photos .zoom{background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
+.gzoombutton, .gzoomSlider {display: none;}
+	
+#zoomed {width: 750px;}
+#zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 588px;}
+#zoomed .pagination{float:left;width:153px;}
+#zoomed .next, #zoomed .prev, #zoomed .logo {position: absolute; z-index: 100;  }
+#zoomed .prev {left: 14px;}
+#zoomed .next {left: 570px;}
+#zoomed .logo {bottom: 13px; right: 20px;}
+#zoomed .next {background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
+#zoomed .prev {background:url("../images/nav_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
+#zoomed .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
+
+#photo_tooltip {background-color:rgba(255,255,255,0.6); display: none; z-index: 100; padding: 4px;  font-size: 10px;  bottom: 0; right: 0px; position: absolute; }
+#photo_tooltip b{font-weight: 700;}
 
 .timer{background: url(../images/bg_timer.jpg) top left repeat-x;border-top-left-radius:4px; -webkit-border-top-left-radius: 4px; -moz-borde-top-left-radius: 4px;border-top-right-radius:4px; -webkit-border-top-right-radius: 4px; -moz-borde-top-right-radius: 4px; height: 52px; color: #d9cac9; font-weight:normal; font-size: 13px;  width: 332px;}
 .timer span{ font-style:normal; font-size:20px; color: #fff; position: relative; top: 2px; padding-left: 5px; font-weight: 500; font-family:"museo-sans-1","museo-sans-2", Helvetica;}

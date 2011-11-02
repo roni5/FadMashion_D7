@@ -38,6 +38,7 @@ Drupal.behaviors.initColorboxInline = {
       inline:function(){
         return $.urlParam('inline', $(this).attr('href'));
       },
+      
       href:function(){
         return $.urlParam('fragment', $(this).attr('href'));
       }
