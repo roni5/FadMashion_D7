@@ -424,7 +424,7 @@ function fm_deals_group_details(&$vars) {
 		//If start time is LESS THAN NOW this is ACTIVE
 	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
 	  $title = 'blah blah blah';
-	  drupal_add_js('var newTitle = ' . $title, 'inline');
+	  drupal_add_js('var newTitle = ' . $title . ';', 'inline');
 	} 
 	else {
 		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
