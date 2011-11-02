@@ -393,11 +393,12 @@ function fm_deals_group_details(&$vars) {
 	elseif ($status == 'active') {
 		$qty_purchased = fm_deals_qty_purchased($node->nid);
 		$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
+		$product = fm_commerce_get_product($node);
 		
 		$timerDetails = '<div class="timer rounded-top">';
 		$timerDetails .= '<table cellspacing="0" cellpadding="0" class="timerTbl"><tbody><tr>
-                        <td width="110" align="right">Bought:</td>
-                        <td width="56" align="left" class="sep1"><span>' . $qty_purchased . '</span></td>
+                        <td width="110" align="right">Available:</td>
+                        <td width="56" align="left" class="sep1"><span>' . fm_commerce_stock_total($product) . '</span></td>
                         <td width="75" align="right" class="sep2">Time  Left:</td>
                         <td width="70" align="left"><span class="countdown">--:--</span></td>
                         </tr>
