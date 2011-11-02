@@ -86,8 +86,6 @@ jQuery(document).ready(function() {
 		var title = jQuery('.form-item-colors .selectBox-selected a').attr('title');
 		jQuery('.form-item-colors .selectBox-options').before('<div class="colorName">' + title + '</div>');
 		*/
-	
-		
-		
-	
 });
+
+
