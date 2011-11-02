@@ -307,6 +307,9 @@ function fm_commerce_stock_has_stock($product) {
 	return false;
 }
 
+/*
+ * Get the total available in Stock
+ */
 function fm_commerce_stock_total($product) {
 	$total = 0;
 	
