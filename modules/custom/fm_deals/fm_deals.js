@@ -18,8 +18,26 @@ function fm_deals_facebookshare( url, thumb_path, description, name, message) {
     );
 }
 
+/**
+ *  Javascript Tools to handle Forms in FAdmashion 
+ */
+
+jQuery(document).ready(function() {
+	dealTitleNotify();
+});
+
 function dealExpired() {
 	window.location = Drupal.settings.basePath;
+}
+
+function dealTitleNotify() {
+	jQuery.titleAlert(newTitle, {
+	    requireBlur:false,
+	    stopOnFocus:false,
+	    duration:4000,
+	    interval:700
+	});
+
 }
 
 
