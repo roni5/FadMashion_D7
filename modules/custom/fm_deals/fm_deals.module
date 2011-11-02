@@ -391,20 +391,18 @@ function fm_deals_group_details(&$vars) {
 	
 	}
 	elseif ($status == 'active') {
-		//$qty_purchased = fm_deals_qty_purchased($node->nid);
-		//$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
-		$product = fm_commerce_get_product($node);
-		$stock_left = fm_commerce_stock_total($product);
+		$qty_purchased = fm_deals_qty_purchased($node->nid);
+		$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
 		
-		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		$timerDetails = '<div class="timer rounded-top">';
 		$timerDetails .= '<table cellspacing="0" cellpadding="0" class="timerTbl"><tbody><tr>
-                        <td width="110" align="right">Available:</td>
-                        <td width="56" align="left" class="sep1"><span>' . $stock_left . '</span></td>
+                        <td width="110" align="right">Bought:</td>
+                        <td width="56" align="left" class="sep1"><span>' . $qty_purchased . '</span></td>
                         <td width="75" align="right" class="sep2">Time  Left:</td>
                         <td width="70" align="left"><span class="countdown">00:00</span></td>
                         </tr>
                         </tbody></table>';
-		//$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
+		$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
 		$timerDetails .= '</div>';
 		
 		$untilTime = $unixEndTime;
@@ -423,7 +421,7 @@ function fm_deals_group_details(&$vars) {
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => false,  "layout" => '{mnn}:{snn}'));
+	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
 	  
 	} 
 	else {
