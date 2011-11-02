@@ -307,6 +307,30 @@ function fm_commerce_stock_has_stock($product) {
 	return false;
 }
 
+function fm_commerce_stock_total($product) {
+	$total = 0;
+	
+	$colors =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
+	foreach($colors as $color) {
+		if(isset($color)  && $color > 0) {
+			$total += $color;
+		}
+	}
+  $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
+	foreach($sizes as $size) {
+		if(isset($size)  && $size > 0) {
+		  $total += $size;
+		}
+	}
+	
+	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+	if(isset($value) && $value > 0) {
+		$total += $value;
+	}
+	
+	return $total;
+}
+
 
 /**
  * Adjusts a particular product SKU by a certain value.

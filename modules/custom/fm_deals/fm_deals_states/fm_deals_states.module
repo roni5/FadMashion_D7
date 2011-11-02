@@ -23,6 +23,7 @@ function fm_deals_states_get_status($node) {
 	return $status;
 }
 
+//TODO: Removing the Group deal aspect
 function fm_deals_states_status_msg($node, $qty_purchased) {
 	$status = fm_deals_states_status($node, $qty_purchased);
 	$qty_min = field_get_items('node', $node, 'field_quantity_min');
