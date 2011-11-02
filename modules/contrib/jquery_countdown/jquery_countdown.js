@@ -1,11 +1,14 @@
 // $Id$
 (function ($) {
+
+     
   /**
    * jQuery Countdown Drupal behavior.
    */
   Drupal.behaviors.jquery_countdown = {
     attach: function(context, settings) {
     
+    	  
     // Only process if the settings exist.
     if (Drupal.settings.jquery_countdown) {
       // Loop through all the jQuery Countdown settings.
@@ -25,6 +28,10 @@
         if (typeof (options.onTick) == "string") {
           options.onTick = eval(options.onTick);
         }
+        
+        if (typeof (options.serverSync) == 'string') {
+            options.serverSync = eval(options.serverSync);
+        }
 
         // Create the countdown element on non-processed elements.
         $(countdown + ':not(.jquery-countdown-processed)', context).addClass('jquery-countdown-processed').countdown(options);
@@ -33,6 +40,8 @@
     }
   };
 
+
+  
   /**
    * Process date values for the jQuery Countdown plugin, based on the date type.
    */

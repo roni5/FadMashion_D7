@@ -265,7 +265,7 @@ function fm_deals_page($nid = '') {
 function fm_deals_get_default_deal() {
 	
 	//Get nid from the schedule page that falls under the 
-	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime < :request_time && endTime > :request_time', array(':request_time' => REQUEST_TIME))->fetchObject();
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime < :request_time && endTime > :request_time', array(':request_time' => time()))->fetchObject();
 	
 	if(empty($result)) {
 		$time_slot = fm_deals_time_slots(1, REQUEST_TIME);
@@ -421,8 +421,8 @@ function fm_deals_group_details(&$vars) {
 	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
-  
+	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
+	  
 	} 
 	else {
 		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
