@@ -66,6 +66,7 @@ jQuery(document).ready(function() {
 		  var middle = boxHeight/2;
 		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  
+		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
 					preload: true,
@@ -82,12 +83,6 @@ jQuery(document).ready(function() {
 					}
 				});
 
-			    jQuery("#zoomed  .slides_container .panFullSize").mousemove(function(e){
-					jQuery("#zoom_photo_tooltip").fadeIn();
-			    });
-			    jQuery("#zoomed  .slides_container .panFullSize").mouseout(function(e){
-			    	jQuery("#zoom_photo_tooltip").hide();
-			    });
 		  }
 		  
 		  jQuery("#zoomed .slides_container").height(boxHeight);
