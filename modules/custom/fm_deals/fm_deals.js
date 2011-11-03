@@ -38,7 +38,8 @@ function dealTitleNotify() {
 	}
 	if(!document.hasFocus()) {
 	  jQuery.titleAlert(newTitle, {
-	     interval:900
+	     interval:900,
+	     requireBlur: true
 	  });
 	}
 }
