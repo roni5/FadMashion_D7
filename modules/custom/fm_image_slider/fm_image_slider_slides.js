@@ -66,7 +66,6 @@ jQuery(document).ready(function() {
 		  var middle = boxHeight/2;
 		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
 		  
-		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
 					preload: true,
