@@ -82,10 +82,10 @@ jQuery(document).ready(function() {
 					}
 				});
 
-			    jQuery("#zoomed  .slides_container img").mousemove(function(e){
+			    jQuery("#zoomed  .slides_container .panFullSize").mousemove(function(e){
 					jQuery("#zoom_photo_tooltip").fadeIn();
 			    });
-			    jQuery("#zoomed  .slides_container img").mouseout(function(e){
+			    jQuery("#zoomed  .slides_container .panFullSize").mouseout(function(e){
 			    	jQuery("#zoom_photo_tooltip").hide();
 			    });
 		  }
