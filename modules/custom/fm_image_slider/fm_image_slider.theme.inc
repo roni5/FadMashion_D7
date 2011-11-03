@@ -163,6 +163,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	
   $output .= '<div style="display:none">';
   $output .= '<div id="zoomed">';
+   
+  $output .= '<div id="zoom_photo_tooltip">hover to view more of the image</div>';
+  
   $output .= '<div class="slides_container">';
   $output .= $zooms;
   $output .= '</div>';
