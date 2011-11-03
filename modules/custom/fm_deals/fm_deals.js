@@ -32,7 +32,7 @@ function dealExpired() {
 
 function dealTitleNotify() {
 	jQuery.titleAlert(newTitle, {
-	    duration:4000
+	    interval:900
 	});
 }
 

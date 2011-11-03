@@ -29,6 +29,18 @@ function fm_users_fullname($uid = '') {
 	return $first_name . ' ' . $last_name;
 }
 
+function fm_users_firstname($uid = '') {
+	if(empty($uid)) {
+		global $user;
+		$uid = $user->uid;
+	}
+	
+	$user_loaded = user_load($uid);
+  $first_name = $user_loaded->field_first_name['und'][0]['value'];
+	
+	return $first_name;
+}
+
 function fm_users_email_verify() {
   $mail = $_POST['mail'];
   if ($val = db_query("SELECT mail FROM {users} WHERE LOWER(mail) = LOWER(:mail)", array(
@@ -153,7 +165,7 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  $form['#submit'][] = 'fm_users_register_submit';
   	  
   		break;	
-  }
+  }F
   
   drupal_add_js('var base_path = "' . check_plain(url('', array('absolute' =>true))) . '";', 'inline');
 }
