@@ -47,6 +47,7 @@ jQuery(document).ready(function() {
 		  }
 		  
 		  var padding = 18;
+		  var border = 1;
 		  //Set overlay height to full document height
 		  var fullHeight = jQuery(document).height();
 		  jQuery("#cboxOverlay").height(fullHeight);
@@ -62,9 +63,9 @@ jQuery(document).ready(function() {
 		  
 		  var boxHeight = jQuery('#cboxContent').height() - padding;
 		  jQuery("#cboxLoadedContent").height(boxHeight);
-		  boxHeight = boxHeight - padding;
+		  boxHeight = boxHeight - padding - (2*border);
 		  var middle = boxHeight/2;
-		  jQuery(".zoom02 img").panFullSize(588, boxHeight);
+		  jQuery(".zoom02 img").panFullSize(586, boxHeight);
 		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
