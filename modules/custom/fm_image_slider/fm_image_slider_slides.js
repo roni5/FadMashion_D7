@@ -25,7 +25,6 @@ jQuery(document).ready(function() {
 	    	jQuery("#photo_tooltip").hide();
 	    });
 
-		
 		jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
 			lW: 586,
@@ -82,6 +81,13 @@ jQuery(document).ready(function() {
 						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
 					}
 				});
+
+			    jQuery("#zoomed  .slides_container img").mousemove(function(e){
+					jQuery("#zoom_photo_tooltip").fadeIn();
+			    });
+			    jQuery("#zoomed  .slides_container img").mouseout(function(e){
+			    	jQuery("#zoom_photo_tooltip").hide();
+			    });
 		  }
 		  
 		  jQuery("#zoomed .slides_container").height(boxHeight);
