@@ -197,6 +197,9 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
 
                   if(posY > 0 || box_height > pic_real_height) {
                 	  posY = 0;
+                	  if(box_height > pic_real_height) {}
+                	   jQuery("#zoom_photo_tooltip").hide();
+                      }
                   }
                   
                   pan.css( {backgroundPosition:  "0px " + posY.toString() + "px"} )
