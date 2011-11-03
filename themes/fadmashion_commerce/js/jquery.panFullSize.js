@@ -187,6 +187,13 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                   
                   var box_y = jQuery('#zoomed .slides_container #pan').offset().top;
                   
+                  if(box_height > pic_real_height) {
+               	   jQuery("#zoom_photo_tooltip").hide();
+                   }
+                  else {
+                	  jQuery("#zoom_photo_tooltip").fadeIn(); 
+                  }
+                  
                   var y = e.pageY - pan.offset().top;
                   var scrollRate = (box_height-pic_real_height)/box_height ;
                   var posY = scrollRate * (y);
@@ -197,9 +204,6 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
 
                   if(posY > 0 || box_height > pic_real_height) {
                 	  posY = 0;
-                	  if(box_height > pic_real_height) {
-                	   jQuery("#zoom_photo_tooltip").hide();
-                    }
                   }
                   
                   pan.css( {backgroundPosition:  "0px " + posY.toString() + "px"} )
