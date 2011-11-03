@@ -393,6 +393,24 @@ function fm_commerce_match_stores($field, $string = '', $match = 'contains', $id
   return $results[$cid];
 }
 
+
+/**
+* Fetch the Designer user from the store entity
+ */
+
+function fm_commerce_store_get_user($store) {
+	
+}
+
+/**
+* Fetch the store that this user referrs to.  
+ */
+
+function fm_commerce_store_get_store($user) {
+	
+}
+
+
 /**
  * Helper function for commerce_offer_match_stores().
  *
