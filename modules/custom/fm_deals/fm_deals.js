@@ -31,6 +31,9 @@ function dealExpired() {
 }
 
 function dealTitleNotify() {
+	if(newTitle == null) {
+		newTitle = 'test';
+	}
 	jQuery.titleAlert(newTitle, {
 	    interval:900
 	});
