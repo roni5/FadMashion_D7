@@ -43,8 +43,9 @@ label{font-weight: normal;}
 .ajax-button { float: left; }
 #submitLoader{background:url("../images/colorbox/loading.gif") no-repeat scroll 5px 5px #FFFFFF; float:left; height:32px; margin:-7px 0 0 7px; width:32px;}
 
-.message_box { color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
-.message_box .error, .messages.error   { background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
+.message_box, #message_box { color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
+.message_box .error, .messages.error, #message_box .invalid    { background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
+
 .messages {width: auto !important; font-size: 14px; -moz-border-radius:4px;  -webkit-border-radius: 4px;}
 .messages a{text-decoration:underline;}
 
@@ -488,6 +489,27 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .page-express-checkout-confirmation .icons{border-bottom: 1px solid  #eee8e3; padding: 6px 0 18px 0;}
 .page-express-checkout-confirmation .facebook{color: #5e76ad; font-size: 14px; font-weight: 300; padding: 18px 0;}
 
+
+/* My Designer Shop Admin */
+.owners-admin-wrapper{ margin: auto; width: 50%;}
+.owners-admin-wrapper #paypal_header {margin-bottom: 2px;}
+.owners-admin-wrapper #paypal_header  div{display: inline;}
+.owners-admin-wrapper #paypal_subheader{ margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
+.owners-admin-wrapper .error_container {margin-top: -15px; }
+
+#fm-commerce-store-owners-admin-form {width: 400px; overflow: hidden;}
+#fm-commerce-store-owners-admin-form .text-form-icon-wrapper{height: 100%; padding: 0px 0 1px 4px; background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:100%;line-height:26px; margin:4px 0 0; padding-left:4px; width:230px; }
+#fm-commerce-store-owners-admin-form .text-form-icon-wrapper, #fm-commerce-store-owners-admin-form .form-submit, #fm-commerce-store-owners-admin-form .form-item-mail, #lock_markup {float: left;}
+#fm-commerce-store-owners-admin-form .form-submit {margin-left: 12px; margin-top: 5px;}
+#fm-commerce-store-owners-admin-form #edit-mail {width: 199px; background-color: transparent }
+#fm-commerce-store-owners-admin-form #message_box {margin-top: 0px;}
+#fm-commerce-store-owners-admin-form .form-item {margin: 0px;}
+
+#lock_markup {margin: 4px 0 -4px; }
+#lock_markup img {height: 21px; opacity: .8; }
+.paypal_logo {height: 19px; margin: -5px 3px}
+	
+	
 /* How it Works Overlay */
 #block-views-nodequeue-2-block{width: 928px; padding: 0 36px; height: 528px; background: url("../images/howitworks_background.png") top left no-repeat; }
 #block-views-nodequeue-2-block h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }

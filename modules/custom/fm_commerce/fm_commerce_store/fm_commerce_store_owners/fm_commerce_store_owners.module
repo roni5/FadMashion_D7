@@ -1,0 +1,153 @@
+<?php
+
+/**
+* Implementation of hook_menu()
+ */
+function fm_commerce_store_owners_menu() {
+	
+	$items['store_owners/admin'] = array(
+    'page callback' => 'fm_commerce_store_owners_admin',
+	  'access arguments' => array('administer own stores'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+/*
+ * Implementation of hook_theme
+ */
+function fm_commerce_store_owners_theme() {
+  return array(
+    'fm_commerce_store_owners_admin' => array(
+       'template' => 'fm_commerce_store_owners_admin',
+       'variables' => array('owners_orders' => NULL),
+    ),
+  );	
+}
+
+function fm_commerce_store_owners_admin() {
+	
+	$output = theme('fm_commerce_store_owners_admin');
+	
+	print( $output); 
+	exit();
+}
+
+function fm_commerce_store_owners_admin_form() {
+
+	$store = fm_commerce_store_owners_get_store();
+	$store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
+	$mail = $store_wrapper->field_paypal_email->value();
+	
+    
+	if(!empty($mail)) {
+		$form['mail'] = array(
+      '#type' => 'textfield', 
+      '#size' => 25, 
+	    '#maxlength' => 255,
+      '#default_value' => $mail,
+      '#required' => TRUE,
+    );
+	} else {
+	  $form['mail'] = array(
+      '#type' => 'textfield', 
+      '#size' => 25, 
+	    '#maxlength' => 255,
+      '#default_value' => t('Business E-mail'),
+      '#required' => TRUE,
+		  '#attributes' => array('class' => array('clear-defaults')),
+    );
+	}
+	
+	$form['mail']['#prefix'] = '<div class="text-form-icon-wrapper">';
+	$form['mail']['#suffix'] = '<div id="lock_markup">
+         <img  src="' .  drupal_get_path("theme","fadmashion_commerce") . '/images/lock.png">
+         </div>';
+	$form['mail']['#suffix'] .= '</div>';
+  
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Save'),
+    '#attributes' => array('class' => array('red', 'ajax-button')),
+  );
+  
+  return $form;
+}
+
+function fm_commerce_store_owners_admin_form_validate($form, &$form_state) {
+  
+	if (!valid_email_address($form_state['values']['mail'])) {
+    form_set_error('mail', t('Please enter a valid e-mail address.'));
+    return;
+  }
+  
+}
+
+function fm_commerce_store_owners_admin_form_submit($form, &$form_state) {
+	$store = fm_commerce_store_owners_get_store();
+	$store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
+	$store_wrapper->field_paypal_email = $form_state['values']['mail'];
+	entity_get_controller('fm_commerce_store')->save($store);
+}
+
+/**
+* Fetch the Designer user from the store entity
+ */
+
+function fm_commerce_store_owners_get_user($store) {
+	
+}
+
+/**
+* Fetch the store that this user referrs to.  
+ */
+
+function fm_commerce_store_owners_get_store($user = null, $reset = FALSE) {
+	if(empty($user)) {
+		global $user; 
+		
+		static $store;
+		
+		if(isset($store) && !$reset) {
+			return $store;
+		}
+	}
+	
+	$uid = $user->uid;
+	
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'fm_commerce_store')
+	      ->entityCondition('bundle', 'fm_commerce_store');
+	      
+	$query->fieldCondition('field_designer_user', 'uid', $user->uid);
+	      
+	$store_results = $query->execute();
+	
+	if(empty($store_results)) {
+		return FALSE;
+	}
+	else {
+	  foreach($store_results['fm_commerce_store'] as $store_id => $store) {
+	  	//Return only the first store id returned;  
+	  	$store = fm_commerce_store_load($store_id);
+	  	return $store;
+	  }
+	}
+	
+}
+
+/**
+* Return boolean if the  
+ */
+function fm_commerce_store_owners_is_admin($user) {
+	
+	global $user;
+	if(!user_access('administer own stores')) {
+		return FALSE;
+	}
+	if(!fm_commerce_store_get_store($user)) {
+		return FALSE;
+	}
+	return TRUE;
+}

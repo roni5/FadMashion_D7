@@ -5,18 +5,27 @@ function fadmashion_commerce_preprocess_node(&$variables) {
   
 }
 
+/*
+ * CSS & JS files to load up on each page request.  
+ */
+function fadmashion_commerce_preload() {
+	
+	drupal_add_library('jquery_plugin', 'validate');
+	drupal_add_library('system', 'jquery.form');
+	drupal_add_js(path_to_theme() . '/js/jquery.titlealert.js');
+	drupal_add_js(path_to_theme() . '/js/FM_form.js');
+	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders') . '/fm_commerce_orders.js');
+	drupal_add_js(drupal_get_path('module', 'fm_invite') . '/fm_invite.js');
+	drupal_add_js(drupal_get_path('module', 'fm_deals') . '/fm_deals.js');
+	drupal_add_js(path_to_theme() . '/js/jquery.cookie.js');
+	drupal_add_js(drupal_get_path('module', 'fm_commerce_store_owners') . '/fm_commerce_store_owners.js');
+	
+}
 
 function fadmashion_commerce_preprocess_page(&$variables) {
 	
 	//Add Global javascript and CSS
-	drupal_add_library('jquery_plugin', 'validate');
-	drupal_add_library('system', 'jquery.form');
-	 drupal_add_js(path_to_theme().'/js/jquery.titlealert.js');
-	 drupal_add_js(path_to_theme().'/js/FM_form.js');
-	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders').'/fm_commerce_orders.js');
-	drupal_add_js(drupal_get_path('module', 'fm_invite').'/fm_invite.js');
-	drupal_add_js(drupal_get_path('module', 'fm_deals').'/fm_deals.js');
-	drupal_add_js(path_to_theme().'/js/jquery.cookie.js');
+	fadmashion_commerce_preload();
 	
 	
 	global $user;
