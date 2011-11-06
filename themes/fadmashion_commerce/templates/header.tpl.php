@@ -3,8 +3,10 @@
             <div id="accountNav">
                 <ul class="tree">
                 
-                <li ><?php $store = fm_commerce_store_owners_get_store(); 
-                           if($store) { print l('My Designer Shop', 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load', 'title' => 'My Designer Shop') )) ); }
+                <li ><?php if(module_exists('fm_commerce_store_owners')) {
+                             $store = fm_commerce_store_owners_get_store(); 
+                             if($store) { print l('My Designer Shop', 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load', 'title' => 'My Designer Shop') )) ); }
+                           }
                         ?>
                 </li>
                 <li><?php print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
