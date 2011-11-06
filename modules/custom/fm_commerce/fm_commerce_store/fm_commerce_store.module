@@ -8,6 +8,10 @@ function fm_commerce_store_permission() {
     'administer stores' => array(
       'title' => t('Administer stores'),
       'description' => t('Allows users to perform any action on stores.'),
+    ),
+    'administer own stores' => array(
+      'title' => t('Administer own stores'),
+      'description' => t('Allows user to admistor OWN store.'),
       'restrict access' => TRUE,
     ),
     'access stores' => array(
@@ -393,22 +397,6 @@ function fm_commerce_match_stores($field, $string = '', $match = 'contains', $id
   return $results[$cid];
 }
 
-
-/**
-* Fetch the Designer user from the store entity
- */
-
-function fm_commerce_store_get_user($store) {
-	
-}
-
-/**
-* Fetch the store that this user referrs to.  
- */
-
-function fm_commerce_store_get_store($user) {
-	
-}
 
 
 /**

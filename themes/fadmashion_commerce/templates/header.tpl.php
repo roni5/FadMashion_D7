@@ -3,13 +3,15 @@
             <div id="accountNav">
                 <ul class="tree">
                 
+                <li ><?php $store = fm_commerce_store_owners_get_store(); 
+                           if($store) { print l('My Designer Shop', 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load', 'title' => 'My Designer Shop') )) ); }
+                        ?>
+                </li>
                 <li><?php print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
                 <li> <?php print l('+ Invite Friends', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 200), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends') )  ); ?></li>
                 
-                <li ><?php print l('Logout', 'user/logout');
+                <li ><?php print l('Logout', 'user/logout');?></li>
                 
-             
-                ?></li>
                </ul> 
              </div>
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
