@@ -493,8 +493,8 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 /* My Designer Shop Admin */
 .owners-admin-section {margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ddd;}
 .paypal-wrapper{ margin: auto; width: 50%; padding-bottom: 20px; }
-.owners-admin-wrapper #paypal_header{ width: 50%; margin: -20px auto 2px; }
-.owners-admin-wrapper #paypal_header  div{display: inline; text-align: center;}
+.owners-admin-wrapper #paypal_header{ width: 50%; margin: -20px auto 2px;text-align: center; }
+.owners-admin-wrapper #paypal_header  div{display: inline; }
 .owners-admin-wrapper #paypal_subheader{ text-align: center; margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
 .owners-admin-wrapper .error_container {margin-top: -15px; }
  .owners-admin-wrapper  #orders_header {text-align: center;  margin: 20px auto 2px;}
