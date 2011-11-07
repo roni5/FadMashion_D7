@@ -492,7 +492,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 /* My Designer Shop Admin */
 .owners-admin-wrapper{ margin: auto; width: 50%;}
-.owners-admin-wrapper #paypal_header { width: 60%; margin: 0px auto 2px; }
+.owners-admin-wrapper #paypal_header { width: 90%; margin: 0px auto 2px; }
 .owners-admin-wrapper #paypal_header  div{display: inline;}
 .owners-admin-wrapper #paypal_subheader{ margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
 .owners-admin-wrapper .error_container {margin-top: -15px; }
