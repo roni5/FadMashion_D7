@@ -7,7 +7,6 @@
 	  </div>
 	  <div> Business Email Address</div>
 	</div>
-	<div id="paypal_subheader">(This is Where You Will get Paid!)</div>
 	<?php print render(drupal_get_form('fm_commerce_store_owners_admin_form')); ?>
 	<div class="error_container"></div>
 </div>
