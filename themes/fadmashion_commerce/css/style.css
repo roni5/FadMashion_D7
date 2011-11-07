@@ -491,12 +491,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 
 /* My Designer Shop Admin */
-.owners-admin-wrapper{ margin: 15px auto; width: 50%;}
-.owners-admin-wrapper #paypal_header { width: 90%; margin: 0px auto 2px; }
+.owners-admin-wrapper{ margin: auto; width: 50%;}
+.owners-admin-wrapper #paypal_header{ width: 90%; margin: -20px auto 2px; }
 .owners-admin-wrapper #paypal_header  div{display: inline;}
 .owners-admin-wrapper #paypal_subheader{ margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
 .owners-admin-wrapper .error_container {margin-top: -15px; }
-
+ .owners-admin-wrapper  #orders_header {width: 70%; margin: 20px auto 2px;}
+ .owners-admin-wrapper  #orders_header span {font-style: italic; color: #777}
+ 
 #fm-commerce-store-owners-admin-form {width: 400px; overflow: hidden;}
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper{height: 100%; padding: 0px 0 1px 4px; background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:100%;line-height:26px; margin:4px 0 0; padding-left:4px; width:230px; }
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper, #fm-commerce-store-owners-admin-form .form-submit, #fm-commerce-store-owners-admin-form .form-item-mail, #lock_markup {float: left;}

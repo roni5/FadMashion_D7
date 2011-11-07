@@ -10,5 +10,12 @@
 	<div id="paypal_subheader">(Where You Want to get Paid)</div>
 	<?php print render(drupal_get_form('fm_commerce_store_owners_admin_form')); ?>
 	<div class="error_container"></div>
+	
+	<div id="orders_header">
+	  Orders for <span><?php $store = fm_commerce_store_owners_get_store();
+	        print $store->name;
+	  ?></span>
+	</div>
+	
 </div>
 
