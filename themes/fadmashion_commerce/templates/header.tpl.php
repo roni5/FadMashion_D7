@@ -4,8 +4,8 @@
                 <ul class="tree">
                 
                 <li ><?php if(module_exists('fm_commerce_store_owners')) {
-                             $store = fm_commerce_store_owners_get_store(); 
-                             if($store) { print l('My Designer Shop', 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load', 'title' => 'My Designer Shop') )) ); }
+                             $store = fm_commerce_store_owners_get_store();
+                             if($store) { print l($store->name, 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load'),  'title' => $store->name)) ); }
                            }
                         ?>
                 </li>
