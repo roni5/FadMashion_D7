@@ -2,7 +2,6 @@
 <div class="owners-admin-wrapper">
 	
 	<div id="paypal_header">
-	  <div>Enter</div> 
 	  <div>
 	    <img  class="paypal_logo" src="/<?php print drupal_get_path("theme","fadmashion_commerce"); ?>/images/paypal_logo.gif">
 	  </div>
