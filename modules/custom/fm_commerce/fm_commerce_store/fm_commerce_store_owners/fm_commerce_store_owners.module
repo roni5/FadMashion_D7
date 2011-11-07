@@ -56,7 +56,7 @@ function fm_commerce_store_owners_admin_form() {
 	    '#maxlength' => 255,
       '#default_value' => t('Enter Business E-mail'),
       '#required' => TRUE,
-		  '#attributes' => array('class' => array('clear-defaults')),
+		  '#attributes' => array('class' => array('clear-defaults', 'default')),
     );
 	}
 	

@@ -29,12 +29,12 @@ jQuery.fn.cleardefault = function() {
     return this.focus(function() {
 	if( this.value == this.defaultValue ) {
 		this.value = "";
-		this.addClass('default');
+		jQuery(this).removeClass('default');
 	}
 }).blur(function() {
 	if( !this.value.length ) {
 		this.value = this.defaultValue;
-		this.addClass('default');
+		jQuery(this).addClass('default');
 	}
 });
 };
