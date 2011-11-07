@@ -29,7 +29,7 @@ jQuery.fn.cleardefault = function() {
     return this.focus(function() {
 	if( this.value == this.defaultValue ) {
 		this.value = "";
-		this.removeClass('default');
+		this.addClass('default');
 	}
 }).blur(function() {
 	if( !this.value.length ) {
