@@ -502,6 +502,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper, #fm-commerce-store-owners-admin-form .form-submit, #fm-commerce-store-owners-admin-form .form-item-mail, #lock_markup {float: left;}
 #fm-commerce-store-owners-admin-form .form-submit {margin-left: 12px; margin-top: 5px;}
 #fm-commerce-store-owners-admin-form #edit-mail {width: 199px; background-color: transparent }
+#fm-commerce-store-owners-admin-form #edit-mail.default {color: #ccc;}
 #fm-commerce-store-owners-admin-form #message_box {margin-top: 0px;}
 #fm-commerce-store-owners-admin-form .form-item {margin: 0px;}
 
