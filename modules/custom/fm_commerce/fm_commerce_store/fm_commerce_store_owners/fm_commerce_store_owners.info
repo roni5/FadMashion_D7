@@ -1,5 +1,5 @@
 ; $Id: $
-name = Fadmashion Store Owners Entity
+name = Fadmashion Store Owners (Users) Relationship
 description = Main module to define overall Store / User Relationship
 core = 7.x
 package = Fadmashion
