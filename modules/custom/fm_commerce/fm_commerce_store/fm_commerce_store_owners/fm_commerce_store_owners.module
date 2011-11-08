@@ -62,7 +62,7 @@ function fm_commerce_store_owners_admin_form() {
 	
 	$form['mail']['#prefix'] = '<div class="text-form-icon-wrapper">';
 	$form['mail']['#suffix'] = '<div id="lock_markup">
-         <img  src="/' .  drupal_get_path("theme","fadmashion_commerce") . '/images/lock.png">
+         <img  src="' . pp() . 'lock.png">
          </div>';
 	$form['mail']['#suffix'] .= '</div>';
   

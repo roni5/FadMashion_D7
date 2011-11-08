@@ -138,11 +138,22 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '' ));
   
   //CHANGE default form theme stuff
+  
   $form['payment_details']['credit_card']['owner'] ['#title'] = t('Name on Credit Card');
   $form['payment_details']['credit_card']['owner'] ['#weight'] = -5;
   $form['payment_details']['credit_card']['exp_month'] ['#attributes'] = array('class' => array('narrow'));
   $form['payment_details']['credit_card']['exp_year'] ['#attributes'] = array('class' => array('narrow'));
+  
   $form['payment_details']['credit_card']['code']['#attributes'] = array('class' => array('narrow'));
+  $form['payment_details']['credit_card']['code']['#type'] ='password';
+  $form['payment_details']['credit_card']['code']['#suffix'] = '<div style="clear: both; margin-top: -13px; float: left;" class="dotted-hover">What\'s this?</div>';
+  
+  $form['payment_details']['credit_card']['number']['#prefix'] = '<div class="text-form-icon-wrapper">';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div id="lock_markup">
+         <img  src="' . pp() . 'lock.png">
+         </div>';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div><img border="0" style="margin-bottom: 10px;" alt="Credit Card Logos" src="http://www.merchantaccountguide.com/credit-card-logos/visa-mc-amex-disc/small_horizontal.png"></div>';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '</div>';
   
   
   $form['complete_purchase'] = array(
@@ -376,12 +387,38 @@ function theme_fm_commerce_express_checkout_form($variables)
     $output .= '</div>';
     $output .= '</div>';
     
+    $lock = pp() . 'lock.png';
+    $output .= '<div class="securityText rounded-top rounded-bottom"><div class="pad"><img src="' . $lock . '">All transactions are secure and encrypted, and we never store your credit card information. To learn more, please view our ' . l('privacy policy', 'privacy') . '
+</div></div>';
+    
     
     $output .= '</div>';
 
+    $logo = pp() . 'logo_chase.png';
     $output .= '<div class="checkoutFooter"><div class="completeOrder">';
     $output .= drupal_render($form['complete_purchase']); 
-    $output .= '<br clear="all">' .drupal_render_children($form) . '</div></div>';
+    $output .= '<br clear="all">' .drupal_render_children($form) . '</div>';
+    $output .= '<span> Fadmashion express checkout powered by </span>';
+    $output .= '<img class="logo" alt="Chase Paymentech" src="' . $logo .'">';
+    $output .= '</div>';
+    
+    //Add hover over for Security Code 
+    $cv_card = pp() . 'cv_card.jpg';
+    $output .= '<div class="cv-card" style="display: none">' ;
+    $output .= '<img alt="" src="' . $cv_card .'">';
+    $output .= '</div>';
+    
+    $options['bt_drupal_help_page'] = array(
+      'cssSelect' => '.dotted-hover',
+      'trigger' => array('hover', 'click'),
+	    'positions' => array('top'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    'contentSelector' => ".cv-card",
+	    'width' => '150px',
+      'style' => 'hulu',
+      );
+    beautytips_add_beautytips($options);
+    
     
     // return the output
     return $output;

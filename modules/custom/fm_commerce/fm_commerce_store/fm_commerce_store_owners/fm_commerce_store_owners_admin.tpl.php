@@ -19,6 +19,9 @@
 	          print $store->name;
 	    ?></span>
 	  </div>
+	  <div id="orders-results">
+	    <div>There are currently no orders for this shop</div>
+	  </div>
 	</div>
 	
 	

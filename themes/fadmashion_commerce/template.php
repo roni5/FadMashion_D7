@@ -5,6 +5,17 @@ function fadmashion_commerce_preprocess_node(&$variables) {
   
 }
 
+//Get the Image path for this theme.
+function pp() {
+	$path = drupal_get_path("theme","fadmashion_commerce") . '/images/';
+	
+	//True for live server, else localhost remove the preceding slash
+	if(true) {
+		return '/' . $path; 
+	} else {
+		return $path;
+	}
+}
 /*
  * CSS & JS files to load up on each page request.  
  */

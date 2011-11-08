@@ -25,7 +25,7 @@ function fm_deals_facebookshare( url, thumb_path, description, name, message) {
 var WindowHasFocus = false;
 jQuery(document).ready(function() {
 	
-	dealTitleNotify();
+	//dealTitleNotify();
 });
 
 function dealExpired() {
