@@ -338,7 +338,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .page-express-checkout  .sidebarRight .sidebar{width: 100%}
 #fm-commerce-express-checkout-form .form-item-credit-card-number {padding-bottom: 4px;}
 #fm-commerce-express-checkout-form .text-form-icon-wrapper{position: relative; width:240px; overflow: hidden; }
-#fm-commerce-express-checkout-form .text-form-icon-wrapper #lock_markup{position: absolute; top: 22px; right: 8px; }
+#fm-commerce-express-checkout-form .text-form-icon-wrapper #lock_markup{position: absolute; top: 21px; right: 8px; }
 #fm-commerce-express-checkout-form .text-form-icon-wrapper #lock_markup img{ height: 17px; }
 	
 .customer_profile_shipping {margin-bottom: 25px;}

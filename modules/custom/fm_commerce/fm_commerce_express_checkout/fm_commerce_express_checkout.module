@@ -146,7 +146,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   
   $form['payment_details']['credit_card']['code']['#attributes'] = array('class' => array('narrow'));
   $form['payment_details']['credit_card']['code']['#type'] ='password';
-  $form['payment_details']['credit_card']['code']['#suffix'] = '<div style="clear: both; margin-top: -13px; float: left;" class="dotted-hover">What\'s this?</div>';
+  $form['payment_details']['credit_card']['code']['#suffix'] = '<div style="clear: both; margin-top: -13px; float: left;" title="test" class="dotted-hover">What\'s this?</div>';
   
   $form['payment_details']['credit_card']['number']['#prefix'] = '<div class="text-form-icon-wrapper">';
 	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div id="lock_markup">
@@ -404,18 +404,17 @@ function theme_fm_commerce_express_checkout_form($variables)
     
     //Add hover over for Security Code 
     $cv_card = pp() . 'cv_card.jpg';
-    $output .= '<div class="cv-card" style="display: none">' ;
-    $output .= '<img alt="" src="' . $cv_card .'">';
+    $output .= '<div id="cv-card" style="display: none">' ;
+    $output .= '<img height="140px;" alt="" src="' . $cv_card .'">';
     $output .= '</div>';
     
     $options['bt_drupal_help_page'] = array(
       'cssSelect' => '.dotted-hover',
-      'trigger' => array('hover', 'click'),
-	    'positions' => array('top'),
-	    'fill' =>  "rgb(255, 255, 255)",
-	    'contentSelector' => ".cv-card",
-	    'width' => '150px',
-      'style' => 'hulu',
+      'trigger' => array('hover'),
+	    'positions' => array('right'),
+       'fill' =>  "rgb(255, 255, 255)",
+	    'contentSelector' => "jQuery('#cv-card').html()",
+      'width' => '140px;'
       );
     beautytips_add_beautytips($options);
     

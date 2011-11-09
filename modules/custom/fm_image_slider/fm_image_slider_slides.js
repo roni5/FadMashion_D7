@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 		});
 		
 		jQuery(".photos .slides_container img").mousemove(function(e){
-			jQuery("#photo_tooltip").fadeIn();
+			jQuery("#photo_tooltip").show();
 	    });
 	    jQuery(".photos .slides_container img").mouseout(function(e){
 	    	jQuery("#photo_tooltip").hide();
