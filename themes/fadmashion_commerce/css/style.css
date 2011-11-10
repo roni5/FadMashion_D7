@@ -189,16 +189,16 @@ h1.pageTitle{color: #b83838; font-size: 23px; text-align:center; padding-bottom:
 h1.itemName{font-size: 18px;  font-weight: 700;}
 h2.details-store{margin: 7px 0;}
 h2.details-store .store-name{cursor: pointer;background:url("../images/b_designer.png") no-repeat scroll left top transparent;display:block;height:17px;margin:4px 0;padding-left:21px;}
-h2.details-store .store-name:hover {background-position: left bottom; text-decoration:underline;}
+h2.details-store .store-name:hover {background-position: left bottom;}
 
 a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; padding: 0 13px 0 0px;}
 
 .pricing{margin-bottom: 3px; width: 332px;  font-size: 12px; padding: 14px 0;float: left; display: block; clear: both;}
 .pricing div{float: left; width: 110px; text-align:center; display: inline}
-.pricing .original{color: #998e82;background: url(../images/dotted_vertical.png) top right repeat-y;}
+.pricing .original{background: url(../images/dotted_vertical.png) top right repeat-y;}
 .pricing .original h3 .field-item { background: url(../images/strikethrough.jpg) left center repeat-x; }
-.pricing .exclusive{}
-.pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top left repeat-y;}
+.pricing .exclusive{color: #B83838;}
+.pricing .savings{ color: #998E82;background: url(../images/dotted_vertical.png) top left repeat-y;}
 .pricing h3{font-size: 22px; font-weight:700; padding-top: 6px;}
 
 .itemOptions{ width: 332px; clear: both; margin-bottom: 14px; text-align:center;}
@@ -299,9 +299,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .dealFrame{ font-family:"museo-sans-1","museo-sans-2",Helvetica; width: 245px; border: 1px solid #7A6857; float: left; margin: 13px; height: 493px;}
 .dealFrame .pricing{float:left;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:11px;font-weight:700;height:30px;margin:15px 0;width:245px;}
 .dealFrame .pricing div{float: left; width: 81px; text-align:center; display: inline}
-.dealFrame .pricing .original{color: #998e82;background:  url(../images/dotted_vertical.png) top right repeat-y;}
+.dealFrame .pricing .original{background:  url(../images/dotted_vertical.png) top right repeat-y;}
 .dealFrame .pricing .original h3{ text-decoration: line-through;}
-.dealFrame .pricing .savings{ color: #b83838;background:  url(../images/dotted_vertical.png) top left repeat-y;}
+.dealFrame .pricing .savings{ color: #998E82;;background:  url(../images/dotted_vertical.png) top left repeat-y;}
 .dealFrame .pricing .savings h3{font-size: 26px;margin-top: 5px;}
 .dealFrame .pricing h3{font-size: 18px; font-weight:700; padding-top: 6px; margin: 0;}
 .dealFrame .buttons{float: left; text-align:center; width: 245px; display:}
