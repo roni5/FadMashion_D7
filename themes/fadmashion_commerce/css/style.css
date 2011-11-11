@@ -151,11 +151,10 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 588px;}
 #zoomed .pagination{float:left;width:153px;}
 #zoomed .next, #zoomed .prev, #zoomed .logo {position: absolute; z-index: 100;  }
-#zoomed .prev {left: 14px;}
-#zoomed .next {left: 570px;}
+#zoomed .next, #zoomed .prev {height: 31px; width: 31px; }
+#zoomed .prev {left: 19px; background:url("../images/b_zoom_prev.png") no-repeat scroll left top transparent;}
+#zoomed .next {left: 574px; background:url("../images/b_zoom_next.png") no-repeat scroll left top transparent;}
 #zoomed .logo {bottom: 13px; right: 20px;}
-#zoomed .next {background:url("../images/b_zoom_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
-#zoomed .prev {background:url("../images/b_zoom_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
 #zoomed .next:hover, #zoomed .prev:hover {background-position: bottom left; }
 #zoomed .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
 
