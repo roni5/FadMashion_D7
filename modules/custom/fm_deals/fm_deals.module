@@ -397,7 +397,7 @@ function fm_deals_group_details(&$vars) {
 		
 		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
 		$timerDetails .= '<table cellspacing="0" cellpadding="0" class="timerTbl"><tbody><tr>
-                        <td width="110" align="right"># Available:</td>
+                        <td width="110" align="right">Items Left:</td>
                         <td width="56" align="left" class="sep1"><span>' . fm_commerce_stock_total($product) . '</span></td>
                         <td width="75" align="right" class="sep2">Time  Left:</td>
                         <td width="70" align="left"><span class="countdown">--:--</span></td>
