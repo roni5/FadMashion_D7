@@ -154,8 +154,9 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 #zoomed .prev {left: 14px;}
 #zoomed .next {left: 570px;}
 #zoomed .logo {bottom: 13px; right: 20px;}
-#zoomed .next {background:url("../images/nav_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
-#zoomed .prev {background:url("../images/nav_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
+#zoomed .next {background:url("../images/b_zoom_next.png") no-repeat scroll left top transparent;height:35px;width:56px;}
+#zoomed .prev {background:url("../images/b_zoom_prev.png") no-repeat scroll left top transparent;height:35px;width:56px;}
+#zoomed .next:hover, #zoomed .prev:hover {background-position: bottom left; }
 #zoomed .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
 
 #photo_tooltip, #zoom_photo_tooltip {background-color:rgba(255,255,255,0.6); display: none; z-index: 100; padding: 4px;  font-size: 10px;  position: absolute; }
