@@ -48,6 +48,8 @@ jQuery(document).ready(function() {
 		  
 		  var padding = 18;
 		  var border = 1;
+		  var zoomed_width = 650;
+		  var total_width = 812;
 		  //Set overlay height to full document height
 		  var fullHeight = jQuery(document).height();
 		  jQuery("#cboxOverlay").height(fullHeight);
@@ -55,9 +57,9 @@ jQuery(document).ready(function() {
 		  //Make changes to Colorbox Panel for Zoom pane
 		  jQuery('#cboxClose').css('top', '-5px');
 		  jQuery('#cboxClose').css('right', '-5px');
-		  jQuery('#cboxContent').css('width','780px');
-		  jQuery('#cboxTopCenter').css('width','780px');
-		  jQuery('#cboxBottomCenter').css('width','780px');
+		  jQuery('#cboxContent').css('width',total_width + 'px');
+		  jQuery('#cboxTopCenter').css('width',total_width + 'px');
+		  jQuery('#cboxBottomCenter').css('width',total_width + 'px');
 		  jQuery('#cboxLoadedContent').css('margin-top', '0px');
 		  jQuery('#cboxLoadedContent').css('padding', padding.toString() + 'px');
 		  
@@ -65,7 +67,7 @@ jQuery(document).ready(function() {
 		  jQuery("#cboxLoadedContent").height(boxHeight);
 		  boxHeight = boxHeight - padding - (2*border);
 		  var middle = boxHeight/2;
-		  jQuery(".zoom02 img").panFullSize(586, boxHeight);
+		  jQuery(".zoom02 img").panFullSize(zoomed_width, boxHeight);
 		  
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
