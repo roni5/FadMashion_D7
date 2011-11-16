@@ -93,11 +93,11 @@ function fm_deals_admin_images($node_id) {
       'path' => $node_image['uri'],
       'alt' => $node_image['alt'],
       'title' => $node_image['title'],
-      'attributes' => array('class' => 'itemThumb'),
+      'attributes' => array('style' => 'width: 150px;'),
       'style_name' => 'fm_main_product_image'
     );
   
-    $output .= '<div class="images" style="float:left; width: 150px;">' . theme('image_style', $node_image) . '</div>';
+    $output .= '<div class="images" style="float:left; ">' . theme('image_style', $node_image) . '</div>';
 	}
 
 	print $output;
