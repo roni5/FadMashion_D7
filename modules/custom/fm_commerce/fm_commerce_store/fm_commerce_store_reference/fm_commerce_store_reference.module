@@ -14,7 +14,7 @@
  */
 function fm_commerce_store_reference_field_extra_fields() {
   $extra = array();
-
+  
   // Loop through the product reference fields attached to node bundles.
   foreach (commerce_info_fields('commerce_product_reference', 'node') as $field_name => $field) {
     foreach ($field['bundles']['node'] as $bundle_name) {

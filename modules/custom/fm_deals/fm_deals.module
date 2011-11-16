@@ -28,6 +28,16 @@ function fm_deals_menu() {
     'file' => 'fm_deals.admin.inc',
   );
   
+  $items['admin/fadmashion/deals/images/%'] = array(
+    'title' => t('Deals Listing'), 
+    'description' => t('AJAX Call to Get Images'),
+    'page arguments' => array(4),
+    'page callback' => 'fm_deals_admin_images',
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'fm_deals.admin.inc',
+  );
+  
   $items['admin/fadmashion/deals/orders/%'] = array(
     'title' => t('Orders for This Deal'), 
     'description' => t('Listing of all Upcoming Deals'),

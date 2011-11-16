@@ -29,7 +29,7 @@ function fm_deals_admin_page() {
 
 function fm_deals_list($entities) {
 	 
-  $header = array('# Rotated', 'Product Name',  'Qty Min', 'Deal Status', 'Orders', 'Stock', 'Store Name', 'Operations' );
+  $header = array('# Rotated', 'Product Name',  'Images',  'Orders', 'Stock', 'Store Name', 'Operations' );
   $rows = array();
   foreach($entities['node'] as $node) {
   	$node = node_load($node->nid);
@@ -37,9 +37,9 @@ function fm_deals_list($entities) {
     $product = fm_commerce_get_product($node);
     $store = fm_commerce_get_store($product);
     
+    $images = field_get_items('commerce_product', $product, 'field_product_images');
     $product_name = field_get_items('commerce_product', $product, 'name');
    
-    $qty_min = $node->field_quantity_min['und'][0]['value'];
     //$start_time = format_date(strtotime($node->field_start_time['und'][0]['value'] ), 'custom', "F j, Y, g:i a", $node->field_start_time['und'][0]['timezone']);
     //$end_time = format_date(strtotime($node->field_start_time['und'][0]['value2'] ), 'custom', "F j, Y, g:i a", $node->field_start_time['und'][0]['timezone']);
     
@@ -49,8 +49,7 @@ function fm_deals_list($entities) {
     $num = db_query("SELECT COUNT(*) FROM {fm_deals_schedule} WHERE nid = :nid", array(':nid' => $node->nid))->fetchField();
     
     $rows[] = array($num, l($product->title, 'node/' . $node->nid),
-      $qty_min, 
-      fm_deals_states_status_msg($node, $qty_purchased),
+       '<div ref="'. $node->nid .'" class="image-link" style="cursor: pointer; border-bottom: 1px dotted #444;">' . count($images) . ' images</div>', 
       (count($orders) > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . $qty_purchased .  ')' : t('No Orders Placed')), 
       fm_deals_has_stock($node->nid) ? 'Has Stock' : '<span style="color: red;">Out of Stock</span>',
       $store->name,
@@ -60,8 +59,52 @@ function fm_deals_list($entities) {
 	
 	$output =  theme ('table', array('header' => $header, 'rows' => $rows));
 	
+		
+	$options['bt_admin_store_name'] = array(
+      'cssSelect' => '.image-link',
+      'trigger' => array('mouseover', 'click'),
+	    'positions' => array('right'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    'ajaxPath' => array("'?q=admin/fadmashion/deals/images/' + jQuery(this).attr('ref')", '.images'),
+	    'ajaxError' => "<strong>Egads!</strong> There was a problem getting this content. Here's what we know: <em>%error</em>.",
+	    //'contentSelector' => " $('#' + $(this).attr('ref')).html()",
+	    'height' => '474px;',
+      'style' => 'hulu',
+      );
+    beautytips_add_beautytips($options);
+	
 	return $output;
 }
+
+
+function fm_deals_admin_images($node_id) {
+	
+	$node = node_load($node_id);
+	$product = fm_commerce_get_product($node);
+	
+	$images = field_get_items('commerce_product', $product, 'field_product_images');
+    
+	foreach($images as $image) {
+	  $node_image = node_load($image['nid']);
+    $node_image = field_get_items('node', $node_image, 'field_product_image');
+    $node_image = $node_image[0];
+     
+    $node_image = array(
+      'path' => $node_image['uri'],
+      'alt' => $node_image['alt'],
+      'title' => $node_image['title'],
+      'attributes' => array('class' => 'itemThumb'),
+      'style_name' => 'fm_main_product_image'
+    );
+  
+    $output .= '<div class="images" style="float:left;">' . theme('image_style', $node_image) . '</div>';
+	}
+
+	print $output;
+	exit();
+   
+}
+
 
 function fm_deals_admin_orders($nid = '') {
 	$statuses = fm_commerce_orders_commerce_order_status_info();
