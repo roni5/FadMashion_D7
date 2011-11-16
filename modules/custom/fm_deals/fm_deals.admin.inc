@@ -63,7 +63,7 @@ function fm_deals_list($entities) {
 	$options['bt_admin_store_name'] = array(
       'cssSelect' => '.image-link',
       'trigger' => array('mouseover', 'click'),
-	    'positions' => array('bottom'),
+	    'positions' => array('right'),
 	    'fill' =>  "rgb(255, 255, 255)",
 	    'ajaxPath' => array("'?q=admin/fadmashion/deals/images/' + jQuery(this).attr('ref')", '.images'),
 	    'ajaxError' => "<strong>Egads!</strong> There was a problem getting this content. Here's what we know: <em>%error</em>.",
