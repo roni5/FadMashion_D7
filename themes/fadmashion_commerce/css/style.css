@@ -149,7 +149,7 @@ font-family:"museo-sans-1","museo-sans-2",Helvetica;}
 	
 #zoomed {width: 750px;}
 #zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 650px;}
-#zoomed .pagination{float:left;}
+#zoomed .pagination{float:left;width:145px;}
 #zoomed .next, #zoomed .prev, #zoomed .logo {position: absolute; z-index: 100;  }
 #zoomed .next, #zoomed .prev {height: 31px; width: 31px; }
 #zoomed .prev {left: 19px; background:url("../images/b_zoom_prev.png") no-repeat scroll left top transparent;}
