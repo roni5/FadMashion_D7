@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 		  var padding = 18;
 		  var border = 1;
 		  var zoomed_width = 650;
-		  var total_width = 830;
+		  var total_width = 835;
 		  //Set overlay height to full document height
 		  var fullHeight = jQuery(document).height();
 		  jQuery("#cboxOverlay").height(fullHeight);
