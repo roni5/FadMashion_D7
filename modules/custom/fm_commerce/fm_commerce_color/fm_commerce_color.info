@@ -1,0 +1,8 @@
+; $Id: $
+name = Fadmashion commerce color
+description = Main module to define product Color Functionality
+core = 7.x
+package = Fadmashion
+
+
+dependencies[] = commerce

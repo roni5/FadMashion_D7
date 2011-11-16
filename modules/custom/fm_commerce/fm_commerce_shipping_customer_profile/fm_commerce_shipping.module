@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_commerce_customer_profile_type_info().
+ */
+function fm_commerce_shipping_commerce_customer_profile_type_info() {
+  $profile_types = array();
+
+  $profile_types['shipping'] = array(
+    'type' => 'shipping',
+    'name' => t('Shipping information'),
+    'description' => t('The profile used to collect shipping information on the checkout and order forms.'),
+    'help' => '',
+  );
+
+  return $profile_types;
+}

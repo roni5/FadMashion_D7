@@ -1,0 +1,487 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function fm_commerce_express_checkout_menu() {
+	
+	$items['express-checkout'] = array(
+    'page callback' => 'fm_commerce_express_checkout_page',
+	  'access arguments' => array('view express checkout'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['express-checkout/confirmation'] = array(
+    'page callback' => 'fm_commerce_express_checkout_confirmation_page',
+	  'access arguments' => array('view express checkout'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function fm_commerce_express_checkout_permission() {
+  return array(
+    'view express checkout' => array(
+      'title' => t('View Express Checkout Page'),
+    ),
+  );
+}
+function fm_commerce_express_checkout_page() {
+	//drupal_set_message('Check back in 12-24 hours for updates as we are currently fixing a technical issue related to payments.', 'error');
+	
+	return drupal_get_form('fm_commerce_express_checkout_form');
+}
+
+function fm_commerce_express_checkout_confirmation_page() {
+	
+	$order_id = $_GET['order-id'];
+	if(!isset($order_id)) { drupal_goto();}
+	$vars = fm_commerce_orders_detail_vars($order_id);
+	
+	return theme('fm_commerce_express_checkout_confirmation', $vars);
+}
+
+//Replace the drupal commerce checkout form with our own 
+//preffer having complete control of fomrs rather than doing through commerce admin (anish)
+function fm_commerce_express_checkout_form($form, $form_state) {
+
+  global $user;
+    
+  $order = commerce_cart_order_load($user->uid);
+  $form_state['order'] = $order;
+  
+  // If no order existed, create one now.
+  if (empty($order)) {
+  	drupal_set_message('We couldn\'t find your order, please contact the admin for issues', 'error');
+    drupal_goto();
+  }
+  
+  /* ADD Shipping Profile to Form */
+  if( !isset($_GET['shipping']) || $_GET['shipping'] == 'new' ) {
+    $shipping_profile = commerce_customer_profile_new('shipping', $order->uid);
+  }
+  else{
+  	$shipping_id = $_GET['shipping'];
+  	$shipping_profile = commerce_customer_profile_load($shipping_id);
+  }
+  
+  $form['shipping_customer_profile'] = array(
+    '#type' => 'value',
+    '#value' => $shipping_profile,
+  );
+  
+  // Add the field widgets for the profile.
+  field_attach_form('commerce_customer_profile', $shipping_profile, $form, $form_state);
+
+  // Tweak the form to remove the fieldset from Shipping address fields.
+  $field_name = 'field_shipping_address';
+  $language = $form[$field_name]['#language'];
+
+  foreach (element_children($form[$field_name][$language]) as $delta) {
+    // Don't mess with the "Add another item" button that could be present.
+    if ($form[$field_name][$language][$delta]['#type'] != 'submit') {
+      $form[$field_name][$language][$delta]['#type'] = 'container';
+    }
+    
+    $form[$field_name][$language][$delta]['name_line']['#weight'] = -6;
+    $form[$field_name][$language][$delta]['country']['#weight'] = -5;
+    $form[$field_name][$language][$delta]['country']['#disabled'] = TRUE;
+    
+    $form[$field_name][$language][$delta]['postal_code']['#attributes'] = array('class' => array('narrow'));
+    $form[$field_name][$language][$delta]['administrative_area']['#attributes'] = array('class' => array('narrow'));
+
+    $form[$field_name][$language][$delta]['thoroughfare']['#title'] = t('Address 1');
+    $form[$field_name][$language][$delta]['thoroughfare']['#prefix'] = '<br clear="all">';
+    
+    $form[$field_name][$language][$delta]['premise']['#title'] = t('Address 2');
+    
+    $form[$field_name][$language][$delta]['locality']['#prefix'] = '<br clear="all">';
+  }
+  
+  $form['saveto'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Save To Address Book?'),
+    '#default_value' => true
+  );
+  
+  /* Add BILLING Profile to Form */
+  $billing_profile = commerce_customer_profile_new('billing', $order->uid);
+  
+  $form['billing_customer_profile'] = array(
+    '#type' => 'value',
+    '#value' => $billing_profile,
+  );
+  
+  // Add the field widgets for the profile.
+  field_attach_form('commerce_customer_profile', $billing_profile, $form, $form_state);
+
+  // Make custom changes to Billing Profile Form
+  $field_name = 'commerce_customer_address';
+  $language = $form[$field_name]['#language'];
+
+  foreach (element_children($form[$field_name][$language]) as $delta) {
+  	if ($form[$field_name][$language][$delta]['#type'] != 'submit') {
+      $form[$field_name][$language][$delta]['#type'] = 'container';
+    }
+    $form[$field_name][$language][$delta]['postal_code']['#attributes'] = array('class' => array('narrow'));
+    $form[$field_name][$language][$delta]['administrative_area']['#attributes'] = array('class' => array('narrow'));
+
+    $form[$field_name][$language][$delta]['thoroughfare']['#title'] = t('Address 1');
+    $form[$field_name][$language][$delta]['premise']['#title'] = t('Address 2');
+  }
+  
+  /* ADD Credit card form */
+  module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+  $form['payment_details'] = commerce_payment_credit_card_form(array('code' => '', 'owner' => '' ));
+  
+  //CHANGE default form theme stuff
+  
+  $form['payment_details']['credit_card']['owner'] ['#title'] = t('Name on Credit Card');
+  $form['payment_details']['credit_card']['owner'] ['#weight'] = -5;
+  $form['payment_details']['credit_card']['exp_month'] ['#attributes'] = array('class' => array('narrow'));
+  $form['payment_details']['credit_card']['exp_year'] ['#attributes'] = array('class' => array('narrow'));
+  
+  $form['payment_details']['credit_card']['code']['#attributes'] = array('class' => array('narrow'));
+  $form['payment_details']['credit_card']['code']['#type'] ='password';
+  $form['payment_details']['credit_card']['code']['#suffix'] = '<div style="clear: both; margin-top: -13px; float: left;" title="test" class="dotted-hover">What\'s this?</div>';
+  
+  $form['payment_details']['credit_card']['number']['#prefix'] = '<div class="text-form-icon-wrapper">';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div id="lock_markup">
+         <img  src="' . pp() . 'lock.png">
+         </div>';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div><img border="0" style="margin-bottom: 10px;" alt="Credit Card Logos" src="http://www.merchantaccountguide.com/credit-card-logos/visa-mc-amex-disc/small_horizontal.png"></div>';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '</div>';
+  
+  
+  $form['complete_purchase'] = array(
+    '#type' => 'submit',
+    '#value' => t('Complete Purchase'),
+    '#attributes' => array('class' => array('red', 'ajax-button'),)
+  );
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $total = $order_wrapper->commerce_order_total->value();
+  $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+  $form['complete_purchase_text'] = array(
+    '#markup' => 'Your credit card will be charged ' . $total,
+  );
+  
+  // Get the path to the module
+  $path = drupal_get_path('module', 'fm_commerce_express_checkout');
+  //  Attach the CSS and JS to the form
+  $form['#attached'] = array(
+      'js' => array
+      (
+          'type' => 'file',
+          'data' => $path . '/fm_commerce_express_checkout.js',
+      ),
+  );
+  
+
+  return $form;
+  
+  
+}
+
+function fm_commerce_express_checkout_form_validate($form, $form_state) {
+
+  $shipping_profile = $form_state['values']['shipping_customer_profile'];
+
+  // Notify field widgets to validate their data.
+  field_attach_form_validate('commerce_customer_profile', $shipping_profile, $form, $form_state);
+	
+	$profile = $form_state['values']['billing_customer_profile'];
+
+  // Notify field widgets to validate their data.
+  field_attach_form_validate('commerce_customer_profile', $profile, $form, $form_state);
+  
+  module_load_include('inc', 'commerce_payment', 'includes/commerce_payment.credit_card');
+
+  // Validate the credit card fields.
+  $settings = array(
+    'form_parents' => array('credit_card'),
+  );
+
+  //VAlidate credit card fields
+  /*if (!commerce_payment_credit_card_validate($form_state['values']['credit_card'], $settings)) {
+    return FALSE;
+  }*/
+
+  return TRUE;
+}
+
+function fm_commerce_express_checkout_form_submit($form, $form_state) {
+   // Load a fresh copy of the order stored in the form.
+  $order = commerce_order_load($form_state['order']->order_id);
+  
+  //GEt payment methods for credit card
+  $order->payment_methods = array();
+  rules_invoke_all('commerce_payment_methods', $order);
+  
+  //There is only one payment method - Authorize.net so just use that one.  
+  $payment_method = $order->payment_methods['authnet_aim|commerce_payment_authnet_aim'];
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  
+  /*SHIPPING ADDRESS SUBMIT*/
+  $profile = $form_state['values']['shipping_customer_profile'];
+  
+  //TODO: ADD more checks besides just address to see if it has changed
+  //If Address 1 field is not equal than a different address so save as a new one
+  $form_address1 = $form_state['values']['field_shipping_address']['und'][0]['thoroughfare']; 
+ 
+  if(!empty($profile->profile_id) && $form_address1 != $profile->field_shipping_address['und'][0]['thoroughfare']) {
+  	$profile = commerce_customer_profile_new('shipping', $order->uid);
+  }
+  
+
+  // Ensure the profile is active.
+  $profile->status = TRUE;
+
+  // Set the profile's uid if it's being created at this time.
+  if (empty($profile->profile_id)) {
+    $profile->uid = $order->uid;
+  }
+
+  // Notify field widgets.
+  field_attach_submit('commerce_customer_profile', $profile, $form, $form_state);
+
+  // Save the profile.
+  $save = $form_state['values']['saveto'];
+  
+ 
+  if($save) {
+    commerce_customer_profile_save($profile);
+  } 
+  
+  $order_wrapper->commerce_customer_shipping = $profile;
+  
+   /*BILLING ADDRESS SUBMIT*/
+  $billing_profile = $form_state['values']['billing_customer_profile'];
+
+  // Ensure the profile is active.
+  $billing_profile->status = TRUE;
+
+
+  // Set the profile's uid if it's being created at this time.
+  if (empty($billing_profile->profile_id)) {
+    $billing_profile->uid = $order->uid;
+  }
+
+  // Notify field widgets.
+  field_attach_submit('commerce_customer_profile', $billing_profile, $form, $form_state);
+ 
+  // Save the profile.
+  commerce_customer_profile_save($billing_profile);
+  $order_wrapper->commerce_customer_billing = $billing_profile;
+	$order = commerce_order_save($order);
+
+	//Update Status Info - Set to completed if 
+	$node = fm_deals_states_get_order_node($order);
+	$deal_state = fm_deals_states_deal_on($node);
+	
+	//Call payment gateway
+	$charge = $order_wrapper->commerce_order_total->value();
+	
+	$result = commerce_authnet_aim_submit_form_submit($payment_method, $form, $form_state['values'], $order, $charge);
+
+	
+	if(!is_null($result) && $result == false) {
+	 return;
+	}
+	
+	$order = commerce_order_status_update($order, 'fm_orders_authorized');
+	
+	commerce_checkout_complete($order);
+	
+	$params = array(
+    'subject' => 'Order Confirmation #' . $order->order_id,
+	  'order' => $order
+  );
+  
+  $email = variable_get('site_mail', 'admin@fadmashion.com');
+  global $user;
+	drupal_mail(
+      'fm_commerce_express_checkout',
+      'order_confirmation',
+      $user->mail,
+      language_default(),
+      $params,
+      'Fadmashion <' . $email . '> '
+   ); 
+  
+  //Redirect here
+  drupal_goto('express-checkout/confirmation', array('query' => array('order-id' => $order->order_id) ));
+	
+
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fm_commerce_express_checkout_mail($key, &$message, $params) {
+	$message['module'] = 'fm_commerce_express_checkout';
+	$message['key'] = $key;
+	$order = $params['order'];
+	
+	$product = fm_commerce_get_order_product($order);
+	$shop = fm_commerce_get_store($product);
+	
+	$message['subject'] = $params['subject'] . ': ' . $product->title ;
+	
+  $image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
+
+	$message['body'] = theme('fm_commerce_express_checkout_confirmation_mail', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+
+  return $message;
+}
+
+
+//TODO: Needs to be in a theme file
+function theme_fm_commerce_express_checkout_form($variables)
+{
+    // Isolate the form definition form the $variables array
+    $form = $variables['form'];
+    
+    //DISPLAY Shipping information on Form
+    $field_name = 'field_shipping_address';
+    $language = $form[$field_name]['#language'];
+    
+    $output = '<div id="shipping" class="checkoutPanel">';
+    $output .= '<div class="header rounded-top"><div class="pad">
+                  <div class="dropdown"><span>Address Book:</span> ' . fm_commerce_express_checkout_profiles_options('shipping') . ' </div>
+                  Shipping Information
+                </div></div>';
+    $output .= '<div class="form">';
+    
+   // $output .= '<div class="asterik"><span>*</span> = required</div>';
+    $output .= drupal_render($form[$field_name]); 
+    $output .= '<div class="saveTo rounded-top rounded-bottom">' . drupal_render($form['saveto']) . '</div>';
+    $output .= '</div>';
+    
+    $output .= '</div>';
+    
+    $field_name = 'commerce_customer_address';
+    $language = $form[$field_name]['#language'];
+    
+    $output .= '<div class="checkoutPanel">';
+    $output .= '<div class="header rounded-top"><div class="pad">';
+    $output .= '
+                  Billing Information
+                </div></div>';
+    
+    $output .= '<div id="billing">';
+    $output .= '<div class="form">';
+    $output .= drupal_render($form['payment_details']); 
+    $output .= '</div>';
+    
+    $output .= '<div class="billingAddress">';
+    $output .= t('Billing Address');
+    $output .= '<div class="sameAddress"><input checked="checked" type="checkbox" id="edit-billing-info" name="revision" value="1" class="form-checkbox">  <label class="option" for="edit-revision">Same as shipping address </label></div>';
+    $output .= drupal_render_children($form[$field_name]); 
+    $output .= '</div>';
+    $output .= '</div>';
+    
+    $lock = pp() . 'lock.png';
+    $output .= '<div class="securityText rounded-top rounded-bottom"><div class="pad"><img src="' . $lock . '">All transactions are secure and encrypted, and we never store your credit card information. To learn more, please view our ' . l('privacy policy', 'privacy') . '
+</div></div>';
+    
+    
+    $output .= '</div>';
+
+    $logo = pp() . 'logo_chase.png';
+    $output .= '<div class="checkoutFooter"><div class="completeOrder">';
+    $output .= drupal_render($form['complete_purchase']); 
+    $output .= '<br clear="all">' .drupal_render_children($form) . '</div>';
+    $output .= '<span> Fadmashion express checkout powered by </span>';
+    $output .= '<img class="logo" alt="Chase Paymentech" src="' . $logo .'">';
+    $output .= '</div>';
+    
+    //Add hover over for Security Code 
+    $cv_card = pp() . 'cv_card.jpg';
+    $output .= '<div id="cv-card" style="display: none">' ;
+    $output .= '<img height="140px;" alt="" src="' . $cv_card .'">';
+    $output .= '</div>';
+    
+    $options['bt_drupal_help_page'] = array(
+      'cssSelect' => '.dotted-hover',
+      'trigger' => array('hover'),
+	    'positions' => array('right'),
+       'fill' =>  "rgb(255, 255, 255)",
+	    'contentSelector' => "jQuery('#cv-card').html()",
+      'width' => '140px;'
+      );
+    beautytips_add_beautytips($options);
+    
+    
+    // return the output
+    return $output;
+}
+
+function fm_commerce_express_checkout_profiles_options($type) {
+	//<select id="edit-customer-profile-billing-commerce-customer-address-und-0-country" name="customer_profile_billing[commerce_customer_address][und][0][country]" class="form-select required ajax-processed"><option>2310 E. Huntingdon St.</option></select>
+  global $user;
+	
+	$query = db_select('commerce_customer_profile', 'cp');
+  $profile_id_alias = $query->addField('cp', 'profile_id');
+  $profile_uid_alias = $query->addField('cp', 'uid');
+  $profile_type_alias = $query->addField('cp', 'type');
+  
+  $query->condition('cp.type', array($type), 'IN');
+  $query->condition('cp.uid', $user->uid, '=');
+
+  // Execute the query and build the results array.
+  $result = $query->execute();
+
+  $loaded_profiles = array();
+
+ 
+  foreach ($result->fetchAll() as $profile) {
+  	$loaded_profiles[] = $profile->profile_id;
+  }
+  
+  //TODO: Optimize query to include entire load in one query
+  $profiles = commerce_customer_profile_load_multiple($loaded_profiles);
+  
+	if(!isset($_GET['shipping'])) {
+    $shipping_id = 'new';
+  }
+  else{
+  	$shipping_id = $_GET['shipping'];
+  	$shipping_profile = commerce_customer_profile_load($shipping_id);
+  }
+  
+  $output = '<select class="shipping_address_select" id="edit-customer-profile-shipping-commerce-customer-address-und-0-country">';
+  foreach($profiles as $id => $profile) {
+    $output .= '<option ' . ($shipping_id == $id ? 'selected="selected"' : ''). ' value="' . $id . '">' . $profile->field_shipping_address['und'][0]['thoroughfare'] . '</option>';
+  }
+  $output .= '<option ' . ($shipping_id == 'new' ? 'selected="selected"' : '') . ' value="new">   ---- New Address ----</option>';
+  $output .= '</select>';
+  
+  drupal_add_js('var full_path = "' . url('express-checkout', array('absolute' => true)) . '";', 'inline');
+  
+  return $output;
+}
+
+function fm_commerce_express_checkout_theme($variables)
+{
+    return array
+    (
+        'fm_commerce_express_checkout_form' => array(
+            'render element' => 'form',
+        ),
+        'fm_commerce_express_checkout_confirmation' => array(
+	        'variables' => array('order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL),
+          'template' => 'fm_commerce_express_checkout_confirmation'
+        ),
+        'fm_commerce_express_checkout_confirmation_mail' => array(
+	        'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
+          'template' => 'fm_commerce_express_checkout_confirmation_mail'
+        ),
+    );
+}

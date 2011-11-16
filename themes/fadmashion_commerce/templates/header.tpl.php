@@ -1,23 +1,31 @@
 <div id="header">
-        	<div class="row1">
-            	<div id="accountNav">
-                <ul class="tree">
-                <li class="menu"><a href="#">Anish</a></li>
-                <li class="menu"><a href="#"><img class="flag" src="images/icon_flag_usa.png">$ USD</a></li>
-                <li><a href="#">Help</a></li>
-               </ul> </div>
-                <p>Fresh Design Inspirations Every Hour! <a class="learnMore" href="#">Learn More</a></p>
-            </div>
             <div class="row2"> 
+            <div id="accountNav">
+                <ul class="tree">
+                
+                <li ><?php if(module_exists('fm_commerce_store_owners')) {
+                             $store = fm_commerce_store_owners_get_store();
+                             if($store) { print l($store->name, 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load'))) ); }
+                           }
+                        ?>
+                </li>
+                <li><?php print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
+                <li> <?php print l('+ Invite Friends', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 200), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends') )  ); ?></li>
+                
+                <li ><?php print l('Logout', 'user/logout');?></li>
+                
+               </ul> 
+             </div>
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
-        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('Home'); ?>" />
+        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
       			    </a>
-              <div class="navBox"><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_nav_left.png">
+              <div class="navBox">
                     <ul class="nav">
-                        <li class="active">Deals</li>      
-                        <li>Shop</li>         
-                        <li>Socialize</li>     
-                        <li>Rewards</li>
-                        </ul><img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_nav_right.png"></div>
+                        <li  <?php ($menu_active == 'featured' ? print 'class="active"' : '' )?> ><?php print l('Featured Deal', 'deals'); ?></li>
+                        <li <?php ($menu_active == 'preview' ? print 'class="active"' : '' )?> ><?php print l('More Deals', 'deals/preview'); ?></li>
+                        <li><?php print l('Blog', 'http://blog.fadmashion.com', array('absolute' => true)); ?></li>
+                        <!-- <li class="beautytips" id="voting-header" title="Coming Soon"><a href="#">Voting Booth</a>  -->
+                        </li>
+                        </ul></div>
             </div>
 	 </div><!--header-->

@@ -1,0 +1,155 @@
+<?php
+
+
+function fm_deals_states_get_status($node) {
+  
+	$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime < :request_time && endTime > :request_time', array(':request_time' => REQUEST_TIME))->fetchObject();
+	
+	if($node->nid == $result->nid) {
+		$status = 'active';
+	} else {
+		//Check to see if it is upcoming in the next week
+		$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE nid = :nid &&  startTime > :request_time && endTime < :next_week ', 
+		                   array(':request_time' => REQUEST_TIME, ':next_week' => strtotime('+1 week', REQUEST_TIME), ':nid' => $node->nid))->fetchObject();
+		if(isset($result)) {
+		   $status = 'upcoming';
+		}
+		else {
+		   $status = 'ended';
+		}
+	}
+	
+	
+	return $status;
+}
+
+//TODO: Removing the Group deal aspect
+function fm_deals_states_status_msg($node, $qty_purchased) {
+	$status = fm_deals_states_status($node, $qty_purchased);
+	$qty_min = field_get_items('node', $node, 'field_quantity_min');
+	$qty_min = intval($qty_min[0]['value']);
+	
+	if($status) {
+		$output = '<div class="deal-on">' . t('Deal is On!') . '</div>';
+	}
+	else {
+		$qty_left = $qty_min - $qty_purchased;
+		$output = '<div class="deal-off">' . $qty_left . t(' more to get deal') . '</div>';
+	}
+	return $output;
+	
+}
+
+function fm_deals_states_status($node, $qty_purchased) {
+  $qty_min = field_get_items('node', $node, 'field_quantity_min');
+	$qty_min = intval($qty_min[0]['value']);
+	
+	if($qty_purchased >= $qty_min) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	return false;
+}
+
+function fm_deals_states_purchased_deal($deal_node) {
+  global $user;
+  
+  $orders = array();
+  $orders = commerce_order_load_multiple(array(), array('status' => 'fm_orders_authorized', 'uid' => $user->uid));
+  //$orders += commerce_order_load_multiple(array(), array('status' => 'deal_payed', 'uid' => $user->uid));
+  
+  foreach ($orders as $order) {
+ 	  $node = fm_deals_states_get_order_node($order);
+    if($deal_node->nid == $node->nid) {
+    	return $order->order_id;
+    } 
+  }
+	return false;
+}
+
+function fm_deals_states_deal_on($node) {
+  $qty_min = intval(field_get_items('node', $node, 'field_quantity_min'));
+	$qty_purchased = fm_deals_qty_purchased($node->nid);
+	
+	if($qty_purchased >= $qty_min) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+/*
+ * Logic is run on ever page (reffer to template.php preprocess_page) 
+ * to check to see if there is are expired deals in the cart, if so update status
+ * of order to expire
+ */
+
+//TODO:  BIG performance hit that this is being done on every page load.  ORders should be updated after a node event is triggered
+function fm_deals_states_clean_expired_deals() {
+	
+ global $user;
+	
+	if(!$user->uid) {
+		return NULL;
+	}
+	
+	// First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($user->uid);
+   
+  // if the cart order is not empty than check to see if it isexpired
+  if (!empty($order)) {
+    $node = fm_deals_states_get_order_node($order);
+    if(fm_deals_states_get_status($node) != 'active') {
+      commerce_order_status_update($order, 'fm_orders_expired');
+      drupal_set_message('Your cart is expired.');
+    } 	
+  }
+  
+ //Second, load up previous orders and go through each one and update those 
+ $expired_orders = commerce_order_load_multiple(array(), array('status' => 'deal_off', 'uid' => $user->uid));
+ 
+ foreach ($expired_orders as $order) {
+ 	  $node = fm_deals_states_get_order_node($order);
+    if(fm_deals_states_get_status($node) != 'ended') {
+    	if(fm_deals_states_deal_on($node)) {
+    		//Add logic to Capture Authorize deal
+    		//commerce_order_status_update($order, 'deal_payed');
+    	} 
+    } 
+ }
+ 
+ 
+}
+
+//Get the deal node off the order
+function fm_deals_states_get_order_node($order) {
+ 
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $discount_line_item = NULL;
+  $shipping_line_item = NULL;
+  // Loop through the line items looking for discounts.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  	
+     // If this line item matches the product being added...
+     if (empty($discount_line_item) &&
+         $line_item_wrapper->type->value() == 'deals_discount' ) {
+       
+         if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
+         	 $product = $line_item_wrapper->field_product_line_item;
+	         $node = $line_item_wrapper->field_product_line_item->field_node_reference->value();
+	       }
+     }
+  }
+  
+  if(isset($node)) {
+  	//If timer is expired Cancel the order
+  	return $node;
+  }
+}
+
+

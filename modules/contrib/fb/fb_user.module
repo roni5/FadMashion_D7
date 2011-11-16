@@ -185,12 +185,13 @@ function fb_user_fb($op, $data, &$return) {
   elseif ($op == FB_OP_AJAX_EVENT) {
     // fb.js has notified us of an event via AJAX. Not the same as facebook event callback above.
     if ($data['event_type'] == 'session_change' && isset($data['event_data']['fbu'])) {
+    	watchdog('fb', "FAcebook Login event called");
       // A user has logged in.
       // Don't trust fbu from $data['event_data'], too easy to spoof.
       // Don't set fb_user if SESSION[fb_user_fbu], could be an old session not properly cleaned up.
       if (($fbu = fb_facebook_user($data['fb'])) &&
           $fbu != fb_get_fbu($GLOBALS['user'])) {
-
+        watchdog('fb', "call authorize user");
         // In ajax callback, there's no reason to redirect even if user
         // changes. But we should honor session, as even ajax can set a new
         // cookie.
@@ -227,8 +228,10 @@ function _fb_user_check_and_goto() {
     if ($uid != $GLOBALS['user']->uid) {
       // during user processing, we started a new session.
       if (!fb_controls(FB_USER_CONTROL_NO_REDIRECT)) {
-        // Pass _fb_user_fbu to avoid infinite refreshes.
-        drupal_goto(request_path(), array('_fb_user_fbu' => $fbu));
+        // No longer passing _fb_user_fbu, because it causes problem when logging out of one frame then refreshing a frame with that parameter in the URL.
+        drupal_goto(request_path(), array(
+                      //'_fb_user_fbu' => $fbu, // Avoid refresh loop, disabled for now.  Still needed?
+                    ));
       }
     }
   }
@@ -404,7 +407,6 @@ function _fb_user_process_authorized_user() {
     // First check if map already exists.
     $account = fb_user_get_local_user($fbu, $fb_app);
     $config = _fb_user_get_config($fb_app);
-
     if (!$account) {
       if ($GLOBALS['user']->uid > 0 &&
           $config['map_account'][FB_USER_OPTION_MAP_ALWAYS]) {
@@ -414,6 +416,7 @@ function _fb_user_process_authorized_user() {
       if (!$mapped &&
           $config['map_account'][FB_USER_OPTION_MAP_EMAIL]) {
         // Create map if email matches.
+        watchdog('fb_fm', 'Presave FAcebook email');
         $mapped = _fb_user_create_map_by_email();
       }
 
@@ -495,18 +498,19 @@ function fb_user_form_alter(&$form, &$form_state, $form_id) {
     unset($form['submit']);
     unset($form['delete']);
   }
-
+	
   // Add name and email to some forms.
   if (isset($GLOBALS['_fb'])) {
     $fb = $GLOBALS['_fb'];
     if (!$GLOBALS['user']->uid && // No alters to user add form.
-        (($form_id == 'user_register' && variable_get(FB_USER_VAR_ALTER_REGISTER, TRUE)) ||
+        (($form_id == 'user_register_form' && variable_get(FB_USER_VAR_ALTER_REGISTER, TRUE)) ||
          ($form_id == 'user_login' && variable_get(FB_USER_VAR_ALTER_LOGIN, TRUE)) ||
          ($form_id == 'user_login_block' && variable_get(FB_USER_VAR_ALTER_LOGIN_BLOCK, TRUE)))) {
-
+         
       if ($fbu = fb_facebook_user()) {
         // Facebook user has authorized app.
-
+         
+      	
         // Show user name and picture.
         $form['fb_user'] = array(
           'name' => array(
@@ -818,7 +822,7 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
           '#collapsible' => false,
         );
 
-        $fb_button = theme('fb_login_button', t('Connect with Facebook'));
+        $fb_button = theme('fb_login_button', array('text' => t('Connect with Facebook')));
         $form['fb_user']['button'] = array(
           '#markup' => $fb_button,
           '#weight' => -1,
@@ -1101,16 +1105,17 @@ function _fb_user_get_fbu($uid) {
   if (!isset($cache[$uid])) {
     // Look up this user in the authmap
     $result = db_query("SELECT fbu FROM {fb_user} WHERE uid = :uid", array(
-                                   ':uid' => $uid,
+                         ':uid' => $uid,
                                  ))->fetchObject();
     if ($result) {
       $cache[$uid] = $result->fbu;
     }
+    else {
+      $cache[$uid] = NULL;
+    }
   }
 
-  if (isset($cache[$uid])) {
-    return $cache[$uid];
-  }
+  return $cache[$uid];
 }
 
 //// token module hooks.

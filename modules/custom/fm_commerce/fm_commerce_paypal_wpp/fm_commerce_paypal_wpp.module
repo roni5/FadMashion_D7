@@ -1,0 +1,211 @@
+<?php
+
+function fm_commerce_paypal_wpp_menu() {
+  
+	$items['admin/fadmashion/wpp/capture/%'] = array(
+    'title' => t('Capture Deal'), 
+    'page arguments' => array(4),
+    'page callback' => 'fm_commerce_paypal_wpp_capture',
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['admin/fadmashion/wpp/void/%'] = array(
+    'title' => t('Void Deal'), 
+    'page arguments' => array(4),
+    'page callback' => 'fm_commerce_paypal_wpp_void',
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+//Do Capture functionality after an authorization of payment
+function fm_commerce_paypal_wpp_capture($order_id) {
+	$order = commerce_order_load($order_id);
+	$order->payment_methods = array();
+  rules_invoke_all('commerce_payment_methods', $order);
+	$payment_method = $order->payment_methods['paypal_wpp|commerce_payment_paypal_wpp'];
+	
+  $balance = commerce_payment_order_balance($order);
+  $balance_dec = commerce_currency_amount_to_decimal($balance['amount'], $balance['currency_code']);
+  
+  $auth_id = fm_commerce_paypal_wpp_authid($order_id);
+  
+  if($order->status != 'fm_orders_authorized' || !$auth_id) {
+  	drupal_set_message('This order has not been authorized yet to be captured');
+  	drupal_goto();
+  }
+	// Build a name-value pair array for this transaction.
+  $nvp = array(
+    'METHOD' => 'DoCapture',
+    'AMT' => $balance_dec,
+    'AUTHORIZATIONID' => $auth_id,
+    'COMPLETETYPE' => 'Complete',
+    'NOTE' => 'TEst',
+  );
+  
+  
+	// Submit the request to PayPal.
+  $response = commerce_paypal_wpp_request($payment_method, $nvp);
+
+  // Prepare a transaction object to log the API response.
+  $transaction = commerce_payment_transaction_new('paypal_wpp', $order->order_id);
+  $transaction->instance_id = $payment_method['instance_id'];
+  $transaction->amount = $balance['amount'];
+  $transaction->currency_code = $payment_method['settings']['currency_code'];
+  $transaction->payload[REQUEST_TIME] = $response;
+
+  
+  // Build a meaningful response message.
+  $message = array();
+  $action = 'Capture';
+
+  // Set the remote ID and transaction status based on the acknowledgment code.
+  switch ($response['ACK']) {
+    case 'SuccessWithWarning':
+    case 'Success':
+      $transaction->remote_id = $response['TRANSACTIONID'];
+      $transaction->status = COMMERCE_PAYMENT_STATUS_SUCCESS;
+
+      if ($response['ACK'] == 'SuccessWithWarning') {
+        $message[0] = '<b>' . t('@action - Success (with warning)', array('@action' => $action)) . '</b>';
+        $message[] = t('@severity @code: @message', array('@severity' => $response['L_SEVERITYCODE0'], '@code' => $response['L_ERRORCODE0'], '@message' => $response['L_LONGMESSAGE0']));
+      }
+      else {
+        $message[] = '<b>' . t('@action - Success', array('@action' => $action)) . '</b>';
+      }
+      
+      $order = commerce_order_status_update($order, 'fm_orders_captured');
+      drupal_set_message('Order #' . $order->order_id . ' successful fully captured');
+
+      break;
+
+    case 'FailureWithWarning':
+    case 'Failure':
+    default:
+      // Create a failed transaction with the error message.
+      $transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
+      $message[] = '<b>' . t('@action - Failure', array('@action' => $action)) . '</b>';
+      $message[] = t('@severity @code: @message', array('@severity' => $response['L_SEVERITYCODE0'], '@code' => $response['L_ERRORCODE0'], '@message' => $response['L_LONGMESSAGE0']));
+      
+      drupal_set_message('Order #' . $order->order_id . ' error capturing', 'error');
+  }
+
+  // Store the type of transaction in the remote status.
+  $transaction->remote_status = 'Do Capture';
+
+  // Set the final message.
+  $transaction->message = implode('<br />', $message);
+
+  // Save the transaction information.
+  commerce_payment_transaction_save($transaction);
+  
+  
+  //TODO: Send out Capture Information.  
+  //drupal_mail();
+  
+  drupal_goto();
+	
+}
+
+//Void the payment (if the deal is cancelled after some are payed out)
+function fm_commerce_paypal_wpp_void($order_id) {
+	$order = commerce_order_load($order_id);
+  
+	$order->payment_methods = array();
+  rules_invoke_all('commerce_payment_methods', $order);
+	$payment_method = $order->payment_methods['paypal_wpp|commerce_payment_paypal_wpp'];
+	
+	$auth_id = fm_commerce_paypal_wpp_authid($order_id);
+  
+  if($order->status != 'fm_orders_authorized' || !$auth_id) {
+  	drupal_set_message('This order has not been authorized yet to be voided');
+  	drupal_goto();
+  }
+	// Build a name-value pair array for this transaction.
+  $nvp = array(
+    'METHOD' => 'DoVoid',
+    'AUTHORIZATIONID' => $auth_id,
+  );
+  
+  // Submit the request to PayPal.
+  $response = commerce_paypal_wpp_request($payment_method, $nvp);
+
+  // Prepare a transaction object to log the API response.
+  $transaction = commerce_payment_transaction_new('paypal_wpp', $order->order_id);
+  $transaction->instance_id = $payment_method['instance_id'];
+  $transaction->payload[REQUEST_TIME] = $response;
+
+  // Build a meaningful response message.
+  $message = array();
+  $action = 'Void';
+  
+  // Set the remote ID and transaction status based on the acknowledgment code.
+  switch ($response['ACK']) {
+    case 'SuccessWithWarning':
+    case 'Success':
+      $transaction->remote_id = $response['TRANSACTIONID'];
+      $transaction->status = COMMERCE_PAYMENT_STATUS_SUCCESS;
+
+      if ($response['ACK'] == 'SuccessWithWarning') {
+        $message[0] = '<b>' . t('@action - Success (with warning)', array('@action' => $action)) . '</b>';
+        $message[] = t('@severity @code: @message', array('@severity' => $response['L_SEVERITYCODE0'], '@code' => $response['L_ERRORCODE0'], '@message' => $response['L_LONGMESSAGE0']));
+      }
+      else {
+        $message[] = '<b>' . t('@action - Success', array('@action' => $action)) . '</b>';
+      }
+
+      
+      $order = commerce_order_status_update($order, 'fm_orders_voided');
+      drupal_set_message('Order #' . $order->order_id . ' successful Voided');
+
+      break;
+
+    case 'FailureWithWarning':
+    case 'Failure':
+    default:
+      // Create a failed transaction with the error message.
+      $transaction->status = COMMERCE_PAYMENT_STATUS_FAILURE;
+      $message[] = '<b>' . t('@action - Failure', array('@action' => $action)) . '</b>';
+      $message[] = t('@severity @code: @message', array('@severity' => $response['L_SEVERITYCODE0'], '@code' => $response['L_ERRORCODE0'], '@message' => $response['L_LONGMESSAGE0']));
+      
+      drupal_set_message('Order #' . $order->order_id . ' error Voiding', 'error');
+  }
+
+  // Store the type of transaction in the remote status.
+  $transaction->remote_status = 'Void Order';
+
+  // Set the final message.
+  $transaction->message = implode('<br />', $message);
+  
+
+  	  
+	$product = fm_commerce_get_order_product($order);
+  $options = fm_commerce_get_order_options($order);
+  if(empty($options['color']) && empty($options['size'])) { 
+     fm_commerce_stock_adjust($product, array('none' => array('qty' => 1) ));
+  }
+  else { 
+    // Subtract the sold amount from the available stock level.
+     fm_commerce_stock_adjust($product, array('color' => array('value' => $options['color'], 'qty' => 1), 'size' => array('value' => $options['size'], 'qty' => 1)) );
+  }
+    
+
+  // Save the transaction information.
+  commerce_payment_transaction_save($transaction);
+  drupal_goto();
+  
+}
+
+function fm_commerce_paypal_wpp_authid($order_id) {
+   foreach (commerce_payment_transaction_load_multiple(array(), array('order_id' => $order_id)) as $transaction) {
+      if($transaction->status == 'pending' && $transaction->remote_status == 'Authorization') {
+      	return $transaction->remote_id;
+      } 
+    }
+    
+   return false;
+}
+

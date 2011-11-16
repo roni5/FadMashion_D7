@@ -1,0 +1,8 @@
+; $Id: $
+name = Fadmashion Paypal Website Payments Pro 
+description = Additional payment functionality for Payments Pro
+core = 7.x
+package = Fadmashion
+
+
+dependencies[] = commerce

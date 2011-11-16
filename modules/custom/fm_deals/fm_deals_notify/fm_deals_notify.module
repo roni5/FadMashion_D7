@@ -1,27 +1,170 @@
 <?php
 
+define('FM_NOTIFY_MINUTES', 5);
+
 function fm_deals_notify_menu() {
 	
 	$items['deals/notify/%'] = array(
-    'title' => t('Fadmashion Rewards'),
+    'title' => t('Fadmashion Notify'),
 	  'page arguments' => array(2), 
     'page callback' => 'fm_deals_notify_add_reminder',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
   
+  return $items;
 }
 
+/**
+ * Implements hook_theme().
+ */
+function fm_deals_notify_theme() {
+	return array(
+    'fm_deals_notify_remind_me_button' => array(
+	     'variables' => array(
+         'exists' => false,
+	       'nid' => ''
+	    )
+    ),
+    'fm_deals_notify_mail' => array(
+	        'variables' => array('product' => NULL, 'nid' => NULL, 'shop' => NULL, 'thumb' => NULL),
+          'template' => 'fm_deals_notify_mail'
+     ),
+  );
+}
 function fm_deals_notify_add_reminder($nid) {
+	global $user;
 	
-	$message = fm_deals_notify_return_message();
+	$exists = fm_deals_notify_entry_exists($nid, $user->uid);
 	
-	print $message;
+	$event_vars = array();
+	if(!$exists) {
+	  $id = db_insert('fm_deals_notify')
+      ->fields(array(
+        'nid' => $nid,
+        'uid' => $user->uid,
+        'timestamp' => REQUEST_TIME,
+        'sent' => 0
+      ))
+    ->execute();
+    
+    $message =  t('Wise Choice. Expect a reminder e-mail from us ' . FM_NOTIFY_MINUTES . ' minutes before this deal starts');
+    
+    $replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid));
+    $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
+    
+	}
+	else {
+		$result = db_query('DELETE FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $user->uid));
+  
+		$message = t('Okay, we\'ve removed you from the list');
+		$replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => false, 'nid' => $nid));
+    $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
+    
+	}
+	
+	//Return message to
+	drupal_json_output(array('message' => $message, 'event' => 'fm_replaceHtml', 'vars' => $event_vars));
 	exit;
 }
 
-function fm_deals_notify_return_message() {
+function fm_deals_notify_entry_exists($nid, $uid) {
+	$result = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $uid));
+  
+	$obj = $result->fetchObject();
+  if($obj) {
+  	return true;
+  }
+  else {
+  	return false;
+  }
+}
+
+function fm_deals_notify_get_button($node) {
+	global $user;
+	$exists = fm_deals_notify_entry_exists($node->nid, $user->uid);
 	
-	$message = t('Wise Choice. Expect a reminder e-mail from us 15 minutes before this deal starts');
-	return $message;
+	$output = theme('fm_deals_notify_remind_me_button', array('exists' => $exists, 'nid' => $node->nid));
+	
+	return $output;
+}
+
+function theme_fm_deals_notify_remind_me_button($vars) {
+	$exists = $vars['exists'];
+	$nid =  $vars['nid'];
+	
+	if(!$exists) {
+	  $output =  l(t('Remind Me'), 'deals/notify/' . $nid, array('attributes' => array('class' => array('alert', 'red', 'button') )));
+	}
+	else {
+		$output =  l('<img class="check" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/check.png">' . t('You\'re Covered'), 
+		              'deals/notify/' . $nid, 
+		               array('html' => true, 
+		                     'attributes' => array('class' => array('alert', 'green', 'button'))
+		            ));
+	}
+  
+	return $output;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function fm_deals_notify_cron() {
+
+	//Make sure it is 15 minutes before only
+	$next_fortyfive_time = mktime(date('G', REQUEST_TIME), 40, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	
+	if(REQUEST_TIME >= $next_fortyfive_time && REQUEST_TIME <= $next_hour_start_time) {
+	  $row = db_query('SELECT * FROM {fm_deals_schedule} WHERE startTime = :start_time', array(':start_time' => $next_hour_start_time))->fetchObject();
+	  $nid = $row->nid;
+	
+	  $node = node_load($nid);
+	  $product = fm_commerce_get_product($node);
+	
+	  $params = array(
+      'subject' => 'Deal Reminder: ' . $product->title,
+	    'nid' => $nid, 
+	    'product' => $product
+    );
+  
+    $email = variable_get('site_mail', 'admin@fadmashion.com');
+    
+    $results = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND sent = 0', array(':nid' => $nid));
+  	while($row = $results->fetchObject()) {
+		  $user = user_load($row->uid);
+  		
+		  drupal_mail(
+        'fm_deals_notify',
+        'reminder',
+        $user->mail,
+        language_default(),
+        $params,
+        'Fadmashion <' . $email . '> '
+      );
+  	}
+     
+    db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, ':uid' => $user->uid));
+	} else{
+		var_dump('test');
+	}
+	
+}
+	/**
+ * Implements hook_mail().
+ */
+function fm_deals_notify_mail($key, &$message, $params) {
+  $message['module'] = 'fm_deals_notify';
+	$message['key'] = $key;
+	$product = $params['product'];
+	$shop = fm_commerce_get_store($product);
+	
+	$message['subject'] = $params['subject'];
+	
+  $image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
+
+	$message['body'] = theme('fm_deals_notify_mail', 
+	                         array('nid' => $params['nid'], 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	
 }

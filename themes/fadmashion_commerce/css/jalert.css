@@ -25,6 +25,10 @@ body{
 	border:0px;
 }
 
+.msg-box-cont tbody {
+  border-top: 0px solid #000;	
+}
+
 .msg-box-cont a{
 	color:#000;
 }
@@ -43,6 +47,8 @@ body{
 	font-size:12px;
 	margin-left:4px;
 	margin-right:4px;
+	font-family:"museo-sans-1","museo-sans-2", Helvetica; 
+	background-color: transparent;
 }
 
 .msg-icon{
@@ -76,8 +82,8 @@ body{
 }
 
 .msg-warning{
-	border:1px solid #FFCC00;
-	background-color:#FFFF99;
+	border:1px solid #F5F4F1;;
+	background-color: #F5F4F1;
 }
 .msg-warning a:hover{
 	color:#FF3300;

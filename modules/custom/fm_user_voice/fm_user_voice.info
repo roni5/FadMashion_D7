@@ -1,5 +1,0 @@
-; $Id: $
-name = FM User Voice Integration
-description = Add the UserVoice.com Integration
-core = 7.x
-package = Fadmashion

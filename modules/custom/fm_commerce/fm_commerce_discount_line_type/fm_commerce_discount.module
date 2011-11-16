@@ -1,0 +1,158 @@
+<?php
+
+
+/**
+ * Allows you to prepare line item data before it is saved on insert or update.
+ *
+ * @param $line_item
+ *   The line item object to be saved.
+ *
+ * @see rules_invoke_all()
+ */
+function fm_commerce_discount_commerce_line_item_presave_insert(&$line_item) {
+  // No example.
+  $lkasjdf= $line_item['aslkdflaksfd'];
+  
+}
+
+/**
+ * Implements hook_commerce_line_item_info().
+ */
+function fm_commerce_discount_commerce_line_item_type_info() {
+  return array(
+    'deals_discount' => array(
+      'type' => 'deals_discount',
+      'name' => t('FM Deals Discount'),
+      'description' => t('Reference a shipping type with info about price and delivery.'),
+      'add_form_submit_value' => t('Add a FM Deal Discount'),
+      'base' => 'fm_commerce_discount'
+    ),
+  );
+}
+
+/**
+ * Ensures the shipping line item type contains a field for shippong method.
+ *
+ * This function is called by the line item module when it is enabled or this
+ * module is enabled. It invokes this function using the configuration_callback
+ * as specified above.
+ */
+function fm_commerce_discount_configuration() {
+  // TODO: MAKE SRUE deal_node_reference is added as a configuration step
+  
+}
+
+
+/**
+ * Returns an appropriate title for this line item.
+ */
+function fm_commerce_discount_title($line_item) {
+  return t('Discount');
+}
+
+
+/**
+ * Returns the elements necessary to add a product line item through a line item
+ *   manager widget.
+ */
+function fm_commerce_discount_add_form($form_state) {
+  $order = $form_state['commerce_order'];
+  $form = array();
+
+  /*$form['deal_node_reference'] = array(
+    '#type' => 'textfield',
+    '#default_value' => NULL,
+    '#title' => t('Deal Node Reference'),
+    //'#element_validate' => array('node_reference_autocomplete_validate'),
+    //'#value_callback' => 'node_reference_autocomplete_value',
+    //'#autocomplete_path' => $instance['widget']['settings']['autocomplete_path'] . '/' . $instance['entity_type'] . '/' . $instance['bundle'] . '/' . $field['field_name'],
+  );*/
+  
+  $form['discount_amount'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Discount Amount'),
+    '#default_value' => $default_amount,
+    '#size' => 10,
+  );
+
+  // Build a currency options list from all enabled currencies.
+  $options = array();
+  foreach (commerce_currencies(TRUE) as $currency_code => $currency) {
+    $options[$currency_code] = check_plain($currency['code']);
+  }
+
+  $form['currency_code'] = array(
+    '#type' => 'select',
+    '#title' => t('Currency'),
+    '#options' => $options,
+    '#default_value' => commerce_default_currency(),
+  );
+
+  return $form;
+}
+
+
+
+/**
+ * Adds the selected shippng information to a line item added via a line item
+ *   manager widget.
+ *
+ * @param $line_item
+ *   The newly created line item object.
+ * @param $element
+ *   The array representing the widget form element.
+ * @param $form_state
+ *   The present state of the form upon the latest submission.
+ * @param $form
+ *   The actual form array.
+ *
+ * @return
+ *   NULL if all is well or an error message if something goes wrong.
+ */
+function fm_commerce_discount_add_form_submit(&$line_item, $element, &$form_state, $form) {
+  $order = $form_state['commerce_order'];
+
+  // Populate the line item with the product data.
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+  
+ // $line_item_wrapper->field_deal_node_reference = $element['actions']['deal_node_reference']['#value'];
+  
+  $line_item_wrapper->commerce_unit_price->amount = commerce_currency_decimal_to_amount($element['actions']['discount_amount']['#value'], $element['actions']['currency_code']['#value']);
+  $line_item_wrapper->commerce_unit_price->currency_code = $element['actions']['currency_code']['#value'];
+  $line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+    $line_item_wrapper->commerce_unit_price->value(),
+    'base_price',
+    $line_item_wrapper->commerce_unit_price->value(),
+    TRUE
+  );
+}
+
+/**
+ * Creates a new product line item populated with the proper product values.
+ *
+ * @param $shipping_method
+ *   The fully loaded shipping_method that want to create a new line item.
+ * @param $language
+ *   Optionally specify the language for the line item.
+ *
+ * @return
+ *   Line item object with default values.
+ */
+function fm_commerce_deals_discout_line_item_new($order_id) {
+
+  
+  // Create the new line item.
+  $line_item = entity_create('commerce_line_item', array(
+    'type' => 'deals_discount',
+    'order_id' => $order_id,
+    'quantity' => 1,
+  ));
+  
+  // Populate the line item with the product data.
+  $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+  $line_item_wrapper->line_item_label = fm_commerce_discount_title($line_item);
+  
+  
+  return $line_item;
+}
+

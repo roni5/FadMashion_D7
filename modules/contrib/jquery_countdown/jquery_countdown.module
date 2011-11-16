@@ -4,6 +4,8 @@
  *
  */
 
+define('JQUERY_COUNTDOWN_SERVERSYNC_CALLBACK', 'Drupal.jQueryCountdown.serverSync');
+
 /**
  * Implementation of hook_menu().
  *
@@ -26,6 +28,16 @@ function jquery_countdown_menu() {
     'file' => 'jquery_countdown.pages.inc',
     'type' => MENU_CALLBACK
   );
+  
+  //TODO: FADMASHION ADDED: SERVERSYNC SUPPORT
+  $items['jquery_countdown/serversync'] = array(
+    'title' => 'jquery_countdown server time',
+    'page callback' => 'jquery_countdown_serversync',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  
   
   return $items;
 }// end function jquery_countdown_menu;
@@ -265,10 +277,33 @@ function theme_jquery_countdown($variables) {
 
   // Construct the ID name and add the JavaScript.
   $id = drupal_html_id($id);
+   
+  // sanitize serversync option...
+  if (isset($options['serversync'])) {
+    // if set to TRUE we use our default callback for serversync otherwise use the sync provided as parameter...
+    if ($options['serversync'] == TRUE) {
+      $options['serversync'] = JQUERY_COUNTDOWN_SERVERSYNC_CALLBACK;
+    }
+    // ensure that we dont have a false as parameter...
+    elseif($options['serversync'] == FALSE) {
+      unset($options['serversync']);
+    }
+  }
+  
+  
+  
   // add the Javascript
   jquery_countdown_add('#'. $id, $options);
 
   // Construct the HTML.
   return '<div id="' . $id . '" class="jquery-countdown">' . $content . '</div>';
+}
+
+/**
+ * page callback: simply returns the current server time and exit drupal
+ */
+function jquery_countdown_serversync() {                                                                                                                                                      
+  echo date("M j, Y H:i:s O", REQUEST_TIME) . "\n";
+  exit;
 }
 

@@ -1,0 +1,143 @@
+<?php
+
+/*
+ * implements hook_block_info()
+ * 
+ * 
+ */
+//TODO: SEE If we can make this a block from views.
+function fm_commerce_cart_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_commerce_cart'] = array(
+	  'info' => t('FM Order Summary'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+function fm_commerce_cart_theme() {
+	return array(
+    'fm_commerce_cart_line_item' => array(
+	     'variables' => array(
+         'title' => '',
+	       'price' => '',
+	       'red' => false
+	    )
+    ),
+  );
+}
+
+function theme_fm_commerce_cart_line_item($vars) {
+	$title = $vars['title'];
+	$price = $vars['price'];
+	$red = $vars['red'];
+	
+	$line_item_val = '<div class="item_wrapper">';
+  $line_item_val .= '<div class="item_title">' . $title . '</div>';
+  $line_item_val .= '<div class="item_value ' .($red ? 'red_val' : '') . '">' . $price . '</div>';
+  $line_item_val .= '</div>';
+  
+  return $line_item_val;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_commerce_cart_block_view($block_name = '') {
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.scrollfollow.js');
+	
+  if($block_name == 'fm_commerce_cart') {
+  	
+  	$output = '<div class="summary">';
+  	$output .= '<div class="header rounded-top">Order Summary</div>';
+  	
+  	
+  global $user;
+	// First attempt to load the customer's shopping cart order.
+  $order = commerce_cart_order_load($user->uid);
+
+  // If no order existed, create one now.
+  if (empty($order)) {
+  	drupal_set_message('We couldn\'t find your order, please contact the admin for issues', 'error');
+    drupal_goto();
+  }
+  // Wrap the order for easy access to field data.
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $product_line_items = array();
+  $shipping_line_items = array();
+  $discount_line_items = array();
+  
+  // Loop through the line items looking for products.
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  
+  	switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		 $product = $line_item_wrapper->commerce_product->value();
+       $title = $product->title;
+       $retail_price = $line_item_wrapper->commerce_total->value();
+       
+       $color = $line_item_wrapper->field_order_color->value();
+       $size = $line_item_wrapper->field_order_size->value();
+       $product_line_items[] = theme('fm_commerce_cart_line_item', array('title' => $title, 
+                                     'price' => commerce_currency_format($retail_price['amount'], $retail_price['currency_code']))
+                                    ) . 
+                               theme('fm_commerce_orders_extra_info', array('color' => $color, 'size' => $size));
+  			break;
+  		
+  		case 'shipping':
+  			$shipping_price = $line_item_wrapper->commerce_total->value();
+  			$shipping_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Shipping', 
+                                     'price' => commerce_currency_format($shipping_price['amount'], $shipping_price['currency_code']),
+                                     )
+                                    );
+  			break;
+  		case 	'deals_discount':
+  	   // Exit this loop with the $line_item intact so it gets updated.
+	     $discount_price = $line_item_wrapper->commerce_total->value();
+	     
+	     
+	     if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
+	       $node = $line_item_wrapper->field_product_line_item->field_node_reference->value();
+	       $discount_time = fm_deals_time($node->nid);
+         $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
+                                     'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
+                                     'red' => true)
+                                    );
+	     }
+  		 break;
+  	}
+  }
+  
+  $output .= '<div class="pad">';
+ 
+  $output .= fm_deals_preview_get_image($product, $color);
+  $output .= implode('', $product_line_items);
+  $output .= implode('', $shipping_line_items);
+  $output .= implode('', $discount_line_items);
+  
+  
+  if(isset($discount_time)) {
+  	$untilTime = date("F d, Y g:i a", $discount_time['end']);
+  	
+  	$output .= '<div class="alert"><div>Deal expires in <span class="timer-detail">00:00</span></div></div>';
+	  jquery_countdown_add(".timer-detail", array("until" =>  $untilTime, 'format' => 'DHMS', "layout" => '{mnn}:{snn}'));
+  }
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  $output .= '<div class="total">Total: ';
+  $output .=  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+  $output .= '</div>';
+                                    
+  $output .='</div>';  //end class="pad"
+  
+  $output .= '</div>'; //End class="summary"
+  
+    $block = array(
+      'content' => $output
+    );
+  }
+  return $block;
+}

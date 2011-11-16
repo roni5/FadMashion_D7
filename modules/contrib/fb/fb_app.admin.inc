@@ -113,7 +113,7 @@ function fb_app_edit_form($form, $form_state, $fb_app = NULL) {
   $form['id'] = array(
     '#type' => 'textfield',
     '#title' => t('Facebook App ID'),
-    '#required' => FALSE,
+    '#required' => TRUE,
     '#default_value' => $fb_app->id,
     '#description' => t('Facebook will generate this value when you create the application.'),
   );
@@ -174,8 +174,8 @@ function fb_app_edit_form_validate($form, &$form_state) {
 
   if ($form_state['values']['op'] != t('Delete')) {
     // Labels must be alphanumeric.
-    if (preg_match('/[^a-zA-Z0-9_]/', $fb_app->label)) {
-      form_error($form['label'], t('Label must be alphanumeric or underscores only.'));
+    if (preg_match('/[^a-z0-9_]/', $fb_app->label)) {
+      form_error($form['label'], t('Label must be lower-case alphanumeric or underscores only.'));
     }
 
     // Labels must be unique.
@@ -298,14 +298,14 @@ function fb_app_admin_form_delete_submit($form, &$form_state) {
     unset($_REQUEST['destination']);
   }
   $fb_app = $form['#fb_app'];
-  $form_state['redirect'] = array(FB_PATH_ADMIN_APPS . '/' . $fb_app->label . '/fb_app/delete', $destination);
+  $form_state['redirect'] = array(FB_PATH_ADMIN_APPS . '/' . $fb_app->label . '/fb_app/delete', array('query' => $destination));
 }
 
 
 /**
  * Form creator -- ask for confirmation of deletion
  */
-function fb_app_admin_delete_confirm_form(&$form_state, $fb_app) {
+function fb_app_admin_delete_confirm_form($form, &$form_state, $fb_app) {
   $form['fba_id'] = array(
     '#type' => 'value',
     '#value' => $fb_app->fba_id,

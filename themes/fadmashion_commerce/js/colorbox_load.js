@@ -35,7 +35,31 @@ Drupal.behaviors.initColorboxLoad = {
       iframe:function(){
         return $.urlParam('iframe', $(this).attr('href'));
       }
+      
     });
+    
+    $('a, area, input', context).filter('.colorbox-load').click(function(){
+    	if($.urlParam('blankBox', $(this).attr('href'))) {
+    		$('#colorbox').addClass('blankBox');
+    	} else {
+    		$('#colorbox').removeClass('blankBox');
+    	}
+    });
+    
+    $('a, area, input', context).filter('.colorbox-inline').click(function(){
+    	if($.urlParam('blankBox', $(this).attr('href'))) {
+    		$('#colorbox').addClass('blankBox');
+    	} else {
+    		$('#colorbox').removeClass('blankBox');
+    	}
+    });
+    
+   
+    
+    //Hide title if it doesn't exist
+    if($('#cboxTitle').html() == '') {
+      $('#cboxTitle').hide();
+    }
   }
 };
 

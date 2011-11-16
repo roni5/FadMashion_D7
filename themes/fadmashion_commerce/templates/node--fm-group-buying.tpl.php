@@ -80,29 +80,28 @@
 ?>
 
 <div class="photos">
-  <?php print render($content['product:field_images']); ?>
+  <?php print render($content['product:field_product_images']); ?>
 </div>
 <div class="info">
-<h1 class="pageTitle">1-HOUR GROUP <span>DEALS</span></h1>
-<div class="timer"><?php print $groupDetails;?></div>
+<h1 class="pageTitle">1-HOUR  <span>DEALS</span></h1>
+<?php print $groupDetails;?>
 <br clear="all">
+ <?php print $product_details; ?> 
 <div class="pricing">
     <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
-    <div class="exclusive">Exclusive Deal<h3><?php print render($content['field_sale_price']); ?></h3></div>
+    <div class="exclusive">Exclusive Price<h3><?php print render($content['field_sale_price']); ?></h3></div>
     <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>
 </div>
-<div class="itemOptions">
-<img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_top.jpg">
-<div class="box"> <?php print $purchaseDetails;  ?></div>
-<img class="frame" src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/bg_itemOptions_bottom.jpg">
-</div> <!-- end itemOptions -->
 
-<?php print $product_details; ?>    
-<?php print render($detail_tabs); ?>                  
+<div class="itemOptions">
+ <?php print $purchaseDetails;  ?>
+</div> <!-- end itemOptions -->
+<?php print render($detail_tabs); ?>  
+                
 </div> <!--end info -->
 
 <div class="designerInfo">
-<h1>MORE ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
+<h1>ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
 <div class="col1">
 <?php print render($content['store:field_logo']); ?>
 </div> <!-- End designerInfo Col1 -->
@@ -111,14 +110,14 @@
 <div class="quoteImg1"><div class="quoteImg2"><?php print render($content['store:field_quote']); ?></div></div>
 </div></div> </div><!-- End col2 quote--> 
 
-<div class="subCol">
-<h1>Quick Facts</h1>
+<div class="subCol" style="margin-right: 30px;">
+<h1>Biography</h1>
 <?php print render($content['store:field_quick_facts']); ?>
 </div>
 
-<div class="subCol">
+<div class="subCol press">
 <h1>Press</h1>
-<p><?php print render($content['store:field_press']); ?></p>
+<p><?php print render($content['store:field_press']); //print render($content['store:field_press']); ?></p>
 </div>
 
 </div> <!-- End designerInfo Col2 -->

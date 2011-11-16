@@ -27,9 +27,13 @@ To install:
   Download from http://github.com/facebook/php-sdk.
   Extract the files, and place them in sites/all/libraries/facebook-php-sdk.
 
-  Or, To find the php-sdk in any other directory, edit your
-  settings.php to include a line similar to this (add to section where
-  $conf variable is defined, or very end of settings.php. And
+  If you have the Libraries API module installed, you may place the files in
+  another recognised location (such as sites/all/libraries), providing that the
+  directory is named 'facebook-php-sdk'.
+  
+  Or, to manually set the location of the php-sdk in any other directory, edit
+  your settings.php to include a line similar to this (add to the section where
+  the $conf variable is defined, or the very end of settings.php. And
   customize the path as needed.):
 
   $conf['fb_api_file'] = 'sites/all/libraries/facebook-php-sdk/src/facebook.php';
@@ -46,10 +50,10 @@ To install:
   applies to themes used for Facebook Connect, iframe Canvas Pages, and Social
   Plugins (i.e. like buttons). Without this attribute, IE will fail.
 
-- To support canvas pages, url rewriting and other settings must be
-  initialized before modules are loaded, so you must add this code to
-  your settings.php. This is easily done by adding these two lines to
-  the end of sites/default/settings.php (or
+- To support canvas pages and/or page tabs, url rewriting and other
+  settings must be initialized before modules are loaded, so you must
+  add this code to your settings.php.  This is done by adding these
+  two lines to the end of sites/default/settings.php (or
   sites/YOUR_DOMAIN/settings.php).
 
   include "sites/all/modules/fb/fb_url_rewrite.inc";
@@ -57,7 +61,10 @@ To install:
 
   (Change include paths if modules/fb is not in sites/all.)
 
-- Go to Administer >> Modules >> List and enable the Facebook
+- Also for canvas pages, see http://drupal.org/node/933994 and search
+  for "P3P" to avoid a common problem on IE.
+
+- Go to Administer >> Site Building >> Modules and enable the Facebook
   modules that you need.
 
   Enable fb.module for Social Plugins.

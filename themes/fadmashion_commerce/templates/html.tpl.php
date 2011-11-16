@@ -46,6 +46,16 @@
 
 <head profile="<?php print $grddl_profile; ?>">
   <?php print $head; ?>
+<script type="text/javascript">
+  var _kmq = _kmq || [];
+  function _kms(u){
+    setTimeout(function(){
+      var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
+      s.src = u; f.parentNode.insertBefore(s, f);
+    }, 1);
+  }
+  _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/d1e4de90a39a9e9ccb6578ca0d8cddeb497e8d57.1.js');
+</script>
   <META name="description" content="Independent fashion designers up to 60% off retail">
   <META name="keywords" content="Deals for womens clothes, womens fashion, womens fassion, new york fashions, Samantha Pleet, Daniella Kallmeye, Jonathan Simkhai, Sang A, West/Feren, Rachel Nasvik, Rebecca Minkoff, Alexandra Bee, Katrina LaPenne, Odette New York, Melissa Joy Manning, Suzanna Dai, Assad Mounser, A Peace Treaty, Lot 78, Rachel Comey, Jonathan Simkhai, Kimberly Taylor, Pencey, Annie Havlicek, Kate Linstrom, dresses, leather jackets, bags, jewelry and other independent designs">
   <title><?php print $head_title; ?></title>

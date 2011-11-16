@@ -1,0 +1,390 @@
+<?php
+
+define('STOCK_FIELD', 'field_fm_commerce_stock');
+
+//Define a qunatity field breakdown
+/**
+ * Implements hook_field_info().
+ */
+function fm_commerce_stock_field_info() {
+  return array(
+    'fm_commerce_stock' => array(
+      'label' => t('Stock Field'),
+      'description' => t('Stores the Inventory Stock for each Product'),
+      'default_widget' => 'fm_commerce_stock',
+      'default_formatter' => 'default',
+    ),
+  );
+}
+/**
+ * Implementation of hook_field_schema()
+ */
+function fm_commerce_stock_theme() {
+  return array(
+    'fm_commerce_stock_hovers' => array(
+	     'variables' => array(
+         'colors' => NULL,
+         'sizes' => NULL,
+         'product' => NULL
+	    )
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Alters the add-to-cart form to show out-of-stock items and add a validator.
+ */
+function fm_commerce_stock_form_alter(&$form, &$form_state, $form_id){
+  if (strpos($form_id, "commerce_cart_add_to_cart_form") === 0) {
+  	$product = commerce_product_load($form['product_id']['#value']);
+      
+    if(!fm_commerce_stock_has_stock($product)){
+      $form['submit']['#value'] = t('Sold Out');
+      $form['submit']['#disabled'] = TRUE;
+      $form['submit']['#attributes'] = array('class' => array('out-of-stock', 'red'));   
+    }
+  }
+}
+  
+
+/*
+ * Display the hover overs for the color and size options
+ */
+function theme_fm_commerce_stock_hovers($vars) {
+	$colors = $vars['colors'];
+	$sizes = $vars['sizes'];
+	$product = $vars['product'];
+	
+	$output = '';
+	if(isset($colors)) {
+		$output = '<div class="color-hovers" style="display: none">';
+		foreach($colors as $color => $i) {
+			$qty = fm_commerce_stock_get_qty($product, 'color', $color); 
+				$output .= '<div val="' . $qty .  '" id="qty-' . $color . '" style="display: none">' . ($qty == '' ? 0 : $qty) . ' left' . ($qty <= 2 ? '!' : '' ). '</div>';
+		}
+		$output .= '</div>';
+	}
+  if(isset($sizes)) {
+		$output = '<div class="size-hovers" style="display: none">';
+		foreach($sizes as $size => $i) {
+			$qty = fm_commerce_stock_get_qty($product, 'sizes', $size); 
+				$output .= '<div val="' . $qty .  '" id="qty-' . $size . '" style="display: none">' . ($qty == '' ? 0 : $qty) . ' left' . ($qty <= 2 ? '!' : '' ). '</div>';
+		}
+		$output .= '</div>';
+	}
+	return $output;
+}
+
+/**
+ * Implements hook_field_presave().
+ */
+function fm_commerce_stock_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+
+	foreach($items as $delta => $qty_table) {
+		if(!empty($qty_table['stock_colors']) && is_array($qty_table['stock_colors'])) {
+			$items[$delta]['stock_colors'] = serialize($qty_table['stock_colors']);
+		}
+	  if(!empty($qty_table['stock_sizes']) && is_array($qty_table['stock_sizes'])) {
+			$items[$delta]['stock_sizes'] = serialize($qty_table['stock_sizes']);
+		}
+	}
+}
+
+/**
+ * Implementation of hook_field_schema()
+ */
+function fm_commerce_stock_field_schema($field)
+{
+	$columns = array
+	(
+		'stock_sizes' => array(
+			'type' => 'text',
+			'size' => 'big',
+		),
+		'stock_colors' => array(
+			'type' => 'text',
+			'size' => 'big',
+		),
+		'stock_none' => array(
+			'type' => 'text',
+			'size' => 'big',
+		),
+	);
+	return array
+	(
+		'columns' => $columns,
+	);
+}
+
+/**
+ * Implementation of hook_field_is_empty().
+ */
+function fm_commerce_stock_field_is_empty($item, $field) {
+
+	if(isset($item['stock_colors'])) {
+		foreach($item['stock_colors'] as $color) {
+			if(!empty($color)) { return FALSE; }
+		}
+	}
+  if(isset($item['stock_sizes'])) {
+		foreach($item['stock_sizes'] as $size) {
+			if(!empty($size)) { return FALSE; }
+		}
+	}
+  if(isset($item['stock_none'])) {
+		return FALSE; 
+	}
+	
+	return TRUE;
+}
+/**
+ * Implementation of hook_field_widget_info()
+ */
+function fm_commerce_stock_field_widget_info()
+{
+	return array
+	(
+		'fm_commerce_stock' => array(
+			'label' => t('FM Stock Field'),
+			'field types' => array('fm_commerce_stock'),
+		),
+	);
+}
+
+/**
+ * Implementation of hook_widget_form()
+ */
+function fm_commerce_stock_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element)
+{
+	
+	$product = $form_state['commerce_product'];
+	
+	$colors = fm_commerce_color_options($product);
+  $sizes = fm_commerce_size_options($product);
+  
+  if(count($colors) > 1) {
+  	$default_value = (isset($items[$delta]['stock_colors'])) ? $items[$delta]['stock_colors'] : '';
+  	$default_value = unserialize($default_value);
+  	
+  	$element['stock_colors'] = array(
+      '#title' => t('Colors - Qty. Stock'),
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#collapsible' => FALSE,
+     );
+     
+    $element['stock_colors']['a_break'] = array(
+      '#markup' => '<table>',
+    );
+    
+  	foreach($colors as $color => $i) {
+  		$element['stock_colors']['b_break' . $i] = array(
+         '#markup' => '<tr>',
+      );
+      
+      $color = explode('_', $color );
+    
+      
+      $element['stock_colors']['color_hex_' . $i] = array(
+         '#markup' => '<td style="width: 100px; background-color: #' .  $color[0]  . '"></td>',
+      );
+      $element['stock_colors']['color_name_' . $i] = array(
+         '#markup' => '<td>' . $color[1] . '</td>',
+      );
+	    $element['stock_colors'][$color[1]] = array(
+			'#title' => t('Inventory'),
+			'#type' => 'textfield',
+	    '#size' => 5, 
+	    '#default_value' => $default_value[$color[1]],
+	     '#prefix' => '<td>',
+	     '#suffix' => '</td>'
+		  );
+		  
+		  $element['stock_colors']['c_break' . $i] = array(
+        '#markup' => '</tr>',
+      );
+  	} //end for
+  	
+  	$element['stock_colors']['t_break'] = array(
+      '#markup' => '</table>',
+    );
+  	
+  }
+  
+  if(count($sizes) > 1) {
+  	$default_value = (isset($items[$delta]['stock_sizes'])) ? $items[$delta]['stock_sizes'] : '';
+  	$default_value = unserialize($default_value);
+  	
+  	$element['stock_sizes'] = array(
+      '#title' => t('Sizes - Qty. Stock'),
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#collapsible' => FALSE,
+     );
+     
+    $element['stock_sizes']['a_break'] = array(
+      '#markup' => '<table>',
+    );
+    
+  	foreach($sizes as $size => $i) {
+  		$element['stock_sizes']['b_break' . $i] = array(
+         '#markup' => '<tr>',
+  		);
+  		$element['stock_sizes']['size_name_' . $i] = array(
+         '#markup' => '<td>' . $size . '</td>',
+      );
+	    $element['stock_sizes'][$size] = array(
+			'#title' => t('Inventory'),
+			'#type' => 'textfield',
+	    '#size' => 5, 
+	    '#default_value' => $default_value[$size],
+	     '#prefix' => '<td>',
+	     '#suffix' => '</td>'
+		  );
+		  
+  		$element['stock_sizes']['c_break' . $i] = array(
+        '#markup' => '</tr>',
+      );
+  	}
+    $element['stock_sizes']['t_break'] = array(
+      '#markup' => '</table>',
+    );
+  }
+  
+  if(count($colors) <= 1 && count($sizes) <= 1) {
+  	$default_value = (isset($items[$delta]['stock_none'])) ? $items[$delta]['stock_none'] : '';
+  	
+    $element['stock_none'] = array(
+      '#title' => t('Qty. Stock'),
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#collapsible' => FALSE,
+     );
+    $element['stock_none']['none'] = array(
+			'#title' => t('Inventory'),
+			'#type' => 'textfield',
+	    '#size' => 5, 
+	    '#default_value' => $default_value,
+		 );
+  }
+		
+	return $element;
+}
+
+
+function fm_commerce_stock_get_qty($product, $type, $value = '') {
+	if($type == 'color') {
+	  $values = unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
+	  $value = explode('_', $value );
+	  $value = $value[1];
+	}
+	else if($type == 'sizes'){
+		$values = unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
+	}
+	else {
+		$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+		return $value;
+	}
+	
+	return $values[$value];
+	
+}
+
+function fm_commerce_stock_has_stock($product) {
+	$colors =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
+	foreach($colors as $color) {
+		if(isset($color)  && $color > 0) {return true;}
+	}
+  $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
+	foreach($sizes as $size) {
+		if(isset($size)  && $size > 0) {return true;}
+	}
+	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+	if(isset($value) && $value > 0) {return true;}
+	
+	return false;
+}
+
+/*
+ * Get the total available in Stock
+ */
+function fm_commerce_stock_total($product) {
+	$total = 0;
+	
+	$colors =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
+	foreach($colors as $color) {
+		if(isset($color)  && $color > 0) {
+			$total += $color;
+		}
+	}
+  $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
+	foreach($sizes as $size) {
+		if(isset($size)  && $size > 0) {
+		  $total += $size;
+		}
+	}
+	
+	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
+	if(isset($value) && $value > 0) {
+		$total += $value;
+	}
+	
+	return $total;
+}
+
+
+/**
+ * Adjusts a particular product SKU by a certain value.
+ * A positive integer will add to stock, a negative integer will remove from
+ * stock. Somewhat the equivalent of uc_stock_adjust().
+ *
+ * @param $product
+ *   The product for which to change the stock level.
+ * @param $qty
+ *   The quantity to add to the stock level.
+ */
+function fm_commerce_stock_adjust($product, $values = array()) {
+  $commerce_stock = field_get_items('commerce_product', $product, STOCK_FIELD);
+ 
+  if(isset($values['color'])) {
+  	$color = $values['color']['value'];
+  	$qty = $values['color']['qty'];
+  	$current_stock = unserialize($commerce_stock[0]['stock_colors']);
+  	$color = fm_commerce_color_array($color);
+  	$color = $color['name'];
+  	
+  	$new_stock = $current_stock;
+  	$new_stock[$color] = '' . (intval($new_stock[$color]) + intval($qty)) . '';
+  	$new_stock = serialize($new_stock);
+  	$product->{STOCK_FIELD}['und'][0]['stock_colors'] = $new_stock;
+  } 
+  if (isset($values['size'])) { 
+  	$size = $values['size']['value'];
+  	$qty = $values['size']['qty'];
+  	
+  	$current_stock = unserialize($commerce_stock[0]['stock_sizes']);
+  	$new_stock = $current_stock;
+  	$new_stock[$size] = '' . (intval($new_stock[$size]) + intval($qty)) . '';
+  	$new_stock = serialize($new_stock);
+  	$product->{STOCK_FIELD}['und'][0]['stock_sizes'] = $new_stock;
+  }
+  if (isset($values['none'])) { 
+  	$qty = $values['none']['qty'];
+  	
+  	$current_stock = $commerce_stock[0]['stock_none'];
+  	$new_stock = $current_stock;
+  	$new_stock = '' . (intval($new_stock) + intval($qty)) . '';
+  	$product->{STOCK_FIELD}['und'][0]['stock_none'] = $new_stock;
+  }
+  
+  commerce_product_save($product);
+
+  /*if ($result) {
+    watchdog('commerce_stock', 'Modified stock level of product %sku by %amount', array('%sku' => $product->sku, '%amount' => $qty));
+  } else {
+    watchdog('commerce_stock', 'Failed attempt to modify stock level of product %sku by %amount', array('%sku' => $product->sku, '%amount' => $qty), WATCHDOG_ERROR);
+  }*/
+}
+

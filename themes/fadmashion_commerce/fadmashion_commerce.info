@@ -8,12 +8,15 @@ core = 7.x
 stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/colorbox.css
+stylesheets[all][] = css/colorbox_blank.css
 stylesheets[all][] = css/jalert.css
 
 scripts[] = js/fm_alert.js
 scripts[] = js/fm_form.js
+scripts[] = js/fm_onload.js
 scripts[] = js/colorbox_load.js
 scripts[] = js/jquery.jalert.js
+scripts[] = js/jquery.scrollTo-min.js
 
 regions[pre_header] = Pre Header
 regions[header] = Header
@@ -31,3 +34,5 @@ regions[footer_firstcolumn] = Footer first column
 regions[footer_secondcolumn] = Footer second column
 regions[footer_thirdcolumn] = Footer third column
 regions[footer] = Footer
+
+regions[hidden] = Hidden

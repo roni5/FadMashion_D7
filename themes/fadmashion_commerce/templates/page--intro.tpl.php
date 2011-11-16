@@ -5,6 +5,12 @@
  * @file
  * FadMashion Commerce Splash page implementation.
  */
+
+global $user;
+if(user_access('view deals')) {
+	fm_deals_page();
+}
+
 ?>
 
 <script>
@@ -13,7 +19,7 @@ jQuery(function($){
 	$.supersized({
 		start_slide				:	0,
 		vertical_center   : 0,
-		slide_interval : 8000,
+		slide_interval : 7800,
 		transition_speed : 1000,
 		slideshow : 1, 
 		navigation              :   1,		//Slideshow controls on/off
@@ -31,61 +37,78 @@ jQuery(function($){
 											},
 											{//Slide 3
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/de_lingerie.jpg',
-                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
+                        title: 'Designer: <a target="_blank" href="http://www.daisyandelizabeth.com/" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
 											},
 											{//Slide 4
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/image1.jpg',
-                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
+                        title: 'Designer: <a target="_blank" href="http://www.thevisiontrain.com" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Nicole Baker</a>'
 											},
 											{//Slide 5
-												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_1.jpg',
-                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
-											},
-											{//Slide 6
 												image : '/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/front-page/kent_2.jpg',
-                        title: 'Designer: <a target="_blank" href="http://www.jonathansimkhai.com/jonathan.html?width=600&height=400&iframe=true" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Daisy & Elizabeth</a>'
+                        title: 'Designer: <a target="_blank" href="http://nettiekent.com/home.html" style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" >Nettie Kent</a>'
 											}	 	 	  	  
 									]
 	}); 
 });
 
-</script>
 
+
+</script>
 
 <div id="wrap">
   <div id="main">
     <div id="box">
       <div class="pad">
         <div class="logo">
-	        	<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
-        			<img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_slogan.png" alt="<?php print t('Home'); ?>" />
-      			</a>
+	        	<a  href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
+        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
+      			    </a>
+      			 <div class="slogan"><?php print $site_slogan; ?></div>   
         </div>
+        <?php if ($messages): ?>
+          <div id="messages"><div class="section clearfix">
+          <?php print $messages; ?>
+          </div></div> <!-- /.section, /#messages -->
+       <?php endif; ?>
+       
         <?php print render($page['content']); ?>
+        <?php print render($page['featured']);?>
       </div>
       
       
-	     <div class="pad <?php $is_front ? print 'extend' : ''?>" id="invite">
-					<?php print render($page['featured']);?>
-		       <?php if ($messages): ?>
-	    			<div id="message_box"><div class="section clearfix">
-	      			<?php print $messages; ?>
-	    			</div></div> <!-- /.section, /#messages -->
-	  			<?php endif; ?>
-
-  			</div>
-  			
-  			<?php if($is_front): ?>
-  			<div class="quote">
-<p style="font-size: 15px; line-height: 22px;">"Fadmashion.com has changed, and so has the way you'll shop for independent fashion from now on."</p>
-<a class="colorbox-load" title="myfashionlife" href="http://www.myfashionlife.com/archives/2011/05/05/get-priority-access-to-a-new-independent-shopping-site-with-mfl/?width=700&height=500&iframe=true">Read Full Article</a><div class="byline">- myfashionlife</div>
-</div> 
+      <?php if(!empty($page['triptych_first'])): ?>
+      <div id="invite" class="pad extend">
+  			  <?php print render($page['triptych_first']);?>
+  			  </div>
+      <?php endif;  ?> 
+      
+  			<?php if(!empty($page['triptych_middle'])): ?>
+  			<div class="login">
+  			  <div class="pad"> 
+  			 <?php print render($page['triptych_middle']);?></div>
+        
+        </div>
+        
         <?php endif;  ?>
+        
+        
+        <?php if(!empty($page['triptych_last'])): ?>
+  			<div class="quote">
+  			 <?php print render($page['triptych_last']);?>
+        </div>
+        <?php endif;  ?>
+        </div>
 			 
       
 		</div>
 	</div>
 </div>
+
+<?php if(!empty($page['footer'])): ?>
 <div id="footer">
-    <?php print render($page['footer']); ?>
+<?php print render($page['footer']); ?>
 </div>
+<?php endif;  ?>
+
+
+

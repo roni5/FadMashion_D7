@@ -1,9 +1,11 @@
 <div id="dealPreview">
-<h1>Preview Exclusive Group Deals</h1>
-<h2>WEEK OF <?php print date('n/j/Y' ,strtotime($date)); ?></h2>
+<h1 class="pageTitle">Preview Upcoming Deal Events</h1>
+<div id="preview-content">
 <?php 
 foreach($items as $item) {
 	print $item;
 }
 ?>
+</div>
+
 </div>

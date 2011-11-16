@@ -1,0 +1,5 @@
+; $Id: $
+name = FM User
+description = Fadmashion User functionality and changes to default drupal settings
+core = 7.x
+package = Fadmashion

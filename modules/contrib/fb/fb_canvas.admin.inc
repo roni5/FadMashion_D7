@@ -15,7 +15,7 @@ function fb_canvas_fb_admin($op, $data, &$return) {
   if ($op == FB_ADMIN_OP_SET_PROPERTIES) {
     // Compute properties which we can set automatically.
     if (function_exists('fb_url_inbound_alter')) {
-      $callback_url = url('', array('absolute' => TRUE)) . FB_SETTINGS_CB . '/' . $fb_app->apikey . '/';
+      $callback_url = url('', array('absolute' => TRUE)) . FB_SETTINGS_CB . '/' . $fb_app->id . '/';
     }
     else {
       // Paving the way to make URL alters optional.
@@ -39,17 +39,18 @@ function fb_canvas_admin_settings() {
 
   $form['process_settings'] = array(
     '#type' => 'fieldset',
-    '#title' => t('URL processing'),
-    '#description' => t('This option alters links, so that instead of referring directly to this server, they point to <em>apps.facebook.com/APP/...</em>.  While this impedes the performance of your server, it is recommended unless you are quite sure your theme and/or code has been specially written to handle this some other way.'),
+    '#title' => t('Canvas page URL processing'),
+    '#description' => t('This option alters links, so that instead of changing the iframe\'s URL, they change the top frame, to something starting <em>apps.facebook.com/APP/...</em>  This adds some overhead to each canvas page served. Still, most sites will want this enabled.'),
   );
   $form['process_settings'][FB_CANVAS_VAR_PROCESS_IFRAME] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable on iframe canvas pages.'),
     '#default_value' => variable_get(FB_CANVAS_VAR_PROCESS_IFRAME, TRUE),
+    '#description' => t('If unchecked, settings below have no effect.'),
   );
   $form['process_settings'][FB_CANVAS_VAR_PROCESS_ABSOLUTE] = array(
     '#type' => 'checkbox',
-    '#title' => t('Replace absolute hrefs with canvas page URLs.  (Not just relative links.)'),
+    '#title' => t('Replace absolute hrefs, not just relative, with canvas page URLs.'),
     '#default_value' => variable_get(FB_CANVAS_VAR_PROCESS_ABSOLUTE, TRUE),
   );
   return system_settings_form($form);

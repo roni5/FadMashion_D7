@@ -10,10 +10,11 @@
  */
 
 #slider {
-  height: 451px;
+  min-height: 560px;
+  border: 1px solid #EAE7E5;
 }
 #slider .nivo-controlNav {
-bottom:-105px;
+bottom:-110px;
 position:absolute;
 }
 #slider .nivo-controlNav img {
@@ -22,6 +23,10 @@ position:absolute;
   margin-right:10px;
   width: 80px;
 }
+#slider .nivo-controlNav .nivo-control.active img {border: 1px solid #a5332c;}
+#slider .nivo-controlNav .nivo-control img {border: 1px solid #efefea ;}
+
+
 
 /* The Nivo Slider styles */
 .nivoSlider {

@@ -1,0 +1,7 @@
+; $Id: $
+name = FM Deals Order States 
+description =  Deals Order States Definition and Processing
+core = 7.x
+package = Fadmashion
+
+dependencies[] = fm_deals
