@@ -68,8 +68,7 @@ function fm_deals_list($entities) {
 	    'ajaxPath' => array("'?q=admin/fadmashion/deals/images/' + jQuery(this).attr('ref')", '.images'),
 	    'ajaxError' => "<strong>Egads!</strong> There was a problem getting this content. Here's what we know: <em>%error</em>.",
 	    //'contentSelector' => " $('#' + $(this).attr('ref')).html()",
-	    'height' => '474px',
-	    'width' => '1300px',
+	    'width' => '900px',
       'style' => 'hulu',
       );
     beautytips_add_beautytips($options);
