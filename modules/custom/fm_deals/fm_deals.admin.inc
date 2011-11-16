@@ -63,12 +63,12 @@ function fm_deals_list($entities) {
 	$options['bt_admin_store_name'] = array(
       'cssSelect' => '.image-link',
       'trigger' => array('mouseover', 'click'),
-	    'positions' => array('right'),
+	    'positions' => array('bottom'),
 	    'fill' =>  "rgb(255, 255, 255)",
 	    'ajaxPath' => array("'?q=admin/fadmashion/deals/images/' + jQuery(this).attr('ref')", '.images'),
 	    'ajaxError' => "<strong>Egads!</strong> There was a problem getting this content. Here's what we know: <em>%error</em>.",
 	    //'contentSelector' => " $('#' + $(this).attr('ref')).html()",
-	    'width' => '900px',
+	    'width' => '800px',
       'style' => 'hulu',
       );
     beautytips_add_beautytips($options);
@@ -97,7 +97,7 @@ function fm_deals_admin_images($node_id) {
       'style_name' => 'fm_main_product_image'
     );
   
-    $output .= '<div class="images" style="float:left;">' . theme('image_style', $node_image) . '</div>';
+    $output .= '<div  class="images" style="float:left;">' . theme('image_style', $node_image) . '</div>';
 	}
 
 	print $output;
