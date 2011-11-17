@@ -25,14 +25,14 @@ jQuery(document).ready(function() {
 	    	jQuery("#photo_tooltip").hide();
 	    });
 
-		jQuery(".zoom01").gzoom({sW: 372,
+		/*jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
 			lW: 586,
 			lH: 747,
 			step: 10,
 			frameColor: "#F0EEEA",
 			lighbox : false
-			});
+			});*/
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 		Drupal.attachBehaviors();
 
