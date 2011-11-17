@@ -459,9 +459,9 @@
 					    pause();
 				   }
 		           if (delta > 0) {
-		        	 animate('prev', 'fade');
+		        	 animate('prev', 'slide');
 		  		   } else if (delta < 0) {
- 		  			animate('next', 'fade');
+ 		  			animate('next', 'slide');
 			  	  }
 		          return false; // prevent default
 		      });
