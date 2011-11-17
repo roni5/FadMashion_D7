@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 		});
 		
 		//Mousewheel zoom for main product image
-		/*jQuery(".photos .slides_container img").mousemove(function(e){
+		jQuery(".photos .slides_container img").mousemove(function(e){
 			jQuery("#photo_tooltip").show();
 	    });
 	    jQuery(".photos .slides_container img").mouseout(function(e){
@@ -32,8 +32,10 @@ jQuery(document).ready(function() {
 			lH: 747,
 			step: 10,
 			frameColor: "#F0EEEA",
+			re : /fm_main_product_image\//, 
+  	        replace : 'fm_zoom_product_image',  
 			lighbox : false
-			});*/
+	     });
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 		Drupal.attachBehaviors();
 
