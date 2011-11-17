@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 			step: 10,
 			frameColor: "#F0EEEA",
 			re : /fm_main_product_image\//, 
-  	        replace : 'fm_zoom_product_image',  
+  	        replace : 'fm_zoom_product_image/',  
 			lighbox : false
 	     });
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
