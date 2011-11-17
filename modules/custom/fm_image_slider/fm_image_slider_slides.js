@@ -53,6 +53,7 @@ jQuery(document).ready(function() {
 		  var border = 1;
 		  var zoomed_width = 650;
 		  var total_width = 840;
+		  var max_picture_height = 828;
 		  //Set overlay height to full document height
 		  var fullHeight = jQuery(document).height();
 		  jQuery("#cboxOverlay").height(fullHeight);
@@ -69,6 +70,10 @@ jQuery(document).ready(function() {
 		  var boxHeight = jQuery('#cboxContent').height() - padding;
 		  jQuery("#cboxLoadedContent").height(boxHeight);
 		  boxHeight = boxHeight - padding - (2*border);
+		  
+		  if(boxHeight > max_picture_height) {
+			  boxHeight = max_picture_height;
+		  }
 		  var middle = boxHeight/2;
 		  jQuery(".zoom02 img").panFullSize(zoomed_width, boxHeight);
 		  
