@@ -3,7 +3,7 @@
  *  Javascript Tools to add Nivo Slider
  */
 
-var slideSpeed = 0;
+var slideSpeed = 300;
 var fadeSpeed = 500;
 jQuery(document).ready(function() {
 	
@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
 					preloadImage: loadingImagePath,
 					effect: 'fade',
 					crossfade: true,
-					slideSpeed: slideSpeed,
+					slideSpeed: 0,
 					fadeSpeed: fadeSpeed,
 					generateNextPrev: true,
 					generatePagination: false,
