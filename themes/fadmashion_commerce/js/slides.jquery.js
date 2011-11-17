@@ -452,6 +452,21 @@
 				});
 			}
 			
+			if(typeof(jQuery.event.special.mousewheel) != 'undefined') {
+		       jQuery(this).mousewheel(function(e, delta) {
+		    	   e.preventDefault();
+				    if (option.play) {
+					    pause();
+				   }
+		           if (delta > 0) {
+		        	 animate('next', effect);
+		  		   } else if (delta < 0) {
+ 		  			animate('prev', effect);
+			  	  }
+		          return false; // prevent default
+		      });
+		    }
+			
 			// add current class to start slide pagination
 			$('.' + option.paginationClass + ' li:eq('+ start +')', elem).addClass(option.currentClass);
 			
