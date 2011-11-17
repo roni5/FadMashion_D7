@@ -82,7 +82,6 @@ jQuery(document).ready(function() {
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
 					preload: true,
-					preloadImage: loadingImagePath,
 					effect: 'fade',
 					crossfade: true,
 					slideSpeed: 0,
