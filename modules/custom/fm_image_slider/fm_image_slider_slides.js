@@ -73,7 +73,7 @@ jQuery(document).ready(function() {
 		  
 		  if(boxHeight > max_picture_height) {
 			  boxHeight = max_picture_height;
-			  jQuery.colorbox.resize({height: max_picture_height + 10 });
+			  //jQuery.colorbox.resize({height: max_picture_height + 10 });
 		  }
 		  var middle = boxHeight/2;
 		  jQuery(".zoom02 img").panFullSize(zoomed_width, boxHeight);
