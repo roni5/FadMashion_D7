@@ -459,9 +459,9 @@
 					    pause();
 				   }
 		           if (delta > 0) {
-		        	 animate('next', effect);
+		        	 animate('next', 'slide');
 		  		   } else if (delta < 0) {
- 		  			animate('prev', effect);
+ 		  			animate('prev', 'slide');
 			  	  }
 		          return false; // prevent default
 		      });
