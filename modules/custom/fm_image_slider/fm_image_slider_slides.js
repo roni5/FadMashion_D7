@@ -3,7 +3,7 @@
  *  Javascript Tools to add Nivo Slider
  */
 
-var slideSpeed = 300;
+var slideSpeed = 100;
 var fadeSpeed = 500;
 jQuery(document).ready(function() {
 	
