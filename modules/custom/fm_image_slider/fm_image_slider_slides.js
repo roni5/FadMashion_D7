@@ -9,6 +9,7 @@ jQuery(document).ready(function() {
 	
 		jQuery('#product').slides({
 			preload: true,
+			preloadImage: loadingImagePath,
 			effect: 'slide, fade',
 			crossfade: true,
 			slideSpeed: slideSpeed,
@@ -81,6 +82,7 @@ jQuery(document).ready(function() {
 		  if(!jQuery('#zoomed .slides_control').length) {
 			  jQuery('#zoomed').slides({
 					preload: true,
+					preloadImage: loadingImagePath,
 					effect: 'fade',
 					crossfade: true,
 					slideSpeed: 0,
