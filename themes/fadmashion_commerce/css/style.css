@@ -195,10 +195,10 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 
 .pricing{margin-bottom: 3px; width: 332px;  font-size: 12px; padding: 14px 0;float: left; display: block; clear: both;}
 .pricing div{float: left; width: 110px; text-align:center; display: inline}
-.pricing .original{background: url(../images/dotted_vertical.png) top right repeat-y;}
+.pricing .original{ color: #998E82; background: url(../images/dotted_vertical.png) top right repeat-y;}
 .pricing .original h3 .field-item { background: url(../images/strikethrough.jpg) left center repeat-x; }
-.pricing .exclusive{color: #B83838;}
-.pricing .savings{ color: #998E82;background: url(../images/dotted_vertical.png) top left repeat-y;}
+.pricing .exclusive{}
+.pricing .savings{color: #B83838; background: url(../images/dotted_vertical.png) top left repeat-y;}
 .pricing h3{font-size: 22px; font-weight:700; padding-top: 6px;}
 
 .itemOptions{ width: 332px; clear: both; margin-bottom: 14px; text-align:center;}
@@ -301,7 +301,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .dealFrame .pricing div{float: left; width: 81px; text-align:center; display: inline}
 .dealFrame .pricing .original{background:  url(../images/dotted_vertical.png) top right repeat-y;}
 .dealFrame .pricing .original h3{ text-decoration: line-through;}
-.dealFrame .pricing .savings{ color: #998E82;;background:  url(../images/dotted_vertical.png) top left repeat-y;}
+.dealFrame .pricing .savings{ color: #B83838;background:  url(../images/dotted_vertical.png) top left repeat-y;}
 .dealFrame .pricing .savings h3{font-size: 26px;margin-top: 5px;}
 .dealFrame .pricing h3{font-size: 18px; font-weight:700; padding-top: 6px; margin: 0;}
 .dealFrame .buttons{float: left; text-align:center; width: 245px; display:}
