@@ -339,7 +339,7 @@
 			if (option.preload && control.find('img:eq(' + start + ')').length) {
 				// adds preload image
 				$('.' + option.container, elem).css({
-					background: ' url(' + option.preloadImage + ') no-repeat 50% 50%'
+					background: 'url(' + option.preloadImage + ') no-repeat 50% 50%'
 				});
 				
 				// gets image src, with cache buster

@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
 					preloadImage: loadingImagePath,
 					effect: 'fade',
 					crossfade: true,
-					slideSpeed: 0,
+					slideSpeed: 80,
 					fadeSpeed: fadeSpeed,
 					generateNextPrev: true,
 					generatePagination: false,
