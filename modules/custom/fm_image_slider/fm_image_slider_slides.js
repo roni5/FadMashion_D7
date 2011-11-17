@@ -18,14 +18,15 @@ jQuery(document).ready(function() {
 			generatePagination: false
 		});
 		
-		jQuery(".photos .slides_container img").mousemove(function(e){
+		//Mousewheel zoom for main product image
+		/*jQuery(".photos .slides_container img").mousemove(function(e){
 			jQuery("#photo_tooltip").show();
 	    });
 	    jQuery(".photos .slides_container img").mouseout(function(e){
 	    	jQuery("#photo_tooltip").hide();
 	    });
 
-		/*jQuery(".zoom01").gzoom({sW: 372,
+		jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
 			lW: 586,
 			lH: 747,
