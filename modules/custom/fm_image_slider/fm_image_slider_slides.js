@@ -28,8 +28,8 @@ jQuery(document).ready(function() {
 
 		jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
-			lW: 586,
-			lH: 747,
+			lW: 650,
+			lH: 828,
 			step: 10,
 			frameColor: "#F0EEEA",
 			re : /fm_main_product_image\//, 
