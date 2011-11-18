@@ -17,6 +17,7 @@ jQuery(document).ready(function() {
 			generateNextPrev: true,
 			generatePagination: false
 		});
+		jQuery('#product').show();
 		
 		//Mousewheel zoom for main product image
 		jQuery(".photos .slides_container img").mousemove(function(e){
