@@ -36,6 +36,23 @@ jQuery(document).ready(function() {
 
 });
 
+(function ($) {
+	Drupal.behaviors.colorboxFullHeight = {
+	  attach: function (context, settings) {
+	    if (!$.isFunction($.colorbox)) {
+	      return;
+	    }
+	    if(!jQuery("#cboxOverlay").length) {
+	    	return;
+	    }
+	    
+		//Set overlay height to full document height
+		var fullHeight = jQuery(document).height();
+		jQuery("#cboxOverlay").height(fullHeight);
+	  }
+	};
+})(jQuery);
+
 function fmForceRegister() {
 	
 	jQuery.colorbox({ 

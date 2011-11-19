@@ -55,9 +55,6 @@ jQuery(document).ready(function() {
 		  var zoomed_width = 650;
 		  var total_width = 840;
 		  var max_picture_height = 828;
-		  //Set overlay height to full document height
-		  var fullHeight = jQuery(document).height();
-		  jQuery("#cboxOverlay").height(fullHeight);
 		  
 		  //Make changes to Colorbox Panel for Zoom pane
 		  jQuery('#cboxClose').css('top', '-5px');
