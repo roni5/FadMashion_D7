@@ -30,6 +30,7 @@ jQuery(document).ready(function() {
 		      opacity: '.9',
 		      innerWidth: '930px', innerHeight: '560px', 
 		      inline: true, 
+		      overlayClose: false, 
 		      href:"#block-views-nodequeue-2-block"
 		    });
 		  jQuery('#colorbox').addClass('blankBox');
