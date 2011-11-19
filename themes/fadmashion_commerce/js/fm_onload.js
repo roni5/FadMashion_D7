@@ -7,6 +7,7 @@ jQuery(document).ready(function() {
 
 	jQuery('#block-views-nodequeue-2-block,  #block-views-nodequeue-3-block').addClass('basicPagePopUp');
 	
+	//TODO: Re-arrange body so it is in the title Div.  CSS ISSUE
 	jQuery('.basicPagePopUp .views-row').each( function () {
 	  var body_html = jQuery('.views-field-body', this).html();
 	  jQuery(' .views-field-title', this).append(body_html);
@@ -65,7 +66,8 @@ function fmForceRegister() {
 	      overlayClose: false, 
 	      href:"#block-views-nodequeue-3-block"
 	    });
-	  jQuery('#colorbox').addClass('blankBox');
+	 jQuery('#colorbox').addClass('blankBox');
+	 jQuery('#cboxClose').html('');
 }
 
 function fmUsersOpened(item_id) {
