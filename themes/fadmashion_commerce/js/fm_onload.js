@@ -5,6 +5,8 @@
 jQuery(document).ready(function() {
 	
 
+	jQuery('#block-views-nodequeue-2-block,  #block-views-nodequeue-3-block').addClass('basicPagePopUp');
+	
 	jQuery('#block-views-nodequeue-2-block  .views-slideshow-cycle-main-frame-row').each( function () {
 	  var body_html = jQuery('.views-field-body', this).html();
 	  jQuery(' .views-field-title', this).append(body_html);
@@ -53,6 +55,7 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
+
 function fmForceRegister() {
 	
 	jQuery.colorbox({ 
@@ -60,7 +63,7 @@ function fmForceRegister() {
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      overlayClose: false, 
-	      href:"#block-views-nodequeue-2-block"
+	      href:"#block-views-nodequeue-3-block"
 	    });
 	  jQuery('#colorbox').addClass('blankBox');
 }
