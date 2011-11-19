@@ -1,5 +1,7 @@
 <div id="header">
             <div class="row2"> 
+            <?php global $user;
+            if ($user->uid) { ?>
             <div id="accountNav">
                 <ul class="tree">
                 
@@ -16,6 +18,7 @@
                 
                </ul> 
              </div>
+             <?php } ?>
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
         			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
       			    </a>
