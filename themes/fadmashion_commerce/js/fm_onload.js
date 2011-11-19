@@ -67,7 +67,7 @@ function fmForceRegister() {
 	      href:"#block-views-nodequeue-3-block"
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
-	 jQuery('#cboxClose').html('');
+	 jQuery('#cboxClose').show();
 }
 
 function fmUsersOpened(item_id) {
