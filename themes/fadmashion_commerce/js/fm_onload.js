@@ -26,15 +26,7 @@ jQuery(document).ready(function() {
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
 	if(!uid) {
-		jQuery.colorbox({ 
-		      opacity: '.9',
-		      innerWidth: '930px', innerHeight: '560px', 
-		      inline: true, 
-		      overlayClose: false, 
-		      href:"#block-views-nodequeue-2-block"
-		    });
-		  jQuery('#colorbox').addClass('blankBox');
-		  
+		setTimeout("fmForceRegister();",2000);
 	}
 	
 	if(jQuery.browser.msie) {
@@ -43,6 +35,18 @@ jQuery(document).ready(function() {
 	}
 
 });
+
+function fmForceRegister() {
+	
+	jQuery.colorbox({ 
+	      opacity: '.9',
+	      innerWidth: '930px', innerHeight: '560px', 
+	      inline: true, 
+	      overlayClose: false, 
+	      href:"#block-views-nodequeue-2-block"
+	    });
+	  jQuery('#colorbox').addClass('blankBox');
+}
 
 function fmUsersOpened(item_id) {
 	jQuery.ajax({
