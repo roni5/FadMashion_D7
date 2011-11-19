@@ -23,6 +23,19 @@ jQuery(document).ready(function() {
 	  
 	  fmUsersOpened(1);
 	}
+	
+	//Show a Non-Closeable registration pop-up if the user is not authenticated.
+	if(!uid) {
+		jQuery.colorbox({ 
+		      opacity: '.9',
+		      innerWidth: '930px', innerHeight: '560px', 
+		      inline: true, 
+		      href:"#block-views-nodequeue-2-block"
+		    });
+		  jQuery('#colorbox').addClass('blankBox');
+		  
+	}
+	
 	if(jQuery.browser.msie) {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.
 		jQuery('.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next').hide();

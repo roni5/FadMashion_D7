@@ -31,6 +31,9 @@ function fadmashion_commerce_preload() {
 	drupal_add_js(path_to_theme() . '/js/jquery.cookie.js');
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_store_owners') . '/fm_commerce_store_owners.js');
 	
+	global $user;
+	drupal_add_js('var uid = ' . $user->uid . ';', 'inline');
+	
 }
 
 function fadmashion_commerce_preprocess_page(&$variables) {
