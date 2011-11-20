@@ -60,7 +60,7 @@ jQuery(document).ready(function() {
 function fmForceRegister() {
 	
 	jQuery.colorbox({ 
-	      opacity: '.9',
+	      opacity: '0',
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      overlayClose: false, 
@@ -71,9 +71,11 @@ function fmForceRegister() {
 	 jQuery('#cboxClose, #block-views-nodequeue-3-block h2').hide();
 	 jQuery('#block-views-nodequeue-3-block').hide();
 	 
+	 
 }
 
 function fmFadeRegisterBlock() {
+	jQuery('#cboxOverlay').fadeIn('slow');
 	jQuery('#block-views-nodequeue-3-block').fadeIn('slow');
 }
 
