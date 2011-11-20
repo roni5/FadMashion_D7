@@ -23,8 +23,9 @@ function fm_users_fullname($uid = '') {
 	}
 	
 	$user_loaded = user_load($uid);
-  $first_name = $user_loaded->field_first_name['und'][0]['value'];
-  $last_name = $user_loaded->field_last_name['und'][0]['value'];
+	$user_entity_wrapper = entity_metadata_wrapper('commerce_order', $user_loaded);
+  $first_name = $user_entity_wrapper->field_first_name;
+  $last_name = $user_loaded->field_last_name;
 	
 	return $first_name . ' ' . $last_name;
 }
