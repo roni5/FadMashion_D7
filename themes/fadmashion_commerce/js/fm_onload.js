@@ -76,7 +76,7 @@ function fmForceRegister() {
 
 function fmFadeRegisterBlock() {
 	jQuery('#cboxOverlay').fadeTo(1500, .75, function() {
-		setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",1300);
+		setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",300);
 	});
 	
 	
