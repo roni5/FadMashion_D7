@@ -70,11 +70,13 @@ function fadmashion_commerce_preprocess_page(&$variables) {
     drupal_add_css(path_to_theme().'/css/front.css');  
     
     $variables['front_intro'] = false;
+    $front_intro = 0;
     if(count($split_url) == 1) {
     	$variables['front_intro'] = true;
+    	$front_intro = 1;
     }
     
-    drupal_add_js('var front_intro = ' . $variables['front_intro'] . ';', 'inline');
+    drupal_add_js('var front_intro = ' . $front_intro . ';', 'inline');
   }
   
   $static_pages = fadmashion_commerce_static_pages();
