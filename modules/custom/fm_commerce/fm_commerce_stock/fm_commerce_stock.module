@@ -294,13 +294,17 @@ function fm_commerce_stock_get_qty($product, $type, $value = '') {
 
 function fm_commerce_stock_has_stock($product) {
 	$colors =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
-	foreach($colors as $color) {
-		if(isset($color)  && $color > 0) {return true;}
-	}
+	if(count($colors)) {
+	  foreach($colors as $color) {
+		  if(isset($color)  && $color > 0) {return true;}
+	  }
+	}	
   $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
-	foreach($sizes as $size) {
-		if(isset($size)  && $size > 0) {return true;}
-	}
+  if(count($sizes)) {
+	  foreach($sizes as $size) {
+		  if(isset($size)  && $size > 0) {return true;}
+	  }
+  }
 	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
 	if(isset($value) && $value > 0) {return true;}
 	
@@ -314,17 +318,21 @@ function fm_commerce_stock_total($product) {
 	$total = 0;
 	
 	$colors =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_colors']);
-	foreach($colors as $color) {
-		if(isset($color)  && $color > 0) {
-			$total += $color;
-		}
+	if(count($colors)) {
+	  foreach($colors as $color) {
+  		if(isset($color)  && $color > 0) {
+			  $total += $color;
+		  }
+	  }
 	}
   $sizes =  unserialize($product->{STOCK_FIELD}['und'][0]['stock_sizes']);
-	foreach($sizes as $size) {
-		if(isset($size)  && $size > 0) {
-		  $total += $size;
-		}
-	}
+  if(count($sizes)) {
+	  foreach($sizes as $size) {
+  		if(isset($size)  && $size > 0) {
+		    $total += $size;
+		  }
+	  }
+  }
 	
 	$value = $product->{STOCK_FIELD}['und'][0]['stock_none'];
 	if(isset($value) && $value > 0) {
