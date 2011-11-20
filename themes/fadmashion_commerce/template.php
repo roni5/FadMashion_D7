@@ -64,20 +64,19 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   $variables['theme_hook_suggestions'][] = 'page__'.$split_url[0];
   
   //Use splash template only for URL's that have a splash as the first item in the URL
+  $front_intro = 0;
   if($split_url[0] == 'intro') {
     drupal_add_js(path_to_theme().'/js/supersized.min.js');
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/front.css');  
     
     $variables['front_intro'] = false;
-    $front_intro = 0;
     if(count($split_url) == 1) {
     	$variables['front_intro'] = true;
-    	$front_intro = 1;
     }
-    
-    drupal_add_js('var front_intro = ' . $front_intro . ';', 'inline');
+    $front_intro = 1;
   }
+  drupal_add_js('var front_intro = ' . $front_intro . ';', 'inline');
   
   $static_pages = fadmashion_commerce_static_pages();
   if(in_array($split_url[0], $static_pages)) {
