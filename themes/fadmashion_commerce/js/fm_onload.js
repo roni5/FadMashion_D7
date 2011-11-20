@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
 	if(!uid && !front_intro) {
-		setTimeout("fmForceRegister();",2000);
+		setTimeout("fmForceRegister();",1000);
 	}
 	
 	if(jQuery.browser.msie) {
@@ -76,7 +76,7 @@ function fmForceRegister() {
 
 function fmFadeRegisterBlock() {
 	jQuery('#cboxOverlay').fadeTo('slow', .75, function() {
-		setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",600);
+		setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",1300);
 	});
 	
 	
