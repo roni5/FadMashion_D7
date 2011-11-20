@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
 	}
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
-	if(!uid) {
+	if(!uid && !front_intro) {
 		setTimeout("fmForceRegister();",2000);
 	}
 	
