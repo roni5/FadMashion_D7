@@ -24,10 +24,10 @@ function fm_users_fullname($uid = '') {
 	
 	$user_loaded = user_load($uid);
 	$user_entity_wrapper = entity_metadata_wrapper('commerce_order', $user_loaded);
-	var_dump($user_entity_wrapper);
+	var_dump($user_entity_wrapper->field_first_name);
 	exit();
   $first_name = $user_entity_wrapper->field_first_name;
-  $last_name = $user_loaded->field_last_name;
+  $last_name = $user_entity_wrapper->field_last_name;
 	
 	return $first_name . ' ' . $last_name;
 }
