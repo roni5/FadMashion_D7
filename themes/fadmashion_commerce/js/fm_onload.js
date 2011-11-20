@@ -75,8 +75,9 @@ function fmForceRegister() {
 }
 
 function fmFadeRegisterBlock() {
-	jQuery('#cboxOverlay').fadeTo('slow', .75);
-	setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",600);
+	jQuery('#cboxOverlay').fadeTo('slow', .75, function() {
+		setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",600);
+	});
 	
 	
 }
