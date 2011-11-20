@@ -64,10 +64,17 @@ function fmForceRegister() {
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      overlayClose: false, 
-	      href:"#block-views-nodequeue-3-block"
+	      href:"#block-views-nodequeue-3-block",
+	      onComplete: fmFadeRegisterBlock
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
 	 jQuery('#cboxClose, #block-views-nodequeue-3-block h2').hide();
+	 jQuery('#block-views-nodequeue-3-block').hide();
+	 
+}
+
+function fmFadeRegisterBlock() {
+	jQuery('#block-views-nodequeue-3-block').fadeIn('slow');
 }
 
 function fmUsersOpened(item_id) {
