@@ -23,13 +23,15 @@ function fm_users_fullname($uid = '') {
 	}
 	
 	$user_loaded = user_load($uid);
-	$user_entity_wrapper = entity_metadata_wrapper('commerce_order', $user_loaded);
-	var_dump($user_entity_wrapper->getPropertyInfo());
-	exit();
-  $first_name = $user_entity_wrapper->field_first_name;
-  $last_name = $user_entity_wrapper->field_last_name;
-	
-	return $first_name . ' ' . $last_name;
+	if($user_loaded) {
+	  $user_entity_wrapper = entity_metadata_wrapper('user', $user_loaded);
+	  $first_name = $user_entity_wrapper->field_first_name->value();
+    $last_name = $user_entity_wrapper->field_last_name->value();
+
+	  return $first_name . ' ' . $last_name;
+	} else {
+		return '';
+	}
 }
 
 function fm_users_firstname($uid = '') {
@@ -39,9 +41,13 @@ function fm_users_firstname($uid = '') {
 	}
 	
 	$user_loaded = user_load($uid);
-  $first_name = $user_loaded->field_first_name['und'][0]['value'];
-	
+	if($user_loaded) {
+	  $user_entity_wrapper = entity_metadata_wrapper('user', $user_loaded);
+	  $first_name = $user_entity_wrapper->field_first_name->value();
 	return $first_name;
+	} else {
+		return '';
+	}
 }
 
 function fm_users_email_verify() {
