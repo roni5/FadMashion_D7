@@ -70,6 +70,9 @@ function fm_deals_permission() {
     'view deals' => array(
       'title' => t('View Deals Page'),
     ),
+    'view splash page' => array(
+      'title' => t('View Splash Page'),
+    ),
   );
 }
 
