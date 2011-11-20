@@ -103,6 +103,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   drupal_add_js('var loadingImagePath = "' . $loadingImagePath . '";', 'inline');
   
   $i = 0;
+  $images = $zooms = $thumbs = ''; 
   foreach($pictures as $picture) {
 
   	$picture = node_load($picture['nid']);
