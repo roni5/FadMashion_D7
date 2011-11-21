@@ -149,7 +149,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   $form['payment_details']['credit_card']['code']['#suffix'] = '<div style="clear: both; margin-top: -13px; float: left;" title="test" class="dotted-hover">What\'s this?</div>';
   
   $form['payment_details']['credit_card']['number']['#prefix'] = '<div class="text-form-icon-wrapper">';
-	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div id="lock_markup">
+	$form['payment_details']['credit_card']['number']['#suffix'] = '<div id="lock_markup">
          <img  src="' . pp() . 'lock.png">
          </div>';
 	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div><img border="0" style="margin-bottom: 10px;" alt="Credit Card Logos" src="http://www.merchantaccountguide.com/credit-card-logos/visa-mc-amex-disc/small_horizontal.png"></div>';
