@@ -12,11 +12,12 @@ stylesheets[all][] = css/colorbox_blank.css
 stylesheets[all][] = css/jalert.css
 
 scripts[] = js/fm_alert.js
-scripts[] = js/fm_form.js
 scripts[] = js/fm_onload.js
 scripts[] = js/colorbox_load.js
 scripts[] = js/jquery.jalert.js
 scripts[] = js/jquery.scrollTo-min.js
+scripts[] = js/fm_form_defaults.js
+scripts[] = js/jquery.titlealert.js
 
 regions[pre_header] = Pre Header
 regions[header] = Header

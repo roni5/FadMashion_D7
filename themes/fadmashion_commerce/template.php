@@ -23,12 +23,9 @@ function fadmashion_commerce_preload() {
 	
 	drupal_add_library('jquery_plugin', 'validate');
 	drupal_add_library('system', 'jquery.form');
-	drupal_add_js(path_to_theme() . '/js/jquery.titlealert.js');
-	drupal_add_js(path_to_theme() . '/js/fm_form_defaults.js');
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders') . '/fm_commerce_orders.js');
 	drupal_add_js(drupal_get_path('module', 'fm_invite') . '/fm_invite.js');
-	drupal_add_js(drupal_get_path('module', 'fm_deals') . '/fm_deals.js');
-	drupal_add_js(path_to_theme() . '/js/jquery.cookie.js');
+	drupal_add_js(drupal_get_path('module', 'fm_deals') . '/fm_deals.js');;
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_store_owners') . '/fm_commerce_store_owners.js');
 	
 	global $user;
