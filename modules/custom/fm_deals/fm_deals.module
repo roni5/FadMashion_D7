@@ -473,16 +473,18 @@ function fm_deals_orders($nid = '', $status = array('fm_orders_authorized', 'fm_
 	  $query->fieldCondition('field_node_reference', 'nid', $nid);
 	}
 	      
-	 $line_item_results = $query->execute();
+	$line_item_results = $query->execute();
 	
 	$count = 0;
-	//load orders with the line item and check if cart status is correct
-  foreach($line_item_results['commerce_line_item'] as $line_item_id => $commerce_line_item) {
-  	 $line_item = commerce_line_item_load($line_item_id);
-  	 $order = commerce_order_load($line_item->order_id);
-  	 if(in_array($order->status, $status )) {
-  	 	$orders[] = $order;
-  	 }
+	if(isset($line_item_results['commerce_line_item'])) {
+	  //load orders with the line item and check if cart status is correct
+    foreach($line_item_results['commerce_line_item'] as $line_item_id => $commerce_line_item) {
+  	   $line_item = commerce_line_item_load($line_item_id);
+  	   $order = commerce_order_load($line_item->order_id);
+  	   if(in_array($order->status, $status )) {
+  	 	  $orders[] = $order;
+  	   }
+	  }
 	}
 	
 	return $orders;
