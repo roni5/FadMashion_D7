@@ -147,6 +147,7 @@ function fm_deals_admin_orders($nid = '') {
     		case 'cart':
     			$order_type = '<div style="color: red;">In Cart</div>';
     		default:
+    			$order_type = '';
     			break;
     	}
     	$balance = commerce_payment_order_balance($order);
