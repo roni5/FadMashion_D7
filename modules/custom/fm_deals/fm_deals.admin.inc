@@ -121,7 +121,7 @@ function fm_deals_admin_orders($nid = '') {
 	$orders = array_reverse($orders);
 	
 	if(count($orders)) {
-	  $header = array('Order Id',  'Name', 'Product Name', 'Time', 'Payment Status', 'Unpaid Balance', 'Actions');
+	  $header = array('Order Id',  'Name', 'Product Name', 'Time', 'Payment Status', 'Unpaid Balance');
 	  
     $rows = array();
     foreach ($orders as $order) {
@@ -153,7 +153,7 @@ function fm_deals_admin_orders($nid = '') {
   	    date('M j Y', $order->changed),
   	    $statuses[$status]['title'],
   	    $balance. ' (' .l('payment history', 'admin/commerce/orders/' . $order->order_id . '/payment') . ')',
-  	    $actions
+  	    //$actions
    	  );
     }
    	
