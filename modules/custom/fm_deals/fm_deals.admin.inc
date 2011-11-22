@@ -150,7 +150,7 @@ function fm_deals_admin_orders($nid = '') {
   	    l($order->order_id, 'admin/commerce/orders/' . $order->order_id),
   	    fm_users_fullname($order->uid),
   	    $deal_node->title, 
-  	    date('M j Y', $order->changed),
+  	    date('M j Y, g:ia', $order->changed),
   	    $statuses[$status]['title'],
   	    $balance. ' (' .l('payment history', 'admin/commerce/orders/' . $order->order_id . '/payment') . ')',
   	    //$actions
