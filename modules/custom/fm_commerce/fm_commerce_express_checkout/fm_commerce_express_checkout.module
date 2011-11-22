@@ -294,7 +294,8 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	 return;
 	}
 	
-	$order = commerce_order_status_update($order, 'fm_orders_authorized');
+	//Settings is captured
+	$order = commerce_order_status_update($order, 'fm_orders_captured');
 	
 	commerce_checkout_complete($order);
 	

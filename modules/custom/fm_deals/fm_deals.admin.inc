@@ -114,7 +114,7 @@ function fm_deals_admin_orders($nid = '') {
 	  $output = '<h1>' . $deal_node->title . '</h1>';
 	}
 	else {
-		$orders = fm_deals_orders($nid, array('fm_orders_authorized', 'fm_orders_captured'));
+		$orders = fm_deals_orders($nid, array('fm_orders_authorized', 'fm_orders_captured', 'cart'));
 		$output = '<h1>' . t('All Deals') . '</h1>';
 	}
 	
