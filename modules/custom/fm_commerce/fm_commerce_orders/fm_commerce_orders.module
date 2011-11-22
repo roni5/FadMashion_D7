@@ -79,7 +79,7 @@ function fm_commerce_orders_commerce_order_status_info() {
   );
   $order_statuses['fm_orders_captured'] = array(
     'name' => 'fm_orders_captured',
-    'title' => t('Authorized & Captured'),
+    'title' => t('Authorized and Captured'),
     'state' => 'deal',
   );
   $order_statuses['fm_orders_shipped'] = array(

@@ -144,6 +144,7 @@ function fm_deals_admin_orders($nid = '') {
     		  break;
     		case 'fm_orders_captured':
     			$order_type = '<div style="color: green;">Authorized & Captured Payment</div>';
+    			break;
     		case 'cart':
     			$order_type = '<div style="color: red;">In Cart</div>';
     			break;
