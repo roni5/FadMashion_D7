@@ -1,5 +1,5 @@
 <h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">Savvy darling. Very savvy. </h1>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">If your deal is "on" you will be notified, and your designer will ship your item as described under the product description on their deal page. Thank you for shopping with Fadmashion, the best way to shop Independent Fashion online. </p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Thank you for shopping with Fadmashion.com.  Below is the deatils of your order. </p>
 
     
     <table cellspacing="0" cellpadding="10" class="message" style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2dcd6"><tbody>
