@@ -121,7 +121,7 @@ function fm_deals_admin_orders($nid = '') {
 	$orders = array_reverse($orders);
 	
 	if(count($orders)) {
-	  $header = array('Order Id',  'Name', 'Order Status', 'Product Name', 'Time', ' Balance');
+	  $header = array('Order Id',  'Name', 'Product Name', 'Order Status', 'Time', ' Balance');
 	  
     $rows = array();
     $order_type = '';
@@ -140,10 +140,10 @@ function fm_deals_admin_orders($nid = '') {
     				$actions .= '<div> Deal is Off </div>';
     		  	$actions .=  l('Void Payment', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
     			}
-    			$order_type = 'Authorized';
+    			$order_type = 'Authorized Payment';
     		  break;
     		case 'fm_orders_captured':
-    			$order_type = '<div style="color: green;">Authorized & Captured</div>';
+    			$order_type = '<div style="color: green;">Authorized & Captured Payment</div>';
     		case 'cart':
     			$order_type = '<div style="color: red;">In Cart</div>';
     		default:
