@@ -124,6 +124,7 @@ function fm_deals_admin_orders($nid = '') {
 	  $header = array('Order Id',  'Name', 'Product Name', 'Time', 'Payment Status', 'Unpaid Balance');
 	  
     $rows = array();
+    $order_type = '';
     foreach ($orders as $order) {
     	$status = $order->status;
     	$deal_node = fm_commerce_get_order_node($order);
@@ -138,9 +139,13 @@ function fm_deals_admin_orders($nid = '') {
     			} else {
     				$actions .= '<div> Deal is Off </div>';
     		  	$actions .=  l('Void Payment', 'admin/fadmashion/wpp/void/' . $order->order_id, array('query' => drupal_get_destination()) );
-    			
     			}
-    		  break; 
+    			$order_type = 'Payment Authorized, but needs to be Captured';
+    		  break;
+    		case 'fm_orders_captured':
+    			$order_type = '<div style="color: green;">Payment Captured!</div>';
+    		case 'cart':
+    			$order_type = '<div style="color: red;">In Cart</div>';
     		default:
     			break;
     	}
@@ -148,10 +153,10 @@ function fm_deals_admin_orders($nid = '') {
     	$balance = commerce_currency_format($balance['amount'], $balance['currency_code']);
   	  $rows[] = array(
   	    l($order->order_id, 'admin/commerce/orders/' . $order->order_id),
+  	    $order_type,
   	    fm_users_fullname($order->uid),
   	    $deal_node->title, 
   	    date('M j Y, g:ia', $order->changed),
-  	    $statuses[$status]['title'],
   	    $balance. ' (' .l('payment history', 'admin/commerce/orders/' . $order->order_id . '/payment') . ')',
   	    //$actions
    	  );
