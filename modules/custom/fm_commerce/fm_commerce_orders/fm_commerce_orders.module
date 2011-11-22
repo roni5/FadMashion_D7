@@ -82,6 +82,16 @@ function fm_commerce_orders_commerce_order_status_info() {
     'title' => t('Authorized & Captured'),
     'state' => 'deal',
   );
+  $order_statuses['fm_orders_shipped'] = array(
+    'name' => 'fm_orders_shipped',
+    'title' => t('Order Shipped'),
+    'state' => 'deal',
+  );
+  $order_statuses['fm_orders_recieved'] = array(
+    'name' => 'fm_orders_shipped',
+    'title' => t('Items recieved by Customer'),
+    'state' => 'deal',
+  );
   
   $order_statuses['fm_orders_voided'] = array(
     'name' => 'fm_orders_voided',
