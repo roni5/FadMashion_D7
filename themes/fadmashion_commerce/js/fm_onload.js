@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
 	if(jQuery("#block-views-nodequeue-3-block").length) {
-		setTimeout("fmForceRegister();",500);
+		setTimeout("fmForceRegister();",1500);
 	}
 	
 	if(jQuery.browser.msie) {
@@ -75,10 +75,10 @@ function fmForceRegister() {
 }
 
 function fmFadeRegisterBlock() {
-	jQuery('#cboxOverlay').fadeTo(1500, .75, function() {
+	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
 		
 	});
-	setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1500);",700);
+	setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1000);",700);
 	
 	
 }
