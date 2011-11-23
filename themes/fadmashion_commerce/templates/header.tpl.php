@@ -7,7 +7,7 @@
                 
                 <li ><?php if(module_exists('fm_commerce_store_owners')) {
                              $store = fm_commerce_store_owners_get_store();
-                             if($store) { print l($store->name, 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load'))) ); }
+                             if($store) { print l($store->name, 'store_owners/admin', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load'), 'title' => $store->name)) ); }
                            }
                         ?>
                 </li>
