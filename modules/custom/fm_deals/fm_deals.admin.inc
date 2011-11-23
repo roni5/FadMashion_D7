@@ -127,7 +127,6 @@ function fm_deals_admin_orders($nid = '') {
     $order_type = '';
     foreach ($orders as $order) {
     	$status = $order->status;
-    	var_dump($order->order_id);
     	$deal_node = fm_commerce_get_order_node($order);
     	$actions = '';
     	switch ($status) {

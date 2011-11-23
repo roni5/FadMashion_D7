@@ -72,6 +72,12 @@ function fm_commerce_orders_commerce_order_status_info() {
     'state' => 'deal',
   );
   
+  $order_statuses['fm_orders_voided'] = array(
+    'name' => 'fm_orders_voided',
+    'title' => t('Void Order after Authorization'),
+    'state' => 'deal',
+  );
+  
    $order_statuses['fm_orders_expired'] = array(
     'name' => 'fm_orders_expired',
     'title' => t('Deal Expired w/o checkout'),
@@ -92,12 +98,12 @@ function fm_commerce_orders_commerce_order_status_info() {
     'title' => t('Items recieved by Customer'),
     'state' => 'deal',
   );
-  
-  $order_statuses['fm_orders_voided'] = array(
-    'name' => 'fm_orders_voided',
-    'title' => t('Void Order when Deal doesn\'t go through'),
+  $order_statuses['fm_orders_returned'] = array(
+    'name' => 'fm_orders_returned',
+    'title' => t('Items requested returned by Customer'),
     'state' => 'deal',
   );
+  
 
   return $order_statuses;
 }

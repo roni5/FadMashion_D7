@@ -64,6 +64,7 @@ function fmForceRegister() {
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      overlayClose: false, 
+	      escKey: false, 
 	      href:"#block-views-nodequeue-3-block",
 	      onComplete: fmFadeRegisterBlock
 	    });
