@@ -399,7 +399,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     
     $output .= '</div>';
 
-    $logo = pp() . 'logo_chase.png';
+    $logo = pp() . 'paypal_logo.gif';
     $output .= '<div class="checkoutFooter"><div class="completeOrder">';
     $output .= drupal_render($form['complete_purchase']); 
     $output .= '<br clear="all">' .drupal_render_children($form) . '</div>';
