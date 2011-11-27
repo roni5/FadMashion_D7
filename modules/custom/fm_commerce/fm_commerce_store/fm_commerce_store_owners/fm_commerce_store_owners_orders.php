@@ -1,7 +1,4 @@
-
-<div class="owners-admin-wrapper">
-	
-	<div class="owners-admin-section paypal-wrapper">
+<div class="owners-admin-section paypal-wrapper">
 	  <div id="paypal_header">
   	  <div>
 	      <img  class="paypal_logo" src="/<?php print drupal_get_path("theme","fadmashion_commerce"); ?>/images/paypal_logo.gif">
@@ -23,9 +20,5 @@
 	    <div>There are currently no orders for this shop</div>
 	  </div>
 	</div>
-	
-	
-	
-	
 </div>
-
+	

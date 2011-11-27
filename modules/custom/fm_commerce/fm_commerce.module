@@ -98,7 +98,6 @@ function fm_commerce_cart_submit($form, &$form_state) {
 
 	$values = $form_state['values'];
 	
-	
 	//Clear default add to cart messages. 
 	$messages = drupal_get_messages();
 	

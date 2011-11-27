@@ -93,6 +93,11 @@ function fm_commerce_orders_commerce_order_status_info() {
     'title' => t('Order Shipped'),
     'state' => 'deal',
   );
+  $order_statuses['fm_orders_vendor_payed'] = array(
+    'name' => 'fm_orders_vendor_payed',
+    'title' => t('Vendor Payed'),
+    'state' => 'deal',
+  );
   $order_statuses['fm_orders_recieved'] = array(
     'name' => 'fm_orders_shipped',
     'title' => t('Items recieved by Customer'),
@@ -353,13 +358,13 @@ function theme_fm_commerce_orders_status($vars) {
 		  return '<div class="status-deal-payed">Payed</div>' . '<div class="order-extra-info">' . t('Waiting to be Shipped')  . '</div>';
 		  break;
 		case 'fm_orders_voided':
-		  return '<div class="status-deal-payed">Voided</div>' . '<div class="order-extra-info">' . t('Deal Cancelled')  . '</div>';
+		  return '<div class="status-deal-payed">Voided</div>';
 		  break;
 		case 'fm_orders_expired':
 			return '<div class="status-expired">Expired</div>';
 		  break;
 		case 'fm_orders_authorized': 
-			return '<div class="status-expired">Pending</div>' . '<div class="order-extra-info">' . t('Share with Friends')  . '</div>';
+			return '<div class="status-expired">Authorized</div>' . '<div class="order-extra-info">' . t('Waiting to be Captured')  . '</div>';;
 			break;
 		case 'cart':
 			return '<div class="status-cart">Shopping Cart</div>';
@@ -436,3 +441,4 @@ function fm_commerce_orders_fb_social_info($order_id) {
   
   return array('image_path' => $image_path, 'description' => $description, 'name' => $name, 'message' => $message, 'url' => $url);
 }
+

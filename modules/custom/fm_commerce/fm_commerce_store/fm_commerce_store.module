@@ -451,3 +451,57 @@ function _fm_commerce_match_stores($string = '', $match = 'contains', $ids = arr
   return $matches;
 }
 
+/*
+ * Get all the orders for this store
+ */
+function fm_commerce_store_get_products($store) {
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	      ->entityCondition('bundle', 'fm_fashion_product');
+	      
+	$query->fieldCondition('field_store_reference', 'store_id', $store->store_id);
+	      
+	$products = $query->execute();
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+	  //load orders with the line item and check if cart status is correct
+    foreach($products['commerce_product'] as $product_id => $product) {
+  	   $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	}
+	return $products_ret;
+}
+
+/*
+ * Get all the orders for this store
+ */
+function fm_commerce_store_query_orders($store, $status = array('fm_orders_authorized', 'fm_orders_voided', 'fm_orders_captured', 'cart', 'fm_orders_shipped', 'fm_orders_vendor_payed', 'fm_orders_recieved', 'fm_orders_returned')) {
+	$products = fm_commerce_store_get_products($store);
+	$pids = array_keys($products);
+	if(!count($pids)) {
+		return '';
+	}
+	
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_line_item')
+	      ->entityCondition('bundle', 'product');
+	$query->fieldCondition('commerce_product', 'product_id', (array) $pids, 'IN', 0);
+	      
+	$line_item_results = $query->execute();
+	
+  $count = 0;
+	if(isset($line_item_results['commerce_line_item'])) {
+	  //load orders with the line item and check if cart status is correct
+    foreach($line_item_results['commerce_line_item'] as $line_item_id => $commerce_line_item) {
+  	   $line_item = commerce_line_item_load($line_item_id);
+  	   $order = commerce_order_load($line_item->order_id);
+  	   
+  	   if(in_array($order->status, $status )) {
+  	 	  $orders[] = $order;
+  	   }
+	  }
+	}
+	
+	return $orders;    
+}
+

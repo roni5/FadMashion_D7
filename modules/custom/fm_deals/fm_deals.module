@@ -266,7 +266,9 @@ function fm_deals_page($nid = '') {
 	}
 	
 	if(!empty($nid)) {
-		drupal_goto('node/' . $nid);
+		//drupal_goto('node/' . $nid);
+		$node = node_load($nid);
+		return render(node_view($node));
 	}
 	else {
 		drupal_set_message('There was an error in the system.  Please contact us so we can quickly resolve', 'error+');

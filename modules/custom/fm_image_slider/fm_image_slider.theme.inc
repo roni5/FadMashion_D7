@@ -96,7 +96,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $show_thumbs = (count($pictures) > 1 ? true : 0);
   
   //Zoom Colorbox Url
-  $url = '/?height=80%&width=840&inline=true#zoomed';
+  $url = '/?height=80%&width=400&inline=true#zoomed';
   drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
   
   $loadingImagePath = pp() . 'progress.gif';

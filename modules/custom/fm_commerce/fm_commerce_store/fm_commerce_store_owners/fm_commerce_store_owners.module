@@ -8,6 +8,7 @@ function fm_commerce_store_owners_menu() {
 	$items['store_owners/admin'] = array(
     'page callback' => 'fm_commerce_store_owners_admin',
 	  'access arguments' => array('administer own stores'),
+	  'file' => 'fm_commerce_store_owners.admin.inc',
     'type' => MENU_NORMAL_ITEM,
   );
   
@@ -15,31 +16,97 @@ function fm_commerce_store_owners_menu() {
 }
 
 /*
+ * implements hook_block_info()
+ */
+function fm_commerce_store_owners_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_store_owners_orders'] = array(
+	  'info' => t('Owners - Shop Orders'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	$blocks['fm_store_owners_shop'] = array(
+	  'info' => t('Owners - Storefront'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	$blocks['fm_store_owners_promotions'] = array(
+	  'info' => t('Owners - Promotions'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	$blocks['fm_store_owners_settings'] = array(
+	  'info' => t('Owners - Settings'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_commerce_store_owners_block_view($block_name = '') {
+	$store = fm_commerce_store_owners_get_store();
+	switch ($block_name) {
+		case 'fm_store_owners_orders':
+			//$content = theme('fm_commerce_store_owners_orders_admin', array('store' => $store, 'orders' => ));
+			
+			$content = fm_commerce_store_owners_orders_list($store);
+			break;
+		case 'fm_store_owners_shop':
+			$products = fm_commerce_store_get_products($store);
+			$content = theme('fm_commerce_store_owners_shop_admin', array('store' => $store));
+			break;
+		case 'fm_store_owners_promotions':
+			
+			$content = theme('fm_commerce_store_owners_promotion_admin', array('store' => $store));
+			break;
+		case 'fm_store_owners_settings';
+		 $content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
+		  break;
+		default:
+			break;
+	}
+  
+	$block = array(
+    'content' => $content
+  );
+  
+  return $block;
+}
+
+/*
  * Implementation of hook_theme
  */
 function fm_commerce_store_owners_theme() {
   return array(
-    'fm_commerce_store_owners_admin' => array(
-       'template' => 'fm_commerce_store_owners_admin',
-       'variables' => array('owners_orders' => NULL),
+  
+    'fm_commerce_store_owners_orders_admin' => array(
+       'template' => 'fm_commerce_store_owners_orders_admin',
+       'variables' => array('store' => NULL)
+    ),
+    'fm_commerce_store_owners_settings_admin' => array(
+       'template' => 'fm_commerce_store_owners_settings_admin',
+       'variables' => array('store' => NULL)
+    ),
+    'fm_commerce_store_owners_shop_admin' => array(
+       'template' => 'fm_commerce_store_owners_shop_admin',
+       'variables' => array('store' => NULL)
+    ),
+    'fm_commerce_store_owners_promotion_admin' => array(
+       'template' => 'fm_commerce_store_owners_promotion_admin',
+       'variables' => array('store' => NULL)
     ),
   );	
 }
 
-function fm_commerce_store_owners_admin() {
-	
-	$output = theme('fm_commerce_store_owners_admin');
-	
-	print( $output); 
-	exit();
-}
+
+
 
 function fm_commerce_store_owners_admin_form() {
 
 	$store = fm_commerce_store_owners_get_store();
 	$store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
 	$mail = $store_wrapper->field_paypal_email->value();
-	
     
 	if(!empty($mail)) {
 		$form['mail'] = array(
@@ -150,4 +217,40 @@ function fm_commerce_store_owners_is_admin($user) {
 		return FALSE;
 	}
 	return TRUE;
+}
+
+/*
+ * Get the Order list for the shop owners
+ */
+function fm_commerce_store_owners_orders_list($store = nulll) {
+	global $user;
+	
+	//Second, load up previous orders and go through each one and update those 
+ $orders = fm_commerce_store_query_orders($store);
+ 
+ if(count($orders) == 0) {
+  return '<div class="no-orders">You currently have no purchases</div>'; 	
+ }
+ 
+ rsort($orders);
+ 
+ $rows = array();
+ $header = array('Invoice', 'Item', 'Price', 'Order Status', ''  );
+	
+ foreach($orders as $order) {
+		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+		
+ 	  $total = $order_wrapper->commerce_order_total->value();
+    $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+  
+    $row_info = fm_commerce_orders_row_info($order);
+		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
+		  '<div class="product-title">' . $row_info['title'] . '</div>' . theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])) ,
+		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price"> (orig. '  . $row_info['retail'] . ')</div>',
+		  '<div class="order-status">' . theme('fm_commerce_orders_status', array('status' => $order->status)) . '</div>', 
+		  '<div class="order-link">' . fm_commerce_orders_status_link($order) . '</div>' 
+		);
+	}
+	
+	return theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
 }

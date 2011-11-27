@@ -85,6 +85,17 @@ th {border-bottom:3px solid #EEE8E3;}
 .navBox img{float: left; }
 
 
+.quicktabs_wrapper{background: #f0eeea; padding: 4px; margin: 15px 0;}
+ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
+.quicktabs_tabs li.active{background: #fff;}
+.quicktabs_main{background: #fff; display: block; clear: both; padding: 10px;}
+
+.quicktabs-style-default ul{width: 100%}
+.quicktabs-style-default  li{min-width: 80px; padding: 4px; text-align:center;}
+.quicktabs-style-default  li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
+
+
+
 /* Right-hand Sidebar Layout */
 #content, 
 #oontent .column1, 
@@ -222,15 +233,6 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .form-item-colors .colorName {padding-right:5px; float: left; font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size:12px; font-style: normal; color:#322F2C}
 .form-item-colors .selectBox-options { float: left}
 .form-item-colors .selectBox-disabled a, .form-item-sizes .selectBox-disabled a{background: url("../images/sold_out.png") no-repeat scroll 0 0 transparent}
-
-.quicktabs_wrapper{background: #f0eeea; padding: 4px; margin: 15px 0;}
-ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
-.quicktabs_tabs li.active{background: #fff;}
-.quicktabs_main{background: #fff; display: block; clear: both; padding: 10px; width: 310px;}
-
-#quicktabs-fm_product_details ul{width: 330px;}
-#quicktabs-fm_product_details li{min-width: 80px; padding: 4px; text-align:center;}
-#quicktabs-fm_product_details li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 
 .details-list li {padding: 0 12px !important; text-align: left !important; margin-bottom: 4px; font-size: 13px; background: url("/sites/all/themes/fadmashion_commerce/images/arrow_bullet.jpg") no-repeat scroll 2px 2px transparent}
 
@@ -570,6 +572,9 @@ h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times
 #fm-invite-send-email-form .form-submit { padding: 6px 12px; font-size: 14px}
 #fm-invite-send-email-form label {display: block; color: #72655C;font-weight: normal;}
 
+
+/* Store owners Admin Pop-up */
+#block-quicktabs-store-owners-admin h2 {display: none;}
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
