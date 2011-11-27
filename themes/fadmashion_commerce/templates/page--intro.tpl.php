@@ -8,7 +8,7 @@
 
 global $user;
 if(!user_access('view splash page')) {
-	fm_deals_page();
+	drupal_goto('deals');
 }
 
 ?>

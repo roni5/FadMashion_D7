@@ -54,14 +54,14 @@ function fm_commerce_store_owners_block_view($block_name = '') {
 			break;
 		case 'fm_store_owners_shop':
 			$products = fm_commerce_store_get_products($store);
-			$content = theme('fm_commerce_store_owners_shop_admin', array('store' => $store));
+			//$content = theme('fm_commerce_store_owners_shop_admin', array('store' => $store));
 			break;
 		case 'fm_store_owners_promotions':
 			
-			$content = theme('fm_commerce_store_owners_promotion_admin', array('store' => $store));
+			//$content = theme('fm_commerce_store_owners_promotion_admin', array('store' => $store));
 			break;
 		case 'fm_store_owners_settings';
-		 $content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
+		 //$content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
 		  break;
 		default:
 			break;

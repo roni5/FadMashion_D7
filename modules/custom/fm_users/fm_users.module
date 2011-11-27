@@ -123,6 +123,7 @@ function fm_users_form_alter(&$form, $form_state, $form_id) {
   	  );
   	  
       $form['#validate'] =  array('logintoboggan_user_login_validate',  'fm_users_login_name_validate', 'user_login_authenticate_validate', 'user_login_final_validate');
+  	  $form['#submit'][] = 'fm_users_login_submit';
   	  
   	  break;
   	case 'user_register_form':
@@ -303,6 +304,10 @@ function fm_users_login_name_validate($form, &$form_state)  {
   	}
   	
   }
+}
+
+function fm_users_login_submit($form, &$form_state) {
+	$form_state['redirect'] = 'deals';
 }
 
 function fm_users_check_activate($mail) {
