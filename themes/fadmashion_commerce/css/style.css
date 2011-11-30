@@ -504,16 +504,19 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 
 /* My Designer Shop Admin */
-.owners-admin-section {margin-bottom: 10px; padding-bottom: 10px; }
-.paypal-wrapper{ margin: auto; padding-bottom: 20px; }
-.owners-admin-wrapper #paypal_header{ width: 50%; margin: -20px auto 2px;text-align: center; }
-.owners-admin-wrapper #paypal_header  div{display: inline; }
-.owners-admin-wrapper #paypal_subheader{ text-align: center; margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
-.owners-admin-wrapper .error_container {margin-top: -15px; }
- .owners-admin-wrapper  #orders_header {text-align: center;  margin: 20px auto 2px;}
- .owners-admin-wrapper  #orders_header span {font-style: italic; color: #777}
+.owners-admin-settings {margin-bottom: 10px; padding-bottom: 10px; }
+.owners-admin-settings table{width: 100%;  font-size: 12px;}
+.owners-admin-settings tbody {border: 0px solid #fff;}
+.owners-admin-settings  tr {border-bottom: 1px solid #ddd;}
+.owners-admin-settings  tr td{background-color: transparent;}
+#quicktabs-store_owners_admin #paypal_header{  font-size: 12px}
+#quicktabs-store_owners_admin #paypal_header  div{display: inline; }
+#quicktabs-store_owners_admin #paypal_subheader{ text-align: center; margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
+#quicktabs-store_owners_admin .error_container {margin-top: -15px; }
+#quicktabs-store_owners_admin #orders_header {text-align: center;  margin: 20px auto 2px;}
+#quicktabs-store_owners_admin #orders_header span {font-style: italic; color: #777}
  
-#fm-commerce-store-owners-admin-form {width: 400px; overflow: hidden;}
+#fm-commerce-store-owners-admin-form { overflow: hidden;}
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper{height: 100%; padding: 0px 0 1px 4px; background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:100%;line-height:26px; margin:4px 0 0; padding-left:4px; width:230px; }
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper, #fm-commerce-store-owners-admin-form .form-submit, #fm-commerce-store-owners-admin-form .form-item-mail, #lock_markup {float: left;}
 #fm-commerce-store-owners-admin-form .form-submit {margin-left: 12px; margin-top: 5px;}
@@ -524,7 +527,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 #lock_markup {margin: 4px 0 -4px; }
 #lock_markup img {height: 21px; opacity: .8; }
-.paypal_logo {height: 19px; margin: -5px 3px}
+.paypal_logo {height: 16px; margin: -5px 3px}
+
+#quicktabs-store_owners_admin #orders-list table{margin: 0px;}
+#quicktabs-store_owners_admin.order-extra-info {display: inline;}
 	
 	
 /* How it Works Overlay */

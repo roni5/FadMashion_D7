@@ -48,8 +48,7 @@ function fm_commerce_store_owners_block_view($block_name = '') {
 	$store = fm_commerce_store_owners_get_store();
 	switch ($block_name) {
 		case 'fm_store_owners_orders':
-			//$content = theme('fm_commerce_store_owners_orders_admin', array('store' => $store, 'orders' => ));
-			
+			//$content = theme('fm_commerce_store_owners_orders_admin', array('store' => $store, 'orders' => 'test'));
 			$content = fm_commerce_store_owners_orders_list($store);
 			break;
 		case 'fm_store_owners_shop':
@@ -61,7 +60,7 @@ function fm_commerce_store_owners_block_view($block_name = '') {
 			//$content = theme('fm_commerce_store_owners_promotion_admin', array('store' => $store));
 			break;
 		case 'fm_store_owners_settings';
-		 //$content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
+		 $content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
 		  break;
 		default:
 			break;
@@ -235,7 +234,7 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Item', 'Price', 'Order Status', ''  );
+ $header = array('Invoice', 'Details', 'Status', 'Price' );
 	
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -243,14 +242,63 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  	  $total = $order_wrapper->commerce_order_total->value();
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
   
+    $order_view = commerce_order_ui_order_view($order, 'customer');
+    
     $row_info = fm_commerce_orders_row_info($order);
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
-		  '<div class="product-title">' . $row_info['title'] . '</div>' . theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])) ,
-		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price"> (orig. '  . $row_info['retail'] . ')</div>',
-		  '<div class="order-status">' . theme('fm_commerce_orders_status', array('status' => $order->status)) . '</div>', 
-		  '<div class="order-link">' . fm_commerce_orders_status_link($order) . '</div>' 
+		  '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
+		  //'<div class="order-status">' . render($order_view['commerce_customer_billing']) . '</div>',
+		'<div class="order-link">' . fm_commerce_store_owners_status_link($order) . '</div>',  
+		  '<div class="sale-price">' . $row_info['sale'] . '</div>'
 		);
 	}
 	
-	return theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
+	$div = '<div id="orders-list">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) .'</div>';
+	return $div;
+}
+
+/*
+ * Add Store owners Link
+ */
+function fm_commerce_store_owners_status_link($order) {
+	$text = '';
+
+	switch($order->status) {
+		case 'fm_orders_voided':
+			$text = '<span class="dotted-hover">Order is Void</span>';
+			return $text;
+		  break;
+		case 'fm_orders_authorized':
+			$text = '<span class="dotted-hover">Authorized, Needs to be Captured</span>';
+			return $text;
+		  break;
+		case 'fm_orders_captured':
+			$text = '<span class="dotted-hover">Ready to be Shipped</span>';
+			return $text;
+		  break;
+		case 'fm_orders_shipped':
+			$text = '<span class="dotted-hover">Shipped, Waiting for Payment</span>';
+			return $text;
+		  break;
+		case 'fm_orders_vendor_payed':
+			$text = '<span class="dotted-hover">Transaction Complete!</span>';
+			return $text;
+		  break;
+		case 'fm_orders_recieved':
+			$text = '<span class="dotted-hover">Customer Recieved Order</span>';
+			return $text;
+		  break;
+		case 'fm_orders_returned':
+			$text = '<span class="dotted-hover">Return Request</span>';
+			return $text;
+		  break;
+		default:
+			$text = '';
+		  break;
+			
+	}
+	
+	return $text;
+	//return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '940px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
+	
 }

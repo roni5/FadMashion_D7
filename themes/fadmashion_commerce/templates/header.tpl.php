@@ -8,7 +8,7 @@
                 <li ><?php if(module_exists('fm_commerce_store_owners')) {
                              $store = fm_commerce_store_owners_get_store();
                              if($store) { 
-                               $url = '/?height=80%&width=620&inline=true#block-quicktabs-store-owners-admin';
+                               $url = '/?height=700&width=620&inline=true#block-quicktabs-store-owners-admin';
                                print '<a title="'.$store->name.'" class="colorbox-inline" href="' . $url . '">' . $store->name . '</a>';
                              }
                            }

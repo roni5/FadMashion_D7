@@ -475,7 +475,7 @@ function fm_commerce_store_get_products($store) {
 /*
  * Get all the orders for this store
  */
-function fm_commerce_store_query_orders($store, $status = array('fm_orders_authorized', 'fm_orders_voided', 'fm_orders_captured', 'cart', 'fm_orders_shipped', 'fm_orders_vendor_payed', 'fm_orders_recieved', 'fm_orders_returned')) {
+function fm_commerce_store_query_orders($store, $status = array('fm_orders_authorized', 'fm_orders_voided', 'fm_orders_captured', 'fm_orders_shipped', 'fm_orders_vendor_payed', 'fm_orders_recieved', 'fm_orders_returned')) {
 	$products = fm_commerce_store_get_products($store);
 	$pids = array_keys($products);
 	if(!count($pids)) {
