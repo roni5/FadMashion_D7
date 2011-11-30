@@ -46,6 +46,7 @@ function fm_commerce_store_owners_block_info() {
  */
 function fm_commerce_store_owners_block_view($block_name = '') {
 	$store = fm_commerce_store_owners_get_store();
+	global $user;
 	switch ($block_name) {
 		case 'fm_store_owners_orders':
 			//$content = theme('fm_commerce_store_owners_orders_admin', array('store' => $store, 'orders' => 'test'));
@@ -64,7 +65,7 @@ function fm_commerce_store_owners_block_view($block_name = '') {
 		  break;
 		default:
 			break;
-	}
+	 }
   
 	$block = array(
     'content' => $content
@@ -212,7 +213,7 @@ function fm_commerce_store_owners_is_admin($user) {
 	if(!user_access('administer own stores')) {
 		return FALSE;
 	}
-	if(!fm_commerce_store_get_store($user)) {
+	if(!fm_commerce_store_owners_get_store($user)) {
 		return FALSE;
 	}
 	return TRUE;
