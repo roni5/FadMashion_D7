@@ -4,7 +4,7 @@
 
      <!-- Paypal Business E-mail -->
      <table style="width: 100%">
-       <tr style="height: 50px;">
+       <tr style="height: 80px;">
          <td style="width: 270px;" >
 	        <div id="paypal_header">
       	    <div>
@@ -14,7 +14,7 @@
 	        </div>
 	       </td>
 	   
-	      <td style="float: left; padding-top: 6px; ">
+	      <td style="float: left; padding-top: 19px; ">
     	    <?php print render(drupal_get_form('fm_commerce_store_owners_admin_form')); ?>
 	        <div class="error_container"></div>
 	      </td>
@@ -26,7 +26,7 @@
 	         <div>Branding:</div>
 	       </td>
 	   
-	      <td style="float: left; padding-top: 6px; ">
+	      <td style="float: left; padding-top: 5px; ">
 	        <?php $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
 	        print render($logo);?>
 	      </td>
