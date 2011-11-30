@@ -508,7 +508,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .owners-admin-settings table{width: 100%;  font-size: 12px;}
 .owners-admin-settings tbody {border: 0px solid #fff;}
 .owners-admin-settings  tr {border-bottom: 1px solid #ddd;}
-.owners-admin-settings  tr td{background-color: transparent;}
+.owners-admin-settings  tr td{background-color: transparent; padding-bottom: 10px;}
 #quicktabs-store_owners_admin #paypal_header{  font-size: 12px}
 #quicktabs-store_owners_admin #paypal_header  div{display: inline; }
 #quicktabs-store_owners_admin #paypal_subheader{ text-align: center; margin: 3px auto 8px; width: 60%; font-size: 11px; font-style: italic; color:#888888;}
@@ -524,6 +524,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #fm-commerce-store-owners-admin-form #edit-mail.default {color: #999;}
 #fm-commerce-store-owners-admin-form #message_box {margin-top: 0px;}
 #fm-commerce-store-owners-admin-form .form-item {margin: 0px;}
+
+.orders_shippment_form {width: 400px;}
+.orders_shippment_form .step1, .orders_shippment_form .step2{float: left; padding: 5px}
+.orders_shippment_form .step1 {border-right: 1px solid #ddd; float: }
+.orders_shippment_form .step2 {width: 220px;padding-left: 10px;}
 
 #lock_markup {margin: 4px 0 -4px; }
 #lock_markup img {height: 21px; opacity: .8; }

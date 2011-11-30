@@ -96,6 +96,24 @@ function fm_commerce_store_owners_theme() {
        'template' => 'fm_commerce_store_owners_promotion_admin',
        'variables' => array('store' => NULL)
     ),
+    
+    //Order Status Popups
+    'fm_commerce_store_owners_order_void' => array(
+       'template' => 'fm_commerce_store_owners_order_void',
+       'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_store_owners_order_captured' => array(
+       'template' => 'fm_commerce_store_owners_order_captured',
+       'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_store_owners_order_shipped' => array(
+       'template' => 'fm_commerce_store_owners_order_shipped',
+       'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_store_owners_order_paid' => array(
+       'template' => 'fm_commerce_store_owners_order_paid',
+       'variables' => array('order' => NULL)
+    ),
   );	
 }
 
@@ -236,6 +254,7 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  
  $rows = array();
  $header = array('Invoice', 'Details', 'Status', 'Price' );
+ $hidden = '';
 	
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -249,13 +268,47 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
 		  '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
 		  //'<div class="order-status">' . render($order_view['commerce_customer_billing']) . '</div>',
-		'<div class="order-link">' . fm_commerce_store_owners_status_link($order) . '</div>',  
+		  '<div class="order-link" ref="order-' . $order->order_id. '">' . fm_commerce_store_owners_status_link($order) . '</div>',  
 		  '<div class="sale-price">' . $row_info['sale'] . '</div>'
 		);
+		$hidden .= fm_commerce_store_owners_order_action($order);
 	}
 	
 	$div = '<div id="orders-list">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) .'</div>';
+	$div .= '<div style="display: none">' . $hidden . '</div>';
+	
+	$options['bt_admin_store_admin'] = array(
+      'cssSelect' => '.order-link',
+      'trigger' => array('mouseover', 'click'),
+	    'positions' => array('bottom'),
+	    'fill' =>  "rgb(255, 255, 255)",
+	    'contentSelector' => "$('#content-' + $(this).attr('ref')).html()",
+	    'width' => "$('#content-' + $(this).attr('ref')).width()",
+      'style' => 'hulu',
+      );
+  beautytips_add_beautytips($options);
+    
 	return $div;
+}
+
+function fm_commerce_store_owners_order_action($order) {
+	$output = '<div id="content-order-' . $order->order_id. '">';
+	
+	switch ($order->status) {
+		case 'fm_orders_voided':
+			$output .= theme('fm_commerce_store_owners_order_void', array('order' => $order));
+			break;
+		case 'fm_orders_captured':
+		  $output .= theme('fm_commerce_store_owners_order_captured', array('order' => $order));
+		  break;
+		default:
+			$output .= $order->status;
+			break;
+	}
+	
+	$output .= '</div>';
+
+	return $output;
 }
 
 /*
