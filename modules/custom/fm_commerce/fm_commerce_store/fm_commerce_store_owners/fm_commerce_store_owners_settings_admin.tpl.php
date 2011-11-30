@@ -23,7 +23,7 @@
 	    <!-- Logo Settings-->
 	    <tr >
          <td>
-	         <div>Branding:</div>
+	         <div>Brand Label:</div>
 	       </td>
 	   
 	      <td style="float: left; padding-top: 5px; ">
