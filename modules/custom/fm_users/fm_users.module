@@ -86,6 +86,42 @@ function fm_users_authorize() {
 	exit();
 }
 
+
+/*
+ * implements hook_block_info()
+ */
+function fm_users_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_users_orders'] = array(
+	  'info' => t('Account - My Orders'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+/*
+ * Implements hook_block_view
+ */
+function fm_users_block_view($block_name = '') {
+	global $user;
+	switch ($block_name) {
+		case 'fm_users_orders':
+			//$content = theme('fm_commerce_store_owners_orders_admin', array('store' => $store, 'orders' => 'test'));
+			$content = fm_commerce_orders_full_list();
+			break;
+	 }
+  
+	$block = array(
+    'content' => $content
+  );
+  
+  return $block;
+}
+
+
+
 /**
  * Implements hook_form_alter().
  * 

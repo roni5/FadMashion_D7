@@ -274,6 +274,10 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
 		$hidden .= fm_commerce_store_owners_order_action($order);
 	}
 	
+	/*
+	 * Beauttips call is in fm_on_load.js because we needed to use a preShow function so it had to be moved over 
+	 */
+	
 	$div = '<div id="orders-list">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) .'</div>';
 	$div .= '<div style="display: none">' . $hidden . '</div>';
 	

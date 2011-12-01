@@ -1,33 +1,14 @@
 <?php
 
-/**
- * Implements hook_menu().
- */
-function fm_commerce_orders_menu() {
-	
-	$items['my-orders'] = array(
-    'page callback' => 'fm_commerce_orders_page',
-	  'access arguments' => array('view deals'),
-    'type' => MENU_NORMAL_ITEM,
-  );
-  $items['my-orders/%'] = array(
-    'page callback' => 'fm_commerce_orders_detail_page',
-	  'access arguments' => array('view deals'),
-    'page arguments' => array(1),
-    'type' => MENU_NORMAL_ITEM,
-  );
-  
-  return $items;
-}
+
+
+
 
 function fm_commerce_orders_theme() {
 	return array(
     'fm_commerce_orders_detail' => array(
 	    'template' => 'fm_commerce_orders_detail',
 	    'variables' => array( 'customer_service_form' => '', 'order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL)
-    ),
-    'fm_commerce_orders_status' => array(
-	    'variables' => array('status' => null)
     ),
     'fm_commerce_orders_product_summary' => array(
       'template' => 'fm_commerce_orders_product_summary',
@@ -37,6 +18,26 @@ function fm_commerce_orders_theme() {
     'template' => 'fm_commerce_orders_totals_summary',
       'variables' => array('title' => '', 'extra_classes' => '', 'price' => '')
     ),
+    
+    //Beautytip Pop-ups for Orders Statuses on Orders block
+    'fm_commerce_orders_footer' => array(
+      'template' => 'fm_commerce_orders_footer',
+      'variables' => array('order' => NULL, 'no_margin' => false)
+    ),
+    
+    'fm_commerce_orders_captured' => array(
+      'template' => 'fm_commerce_orders_captured',
+      'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_shipped' => array(
+      'template' => 'fm_commerce_orders_shipped',
+      'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_incart' => array(
+      'template' => 'fm_commerce_orders_incart',
+      'variables' => array('order' => NULL)
+    ),
+    
     'fm_commerce_orders_extra_info' => array(
 	    'variables' => array('color' => '', 'size' => '')
     ),
@@ -114,64 +115,15 @@ function fm_commerce_orders_commerce_order_status_info() {
 }
 
 
-/*
- * Defines the basic Order Page with status's for 
- */
-function fm_commerce_orders_page() {
-	
-	$content = fm_commerce_orders_full_list();
-	$header = t('My Orders');
-	
-
-  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    // special ajax here 
-     $output = '<div id="cboxTitle-manual">' . $header . '</div>';
-     print $output.$content;
-     exit;
-  } 
-  else {
-  	 $output = '<h1>' . $header . '</h1>';
-     return $output.$content;
-  }
-
- 
-}
-
 function fm_commerce_orders_full_list() {
 	
 	$output .= '<div id="orders-list">';
-
 	$output .= fm_commerce_orders_list();
 	$output .= '</div>';
 	
 	return $output;
 }
 
-function fm_commerce_orders_detail_page($order_id) {
-	$order = commerce_order_load($order_id);
-	
-	$vars = array();
-  $vars['order'] = $order;
-  $vars['customer_service_form'] = drupal_get_form('fm_commerce_orders_support_form');
-  $vars += fm_commerce_orders_detail_vars($order_id);
- 
-	$content = theme('fm_commerce_orders_detail', $vars);
-	
-	
-  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    // special ajax here 
-     $header =  l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => 'colorbox-load', )) ) . ' > Order #' .   $order_id;
-     $header = '<div id="cboxTitle-manual">' . t('Order Details') . '</div>';
-     print $header.$content;
-     exit;
-  } 
-  else {
-  	 $header =  l('My Orders', 'my-orders', array( 'attributes' => array('title' => t('My Orders') )) ) . ' > Order #' .   $order_id;
-  	 $header = '<h1>' . $header . '<h1>';
-     return $header.$content;
-  }
-  
-}
 
 /*
  * Get order variables for details table
@@ -239,7 +191,7 @@ function fm_commerce_orders_list() {
 	global $user;
 	
 	//Second, load up previous orders and go through each one and update those 
- $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
+ $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_vendor_payed', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
   return '<div class="no-orders">You currently have no purchases</div>'; 	
@@ -248,8 +200,8 @@ function fm_commerce_orders_list() {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Item', 'Price', 'Order Status', ''  );
-	
+ $header = array('Invoice', 'Details', 'Status', 'Price'  );
+ $hidden = '';
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
 		
@@ -259,14 +211,40 @@ function fm_commerce_orders_list() {
     $row_info = fm_commerce_orders_row_info($order);
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
 		  '<div class="product-title">' . $row_info['title'] . '</div>' . theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])) ,
+		  '<div class="order-link" ref="order-' . $order->order_id. '">' . fm_commerce_orders_status($order) . '</div>',  
 		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price"> (orig. '  . $row_info['retail'] . ')</div>',
-		  '<div class="order-status">' . theme('fm_commerce_orders_status', array('status' => $order->status)) . '</div>', 
-		  '<div class="order-link">' . fm_commerce_orders_status_link($order) . '</div>' 
 		);
+		$hidden .= fm_commerce_orders_action($order);
 	}
 	
+	$div = theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
+	$div .= '<div style="display:none">' . $hidden .'</div>';
+	return $div;
+}
+
+function fm_commerce_orders_action($order) {
+	$output = '<div id="content-order-' . $order->order_id. '">';
 	
-	return theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
+	switch ($order->status) {
+		case 'cart':
+			
+			break;
+		case 'fm_orders_captured':
+		  $output .= theme('fm_commerce_orders_captured', array('order' => $order));
+		  $output .= theme('fm_commerce_orders_footer');
+		  break;
+		case 'fm_orders_shipped':
+		case 'fm_orders_vendor_payed':
+			$output .= theme('fm_commerce_orders_shipped', array('order' => $order));
+		  $output .= theme('fm_commerce_orders_footer');
+			break;
+		default:
+			$output .= theme('fm_commerce_orders_footer', array('no_margin' => true));
+			break;
+	}
+	
+	$output .= '</div>';
+	return $output;
 }
 
 //Get row info for the table.  Outputs Product, product price & node price
@@ -302,24 +280,6 @@ function fm_commerce_orders_row_info($order) {
   return array('title' => $title, 'retail' => $retail_price, 'sale' => $sale_price, 'diff' => $diff, 'color' => $color, 'size' => $size);  
 }
 
-function fm_commerce_orders_status_link($order) {
-	$text = '';
-	
-	switch($order->status) {
-		case 'cart':
-			$text = 'Checkout';
-			return l($text, 'express-checkout');
-		  break;
-		default:
-			$text = 'Summary';
-		  break;
-			
-	}
-	
-	return l($text, 'my-orders/' . $order->order_id, array( 'query' => array('width' => '940px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
-	
-}
-
 function theme_fm_commerce_orders_extra_info($vars) {
 	$color = $vars['color'];
 	$size = $vars['size'];
@@ -350,29 +310,38 @@ function theme_fm_commerce_orders_extra_info($vars) {
 	
 }
 
-function theme_fm_commerce_orders_status($vars) {
-	$status = $vars['status'];
-	
-	switch($status) {
-		case 'fm_orders_captured':
-		  return '<div class="status-deal-payed">Payed</div>' . '<div class="order-extra-info">' . t('Waiting to be Shipped')  . '</div>';
-		  break;
+function fm_commerce_orders_status($order) {
+		$text = '<span class="dotted-hover">';
+
+	switch($order->status) {
 		case 'fm_orders_voided':
-		  return '<div class="status-deal-payed">Voided</div>';
+			$text .= 'Order is Void';
 		  break;
-		case 'fm_orders_expired':
-			return '<div class="status-expired">Expired</div>';
+		case 'fm_orders_authorized':
+			$text .= 'Authorized, Needs to be Captured';
 		  break;
-		case 'fm_orders_authorized': 
-			return '<div class="status-expired">Authorized</div>' . '<div class="order-extra-info">' . t('Waiting to be Captured')  . '</div>';;
-			break;
+		case 'fm_orders_captured':
+			$text .= 'Preparing for Shippment';
+		  break;
+		case 'fm_orders_shipped':
+		case 'fm_orders_vendor_payed':
+			$text .= 'Shipped!';
+		  break;
+		case 'fm_orders_recieved':
+			$text .= 'Recieved Order';
+		  break;
+		case 'fm_orders_returned':
+			$text .= 'Return Requested';
+		  break;
 		case 'cart':
-			return '<div class="status-cart">Shopping Cart</div>';
-		  break;		
+			$text .= theme('fm_commerce_orders_incart', array('order' => $order));
+		default:
+			$text .= '';
+		  break;
 	}
+	$text .= '</span>';
 	
-	return $status;
-	
+	return $text;
 }
 
 function fm_commerce_orders_product_summary($line_item_wrapper) {
