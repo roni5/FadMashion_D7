@@ -26,7 +26,7 @@
 <div>ID #: <?php print $tracking_id;?></div>
 
 
-<div style="margin-top: 15px;" class="details">
+<div style="margin-top: 10px;" class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 

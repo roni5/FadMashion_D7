@@ -291,21 +291,24 @@ function fm_commerce_store_owners_order_action($order) {
 	switch ($order->status) {
 		case 'fm_orders_voided':
 			$output .= theme('fm_commerce_store_owners_order_void', array('order' => $order));
+			$output .= theme('fm_commerce_orders_footer', array('no_margin' => true));
 			break;
 		case 'fm_orders_captured':
 		  $output .= theme('fm_commerce_store_owners_order_captured', array('order' => $order));
 		  break;
 		case 'fm_orders_shipped':
 			$output .= theme('fm_commerce_store_owners_order_shipped', array('order' => $order));
+			$output .= theme('fm_commerce_orders_footer');
 			break;
 	  case 'fm_orders_vendor_payed':
 			$output .= theme('fm_commerce_store_owners_order_paid', array('order' => $order));
+			$output .= theme('fm_commerce_orders_footer');
 			break;
 		default:
-			$output .= '';
+			$output .= theme('fm_commerce_orders_footer', array('no_margin' => true));
 			break;
 	}
-	$output .= '<div class="order_shipment_footer">If you have any questions, please contact us at <a href="mailto:support@fadmashion.com">support@fadmashion.com</a></div>';
+	
 	$output .= '</div>';
 	return $output;
 }
