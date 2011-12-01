@@ -277,16 +277,6 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
 	$div = '<div id="orders-list">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) .'</div>';
 	$div .= '<div style="display: none">' . $hidden . '</div>';
 	
-	$options['bt_admin_store_admin'] = array(
-      'cssSelect' => '.order-link',
-      'trigger' => array('mouseover', 'click'),
-	    'positions' => array('bottom'),
-	    'fill' =>  "rgb(255, 255, 255)",
-	    'contentSelector' => "$('#content-' + $(this).attr('ref')).html()",
-	    'width' => "$('#content-' + $(this).attr('ref')).width()",
-      'style' => 'hulu',
-      );
-  beautytips_add_beautytips($options);
     
 	return $div;
 }
@@ -309,6 +299,36 @@ function fm_commerce_store_owners_order_action($order) {
 	$output .= '</div>';
 
 	return $output;
+}
+
+/*
+ * Add Store owners Link
+ */
+function fm_commerce_store_owners_shippment_form() {
+  
+  
+  $options = array('fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'US Postal');
+  
+  $form['delivery_service'] = array(
+      '#type' => 'select',
+      '#options' => $options,
+    );
+  $form['tracking'] = array(
+    '#type' => 'textfield',
+    '#size' => 25, 
+	  '#maxlength' => 255,
+    '#default_value' => t('Tracking ID'),
+    '#attributes' => array('class' => array('clear-defaults')),
+    '#required' => TRUE
+  );
+    
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Submit'),
+    '#attributes' => array('class' => array('ajax-button', 'red')),
+  );
+  
+  return $form;
 }
 
 /*

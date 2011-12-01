@@ -36,6 +36,22 @@ jQuery(document).ready(function() {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.
 		jQuery('.views-slideshow-controls-text-previous, .views-slideshow-controls-text-next').hide();
 	}
+	
+	//Add Store Admin - Orders Beautitps
+	jQuery('.order-link').bt({ 
+		contentSelector: "$('#content-' + $(this).attr('ref')).html()", 
+		trigger: ['mouseover', 'click'],
+		fill: 'white', 
+		positions: ['bottom'],
+		width: "$('#content-' + $(this).attr('ref')).width();",
+		style: 'hulu',
+		postShow: function(box) { clearAllForms();},
+	    strokeStyle: '#666666', 
+	    spikeLength: 20, spikeGirth: 10, width: 350, 
+	    overlap: 0, centerPointY: 1, cornerRadius: 0, 
+	    cssStyles: { fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', fontSize: '12px', padding: '10px 14px' }, 
+	    shadow: true, shadowColor: 'rgba(0,0,0,.5)', shadowBlur: 8, shadowOffsetX: 4, shadowOffsetY: 4 
+    });
 
 });
 
