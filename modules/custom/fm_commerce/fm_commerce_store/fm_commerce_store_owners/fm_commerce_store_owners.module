@@ -306,13 +306,16 @@ function fm_commerce_store_owners_order_action($order) {
 	return $output;
 }
 
+function fm_commerce_store_owners_shipping_company_opts() {
+	return  array('fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'US Postal');
+}
 /*
  * Add Store owners Link
  */
 function fm_commerce_store_owners_shippment_form($form, $form_state, $order) {
 
 	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-  $options = array('fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'US Postal');
+  
   
   $tracking_id = $order_wrapper->field_tracking_id->value();
   $tracking_company = $order_wrapper->field_tracking_company->value();

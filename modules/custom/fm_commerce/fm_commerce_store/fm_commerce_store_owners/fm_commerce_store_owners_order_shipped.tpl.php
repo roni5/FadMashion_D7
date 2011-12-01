@@ -10,6 +10,7 @@
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   $tracking_id = $order_wrapper->field_tracking_id->value();
   $tracking_company = $order_wrapper->field_tracking_company->value();
+  $opts = fm_commerce_store_owners_shipping_company_opts();
 ?>
 
 
@@ -30,7 +31,7 @@
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 
-<div style="margin-top: 10px;"><?php print $tracking_company . ': ' . $tracking_id;?></div>
+<div style="margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
 
 </div>
 
