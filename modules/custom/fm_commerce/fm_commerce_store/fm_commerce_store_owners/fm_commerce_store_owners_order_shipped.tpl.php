@@ -25,8 +25,10 @@
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 
-<h2>Tracking Info:</h2>
+<div style="margin-top: 10px;">Tracking Info:
 <?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $order)); ?>
+</div>
+
 </div>
 
 </div>
