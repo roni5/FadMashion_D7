@@ -15,19 +15,17 @@
 <div class="orders_shippment_form">
 
 <div class="step1">
-<h2>Order Details</h2>
+<h2>Order Details:</h2>
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>
-<div class="image" style="width: 146px;">
-<?php print $image;?>
-</div>
-<div class="details">
+
+<div style="margin-top: 20px;"  class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 </div>
 
 <div class="step2">
-<h2>Tracking Info</h2>
+<h2>Tracking Info:</h2>
 <?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $order)); ?>
 </div>
 
