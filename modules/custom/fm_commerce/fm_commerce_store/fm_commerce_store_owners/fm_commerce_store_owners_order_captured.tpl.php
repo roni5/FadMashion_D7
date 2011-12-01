@@ -7,7 +7,9 @@
   $order_view = commerce_order_ui_order_view($order, 'customer');
 ?>
 
+<div class="orders_admin_wrapper">
 <h1>Prepare Item for Shipping</h1>
+
 <div class="orders_shippment_form">
 
 <div class="step1">
@@ -25,8 +27,10 @@
 <div class="step2">
 <h2>Step #2: Get Payed!</h2>
 <p>Enter your shipping confirmation number, so we can verify and release payment</p>
-<?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $form_state, $arg1, $arg2)); ?>
+<?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $order)); ?>
 </div>
 
 
 </div> <!-- End orders_shippement_form -->
+
+</div>
