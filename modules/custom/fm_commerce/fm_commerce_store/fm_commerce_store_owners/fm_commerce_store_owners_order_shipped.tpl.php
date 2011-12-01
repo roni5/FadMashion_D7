@@ -5,6 +5,11 @@
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
   $order_view = commerce_order_ui_order_view($order, 'customer');
   
+  
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $tracking_id = $order_wrapper->field_tracking_id->value();
+  $tracking_company = $order_wrapper->field_tracking_company->value();
 ?>
 
 
@@ -25,9 +30,7 @@
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 
-<div style="margin-top: 10px;">Tracking Info:
-<?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $order)); ?>
-</div>
+<div style="margin-top: 10px;"><?php print $tracking_company . ': ' . $tracking_id;?></div>
 
 </div>
 
