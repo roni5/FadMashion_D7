@@ -301,7 +301,7 @@ function fm_commerce_store_owners_order_action($order) {
 			$output .= '';
 			break;
 	}
-	
+	$output .= '<div class="order_shipment_footer">If you have any questions, please contact us at <a href="mailto:support@fadmashion.com">support@fadmashion.com</a></div>';
 	$output .= '</div>';
 	return $output;
 }
