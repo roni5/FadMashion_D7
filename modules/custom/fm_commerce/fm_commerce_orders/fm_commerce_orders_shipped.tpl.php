@@ -22,7 +22,8 @@
 
 <div style="float: left;">
 <h3>Tracking Info:</h3>
-<div style="margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
+<div style="margin-top: 10px;">Service: <?php print $opts[$tracking_company];?></div>
+<div>ID #: <?php print $tracking_id;?></div>
 
 
 <div style="margin-top: 15px;" class="details">
