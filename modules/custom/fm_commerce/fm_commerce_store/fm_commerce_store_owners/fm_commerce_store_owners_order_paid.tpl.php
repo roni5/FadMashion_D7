@@ -7,7 +7,7 @@
 ?>
 
 <div class="orders_admin_wrapper">
-<h1>You have been paid</h1>
+<h1>Cha-Ching!</h1>
 <p>We have credited your Paypal business account with the correct amount.  </p>
 
 <div style="margin: 10px 0; overflow: hidden;">

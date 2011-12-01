@@ -236,7 +236,6 @@ function fm_commerce_orders_action($order) {
 		case 'fm_orders_shipped':
 		case 'fm_orders_vendor_payed':
 			$output .= theme('fm_commerce_orders_shipped', array('order' => $order));
-		  $output .= theme('fm_commerce_orders_footer');
 			break;
 		default:
 			$output .= theme('fm_commerce_orders_footer', array('no_margin' => true));
@@ -268,9 +267,10 @@ function fm_commerce_orders_row_info($order) {
          $retail_price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
          
          $node = $line_item_wrapper->field_node_reference->value();
-         $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']);
-
-         $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
+         if(isset($node)) {
+           $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']);
+           $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
+         }
          
          $color = $line_item_wrapper->field_order_color->value();
          $size = $line_item_wrapper->field_order_size->value();
