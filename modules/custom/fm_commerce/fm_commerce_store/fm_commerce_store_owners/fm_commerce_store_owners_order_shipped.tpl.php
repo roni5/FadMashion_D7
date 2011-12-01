@@ -12,25 +12,28 @@
 <h1>Shipped</h1>
 <p>We will be in touch shortly to process payment once we have confirmed the item has been shipped.  Thank you for your patience.</p>
 
-<div class="orders_shippment_form">
+<div style="margin: 10px 0; overflow: hidden;">
+<div class="image" style="float: left; width: 146px; margin-right: 10px;">
+<?php print $image;?>
+</div>
 
-<div class="step1">
-<h2>Order Details:</h2>
+<div style="float: left;">
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>
 
-<div style="margin-top: 20px;"  class="details">
+<div class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
-</div>
 
-<div class="step2">
 <h2>Tracking Info:</h2>
 <?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $order)); ?>
 </div>
 
+</div>
 
-</div> <!-- End orders_shippement_form -->
+
+
+</div>
 
 
 </div>
