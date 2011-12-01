@@ -19,7 +19,7 @@
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>
 
-<div class="details">
+<div style="margin-top: 10px;" class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 

@@ -21,7 +21,7 @@
 </div>
 
 <div style="float: left;">
-<h3>Tracking Info:</h3>
+<h3>Tracking Info</h3>
 <div style="margin-top: 10px;">Service: <?php print $opts[$tracking_company];?></div>
 <div>ID #: <?php print $tracking_id;?></div>
 
