@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
 		positions: ['bottom'],
 		width: "$('#content-' + $(this).attr('ref')).width();",
 		style: 'hulu',
-		postShow: function(box) { clearAllForms();},
+		postShow: function(box) { fmAdminBTPreShow();},
 	    strokeStyle: '#666666', 
 	    spikeLength: 20, spikeGirth: 10, width: 350, 
 	    overlap: 0, centerPointY: 1, cornerRadius: 0, 
@@ -71,6 +71,16 @@ jQuery(document).ready(function() {
 	  }
 	};
 })(jQuery);
+
+function fmAdminBTPreShow() {
+	clearAllForms();
+	
+	/*jQuery('.bt-content #fm-commerce-store-owners-shippment-form').ajaxForm({
+        beforeSubmit:  formPreLoader,  // pre-submit callback 
+        success:       supportFormSuccess  // post-submit callback 
+	});*/
+    
+}
 
 
 function fmForceRegister() {

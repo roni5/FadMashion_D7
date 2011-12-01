@@ -304,9 +304,8 @@ function fm_commerce_store_owners_order_action($order) {
 /*
  * Add Store owners Link
  */
-function fm_commerce_store_owners_shippment_form() {
-  
-  
+function fm_commerce_store_owners_shippment_form($form_state, $order) {
+
   $options = array('fedex' => 'FedEx', 'ups' => 'UPS', 'usps' => 'US Postal');
   
   $form['delivery_service'] = array(
@@ -321,6 +320,7 @@ function fm_commerce_store_owners_shippment_form() {
     '#attributes' => array('class' => array('clear-defaults')),
     '#required' => TRUE
   );
+  $form['order_id'] = array('#type' => 'value', '#value' => $order->order_id);
     
   $form['submit'] = array(
     '#type' => 'submit', 
@@ -329,6 +329,11 @@ function fm_commerce_store_owners_shippment_form() {
   );
   
   return $form;
+}
+
+function fm_commerce_store_owners_shippment_form_submit($form, &$form_state) {
+  $values = $form_state['values'];
+	drupal_set_message('The Tracking ID has been updated for order ' . $values['order_id'] );
 }
 
 /*
