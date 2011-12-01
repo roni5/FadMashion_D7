@@ -529,7 +529,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 .orders_shippment_form {width: 400px; overflow: hidden;}
 .orders_shippment_form .step1, .orders_shippment_form .step2{float: left; padding: 5px}
-.orders_shippment_form .step1 {border-right: 1px solid #ddd; float: }
+.orders_shippment_form .step1 {border-right: 1px solid #ddd; width: 130px;}
 .orders_shippment_form .step2 {width: 220px;padding-left: 10px;}
 .order_shipment_footer {text-align: center; font-style: italic; margin-top: 20px; font-size: 10px;}
 
