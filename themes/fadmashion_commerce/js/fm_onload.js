@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 		style: 'hulu',
 		postShow: function(box) { fmAdminBTPreShow();},
 	    strokeStyle: '#666666', 
-	    spikeLength: 20, spikeGirth: 10, width: 350, 
+	    spikeLength: 20, spikeGirth: 5, 
 	    overlap: 0, centerPointY: 1, cornerRadius: 0, 
 	    cssStyles: { fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', fontSize: '12px', padding: '10px 14px' }, 
 	    shadow: true, shadowColor: 'rgba(0,0,0,.5)', shadowBlur: 8, shadowOffsetX: 4, shadowOffsetY: 4 
@@ -76,11 +76,31 @@ jQuery(document).ready(function() {
 
 function fmAdminBTPreShow() {
 	clearAllForms();
-	/*jQuery('.bt-content #fm-commerce-store-owners-shippment-form').ajaxForm({
-        beforeSubmit:  formPreLoader,  // pre-submit callback 
-        success:       supportFormSuccess  // post-submit callback 
-	});*/
-    
+	fmBTResizeColorbox();
+}
+
+//Check to see if Beautytip goes outside of colorbox and resize.  
+function fmBTResizeColorbox() {
+  //height of BT canvas
+  var bt_height = jQuery('.bt-wrapper canvas').height() ; 
+  var position = jQuery('.bt-wrapper').position();
+  var bt_y = position.top;
+
+  var cb_height = jQuery('#cboxContent').height();
+  
+  
+  //if the height + positioning is bigger than box, than it is outside and needs to be resized
+  var diff = bt_y + bt_height - cb_height;
+  if(diff > 0) {
+	var theDiv = jQuery("#colorbox");
+	var totalHeight = theDiv.height();
+	totalHeight += parseInt(theDiv.css("padding-top"), 10) + parseInt(theDiv.css("padding-bottom"), 10); //Total Padding Width
+	totalHeight += parseInt(theDiv.css("margin-top"), 10) + parseInt(theDiv.css("margin-bottom"), 10); //Total Margin Width
+	totalHeight += parseInt(theDiv.css("borderTopWidth"), 10) + parseInt(theDiv.css("borderBottomWidth"), 10); //Total Border Width
+
+	console.log(totalHeight);
+	jQuery.colorbox.resize({height: totalHeight + diff + 5});
+  }
 }
 
 

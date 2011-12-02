@@ -516,6 +516,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #quicktabs-store_owners_admin #orders_header {text-align: center;  margin: 20px auto 2px;}
 #quicktabs-store_owners_admin #orders_header span {font-style: italic; color: #777}
  
+.orders_admin_wrapper {width: 270px; }
 #fm-commerce-store-owners-admin-form { overflow: hidden;}
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper{height: 100%; padding: 0px 0 1px 4px; background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:100%;line-height:26px; margin:4px 0 0; padding-left:4px; width:230px; }
 #fm-commerce-store-owners-admin-form .text-form-icon-wrapper, #fm-commerce-store-owners-admin-form .form-submit, #fm-commerce-store-owners-admin-form .form-item-mail, #lock_markup {float: left;}
@@ -532,7 +533,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .orders_shippment_form .step1 {border-right: 1px solid #ddd; width: 150px;}
 .orders_shippment_form .step2 {width: 220px;padding-left: 10px;}
 
-.orders_popup_footer {text-align: center; clear: both; font-style: italic; margin-top: 10px; font-size: 10px;}
+.orders_popup_footer {width: 250px; text-align: center; clear: both; font-style: italic; margin-top: 10px; font-size: 10px;}
 
 #lock_markup {margin: 4px 0 -4px; }
 #lock_markup img {height: 21px; opacity: .8; }
