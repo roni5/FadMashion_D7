@@ -7,6 +7,7 @@
   $order_view = commerce_order_ui_order_view($order, 'customer');
   
 ?>
+<div  class="orders_admin_wrapper">
 
 <p><?php print $store->name; ?> is preparing your shippment.  We will notify you by e-mail when your order has been shipped. </p>
 <div style="margin: 10px 0; overflow: hidden;">
@@ -22,6 +23,8 @@
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 
+
+</div>
 
 </div>
 

@@ -13,7 +13,7 @@
   $opts = fm_commerce_store_owners_shipping_company_opts();
 ?>
 
-
+<div  class="orders_admin_wrapper">
 <h2><?php print $product->title; ?> Shipped!</h2>
 <div style="margin: 10px 0; overflow: hidden;">
 <div class="image" style="float: left; width: 146px; margin-right: 10px;">
@@ -34,5 +34,5 @@
 </div>
 
 </div>
-
+</div>
 
