@@ -8,7 +8,7 @@
   
 ?>
 
-<p><?php print $store->name; ?> is preparing your shippment.  We will notify you by e-mail when your order has been shipped.  Thank you for your patience.</p>
+<p><?php print $store->name; ?> is preparing your shippment.  We will notify you by e-mail when your order has been shipped. </p>
 <div style="margin: 10px 0; overflow: hidden;">
 <div class="image" style="float: left; width: 146px; margin-right: 10px;">
 <?php print $image;?>
