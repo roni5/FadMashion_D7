@@ -42,7 +42,9 @@ jQuery(document).ready(function() {
 		contentSelector: "$('#content-' + $(this).attr('ref')).html()", 
 		trigger: ['mouseover', 'click'],
 		fill: 'white', 
-		positions: ['bottom', 'top', 'left'],
+		positions: ['bottom'],
+		clickAnywhereToClose: true,              // clicking anywhere outside of the tip will close it 
+		  closeWhenOthersOpen: true, 
 		width: "$('#content-' + $(this).attr('ref')).width();",
 		style: 'hulu',
 		postShow: function(box) { fmAdminBTPreShow();},
@@ -74,7 +76,7 @@ jQuery(document).ready(function() {
 
 function fmAdminBTPreShow() {
 	clearAllForms();
-	$.colorbox.resize();
+	jQuery.colorbox.resize();
 	/*jQuery('.bt-content #fm-commerce-store-owners-shippment-form').ajaxForm({
         beforeSubmit:  formPreLoader,  // pre-submit callback 
         success:       supportFormSuccess  // post-submit callback 
