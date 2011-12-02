@@ -253,7 +253,7 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Details', 'Status', 'Price' );
+ $header = array('Invoice', 'Status', 'Details', 'Price' );
  $hidden = '';
 	
  foreach($orders as $order) {
@@ -266,9 +266,10 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
     
     $row_info = fm_commerce_orders_row_info($order);
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
-		  '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
+		  
+		  '<div class="order-link" >' . fm_commerce_store_owners_status_link($order) . '</div>',
 		  //'<div class="order-status">' . render($order_view['commerce_customer_billing']) . '</div>',
-		  '<div class="order-link" ref="order-' . $order->order_id. '">' . fm_commerce_store_owners_status_link($order) . '</div>',  
+		    '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
 		  '<div class="sale-price">' . $row_info['sale'] . '</div>'
 		);
 		$hidden .= fm_commerce_store_owners_order_action($order);
@@ -373,31 +374,31 @@ function fm_commerce_store_owners_status_link($order) {
 
 	switch($order->status) {
 		case 'fm_orders_voided':
-			$text = '<span class="dotted-hover">Order is Void</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Order is Void</span>';
 			return $text;
 		  break;
 		case 'fm_orders_authorized':
-			$text = '<span class="dotted-hover">Authorized, Needs to be Captured</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Authorized, Needs to be Captured</span>';
 			return $text;
 		  break;
 		case 'fm_orders_captured':
-			$text = '<span class="dotted-hover">Ready to be Shipped</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Ready to be Shipped</span>';
 			return $text;
 		  break;
 		case 'fm_orders_shipped':
-			$text = '<span class="dotted-hover">Shipped, Waiting for Payment</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Shipped, Waiting for Payment</span>';
 			return $text;
 		  break;
 		case 'fm_orders_vendor_payed':
-			$text = '<span class="dotted-hover">Transaction Complete!</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Transaction Complete!</span>';
 			return $text;
 		  break;
 		case 'fm_orders_recieved':
-			$text = '<span class="dotted-hover">Customer Recieved Order</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Customer Recieved Order</span>';
 			return $text;
 		  break;
 		case 'fm_orders_returned':
-			$text = '<span class="dotted-hover">Return Request</span>';
+			$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">Return Request</span>';
 			return $text;
 		  break;
 		default:

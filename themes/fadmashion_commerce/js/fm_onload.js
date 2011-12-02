@@ -38,11 +38,11 @@ jQuery(document).ready(function() {
 	}
 	
 	//Add Store Admin - Orders Beautitps
-	jQuery('.order-link').bt({ 
+	jQuery('.order-link .dotted-hover').bt({ 
 		contentSelector: "$('#content-' + $(this).attr('ref')).html()", 
 		trigger: ['mouseover', 'click'],
 		fill: 'white', 
-		positions: ['bottom'],
+		positions: ['right', 'bottom'],
 		clickAnywhereToClose: true,              // clicking anywhere outside of the tip will close it 
 		  closeWhenOthersOpen: true, 
 		width: "$('#content-' + $(this).attr('ref')).width();",
