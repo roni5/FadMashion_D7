@@ -97,6 +97,12 @@ function fm_commerce_store_owners_theme() {
        'variables' => array('store' => NULL)
     ),
     
+    
+    'fm_commerce_store_owners_demo' => array(
+       'template' => 'fm_commerce_store_owners_demo',
+       'variables' => array('order' => NULL)
+    ),
+    
     //Order Status Popups
     'fm_commerce_store_owners_order_void' => array(
        'template' => 'fm_commerce_store_owners_order_void',
@@ -247,7 +253,11 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  $orders = fm_commerce_store_query_orders($store);
  
  if(count($orders) == 0) {
-  return '<div class="no-orders">You currently have no purchases</div>'; 	
+ //if (true) {
+  return '<div class="ownners no-orders">This shop currently doesn\'t have purchases.  
+  <a href="javascript:void(0);" onClick="jQuery(\'.ownners.no-orders\').hide(); jQuery(\'.orders-demo\').show(); jQuery.colorbox.resize()">View demo</a></div> ' .
+  '<div style="display:none;" class="orders-demo">' . theme('fm_commerce_store_owners_demo') . '</div>'; 	
+  
  }
  
  rsort($orders);

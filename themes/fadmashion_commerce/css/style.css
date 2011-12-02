@@ -535,6 +535,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 .orders_popup_footer {width: 330px; text-align: center; clear: both; font-style: italic; margin-top: 10px; font-size: 10px;}
 
+.no-orders {text-align: center; font-style: italic;margin: 15px;}
+.orders-demo {padding: 15px;}
+
 #lock_markup {margin: 4px 0 -4px; }
 #lock_markup img {height: 21px; opacity: .8; }
 .paypal_logo {height: 16px; margin: -5px 3px}
