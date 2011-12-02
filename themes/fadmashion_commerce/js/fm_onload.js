@@ -86,7 +86,7 @@ function fmBTResizeColorbox() {
   var position = jQuery('.bt-wrapper').position();
   var bt_y = position.top;
 
-  var cb_height = jQuery('#cboxContent').height();
+  var cb_height = jQuery('#cboxLoadedContent').height();
   
   
   //if the height + positioning is bigger than box, than it is outside and needs to be resized
