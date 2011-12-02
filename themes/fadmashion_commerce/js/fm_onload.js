@@ -76,7 +76,6 @@ jQuery(document).ready(function() {
 
 function fmAdminBTPreShow() {
 	clearAllForms();
-	jQuery.colorbox.resize();
 	/*jQuery('.bt-content #fm-commerce-store-owners-shippment-form').ajaxForm({
         beforeSubmit:  formPreLoader,  // pre-submit callback 
         success:       supportFormSuccess  // post-submit callback 
