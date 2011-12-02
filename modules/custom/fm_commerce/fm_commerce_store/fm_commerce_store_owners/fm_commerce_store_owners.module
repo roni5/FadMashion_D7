@@ -323,13 +323,12 @@ function fm_commerce_store_owners_shippment_form($form, $form_state, $order) {
 
 	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
-  
   $tracking_id = $order_wrapper->field_tracking_id->value();
   $tracking_company = $order_wrapper->field_tracking_company->value();
   
   $form['delivery_service'] = array(
       '#type' => 'select',
-      '#options' => $options,
+      '#options' => fm_commerce_store_owners_shipping_company_opts(),
       '#default_value' => isset($tracking_company) ? $tracking_company : 'fedex',
     );
   $form['tracking'] = array(

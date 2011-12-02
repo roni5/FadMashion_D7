@@ -15,7 +15,7 @@
                         ?>
                 </li>
                 <li><?php 
-                      $url = '/?height=700&width=620&inline=true#block-fm-users-fm-users-orders';
+                      $url = '/?width=620&inline=true#block-fm-users-fm-users-orders';
                 			print '<a title="' . t('My Orders') . '" class="colorbox-inline" href="' . $url . '">' . t('My Orders') . '</a>';
                       //print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
                 <li> <?php print l('+ Invite Friends', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 200), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends') )  ); ?></li>
