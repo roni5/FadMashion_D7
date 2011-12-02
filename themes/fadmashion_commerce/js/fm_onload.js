@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
 		contentSelector: "$('#content-' + $(this).attr('ref')).html()", 
 		trigger: ['mouseover', 'click'],
 		fill: 'white', 
-		positions: [ 'bottom', 'right'],
+		positions: [ 'left', 'bottom'],
 		clickAnywhereToClose: true,              // clicking anywhere outside of the tip will close it 
 		  closeWhenOthersOpen: true, 
 		width: "$('#content-' + $(this).attr('ref')).width();",
