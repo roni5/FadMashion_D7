@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 		style: 'hulu',
 		postShow: function(box) { fmAdminBTPreShow();},
 	    strokeStyle: '#666666', 
-	    spikeLength: 20, spikeGirth: 5, 
+	    spikeLength: 8, spikeGirth: 5, 
 	    overlap: 0, centerPointY: 1, cornerRadius: 0, 
 	    cssStyles: { fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', fontSize: '12px', padding: '10px 14px' }, 
 	    shadow: true, shadowColor: 'rgba(0,0,0,.5)', shadowBlur: 8, shadowOffsetX: 4, shadowOffsetY: 4 
@@ -98,6 +98,8 @@ function fmBTResizeColorbox() {
 	totalHeight += parseInt(theDiv.css("margin-top"), 10) + parseInt(theDiv.css("margin-bottom"), 10); //Total Margin Width
 	totalHeight += parseInt(theDiv.css("borderTopWidth"), 10) + parseInt(theDiv.css("borderBottomWidth"), 10); //Total Border Width
 
+	  console.log(bt_y + ', ' + bt_height + ', ' + cb_height);
+	  console.log(diff);
 	console.log(totalHeight);
 	jQuery.colorbox.resize({height: totalHeight + diff + 5});
   }
