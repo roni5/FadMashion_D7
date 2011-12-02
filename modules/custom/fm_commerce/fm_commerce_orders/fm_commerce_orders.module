@@ -200,7 +200,7 @@ function fm_commerce_orders_list() {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Details', 'Status', 'Price'  );
+ $header = array('Invoice', 'Details', 'Price' ,'Status' );
  $hidden = '';
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -211,8 +211,8 @@ function fm_commerce_orders_list() {
     $row_info = fm_commerce_orders_row_info($order);
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
 		  '<div class="product-title">' . $row_info['title'] . '</div>' . theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])) ,
-		  '<div class="order-link" ref="order-' . $order->order_id. '">' . fm_commerce_orders_status($order) . '</div>',  
 		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price"> (orig. '  . $row_info['retail'] . ')</div>',
+		'<div class="order-link" >' . fm_commerce_orders_status($order) . '</div>',
 		);
 		$hidden .= fm_commerce_orders_action($order);
 	}
@@ -311,7 +311,7 @@ function theme_fm_commerce_orders_extra_info($vars) {
 }
 
 function fm_commerce_orders_status($order) {
-		$text = '<span class="dotted-hover">';
+		$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">';
 
 	switch($order->status) {
 		case 'fm_orders_voided':
