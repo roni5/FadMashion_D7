@@ -268,8 +268,9 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
 		  
 		  //'<div class="order-status">' . render($order_view['commerce_customer_billing']) . '</div>',
-		    '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
+		    
 		  '<div class="sale-price">' . $row_info['sale'] . '</div>',
+		'<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
 		  '<div class="order-link" >' . fm_commerce_store_owners_status_link($order) . '</div>',
 		);
 		$hidden .= fm_commerce_store_owners_order_action($order);
