@@ -43,7 +43,9 @@
 <h3>Paypal Business E-mail:</h3>
 <strong><?php 
   $store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
-  print $store_wrapper->field_paypal_email->value(); 
+  $mail = $store_wrapper->field_paypal_email->value(); 
+  if(isset($mail)) { print $mail; }
+  else { print '<span style="color: red">No Paypal E-mail Added.  Please Add!</span>';}
 ?>
 </strong>
 <br><br>
