@@ -47,9 +47,14 @@ function fm_commerce_emails_theme() {
 
 function fm_commerce_emails_send_order_notifications($updated_status, $order) {
 	
-	
-	
-	
+	switch($updated_status) {
+		case 'fm_orders_captured':
+			fm_commerce_emails_captured($order);
+			break;
+		default:
+			break;
+	}
+
 }
 
 function fm_commerce_emails_captured($order) {
