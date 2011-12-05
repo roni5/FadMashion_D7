@@ -22,7 +22,7 @@
 <?php print $image;?>
 </div>
 
-<div style="float: left;">
+<div style="float: left; width: 335px;">
 <h2><?php print $product->title;?></h2>
 <h3>Payment Calculations:</h3>
 <?php print $payment_amount; ?>
@@ -35,7 +35,7 @@
 <div>ID #: <?php print $tracking_id;?></div>
 
 
-<div style="margin-top: 10px;" class="details">
+<div style="margin-top: 10px; width: 170px;" class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
 </div>
 </div>
