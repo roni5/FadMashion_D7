@@ -1,6 +1,10 @@
 <?php
-
+/*
+ * implement hook_theme
+ */
 function fm_commerce_emails_theme() {
+	var_dump('test');
+	exit();
 	return array(
 	  'fm_commerce_emails_user_order_confirmation' => array(
 	    'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
@@ -41,7 +45,6 @@ function fm_commerce_emails_theme() {
 	    'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
       'template' => 'fm_commerce_emails_admin_order_authorized'
      ),
-     
 	);
 }
 
@@ -120,13 +123,13 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	
 	} else if($key == 'fm_commerce_emails_store_order_confirmation') {
 		
-		$message['subject'] = 'Customer Ordered (#' . $order->order_id . ') for ' . $product->title . ' on Fadmashion.com';
+		$message['subject'] = 'Customer Ordered ' . $product->title . ' on Fadmashion.com (#' . $order->order_id . ')';
 	  $message['body'] = theme('fm_commerce_emails_store_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	} 
   else if($key == 'fm_commerce_emails_admin_order_confirmation') {
 		
-		$message['subject'] =  fm_users_fullname() .  ' Ordered (#' . $order->order_id . ') ' . $product->title . ' by ' . $shop->name;
+		$message['subject'] =  fm_users_fullname() .  ' Ordered (#' . $order->order_id . ') ' . $product->title . ' by ' . $shop->name . ' (#' . $order->order_id . ')';
 	  $message['body'] = theme('fm_commerce_emails_admin_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	}
