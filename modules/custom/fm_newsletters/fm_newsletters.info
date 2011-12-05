@@ -1,0 +1,7 @@
+; $Id: $
+name = FM Newsletter Module
+description = Defines Newsletter Themes and Code Generation
+core = 7.x
+package = Fadmashion
+dependencies[] = fm_commerce
+dependencies[] = fm_deals

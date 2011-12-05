@@ -1,0 +1,327 @@
+<?php
+
+/**
+ * Implements hook_permission().
+ */
+function fm_commerce_orders_admin_permission() {
+  return array(
+    'administer orders list' => array(
+      'title' => t('View Orders Admin List'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fm_commerce_orders_admin_menu() {
+	$items['admin/fadmashion/orders'] = array(
+    'title' => t('All Orders'), 
+    'description' => t('All the Orders'),
+    'page callback' => 'fm_commerce_orders_admin',
+    'access arguments' => array('administer orders list'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;
+}
+
+/*
+ * Implements hook_theme().
+ */
+function fm_commerce_orders_admin_theme() {
+	return array(
+	
+	
+    'fm_commerce_orders_admin_canceled' => array(
+       'template' => 'fm_commerce_orders_admin_canceled',
+       'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_admin_authorized' => array(
+       'template' => 'fm_commerce_orders_admin_authorized',
+       'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_admin_expired' => array(
+       'template' => 'fm_commerce_orders_admin_expired',
+       'variables' => array('order' => NULL)
+    ),
+    
+    //Beautytip Pop-ups for Orders Statuses on Orders block
+    'fm_commerce_orders_admin_captured' => array(
+      'template' => 'fm_commerce_orders_admin_captured',
+      'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_admin_shipped' => array(
+      'template' => 'fm_commerce_orders_admin_shipped',
+      'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_admin_incart' => array(
+      'template' => 'fm_commerce_orders_admin_incart',
+      'variables' => array('order' => NULL)
+    ),
+    'fm_commerce_orders_admin_paid' => array(
+       'template' => 'fm_commerce_orders_admin_paid',
+       'variables' => array('order' => NULL)
+    ),
+    
+  );
+}
+
+//Main Order Listing
+function fm_commerce_orders_admin() {
+	global $user;
+	//add custom css
+	drupal_add_css(drupal_get_path('module', 'fm_commerce_orders_admin') . '/fm_commerce_orders_admin.css');
+	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders_admin') . '/fm_commerce_orders_admin.js');
+	
+	//Second, load up previous orders and go through each one and update those 
+ $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_recieved','fm_orders_expired', 'fm_orders_returned', 'fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'canceled', 'fm_orders_authorized')));
+ 
+ if(count($orders) == 0) {
+  return '<div class="no-orders">This shop currently doesn\'t have purchases. </div>';
+ }
+ 
+ $items = array('Filter By Order Status:',
+ 							   '<a class="all selected" href="javascript:void(0)">All</a>',
+                 '<a class="admin-action-needed"   href="javascript:void(0)">Admin Action Needed</a>', 
+                 '<a class="designer-action-needed" href="javascript:void(0)">Designer Action Needed</a>',
+                 '<a class="admin-noaction-completed"  href="javascript:void(0)">Successful Transaction</a>',
+                 '<a class="customer-cart"  href="javascript:void(0)">Cart</a>',
+                 '<a class="admin-noaction-void"  href="javascript:void(0)">Canceled/Expired/Void</a>',
+          );
+ 
+ $filter_options = theme('item_list', array('items' => $items, 'attributes' => array('class' => array('orders-filter-list') ) ));
+ 
+ rsort($orders);
+ 
+ $rows = array();
+ $header = array('Invoice', 'Date', 'Customer', 'Designer Shop', 'Details','Status' );
+ $hidden = '';
+ foreach($orders as $order) {
+ 	  $order_user = user_load($order->uid);
+ 	  
+		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+		
+ 	  $total = $order_wrapper->commerce_order_total->value();
+    $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
+    
+    $product = fm_commerce_get_order_product($order);
+    $store = fm_commerce_get_store($product);
+  
+    $row_info = fm_commerce_orders_row_info($order);
+    $css_class = fm_commerce_orders_admin_status_grouping($order);
+    
+		$rows[] = array('data' => array('<div class="order-number">#' . l($order->order_id, 'admin/commerce/orders/' . $order->order_id) . '</div>',
+		                          '<div class="order-date">' . format_date($order->created, 'custom', 'M j Y, g:ia') . '</div>',
+		                          '<span ref="order-user-' . $order->uid. '" class="dotted-hover customer-name">' . fm_users_fullname($order->uid) . '</span>', 
+		                          '<span ref="order-store-' . $store->store_id. '" class="dotted-hover store-name">' . $store->name . '</span>',
+		                          '<div class="product-title">' . $row_info['title'] . '</div>' . theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])) ,
+		                          '<div class="order-link" >' . fm_commerce_orders_admin_status($order) . '</div>',
+		                           ),
+		                'class' => array($css_class)
+		);
+		
+		$hidden .= fm_commerce_orders_admin_user($order->uid);
+		$hidden .= fm_commerce_orders_admin_store($store);
+		$hidden .= fm_commerce_orders_admin_action($order);
+	}
+	
+	$div = '<div class="orders-admin-table">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) . '</div>';
+	$div .= '<div style="display:none">' . $hidden .'</div>';
+	return $filter_options . $div;
+}
+
+//Return the class name for the grouping
+function fm_commerce_orders_admin_status_grouping($order) {
+	$css_class = '';
+	
+	switch($order->status) {
+		case 'fm_orders_voided':
+		case 'canceled':
+		case 'fm_orders_expired':
+			$css_class .= 'admin-noaction-void';
+		  break;
+		case 'fm_orders_vendor_paid':
+			$css_class .= 'admin-noaction-completed';
+		  break;
+		case 'fm_orders_shipped':
+		case 'fm_orders_authorized':
+			$css_class .= 'admin-action-needed';
+		  break;
+		case 'fm_orders_captured':
+			$css_class .= 'designer-action-needed';
+		  break;
+		case 'cart':
+			$css_class .= 'customer-cart';
+		  break;
+		default:
+			$css_class .= 'admin-other';
+		  break;
+	}
+	return $css_class;
+}
+
+function fm_commerce_orders_admin_status($order) {
+	$text = '<span ref="order-' . $order->order_id. '" class="dotted-hover">';
+
+	switch($order->status) {
+		case 'fm_orders_voided':
+			$text .= 'Order is Void';
+		  break;
+		case 'canceled':
+			$text .= 'Order is Canceled';
+		  break;
+		case 'fm_orders_authorized':
+			$text .= 'Authorized, Needs to be Captured';
+		  break;
+		case 'fm_orders_captured':
+			$text .= 'Customer Paid, Waiting for Designer Shipping';
+		  break;
+		case 'fm_orders_shipped':
+			$text .= 'Shipped, Need to Confirm and Pay Vendor';
+		  break;
+		case 'fm_orders_vendor_paid':
+			$text .= 'Vendor Paid, Transaction Complete';
+		  break;
+		case 'fm_orders_recieved':
+			$text .= 'Customer Recieved Order';
+		  break;
+		case 'fm_orders_returned':
+			$text .= 'Customer Requested Return';
+		  break;
+		case 'fm_orders_expired':
+			$text .= 'In Cart But No Checkout (Deal Expired)';
+			break;
+		case 'cart':
+			$text .= 'In Customer Cart';
+		  break;
+		default:
+			$text .= '';
+		  break;
+	}
+	$text .= '</span>';
+	
+	return $text;
+}
+
+function fm_commerce_orders_admin_user($uid) {
+	$user_load = user_load($uid);
+	$output = '<div id="content-order-user-' . $uid . '">';
+	$output .= '<div class="content-wrapper">';
+	$output .= '' . fm_users_firstname($uid) . ' at <a href="mailto: '. $user_load->mail . '">' . $user_load->mail . '</a>';
+	$output .= '</div>';
+	$output .= '</div>';
+	
+	return $output;
+}
+
+function fm_commerce_orders_admin_store($store) {
+	$designer_user = fm_commerce_store_owners_get_user($store);
+	
+	
+	$output = '<div id="content-order-store-' . $store->store_id . '">';
+	$output .= '<div class="orders_admin_wrapper ">';
+	if($designer_user) {
+		$output .= 'Store Owner, ' . fm_users_fullname($designer_user->uid) . ' at <a href="mailto: '. $designer_user->mail . '">' . $designer_user->mail . '</a>';
+	} else {
+		$output .= '<span style="color: red;">There is no Designer User setup for this store. </span>' 
+		. l('Add Designer to Shop!', 'admin/commerce/stores/' . $store->store_id . '/edit', array('query' => array('destination' => 'admin/fadmashion/orders') ));
+	}
+	$output .= '</div>';
+	$output .= '</div>';
+	
+	return $output;
+}
+
+function fm_commerce_orders_admin_action($order) {
+	$output = '<div id="content-order-' . $order->order_id. '">';
+	
+	switch ($order->status) {
+		case 'fm_orders_voided':
+			$output .= theme('fm_commerce_store_owners_order_void', array('order' => $order));
+			break;
+		case 'fm_orders_captured':
+		  $output .= theme('fm_commerce_orders_admin_captured', array('order' => $order));
+		  break;
+		case 'fm_orders_authorized':
+			$output .= theme('fm_commerce_orders_admin_authorized', array('order' => $order));
+			break;
+		case 'fm_orders_expired':
+			$output .= theme('fm_commerce_orders_admin_expired', array('order' => $order));
+			break;
+		case 'fm_orders_shipped':
+			$output .= theme('fm_commerce_orders_admin_shipped', array('order' => $order));
+			break;
+	  case 'fm_orders_vendor_paid':
+			$output .= theme('fm_commerce_orders_admin_paid', array('order' => $order));
+			break;
+		default:
+			$output .= theme('fm_commerce_orders_footer', array('no_margin' => true));
+			break;
+	}
+	
+	$output .= '</div>';
+	return $output;
+}
+
+//Authorized Form and Submit Functions
+function fm_commerce_orders_admin_paid_form($form_val, $form_state, $order) {
+	
+  $form['order_id'] = array('#type' => 'value', '#value' => $order->order_id);
+    
+  $form['paid_submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Comfirm Paypal Payment'),
+    '#attributes' => array('class' => array('red')),
+     '#submit' => array('fm_commerce_orders_admin_paid_submit'),
+  );
+  return $form;
+}
+
+function fm_commerce_orders_admin_paid_submit($form, $form_state) {
+	$values = $form_state['values'];
+	$order_id = $values['order_id'];
+	$order = commerce_order_load($order_id);
+	
+	commerce_order_status_update($order, 'fm_orders_vendor_paid');
+	
+	drupal_set_message('Order #' . $order_id . ' Has Been Set to Paid.');
+}
+
+
+//Authorized Form and Submit Functions
+function fm_commerce_orders_admin_authorized_actions_form($form_val, $form_state, $order) {
+	
+  $form['order_id'] = array('#type' => 'value', '#value' => $order->order_id);
+    
+  $form['capture_submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Capture'),
+    '#attributes' => array('class' => array('red')),
+     '#submit' => array('fm_commerce_orders_admin_capture'),
+  );
+  $form['void_submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Void'),
+    '#submit' => array('fm_commerce_orders_admin_void'),
+  );
+  
+  return $form;
+}
+
+/*
+ * Submit Capture Action
+ */
+function fm_commerce_orders_admin_capture($form, $form_state) {
+	$values = $form_state['values'];
+	$order_id = $values['values'];
+	fm_commerce_paypal_wpp_capture($order_id);
+}
+/*
+ * Submit Void Action
+ */
+function fm_commerce_orders_admin_void($form, $form_state) {
+	$values = $form_state['values'];
+	$order_id = $values['values'];
+	fm_commerce_paypal_wpp_void($order_id);
+}

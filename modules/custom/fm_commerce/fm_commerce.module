@@ -381,3 +381,26 @@ function fm_commerce_product_image_thumb($product, $image_style, $attributes = a
 
 
 
+
+function ago($timestamp, $pre_text = '') {
+	  $interval = date('U') - $timestamp;
+    $hour = 60*60;
+    $day = 24*$hour;
+    $time_ago = $pre_text;
+    if ($interval < $hour) {
+      $time_ago .= t("a few moments ago");
+    }
+    elseif ($interval < $day) {
+      $time_ago .= t("today");
+    }
+    elseif ($interval < 2*$day) {
+      $time_ago .= t("yesterday");
+    }
+    else {
+      $time_ago .= format_interval($interval, 1) . t(' ago');
+    }
+    return $time_ago;
+	
+}
+
+

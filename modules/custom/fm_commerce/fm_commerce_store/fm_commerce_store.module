@@ -35,6 +35,10 @@ function fm_commerce_store_theme() {
     'fm_commerce_store_hover' => array(
       'variables' => array('store' => NULL),
       'template' => 'fm_commerce_store_hover'
+    ),
+    'fm_commerce_store_commission_breakdown' => array(
+      'variables' => array('before_commission' => array(), 'commission' => array(), 'after_commission' => array(), 'total_payment' =>  array() ),
+      'template' => 'fm_commerce_store_commission_breakdown'
     )
   );
 }
@@ -475,7 +479,7 @@ function fm_commerce_store_get_products($store) {
 /*
  * Get all the orders for this store
  */
-function fm_commerce_store_query_orders($store, $status = array('fm_orders_authorized', 'fm_orders_voided', 'fm_orders_captured', 'fm_orders_shipped', 'fm_orders_vendor_payed', 'fm_orders_recieved', 'fm_orders_returned')) {
+function fm_commerce_store_query_orders($store, $status = array('fm_orders_authorized', 'fm_orders_voided', 'fm_orders_captured', 'fm_orders_shipped', 'fm_orders_vendor_paid', 'fm_orders_recieved', 'fm_orders_returned')) {
 	$products = fm_commerce_store_get_products($store);
 	$pids = array_keys($products);
 	if(!count($pids)) {
@@ -503,5 +507,108 @@ function fm_commerce_store_query_orders($store, $status = array('fm_orders_autho
 	}
 	
 	return $orders;    
+}
+
+
+/*
+ * Function to return the amount of payment we need to make to 
+ */
+function fm_commerce_store_order_display_commission($order, $store) {
+	$values = _fm_commerce_store_order_commission_values($order, $store);
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  
+  //Calculations
+  $commission_val = $values['commission_val'];
+  $after_commission_val = $values['after_commission_val'];
+  $plus_after_commissions_val = $values['plus_after_commissions_val'];
+  
+  //Formatted values of Calculations
+  $sub_total_formatted = commerce_currency_format($sub_total, $total['currency_code'], NULL, true);
+  $commission_formatted = commerce_currency_format($commission_val, $total['currency_code'], NULL, true);
+  $after_commission_formatted = commerce_currency_format($after_commission_val, $total['currency_code'], NULL, true);
+  $plus_after_commissions_formatted = commerce_currency_format($plus_after_commissions_val, $total['currency_code'], NULL, true);
+  
+  $commission['sub-total'] = array('price' => $sub_total_formatted);
+  $commission['commission'] = array('title' => 'Commission', 'price' => $sub_total_formatted . ' x '. $commission_pct . ' = -<span>' . $commission_formatted . '</span>');
+  $commission['after_commission'] = array('title' => 'After commission', 'price' => $after_commission_formatted);
+  
+  $price = commerce_currency_format($total['amount'], $total['currency_code']);
+  $totals[] = theme('fm_commerce_orders_totals_summary', array('title' => 'Total Payment to Designer', 'price' => '<span>' . $plus_after_commissions_formatted . '</span>', 'extra_classes' => 'total'));
+  
+  $output = theme('fm_commerce_store_commission_breakdown', 
+             array('before_commission' => $before_commission, 
+                   'commission' => $commission, 
+                   'after_commission' => $after_commission, 
+                   'total_payment' => $totals)
+             );
+  return $output;
+}
+
+function fm_commerce_store_order_payout_value($order, $store) {
+  $values = _fm_commerce_store_order_commission_values($order, $store);
+  $plus_after_commissions_val = $values['plus_after_commissions_val'];
+  return $plus_after_commissions_val;
+}
+
+function fm_commerce_store_order_commission_value($order, $store) {
+  $values = _fm_commerce_store_order_commission_values($order, $store);
+  $commission_val = $values['commission_val'];
+  return $commission_val;
+}
+
+/* 
+ * Get the value of the balance to FM of the entire shop 
+ */
+function fm_commerce_store_balance_value($store) {
+	$orders = fm_commerce_store_query_orders($store, array('fm_orders_shipped'));
+	$balance = 0;
+	foreach($orders as $order) {
+		 $payout = fm_commerce_store_order_payout_value($order, $store);
+		 $balance += $payout;
+	}
+	return $balance;
+}
+
+function _fm_commerce_store_order_commission_values($order, $store) {
+  $store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
+  $commission_pct = floatval($store_wrapper->field_fm_commission->value());
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  
+  $before_commission = array();
+  $commission = array();  //This is a different format because there are display calculations
+  $after_commission = array();
+  $totals = array();
+  $sub_total = 0;
+  $post_total = 0;
+  foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+  
+  	switch ($line_item_wrapper->type->value()) {
+  		case 'product':
+  		case 'deals_discount':
+       $before_commission[] = fm_commerce_orders_totals_summary($line_item_wrapper);
+       
+       $price = $line_item_wrapper->commerce_total->value();
+       $sub_total += $price['amount'];
+       break;
+  		case 'shipping' :
+  			$after_commission[] = fm_commerce_orders_totals_summary($line_item_wrapper); 
+  			$price = $line_item_wrapper->commerce_total->value();
+        $post_total += $price['amount'];
+  			break;
+  		default:
+  			break;
+  	}
+  }
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  
+  //Calculations
+  $commission_val = $commission_pct * $sub_total;
+  $after_commission_val = $sub_total - $commission_val;
+  $plus_after_commissions_val = $after_commission_val + $post_total;
+  
+  return array('commission_val' => $commission_val, 'after_commission_val' => $after_commission_val, 'plus_after_commissions_val' => $plus_after_commissions_val);
 }
 

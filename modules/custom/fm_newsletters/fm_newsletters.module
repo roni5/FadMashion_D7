@@ -1,0 +1,9 @@
+<?php
+
+function fm_newsletters_menu() {
+	
+}
+
+function fm_newsletters_generate() {
+	
+}

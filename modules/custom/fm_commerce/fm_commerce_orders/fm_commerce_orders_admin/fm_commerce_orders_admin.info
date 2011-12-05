@@ -1,0 +1,8 @@
+; $Id: $
+name = Fadmashion orders Admin
+description = Orders Summary Page for Admin
+core = 7.x
+package = Fadmashion
+
+
+dependencies[] = commerce

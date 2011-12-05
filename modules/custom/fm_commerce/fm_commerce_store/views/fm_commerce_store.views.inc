@@ -57,6 +57,25 @@ function fm_commerce_store_views_data() {
       'handler' => 'views_handler_argument_string',
     ),
   );
+  
+  // Expose the Store Owner.
+  $data['fm_commerce_store']['owner'] = array(
+    'title' => t('Store Owner'),
+    'help' => t('Link to the Owner of the store.'),
+    'field' => array(
+      'handler' => 'fm_commerce_store_handler_field_owner_link',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
 
   // Expose the creator uid.
   $data['fm_commerce_store']['uid'] = array(
@@ -107,7 +126,23 @@ function fm_commerce_store_views_data() {
     ),
   );
   
-  // Expose links to operate on the product.
+  // Expose the created and changed timestamps.
+  $data['fm_commerce_store']['balance'] = array(
+    'title' => t('Shop Balance'),
+    'help' => t('The Balance Owed to This Shop.'),
+    'field' => array(
+      'handler' => 'fm_commerce_store_handler_field_store_balance',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
+  
+  // Expose links to operate on the store.
   $data['fm_commerce_store']['view_store'] = array(
     'field' => array(
       'title' => t('Link'),
@@ -135,6 +170,14 @@ function fm_commerce_store_views_data() {
       'title' => t('Operations links'),
       'help' => t('Display all the available operations links for the Store.'),
       'handler' => 'fm_commerce_store_handler_field_store_link_operations',
+    ),
+  );
+  
+  $data['fm_commerce_store']['delete_store'] = array(
+    'field' => array(
+      'title' => t('Delete link'),
+      'help' => t('Provide a simple link to delete the Store.'),
+      'handler' => 'fm_commerce_store_handler_field_store_link_delete',
     ),
   );
 

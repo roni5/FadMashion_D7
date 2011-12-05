@@ -99,8 +99,8 @@ function fm_commerce_orders_commerce_order_status_info() {
     'title' => t('Order Shipped'),
     'state' => 'deal',
   );
-  $order_statuses['fm_orders_vendor_payed'] = array(
-    'name' => 'fm_orders_vendor_payed',
+  $order_statuses['fm_orders_vendor_paid'] = array(
+    'name' => 'fm_orders_vendor_paid',
     'title' => t('Vendor Payed'),
     'state' => 'deal',
   );
@@ -111,7 +111,12 @@ function fm_commerce_orders_commerce_order_status_info() {
   );
   $order_statuses['fm_orders_returned'] = array(
     'name' => 'fm_orders_returned',
-    'title' => t('Items requested returned by Customer'),
+    'title' => t('Customer Wants to Return'),
+    'state' => 'deal',
+  );
+  $order_statuses['fm_orders_refund'] = array(
+    'name' => 'fm_orders_refund',
+    'title' => t('Customer Refunded Money'),
     'state' => 'deal',
   );
   
@@ -196,7 +201,7 @@ function fm_commerce_orders_list() {
 	global $user;
 	
 	//Second, load up previous orders and go through each one and update those 
- $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_vendor_payed', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
+ $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
   return '<div class="customer no-orders">This shop currently doesn\'t have purchases.  
@@ -241,7 +246,7 @@ function fm_commerce_orders_action($order) {
 		  $output .= theme('fm_commerce_orders_footer');
 		  break;
 		case 'fm_orders_shipped':
-		case 'fm_orders_vendor_payed':
+		case 'fm_orders_vendor_paid':
 			$output .= theme('fm_commerce_orders_shipped', array('order' => $order));
 			break;
 		default:
@@ -331,7 +336,7 @@ function fm_commerce_orders_status($order) {
 			$text .= 'Preparing for Shippment';
 		  break;
 		case 'fm_orders_shipped':
-		case 'fm_orders_vendor_payed':
+		case 'fm_orders_vendor_paid':
 			$text .= 'Shipped!';
 		  break;
 		case 'fm_orders_recieved':
@@ -377,6 +382,11 @@ function fm_commerce_orders_totals_summary($line_item_wrapper) {
 	$price = commerce_currency_format($price['amount'], $price['currency_code']);
 	
 	switch($type) {
+		case 'product':
+			$product = $line_item_wrapper->commerce_product->value();
+	    $title = $product->title;
+			$classes = array('product');
+			break;
 		case 'shipping':
 			$title = t('Shipping');
 			$classes = array('shipping');

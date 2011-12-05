@@ -1,4 +1,4 @@
-<p style="font-style:italic; text-align: center; color: #B83838;"> Track your orders with ease. Check out some examples.</p>
+<p style="font-style:italic; text-align: center; color: #B83838;"> Track your orders with ease. Below are EXAMPLE orders.</p>
 
 <!-- COPY RAW HTML BELOW HERE -->
 

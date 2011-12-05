@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+.orders-filter-list {list-style-type: none !important; margin: 10px 0px !important; padding-bottom: 10px; border}
+.orders-filter-list li {border-bottom: 1px dotted #0f6da3; display: inline !important; padding-right: 10px !important; border-right: 1px solid #000;}
+.orders-filter-list li a.admin-action-needed{color: red;}
+.orders-filter-list li a.selected{font-weight: bold;}
+.dotted-hover{border-bottom: 1px dotted #0f6da3; cursor: pointer;font-family: Georgia, "Times New Roman", Times, serif; font-style: italic; text-decoration:none; color: #0f6da3; font-size: 12px;}
+
+.orders_admin_wrapper {width: 330px; }
+
+.commission-details .col1{float: left; width: 200px;}
+.commission-details .col2{float: right;}
+.commission-details  .commission, .commission-details .after-commission {clear: both; border-top: 1px solid #666;}
+.sub-total {height: 20px;}
+.commission-details  .commission-val span, .commission-details  .total-payments span{font-weight: bold}
+.total-payments span {font-size: 16px; }
