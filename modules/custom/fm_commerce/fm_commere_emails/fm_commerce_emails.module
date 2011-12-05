@@ -110,9 +110,6 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	$product = $params['product'];
 	$shop = $params['shop'];
 	
-	var_dump($key);
-	exit();
-	
 	$image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
 	
 	if($key == 'fm_commerce_emails_user_order_confirmation') {
