@@ -5,6 +5,10 @@
 
 jQuery(document).ready(function() {
  
+	//Default Shoing
+	jQuery('.orders-admin-table tbody tr').hide();
+    jQuery('.orders-admin-table .admin-action-needed').show();
+    
 	jQuery('.orders-filter-list li a').click(function() {
 		  var filterClass = jQuery(this).attr('class');
 		  if(filterClass == 'all') {
@@ -13,17 +17,15 @@ jQuery(document).ready(function() {
 	        jQuery('.orders-admin-table tbody tr').hide();
 	        jQuery('.orders-admin-table .' + filterClass).show();
 		  }
-		  
-
-			jQuery('.orders-filter-list li a').removeClass('selected');
-			jQuery(this).addClass('selected'); 
+		  jQuery('.orders-filter-list li a').css('font-weight', 'normal');
+		  jQuery(this).css('font-weight', 'bold'); 
 	});
 	
 	jQuery('.orders-filter-list li a').each(function() {
 		var filterClass = jQuery(this).attr('class');
 		var count = 0;
 		if(filterClass == 'all') {
-			jQuery('.orders-admin-table tr').each(function() { 
+			jQuery('.orders-admin-table tbody tr').each(function() { 
 			    count++;
 			  });
 		} else {

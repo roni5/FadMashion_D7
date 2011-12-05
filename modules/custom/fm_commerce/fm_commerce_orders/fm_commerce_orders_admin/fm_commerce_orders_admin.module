@@ -85,12 +85,12 @@ function fm_commerce_orders_admin() {
  }
  
  $items = array('Filter By Order Status:',
- 							   '<a class="all selected" href="javascript:void(0)">All</a>',
-                 '<a class="admin-action-needed"   href="javascript:void(0)">Admin Action Needed</a>', 
+                 '<a style="font-weight: bold" class="admin-action-needed" href="javascript:void(0)">Admin Action Needed</a>', 
                  '<a class="designer-action-needed" href="javascript:void(0)">Designer Action Needed</a>',
                  '<a class="admin-noaction-completed"  href="javascript:void(0)">Successful Transaction</a>',
                  '<a class="customer-cart"  href="javascript:void(0)">Cart</a>',
                  '<a class="admin-noaction-void"  href="javascript:void(0)">Canceled/Expired/Void</a>',
+ 							   '<a class="all" href="javascript:void(0)">All</a>',
           );
  
  $filter_options = theme('item_list', array('items' => $items, 'attributes' => array('class' => array('orders-filter-list') ) ));
