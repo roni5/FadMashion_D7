@@ -25,7 +25,7 @@
 </div>
 
 <div class="step2">
-<h2>Step #2: Get Payed!</h2>
+<h2>Step #2: Get Paid!</h2>
 <p>Enter your shipping confirmation number, so we can verify and release payment</p>
 <?php print render(drupal_get_form('fm_commerce_store_owners_shippment_form', $order)); ?>
 </div>

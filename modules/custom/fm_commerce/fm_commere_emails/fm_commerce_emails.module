@@ -61,13 +61,13 @@ function fm_commerce_emails_captured($order) {
   global $user;
 	$product = fm_commerce_get_order_product($order);
 	$shop = fm_commerce_get_store($product);
-	$store_owner = fm_commerce_store_owners_get_user($store);
+	$store_owner = fm_commerce_store_owners_get_user($shop);
 	
 	$email = variable_get('site_mail', 'admin@fadmashion.com');
 	 
 	//send to user
 	$params = array(
-	  'order' => $order, 'product' => $product,  'shop' => $store
+	  'order' => $order, 'product' => $product,  'shop' => $shop
   );
   drupal_mail(
       'fm_commerce_emails',
