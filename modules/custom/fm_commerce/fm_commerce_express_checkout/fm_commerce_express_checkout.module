@@ -297,53 +297,18 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 	//Settings is captured
 	if($payment_method['settings']['txn_type'] == 'authorize') {
 		$order = commerce_order_status_update($order, 'fm_orders_authorized');
+		fm_commerce_emails_send_order_notifications('fm_orders_authorized', $order);
 	} else {
 	  $order = commerce_order_status_update($order, 'fm_orders_captured');
+	  fm_commerce_emails_send_order_notifications('fm_orders_captured', $order);
 	}
 	
 	commerce_checkout_complete($order);
 	
-	$params = array(
-    'subject' => 'Order Confirmation #' . $order->order_id,
-	  'order' => $order
-  );
-  
-  $email = variable_get('site_mail', 'admin@fadmashion.com');
-  global $user;
-	drupal_mail(
-      'fm_commerce_express_checkout',
-      'order_confirmation',
-      $user->mail,
-      language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
-   ); 
-  
   //Redirect here
   drupal_goto('express-checkout/confirmation', array('query' => array('order-id' => $order->order_id) ));
 	
 
-}
-
-/**
- * Implements hook_mail().
- */
-function fm_commerce_express_checkout_mail($key, &$message, $params) {
-	$message['module'] = 'fm_commerce_express_checkout';
-	$message['key'] = $key;
-	$order = $params['order'];
-	
-	$product = fm_commerce_get_order_product($order);
-	$shop = fm_commerce_get_store($product);
-	
-	$message['subject'] = $params['subject'] . ': ' . $product->title ;
-	
-  $image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
-
-	$message['body'] = theme('fm_commerce_express_checkout_confirmation_mail', 
-	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
-
-  return $message;
 }
 
 
@@ -483,10 +448,6 @@ function fm_commerce_express_checkout_theme($variables)
         'fm_commerce_express_checkout_confirmation' => array(
 	        'variables' => array('order' => NULL, 'product_line_items' => NULL, 'totals_line_items' => NULL),
           'template' => 'fm_commerce_express_checkout_confirmation'
-        ),
-        'fm_commerce_express_checkout_confirmation_mail' => array(
-	        'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
-          'template' => 'fm_commerce_express_checkout_confirmation_mail'
         ),
     );
 }

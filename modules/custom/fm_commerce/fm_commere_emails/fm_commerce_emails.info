@@ -1,0 +1,7 @@
+; $Id: $
+name = Fadmashion Commerce Emails
+description = Email Templates for Order Confirmations
+core = 7.x
+package = Fadmashion
+
+dependencies[] = commerce
