@@ -114,19 +114,19 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	
 	if($key == 'fm_commerce_emails_user_order_confirmation') {
 	
-	  $message['subject'] =  $product->title ;
+	  $message['subject'] =  'Order #' . $order->order_id . ': ' . $product->title . ' by ' . $shop->name;
 	  $message['body'] = theme('fm_commerce_emails_user_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	
 	} else if($key == 'fm_commerce_emails_store_order_confirmation') {
 		
-		$message['subject'] = $product->title ;
+		$message['subject'] = 'Customer Ordered (#' . $order->order_id . ') for ' . $product->title . ' on Fadmashion.com';
 	  $message['body'] = theme('fm_commerce_emails_store_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	} 
   else if($key == 'fm_commerce_emails_admin_order_confirmation') {
 		
-		$message['subject'] =  $product->title ;
+		$message['subject'] =  fm_users_fullname() .  ' Ordered (#' . $order->order_id . ') ' . $product->title . ' by ' . $shop->name;
 	  $message['body'] = theme('fm_commerce_emails_admin_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	}

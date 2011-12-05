@@ -1,1 +1,1 @@
-<?php
+order confirmation - store
