@@ -91,7 +91,7 @@ function fm_commerce_emails_captured($order) {
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_admin_order_confirmation',
-      $email,
+      'misternyce@gmail.com', //$email,
       language_default(),
       $params,
       'Fadmashion Orders <' . $email . '> '
