@@ -3,8 +3,6 @@
  * implement hook_theme
  */
 function fm_commerce_emails_theme() {
-	var_dump('test');
-	exit();
 	return array(
 	  'fm_commerce_emails_user_order_confirmation' => array(
 	    'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
@@ -65,6 +63,11 @@ function fm_commerce_emails_captured($order) {
 	$product = fm_commerce_get_order_product($order);
 	$shop = fm_commerce_get_store($product);
 	$store_owner = fm_commerce_store_owners_get_user($shop);
+	
+	$test = theme('fm_commerce_emails_user_order_confirmation', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => '') );
+
+	var_dump($test);
 	
 	$email = variable_get('site_mail', 'admin@fadmashion.com');
 	 
@@ -133,6 +136,9 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	  $message['body'] = theme('fm_commerce_emails_admin_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	}
+	
+	var_dump($message['body']);
+	exit();
 	
   return $message;
 }
