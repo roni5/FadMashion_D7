@@ -519,6 +519,10 @@ function fm_commerce_store_order_display_commission($order, $store) {
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   $total = $order_wrapper->commerce_order_total->value();
   
+  $before_commission = $values['before_commission'];
+  $after_commission = $values['after_commission'];
+  $sub_total = $values['sub_total'];
+  
   //Calculations
   $commission_val = $values['commission_val'];
   $after_commission_val = $values['after_commission_val'];
@@ -610,6 +614,8 @@ function _fm_commerce_store_order_commission_values($order, $store) {
   $after_commission_val = $sub_total - $commission_val;
   $plus_after_commissions_val = $after_commission_val + $post_total;
   
-  return array('commission_val' => $commission_val, 'after_commission_val' => $after_commission_val, 'plus_after_commissions_val' => $plus_after_commissions_val);
+  return array('before_commission' => $before_commission, 'after_commission' => $after_commission,
+              'sub_total' => $sub_total, 'post_total' => $post_total, 
+              'commission_val' => $commission_val, 'after_commission_val' => $after_commission_val, 'plus_after_commissions_val' => $plus_after_commissions_val);
 }
 
