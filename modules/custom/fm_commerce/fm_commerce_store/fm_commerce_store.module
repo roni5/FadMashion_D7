@@ -516,6 +516,7 @@ function fm_commerce_store_query_orders($store, $status = array('fm_orders_autho
 function fm_commerce_store_order_display_commission($order, $store) {
 	$values = _fm_commerce_store_order_commission_values($order, $store);
   
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   $total = $order_wrapper->commerce_order_total->value();
   
   //Calculations
