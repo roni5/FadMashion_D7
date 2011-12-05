@@ -19,7 +19,7 @@
 
 <div style="float: left; width: 170px;">
 <h3><?php print $product->title?></h3>
-<p>Possibly contact <?php print fm_users_firstname($uid); ?> at <a href="mailto:<?php print $user->mail ?>"><?php print $user->mail;?></a> to ask why</p>
+<p>Possibly contact <?php print fm_users_firstname(); ?> at <a href="mailto:<?php print $user->mail ?>"><?php print $user->mail;?></a> to ask why</p>
 
 </div>
 </div>

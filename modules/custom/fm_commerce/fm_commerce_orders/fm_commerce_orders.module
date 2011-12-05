@@ -284,8 +284,8 @@ function fm_commerce_orders_row_info($order) {
            $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']);
            $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
          }*/
-         $sale_price = commerce_currency_format(0, $node->field_sale_price['und'][0]['currency_code']);
-         $diff = commerce_currency_format(0, $node->field_sale_price['und'][0]['currency_code']);
+         $sale_price = commerce_currency_format(0, 'USD');
+         $diff = commerce_currency_format(0, 'USD');
          
          $color = $line_item_wrapper->field_order_color->value();
          $size = $line_item_wrapper->field_order_size->value();
