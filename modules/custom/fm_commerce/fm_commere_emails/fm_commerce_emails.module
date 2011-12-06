@@ -28,7 +28,7 @@ function fm_commerce_emails_theme() {
 	    'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
       'template' => 'fm_commerce_emails_admin_order_shipped'
      ),
-    'fm_commerce_emails_designer_order_vendor_paid' => array(
+    'fm_commerce_emails_store_order_vendor_paid' => array(
 	    'variables' => array('order' => NULL,  'product' => NULL, 'shop' => NULL, 'thumb' => NULL),
       'template' => 'fm_commerce_emails_designer_order_vendor_paid'
      ),
@@ -52,10 +52,79 @@ function fm_commerce_emails_send_order_notifications($updated_status, $order) {
 		case 'fm_orders_captured':
 			fm_commerce_emails_captured($order);
 			break;
+	  case 'fm_orders_shipped':
+			fm_commerce_emails_shipped($order);
+			break;
+	  case 'fm_orders_vendor_paid':
+			fm_commerce_emails_paid($order);
+			break;
 		default:
 			break;
 	}
 
+}
+
+function fm_commerce_emails_paid($order) {
+	$product = fm_commerce_get_order_product($order);
+	$shop = fm_commerce_get_store($product);
+	$store_owner = fm_commerce_store_owners_get_user($shop);
+	$customer = user_load($order->uid);
+	
+	$email = variable_get('site_mail', 'admin@fadmashion.com');
+	
+	//send to user
+	$params = array(
+	  'order' => $order, 'product' => $product,  'shop' => $shop
+  );
+  drupal_mail(
+      'fm_commerce_emails',
+      'fm_commerce_emails_user_order_shipped',
+      $customer->mail,
+      language_default(),
+      $params,
+      'Fadmashion <' . $email . '> '
+    );
+  drupal_mail(
+      'fm_commerce_emails',
+      'fm_commerce_emails_store_order_vendor_paid',
+      $store_owner->mail,
+      language_default(),
+      $params,
+      'Fadmashion <' . $email . '> '
+    );
+}
+
+function fm_commerce_emails_shipped($order) {
+	$product = fm_commerce_get_order_product($order);
+	$shop = fm_commerce_get_store($product);
+	$store_owner = fm_commerce_store_owners_get_user($shop);
+	
+	$email = variable_get('site_mail', 'admin@fadmashion.com');
+	
+	//send to user
+	$params = array(
+	  'order' => $order, 'product' => $product,  'shop' => $shop
+  );
+  
+  //send to designer
+  drupal_mail(
+      'fm_commerce_emails',
+      'fm_commerce_emails_store_order_shipped',
+      $store_owner->mail,
+      language_default(),
+      $params,
+      'Fadmashion <' . $email . '> '
+   ); 
+
+   //send to Admin
+  drupal_mail(
+      'fm_commerce_emails',
+      'fm_commerce_emails_admin_order_shipped',
+      'misternyce@gmail.com', //$email,
+      language_default(),
+      $params,
+      'Fadmashion Orders <' . $email . '> '
+   );  
 }
 
 function fm_commerce_emails_captured($order) {
@@ -63,6 +132,7 @@ function fm_commerce_emails_captured($order) {
 	$product = fm_commerce_get_order_product($order);
 	$shop = fm_commerce_get_store($product);
 	$store_owner = fm_commerce_store_owners_get_user($shop);
+	$customer = user_load($order->uid);
 	
 	$email = variable_get('site_mail', 'admin@fadmashion.com');
 	 
@@ -73,7 +143,7 @@ function fm_commerce_emails_captured($order) {
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_user_order_confirmation',
-      $user->mail,
+      $customer->mail,
       language_default(),
       $params,
       'Fadmashion <' . $email . '> '
@@ -111,25 +181,49 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	$product = $params['product'];
 	$shop = $params['shop'];
 	
+	$customer = user_load($order->uid);
+	
 	$image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
 	
-	if($key == 'fm_commerce_emails_user_order_confirmation') {
-	
-	  $message['subject'] =  'Order #' . $order->order_id . ': ' . $product->title . ' by ' . $shop->name;
-	  $message['body'] = theme('fm_commerce_emails_user_order_confirmation', 
+	switch ($key) {
+		case 'fm_commerce_emails_user_order_confirmation':
+	    $message['subject'] =  'Order #' . $order->order_id . ': ' . $product->title . ' by ' . $shop->name;
+	    $message['body'] = theme('fm_commerce_emails_user_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
-	
-	} else if($key == 'fm_commerce_emails_store_order_confirmation') {
-		
-		$message['subject'] = 'Customer Ordered ' . $product->title . ' on Fadmashion.com (#' . $order->order_id . ')';
-	  $message['body'] = theme('fm_commerce_emails_store_order_confirmation', 
+	    break;
+	  case 'fm_commerce_emails_store_order_confirmation':
+		  $message['subject'] = 'Customer Ordered ' . $product->title . ' on Fadmashion.com (#' . $order->order_id . ')';
+	    $message['body'] = theme('fm_commerce_emails_store_order_confirmation', 
 	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	    break;
+    case'fm_commerce_emails_admin_order_confirmation':
+		  $message['subject'] =  fm_users_fullname() .  ' Ordered (#' . $order->order_id . ') ' . $product->title . ' by ' . $shop->name . ' (#' . $order->order_id . ')';
+	    $message['body'] = theme('fm_commerce_emails_admin_order_confirmation', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	    break;
+	  case 'fm_commerce_emails_store_order_shipped':
+		  $message['subject'] =  'Confirmation. Order #' . $order->order_id . ' has been shipped.  ';
+	    $message['body'] = theme('fm_commerce_emails_store_order_shipped', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	    break;
+	  case 'fm_commerce_emails_user_order_shipped':
+		  $message['subject'] =   'Your Order on Fadmashion.com has been shipped (Order #' . $order->order_id . ')';
+	    $message['body'] = theme('fm_commerce_emails_user_order_shipped', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	    break;
+	  case 'fm_commerce_emails_admin_order_shipped':
+		  $message['subject'] =  ' Order #' . $order->order_id . ' has been Shipped.  Needs Admin Action.';
+	    $message['body'] = theme('fm_commerce_emails_admin_order_shipped', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	    break;
+	  case 'fm_commerce_emails_store_order_vendor_paid':
+		  $message['subject'] =  ' Order #' . $order->order_id . ' has been Shipped.  Needs Admin Action.';
+	    $message['body'] = theme('fm_commerce_emails_store_order_vendor_paid', 
+	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
+	    break;
+    default:
+    	break;
 	} 
-  else if($key == 'fm_commerce_emails_admin_order_confirmation') {
-		
-		$message['subject'] =  fm_users_fullname() .  ' Ordered (#' . $order->order_id . ') ' . $product->title . ' by ' . $shop->name . ' (#' . $order->order_id . ')';
-	  $message['body'] = theme('fm_commerce_emails_admin_order_confirmation', 
-	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
-	}
+	
   return $message;
 }

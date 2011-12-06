@@ -375,6 +375,8 @@ function fm_commerce_store_owners_shippment_form_submit($form, &$form_state) {
   $order_wrapper->save();
   commerce_order_status_update($order, 'fm_orders_shipped');
   
+  fm_commerce_emails_send_order_notifications('fm_orders_shipped', $order);
+  
 	drupal_set_message('The Tracking ID has been updated for order #' . $order_id . '.  We will be in touch with confirmation of payment shortly.' );
 }
 
