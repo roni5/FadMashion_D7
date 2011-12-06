@@ -287,6 +287,7 @@ function fm_commerce_orders_admin_paid_submit($form, $form_state) {
 	$order = commerce_order_load($order_id);
 	
 	commerce_order_status_update($order, 'fm_orders_vendor_paid');
+	fm_commerce_emails_send_order_notifications('fm_orders_vendor_paid', $order);
 	
 	drupal_set_message('Order #' . $order_id . ' Has Been Set to Paid.');
 }
