@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Users Register
+description = Fadmashion User for Registration
+core = 7.x
+package = Fadmashion

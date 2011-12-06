@@ -106,32 +106,6 @@ function fmBTResizeColorbox() {
 }
 
 
-function fmForceRegister() {
-	
-	jQuery.colorbox({ 
-	      opacity: '0',
-	      innerWidth: '930px', innerHeight: '560px', 
-	      inline: true, 
-	      overlayClose: false, 
-	      escKey: false, 
-	      href:"#block-views-nodequeue-3-block",
-	      onComplete: fmFadeRegisterBlock
-	    });
-	 jQuery('#colorbox').addClass('blankBox');
-	 jQuery('#cboxClose, #block-views-nodequeue-3-block h2').hide();
-	 jQuery('#block-views-nodequeue-3-block').hide();
-	 
-	 
-}
-
-function fmFadeRegisterBlock() {
-	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
-		
-	});
-	setTimeout("jQuery('#block-views-nodequeue-3-block').fadeIn(1000);",700);
-	
-	
-}
 
 function fmUsersOpened(item_id) {
 	jQuery.ajax({

@@ -1,0 +1,97 @@
+<?php 
+
+
+/*
+ * implements hook_menu
+ */
+
+function fm_users_register_menu(){
+  $items['var/%'] = array(
+    'page callback' => 'fm_users_register_variable_test',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'page arguments' => array(1),
+    'access arguments' => array('view deals'),
+  );
+  $items['new-user/confirmation'] = array(
+    'page callback' => 'fm_users_register_variable_test',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'page arguments' => array(1),
+    'access arguments' => array('view deals'),
+  );
+  return $items;	
+}
+
+function fm_users_register_theme(){
+	return array(
+    'fm_users_register_intro' => array(
+	    'template' => 'fm_users_register_intro', 
+      'variables' => array(
+         'node' => NULL
+	    )
+    ),
+    'fm_users_register_confirmation' => array(
+      'template' => 'fm_users_register_intro', 
+    ),
+  );
+}
+
+
+function fm_users_register_variable_test($test_num) {
+	return fm_deals_page();
+}
+
+
+/*
+ * implements hook_block_info()
+ */
+function fm_users_register_block_info() {
+	$blocks = array();
+	
+	//Define the Preview Block
+	$blocks['fm_users_register_block'] = array(
+	  'info' => t('FM User Registration/Login'),
+	  'cache' => DRUPAL_NO_CACHE
+	);
+	return $blocks;
+}
+
+function fm_users_register_block_view($block_name = '') {
+	if(arg(0) == 'var') {
+		$nodequeue_pos = arg(1);
+	} else {
+		$nodequeue_pos = 1;
+	}
+	
+	switch ($block_name) {
+		case 'fm_users_register_block':
+			$content = fm_users_register_display($nodequeue_pos);
+			break;
+		default:
+			break;
+	 }
+  
+	$block = array(
+    'content' => $content
+  );
+  
+  return $block;
+}
+
+function fm_users_register_display($nodequeue_pos) {
+	  
+	 drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register.js');
+	 $node = fm_users_register_load_node($nodequeue_pos);
+	 
+	 $output = theme('fm_users_register_intro', array('node' => $node));
+	 
+	 return $output; 
+}
+
+function fm_users_register_load_node($nodequeue_pos) {
+	$node_array = array(1 => 361, 2 => 360);
+	return node_load($node_array[$nodequeue_pos]);
+}
+
+?>

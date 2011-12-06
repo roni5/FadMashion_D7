@@ -94,6 +94,48 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 .quicktabs-style-default  li{min-width: 80px; padding: 4px; text-align:center;}
 .quicktabs-style-default  li a {font-size: 11px; font-style: normal; font-family:"museo-sans-1","museo-sans-2", Helvetica;}
 
+/* Sign Up Box */
+
+#signup label{display: none}
+#signup .form-item, .form-actions{margin: 0 !important;}
+#signup .form-item .description {color: #8f837a }
+#signup .password-suggestions  {position: absolute;left: -9999px;}
+#signup .password-suggestions {display: none}
+#signup .password-strength {width: 90px;  font-size: 12px; margin-top: 5px;display: none;}
+#signup .password-min {float: left;}
+#signup .password-min, div.password-confirm  {color:#C5B5A8;font-family:Georgia,"Times New Roman",Times,serif;font-size:11px;font-style:italic; font-weight: normal;}
+#signup .password-parent {margin:0;width:270px;}
+#signup .password-indicator {display: none;}
+#signup .password-strength-text {display: none;}
+#signup div.password-confirm {display: none !important;}
+#signup .password-min {display: none;}
+#signup label.option { color: #E4DAD2; display:inline;font-weight:normal; font-size: 12px;}
+#signup label.option a{color: #fff; font-style: none; text-decoration: underline; font-style: normal; font-family: "museo-sans-1","museo-sans-2",Helvetica}
+
+#signup{width: 930px; height: 529px; background: url(../images/bg_signup_1.png) top left no-repeat; }
+#signup .box{width: 880px;}
+#signup h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }
+#signup h2{color: #cabfb8; font-size: 13px; font-weight: 500; letter-spacing: 3px; margin-bottom: 30px;}
+#signup p{font-size: 18px; color: #908075; line-height: 26px; font-weight: 300; margin-bottom: 12px; padding: 0 30px;}
+#signup p b{color: #68594f;}
+#signup p.loginHere{margin-top: 30px; font-size: 13px;}
+#signup .pad{padding: 0px 0 0 36px;}
+#signup .text{width: 360px; text-align:center; padding-top: 90px; }
+
+#signup .form{float: right; width: 206px;}
+#signup  #message_box{margin: -10px 0 5px !important; }
+
+#signup .form-text{background: url(../images/bg_form_field.png) top left no-repeat; border: none; width: 206px; height: 32px; padding-left: 5px; color: #fff; font-size: 12px; margin-bottom: 6px;}
+#signup .form h1{color: #fff; font-size: 22px; font-weight: 100; margin: 90px 0 10px 0; padding: 0;}
+#signup .fieldsRequired{text-align: right; font-style:italic; color: #c3bcb7; font-size: 11px; padding-bottom: 4px;}
+
+#signup .options{color: #e4dad2; font-size: 12px; padding-top: 6px;}
+#signup .options a{color: #fff;}
+#signup .options div{padding-bottom: 4px;}
+
+#signup .form-submit {background: url(../images/b_signup.png) top left no-repeat; display: block; width: 206px; height: 43px; text-indent:-9999px; margin: 20px 0 50px 0;}
+a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; display: block; width: 206px; height: 30px; text-indent:-9999px;}
+#signup .form-submit:hover, a.facebookConnect:hover{background-position: bottom left;}
 
 
 /* Right-hand Sidebar Layout */
