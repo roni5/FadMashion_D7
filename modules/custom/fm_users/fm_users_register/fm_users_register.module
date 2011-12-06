@@ -90,8 +90,12 @@ function fm_users_register_display($nodequeue_pos) {
 }
 
 function fm_users_register_load_node($nodequeue_pos) {
-	$node_array = array(1 => 361, 2 => 360);
-	return node_load($node_array[$nodequeue_pos]);
+	$nq = nodequeue_nids_visible(3);
+	$nid = 0;
+	for($i = 0; $i < $nodequeue_pos; $i++) {
+		$nid = array_shift($nq);
+	}
+	return node_load($nid);
 }
 
 ?>
