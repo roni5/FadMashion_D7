@@ -1,6 +1,6 @@
 <?php 
 
-define('REGISTRATION_NODEQUEUE', 3)
+define('REGISTRATION_NODEQUEUE', 3);
 
 /*
  * implements hook_menu
