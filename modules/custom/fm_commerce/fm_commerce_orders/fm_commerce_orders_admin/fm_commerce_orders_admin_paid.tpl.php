@@ -8,6 +8,12 @@
   
   $commission = fm_commerce_store_order_commission_value($order, $store) ;
   $payout = fm_commerce_store_order_payout_value($order, $store);
+  
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $tracking_id = $order_wrapper->field_tracking_id->value();
+  $tracking_company = $order_wrapper->field_tracking_company->value();
+  $opts = fm_commerce_store_owners_shipping_company_opts();
 ?>
 
 <div class="orders_admin_wrapper">
@@ -21,6 +27,9 @@
 <div style="float: left;">
 <div>FM Commission Value: <?php print commerce_currency_format($commission, 'USD'); ?></div>
 <div>Payout to Designer: <?php print commerce_currency_format($payout, 'USD'); ?></div>
+
+<div style="margin-top: 10px;">Tracking Company: <?php print $opts[$tracking_company];?></div>
+<div>ID #: <?php print $tracking_id;?></div>
 
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>

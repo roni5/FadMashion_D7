@@ -11,6 +11,10 @@
   $store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
   $commission = $store_wrapper->field_fm_commission->value();
   
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $tracking_id = $order_wrapper->field_tracking_id->value();
+  $tracking_company = $order_wrapper->field_tracking_company->value();
+  $opts = fm_commerce_store_owners_shipping_company_opts();
 ?>
 
 <div style="width: 500px;" class="orders_admin_wrapper">
@@ -31,7 +35,7 @@
 
 <div style="float: left; width: 160px;">
 <h3>Verify Shipping:</h3>
-<div style="margin-top: 10px;">Service: <?php print $opts[$tracking_company];?></div>
+<div style="margin-top: 10px;">Tracking Company: <?php print $opts[$tracking_company];?></div>
 <div>ID #: <?php print $tracking_id;?></div>
 
 
