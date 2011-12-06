@@ -1,5 +1,6 @@
 <?php 
 
+define('REGISTRATION_NODEQUEUE', 3)
 
 /*
  * implements hook_menu
@@ -90,7 +91,7 @@ function fm_users_register_display($nodequeue_pos) {
 }
 
 function fm_users_register_load_node($nodequeue_pos) {
-	$nq = nodequeue_nids_visible(3);
+	$nq = nodequeue_nids_visible(REGISTRATION_NODEQUEUE);
 	$nid = 0;
 	for($i = 0; $i < $nodequeue_pos; $i++) {
 		$nid = array_shift($nq);
