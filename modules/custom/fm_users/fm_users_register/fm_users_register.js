@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 	}
 	  jQuery('.form-type-password-confirm .description ').html('');
 	 
-	  /* 
+	
 	  if(jQuery('#user-login-form').length) {
 		   
 		  //Do Password Clear Defaults
@@ -39,9 +39,9 @@ jQuery(document).ready(function() {
 	           remote: jQuery.format("Wrong password or username")
 	       },
 	    
-	  	 });
+	  	 });*/
 		  
-	   }*/
+	   }
 	  
 	  //Validate Registration page
 	  if(jQuery('#user-register-form').length) {
