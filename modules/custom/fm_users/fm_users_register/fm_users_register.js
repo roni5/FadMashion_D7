@@ -13,14 +13,14 @@ jQuery(document).ready(function() {
 	}
 	  jQuery('.form-type-password-confirm .description ').html('');
 	 
-	
+	  /* 
 	  if(jQuery('#user-login-form').length) {
 		   
 		  //Do Password Clear Defaults
 		  fmPasswordClearDefaults(jQuery("#user-login-form .form-item-pass input"), 
 				  jQuery("#user-login-form .form-item-pass-clear input"));
 		  
-		 /* jQuery('#user-login-form').validate({
+		jQuery('#user-login-form').validate({
 	    	errorClass: 'invalid',
 	  	    onkeyup: false,
 	  	    wrapper: 'div id="message_box"',
@@ -39,9 +39,9 @@ jQuery(document).ready(function() {
 	           remote: jQuery.format("Wrong password or username")
 	       },
 	    
-	  	 });*/
+	  	 });
 		  
-	   }
+	   }*/
 	  
 	  //Validate Registration page
 	  if(jQuery('#user-register-form').length) {
