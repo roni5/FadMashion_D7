@@ -128,6 +128,7 @@ function fm_users_block_view($block_name = '') {
 function fm_users_user_presave (&$edit, $account, $category) {
 	// Make sure that our form value 'mymodule_foo' is stored as 'mymodule_bar'.
 	//Generate name from registration form
+	
 	if(!$account->uid && isset($edit['field_first_name']) && isset($edit['field_last_name'])) {
 	  $first_name = $edit['field_first_name']['und'][0]['value'];
 	  $last_name = $edit['field_last_name']['und'][0]['value'];

@@ -67,27 +67,7 @@ Drupal.behaviors.addFMInviteSendEmail= {
         return valid;}, "Oops! One of the e-mails is not valid"
     );
     
-    jQuery('#fm-invite-send-email-form').validate({
-    	errorClass: 'invalid',
-    	onkeyup: false,
-    	wrapper: 'div id="message_box"',
-    	submitHandler: function(form) {
-			jQuery(form).ajaxSubmit({
-		        beforeSubmit:  formPreLoader,  // pre-submit callback 
-		        success:       inviteFormSuccess  // post-submit callback 
-			});
-		},
-		
-		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
-		showErrors: showErrorsColorbox
-    });
     
-    $("#fm-invite-send-email-form #edit-message").rules("add", {
-    	 minlength: 10
-    });
-    $("#fm-invite-send-email-form  #edit-to").rules("add", {
-    	multiemail: true,
-   });
     
   } 
 };
@@ -104,23 +84,6 @@ function inviteFormSuccess(responseText, statusText, xhr, $form) {
 
 
 
-function fm_invite_facebookshare( url, thumb_path) {
-	var details = 'hello';
-	
-	 FB.ui({
-			     method: 'feed',
-			     app_id: '213872101957329',
-			     name: 'Fadmashion Priority Access',
-			     link: url,
-			     picture: thumb_path,
-			     description: 'Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour!  Request an invitation today and get your own social rewards link to invite friends and earn priority access',
-			     message: 'Just joined FadMashion for up to 60% off Independent Designs! .'
-			   },
-			   function(response) {
-			   }
-			 );
-
-}
 
 
 

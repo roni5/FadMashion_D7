@@ -29,13 +29,17 @@ function fm_users_register_theme(){
     'fm_users_register_intro' => array(
 	    'template' => 'fm_users_register_intro', 
       'variables' => array(
-         'node' => NULL
+         'node' => NULL,
+	       'login_form' => NULL,
+	       'register_form' => NULL
 	    )
     ),
     'fm_users_register_confirmation' => array(
       'template' => 'fm_users_register_confirmation',
       'variables' => array(
-         'user' => $user,   
+         'user' => null,
+         'invite_form' => null, 
+         'invite_url' => NULL  
        ) 
     ),
   );
@@ -87,8 +91,12 @@ function fm_users_register_display($nodequeue_pos) {
 	  
 	 drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register.js');
 	 $node = fm_users_register_load_node($nodequeue_pos);
+	 $register_form = drupal_get_form('user_register_form');
+	 $login_form = drupal_get_form('user_login_block');
 	 
-	 $output = theme('fm_users_register_intro', array('node' => $node));
+	 $output = theme('fm_users_register_intro', array('node' => $node, 
+	                                                  'login_form' => $login_form, 
+	                                                  'register_form' =>  $register_form));
 	 
 	 return $output; 
 }
@@ -127,7 +135,6 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	  $form['pass']['#default_value'] = t('Password');
   	  $form['pass']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['pass']['#weight'] = -18;
-  	  $form['pass']['#suffix'] = '<div style="clear: both; display: block;margin: 0px; font-size: 1px;"></div>';
   	  
  	
   	  $form['pass']['#attributes'] = array('class' => array('clear-defaults'));
@@ -176,6 +183,9 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	  
   	  $form['actions']['submit']['#value'] = t('Sign me up!');
   	  $form['actions']['submit']['#attributes'] = array('class' => array('ajax-button'));
+  	  $form['actions']['submit']['#prefix']  = '<div style="display: none;" class="errorText">Please correct the errors above before proceeding.
+  	                                             
+  	                                            </div>';
   	  
   	  $form['pass-clear'] = array(
   	     '#type' => 'textfield', 
@@ -188,7 +198,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	     '#weight' => 5,
   	  );
   	  
-  	  $form['#submit'][] = 'fm_users_register_submit';
+  	  $form['#submit'][] = 'fm_users_register_form_submit';
   	  
   		break;	
   }
@@ -197,8 +207,10 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
 }
 
 
-function fm_users_register_submit($form, &$form_state) {
-	 
+function fm_users_register_form_submit($form, &$form_state) {
+	 	
+	global $user;
+	
 	//check to see if an active e-mail sent.
 	$values = $form_state['values'];
 	$mail = $values['mail'];
@@ -206,14 +218,18 @@ function fm_users_register_submit($form, &$form_state) {
 	
 	//Check to see if active
 	if(!fm_users_check_activate($mail)) {
-		user_save($user, array('status' => 0));
-		//Redirect here
-	  drupal_set_message(t('Fadmashion is currently only open for priority members. You are now in the queue and will receive an email from us when your invitation is prepared.'), 'error');
+		user_save($user, array('status' => 1));
 	} else {
 		 user_save($user, array('status' => 1));
-     drupal_goto();		
+   
 	}
-   //check it didn't request an invite, than add it and generate process.  
+	  $invite_form = drupal_get_form('fm_invite_send_email_form', $user);
+		 $invite_url = fm_invite_get_invite_url($user);
+		
+		print theme('fm_users_register_confirmation', array('user' => $user, 'invite_url' => $invite_url, 'invite_form' => $invite_form));
+		exit();
+	
+	
   $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
 	$obj = $result->fetchObject();
 	
@@ -258,9 +274,7 @@ function fm_users_register_submit($form, &$form_state) {
 		} else {
 			$id = $obj->id;
 		}
- 	
-		print theme('fm_users_register_confirmation', array('user' => $user));
-		exit();
+
 		
 }
 ?>

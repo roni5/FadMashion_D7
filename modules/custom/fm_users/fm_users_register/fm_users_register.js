@@ -24,6 +24,7 @@ jQuery(document).ready(function() {
 	    	errorClass: 'invalid',
 	  	    onkeyup: false,
 	  	    wrapper: 'div id="message_box"',
+	  	    errorContainer: jQuery(".loginErrorText"),
 	     });
 	  
 	    jQuery("#user-login-form #edit-name").rules("add", {
@@ -48,6 +49,7 @@ jQuery(document).ready(function() {
 	   
 	    jQuery('#user-register-form').validate({
 	    	errorClass: 'invalid',
+	    	errorContainer: jQuery(".errorText"),
 	  	    onkeyup: false,
 	  	    wrapper: 'div id="message_box"',
 	  	    submitHandler: function(form) {
@@ -101,14 +103,15 @@ jQuery(document).ready(function() {
 
 function regFormSuccess(responseText, statusText, xhr, $form) {
 	formSuccess();
-	
-	
-	alert('test');
+	jQuery('.state2 .box').hide();
+	jQuery('.state2 .box').html(responseText);
+	jQuery('.state2 .box').fadeIn('slow');
 }
 
 function regSlideConfirmation() {
-	jQuery('#signup').hide();
-	jQuery('#confirmation').fadeIn();
+	jQuery('.state1').fadeOut('fast', function(){
+		  jQuery('.state2').fadeIn('slow');
+	});
 }
 
 function fmForceRegister() {
@@ -131,14 +134,55 @@ function fmClearRegisterTimeout() {
 }
 
 function fmShowLogin(){
-	jQuery('#login-form').show();
-	jQuery('#intro').hide();
+	jQuery('.state1').fadeOut('slow', function(){
+		  jQuery('.state3').fadeIn('slow');
+	});
 }
+function fmShowSignup(){
+	jQuery('.state3').fadeOut('slow', function(){
+		  jQuery('.state1').fadeIn('slow');
+	});
+}
+
 function fmFadeRegisterBlock() {
 	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
 		
 	});
-	setTimeout("jQuery('#" + blockName + "').fadeIn(1000);",700);
+	setTimeout("jQuery('#" + blockName + "').fadeIn(1000);",700);	
+}
+
+function fm_invite_facebookshare( url, thumb_path) {
+	var details = 'hello';
 	
+	 FB.ui({
+			     method: 'feed',
+			     app_id: '213872101957329',
+			     name: 'Fadmashion Priority Access',
+			     link: url,
+			     picture: thumb_path,
+			     description: 'Fadmashion offers Independent fashion designs at up to %60 off retail price with fresh new deals every hour!  Request an invitation today and get your own social rewards link to invite friends and earn priority access',
+			     message: 'Just joined FadMashion for up to 60% off Independent Designs! .'
+			   },
+			   function(response) {
+			   }
+			 );
+}
+
+function fmValidateInviteForm() {
+	jQuery('#fm-invite-send-email-form').validate({
+    	errorClass: 'invalid',
+    	onkeyup: false,
+    	wrapper: 'div id="message_box"',
+		
+		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
+		showErrors: showErrorsColorbox
+    });
+	
+	var num = 4;
+
+	jQuery("#fm-invite-send-email-form  #edit-to0").rules("add", {
+   	   required: true,
+   	   email: true
+     });
 	
 }

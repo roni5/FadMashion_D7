@@ -1,10 +1,12 @@
 <div style="width: 930px; height: 529px;" id="signup">
+<div class="state1">
 <div class="box">
 
 <div class="form">
 <h1>Member Signup</h1>
+
 <div class="fieldsRequired">all fields required</div>
-<?php print render(drupal_get_form('user_register_form'));?>
+<?php print render($register_form);?>
 
 </div><!-- form-->
 
@@ -18,23 +20,62 @@
 
 <p class="loginHere">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Login Here</a></p>
 </div>
+
+
+
 </div><!-- pad-->
 
-<div id="login-form" style="display: none;">
-<h1>Welcome Back</h1>
-<?php print render(drupal_get_form('user_login_block'));?>
+</div><!-- box-->
+</div><!-- state1 -->
+
+
+
+<!-- Confirmation Page -->
+<div style="display: none;"  class="state2">
+<div class="box">
+
+<div class="generatingCode">
+<p>Requesting Membership...</p>
+<img src="<?php print pp();?>confirm-ajax-loader.gif">
+
+</div>       
+     
+</div><!-- box-->
 </div>
 
+<!-- Login Page -->
+<div style="display: none;"  class="state3">
+<div class="box"><div class="pad">
+
+<div class="login">
+<h2>MEMBER LOGIN</h2>
+<h1>Welcome Back!</h1>
+<div class="loginErrorText">Wrong Username or Password</div>
+<?php print render($login_form);?>
+</div>                 
+<div class="backSignup">Not a Member? <a  href="javascript:void(0);" onClick="fmShowSignup();">Sign Up</a></div>   
+     
+</div><!-- pad-->
 </div><!-- box-->
 </div>
 
 
-<!-- Confirmation Page -->
-<div style="display: none;width: 930px; height: 529px;" id="confirmation">
-<div class="box">
-test
+</div><!-- #signup -->
 
+<!-- Login Page -->
+<div style="display: none;"  class="state4">
+<div class="box"><div class="pad">
+
+<div class="emailsConfirmation">
+<h1>Your Invitations have been Sent!</h1>
+<div class="backSignup"><?php l('Start Shopping', ''); ?></div>   
+     
+</div><!-- pad-->
+</div><!-- box-->
 </div>
-</div>
+
+
+</div><!-- #signup -->
+
 
 

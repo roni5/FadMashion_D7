@@ -25,7 +25,7 @@
                
              <?php } else { ?>
              <li><a href="javascript:void(0);" onClick="fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
-             <li><a href="javascript:void(0);" onClick="fmForceRegister();fmClearRegisterTimeout();fmShowLogin();">Login</a></li>
+             <li><a href="javascript:void(0);" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
              <?php } ?>
              
                 	</ul> 

@@ -111,7 +111,7 @@ function fm_invite_twitter_text($reg_code_url = '') {
 	if(empty($reg_code_url)) {
 		$reg_code_url = fm_invite_get_invite_url();
 	}
-	$output = 'Join @Fadmashion where you can shop independent styles at up to 60% off. A new deal every hour! ' . $reg_code_url;
+	$output = 'Exclusive insider access on the hottest new designers on the planet. Private Invite Right Here! ' . $reg_code_url;
 	print urlencode($output);
 }
 
@@ -240,53 +240,34 @@ function fm_invite_request_form_submit($form, &$form_state) {
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
 }
 
-function fm_invite_send_email_form() {
+function fm_invite_send_email_form($form, $form_state, $user) {
 	
-	global $user;
-	if($user->uid) {
-		
-		$form['name'] = array(
-    '#type' => 'textfield', 
-    '#size' => 25, 
-	  '#maxlength' => 255,
-    '#title' => t('From').':',
-	  '#default_value' => fm_users_fullname(), 
-		);
-	}
-	else {
-		$form['name'] = array(
+	$num = 4;
+	for($i = 0; $i < $num; $i++) {
+    $form['to' . $i] = array(
       '#type' => 'textfield', 
       '#size' => 25, 
 	    '#maxlength' => 255,
-      '#title' => t('From').':',
-	    '#attributes' => array('class' => array('clear-defaults')),
-	    '#default_value' => 'Enter Name', 
+      '#default_value' => 'Enter friend\'s e-mail',
+      '#attributes' => array('class' => array('clear-defaults')),
+      '#required' => TRUE,
     );
 	}
 	
+	$form['user_id'] = array('#type' => 'value', '#value' => $user->user_id);
   
-  $form['to'] = array(
-    '#type' => 'textfield', 
-    '#size' => 25, 
-	  '#maxlength' => 255,
-    '#title' => t('To').':', 
-    '#default_value' => 'Comma seperated e-mail addresses',
-    '#attributes' => array('class' => array('clear-defaults')),
-    '#required' => TRUE,
-  );
-  
-  $form['message'] = array(
+  /*$form['message'] = array(
     '#type' => 'textarea', 
     '#row' => 4, 
     '#title' => t('Message').':',
     '#default_value' => fm_invite_email_message(),
     '#required' => TRUE
-  );
+  );*/
   
   $form['submit'] = array(
     '#type' => 'submit', 
-    '#value' => t('Send'),
-    '#attributes' => array('class' => array('ajax-button', 'red')),
+    '#value' => t('Invite Friends'),
+    '#attributes' => array('class' => array('inviteFriends')),
   
   );
   
@@ -295,15 +276,22 @@ function fm_invite_send_email_form() {
 
 function fm_invite_send_email_form_submit($form, &$form_state) {
 	 
-	// Send the confirmation email.
-	$reg_code_url = fm_invite_get_invite_url();
-  $params = array(
-    'subject' => 'Invitation to independence at Fadmashion',
-    'message' => $form_state['values']['message'],
-    'fromName' => $form_state['values']['name'],
-    'reg_url' => $reg_code_url
-  );
-  
+	$user_id = $form_state['values']['user_id'];
+	$user = user_load($user_id);
+	
+  $num = 4;
+  $to = array();
+	for($i = 0; $i < $num; $i++) {
+    $email_val = $form_state['values']['to' . $i];
+    if(valid_email_address($email_val)) {
+    	$to[] = $email_val;
+    }
+	}
+	
+	$to = implode(', ', $to);
+	
+	drupal_set_message(var_dump($to));
+	
   //Get the submitted e-mail address for From address
 	if(!empty($_GET['id'])) {
 		$id = $_GET['id'];
@@ -315,13 +303,21 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	else {
 		$email = variable_get('site_mail', 'admin@fadmashion.com');
 	}
-	$from = $form_state['values']['name']. ' <' . $email . '> ';
 	
+	$from = fm_users_fullname($user_id) . $form_state['values']['name']. ' <' . $email . '> ';
 	
+	// Send the confirmation email.
+	$reg_code_url = fm_invite_get_invite_url($user);
+  $params = array(
+    'subject' => 'Invitation to Independence at Fadmashion.com',
+    'fromName' => fm_users_fullname($user_id),
+    'reg_url' => $reg_code_url
+  );
+  
   drupal_mail(
       'fm_invite',
       'email_friends',
-      $form_state['values']['to'],
+      $to,
       language_default(),
       $params,
       $from
@@ -339,8 +335,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $form_state['values']['name']. ' <' . $email . '> '
    ); 
    
-   exit();
-   
+   drupal_goto();
 }
 
 function fm_invite_email_message() {
@@ -353,8 +348,10 @@ function fm_invite_share_info() {
 	return theme('fm_invite_share', array('reg_code_url' => $reg_code_url));
 }
 
-function fm_invite_get_invite_url() {
-	global $user;
+function fm_invite_get_invite_url($user = null) {
+	if(!isset($user)) {
+    global $user;
+	}
 	
   if(isset($_GET['id'])) {
   	//Splash page invite rewards pop-up
