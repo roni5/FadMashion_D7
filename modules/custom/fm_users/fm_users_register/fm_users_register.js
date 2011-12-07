@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 	           remote: jQuery.format("Wrong password or username")
 	       },
 	    
-	  	 });*/
+	  	 });
 		  
 	   }
 	  
