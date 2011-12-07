@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 		  fmPasswordClearDefaults(jQuery("#user-login-form .form-item-pass input"), 
 				  jQuery("#user-login-form .form-item-pass-clear input"));
 		  
-		  jQuery('#user-login-form').validate({
+		 /* jQuery('#user-login-form').validate({
 	    	errorClass: 'invalid',
 	  	    onkeyup: false,
 	  	    wrapper: 'div id="message_box"',
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 	           remote: jQuery.format("Wrong password or username")
 	       },
 	    
-	  	 });
+	  	 });*/
 		  
 	   }
 	  
