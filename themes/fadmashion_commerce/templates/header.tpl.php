@@ -1,9 +1,9 @@
 <div id="header">
             <div class="row2"> 
+              <div id="accountNav">
+                <ul class="tree">
             <?php global $user;
             if ($user->uid) { ?>
-            <div id="accountNav">
-                <ul class="tree">
                 
                 <li ><?php if(module_exists('fm_commerce_store_owners')) {
                              $store = fm_commerce_store_owners_get_store();
@@ -22,9 +22,15 @@
                 
                 <li ><?php print l('Logout', 'user/logout');?></li>
                 
-               </ul> 
-             </div>
+               
+             <?php } else { ?>
+             <li><a href="javascript:void(0);" onClick="fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
+             <li><a href="javascript:void(0);" onClick="fmForceRegister();fmClearRegisterTimeout();fmShowLogin();">Login</a></li>
              <?php } ?>
+             
+                	</ul> 
+               </div>
+             
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
         			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
       			    </a>

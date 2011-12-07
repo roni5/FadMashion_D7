@@ -133,7 +133,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #signup .options a{color: #fff;}
 #signup .options div{padding-bottom: 4px;}
 
-#signup .form-submit {background: url(../images/b_signup.png) top left no-repeat; display: block; width: 206px; height: 43px; text-indent:-9999px; margin: 20px 0 50px 0;}
+#user-register-form .form-submit {background: url(../images/b_signup.png) top left no-repeat; display: block; width: 206px; height: 43px; text-indent:-9999px; margin: 20px 0 50px 0;}
 a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; display: block; width: 206px; height: 30px; text-indent:-9999px;}
 #signup .form-submit:hover, a.facebookConnect:hover{background-position: bottom left;}
 
