@@ -183,7 +183,7 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	$shop = $params['shop'];
 	
 	
-	var_dump('<br><br><br>' . $shop);
+	var_dump($shop, '<br><br><br>' );
 	
 	$customer = user_load($order->uid);
 	
