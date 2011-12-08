@@ -576,6 +576,7 @@ function fm_commerce_store_balance_value($store) {
 }
 
 function _fm_commerce_store_order_commission_values($order, $store) {
+	var_dump($store);
   $store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
   $commission_pct = floatval($store_wrapper->field_fm_commission->value());
   
