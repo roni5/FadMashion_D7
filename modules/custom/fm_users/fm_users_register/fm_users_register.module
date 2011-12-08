@@ -219,9 +219,8 @@ function fm_users_register_form_submit($form, &$form_state) {
 	if(!fm_users_check_activate($mail)) {
 		user_save($user, array('status' => 1));
 	} else {
-		 user_save($user, array('status' => 1));
-   
-	}
+		user_save($user, array('status' => 1));
+  }
 	
 	$mail = $user->mail;
 	
