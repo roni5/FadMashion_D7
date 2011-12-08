@@ -238,3 +238,9 @@ function fm_users_fb_user($op, $data, $return) {
 		}
 	}
 }
+
+function fm_users_user_delete($account) {
+  db_delete('fm_invite')
+    ->condition('email', $account->mail)
+    ->execute();
+}
