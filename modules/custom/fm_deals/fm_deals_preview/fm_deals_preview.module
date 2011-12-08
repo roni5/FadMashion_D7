@@ -146,7 +146,7 @@ function fm_deals_preview_block_view($block_name = '') {
   	$default_nid = fm_deals_get_default_deal();
   	$nids = array();
   	
-  	if(!isset($this_nid) || $this_nid == $default_nid) {
+  	if(!isset($this_nid) || $this_nid == $default_nid || $arg(0) == 'node') {
   		$nids = fm_deals_preview_block_nids();
   		$header = '<h2 class="rounded-top">' . t('Coming up Next') .'</h2>';
 		}
