@@ -19,7 +19,7 @@
 <p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;"><?php print $body;?></p>
 
 <div class="signUp" style="float: left; display: block; margin: 20px 0;">
-<img src="<?php print $theme_url?>/images/emails/b_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="<?php print $params['reg_url'];?>" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Sign up to Fadmashion</a><img src="<?php print $theme_url?>/images/emails/b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
+<img src="<?php print $theme_url?>/images/emails/b_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="<?php print $params['reg_url'];?>" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Open Invitation</a><img src="<?php print $theme_url?>/images/emails/b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
 </div>
 <br clear="all"><p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;">- <?php print $params['fromName'];?></p>
 

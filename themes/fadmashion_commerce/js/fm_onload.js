@@ -27,10 +27,6 @@ jQuery(document).ready(function() {
 	  fmUsersOpened(1);
 	}*/
 	
-	//Show a Non-Closeable registration pop-up if the user is not authenticated.
-	if(jQuery("#block-views-nodequeue-3-block").length) {
-		setTimeout("fmForceRegister();",1500);
-	}
 	
 	if(jQuery.browser.msie) {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.

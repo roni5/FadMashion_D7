@@ -223,27 +223,23 @@ function fm_users_register_form_submit($form, &$form_state) {
 		 user_save($user, array('status' => 1));
    
 	}
-	  $invite_form = drupal_get_form('fm_invite_send_email_form', $user);
-		 $invite_url = fm_invite_get_invite_url($user);
-		
-		print theme('fm_users_register_confirmation', array('user' => $user, 'invite_url' => $invite_url, 'invite_form' => $invite_form));
-		exit();
-	
 	
   $result = db_query('SELECT * FROM {fm_invite} WHERE email = :mail', array(':mail' => $mail));
 	$obj = $result->fetchObject();
 	
 	if(!$obj) {	  
+		watchdog('degug', 'insert into invites');
 		$referred_by_id = null;
 	  if($inviter = fm_invite_load_from_session()) {
     	 	$referred_by_id = $inviter->id;
+    	 	watchdog('degug', 'referred by');
 	   }
 			 $reg_code = fm_invite_generate_code();
 	     $id = db_insert('fm_invite')
            ->fields(array(
             'reg_code' => $reg_code,
             'referred_by_id' => $referred_by_id,
-            'email' => $form_state['values']['mail'],
+            'email' => $mail,
             'timestamp' => time(),
             'link_back_views' => 0
           ))->execute();
@@ -259,7 +255,7 @@ function fm_users_register_form_submit($form, &$form_state) {
             'reg_url' => url('invite/'.$reg_code, array('absolute' => TRUE)),
          );
   
-         $email = variable_get('site_mail', 'admin@fadmashion.com');
+        $email = variable_get('site_mail', 'admin@fadmashion.com');
   
         drupal_mail(
            'fm_invite',
@@ -274,6 +270,15 @@ function fm_users_register_form_submit($form, &$form_state) {
 		} else {
 			$id = $obj->id;
 		}
+		
+		
+	watchdog('degug', 'exit invites');
+	$invite_form = drupal_get_form('fm_invite_send_email_form', $user);
+	$invite_url = fm_invite_get_invite_url($user);
+		
+  print theme('fm_users_register_confirmation', array('user' => $user, 'invite_url' => $invite_url, 'invite_form' => $invite_form));
+	exit();
+	
 
 		
 }

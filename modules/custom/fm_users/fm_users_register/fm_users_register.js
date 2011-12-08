@@ -3,12 +3,12 @@
  */
 
 
-var blockName = 'block-fm-users-register-fm-users-register-block';
+var regBlockId = 'block-fm-users-register-fm-users-register-block';
 var forceRegisterTimeout;
 
 jQuery(document).ready(function() {
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
-	if(jQuery("#" + blockName).length) {
+	if(jQuery("#" + regBlockId).length) {
 		forceRegisterTimeout = setTimeout("fmForceRegister();",8500);
 	}
 	  jQuery('.form-type-password-confirm .description ').html('');
@@ -121,12 +121,12 @@ function fmForceRegister() {
 	      inline: true, 
 	      overlayClose: false, 
 	      escKey: false, 
-	      href:"#" + blockName,
+	      href:"#" + regBlockId,
 	      onComplete: fmFadeRegisterBlock
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
 	 jQuery('#cboxClose').hide();
-	 jQuery('#' + blockName).hide();	 
+	 jQuery('#' + regBlockId).hide();	 
 }
 
 function fmClearRegisterTimeout() {
@@ -148,7 +148,7 @@ function fmFadeRegisterBlock() {
 	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
 		
 	});
-	setTimeout("jQuery('#" + blockName + "').fadeIn(1000);",700);	
+	setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
 }
 
 function fm_invite_facebookshare( url, thumb_path) {

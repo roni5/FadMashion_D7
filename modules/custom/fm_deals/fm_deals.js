@@ -29,7 +29,13 @@ jQuery(document).ready(function() {
 });
 
 function dealExpired() {
-	window.location = Drupal.settings.basePath;
+	
+	//Show a Non-Closeable registration pop-up if the user is not authenticated.
+	if(!jQuery("#" + regBlockId).length) {
+		window.location = Drupal.settings.basePath;
+	}
+	
+	
 }
 
 function dealTitleNotify() {
