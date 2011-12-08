@@ -576,8 +576,12 @@ function fm_commerce_store_balance_value($store) {
 }
 
 function _fm_commerce_store_order_commission_values($order, $store) {
-  $store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
-  $commission_pct = floatval($store_wrapper->field_fm_commission->value());
+ // $store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
+  //$commission_pct = floatval($store_wrapper->field_fm_commission->value());
+  
+  $comission_pct = field_get_items('fm_commerce_stoore', $store, 'field_fm_commission');
+  var_dump($comission_pct);
+  exit();
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
