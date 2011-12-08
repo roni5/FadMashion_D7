@@ -317,7 +317,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
    ); 
    
    /*SEND SAME TO ADMIN*/
-   $params['subject'] = 'Admin Only - Invitation Sent VIA e-mail';
+   /*$params['subject'] = 'Admin Only - Invitation Sent VIA e-mail';
    $params['message'] = 'E-mails sent to: ' . $form_state['values']['to'].'<br><br>' . $params['message'];
    drupal_mail(
       'fm_invite',
@@ -327,12 +327,12 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $params,
       $form_state['values']['name']. ' <' . $email . '> '
    ); 
-   
+   */
    drupal_goto();
 }
 
 function fm_invite_email_message() {
-	$message = t('Hey! I just signed up for Fadmashion.com and have private invites to share, I thought you might like the insider access.  When you sign-up we both get credits to use for future purchases....sweet!');
+	$message = t('Hey! I just signed up for Fadmashion.com and have private invites to share and I thought you might like the insider access.  The site has beautiful designs only offered to members at great prices, so definetly check it out.');
 	return $message;
 }
 
