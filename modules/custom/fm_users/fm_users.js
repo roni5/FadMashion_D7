@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
   
 });
 
+
 /* Ajaxy content for Login-Registration Pages
 function fmConfigRegAjaxy() {
 (function($){

@@ -16,10 +16,12 @@
                 </li>
                 <li><?php 
                       $url = '/?width=620&inline=true#block-fm-users-fm-users-orders';
-                			print '<a title="' . t('My Orders') . '" class="colorbox-inline" href="' . $url . '">' . t('My Orders') . '</a>';
-                      //print l('My Orders', 'my-orders', array('query' => array('width' => '700px'),  'attributes' => array('class' => array('colorbox-load') )) ); ?></li>
-                <li> <?php print l('+ Invite Friends', 'invite/rewards', array( 'html' => true, 'query' => array( 'width' => 600, 'height' => 200), 'attributes' => array('style' => '', 'class' => 'colorbox-load', 'title' => 'Invite Friends') )  ); ?></li>
-                
+                			print '<a title="' . t('My Orders') . '" class="colorbox-inline" href="' . $url . '">' . t('My Orders') . '</a>'; ?>
+                </li>
+                <li><?php 
+                      $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
+                			print '<a  class="colorbox-inline" href="' . $url . '">' . t('+ Invite Friends') . '</a>'; ?>
+                </li>
                 <li ><?php print l('Logout', 'user/logout');?></li>
                 
                

@@ -204,7 +204,7 @@ function fm_commerce_orders_list() {
  $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
  if(count($orders) == 0) {
-  return '<div class="customer no-orders">This shop currently doesn\'t have purchases.  
+  return '<div class="customer no-orders"You currently dyon\'t have purchases.  
   <a href="javascript:void(0);" onClick="jQuery(\'.customer.no-orders\').hide(); jQuery(\'.orders-demo\').show(); jQuery.colorbox.resize()">View demo</a></div> ' .
   '<div style="display:none;" class="orders-demo">' . theme('fm_commerce_orders_demo') . '</div>'; 		
  }

@@ -168,21 +168,3 @@ function fm_invite_facebookshare( url, thumb_path) {
 			 );
 }
 
-function fmValidateInviteForm() {
-	jQuery('#fm-invite-send-email-form').validate({
-    	errorClass: 'invalid',
-    	onkeyup: false,
-    	wrapper: 'div id="message_box"',
-		
-		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
-		showErrors: showErrorsColorbox
-    });
-	
-	var num = 4;
-
-	jQuery("#fm-invite-send-email-form  #edit-to0").rules("add", {
-   	   required: true,
-   	   email: true
-     });
-	
-}

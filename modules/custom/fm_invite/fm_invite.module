@@ -256,14 +256,6 @@ function fm_invite_send_email_form($form, $form_state, $user) {
 	
 	$form['user_id'] = array('#type' => 'value', '#value' => $user->user_id);
   
-  /*$form['message'] = array(
-    '#type' => 'textarea', 
-    '#row' => 4, 
-    '#title' => t('Message').':',
-    '#default_value' => fm_invite_email_message(),
-    '#required' => TRUE
-  );*/
-  
   $form['submit'] = array(
     '#type' => 'submit', 
     '#value' => t('Invite Friends'),
@@ -289,8 +281,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	}
 	
 	$to = implode(', ', $to);
-	
-	drupal_set_message(var_dump($to));
+	watchdog('debug', $to);
 	
   //Get the submitted e-mail address for From address
 	if(!empty($_GET['id'])) {

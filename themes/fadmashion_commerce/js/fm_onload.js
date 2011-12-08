@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
 	  jQuery('.views-field-body', this).html('');
 	});
 	
-	//HowItWorks
+	/*HowItWorks
 	if(!howItWorks) {
 	  jQuery.colorbox({ 
 	      opacity: '.9',
@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 	  jQuery('#colorbox').addClass('blankBox');
 	  
 	  fmUsersOpened(1);
-	}
+	}*/
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
 	if(jQuery("#block-views-nodequeue-3-block").length) {
@@ -114,3 +114,24 @@ function fmUsersOpened(item_id) {
 		   dataType: "script"
 		 });
 }
+
+
+function fmValidateInviteForm() {
+	jQuery('#fm-invite-send-email-form').validate({
+    	errorClass: 'invalid',
+    	onkeyup: false,
+    	wrapper: 'div id="message_box"',
+		
+		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
+		showErrors: showErrorsColorbox
+    });
+	
+	var num = 4;
+
+	jQuery("#fm-invite-send-email-form  #edit-to0").rules("add", {
+   	   required: true,
+   	   email: true
+     });
+}
+
+
