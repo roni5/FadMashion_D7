@@ -377,7 +377,7 @@ function fm_commerce_store_owners_shippment_form_submit($form, &$form_state) {
   $order_wrapper->field_tracking_company->set($values['delivery_service']);
   $order_wrapper->save();
   
-  //TEMP  commerce_order_status_update($order, 'fm_orders_shipped');
+  commerce_order_status_update($order, 'fm_orders_shipped');
   
   fm_commerce_emails_send_order_notifications('fm_orders_shipped', $order);
   
