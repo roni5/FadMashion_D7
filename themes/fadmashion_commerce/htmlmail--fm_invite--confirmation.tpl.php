@@ -9,8 +9,6 @@
 <div class="textPad" style="padding: 0 26px 20px 0;">
 <p style="color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left; margin: 0 0 10px 0; font-size: 14px; line-height:19px;">At <a href="http://www.fadmashion.com" style="color: #01517e; text-decoration:none;">Fadmashion</a>, community involvement is important to us.  Supporting independent brands means building a following of loyal customers that not only shops for beautiful fashion but also shares their new discoveries with their friends.  To encourage sharing, Fadmashion is offering a unique social shopping loyalty program that gives customers rewards as they contribute to building the community.</p>
 
-<p style="color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left; margin: 0 0 10px 0; font-size: 14px; line-height:19px;">Before we launch, start earning rewards today by sharing your unique invite link.  </p>
-
 </div>
 
 
