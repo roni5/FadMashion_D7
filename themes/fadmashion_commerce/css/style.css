@@ -46,8 +46,10 @@ label{font-weight: normal;}
 #submitLoader{background:url("../images/colorbox/loading.gif") no-repeat scroll 5px 5px #FFFFFF; float:left; height:32px; margin:-7px 0 0 7px; width:32px;}
 
 .message_box, #message_box { color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px; margin-top: 3px; }
-.message_box .error, .messages.error, #message_box .invalid    { background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
-
+ #message_box .invalid    { background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
+.message_box .error, .messages.error {width: 90% !important; background:none repeat scroll 0 0 #ffffff; padding:5px; width:90% !important; color: #CC3333; border: 1px solid #CC3333}
+	
+	
 .messages {width: auto !important; font-size: 14px; -moz-border-radius:4px;  -webkit-border-radius: 4px;}
 .messages a{text-decoration:underline;}
 

@@ -248,7 +248,7 @@ function fm_invite_send_email_form($form, $form_state, $user) {
       '#type' => 'textfield', 
       '#size' => 25, 
 	    '#maxlength' => 255,
-      '#default_value' => 'Enter friend\'s e-mail',
+      '#default_value' => 'Enter friends\' e-mail',
       '#attributes' => array('class' => array('clear-defaults')),
       '#required' => TRUE,
     );
