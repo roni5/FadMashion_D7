@@ -30,7 +30,7 @@ Drupal.behaviors.addFMPaymentEmailForm= {
 		},
 		
 		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
-		showErrors: showErrorsColorbox
+		//showErrors: showErrorsColorbox
     });
     
     $("#fm-commerce-store-owners-admin-form #edit-mail").rules("add", {
