@@ -154,7 +154,7 @@ a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; 
 #signup #user-login-form .forgotPassword {float: left; font-size: 11px; text-decoration:none; font-style: normal; }
 #signup #user-login-form{width: 237px; text-align: left; margin: 0 auto;}
 #signup #user-login-form .form-text, #signup .sendFields .form-text{background: #fff url(../images/bg_field_light.jpg) top left repeat-x; border: 1px solid #e8e5e4; color: #9c8a7f; font-size: 14px; width: 231px; margin-bottom: 12px;}
-#signup #user-login-form .form-submit{ margin: 0 !important; float: right; color: #fff; background: url(../images/b_login.png) top left no-repeat; width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 14px;}
+#signup #user-login-form .form-submit{ margin: 0 !important; padding: 0; float: right; color: #fff; background: url(../images/b_login.png) top left no-repeat; width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 14px;}
 #signup #user-login-form .form-submit:hover {background-position: bottom left;}
 
 .generatingCode{margin: 160px 0 0 0; text-align:center;}
@@ -180,7 +180,7 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 
 #fm-invite-send-email-form {overflow: hidden; padding: 0 20px; }
 #fm-invite-send-email-form .form-type-textfield {float: left;}
-#fm-invite-send-email-form .form-submit {float:left;margin: 10px 0 0 165px}
+#fm-invite-send-email-form .form-submit {float:left;margin: 10px 0 0 165px;  padding: 0;}
 #fm-invite-send-email-form #message_box{display: none !important;}
 
 #signup .form-text.invalid {border:1px solid #DE2C2C !important;}
