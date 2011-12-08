@@ -107,7 +107,7 @@ function fm_commerce_emails_shipped($order) {
   );
   
 	
-	var_dump($shop, '<br><br><br>' );
+	var_dump('TEST:<br><br><br>', $shop, '<br><br><br>' );
 	
   
   //send to designer
