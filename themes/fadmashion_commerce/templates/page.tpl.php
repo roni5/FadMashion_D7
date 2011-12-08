@@ -25,11 +25,13 @@
 	        <?php print render($page['content']); ?>
 	     </div><!-- end mainContent -->
 	   </div> <!-- end column1 -->
+	   <?php if(!empty($page['sidebar_second'])): ?>
 	   <div class="column2">
 	     <div class="sidebar">
 	       <?php print render($page['sidebar_second']); ?>
 	     </div>
 	   </div><!-- end column2 -->
+	   <?php endif;  ?> 
 	 </div>
 
 </div><!--wrapper-->
