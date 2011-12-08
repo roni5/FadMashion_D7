@@ -15,7 +15,7 @@
 <td class="content" valign="top" style="background-color: #f0f0e8;">
 
 <div class="pad" style="padding: 24px 15px 10px 50px">
-<h1 style="font-size:18px;width:auto;margin:9px 0;">Choose Independent Fashion</h1>
+<h1 style="font-size:18px;width:auto;margin:9px 0;">Insider Access</h1>
 <p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;"><?php print $body;?></p>
 
 <div class="signUp" style="float: left; display: block; margin: 20px 0;">

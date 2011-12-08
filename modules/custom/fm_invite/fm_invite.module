@@ -254,7 +254,7 @@ function fm_invite_send_email_form($form, $form_state, $user) {
     );
 	}
 	
-	$form['user_id'] = array('#type' => 'value', '#value' => $user->user_id);
+	$form['uid'] = array('#type' => 'value', '#value' => $user->uid);
   
   $form['submit'] = array(
     '#type' => 'submit', 
@@ -268,8 +268,8 @@ function fm_invite_send_email_form($form, $form_state, $user) {
 
 function fm_invite_send_email_form_submit($form, &$form_state) {
 	 
-	$user_id = $form_state['values']['user_id'];
-	$user = user_load($user_id);
+	$uid = $form_state['values']['uid'];
+	$user = user_load($uid);
 	
   $num = 4;
   $to = array();
@@ -295,14 +295,16 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 		$email = variable_get('site_mail', 'admin@fadmashion.com');
 	}
 	
-	$from = fm_users_fullname($user_id) . $form_state['values']['name']. ' <' . $email . '> ';
+	$from = fm_users_fullname($uid) . ' <' . $email . '> ';
 	
 	// Send the confirmation email.
+	
 	$reg_code_url = fm_invite_get_invite_url($user);
   $params = array(
     'subject' => 'Invitation to Independence at Fadmashion.com',
-    'fromName' => fm_users_fullname($user_id),
-    'reg_url' => $reg_code_url
+    'fromName' => fm_users_fullname($uid),
+    'reg_url' => $reg_code_url,
+    'message' => fm_invite_email_message()
   );
   
   drupal_mail(
@@ -330,7 +332,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 }
 
 function fm_invite_email_message() {
-	$message = t('I just requested an invitation to Fadmashion\'s upcoming private launch. Sign up too and we can both shop up to 60% off independent designs. To get priority access just signup and invite your friends!');
+	$message = t('Hey! I just signed up for Fadmashion.com and have private invites to share, I thought you might like the insider access.  When you sign-up we both get credits to use for future purchases....sweet!');
 	return $message;
 }
 
