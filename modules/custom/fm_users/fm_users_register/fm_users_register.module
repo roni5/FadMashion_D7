@@ -271,7 +271,8 @@ function fm_users_register_form_submit($form, &$form_state) {
 			$id = $obj->id;
 		}
 		
-	$invite_form = drupal_get_form('fm_invite_send_email_form', $user);
+		$new_user = true;
+	$invite_form = drupal_get_form('fm_invite_send_email_form', $user, $new_user);
 	$invite_url = fm_invite_get_invite_url($user);
 		
   print theme('fm_users_register_confirmation', array('user' => $user, 'invite_url' => $invite_url, 'invite_form' => $invite_form));
