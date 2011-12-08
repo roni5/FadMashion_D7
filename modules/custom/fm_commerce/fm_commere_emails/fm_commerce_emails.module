@@ -105,7 +105,7 @@ function fm_commerce_emails_shipped($order) {
 	$params = array(
 	  'order' => $order, 'product' => $product,  'shop' => $shop
   );
-  \
+  
   //send to designer
   drupal_mail(
       'fm_commerce_emails',
