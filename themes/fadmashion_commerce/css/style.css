@@ -169,8 +169,8 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #inviteCode .form-text{margin: 0;}
 
 .sendFields{ margin:0 0 15px 0; padding: 15px 0;text-align: center; background: #f0ebe5; width: 490px; margin: 0 auto; border-bottom-left-radius:5px; -webkit-border-bottom-left-radius: 5px; -moz-border-bottom-left-top-radius: 5px;  border-bottom-right-radius:5px; -webkit-border-bottom-right-radius: 5px; -moz-border-bottom-right-top-radius: 5px;}
-.inviteFriends{display: block;  background: url(../images/b_invite.png) top left no-repeat; height: 34px; width: 121px; line-height: 34px; text-align:center; text-decoration: none; color: #fff; font-size: 14px; margin: 15px auto 0 auto;}
-#signup .sendFields .form-text{width: 210px; margin: 4px;}
+.inviteFriends{margin:15px 0 0 170px !important;  padding: 0 12px !important; display: block; float: left;  background: url(../images/b_invite.png) top left no-repeat; height: 34px; width: 121px; line-height: 34px; text-align:center; text-decoration: none; color: #fff; font-size: 14px; }
+#signup .sendFields .form-text{width: 210px; margin: 4px;float: left;}
 
 .skipInvites{ text-decoration: none; font-size: 12px; margin: 26px 0 0 0; display: block;}
 #signup .state2 p{font-size: 15px; line-height: 20px;}
@@ -178,8 +178,7 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #signup .errorText{margin-top: 10px; background: #6e5e54; padding: 5px; font-size: 12px; color: #fff; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 #signup .loginErrorText { display: none; margin: 0 0 10px; font-size: 12px; }
 
-#fm-invite-send-email-form {overflow: hidden; padding: 0 20px; }
-#fm-invite-send-email-form .form-type-textfield {float: left;}
+#fm-invite-send-email-form {overflow: hidden; padding: 0 20px; }]
 #fm-invite-send-email-form .form-submit {float:left;margin: 10px 0 0 165px;  padding: 0;}
 #fm-invite-send-email-form #message_box{display: none !important;}
 
