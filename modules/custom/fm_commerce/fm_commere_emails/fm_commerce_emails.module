@@ -150,6 +150,7 @@ function fm_commerce_emails_captured($order) {
     );
   
   //send to designer
+  watchdog('debug', 'store ownder mail ' .$store_owner->mail );
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_store_order_confirmation',

@@ -1,5 +1,5 @@
 <h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">Savvy darling. Very savvy. </h1>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Thank you for shopping with Fadmashion.com.  Below are the deatils of your order. </p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Thank you for shopping with Fadmashion.com.  Below are the deatils of your order. We will send you an e-mail as soon as your item is shipped.</p>
 
     
     <table cellspacing="0" cellpadding="10" class="message" style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2dcd6"><tbody>
