@@ -73,8 +73,13 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 		//$form['submit']['#suffix'] = $error_message;
 		$form['submit']['#attributes'] = array(
 		  'class' => array('red', 'buyit-button'),
-		  //'disabled' => 'disabled'
+		  
     );
+    
+    global $user;
+    if(!user_access('view express checkout')) {
+    	$form['submit']['#attributes']['disabled'] = 'disabled';
+    }
     
 	  /*$options['bt_drupal_buyit_error'] = array(
       'cssSelect' => '.itemOptions .box',
