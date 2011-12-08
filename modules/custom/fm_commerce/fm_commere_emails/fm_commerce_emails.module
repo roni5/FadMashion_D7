@@ -106,6 +106,10 @@ function fm_commerce_emails_shipped($order) {
 	  'order' => $order, 'product' => $product,  'shop' => $shop
   );
   
+	
+	var_dump($shop, '<br><br><br>' );
+	
+  
   //send to designer
   drupal_mail(
       'fm_commerce_emails',
@@ -181,9 +185,6 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	$order = $params['order'];
 	$product = $params['product'];
 	$shop = $params['shop'];
-	
-	
-	var_dump($shop, '<br><br><br>' );
 	
 	$customer = user_load($order->uid);
 	
