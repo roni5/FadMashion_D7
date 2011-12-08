@@ -260,7 +260,7 @@ function fm_users_register_form_submit($form, &$form_state) {
         drupal_mail(
            'fm_invite',
            'confirmation',
-           $form_state['values']['mail'],
+           $mail,
            language_default(),
            $params,
            'Fadmashion <' . $email . '> '
