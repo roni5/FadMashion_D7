@@ -101,6 +101,8 @@ function fm_commerce_emails_shipped($order) {
 	
 	$email = variable_get('site_mail', 'admin@fadmashion.com');
 	
+	var_dump($shop);
+	exit();
 	//send to user
 	$params = array(
 	  'order' => $order, 'product' => $product,  'shop' => $shop

@@ -12,11 +12,7 @@
   $tracking_id = $order_wrapper->field_tracking_id->value();
   $tracking_company = $order_wrapper->field_tracking_company->value();
   $opts = fm_commerce_store_owners_shipping_company_opts();
-  
-  $shop = fm_commerce_get_store($product);
-  print theme('fm_commerce_emails_store_order_shipped', 
-	                         array('order' => $order, 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
-	    
+
 ?>
 
 
