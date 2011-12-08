@@ -4,7 +4,9 @@ $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   $tracking_company = $order_wrapper->field_tracking_company->value();
   $opts = fm_commerce_store_owners_shipping_company_opts();
   
-  $payout = fm_commerce_store_order_payout_value($order, $shop);
+  $product = fm_commerce_get_order_product($order);
+  $store = fm_commerce_get_store($product);
+  $payout = fm_commerce_store_order_payout_value($order, $store);
   $commission = fm_commerce_store_order_commission_value($order, $value);
 ?>
 <h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">An order has been shipped.  Needs Admin Action.</h1>
@@ -27,8 +29,8 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
 ?>    
         <div class="ships" style="color: #a4897b; font-size: 12px; font-weight: bold; margin-top: 10px;">SHIPS TO:</div>
         <p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print render($order_view['commerce_customer_shipping']);  ?></p>
-        <div style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Designer Payout: <?php print commerce_currency_format($payout, 'USD', NULL, true);?></div>
-        <div style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">FM Commission: <?php print commerce_currency_format($commission, 'USD', NULL, true);?></div>
+        <div style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Designer Payout: <?php //print commerce_currency_format($payout, 'USD', NULL, true);?></div>
+        <div style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">FM Commission: <?php //print commerce_currency_format($commission, 'USD', NULL, true);?></div>
         
             </td>
         </tr>
