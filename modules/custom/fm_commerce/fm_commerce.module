@@ -72,7 +72,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 		$form['submit']['#value'] = "Buy It";
 		//$form['submit']['#suffix'] = $error_message;
 		$form['submit']['#attributes'] = array(
-		  'class' => array('red', 'buyit-button'),
+		  'class' => array( 'buyit-button'),
 		  
     );
     
