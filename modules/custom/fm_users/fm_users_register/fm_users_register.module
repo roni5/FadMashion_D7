@@ -271,8 +271,6 @@ function fm_users_register_form_submit($form, &$form_state) {
 			$id = $obj->id;
 		}
 		
-		
-	watchdog('degug', 'exit invites');
 	$invite_form = drupal_get_form('fm_invite_send_email_form', $user);
 	$invite_url = fm_invite_get_invite_url($user);
 		

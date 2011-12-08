@@ -2,8 +2,6 @@
  * 
  */
 
-
-var regBlockId = 'block-fm-users-register-fm-users-register-block';
 var forceRegisterTimeout;
 
 jQuery(document).ready(function() {

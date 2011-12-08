@@ -328,7 +328,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $form_state['values']['name']. ' <' . $email . '> '
    ); 
    */
-   drupal_goto();
+   drupal_goto('new-user/confirmation');
 }
 
 function fm_invite_email_message() {

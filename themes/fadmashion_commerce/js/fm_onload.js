@@ -2,6 +2,9 @@
  *  Javascript Tools to handle Forms in FAdmashion 
  */
 
+//Global Variables
+var regBlockId = 'block-fm-users-register-fm-users-register-block';
+
 jQuery(document).ready(function() {
 	
 
