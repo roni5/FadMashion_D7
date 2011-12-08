@@ -134,3 +134,22 @@ function fmValidateInviteForm() {
 }
 
 
+/**
+ * get the time from server
+ */
+function serverSync() {
+  var time = null;
+  // try to get the servertime, if false we provide the current client time..
+  jQuery.ajax({
+    url: Drupal.settings.basePath + 'jquery_countdown/serversync',
+    async: false,
+    dataType: 'text',
+    success: function(text) {
+      time = new Date(text);
+    },
+    error: function(http, message, exc) {
+      time = new Date();
+    }
+  });
+  return time;
+};
