@@ -76,7 +76,6 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 		  
     );
     
-    global $user;
     if(!user_access('view express checkout')) {
     	$form['submit']['#attributes']['disabled'] = 'disabled';
     }
