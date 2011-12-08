@@ -34,7 +34,7 @@ function fm_users_init() {
 	// add the login status of user
 	global $user;
 	$status = ($user->uid ? 1 : 0);
-  drupal_add_js('var user_status="' . $status . ';"', 'inline');
+  drupal_add_js('var user_status=' . $status . ' ;', 'inline');
 	
 }
 
