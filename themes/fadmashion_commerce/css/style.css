@@ -193,7 +193,7 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #content .column2, 
 .mainContent, .photos, .info, .designerInfo,.sidebar{float: left; display: inline;}
 
-#content{width: 1000px; margin-top: 66px;background: url(../images/dotted_vertical.png) 760px 0 repeat-y;}
+#content{width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 760px 0 repeat-y;}
 .sidebarRight .column1{width: 765px;float: left }
 .sidebarRight .column2{width:234px;  }
 .sidebarRight .mainContent{width: 740px;}
