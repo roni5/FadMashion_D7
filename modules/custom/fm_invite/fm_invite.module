@@ -10,8 +10,8 @@
  */
 define('FM_INVITE_SESSION', 'invite_code');
 define('FM_INVITE_ALL_ACCESS', 'all_access_code');
-define('FM_INVITE_CONFIRM_PATH', 'intro/thankyou');
-define('FM_INVITE_SIGNUP_PATH', 'intro/sign-up/email');
+define('FM_INVITE_CONFIRM_PATH', 'new-user/confirmation');
+define('FM_INVITE_SIGNUP_PATH', '');
 
 function fm_invite_menu() {
 	
@@ -405,6 +405,7 @@ function fm_invite_accept($reg_code = '') {
   else {
   	fm_invite_update_page_views($inviter);
     $_SESSION[FM_INVITE_SESSION] = $reg_code;
+    $_SESSION[FM_INVITE_ALL_ACCESS]  = TRUE;
   }
   drupal_goto();
 }

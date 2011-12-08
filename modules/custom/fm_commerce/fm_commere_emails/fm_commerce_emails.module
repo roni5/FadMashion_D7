@@ -120,7 +120,7 @@ function fm_commerce_emails_shipped($order) {
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_admin_order_shipped',
-      'misternyce@gmail.com', //$email,
+      $email, //'misternyce@gmail.com', 
       language_default(),
       $params,
       'Fadmashion Orders <' . $email . '> '
