@@ -5,7 +5,7 @@
   $opts = fm_commerce_store_owners_shipping_company_opts();
   
   $payout = fm_commerce_store_order_payout_value($order, $shop);
-  $commission = fm_commerce_store_order_commission_value($order, $value);
+  $commission = fm_commerce_store_order_commission_value($order, $shop);
 ?>
 
 <h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">Confirmation of shipped order </h1>
