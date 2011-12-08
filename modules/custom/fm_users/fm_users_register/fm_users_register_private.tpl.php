@@ -1,6 +1,6 @@
 
 <h1>Sorry, Not Yet.</h1>
-<p>Fadmashion is only opening its doors to a select few to keep our membership exclusive to ensure we offer the best quality and customer services.  Jump the line by inviting some friends.  Below is a code you can share that will give them and you instant access once they sign up.</p>
+<p>Fadmashion is only opening its doors to a select few to ensure we offer the best quality and customer services for our members.  Jump the line by inviting some friends.  Below is a code you can share that will give them and you instant access once they sign up.</p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>

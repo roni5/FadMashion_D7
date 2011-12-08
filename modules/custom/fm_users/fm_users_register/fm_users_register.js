@@ -5,6 +5,9 @@
 var forceRegisterTimeout;
 
 jQuery(document).ready(function() {
+	
+	
+	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
 	if(jQuery("#" + regBlockId).length) {
 		forceRegisterTimeout = setTimeout("fmForceRegister();",8500);
@@ -96,6 +99,17 @@ jQuery(document).ready(function() {
 	    fmPasswordClearDefaults(jQuery("#user-register-form #edit-pass-pass2"), 
 				  jQuery("#user-register-form  #edit-pass-confirm-clear"));
 	   } //End registration VAlidate
+	  
+	  
+
+		//Disable The "Buy It Button
+	  if(!user_status) {
+		jQuery('#commerce-cart-add-to-cart-form #edit-submit').click(function() {
+			fmForceRegister();
+			fmClearRegisterTimeout();
+		    return false;
+		});
+	  }
 
 });
 
