@@ -180,6 +180,9 @@ function fm_commerce_store_owners_admin_form_submit($form, &$form_state) {
 	$store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
 	$store_wrapper->field_paypal_email = $form_state['values']['mail'];
 	entity_get_controller('fm_commerce_store')->save($store);
+	
+	print 'success';
+	exit();
 }
 
 /**
