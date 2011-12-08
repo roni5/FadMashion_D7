@@ -27,7 +27,7 @@
 </div>
 
 
-
+<?php /*
     <div class="rewards">
 
     
@@ -63,7 +63,7 @@
 <img src="<?php print $theme_url?>/images/emails/template1/edge_25_bottom.jpg" style="border: none; display: block;">
 </td>
     </tr></table>
-</div>
+</div> */?>
    </td>
    
     <tr><td><img src="<?php print $theme_url?>/images/emails/template1/edge_reward_bottom.jpg" style="border: none; display: block;"></td></tr>
