@@ -260,7 +260,7 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  if(count($orders) == 0) {
  //if (true) {
   return '<div class="ownners no-orders">This shop currently doesn\'t have purchases.  
-  <a href="javascript:void(0);" onClick="jQuery(\'.ownners.no-orders\').hide(); jQuery(\'.orders-demo\').show(); jQuery.colorbox.resize()">View demo</a></div> ' .
+  <a href="javascript:void(0);" onClick="jQuery(\'.ownners.no-orders\').hide(); jQuery(\'.orders-demo\').show(); jQuery.colorbox.resize()">View Examples</a></div> ' .
   '<div style="display:none;" class="orders-demo">' . theme('fm_commerce_store_owners_demo') . '</div>'; 	
   
  }

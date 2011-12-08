@@ -205,7 +205,7 @@ function fm_commerce_orders_list() {
  
  if(count($orders) == 0) {
   return '<div class="customer no-orders">You currently don\'t have any purchases.  
-  <a href="javascript:void(0);" onClick="jQuery(\'.customer.no-orders\').hide(); jQuery(\'.orders-demo\').show(); jQuery.colorbox.resize()">View demo</a></div> ' .
+  <a href="javascript:void(0);" onClick="jQuery(\'.customer.no-orders\').hide(); jQuery(\'.orders-demo\').show(); jQuery.colorbox.resize()">View Examples</a></div> ' .
   '<div style="display:none;" class="orders-demo">' . theme('fm_commerce_orders_demo') . '</div>'; 		
  }
  
