@@ -128,6 +128,10 @@ function fm_users_block_view($block_name = '') {
 		case 'fm_users_orders':
 			//$content = theme('fm_commerce_store_owners_orders_admin', array('store' => $store, 'orders' => 'test'));
 			$content = fm_commerce_orders_full_list();
+				$invite_form = drupal_get_form('fm_invite_send_email_form', $user);
+		  $invite_url = fm_invite_get_invite_url($user);
+			$content = theme('fm_users_invite_block', array('user' => $user, 'invite_form' => $invite_form, 'invite_url' => $invite_url));
+		
 			break;
 		case 'fm_users_invite':
 			$invite_form = drupal_get_form('fm_invite_send_email_form', $user);
