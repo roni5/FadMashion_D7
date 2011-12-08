@@ -184,7 +184,6 @@ function fm_commerce_emails_mail($key, &$message, $params) {
 	
 	
 	var_dump($shop);
-	exit();
 	
 	$customer = user_load($order->uid);
 	
