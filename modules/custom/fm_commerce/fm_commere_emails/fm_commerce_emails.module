@@ -123,7 +123,7 @@ function fm_commerce_emails_shipped($order) {
       $email, //'misternyce@gmail.com', 
       language_default(),
       $params,
-      'Fadmashion Orders <' . $email . '> '
+      'Admin - Fadmashion <' . $email . '> '
    );  
 }
 
@@ -163,10 +163,10 @@ function fm_commerce_emails_captured($order) {
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_admin_order_confirmation',
-      'misternyce@gmail.com', //$email,
+      $email,
       language_default(),
       $params,
-      'Fadmashion Orders <' . $email . '> '
+      'Admin - Fadmashion <' . $email . '> '
    );  
 }
 
