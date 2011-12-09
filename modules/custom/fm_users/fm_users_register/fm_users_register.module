@@ -112,6 +112,9 @@ function fm_users_register_display($nodequeue_pos) {
 
 function fm_users_register_load_node($nodequeue_pos) {
 	$nq = nodequeue_nids_visible(REGISTRATION_NODEQUEUE);
+	if($nodequeue_pos > count($nq)) {
+		drupal_goto();
+	}
 	$nid = 0;
 	for($i = 0; $i < $nodequeue_pos; $i++) {
 		$nid = array_shift($nq);
