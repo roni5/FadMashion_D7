@@ -36,7 +36,11 @@ function fm_commerce_store_theme() {
       'variables' => array('store' => NULL),
       'template' => 'fm_commerce_store_hover'
     ),
-    'fm_commerce_store_commission_breakdown' => array(
+    'fm_commerce_store_commission_breakdown_admin' => array(
+      'variables' => array('before_commission' => array(), 'commission' => array(), 'after_commission' => array(), 'total_payment' =>  array() ),
+      'template' => 'fm_commerce_store_commission_breakdown'
+    ),
+    'fm_commerce_store_commission_breakdown_store_owner' => array(
       'variables' => array('before_commission' => array(), 'commission' => array(), 'after_commission' => array(), 'total_payment' =>  array() ),
       'template' => 'fm_commerce_store_commission_breakdown'
     )
@@ -511,9 +515,10 @@ function fm_commerce_store_query_orders($store, $status = array('fm_orders_autho
 
 
 /*
- * Function to return the amount of payment we need to make to 
+ * Show the Commission payout from the ADMIN perspective
  */
 function fm_commerce_store_order_display_commission($order, $store) {
+	
 	$values = _fm_commerce_store_order_commission_values($order, $store);
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -541,7 +546,48 @@ function fm_commerce_store_order_display_commission($order, $store) {
   $price = commerce_currency_format($total['amount'], $total['currency_code']);
   $totals[] = theme('fm_commerce_orders_totals_summary', array('title' => 'Total Payment to Designer', 'price' => '<span>' . $plus_after_commissions_formatted . '</span>', 'extra_classes' => 'total'));
   
-  $output = theme('fm_commerce_store_commission_breakdown', 
+  $output = theme('fm_commerce_store_commission_breakdown_admin', 
+             array('before_commission' => $before_commission, 
+                   'commission' => $commission, 
+                   'after_commission' => $after_commission, 
+                   'total_payment' => $totals)
+             );
+  return $output;
+}
+
+/*
+ * Show the Commission payout from the STORE perspective
+ */
+function fm_commerce_store_order_display_commission_store($order, $store) {
+	
+		$values = _fm_commerce_store_order_commission_values($order, $store);
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $total = $order_wrapper->commerce_order_total->value();
+  
+  $before_commission = $values['before_commission'];
+  $after_commission = $values['after_commission'];
+  $sub_total = $values['sub_total'];
+  
+  //Calculations
+  $commission_val = $values['commission_val'];
+  $after_commission_val = $values['after_commission_val'];
+  $plus_after_commissions_val = $values['plus_after_commissions_val'];
+  
+  //Formatted values of Calculations
+  $sub_total_formatted = commerce_currency_format($sub_total, $total['currency_code'], NULL, true);
+  $commission_formatted = commerce_currency_format($commission_val, $total['currency_code'], NULL, true);
+  $after_commission_formatted = commerce_currency_format($after_commission_val, $total['currency_code'], NULL, true);
+  $plus_after_commissions_formatted = commerce_currency_format($plus_after_commissions_val, $total['currency_code'], NULL, true);
+  
+  $commission['sub-total'] = array('price' => $sub_total_formatted);
+  $commission['commission'] = array('title' => 'Commission', 'price' => $sub_total_formatted . ' x '. $commission_pct . ' = -<span>' . $commission_formatted . '</span>');
+  $commission['after_commission'] = array('title' => 'After commission', 'price' => $after_commission_formatted);
+  
+  $price = commerce_currency_format($total['amount'], $total['currency_code']);
+  $totals[] = theme('fm_commerce_orders_totals_summary', array('title' => 'Total Payment to Designer', 'price' => '<span>' . $plus_after_commissions_formatted . '</span>', 'extra_classes' => 'total'));
+  
+  $output = theme('fm_commerce_store_commission_breakdown_store_owner', 
              array('before_commission' => $before_commission, 
                    'commission' => $commission, 
                    'after_commission' => $after_commission, 

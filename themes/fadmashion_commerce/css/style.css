@@ -637,6 +637,13 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .orders_shippment_form .step1 {border-right: 1px solid #ddd; width: 150px;}
 .orders_shippment_form .step2 {width: 150px;padding-left: 10px;}
 
+.commission-details .col1{float: left; width: 200px;}
+.commission-details .col2{float: right;}
+.commission-details  .commission, .commission-details .after-commission {clear: both; border-top: 1px solid #666;}
+.sub-total {height: 20px;}
+.commission-details  .commission-val span, .commission-details  .total-payments span{font-weight: bold}
+.total-payments span {font-size: 16px; }
+
 .orders_popup_footer {width: 330px; text-align: center; clear: both; font-style: italic; margin-top: 10px; font-size: 10px;}
 
 .no-orders {text-align: center; font-style: italic;margin: 15px;}
