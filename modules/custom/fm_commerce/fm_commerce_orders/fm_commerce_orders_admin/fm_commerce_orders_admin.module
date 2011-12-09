@@ -98,7 +98,7 @@ function fm_commerce_orders_admin() {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Date', 'Customer', 'Designer Shop', 'Details','Status' );
+ $header = array('Invoice', 'Date', 'Customer', 'Designer Shop', 'Item', 'Actions' );
  $hidden = '';
  foreach($orders as $order) {
  	  $order_user = user_load($order->uid);

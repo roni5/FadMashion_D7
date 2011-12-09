@@ -212,7 +212,7 @@ function fm_commerce_orders_list() {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Details', 'Price' ,'Status' );
+ $header = array('Invoice', 'Item', 'Price' ,'Action' );
  $hidden = '';
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
