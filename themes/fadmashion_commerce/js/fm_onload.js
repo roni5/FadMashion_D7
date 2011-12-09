@@ -120,7 +120,12 @@ function fmValidateInviteForm() {
     	errorClass: 'invalid',
     	onkeyup: false,
     	wrapper: 'div id="message_box"',
-		
+    	submitHandler: function(form) {
+			jQuery(form).ajaxSubmit({
+		        beforeSubmit:  fmInvitesBefore,  // pre-submit callback 
+		        success:       fmIvitesAfter  // post-submit callback 
+			});
+		},
 		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
 		showErrors: showErrorsColorbox
     });
@@ -131,6 +136,17 @@ function fmValidateInviteForm() {
    	   required: true,
    	   email: true
      });
+}
+
+function fmInvitesBefore() {
+	jQuery('.invite_state1').hide();
+	jQuery('.invite_state2').show();
+}
+
+function fmIvitesAfter(responseText, statusText, xhr, $form) {
+		jQuery('.invite_state1').hide();
+		jQuery('.invite_state2').hide();
+		jQuery('.invite_state3').show();
 }
 
 

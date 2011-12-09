@@ -1,6 +1,6 @@
 
 <h1>Sorry, Not Yet.</h1>
-<p>Fadmashion is only opening its doors to a select few to ensure we offer the best quality and customer services for our members.  Jump the line by inviting some friends.  Below is a code you can share that will give them and you instant access once they sign up.</p>
+<p>Fadmashion.com is opening its doors to a select few to ensure we offer <b>high quality customer services for our members</b>.  Jump the line when you <b>invite 4 friends</b> to our growing community.  </p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>
@@ -11,8 +11,11 @@
 </tr></tbody></table>
 
 <div class="sendFields rounded-bottom">
+<div class="invite_state2"><?php print theme('fm_invite_ajax_sending_email'); ?></div>
+<div class="invite_state3"><p>Invitations Sent!</p></div>
+<div class="invite_state1">
 <p>Share your code with your friends</p>
 <?php print render($invite_form); ?>
 <script>clearAllForms();fmValidateInviteForm();</script>
-
+</div>
 </div>

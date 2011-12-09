@@ -104,7 +104,15 @@ function fm_invite_theme() {
       'variables' => array('reg_code_url' => ''),
       'template' => 'fm_invite_rewards_popup'
     ),
+    'fm_invite_ajax_sending_email' => array(
+      'variables' => array('reg_code_url' => ''),
+    ),
   );
+}
+
+function theme_fm_invite_ajax_sending_email($vars) {
+	$output = '<div class=""><p>' .  t('Preparing Invitations...') . '</p><img src="' . pp() . 'confirm-ajax-loader.gif"></div>';
+  return $output;
 }
 
 function fm_invite_twitter_text($reg_code_url = '') {
