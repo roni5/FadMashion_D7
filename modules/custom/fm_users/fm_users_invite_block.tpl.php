@@ -4,7 +4,7 @@
 
 
 <h1>Invite Friends</h1>
-<p>As a member, we have provided you with a private invite code that you can share with your friends.  E-mail them directly or post on Twitter or Facebook and they will allowed it.  </p>
+<p>As a member, we have provided you with a <b>private invite code</b> that gives <b>insider access</b> on Fadmashion.com to your friends, family and biggest fans .  </p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>
