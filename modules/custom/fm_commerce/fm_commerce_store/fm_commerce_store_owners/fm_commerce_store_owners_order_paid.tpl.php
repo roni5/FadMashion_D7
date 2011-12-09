@@ -6,14 +6,13 @@
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
   $order_view = commerce_order_ui_order_view($order, 'customer');
   
-  //TODO: Get commission and payout value
-  $commission = fm_commerce_store_order_commission_value($order, $shop);
-  $payout = fm_commerce_store_order_payout_value($order, $shop);
+  $payout = fm_commerce_store_order_payout_value($order, $store);
+  $payout = commerce_currency_format($payout, 'USD', NULL, true);
 ?>
 
 <div class="orders_admin_wrapper">
 <h1>Cha-Ching!</h1>
-<p>We have credited your Paypal business account with the correct amount.  </p>
+<p>We have credited your Paypal business account <b><?php print $payout;?></b>.  </p>
 
 <div style="margin: 10px 0; overflow: hidden;">
 <div class="image" style="float: left; width: 146px; margin-right: 10px;">
