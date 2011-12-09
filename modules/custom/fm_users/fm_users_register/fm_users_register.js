@@ -29,7 +29,8 @@ jQuery(document).ready(function() {
 	     });
 	  
 	    jQuery("#user-login-form #edit-name").rules("add", {
-	 	   notEqual: "Email"
+	 	   notEqual: "Email",
+	 	   email: true,
 	     });
 	    jQuery("#user-login-form .form-item-pass input").rules("add", {
 	  	   remote: {
