@@ -1,6 +1,6 @@
 
 <h1>Sorry, Not Yet.</h1>
-<p>Fadmashion.com is opening its doors to a select few to ensure we offer quality customer services for our members.  <b>Jump the line</b> when you <b>invite 4 friends</b> to our growing community.  </p>
+<p>Fadmashion.com is opening its doors to a select few to ensure we offer quality customer services for our members.  <b>Jump the line</b> when you <b>invite 4 friends</b> to join our growing community.  </p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>
