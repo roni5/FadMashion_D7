@@ -10,17 +10,20 @@
   $payout = commerce_currency_format($payout, 'USD', NULL, true);
 ?>
 
-<div class="orders_admin_wrapper">
+<div style="width: 400px; " class="orders_admin_wrapper">
 <h1>Cha-Ching!</h1>
-<p>We have credited your Paypal business account <b><?php print $payout;?></b>.  </p>
+<p>We have credited your Paypal business account.  </p>
 
 <div style="margin: 10px 0; overflow: hidden;">
 <div class="image" style="float: left; width: 146px; margin-right: 10px;">
 <?php print $image;?>
 </div>
 
-<div style="float: left; width: 170px;">
-<h3><?php print $product->title; ?></h3>
+<div style="float: left; width: 240px;">
+
+<?php print fm_commerce_store_order_display_commission($order, $store);  ?>
+<br>
+<h3><?php print $product->title; ?></h3> to
 <div><?php print $order_details; ?></div>
 
 <div style="margin-top: 10px;" class="details">
