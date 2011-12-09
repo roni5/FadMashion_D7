@@ -278,14 +278,15 @@ function fm_commerce_orders_row_info($order) {
          $retail_price = $line_item_wrapper->commerce_total->value();
          $retail_price = commerce_currency_format($retail_price['amount'], $retail_price['currency_code']);
          
+         $line_item = $line_item_wrapper->value();
+         $ref = field_get_items('commerce_line_item', $line_item, 'field_node_reference');
+         $nid = $ref[0]['nid'];
+         $node = node_load($nid);
          //TODO:  Fix Node Reference issue
-         $node = $line_item_wrapper->field_node_reference->value();
          if(isset($node)) {
            $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']);
            $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
          }
-         $sale_price = commerce_currency_format(0, 'USD');
-         $diff = commerce_currency_format(0, 'USD');
          
          $color = $line_item_wrapper->field_order_color->value();
          $size = $line_item_wrapper->field_order_size->value();
