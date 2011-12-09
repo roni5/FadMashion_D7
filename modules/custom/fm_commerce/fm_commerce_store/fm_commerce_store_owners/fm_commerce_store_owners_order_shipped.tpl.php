@@ -29,7 +29,6 @@
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>
 
-<br clear="all">
 <div style="font-size: 13px; margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
 
 

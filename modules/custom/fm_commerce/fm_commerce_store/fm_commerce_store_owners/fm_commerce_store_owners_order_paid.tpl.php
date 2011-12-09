@@ -27,9 +27,9 @@
 <div style="float: left; width: 240px;">
 
 <?php print fm_commerce_store_order_display_commission($order, $store);  ?>
-<br>
 
-<div style="margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
+<br clear="all">
+<div style="margin-top: 10px;font-size: 13px; m"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
 
 
 
