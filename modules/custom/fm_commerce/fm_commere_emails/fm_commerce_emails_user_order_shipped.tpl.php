@@ -32,7 +32,7 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
             </td>
         </tr>
 </tbody></table>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Sign into your account on <a href="http://www.fadmashion.com" style="color: #1c7eb4;">Fadmashion</a> to check the status of your order at anytime. Enjoy your purchase!</p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Sign into your account on <a href="http://www.fadmashion.com">Fadmashion.com</a> to check the status of your order at anytime. Enjoy your purchase!</p>
 <p class="signature" style="margin-bottom:10px;font-size:12px;line-height:18px;margin-top:0;font-style:italic;">- The Fadmashion Team</p>
 <br><br>
 
