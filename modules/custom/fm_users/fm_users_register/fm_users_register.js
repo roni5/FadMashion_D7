@@ -37,7 +37,7 @@ jQuery(document).ready(function() {
 	  		   url: base_path + "?q=fm_users/auth",
 	  		   type: "post",
 	  		   beforeSend: function() { jQuery('#login_loader').show();},
-	  		   complete: function(data) { if(data.responseText != truee) {jQuery('#login_loader').hide();}},
+	  		   complete: function(data) { if(data.responseText != true) {jQuery('#login_loader').hide();}},
 	  		   data: {username: function(){return  jQuery("#user-login-form #edit-name").val(); }}
 	  	   },
 	       messages: { 
