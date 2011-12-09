@@ -36,8 +36,8 @@ jQuery(document).ready(function() {
 	  	   remote: {
 	  		   url: base_path + "?q=fm_users/auth",
 	  		   type: "post",
-	  		   beforeSend: function() { jQuery('#login_loader').show();}, 
-	  		   success: function() { jQuery('#login_loader').hide();}, 
+	  		   beforeSend: function() { jQuery('#login_loader').show();},
+	  		   complete: function() { jQuery('#login_loader').hide();},
 	  		   data: {username: function(){return  jQuery("#user-login-form #edit-name").val(); }}
 	  	   },
 	       messages: { 
