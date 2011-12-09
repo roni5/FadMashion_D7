@@ -39,8 +39,8 @@
               <div class="navBox">
                     <ul class="nav">
                         <li  <?php ($menu_active == 'featured' ? print 'class="active"' : '' )?> ><?php print l('Featured Deal', 'deals'); ?></li>
-                        <li <?php ($menu_active == 'preview' ? print 'class="active"' : '' )?> ><?php print l('More Deals', 'deals/preview'); ?></li>
-                        <li><?php print l('Blog', 'http://blog.fadmashion.com', array('absolute' => true)); ?></li>
+                        <li <?php ($menu_active == 'preview' ? print 'class="active"' : '' )?> ><?php print l('More', 'deals/preview'); ?></li>
+                        <li><?php print l('Madness', 'http://blog.fadmashion.com', array('absolute' => true)); ?></li>
                         <!-- <li class="beautytips" id="voting-header" title="Coming Soon"><a href="#">Voting Booth</a>  -->
                         </li>
                         </ul></div>
