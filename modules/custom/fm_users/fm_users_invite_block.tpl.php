@@ -4,7 +4,7 @@
 
 
 <h1>Invite Friends</h1>
-<p>As a member, we have provided you with aprivate invite code that gives <b>insider access</b> on Fadmashion.com to your friends, family and biggest fans .  </p>
+<p style="width: 500px; margin: 0 auto;">As a member, we have provided you with a <b>private invite code</b></b> that gives <b>insider access</b> on Fadmashion.com to your friends, family and biggest fans.  </p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>
