@@ -1,6 +1,6 @@
 
 <h1>You're In!</h1>
-<p>Lorem ipsum dolor n for a unique shopping experience th dolor n for a unique shopp dolor n for a unique shoppat opens your world to the best independent designers 
+<p>As a member, we have provided you with a private invite code that gives <b> insider access</b> on Fadmashion.com to your friends, family and biggest fans .  
 </p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
