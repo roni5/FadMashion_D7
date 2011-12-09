@@ -53,6 +53,7 @@
 ?>
 </strong>
 <br><br>
+<h3>AFTER PAYMENT:</h3>
 <?php print render(drupal_get_form(fm_commerce_orders_admin_paid_form, $order)); ?>
 </div>
 
