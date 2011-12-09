@@ -8,6 +8,11 @@
   
   $payout = fm_commerce_store_order_payout_value($order, $store);
   $payout = commerce_currency_format($payout, 'USD', NULL, true);
+  
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+  $tracking_id = $order_wrapper->field_tracking_id->value();
+  $tracking_company = $order_wrapper->field_tracking_company->value();
+  $opts = fm_commerce_store_owners_shipping_company_opts();
 ?>
 
 <div style="width: 400px; " class="orders_admin_wrapper">
@@ -23,11 +28,11 @@
 
 <?php print fm_commerce_store_order_display_commission($order, $store);  ?>
 <br>
-<div><?php print $order_details; ?></div>
 
-<div style="margin-top: 10px;" class="details">
-<?php print render($order_view['commerce_customer_shipping']); ?>
-</div>
+<div style="margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
+
+
+
 
 </div>
 
