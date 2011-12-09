@@ -140,7 +140,12 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	  $form['name']['#default_value'] = t('Email');
   	  $form['name']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['name']['#weight'] = -20;
-  	
+  	  
+  	  $form['name']['#prefix'] = '<div class="text-form-icon-wrapper">';
+	    $form['name']['#suffix'] = '<div id="login_loader">
+         <img  src="' . pp() . 'confirm-ajax-loader.gif">
+         </div></div>';
+	    
   	  $form['pass']['#default_value'] = t('Password');
   	  $form['pass']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['pass']['#weight'] = -18;
@@ -192,9 +197,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	  
   	  $form['actions']['submit']['#value'] = t('Sign me up!');
   	  $form['actions']['submit']['#attributes'] = array('class' => array('ajax-button'));
-  	  $form['actions']['submit']['#prefix']  = '<div style="display: none;" class="errorText">Please correct the errors above before proceeding.
-  	                                             
-  	                                            </div>';
+  	 // $form['actions']['submit']['#prefix']  = '<div style="display: none;" class="errorText">Please correct the errors above before proceeding. </div>';
   	  
   	  $form['pass-clear'] = array(
   	     '#type' => 'textfield', 
