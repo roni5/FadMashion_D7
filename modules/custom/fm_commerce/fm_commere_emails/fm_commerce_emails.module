@@ -84,14 +84,16 @@ function fm_commerce_emails_paid($order) {
       $params,
       'Fadmashion <' . $email . '> '
     );
-  drupal_mail(
+  if(isset($store_owner->mail)) {
+    drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_store_order_vendor_paid',
       $store_owner->mail,
       language_default(),
       $params,
       'Fadmashion <' . $email . '> '
-    );
+      );
+   }
 }
 
 function fm_commerce_emails_shipped($order) {
@@ -107,6 +109,7 @@ function fm_commerce_emails_shipped($order) {
   );
   
   //send to designer
+  if(isset($store_owner->mail)) {
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_store_order_shipped',
@@ -115,12 +118,13 @@ function fm_commerce_emails_shipped($order) {
       $params,
       'Fadmashion <' . $email . '> '
    ); 
+  }
 
    //send to Admin
   drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_admin_order_shipped',
-      $email, //'misternyce@gmail.com', 
+      $email, 
       language_default(),
       $params,
       'Admin - Fadmashion <' . $email . '> '
@@ -150,15 +154,16 @@ function fm_commerce_emails_captured($order) {
     );
   
   //send to designer
-  watchdog('debug', 'store ownder mail ' .$store_owner->mail );
-  drupal_mail(
+  if(isset($store_owner->mail)) {
+    drupal_mail(
       'fm_commerce_emails',
       'fm_commerce_emails_store_order_confirmation',
       $store_owner->mail,
       language_default(),
       $params,
       'Fadmashion <' . $email . '> '
-   ); 
+    ); 
+  }
     
   drupal_mail(
       'fm_commerce_emails',

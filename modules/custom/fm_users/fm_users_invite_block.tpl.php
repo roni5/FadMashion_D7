@@ -4,8 +4,7 @@
 
 
 <h1>Invite Friends</h1>
-<p>Lorem ipsum dolor n for a unique shopping experience th dolor n for a unique shopp dolor n for a unique shoppat opens your world to the best independent designers 
-</p>
+<p>As a member, we have provided you with a private invite code that you can share with your friends.  E-mail them directly or post on Twitter or Facebook and they will allowed it.  </p>
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>
