@@ -23,7 +23,6 @@
 
 <?php print fm_commerce_store_order_display_commission($order, $store);  ?>
 <br>
-<h3><?php print $product->title; ?></h3> to
 <div><?php print $order_details; ?></div>
 
 <div style="margin-top: 10px;" class="details">

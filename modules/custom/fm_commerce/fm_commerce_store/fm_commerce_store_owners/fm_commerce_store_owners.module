@@ -268,11 +268,12 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Item', 'Action' );
+ $header = array('Invoice', 'Item', 'Customer', 'Action' );
  $hidden = '';
 	
  foreach($orders as $order) {
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+		$customer = user_load($order->uid);
 		
  	  $total = $order_wrapper->commerce_order_total->value();
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
@@ -283,7 +284,8 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
 		$rows[] = array('<div class="order-number">#' . $order->order_id . '</div><div class="order-date">' . format_date($order->created, 'custom', 'M j') . '</div>', 
 		  
 		  //'<div class="order-status">' . render($order_view['commerce_customer_billing']) . '</div>',
-		  '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),  
+		  '<div class="product-title">' . $row_info['title'] . '</div> '. theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size'])),
+		  '<div class="order-number">' . fm_users_fullname($customer->uid) . '</div><div class="order-date">' . $customer->mail . '</div>',   
 		  '<div class="order-link" >' . fm_commerce_store_owners_status_link($order) . '</div>',
 		);
 		$hidden .= fm_commerce_store_owners_order_action($order);
