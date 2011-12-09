@@ -268,7 +268,7 @@ function fm_commerce_store_owners_orders_list($store = nulll) {
  rsort($orders);
  
  $rows = array();
- $header = array('Invoice', 'Details', 'Price' ,'Status' );
+ $header = array('Invoice', 'Details', 'Status' );
  $hidden = '';
 	
  foreach($orders as $order) {

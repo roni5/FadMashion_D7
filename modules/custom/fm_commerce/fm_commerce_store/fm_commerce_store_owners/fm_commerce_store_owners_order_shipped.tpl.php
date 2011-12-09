@@ -25,7 +25,7 @@
 <?php print $image;?>
 </div>
 
-<div style="float: left;">
+<div style="float: left; width: 170px;">
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>
 
