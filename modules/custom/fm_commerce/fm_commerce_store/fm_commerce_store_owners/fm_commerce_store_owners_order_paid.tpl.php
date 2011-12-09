@@ -29,7 +29,8 @@
 <?php print fm_commerce_store_order_display_commission($order, $store);  ?>
 
 <br clear="all">
-<div style="margin-top: 10px;font-size: 13px; m"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
+<h3>Shipping Tracking</h3>
+<div style="margin-top: 10px;font-size: 13px; "><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
 
 
 

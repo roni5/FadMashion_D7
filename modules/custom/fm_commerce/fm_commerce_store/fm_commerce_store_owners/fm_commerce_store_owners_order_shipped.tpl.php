@@ -29,7 +29,7 @@
 <h3><?php print $product->title; ?></h3>
 <div><?php print $order_details; ?></div>
 
-<div style="font-size: 13px; margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
+<div style="margin-top: 10px;"><?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
 
 
 <div style="margin-top: 10px;" class="details">
