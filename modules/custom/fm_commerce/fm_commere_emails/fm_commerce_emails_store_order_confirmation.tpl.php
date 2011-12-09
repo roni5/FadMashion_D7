@@ -1,5 +1,5 @@
 <h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">You have an Order Request! </h1>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print fm_users_fullname();?> has made an order.  The next step is to prepare the packaging, send out to the address below and confirm the tracking information by logging into <?php print l('Fadmashion', '');?> and clicking on "<?php print $shop->name; ?>" in the header and enter the Tracking Info directly in the form. Once we have confirmed it has been shipped, we will transfer the money and you will be notified by e-mail.</p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print fm_users_fullname();?> has made an order.  The next step is to prepare the packaging, send out to the address below and confirm the tracking information by logging into Fadmashion.com and clicking on "<?php print $shop->name; ?>" in the header and enter the Tracking Info directly in the form. Once we have confirmed it has been shipped, we will transfer the money and you will be notified by e-mail.</p>
 
     
     <table cellspacing="0" cellpadding="10" class="message" style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2dcd6"><tbody>
