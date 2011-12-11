@@ -236,9 +236,12 @@ function fm_commerce_store_owners_get_store($user = null, $reset = FALSE) {
 /**
 * Return boolean if the  
  */
-function fm_commerce_store_owners_is_admin($user) {
+function fm_commerce_store_owners_is_admin($user = NULL) {
 	
-	global $user;
+	if(!isset($user)) {
+	   global $user;
+	}
+	
 	if(!user_access('administer own stores')) {
 		return FALSE;
 	}

@@ -4,14 +4,15 @@
           <?php 
               global $user;
               if($user->uid) {
-   	             $output = l('View Live Deal', 'deals', array('attributes' => array('class' => array('button', 'red') ) ));
+   	             print $output = l('View Live Deal', 'deals', array('attributes' => array('class' => array('button', 'red') ) ));
               }
               else {
-   	             
-   	             $output .= l('Create my free account', 'intro/sign-up/email', array('attributes' => array('class' => array('button', 'red') ) ));
-   	             $output .= l('Login', '', array('attributes' => array('class' => 'login') ));
-               }
-              print $output;
+   	      ?>
+   	      
+              	<a class="button red" href="javascript:void(0);" onClick="fmForceRegister();fmClearRegisterTimeout();">Sign up for Membership</a>
+                <a href="javascript:void(0);" class="login" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
+          <?php 
+   	          }
           ?>
    
        <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
