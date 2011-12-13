@@ -155,6 +155,15 @@ function fmForceRegister() {
 	 jQuery('#' + regBlockId).hide();	 
 }
 
+
+function fmFadeRegisterBlock() {
+	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
+		
+	});
+	setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
+}
+
+
 function fmClearRegisterTimeout() {
 	clearTimeout(forceRegisterTimeout);
 }
@@ -181,12 +190,6 @@ function fmShowSignup(){
 	}
 }
 
-function fmFadeRegisterBlock() {
-	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
-		
-	});
-	setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
-}
 
 function fm_invite_facebookshare( url, thumb_path) {
 	var details = 'hello';
