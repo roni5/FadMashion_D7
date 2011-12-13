@@ -120,13 +120,24 @@ function regFormSuccess(responseText, statusText, xhr, $form) {
 	formSuccess();
 	jQuery('.state2 .box').hide();
 	jQuery('.state2 .box').html(responseText);
-	jQuery('.state2 .box').fadeIn('slow');
+	
+	if ( jQuery.browser.msie ) {
+		jQuery('.state2 .box').show();
+	} else {
+		jQuery('.state2 .box').fadeIn('slow');
+	}
+	
 }
 
 function regSlideConfirmation() {
-	jQuery('.state1').fadeOut('fast', function(){
-		  jQuery('.state2').fadeIn('slow');
-	});
+	if ( jQuery.browser.msie ) {
+		jQuery('.state1').hide();
+		jQuery('.state2').show();
+	} else {
+         jQuery('.state1').fadeOut('fast', function(){
+			  jQuery('.state2').fadeIn('slow');
+		});
+	}
 }
 
 function fmForceRegister() {
@@ -149,14 +160,25 @@ function fmClearRegisterTimeout() {
 }
 
 function fmShowLogin(){
-	jQuery('.state1').fadeOut('slow', function(){
-		  jQuery('.state3').fadeIn('slow');
-	});
+	
+	if ( jQuery.browser.msie ) {
+		jQuery('.state1').hide();
+		jQuery('.state3').show();
+	} else {
+        jQuery('.state1').fadeOut('slow', function(){
+			  jQuery('.state3').fadeIn('slow');
+		});
+	}
 }
 function fmShowSignup(){
-	jQuery('.state3').fadeOut('slow', function(){
-		  jQuery('.state1').fadeIn('slow');
-	});
+	if ( jQuery.browser.msie ) {
+		jQuery('.state3').hide();
+		jQuery('.state1').show();
+	} else {
+        jQuery('.state3').fadeOut('slow', function(){
+			  jQuery('.state1').fadeIn('slow');
+		});
+	}
 }
 
 function fmFadeRegisterBlock() {
