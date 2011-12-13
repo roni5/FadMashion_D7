@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
 	if(jQuery("#" + regBlockId).length) {
-		forceRegisterTimeout = setTimeout("fmForceRegister();",8500);
+		forceRegisterTimeout = setTimeout("fmForceRegister();",3000);
 	}
 	  jQuery('.form-type-password-confirm .description ').html('');
 	 
