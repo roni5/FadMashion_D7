@@ -157,10 +157,19 @@ function fmForceRegister() {
 
 
 function fmFadeRegisterBlock() {
-	jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
+	
+    jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
 		
 	});
-	setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
+
+	if ( jQuery.browser.msie ) {
+		setTimeout("jQuery('#" + regBlockId + "').show();",700);	
+	} else {
+		setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
+	}
+	
+	
+	
 }
 
 
