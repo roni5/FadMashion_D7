@@ -38,7 +38,7 @@ ul{list-style-type: none;}
 {float: left; display: inline;}
 
 
-#content{width: 1000px; margin-top: 40px;}
+#static #content{width: 1000px; margin-top: 40px !important; background-image: none !important;}
 .sidebarLeft .column1{width:167px; float: left; }
 .sidebarLeft .column1 .pad{padding: 0 30px 0 0 ;}
 .sidebarLeft .column1 a{display: block; margin: 0 0 16px 0; font-size: 13px; text-transform:uppercase; font-family:"museo-sans-1","museo-sans-2", Helvetica; color: #857f72; font-weight: 300; font-style:normal; text-align:right;}
