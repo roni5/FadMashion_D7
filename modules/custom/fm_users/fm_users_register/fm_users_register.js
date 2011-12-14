@@ -175,6 +175,9 @@ function regFormSuccess(responseText, statusText, xhr, $form) {
 		jQuery('.state2 .box').fadeIn('slow');
 	}
 	
+	//Track the Registration Conversion in Google Web Optimizer. JS Code in Configuration
+	fmWebOptimizerDoGoal();
+	
 }
 
 function regSlideConfirmation() {
