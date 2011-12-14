@@ -132,7 +132,7 @@ function fadmashion_commerce_css_alter(&$css) {
   }
   $static_pages = fadmashion_commerce_static_pages();
   if(in_array($split_url[0], $static_pages)) {
-  	unset($css[path_to_theme().'/css/style.css']);
+  	//unset($css[path_to_theme().'/css/style.css']);
   }
   
 }
