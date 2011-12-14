@@ -23,7 +23,7 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
             </td>
         </tr>
 </tbody></table>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Sign into your account on <a href="http://www.fadmashion.com" style="color: #1c7eb4;">Fadmashion</a> to review your purchase confirmation. Thanks for shopping with us and for supporting Independent Fashion!</p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"> <?php print l('Login ur Fadmashion account', '', array('absolute' => true, 'query' => array('login' => 1) ));?> to review your purchase confirmation. Thanks for shopping with us and for supporting independent fashion!</p>
 <p class="signature" style="margin-bottom:10px;font-size:12px;line-height:18px;margin-top:0;font-style:italic;">- The Fadmashion Team</p>
 <br><br>
 
