@@ -15,6 +15,8 @@
 <div style="margin: 10px 0; overflow: hidden;">
 <div class="image" style="float: left; width: 146px; margin-right: 10px;">
 <?php print $image;?>
+<div style="margin-top:10px; width: 146px;"><?php print render($logo);?></div>
+
 </div>
 
 <div style="float: left;">
@@ -23,9 +25,6 @@
 
 <div style="margin-top: 10px;" class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
-</div>
-<div style="margin-top:10px;">
-<?php print render($logo);?>
 </div>
 
 
