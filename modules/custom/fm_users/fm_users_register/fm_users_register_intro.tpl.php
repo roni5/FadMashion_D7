@@ -61,7 +61,7 @@
 <?php print render($forgot_password_form);?>
 </div>
 <div style="display:none; width: 80%;margin: auto;" class="pass-text">
-<div>An E-mail has been sent to your Inbox.  Check it now to get your new password</div>
+<div>An email with your new password has been sent to your inbox. </div>
 </div>
 </div>
 

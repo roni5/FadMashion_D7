@@ -18,7 +18,6 @@ function fm_users_register_menu(){
     'page callback' => 'fm_users_register_variable_test',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
-    'page arguments' => array(1),
     'access arguments' => array('view deals'),
   );
   return $items;	

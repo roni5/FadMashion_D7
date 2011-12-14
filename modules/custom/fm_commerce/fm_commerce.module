@@ -78,7 +78,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
     
     if(!user_access('view express checkout')) {
     	//$error_message =  '<div id="buyit-error" style="display: none">' . t('Fadmashion.com is only open to Members Only to ensure quality service.') . '</div>';
-    	$form['submit']['#suffix'] = $error_message;
+    	//$form['submit']['#suffix'] = $error_message;
     	//$form['submit']['#attributes']['disabled'] = 'disabled';
     }
     
