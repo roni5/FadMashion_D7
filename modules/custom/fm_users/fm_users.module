@@ -205,18 +205,6 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	}
 }
 
-function fm_users_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'form_alter') {
-    // Move my_module_rdf_mapping() to the end of the list. module_implements()
-    // iterates through $implementations with a foreach loop which PHP iterates
-    // in the order that the items were added, so to move an item to the end of
-    // the array, we remove it and then add it.
-    $group = $implementations['fm_users'];
-    unset($implementations['fm_users']);
-    $implementations['fm_users'] =  $group;
-    
-  }
-}
 
 //special validator to redirect on non-activated account
 function fm_users_login_name_validate($form, &$form_state)  {

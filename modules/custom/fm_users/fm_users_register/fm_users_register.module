@@ -342,4 +342,18 @@ function fm_users_register_pass_form_submit() {
 	exit();
 }
 
+
+function fm_users_register_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    // Move my_module_rdf_mapping() to the end of the list. module_implements()
+    // iterates through $implementations with a foreach loop which PHP iterates
+    // in the order that the items were added, so to move an item to the end of
+    // the array, we remove it and then add it.
+    $group = $implementations['fm_users_register'];
+    unset($implementations['fm_users_register']);
+    $implementations['fm_users_register'] =  $group;
+    
+  }
+}
+
 ?>
