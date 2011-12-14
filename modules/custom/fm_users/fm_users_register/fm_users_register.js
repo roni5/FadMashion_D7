@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
 	
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
-	var delay = 2400;
+	var delay = 1500;
 	if(jQuery("#" + regBlockId).length) {
 		if(typeof Drupal.settings.fm_users_register != 'undefined') {
 			

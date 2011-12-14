@@ -72,7 +72,7 @@ function fm_users_register_init(){
 	  drupal_add_js(array('fm_users_register' => array('delay' => $delay)), 'setting');
 	}
 	
-  if(isset($_GET['register'])) {
+  if(isset($_GET['register']) || arg(0) == 'var') {
     $register = TRUE;
 	} else {
 		$register = FALSE;
