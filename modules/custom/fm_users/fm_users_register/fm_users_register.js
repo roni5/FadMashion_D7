@@ -12,19 +12,22 @@ jQuery(document).ready(function() {
 	var delay = 5000;
 	if(jQuery("#" + regBlockId).length) {
 		if(typeof Drupal.settings.fm_users_register != 'undefined') {
+			
 		  if(Drupal.settings.fm_users_register.login) {
 			//Show login Block
 		    jQuery('.state1').hide();jQuery('.state3').show();
 		    delay = 0;
+		    forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
+		  } else if(Drupal.settings.fm_users_register.register) {
+               if(typeof Drupal.settings.fm_users_register.delay != 'undefined') {
+				 //Control the delay of the pop-up
+				  delay = Drupal.settings.fm_users_register.delay ;
+			     }
+			  
+				//Force Register 
+				forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
 		  }
-		  if(typeof Drupal.settings.fm_users_register.delay != 'undefined') {
-			  //Control the delay of the pop-up
-			    delay = Drupal.settings.fm_users_register.delay ;
-		  }
-		  if(Drupal.settings.fm_users_register.register) {
-			//Force Register 
-			forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
-		  }
+		  
 		}
 		
 	}
