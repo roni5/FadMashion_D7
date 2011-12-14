@@ -320,7 +320,8 @@ a.more{background: url(../images/arrow_blue_down.jpg) center right no-repeat; pa
 .itemOptions .product_button_text {font-family:Georgia,"Times New Roman",Times,serif;font-style:italic;margin-top:16px;padding-left:38px;text-align:center;width:250px;}
 
 .itemOptions .options{text-align: left;}
-.itemOptions .form-submit, .itemOptions  .button a { margin: 0 !important; padding:0; font-weight: 600;  color: #fff; background: url(../images/b_login.png) top left no-repeat; width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 15px;}
+.itemOptions .form-submit, .itemOptions  .button a {font-weight: 600;  color: #fff;  width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 15px;}
+.itemOptions .form-submit { margin: 0 !important; padding:0; background: url(../images/b_login.png) top left no-repeat;}
 .form-submit:hover {background-position: bottom left;}
 
 .notify {border-bottom:1px solid #F0EFED;border-top:1px solid #F0EFED;margin:0 0 20px;padding:30px 0 20px;text-align:center;}
