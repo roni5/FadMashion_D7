@@ -16,7 +16,7 @@
                 </li>
                 <li><?php 
                       $url = '/?width=620&inline=true#block-fm-users-fm-users-orders';
-                			print '<a title="' . t('My Orders') . '" class="colorbox-inline" href="' . $url . '">' . t('My Orders') . '</a>'; ?>
+                			print '<a title="' . t('My Purchases') . '" class="colorbox-inline" href="' . $url . '">' . t('My Purchases') . '</a>'; ?>
                 </li>
                 <li><?php 
                       $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
