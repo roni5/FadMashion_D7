@@ -39,8 +39,8 @@ Drupal.behaviors.addFMPaymentEmailForm= {
     });
     
     var needsAction = jQuery('#orders-list .needs-action').length;
-    if(needsAction) {
-    	jQuery('#orders-list').prepend('<div class="action-alert needs-action">' + needsAction + ' Orders Require your Immediate Attention.</div>');
+    if(needsAction && !jQuery('.action-alert').length) {
+    	jQuery('#orders-list').before('<div class="action-alert needs-action">' + needsAction + ' Orders Require your Immediate Attention.</div>');
     }
     
   } 
