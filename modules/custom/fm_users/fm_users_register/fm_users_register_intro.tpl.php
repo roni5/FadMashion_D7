@@ -81,7 +81,7 @@
 
 <div class="emailsConfirmation">
 <h1>Your Invitations have been Sent!</h1>
-<div class="backSignup"><?php print l('Start Shopping', ''); ?></div>   
+<div class="backSignup"><?php print l('Start Shopping', 'var/confirmation'); ?></div>   
      
 </div><!-- pad-->
 </div><!-- box-->

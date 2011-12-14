@@ -138,6 +138,7 @@ function fmValidateInviteForm() {
 }
 
 function fmInvitesBefore() {
+	jQuery('.skip-link').hide();
 	jQuery('.invite_state1').hide();
 	jQuery('.invite_state2').show();
 }

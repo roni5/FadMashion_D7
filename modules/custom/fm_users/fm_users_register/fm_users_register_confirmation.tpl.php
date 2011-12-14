@@ -21,4 +21,4 @@
 </div>
 </div>
 
-<?php print l('Skip invites and continue', 'var/confirmation', array('attributes' => array('class' => array('skipInvites')) ) ); ?>
+<div class="skip-link"><?php print l('Skip invites and continue', 'var/confirmation', array('attributes' => array('class' => array('skipInvites')) ) ); ?></div>
