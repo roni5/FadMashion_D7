@@ -21,8 +21,12 @@ jQuery(document).ready(function() {
 			  //Control the delay of the pop-up
 			    delay = Drupal.settings.fm_users_register.delay ;
 		  }
+		  if(Drupal.settings.fm_users_register.register) {
+			//Force Register 
+			forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
+		  }
 		}
-		forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
+		
 	}
 	
 	jQuery('.form-type-password-confirm .description ').html('');
@@ -199,6 +203,7 @@ function fmForceRegister() {
 function passConfirmation() {
 	jQuery('.pass-form').hide();
 	jQuery('.pass-text').show();
+	jQuery('.backSignup').hide();
 }
 
 

@@ -71,6 +71,13 @@ function fm_users_register_init(){
 	  $delay = $_GET['delay'];
 	  drupal_add_js(array('fm_users_register' => array('delay' => $delay)), 'setting');
 	}
+	
+  if(isset($_GET['register'])) {
+    $register = TRUE;
+	} else {
+		$register = FALSE;
+	}
+	drupal_add_js(array('fm_users_register' => array('register' => $register)), 'setting');
 }
 
 function fm_users_register_variable_test($test_num) {
