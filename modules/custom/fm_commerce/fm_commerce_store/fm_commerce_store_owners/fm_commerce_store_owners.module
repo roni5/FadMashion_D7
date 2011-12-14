@@ -193,7 +193,7 @@ function fm_commerce_store_owners_get_user($store) {
 	
 	$ref = field_get_items('fm_commerce_store', $store, 'field_designer_user');
   $uid = $ref[0]['uid'];
-  $user = user_load($nid);
+  $user = user_load($uid);
   if(isset($user)) {
 	 return $user;
   } else {
