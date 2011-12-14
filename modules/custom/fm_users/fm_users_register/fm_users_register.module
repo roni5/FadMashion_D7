@@ -210,7 +210,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	  $form['field_last_name']['und'][0]['value']['#attributes'] = array('class' => array('clear-defaults'));
   	  $form['field_last_name']['#suffix'] = '<div style="clear: both; display: block;margin: 0px; font-size: 1px;"></div>';
   	  
-  	  $form['field_tos']['und']['#title'] = t('I agree to the ') . l('terms of service', 'terms-use');
+  	  $form['field_tos']['und']['#title'] = t('I agree to the ') . l('terms of service', 'terms-use', array('attributes' => array('target' => '_blank')));
   	  $form['field_newsletter_week']['und']['#title'] = t('Send me the newsletter');
   	  $form['field_tos']['und']['#weight'] = 2;
   	  $form['field_newsletter_week']['und']['#weight'] = 3;
