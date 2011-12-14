@@ -55,6 +55,23 @@ function fm_users_register_theme(){
 }
 
 
+/*
+ * Implements hook_init
+ */
+function fm_users_register_init(){
+	if(isset($_GET['login'])) {
+	  $login = TRUE;
+	} else {
+		$login = FALSE;
+	}
+	drupal_add_js(array('fm_users_register' => array('login' => $login)), 'setting');
+	
+ if(isset($_GET['delay'])) {
+	  $delay = $_GET['delay'];
+	  drupal_add_js(array('fm_users_register' => array('delay' => $delay)), 'setting');
+	}
+}
+
 function fm_users_register_variable_test($test_num) {
 	return fm_deals_page();
 }

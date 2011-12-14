@@ -1,6 +1,9 @@
 <h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">You have an Order Request! </h1>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print fm_users_fullname();?> has made an order.  The next step is to prepare the packaging, send out to the address below and confirm the tracking information by logging into <a href="http://www.fadmashion.com">Fadmashion.com</a> and clicking on "<?php print $shop->name; ?>" in the header and enter the Tracking Info directly in the form. Once we have confirmed it has been shipped, we will transfer the money and you will be notified by e-mail.</p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print fm_users_fullname();?> has made an order.  To receive your payment please follow the three simple steps below:  </p>
 
+<div style="margin-top: 10px;">1.  Prepare the packaging & ship the product out to the address below.</div>
+<div>2.  <?php print l('Login to your Fadmashion account', '', array('absolute' => true, 'query' => array('login' => 1) ));?>  with the email and password you used to sign up for the site. </div>
+<div style="margin-bottom: 10px;">3. Enter your Shipper's tracking ID by clicking on "<?php print $shop->name;?>", located in the header, and following simple instructions in order action. </div>
     
     <table cellspacing="0" cellpadding="10" class="message" style="margin: 10px 0 25px 0; background: #ffffff; border: 1px solid #e2dcd6"><tbody>
 <tr>
@@ -23,7 +26,7 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
             </td>
         </tr>
 </tbody></table>
-<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Sign into your account on <a href="http://www.fadmashion.com" style="color: #1c7eb4;">Fadmashion</a> to review the purchase and confirm shipping.  Keep up the great work!</p>
+<p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;">Once we have confirmed the item it has been shipped, we will transfer the money and you will be notified by e-mail. Questions? Email us at <a href="mailto:info@fadmashion.com">info@fadmashion.com</a>. </p>
 <p class="signature" style="margin-bottom:10px;font-size:12px;line-height:18px;margin-top:0;font-style:italic;">- The Fadmashion Team</p>
 <br><br>
 

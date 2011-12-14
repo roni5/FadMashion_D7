@@ -114,7 +114,6 @@ function fmUsersOpened(item_id) {
 		 });
 }
 
-
 function fmValidateInviteForm() {
 	jQuery('#fm-invite-send-email-form').validate({
     	errorClass: 'invalid',
@@ -147,6 +146,12 @@ function fmIvitesAfter(responseText, statusText, xhr, $form) {
 		jQuery('.invite_state1').hide();
 		jQuery('.invite_state2').hide();
 		jQuery('.invite_state3').show();
+}
+
+function fmInvitesRestoreForm() {
+	jQuery('.invite_state1').show();
+	jQuery('.invite_state2').hide();
+	jQuery('.invite_state3').hide();
 }
 
 

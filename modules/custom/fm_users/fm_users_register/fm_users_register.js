@@ -9,10 +9,23 @@ jQuery(document).ready(function() {
 	
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
+	var delay = 5000;
 	if(jQuery("#" + regBlockId).length) {
-		forceRegisterTimeout = setTimeout("fmForceRegister();",3000);
+		if(typeof Drupal.settings.fm_users_register != 'undefined') {
+		  if(Drupal.settings.fm_users_register.login) {
+			//Show login Block
+		    jQuery('.state1').hide();jQuery('.state3').show();
+		    delay = 0;
+		  }
+		  if(typeof Drupal.settings.fm_users_register.delay != 'undefined') {
+			  //Control the delay of the pop-up
+			    delay = Drupal.settings.fm_users_register.delay ;
+		  }
+		}
+		forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
 	}
-	  jQuery('.form-type-password-confirm .description ').html('');
+	
+	jQuery('.form-type-password-confirm .description ').html('');
 	 
 	
 	  if(jQuery('#user-login-form').length) {
@@ -156,20 +169,21 @@ function fmForceRegister() {
 }
 
 
+/*
+ * Show Register
+ */
 function fmFadeRegisterBlock() {
 	
-    jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
-		
-	});
+   jQuery('#cboxOverlay').fadeTo(1000, .75, function() {
+   });
 
-	if ( jQuery.browser.msie ) {
-		setTimeout("jQuery('#" + regBlockId + "').show();",700);	
-	} else {
-		setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
-	}
-	
-	
-	
+   if ( jQuery.browser.msie ) {
+    	setTimeout("jQuery('#" + regBlockId + "').show();",700);	
+    } else {
+    	setTimeout("jQuery('#" + regBlockId + "').fadeIn(1000);",700);	
+    }	
+   
+   
 }
 
 
