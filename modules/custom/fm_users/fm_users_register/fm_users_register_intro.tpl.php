@@ -52,7 +52,20 @@
 <h1>Welcome Back!</h1>
 <div class="loginErrorText">Wrong Username or Password</div>
 <?php print render($login_form);?>
-</div>                 
+</div>           
+<div style="display: none;" class="forgot_password">
+<h2>MEMBER LOGIN</h2>
+<h1>Forgot your Password?</h1>
+<div class="pass-form">
+<div class="loginErrorText">E-mail Address not Found</div>
+<?php print render($forgot_password_form);?>
+</div>
+<div style="display:none; width: 80%;margin: auto;" class="pass-text">
+<div>An E-mail has been sent to your Inbox.  Check it now to get your new password</div>
+</div>
+</div>
+
+      
 <div class="backSignup">Not a Member? <a  href="javascript:void(0);" onClick="fmShowSignup();">Sign Up</a></div>   
      
 </div><!-- pad-->
@@ -62,7 +75,7 @@
 
 </div><!-- #signup -->
 
-<!-- Login Page -->
+<!-- Invitations sent -->
 <div style="display: none;"  class="state4">
 <div class="box"><div class="pad">
 

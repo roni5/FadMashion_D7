@@ -8,9 +8,10 @@ function fm_users_menu() {
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
-  $items['fm_users/email-verify'] = array(
+  $items['fm_users/email-verify/%'] = array(
     'page callback' => 'fm_users_email_verify',
     'access callback' => TRUE,
+    'page arguments' => array(2),
     'type' => MENU_NORMAL_ITEM,
   );
   return $items;	
@@ -72,17 +73,27 @@ function fm_users_firstname($uid = '') {
 	}
 }
 
-function fm_users_email_verify() {
-  $mail = $_POST['mail'];
+function fm_users_email_verify($exists = true) {
+	if(isset($_POST['mail'])) {
+		$mail = $_POST['mail'];
+	} else {
+		$mail = $_POST['name'];
+	}
+	
   if ($val = db_query("SELECT mail FROM {users} WHERE LOWER(mail) = LOWER(:mail)", array(
       ':mail' => $mail,))->fetchField()) {
-      print drupal_json_encode(false);
+      $val = true;
   }
   else {
-  	print drupal_json_encode(true);
+  	$val = false;
   }
+  
+  if(!$exists) {$val = !$val;}
+  
+  print drupal_json_encode($val);
   exit();
 }
+
 function fm_users_authorize() {
 	$username = $_POST['username'];
 	$pass = $_POST['pass'];

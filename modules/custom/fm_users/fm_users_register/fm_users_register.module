@@ -31,7 +31,8 @@ function fm_users_register_theme(){
       'variables' => array(
          'node' => NULL,
 	       'login_form' => NULL,
-	       'register_form' => NULL
+	       'register_form' => NULL,
+	       'forgot_password_form' => NULL,
 	    )
     ),
     'fm_users_register_confirmation' => array(
@@ -115,14 +116,19 @@ function fm_users_register_block_view($block_name = '') {
 
 function fm_users_register_display($nodequeue_pos) {
 	  
+	  module_load_include('inc', 'user', 'user.pages');
+	
 	 drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register.js');
 	 $node = fm_users_register_load_node($nodequeue_pos);
 	 $register_form = drupal_get_form('user_register_form');
 	 $login_form = drupal_get_form('user_login_block');
+	 $forgot_password_form = drupal_get_form('user_pass');
 	 
 	 $output = theme('fm_users_register_intro', array('node' => $node, 
 	                                                  'login_form' => $login_form, 
-	                                                  'register_form' =>  $register_form));
+	                                                  'register_form' =>  $register_form,
+	                                                  'forgot_password_form' => $forgot_password_form
+	                                                 ));
 	 
 	 return $output; 
 }
@@ -147,6 +153,11 @@ function fm_users_register_load_node($nodequeue_pos) {
 function fm_users_register_form_alter(&$form, $form_state, $form_id) {
 	
   switch ($form_id){
+  	case 'user_pass':  
+  		$form['name']['#default_value'] = t('Enter E-maill Address');
+  		$form['name']['#attributes'] = array('class' => array('clear-defaults'));
+  		$form['#submit'][] = 'fm_users_register_pass_form_submit';
+  		break;
   	case 'user_login_block':  
   		//ADD JS for User validation and AJAXY functionality
   		//drupal_add_js(drupal_get_path('module', 'fm_users').'/fm_users.js');
@@ -154,7 +165,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   		
 	    unset($form['name']['#title']);
 	    unset($form['pass']['#title']);
-	    $form['links']['#markup'] = '<a class="forgotPassword" href="#">Forgot password?</a>';
+	    $form['links']['#markup'] = '<a class="forgotPassword" href="javascript:void(0)" onClick="jQuery(\'.login\').hide();jQuery(\'.forgot_password\').show();">Forgot password?</a>';
     	$form['links']['#weight'] = -10;
     	
   	  $form['name']['#default_value'] = t('Email');
@@ -318,4 +329,10 @@ function fm_users_register_form_submit($form, &$form_state) {
 		
 		exit();
 }
+
+function fm_users_register_pass_form_submit() {
+	print 'Password E-mailed To you';
+	exit();
+}
+
 ?>

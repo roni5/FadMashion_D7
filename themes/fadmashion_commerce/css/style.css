@@ -129,7 +129,7 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #signup p.loginHere{margin-top: 30px; font-size: 13px;}
 #signup .pad{padding: 0px 0 0 36px;}
 #signup .text{width: 360px; text-align:center; padding-top: 90px; }
-#signup .login{width: 430px; text-align:center; padding-top: 70px; }
+#signup .login, #signup .forgot_password{width: 430px; text-align:center; padding-top: 70px; }
 
 
 #signup .form{float: right; width: 206px;}
@@ -155,7 +155,7 @@ a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; 
 
 #signup #user-login-form .forgotPassword {float: left; font-size: 11px; text-decoration:none; font-style: normal; }
 #signup #user-login-form{width: 237px; text-align: left; margin: 0 auto;}
-#signup #user-login-form .form-text, #signup .sendFields .form-text{background: #fff url(../images/bg_field_light.jpg) top left repeat-x; border: 1px solid #e8e5e4; color: #9c8a7f; font-size: 14px; width: 231px; margin-bottom: 12px;}
+#signup #user-login-form .form-text, #signup .sendFields .form-text, #signup #user-pass .form-text{background: #fff url(../images/bg_field_light.jpg) top left repeat-x; border: 1px solid #e8e5e4; color: #9c8a7f; font-size: 14px; width: 231px; margin-bottom: 12px;}
 #signup #user-login-form .form-submit{ margin: 0 !important; padding: 0; float: right; color: #fff; background: url(../images/b_login.png) top left no-repeat; width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 14px;}
 #signup #user-login-form .form-submit:hover {background-position: bottom left;}
 

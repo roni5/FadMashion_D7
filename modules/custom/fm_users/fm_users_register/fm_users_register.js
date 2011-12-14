@@ -61,6 +61,34 @@ jQuery(document).ready(function() {
 		  
 	   }
 	  
+	//Validate Password Form
+	  if(jQuery('#user-pass').length) {
+		   
+		    jQuery('#user-pass').validate({
+		    	errorClass: 'invalid',
+		    	errorContainer: jQuery(".loginErrorText"),
+		  	    onkeyup: false,
+		  	    wrapper: 'div id="message_box"',
+		  	    submitHandler: function(form) {
+					jQuery(form).ajaxSubmit({
+				        beforeSubmit:  passConfirmation,  // pre-submit callback 
+					});
+				},
+		  	  });
+		    
+		    jQuery("#user-pass  .form-text").rules("add", {
+			 	 notEqual: "Enter E-maill Address",
+			     email: true,
+			     remote: {
+			  		   url: base_path + "?q=fm_users/email-verify/1",
+			  		   type: "post",
+			  	 },
+			     messages: { 
+			           remote: jQuery.format('E-mail registered already.')
+			     },
+			});
+	  }
+		    
 	  //Validate Registration page
 	  if(jQuery('#user-register-form').length) {
 	   
@@ -87,7 +115,7 @@ jQuery(document).ready(function() {
 		 	 notEqual: "Email",
 		     email: true,
 		     remote: {
-		  		   url: base_path + "?q=fm_users/email-verify",
+		  		   url: base_path + "?q=fm_users/email-verify/0",
 		  		   type: "post",
 		  	 },
 		     messages: { 
@@ -166,6 +194,11 @@ function fmForceRegister() {
 	 jQuery('#colorbox').addClass('blankBox');
 	 jQuery('#cboxClose').hide();
 	 jQuery('#' + regBlockId).hide();	 
+}
+
+function passConfirmation() {
+	jQuery('.pass-form').hide();
+	jQuery('.pass-text').show();
 }
 
 
