@@ -407,7 +407,7 @@ function fm_commerce_store_owners_status_link($order) {
 			return $text;
 		  break;
 		case 'fm_orders_captured':
-			$text = '<span class="needs-action" ref="order-' . $order->order_id. '" class="dotted-hover">Enter Tracking ID</span>';
+			$text = '<span  ref="order-' . $order->order_id. '" class="dotted-hover needs-action">Enter Tracking ID</span>';
 			return $text;
 		  break;
 		case 'fm_orders_shipped':
