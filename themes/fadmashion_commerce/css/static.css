@@ -91,7 +91,7 @@ ul{list-style-type: none;}
 .pullquote{color: #b83838; font-size: 21px; font-weight:100; padding: 20px 20px 40px 310px; line-height:24px; }
 
 #teamTbl{width: 840px; float: left;}
-#teamTbl td{vertical-align: top; padding: 0 30px 0 0; width: 250px;}
+#teamTbl td{vertical-align: top; padding: 0 30px 0 0; width: 250px; background-color: #fff !important;}
 #teamTbl td p{font-size: 12px;}
 #teamTbl h1{font-size: 17px; margin: 14px 0 5px 0; padding: 0;}
 
