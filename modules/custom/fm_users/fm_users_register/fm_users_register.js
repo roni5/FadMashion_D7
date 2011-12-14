@@ -233,6 +233,8 @@ function fmClearRegisterTimeout() {
 }
 
 function fmShowLogin(){
+	jQuery('.pass-form').show();
+	jQuery('.pass-text').hide();
 	
 	if ( jQuery.browser.msie ) {
 		jQuery('.state1').hide();
