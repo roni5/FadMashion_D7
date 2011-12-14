@@ -38,6 +38,11 @@ Drupal.behaviors.addFMPaymentEmailForm= {
     	 email: true
     });
     
+    var needsAction = jQuery('#orders-list .needs-action').length;
+    if(needsAction) {
+    	jQuery('#orders-list').prepend('<div class="action-alert needs-action">' + needsAction + ' Orders Require your Immediate Attention.</div>');
+    }
+    
   } 
 };
 
