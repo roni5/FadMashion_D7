@@ -548,6 +548,10 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #fm-commerce-orders-support-form .form-submit { padding: 6px 12px; font-size: 14px; margin: 0;}
 #support-success-message {border: 1px solid #ddd; padding: 5px; background-color: #F8F8F8; font-size: 16px; color: #1D1C1A}
 
+#orders-list .needs-action{padding-left: 10px; background: url(../images/icon_needsaction.jpg) 0px 4px no-repeat;}
+	
+	
+
 /* Order Confirmation*/
 .page-express-checkout-confirmation #header {margin-bottom: 16px;}
 .page-express-checkout-confirmation .header{border-bottom: 1px solid #eceae8;}
