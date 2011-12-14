@@ -387,7 +387,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 
 /*  Deals PReview Page */
 .page-deals-preview #content {background:none repeat scroll 0 0 transparent;width:1000px; }
-.page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF;margin-top: -25px; float:left;text-align:center;width:990px;}
+.page-deals-preview  #dealPreview {background:none repeat scroll 0 0 #FFFFFF; float:left;text-align:center;width:990px;}
 .page-deals-preview h1.pageTitle{color:#B83838;font-size:23px;padding-bottom:8px;text-align:center;}
 .page-deals-preview  #dealPreview #preview-content {margin-left: 88px;}
 
