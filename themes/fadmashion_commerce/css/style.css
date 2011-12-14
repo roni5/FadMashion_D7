@@ -548,7 +548,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 #fm-commerce-orders-support-form .form-submit { padding: 6px 12px; font-size: 14px; margin: 0;}
 #support-success-message {border: 1px solid #ddd; padding: 5px; background-color: #F8F8F8; font-size: 16px; color: #1D1C1A}
 
-#orders-list .needs-action{padding-left: 20px; background: url(../images/icon_needsaction.png) 0px 0px no-repeat;}
+#orders-list .needs-action{padding-left: 18px; background: url(../images/icon_needsaction.png) 0px -1px no-repeat;}
 	
 	
 

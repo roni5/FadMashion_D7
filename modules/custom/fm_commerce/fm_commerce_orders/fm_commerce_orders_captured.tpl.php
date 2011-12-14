@@ -6,6 +6,8 @@
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
   $order_view = commerce_order_ui_order_view($order, 'customer');
   
+  $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
+  
 ?>
 <div  class="orders_admin_wrapper">
 
@@ -21,6 +23,9 @@
 
 <div style="margin-top: 10px;" class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
+</div>
+<div style="margin-top:10px;">
+<?php print render($logo);?>
 </div>
 
 

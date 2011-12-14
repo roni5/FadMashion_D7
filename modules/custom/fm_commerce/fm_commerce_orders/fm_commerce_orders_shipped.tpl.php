@@ -4,13 +4,13 @@
 	$row_info = fm_commerce_orders_row_info($order);
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
   $order_view = commerce_order_ui_order_view($order, 'customer');
-  
-  
-  
+
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   $tracking_id = $order_wrapper->field_tracking_id->value();
   $tracking_company = $order_wrapper->field_tracking_company->value();
   $opts = fm_commerce_store_owners_shipping_company_opts();
+  
+    $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
 ?>
 
 <div  class="orders_admin_wrapper">
@@ -28,6 +28,10 @@
 
 <div style="margin-top: 10px;" class="details">
 <?php print render($order_view['commerce_customer_shipping']); ?>
+</div>
+
+<div style="margin-top:10px;">
+<?php print render($logo);?>
 </div>
 
 
