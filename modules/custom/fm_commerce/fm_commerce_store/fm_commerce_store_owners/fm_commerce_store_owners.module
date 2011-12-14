@@ -190,9 +190,15 @@ function fm_commerce_store_owners_admin_form_submit($form, &$form_state) {
  */
 
 function fm_commerce_store_owners_get_user($store) {
-	$store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
-	$user = $store_wrapper->field_designer_user->value();
-	return $user;
+	
+	$ref = field_get_items('fm_commerce_store', $store, 'field_designer_user');
+  $uid = $ref[0]['uid'];
+  $user = user_load($nid);
+  if(isset($user)) {
+	 return $user;
+  } else {
+  	return NULL;
+  }
 }
 
 /**
