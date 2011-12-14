@@ -84,7 +84,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   
   $variables['menu_active'] = '';
   // Add template suggestions based on content type
-  if (isset($variables['node'])) { 
+  if (isset($variables['node']) || arg(0) == 'var') { 
   	$node_type = str_replace('-', '_', $variables['node']->type);
     $variables['theme_hook_suggestions'][] = "page__type__" . $node_type;
     $variables['menu_active'] = 'featured';
