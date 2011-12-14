@@ -264,6 +264,10 @@ function fm_users_register_form_submit($form, &$form_state) {
 	//check to see if an active e-mail sent.
 	$values = $form_state['values'];
 	$user = user_load($values['uid']);
+	$mail = $form_state['mail'];
+	
+	print $mail;
+	exit();
 	
 	//Check to see if active
 	if(!fm_users_check_activate($mail)) {
