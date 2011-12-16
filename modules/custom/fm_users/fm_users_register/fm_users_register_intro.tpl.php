@@ -14,7 +14,6 @@
 
 <div id="intro" class="pad">
 	<div class="text">
-   <h2>WELCOME TO FADMASHION</h2>
    <h1><?php print $node->title;?></h1>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
 
