@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
 	
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
-	var delay = 9500;
+	var delay = 1500;
 	if(jQuery("#" + regBlockId).length) {
 		if(typeof Drupal.settings.fm_users_register != 'undefined') {
 			
@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 			     }
 			  
 				//Force Register 
-				forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
+				//forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
 		  }
 		  
 		}
@@ -194,7 +194,7 @@ function regSlideConfirmation() {
 function fmForceRegister() {
 	jQuery.colorbox({ 
 	      opacity: '0',
-	      width: '990px', height: '860px', 
+	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      overlayClose: false, 
 	      escKey: false, 
@@ -203,10 +203,7 @@ function fmForceRegister() {
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
 	 jQuery('#cboxClose').hide();
-	 //jQuery('#cboxClose').css('top', '90px');
-	 jQuery('#' + regBlockId).hide();	
-	 
-	 
+	 jQuery('#' + regBlockId).hide();	 
 }
 
 function passConfirmation() {
