@@ -266,7 +266,8 @@ function fm_users_register_form_submit($form, &$form_state) {
 	$mail = $values['mail'];
 	
 	//Check to see if active
-	if(!fm_users_check_activate($mail)) {
+	//if(!fm_users_check_activate($mail)) {
+	if(false) {
 		user_save($user, array('status' => 0));
 		$private = TRUE;
 	} else {
