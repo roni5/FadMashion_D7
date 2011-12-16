@@ -324,10 +324,8 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $from
    ); 
    
-   print 'success';
-   exit();
    /*SEND SAME TO ADMIN*/
-   /*$params['subject'] = 'Admin Only - Invitation Sent VIA e-mail';
+   $params['subject'] = 'Admin Only - Invitation Sent VIA e-mail';
    $params['message'] = 'E-mails sent to: ' . $form_state['values']['to'].'<br><br>' . $params['message'];
    drupal_mail(
       'fm_invite',
@@ -337,7 +335,11 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       $params,
       $form_state['values']['name']. ' <' . $email . '> '
    ); 
-   */
+   
+   
+   print 'success';
+   exit();
+   
    //drupal_goto('new-user/confirmation');
 }
 
