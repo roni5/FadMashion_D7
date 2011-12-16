@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
 	
 	
 	//Show a Non-Closeable registration pop-up if the user is not authenticated.
-	var delay = 7500;
+	var delay = 9500;
 	if(jQuery("#" + regBlockId).length) {
 		if(typeof Drupal.settings.fm_users_register != 'undefined') {
 			
@@ -194,7 +194,7 @@ function regSlideConfirmation() {
 function fmForceRegister() {
 	jQuery.colorbox({ 
 	      opacity: '0',
-	      innerWidth: '930px', innerHeight: '560px', 
+	      width: '990px', height: '860px', 
 	      inline: true, 
 	      overlayClose: false, 
 	      escKey: false, 
@@ -202,8 +202,11 @@ function fmForceRegister() {
 	      onComplete: fmFadeRegisterBlock
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
-	 //jQuery('#cboxClose').hide();
-	 jQuery('#' + regBlockId).hide();	 
+	 jQuery('#cboxClose').hide();
+	 //jQuery('#cboxClose').css('top', '90px');
+	 jQuery('#' + regBlockId).hide();	
+	 
+	 
 }
 
 function passConfirmation() {
