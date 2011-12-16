@@ -1,4 +1,4 @@
-<div style="display: none;"  style="width: 930px; height: 529px;" id="signup">
+<div style="width: 930px; height: 529px;" id="signup">
 <div class="state1">
 <div class="box">
 
@@ -43,7 +43,7 @@
 </div>
 
 <!-- Login Page -->
-<div  class="state3">
+<div style="display: none;"  class="state3">
 <div class="box"><div class="pad">
 
 <div class="login">
