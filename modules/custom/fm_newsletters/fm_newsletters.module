@@ -1,9 +1,56 @@
 <?php
 
+/*
+ * FUNCTIONALITY:
+ * Newsletters are generated Via an Admin form and saved as a special
+ * node Content type designated just for newsletters.  
+ * 
+ * Once the newsletter is saved, than copy and paste generated code to preferred
+ * mail service to send out.
+ * 
+ * ARCHITECTURE:
+ */
+
+abstract class fm_newsletters {
+	
+	private $node; 
+	
+	private $title;
+	private $body;
+	
+	private $vars;
+	
+	
+	function __construct() {
+		$node = new stdObject();
+		$title = '';
+		$body = '';
+	}
+	
+	public function setTitle($new_title) {
+		$title = $new_title;
+	}
+	
+	public function save() {
+		
+	}
+	
+	abstract protected function setVars();
+	abstract protected function generateBody();
+}
+
+
 function fm_newsletters_menu() {
+	
+}
+
+function fm_newsletters_theme() {
 	
 }
 
 function fm_newsletters_generate() {
 	
 }
+
+
+?>

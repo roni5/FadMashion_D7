@@ -18,7 +18,7 @@
    <h1><?php print $node->title;?></h1>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
 
-<p class="loginHere">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Log In Here</a></p>
+<p class="loginHere rounded-top rounded-bottom">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Log In Here</a></p>
 </div>
 
 
