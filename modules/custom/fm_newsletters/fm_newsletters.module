@@ -9,7 +9,7 @@
  * mail service to send out.
  * 
  * ARCHITECTURE:
- */
+ 
 
 abstract class fm_newsletters {
 	
@@ -37,20 +37,67 @@ abstract class fm_newsletters {
 	
 	abstract protected function setVars();
 	abstract protected function generateBody();
-}
+}*/
 
 
-function fm_newsletters_menu() {
+/*
+ * Implements hook_node_insert()
+ */
+function fm_newsletters_node_presave($node) {
+	drupal_set_message('insert_test');
+	drupal_set_message($node->type);
+	if($node->type == 'fm_newsletters_deals') {
+	   $node = fm_newsletters_deals_generate_code($node);
+	}
 	
 }
 
 function fm_newsletters_theme() {
-	
+	 return array(
+     'fm_newsletters_deals' => array(
+	     'template' => 'fm_newsletters_deals',
+	     'variables' => array(
+         'featured' => '',
+	       'more' => '',
+	    )
+    ),
+    'fm_newsletters_deals_featured' => array (
+       'template' => 'fm_newsletters_deals_featured',
+       'variables' => array(
+         'node' => NULL
+      )
+    ),
+    'fm_newsletters_deals_more' => array (
+       'template' => 'fm_newsletters_deals_more',
+       'variables' => array(
+         'nodes' => NULL
+      )
+    )
+  );
 }
 
-function fm_newsletters_generate() {
+function fm_newsletters_deals_generate_code($node) {
+	$nids = field_get_items('node', $node, 'field_newsletter_deals');
+	$first_nid = array_shift($nids);
+	$featured_node = node_load($first_nid['nid']);
 	
+	$more_deals = array();
+	foreach($nids as $nid) {
+		$more_deals[] = node_load($nid['nid']);
+	}
+	
+	
+	$featured = theme('fm_newsletters_deals_featured', array('node' => $featured_node));
+	$more = theme('fm_newsletters_deals_more', array('nodes' => $more_deals) );
+	$output = theme('fm_newsletters_deals', array('featured' => $featured, 'more' => $more));
+	
+	$node->body[$node->language][0]['value']   = $output;
+	$node->body[$node->language][0]['format']  = 'full_html'; 
+	
+	return $node;
 }
+
+
 
 
 ?>

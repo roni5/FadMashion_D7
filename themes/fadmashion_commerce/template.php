@@ -16,6 +16,7 @@ function pp() {
 		return $path;
 	}
 }
+
 /*
  * CSS & JS files to load up on each page request.  
  */

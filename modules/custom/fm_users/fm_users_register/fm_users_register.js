@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 			     }
 			  
 				//Force Register 
-				forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
+				//forceRegisterTimeout = setTimeout("fmForceRegister();", delay);
 		  }
 		  
 		}
@@ -202,7 +202,7 @@ function fmForceRegister() {
 	      onComplete: fmFadeRegisterBlock
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
-	 jQuery('#cboxClose').hide();
+	 //jQuery('#cboxClose').hide();
 	 jQuery('#' + regBlockId).hide();	 
 }
 
