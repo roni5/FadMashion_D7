@@ -57,7 +57,7 @@ label{font-weight: normal;}
 
 label.invalid { margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; color: #fff; border: 0px solid #000; }
 
-tr td {background-color:#f9f8f6;}
+tr td {background-color:none;}
 tr.even, tr.odd{background-color:#f9f8f6;border-bottom:1px solid #eee8e3;}
 th {border-bottom:3px solid #EEE8E3;}
 
@@ -704,7 +704,6 @@ h2.socialSubtitle  {text-align: center; color:#8A7D71;font-family:Georgia,"Times
 .social {float:left;width:111px;}
 .socialIcon {margin:0 5px 0 0; float:left}
 .rewards_link {float:left;}
-
 
 /* Store owners Admin Pop-up */
 #block-quicktabs-store-owners-admin h2 {display: none;}

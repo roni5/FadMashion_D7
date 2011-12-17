@@ -23,7 +23,7 @@ h2{font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font
 
 .photo{background: #e9e3de;}
 .mainPhoto{background: #fff; padding: 9px;}
-.shadow{display: block;}
+.shadow_newsletter{display: block;}
 .designerLogo{width: 118px;}
 
 .designerQuote .box{background: #f8f6f4; width: 510px;}
@@ -54,10 +54,15 @@ p{margin-bottom: 8px;}
 
 
 
+<?php
+	$full_url = fm_newsletters_image_path();
+    
+?>
+
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 <tbody><tr>
 <td class="">&nbsp;</td>
-<td width="400" class="logo"><a href="http://www.fadmashion.com"><img alt="Fadmashion.com | Choose Independent Fashion" src="logo.jpg"></a></td>
+<td width="400" class="logo"><a href="http://www.fadmashion.com"><img alt="Fadmashion.com | Choose Independent Fashion" src="<?php print $full_url;?>logo_black.jpg"></a></td>
 <td width="276" class="header">Today's Exclusive Deals</td>
 <td class="">&nbsp;</td>
 </tr>

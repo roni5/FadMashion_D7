@@ -16,18 +16,23 @@
   $start_time = $start_time['start'];
   $end_time = $start_time['end'];
   
-  $description = field_get_items('node', $node, 'field_description_global');
+	$description = field_get_items('commerce_product', $product, 'field_description');
 	$description = $description[0]['value'];
+	
+	$full_url = fm_newsletters_image_path();
+	
+	$image = fm_newsletters_deals_generate_url($product);
     
 ?>
 
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 
-  <tbody><tr>
+  <tr>
     <td class="side1">&nbsp;</td>
     <td>&nbsp;</td>
-    <td width="246" valign="top" class="photo" rowspan="5"><div class="mainPhoto"><img src="photo-main.jpg"></div>
-      <img class="shadow" src="shadow.jpg"></td>
+    <td width="246" valign="top" class="photo" rowspan="5">
+      <div class="mainPhoto"><?php print $image;?></div>
+      <img class="shadow_newsletter" src="<?php print $full_url?>shadow.jpg"></td>
     <td class="side1">&nbsp;</td>
   </tr>
   <tr>
@@ -53,24 +58,22 @@
     <td width="430" class="side4"></td>
     <td class="side4">&nbsp;</td>
   </tr>
-
-</tbody></table>
+</table>
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
-
- <tbody><tr>
+<tr>
     <td class="side5">&nbsp;</td>
     <td width="676" class="side5">
         
         <!-- begin logo and quote-->
         <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <tbody><tr>
-        <td class="designerLogo"><div><?php print render($node->content['store:field_logo']); ?><img style="display: block;" src="logo-shadow.jpg"></div></td>
-        <td class="quoteNub"><img src="quote-nub.jpg"></td>
+        <td class="designerLogo"><div><?php print render($node->content['store:field_logo']); ?><img style="display: block;" src="<?php print $full_url;?>newsletter-logo-shadow.jpg"></div></td>
+        <td class="quoteNub"><img src="<?php print $full_url;?>quote-nub.jpg"></td>
         
         <td class="designerQuote"><div class="box">
-        <img src="quote-top.jpg"><div class="pad">"<?php print render($node->content['store:field_quote']); ?>"</div><img src="quote-bottom.jpg"></div>
+        <img src="<?php print $full_url;?>quote-top.jpg"><div class="pad">"<?php print render($node->content['store:field_quote']); ?>"</div><img src="<?php print $full_url;?>quote-bottom.jpg"></div>
      </td>
-</tr></tbody></table><!-- end logo and quote-->
+</tr></table><!-- end logo and quote-->
 
 
      <!-- begin press and bio-->

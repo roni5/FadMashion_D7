@@ -76,6 +76,31 @@ function fm_newsletters_theme() {
   );
 }
 
+function fm_newsletters_image_path() {
+	return 'http://www.fadmashion.com/' . drupal_get_path('theme', 'fadmashion_commerce') . '/';
+}
+
+
+function fm_newsletters_deals_generate_url($product) {
+
+ $images = field_get_items('commerce_product', $product, 'field_product_images');
+    
+	$first_image = node_load($images[0]['nid']);
+  $first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image = array(
+      'path' => $first_image['uri'],
+      'alt' => $first_image['alt'],
+      'title' => $first_image['title'],
+      'attributes' => array('class' => 'itemThumb'),
+      'style_name' => 'fm_preview_block_thumb'
+  );
+  
+  return theme('image_style', $image);
+   
+}
+
 function fm_newsletters_deals_generate_code($node) {
 	$nids = field_get_items('node', $node, 'field_newsletter_deals');
 	$first_nid = array_shift($nids);
