@@ -15,6 +15,9 @@
   $start_time = fm_deals_time($node->nid);
   $start_time = $start_time['start'];
   $end_time = $start_time['end'];
+  
+  $description = field_get_items('node', $node, 'field_description_global');
+	$description = $description[0]['value'];
     
 ?>
 
@@ -38,7 +41,7 @@
     <div class="pad">
     <h1><?php print $product->title; ?></h1>
     <h2>by <?php print $store->name; ?></h2>
-    <p class="description">A black silk chiffon racer bank tank delicately adorned with row upon row of silver sequined stripes, perfect for tucking into a high waisted skirt or just letting it all drape over a pair of tiny leather shorts. </p>
+    <p class="description"><?php print $description;?></p>
     <a class="button" href="#">Save <?php print $node->sale_percentage;?> Now</a>
     <div class="finePrint">This deal ends <?php print '<b>' . date("g:i a", $end_time);?> EST</div>
     </div>
@@ -61,11 +64,11 @@
         <!-- begin logo and quote-->
         <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <tbody><tr>
-        <td class="designerLogo"><div><img style="display: block;" src="designer-logo.jpg"><img style="display: block;" src="logo-shadow.jpg"></div></td>
+        <td class="designerLogo"><div><?php print render($node->content['store:field_logo']); ?><img style="display: block;" src="logo-shadow.jpg"></div></td>
         <td class="quoteNub"><img src="quote-nub.jpg"></td>
         
         <td class="designerQuote"><div class="box">
-        <img src="quote-top.jpg"><div class="pad">"My goal is to make easy, modern, understated, beautifully crafted clothing that feel as comfortable as wearing jeans and a T-shirt."</div><img src="quote-bottom.jpg"></div>
+        <img src="quote-top.jpg"><div class="pad">"<?php print render($node->content['store:field_quote']); ?>"</div><img src="quote-bottom.jpg"></div>
      </td>
 </tr></tbody></table><!-- end logo and quote-->
 
@@ -74,22 +77,12 @@
         <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <tbody><tr>
         <td valign="top" class="bio">
-        <h1>About Jonathan Simkahi</h1>
-        <p>New York native Jonathan Simkhai gravitated toward the fashion industry as a young teen, when he realized his remarkable sales skills and renowned fashion insight.</p>
-<p>After honing in on his retail sales abilities, Simkhai pursued buying, which ultimately allowed him to see a void in the women's contemporary market.
- </p>
-  <a href="#">More about Jonathan Simkhai</a>      
+        <h1>About <?php print $store->name; ?></h1>
+        <?php print render($node->content['store:field_quick_facts']); ?>  
 </td>
         <td valign="top" class="press">
         <h1>Designer Press</h1>
-        <div>"Innocent school girl crossed with menswear was the mash-up brought to Fall 2011 Collections by up-and-coming designer, Jonathan Simkhai, who never fails to give us a fresh take on feminine masculinity."
-<a class="source" href="#">PoshGlam</a></div>
-
-<div>"We at T couldn't help but notice Jonathan Simkhai."
-
-<a class="source" href="#">The New York Times</a></div>
-
-
+         <?php print render($node->content['store:field_press']); ?>
     </td>
 </tr></tbody></table><!-- end press and bio-->
 
