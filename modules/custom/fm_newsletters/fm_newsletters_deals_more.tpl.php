@@ -3,32 +3,26 @@
     <tr>
     <td class="sideWhite"></td>
     <td width="676">
-                
+            
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
             <tbody><tr>
             <td class="upcoming">
-                <div>
-                <img src="img-small.jpg">
-                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time">10:00am</td><td class="savings">30% off</td></tr></tbody></table><img src="shadow-small.jpg"></div><h1>Sequined Stripe Racerback Tank</h1>
-    <h2>by Jonathan Simkahi</h2></td>
+               <?php print theme('fm_newsletters_deals_more_item', array('node' => array_shift($nodes)));?>
+            </td>
                 
                 <td class="spacer"></td>
                 
           <td class="upcoming">
-                <div>
-                <img src="img-small.jpg">
-                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time">10:00am</td><td class="savings">30% off</td></tr></tbody></table><img src="shadow-small.jpg"></div><h1>Sequined Stripe Racerback Tank</h1>
-    <h2>by Jonathan Simkahi</h2></td>
+          <?php print theme('fm_newsletters_deals_more_item', array('node' => array_shift($nodes)));?>
+          </td>
                      
                       
                   <td class="spacer"></td>
                   
  
            <td class="upcoming">
-                <div>
-                <img src="img-small.jpg">
-                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time">10:00am</td><td class="savings">30% off</td></tr></tbody></table><img src="shadow-small.jpg"></div><h1>Sequined Stripe Racerback Tank</h1>
-    <h2>by Jonathan Simkahi</h2></td>
+           <?php print theme('fm_newsletters_deals_more_item', array('node' => array_shift($nodes)));?>
+           </td>
                                
                 </tr>
                 
@@ -36,22 +30,21 @@
                 
                             <tr>
             <td class="upcoming">
-                <div>
-                <img src="img-small.jpg">
-                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time">10:00am</td><td class="savings">30% off</td></tr></tbody></table><img src="shadow-small.jpg"></div><h1>Sequined Stripe Racerback Tank</h1>
-    <h2>by Jonathan Simkahi</h2></td>
+            <?php print theme('fm_newsletters_deals_more_item', array('node' => array_shift($nodes)));?>   
+            </td>
                 
                 <td class="spacer"></td>
                 
           <td class="upcoming">
-                <div>
-                <img src="img-small.jpg">
-                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time">10:00am</td><td class="savings">30% off</td></tr></tbody></table><img src="shadow-small.jpg"></div><h1>Sequined Stripe Racerback Tank</h1>
-    <h2>by Jonathan Simkahi</h2></td>
+           <?php print theme('fm_newsletters_deals_more_item', array('node' => array_shift($nodes)));?>
+           </td>
                      
                       
                   <td class="spacer"></td>
-                  
+                <td class="upcoming">
+           <?php print theme('fm_newsletters_deals_more_item', array('node' => array_shift($nodes)));?>
+           </td>
+                    </tr>  
  
        
                 

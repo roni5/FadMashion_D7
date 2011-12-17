@@ -72,6 +72,12 @@ function fm_newsletters_theme() {
        'variables' => array(
          'nodes' => NULL
       )
+    ),
+    'fm_newsletters_deals_more_item' => array (
+       'template' => 'fm_newsletters_deals_more_item',
+       'variables' => array(
+         'node' => NULL
+      )
     )
   );
 }
