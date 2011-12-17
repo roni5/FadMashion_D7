@@ -83,7 +83,7 @@ function fm_newsletters_theme() {
 }
 
 function fm_newsletters_image_path() {
-	return 'http://exp.fadmashion.com/' . drupal_get_path('theme', 'fadmashion_commerce') . '/images/';
+	return 'http://www.fadmashion.com/' . drupal_get_path('theme', 'fadmashion_commerce') . '/images/';
 }
 
 
