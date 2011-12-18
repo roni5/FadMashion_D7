@@ -50,6 +50,9 @@ p{margin-bottom: 8px;}
 .moreDealsHeader{text-align: center; padding: 20px 0 0 0; color: #a02b24; font-size: 21px;}
 .time{color: #89786f; background: #eee9e5; border-right: 1px solid #d5cdc4;text-align:center; padding: 8px 0;}
 .savings{color: #a02b24;background: #eee9e5; border-left: 1px solid #fff; text-align:center; padding: 8px 0;}
+
+.field-name-field-quick-facts .field-items div {margin-bott: 8px;}
+
 </style>
 
 

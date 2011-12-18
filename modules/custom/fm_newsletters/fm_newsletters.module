@@ -87,7 +87,7 @@ function fm_newsletters_image_path() {
 }
 
 
-function fm_newsletters_deals_generate_url($product) {
+function fm_newsletters_deals_generate_url($product, $image_style = 'fm_preview_block_thumb') {
 
  $images = field_get_items('commerce_product', $product, 'field_product_images');
     
@@ -100,7 +100,7 @@ function fm_newsletters_deals_generate_url($product) {
       'alt' => $first_image['alt'],
       'title' => $first_image['title'],
       'attributes' => array('class' => 'itemThumb'),
-      'style_name' => 'fm_preview_block_thumb'
+      'style_name' => $image_style
   );
   
   return theme('image_style', $image);

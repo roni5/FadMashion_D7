@@ -21,7 +21,7 @@
 	
 	$full_url = fm_newsletters_image_path();
 	
-	$image = fm_newsletters_deals_generate_url($product);
+	$image = fm_newsletters_deals_generate_url($product, 'fm_deals_newsletter_featured');
     
 ?>
 

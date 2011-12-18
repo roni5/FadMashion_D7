@@ -27,6 +27,6 @@
  
  <div>
                <?php print $image;?>
-                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time"><?php print '<b>' . date("g:ia", $start_time);?></td><td class="savings"><?php print $node->sale_percentage;?> off</td></tr></tbody></table><img src="shadow-small.jpg">
+                    <table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="time"><?php print '<b>' . date("g:ia", $start_time);?></td><td class="savings"><?php print $node->sale_percentage;?> off</td></tr></tbody></table><img src="<?php print $full_url?>shadow-small.jpg">
                     </div><h1> <?php print $product->title;?></h1>
     <h2>by <?php print $store->name;?></h2>
