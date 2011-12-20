@@ -31,6 +31,17 @@ jQuery(document).ready(function() {
 			},
 	 });
 	 
+	 jQuery("#edit-email").rules("add", {
+	     email: true,
+	     remote: {
+	  		   url: base_path + "?q=fm_users/email-verify/0",
+	  		   type: "post",
+	  	 },
+	     messages: { 
+	           remote: jQuery.format('E-mail registered already.')
+	     },
+	});
+	 
 	 addBillingCheckedEvents();
 	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
 		 billingCheckedEvent();
