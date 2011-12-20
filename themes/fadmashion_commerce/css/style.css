@@ -437,6 +437,14 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .check{margin-right: 5px;}
 
 /********* Checkout ***********/
+
+
+#authenticate .login-form, #authenticate .new-form {float: left}
+#authenticate .login-form {width: 320px;border-right: 1px dotted #888}
+#authenticate .new-form {width: 300px; margin: auto; text-align: center; }
+#authenticate .form-item {float: none !important; padding-bottom: 5px !important;}
+#authenticate label {display: none}
+	
 .page-express-checkout  #wrapper{background-image: url(../images/bg_header_checkout.jpg)}
 .page-express-checkout  .title{color: #ccad97; border-left: 1px solid #574d46; height: 30px; line-height: 30px; padding: 0 0 0 16px; float: left; position: relative; left: 20px; top: 14px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;}
 .express-checkout .button {float: right; padding: 6px 9px; margin-top: 17px;}
@@ -474,7 +482,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .checkoutPanel .form-item .narrow{width: 100px;}
 .checkoutPanel .form-item .long{width: 500px;}
 
-#shipping.checkoutPanel {margin-bottom:25px;}
+#shipping.checkoutPanel, #about-you.checkoutPanel {margin-bottom:25px;}
 
 .form-item-commerce-customer-address-und-0-country, .form-item-commerce-customer-address-und-0-name-line{display: none}
 

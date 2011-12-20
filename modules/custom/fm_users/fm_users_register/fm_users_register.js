@@ -196,8 +196,8 @@ function fmForceRegister() {
 	      opacity: '0',
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
-	      overlayClose: false, 
-	      escKey: false, 
+	      //overlayClose: false, 
+	      //escKey: false, 
 	      href:"#" + regBlockId,
 	      onComplete: fmFadeRegisterBlock
 	    });

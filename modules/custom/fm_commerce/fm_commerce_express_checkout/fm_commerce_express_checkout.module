@@ -5,6 +5,12 @@
  */
 function fm_commerce_express_checkout_menu() {
 	
+	$items['express-checkout/sign-in'] = array(
+    'page callback' => 'fm_commerce_express_checkout_login',
+	  'access arguments' => array('view express checkout'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
 	$items['express-checkout'] = array(
     'page callback' => 'fm_commerce_express_checkout_page',
 	  'access arguments' => array('view express checkout'),
@@ -18,6 +24,7 @@ function fm_commerce_express_checkout_menu() {
   
   return $items;
 }
+
 
 /**
  * Implements hook_permission().
@@ -44,11 +51,47 @@ function fm_commerce_express_checkout_confirmation_page() {
 	return theme('fm_commerce_express_checkout_confirmation', $vars);
 }
 
+function fm_commerce_express_checkout_login() {
+	global $user;
+	if($user->uid) {
+		drupal_goto('express-checkout');
+	}
+	$output = theme('fm_commerce_express_checkout_login');
+	return $output;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function fm_commerce_express_checkout_form_user_login_block_alter(&$form, &$form_state) {
+  if (arg(0) == 'express-checkout' && arg(1) == 'sign-in') {
+    $form['#submit'][0] = 'fm_commerce_express_checkout_redirect_user_login_submit';
+  }
+}
+
+function fm_commerce_express_checkout_redirect_user_login_submit($form, &$form_state) {
+  
+	//Get Session Order and resave with uid of logged in person.
+	$order = commerce_cart_order_load();
+	
+	global $user;
+  $user = user_load($form_state['uid']);
+
+  //Set uid of order and save it
+  $order->uid = $user->uid;
+  commerce_order_save($order);
+  
+  $form_state['redirect'] = 'express-checkout';
+  user_login_finalize($form_state);
+}
+
 //Replace the drupal commerce checkout form with our own 
 //preffer having complete control of fomrs rather than doing through commerce admin (anish)
 function fm_commerce_express_checkout_form($form, $form_state) {
 
   global $user;
+  
+
     
   $order = commerce_cart_order_load($user->uid);
   $form_state['order'] = $order;
@@ -58,6 +101,23 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   	drupal_set_message('We couldn\'t find your order, please contact the admin for issues', 'error');
     drupal_goto();
   }
+  
+  if(!$user->uid) {
+  	if(!$_GET['guest']) {
+      drupal_goto('express-checkout/sign-in');
+  	}
+  	//Add About You section
+  	else {
+  		 // Add the field widgets for the profile.
+  		 $field_name = 'user_register';
+  		 $form[$field_name]['first_name'] = array('#type' => 'textfield', '#required' => true, '#title' => t('First Name') );
+  		 $form[$field_name]['last_name'] = array('#type' => 'textfield','#required' => true, '#title' => t('Last Name') );
+  		 $form[$field_name]['email'] = array('#type' => 'textfield', '#required' => true, '#title' => t('E-mail Address') );
+  		 //$form[$field_name]['pass'] = array('#type' => 'password_confirm', '#required' => true);
+       //field_attach_form('user', $user, $form, $form_state);
+    }
+  }
+  
   
   /* ADD Shipping Profile to Form */
   if( !isset($_GET['shipping']) || $_GET['shipping'] == 'new' ) {
@@ -86,6 +146,9 @@ function fm_commerce_express_checkout_form($form, $form_state) {
       $form[$field_name][$language][$delta]['#type'] = 'container';
     }
     
+    if($user->uid) {
+      $form[$field_name][$language][$delta]['name_line']['#default_value'] = fm_users_fullname();
+    }
     $form[$field_name][$language][$delta]['name_line']['#weight'] = -6;
     $form[$field_name][$language][$delta]['country']['#weight'] = -5;
     $form[$field_name][$language][$delta]['country']['#disabled'] = TRUE;
@@ -226,6 +289,27 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
+  /*Create Account */
+  global $user;
+  if(!$user->uid) {
+  	$first_name = $form_state['values']['first_name'];
+  	$last_name = $form_state['values']['last_name'];
+  	
+  	$edit = array(
+          'name' => $first_name + ' ' + $last_name,
+          'pass' => user_password(),
+          'mail' => $form_state['values']['email'],
+          'init' => $form_state['values']['email'],
+          'status' => 1,
+          'access' => REQUEST_TIME,
+          'field_first_name' => array(LANGUAGE_NONE => array(array('value' => $first_name))),
+          'field_last_name' => array(LANGUAGE_NONE => array(array('value' => $last_name))),
+    );
+    $new_user = user_save(drupal_anonymous_user(), $edit);
+    $order_wrapper->uid = $new_user->uid;
+    $user = $new_user;
+  }
+  
   
   /*SHIPPING ADDRESS SUBMIT*/
   $profile = $form_state['values']['shipping_customer_profile'];
@@ -315,14 +399,30 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
 //TODO: Needs to be in a theme file
 function theme_fm_commerce_express_checkout_form($variables)
 {
+	  $output = '';
+	  
     // Isolate the form definition form the $variables array
     $form = $variables['form'];
+    
+    
+    $field_name = 'user_register';
+    if (isset($form[$field_name])) {
+    	$output .= '<div id="about-you" class="checkoutPanel">';
+    	$output .= '<div class="header rounded-top"><div class="pad">
+                  About You
+                </div></div>';
+    	$output .= '<div class="form">';
+    	$output .= drupal_render($form[$field_name]);
+    	$output .= '</div>';
+    	$output .= '</div>';
+    }
+    
     
     //DISPLAY Shipping information on Form
     $field_name = 'field_shipping_address';
     $language = $form[$field_name]['#language'];
     
-    $output = '<div id="shipping" class="checkoutPanel">';
+    $output .= '<div id="shipping" class="checkoutPanel">';
     $output .= '<div class="header rounded-top"><div class="pad">
                   <div class="dropdown"><span>Address Book:</span> ' . fm_commerce_express_checkout_profiles_options('shipping') . ' </div>
                   Shipping Information
@@ -442,6 +542,9 @@ function fm_commerce_express_checkout_theme($variables)
 {
     return array
     (
+        'fm_commerce_express_checkout_login' => array(
+	         'template' => 'fm_commerce_express_checkout_login', 
+         ), 
         'fm_commerce_express_checkout_form' => array(
             'render element' => 'form',
         ),

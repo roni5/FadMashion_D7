@@ -10,7 +10,7 @@ function pp() {
 	$path = drupal_get_path("theme","fadmashion_commerce") . '/images/';
 	
 	//True for live server, else localhost remove the preceding slash
-	if(true  ) {
+	if(false  ) {
 		return '/' . $path; 
 	} else {
 		return $path;

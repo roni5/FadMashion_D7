@@ -38,8 +38,8 @@
       			    </a>
               <div class="navBox">
                     <ul class="nav">
-                        <li  <?php ($menu_active == 'featured' ? print 'class="active"' : '' )?> ><?php print l('Live Sale!', ''); ?></li>
-                        <li <?php ($menu_active == 'preview' ? print 'class="active"' : '' )?> ><?php print l('Upcoming Sales', 'deals/preview'); ?></li>
+                        <li  <?php ($menu_active == 'featured' ? print 'class="active"' : '' )?> ><?php print l('Live Deal!', ''); ?></li>
+                        <li <?php ($menu_active == 'preview' ? print 'class="active"' : '' )?> ><?php print l('Upcoming Deals', 'deals/preview'); ?></li>
                         <li><?php print l('Blog', 'http://blog.fadmashion.com', array('absolute' => true)); ?></li>
                         <!-- <li class="beautytips" id="voting-header" title="Coming Soon"><a href="#">Voting Booth</a>  -->
                         </li>

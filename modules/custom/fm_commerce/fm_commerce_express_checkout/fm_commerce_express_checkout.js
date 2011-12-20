@@ -5,6 +5,7 @@
  */
 
 
+var first_name, last_name;
 var address1, address1_bill;
 var address2, address2_bill;
 var city, city_bill;
@@ -64,6 +65,9 @@ function setCheckoutFormVariables() {
 	full_name_bill = jQuery('#billing #edit-commerce-customer-address-und-0-name-line');
 	full_name_card = jQuery('#billing #edit-credit-card-owner');
 	 
+	first_name = jQuery('#edit-first-name');
+	last_name = jQuery('#edit-last-name');
+	
 	 address1 = jQuery('#shipping #edit-field-shipping-address-und-0-thoroughfare');
 	 address1_bill = jQuery('.billingAddress #edit-commerce-customer-address-und-0-thoroughfare');
 
@@ -85,6 +89,8 @@ function addFullNameEvent() {
 	full_name_bill.val(full_name.val());
 	
 	full_name.keyup (function() {
+		first_name.unbind("keyup");
+		last_name.unbind("keyup");
 		full_name_card.val(jQuery(this).val());
 		full_name_bill.val(jQuery(this).val());
 	});
@@ -93,6 +99,19 @@ function addFullNameEvent() {
 		full_name.unbind("keyup");
 		full_name_bill.val(jQuery(this).val());
 	});
+	
+	if(first_name.length) {
+	  first_name.keyup(function() {
+		full_name.val(first_name.val() + ' ' + last_name.val());
+		full_name_card.val(first_name.val() + ' ' + last_name.val());
+		full_name_bill.val(first_name.val() + ' ' + last_name.val());
+	  });
+	  last_name.keyup(function() {
+		full_name.val(first_name.val() + ' ' + last_name.val());
+		full_name_card.val(first_name.val() + ' ' + last_name.val());
+		full_name_bill.val(first_name.val() + ' ' + last_name.val());
+	  });
+	}
 	
 }
 
