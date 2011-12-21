@@ -101,16 +101,18 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #signup label{display: none}
 #signup .form-item, .form-actions{margin: 0 !important;}
 #signup .form-item .description {color: #8f837a }
-#signup .password-suggestions  {position: absolute;left: -9999px;}
-#signup .password-suggestions {display: none}
-#signup .password-strength {width: 90px;  font-size: 12px; margin-top: 5px;display: none;}
-#signup .password-min {float: left;}
+#signup .password-suggestions, #about-you .password-suggestions{position: absolute;left: -9999px;}
+#signup .password-suggestions, #about-you .password-suggestions{display: none}
+#signup .password-strength, #about-you .password-strength{width: 90px;  font-size: 12px; margin-top: 5px;display: none;}
+#signup .password-min, #about-you .password-min{float: left;}
 #signup .password-min, div.password-confirm  {color:#C5B5A8;font-family:Georgia,"Times New Roman",Times,serif;font-size:11px;font-style:italic; font-weight: normal;}
 #signup .password-parent {margin:0;width:270px;}
-#signup .password-indicator {display: none;}
-#signup .password-strength-text {display: none;}
-#signup div.password-confirm {display: none !important;}
-#signup .password-min {display: none;}
+#about-you .password-parent {width: 235px; padding-bottom: 0px}
+#about-you .form-type-password-confirm {padding-bottom: 0px;}
+#signup .password-indicator, #about-you .password-indicator{display: none;}
+#signup .password-strength-text, #about-you .password-strength-text{display: none;}
+#signup div.password-confirm, #about-you div.password-confirm{display: none !important;}
+#signup .password-min, #about-you .password-min{display: none;}
 #signup label.option { color: #E4DAD2; display:inline;font-weight:normal; font-size: 12px;}
 #signup label.option a{color: #fff;text-decoration: underline;}
 

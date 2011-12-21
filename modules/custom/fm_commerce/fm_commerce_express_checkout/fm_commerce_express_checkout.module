@@ -150,6 +150,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
       $form[$field_name][$language][$delta]['name_line']['#default_value'] = fm_users_fullname();
     }
     $form[$field_name][$language][$delta]['name_line']['#weight'] = -6;
+    $form[$field_name][$language][$delta]['name_line']['#title'] = t('Full Name');
     $form[$field_name][$language][$delta]['country']['#weight'] = -5;
     $form[$field_name][$language][$delta]['country']['#disabled'] = TRUE;
     

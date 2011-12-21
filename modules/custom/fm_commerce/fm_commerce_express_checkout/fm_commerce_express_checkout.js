@@ -42,6 +42,15 @@ jQuery(document).ready(function() {
 	     },
 	});
 	 
+	jQuery("#edit-pass-pass1").rules("add", {
+	    	minlength:5,
+	    	maxlength:14,
+	});
+	jQuery("#edit-pass-pass2").rules("add", {
+		 	 equalTo: " #edit-pass-pass1",
+		 	 messages: { equalTo: 'Password Doesn\'t match' }
+	});
+	 
 	 addBillingCheckedEvents();
 	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
 		 billingCheckedEvent();
