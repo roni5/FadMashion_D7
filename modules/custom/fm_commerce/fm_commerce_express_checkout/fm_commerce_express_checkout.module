@@ -298,7 +298,7 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   	
   	$edit = array(
           'name' => $first_name + ' ' + $last_name,
-          'pass' => user_password(),
+          'pass' => $form_state['values']['pass'],
           'mail' => $form_state['values']['mail'],
           'init' => $form_state['values']['mail'],
           'status' => 1,
