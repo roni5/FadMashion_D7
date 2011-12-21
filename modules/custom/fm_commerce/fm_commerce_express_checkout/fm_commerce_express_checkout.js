@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
 			},
 	 });
 	 
-	 jQuery("#edit-email").rules("add", {
+	 jQuery("#edit-mail").rules("add", {
 	     email: true,
 	     remote: {
 	  		   url: base_path + "?q=fm_users/email-verify/0",

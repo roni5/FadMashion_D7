@@ -112,8 +112,8 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   		 $field_name = 'user_register';
   		 $form[$field_name]['first_name'] = array('#type' => 'textfield', '#required' => true, '#title' => t('First Name') );
   		 $form[$field_name]['last_name'] = array('#type' => 'textfield','#required' => true, '#title' => t('Last Name') );
-  		 $form[$field_name]['email'] = array('#type' => 'textfield', '#required' => true, '#title' => t('E-mail Address') );
-  		 //$form[$field_name]['pass'] = array('#type' => 'password_confirm', '#required' => true);
+  		 $form[$field_name]['mail'] = array('#type' => 'textfield', '#required' => true, '#title' => t('E-mail Address') );
+  		 $form[$field_name]['pass'] = array('#type' => 'password_confirm', '#required' => true);
        //field_attach_form('user', $user, $form, $form_state);
     }
   }
@@ -298,8 +298,8 @@ function fm_commerce_express_checkout_form_submit($form, $form_state) {
   	$edit = array(
           'name' => $first_name + ' ' + $last_name,
           'pass' => user_password(),
-          'mail' => $form_state['values']['email'],
-          'init' => $form_state['values']['email'],
+          'mail' => $form_state['values']['mail'],
+          'init' => $form_state['values']['mail'],
           'status' => 1,
           'access' => REQUEST_TIME,
           'field_first_name' => array(LANGUAGE_NONE => array(array('value' => $first_name))),
