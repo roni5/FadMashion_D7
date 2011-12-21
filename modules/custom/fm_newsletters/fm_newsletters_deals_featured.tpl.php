@@ -47,7 +47,7 @@
     <h1><?php print $product->title; ?></h1>
     <h2>by <?php print $store->name; ?></h2>
     <p class="description"><?php print $description;?></p>
-    <?php print l('Save ' .  $node->sale_percentage . ' Now', 'node/' . $node->nid, array('class' => array('button')) ); ?>
+    <?php print l('Save ' .  $node->sale_percentage . ' Now', 'node/' . $node->nid, array('attributes' => array('class' => array('button'))) ); ?>
     <div class="finePrint">This deal ends <?php print '<b>' . date("g:i a", $end_time);?> EST</div>
     </div>
     </td>
