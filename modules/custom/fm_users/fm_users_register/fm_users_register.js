@@ -232,7 +232,7 @@ function fmFadeRegisterBlock() {
 
 
 function fmClearRegisterTimeout() {
-	clearTimeout(forceRegisterTimeout);
+	//clearTimeout(forceRegisterTimeout);
 }
 
 function fmShowLogin(){
