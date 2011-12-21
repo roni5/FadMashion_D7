@@ -31,7 +31,7 @@
     <td class="side1">&nbsp;</td>
     <td>&nbsp;</td>
     <td width="246" valign="top" class="photo" rowspan="5">
-      <div class="mainPhoto"><?php print $image;?></div>
+      <div class="mainPhoto"><?php print l($image, 'node/' . $node->nid, array('html' => true) );?></div>
       <img class="shadow_newsletter" src="<?php print $full_url?>shadow.jpg"></td>
     <td class="side1">&nbsp;</td>
   </tr>
@@ -47,7 +47,7 @@
     <h1><?php print $product->title; ?></h1>
     <h2>by <?php print $store->name; ?></h2>
     <p class="description"><?php print $description;?></p>
-    <a class="button" href="#">Save <?php print $node->sale_percentage;?> Now</a>
+    <?php print l('Save ' .  $node->sale_percentage . ' Now', 'node/' . $node->nid, array('class' => array('button')) ); ?>
     <div class="finePrint">This deal ends <?php print '<b>' . date("g:i a", $end_time);?> EST</div>
     </div>
     </td>
