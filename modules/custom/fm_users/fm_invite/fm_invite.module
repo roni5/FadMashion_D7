@@ -144,11 +144,6 @@ function fm_invite_js_alter(&$javascript) {
 	}
 }
 
-function fm_invite_colorbox_settings_alter(&$settings) {
-	$settings['initialWidth'] = 350;
-	$settings['initialHeight'] = 200;
-	$settings['close'] = '<img src="' . pp().'b_close.jpg' . '">';
-}
 
 /**
  * Allow other modules to control access to forms opening in Colorbox.

@@ -17,6 +17,16 @@ function pp() {
 	}
 }
 
+
+/*
+ * Implements hook_colorbox_settings_alter()
+ */
+function fadmashion_commerce_colorbox_settings_alter(&$settings) {
+	$settings['initialWidth'] = 350;
+	$settings['initialHeight'] = 200;
+	$settings['close'] = '<img src="' . pp().'b_close.jpg' . '">';
+}
+
 /*
  * CSS & JS files to load up on each page request.  
  */
