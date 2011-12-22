@@ -59,8 +59,6 @@ function fm_commerce_express_checkout_login() {
 		drupal_goto('express-checkout');
 	}
 	$output = theme('fm_commerce_express_checkout_login');
-		var_dump($output);
-	exit();
 	
 	return $output;
 }
