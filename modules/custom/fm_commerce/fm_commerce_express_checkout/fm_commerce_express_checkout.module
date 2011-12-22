@@ -104,7 +104,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   }
   
   if(!$user->uid) {
-  	if(!$_GET['guest']) {
+  	if(!isset($_GET['guest'])) {
       drupal_goto('express-checkout/sign-in');
   	}
   	//Add About You section
