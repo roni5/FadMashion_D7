@@ -11,7 +11,7 @@ function pp() {
 	
 	//True for live server, else localhost remove the preceding slash
 	if(true) {
-		return '/drupal/' . $path; 
+		return '/' . $path; 
 	} else {
 		return $path;
 	}
