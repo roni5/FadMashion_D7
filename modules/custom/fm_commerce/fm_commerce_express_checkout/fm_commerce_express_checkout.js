@@ -31,26 +31,28 @@ jQuery(document).ready(function() {
 			},
 	 });
 	 
-	 jQuery("#edit-mail").rules("add", {
-	     email: true,
-	     remote: {
-	  		   url: base_path + "?q=fm_users/email-verify/0",
-	  		   type: "post",
-	  	 },
-	     messages: { 
-	           remote: jQuery.format('E-mail registered already.')
-	     },
-	});
+	if(jQuery('#about-you').length) {
+	   jQuery("#edit-mail").rules("add", {
+	       email: true,
+	       remote: {
+	  		     url: base_path + "?q=fm_users/email-verify/0",
+	  		     type: "post",
+	  	   },
+	       messages: { 
+	             remote: jQuery.format('E-mail registered already.')
+	       },
+	   });
 	 
-	jQuery("#edit-pass-pass1").rules("add", {
-	    	minlength:5,
-	    	maxlength:14,
-	});
-	jQuery("#edit-pass-pass2").rules("add", {
-		 	 equalTo: " #edit-pass-pass1",
-		 	 messages: { equalTo: 'Password Doesn\'t match' }
-	});
-	 
+	   jQuery("#edit-pass-pass1").rules("add", {
+	    	  minlength:5,
+	    	  maxlength:14,
+	  });
+	  jQuery("#edit-pass-pass2").rules("add", {
+		 	   equalTo: " #edit-pass-pass1",
+		 	   messages: { equalTo: 'Password Doesn\'t match' }
+	  });
+	}
+	
 	 addBillingCheckedEvents();
 	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
 		 billingCheckedEvent();
@@ -109,8 +111,10 @@ function addFullNameEvent() {
 	full_name_bill.val(full_name.val());
 	
 	full_name.keyup (function() {
-		first_name.unbind("keyup");
-		last_name.unbind("keyup");
+		if(first_name.length) {
+		  first_name.unbind("keyup");
+		  last_name.unbind("keyup");
+		}
 		full_name_card.val(jQuery(this).val());
 		full_name_bill.val(jQuery(this).val());
 	});
