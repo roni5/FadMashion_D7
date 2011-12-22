@@ -53,9 +53,10 @@ function fm_commerce_express_checkout_confirmation_page() {
 
 function fm_commerce_express_checkout_login() {
 	global $user;
-	if($user->uid) {
+	watchdog($user->uid, 'debug code');
+	/*if($user->uid) {
 		drupal_goto('express-checkout');
-	}
+	}*/
 	$output = theme('fm_commerce_express_checkout_login');
 	return $output;
 }
