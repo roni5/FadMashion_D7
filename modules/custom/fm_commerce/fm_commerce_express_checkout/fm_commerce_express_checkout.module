@@ -58,6 +58,8 @@ function fm_commerce_express_checkout_login() {
 	if($user->uid) {
 		drupal_goto('express-checkout');
 	}
+	
+	drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register.js');
 	$output = theme('fm_commerce_express_checkout_login');
 	
 	return $output;
