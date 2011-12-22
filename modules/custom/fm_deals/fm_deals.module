@@ -423,7 +423,7 @@ function fm_deals_group_details(&$vars) {
 		
 		$untilTime = $unixEndTime;
 		
-		$purchaseDetails = '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce"). '/images/bg_itemOptions_top.jpg">';
+		$purchaseDetails = '<img class="frame" src="' . pp(). 'images/bg_itemOptions_top.jpg">';
 		$purchaseDetails .= '<div class="box">';
     if(true) {
 		//if(!($order_id = fm_deals_states_purchased_deal($node))) { 
@@ -434,7 +434,7 @@ function fm_deals_group_details(&$vars) {
 			$purchaseDetails .= '!</div>';
 		}
 		$purchaseDetails .=  '</div>';
-	  $purchaseDetails .= '<img class="frame" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/bg_itemOptions_bottom.jpg">';
+	  $purchaseDetails .= '<img class="frame" src="' . pp() . 'bg_itemOptions_bottom.jpg">';
 	  
 		//If start time is LESS THAN NOW this is ACTIVE
 	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));

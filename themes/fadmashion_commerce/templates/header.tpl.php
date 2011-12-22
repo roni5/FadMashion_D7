@@ -34,7 +34,7 @@
                </div>
              
 	        	    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
-        			    <img src="/<?php print drupal_get_path("theme","fadmashion_commerce");?>/images/logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
+        			    <img src="<?php print pp();?>logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
       			    </a>
               <div class="navBox">
                     <ul class="nav">
