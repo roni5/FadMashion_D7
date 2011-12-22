@@ -54,12 +54,14 @@ function fm_commerce_express_checkout_confirmation_page() {
 function fm_commerce_express_checkout_login() {
 	global $user;
 	watchdog($user->uid, 'debug code');
-	var_dump($user->uid);
-	exit();
-	/*if($user->uid) {
+
+	if($user->uid) {
 		drupal_goto('express-checkout');
-	}*/
+	}
 	$output = theme('fm_commerce_express_checkout_login');
+		var_dump($output);
+	exit();
+	
 	return $output;
 }
 
