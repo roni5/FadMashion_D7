@@ -423,7 +423,7 @@ function fm_deals_group_details(&$vars) {
 		
 		$untilTime = $unixEndTime;
 		
-		$purchaseDetails = '<img class="frame" src="' . pp(). 'images/bg_itemOptions_top.jpg">';
+		$purchaseDetails = '<img class="frame" src="' . pp(). 'bg_itemOptions_top.jpg">';
 		$purchaseDetails .= '<div class="box">';
     if(true) {
 		//if(!($order_id = fm_deals_states_purchased_deal($node))) { 
