@@ -89,6 +89,7 @@ function fm_invite_mail($key, &$message, $params) {
 		$message['body'] = $params['message'];
 	}
 	$message['headers']  = array('content-type' => 'text/html');
+	watchdog('smtp', 'testinside:' . drupal_json_encode($message));
   return $message;
 }
 
