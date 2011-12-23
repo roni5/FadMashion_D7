@@ -10,7 +10,7 @@ function pp($absolute = false) {
 	$path = drupal_get_path("theme","fadmashion_commerce") . '/images/';
 	
 	if($absolute) {
-		$path = url('', array('absolute' => true)) . $path;
+		$path = url('/', array('absolute' => true)) . $path;
 	} else{
 	  //True for live server, else localhost remove the preceding slash
 	  if(true) {
