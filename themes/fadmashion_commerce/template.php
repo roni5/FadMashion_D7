@@ -11,13 +11,13 @@ function pp($absolute = false) {
 	
 	if($absolute) {
 		$path = url('', array('absolute' => true)) . $path;
-	}
-	
-	//True for live server, else localhost remove the preceding slash
-	if(true) {
-		return '/' . $path; 
-	} else {
-		return $path;
+	} else{
+	  //True for live server, else localhost remove the preceding slash
+	  if(true) {
+  		return '/' . $path; 
+  	} else {
+		  return $path;
+	  }
 	}
 }
 
