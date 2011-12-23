@@ -298,7 +298,7 @@ class SmtpMailSystem implements MailSystemInterface {
 
 
     watchdog('smtp', $content_type);
-    watchdog('smtp', $body);
+    watchdog('smtp', 'test:' . drupal_json_encode($body));
     
     // Processes the message's body.
     switch ($content_type) {
