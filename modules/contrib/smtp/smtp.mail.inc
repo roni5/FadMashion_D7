@@ -297,9 +297,6 @@ class SmtpMailSystem implements MailSystemInterface {
     $mailer->Subject = $subject;
 
 
-    watchdog('smtp', $body);
-    watchdog('smtp', $content_type);
-    
     // Processes the message's body.
     switch ($content_type) {
       case 'multipart/related':
@@ -446,8 +443,6 @@ class SmtpMailSystem implements MailSystemInterface {
         $mailer->Body = $body;
         break;
     }
-    
-    watchdog('smtp', $body);
 
 
     // Set the authentication settings.
