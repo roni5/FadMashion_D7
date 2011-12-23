@@ -297,6 +297,8 @@ class SmtpMailSystem implements MailSystemInterface {
     $mailer->Subject = $subject;
 
 
+    watchdog('smtp', $content_type);
+    
     // Processes the message's body.
     switch ($content_type) {
       case 'multipart/related':
