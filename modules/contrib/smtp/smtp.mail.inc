@@ -23,8 +23,9 @@ class SmtpMailSystem implements MailSystemInterface {
    *   The formatted $message.
    */
   public function format(array $message) {
-  	 watchdog('smtp', 'testbeforeformat:' . drupal_json_encode($message));
+  	 watchdog('smtp', 'testbeforeformat:' . drupal_json_encode($message['body']));
     $this->AllowHtml = variable_get('smtp_allowhtml', 0);
+    watchdog('smtp', 'allowHTML:' . $this->AllowHtml);
     // Join the body array into one string.
     $message['body'] = implode("\n\n", $message['body']);
     if ($this->AllowHtml == 0) {
@@ -34,7 +35,7 @@ class SmtpMailSystem implements MailSystemInterface {
       $message['body'] = drupal_wrap_mail($message['body']);
     }
     
-    watchdog('smtp', 'testafterformat:' . drupal_json_encode($message));
+    watchdog('smtp', 'testafterformat:' . drupal_json_encode($message['body']));
     
     return $message;
   }
