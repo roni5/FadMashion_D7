@@ -6,8 +6,12 @@ function fadmashion_commerce_preprocess_node(&$variables) {
 }
 
 //Get the Image path for this theme.
-function pp() {
+function pp($absolute = false) {
 	$path = drupal_get_path("theme","fadmashion_commerce") . '/images/';
+	
+	if($absolute) {
+		$path = url('', array('absolute' => true)) . $path;
+	}
 	
 	//True for live server, else localhost remove the preceding slash
 	if(true) {

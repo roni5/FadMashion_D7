@@ -89,7 +89,7 @@ function fm_invite_mail($key, &$message, $params) {
 		$message['body'] = theme('fm_invite_friends_email', 
 		                              array('reg_code_url' => $params['reg_url'],
 		                                    'fromName' => fm_users_fullname($uid),
-                                         'message' => fm_invite_email_message()
+                                        'message' => fm_invite_email_message()
 		                              ));
 	}
 	$message['headers']  = array('content-type' => 'text/html');
