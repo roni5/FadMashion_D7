@@ -298,6 +298,7 @@ class SmtpMailSystem implements MailSystemInterface {
 
 
     watchdog('smtp', $content_type);
+    watchdog('smtp', $body);
     
     // Processes the message's body.
     switch ($content_type) {
