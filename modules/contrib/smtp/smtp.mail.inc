@@ -52,6 +52,8 @@ class SmtpMailSystem implements MailSystemInterface {
     $subject  = $message['subject'];
     $body     = $message['body'];
     $headers  = $message['headers'];
+    
+    watchdog('smtp', 'test:' . drupal_json_encode($body));
 
     // Create a new PHPMailer object - autoloaded from registry.
     $mailer = new PHPMailer();
