@@ -224,5 +224,7 @@ function fm_commerce_emails_mail($key, &$message, $params) {
     	break;
 	} 
 	
+	$message['headers']  = array('content-type' => 'text/html');
+	
   return $message;
 }

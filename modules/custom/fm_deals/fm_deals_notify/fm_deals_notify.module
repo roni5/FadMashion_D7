@@ -167,4 +167,5 @@ function fm_deals_notify_mail($key, &$message, $params) {
 	$message['body'] = theme('fm_deals_notify_mail', 
 	                         array('nid' => $params['nid'], 'product' => $product, 'shop' => $shop, 'thumb' => $image) );
 	
+	$message['headers']  = array('content-type' => 'text/html');
 }
