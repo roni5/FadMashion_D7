@@ -315,8 +315,7 @@ function fm_users_register_form_submit($form, &$form_state) {
            'confirmation',
            $mail,
            language_default(),
-           $params,
-           'Fadmashion <' . $email . '> '
+           $params
          );
    
     

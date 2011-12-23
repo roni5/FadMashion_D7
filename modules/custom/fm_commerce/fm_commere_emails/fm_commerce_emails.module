@@ -81,8 +81,7 @@ function fm_commerce_emails_paid($order) {
       'fm_commerce_emails_user_order_shipped',
       $customer->mail,
       language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+      $params
     );
   if(isset($store_owner->mail)) {
     drupal_mail(
@@ -90,8 +89,7 @@ function fm_commerce_emails_paid($order) {
       'fm_commerce_emails_store_order_vendor_paid',
       $store_owner->mail,
       language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+      $params
       );
    }
 }
@@ -115,8 +113,7 @@ function fm_commerce_emails_shipped($order) {
       'fm_commerce_emails_store_order_shipped',
       $store_owner->mail,
       language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+      $params
    ); 
   }
 
@@ -126,8 +123,7 @@ function fm_commerce_emails_shipped($order) {
       'fm_commerce_emails_admin_order_shipped',
       $email, 
       language_default(),
-      $params,
-      'Admin - Fadmashion <' . $email . '> '
+      $params
    );  
 }
 
@@ -149,8 +145,7 @@ function fm_commerce_emails_captured($order) {
       'fm_commerce_emails_user_order_confirmation',
       $customer->mail,
       language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+      $params
     );
   
   //send to designer
@@ -160,8 +155,7 @@ function fm_commerce_emails_captured($order) {
       'fm_commerce_emails_store_order_confirmation',
       $store_owner->mail,
       language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+      $params
     ); 
   }
     
@@ -170,8 +164,7 @@ function fm_commerce_emails_captured($order) {
       'fm_commerce_emails_admin_order_confirmation',
       $email,
       language_default(),
-      $params,
-      'Admin - Fadmashion <' . $email . '> '
+      $params
    );  
 }
 

@@ -235,8 +235,7 @@ function fm_invite_request_form_submit($form, &$form_state) {
       'confirmation',
       $form_state['values']['mail'],
       language_default(),
-      $params,
-      'Fadmashion <' . $email . '> '
+      $params
    ); 
 	
   
@@ -315,8 +314,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       'email_friends',
       $to,
       language_default(),
-      $params,
-      $from
+      $params
    ); 
    
    /*SEND SAME TO ADMIN*/
@@ -327,8 +325,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
       'email_friends',
       'admin@fadmashion.com',
       language_default(),
-      $params,
-      $form_state['values']['name']. ' <' . $email . '> '
+      $params
    ); 
    
    
