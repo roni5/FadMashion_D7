@@ -86,7 +86,11 @@ function fm_invite_mail($key, &$message, $params) {
 	  $message['body'] = $params['reg_url'];
 	}
 	else {
-		$message['body'] = $params['message'];
+		$message['body'] = theme('fm_invite_friends_email', 
+		                              array('reg_code_url' => $params['reg_url'],
+		                                    'fromName' => fm_users_fullname($uid),
+                                         'message' => fm_invite_email_message()
+		                              ));
 	}
 	$message['headers']  = array('content-type' => 'text/html');
   return $message;
@@ -97,6 +101,11 @@ function fm_invite_mail($key, &$message, $params) {
  */
 function fm_invite_theme() {
  return array(
+   'fm_invite_friends_email' => array(
+      'variables' => array('reg_code_url' => '', 'fromName' => '', 'message' => '' ),
+      'template' => 'fm_invite_friends_email'
+    ),
+    
     'fm_invite_share' => array(
       'variables' => array('reg_code_url' => ''),
       'template' => 'fm_invite_share'
@@ -231,13 +240,13 @@ function fm_invite_request_form_submit($form, &$form_state) {
   
   $email = variable_get('site_mail', 'admin@fadmashion.com');
   
-  drupal_mail(
+  /*drupal_mail(
       'fm_invite',
       'confirmation',
       $form_state['values']['mail'],
       language_default(),
       $params
-   ); 
+   );*/ 
 	
   
 	drupal_goto(FM_INVITE_CONFIRM_PATH, array('query' => array('id' => $id)));
