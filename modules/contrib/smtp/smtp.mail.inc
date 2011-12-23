@@ -25,15 +25,15 @@ class SmtpMailSystem implements MailSystemInterface {
   public function format(array $message) {
     $this->AllowHtml = variable_get('smtp_allowhtml', 0);
     // Join the body array into one string.
-    //$message['body'] = implode("\n\n", $message['body']);
+    if(is_array($message['body'])) {
+      $message['body'] = implode("\n\n", $message['body']);
+    }
     if ($this->AllowHtml == 0) {
       // Convert any HTML to plain-text.
       $message['body'] = drupal_html_to_text($message['body']);
       // Wrap the mail body for sending.
       $message['body'] = drupal_wrap_mail($message['body']);
     }
-    
-    watchdog('smtp', 'testafterformat:' . drupal_json_encode($message['body']));
     
     return $message;
   }
@@ -300,10 +300,6 @@ class SmtpMailSystem implements MailSystemInterface {
     // Add the message's subject.
     $mailer->Subject = $subject;
 
-
-    watchdog('smtp', $content_type);
-    watchdog('smtp', 'test:' . drupal_json_encode($body));
-    
     // Processes the message's body.
     switch ($content_type) {
       case 'multipart/related':
