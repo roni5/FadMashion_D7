@@ -23,11 +23,9 @@ class SmtpMailSystem implements MailSystemInterface {
    *   The formatted $message.
    */
   public function format(array $message) {
-  	 watchdog('smtp', 'testbeforeformat:' . drupal_json_encode($message['body']));
     $this->AllowHtml = variable_get('smtp_allowhtml', 0);
-    watchdog('smtp', 'allowHTML:' . $this->AllowHtml);
     // Join the body array into one string.
-    $message['body'] = implode("\n\n", $message['body']);
+    //$message['body'] = implode("\n\n", $message['body']);
     if ($this->AllowHtml == 0) {
       // Convert any HTML to plain-text.
       $message['body'] = drupal_html_to_text($message['body']);
