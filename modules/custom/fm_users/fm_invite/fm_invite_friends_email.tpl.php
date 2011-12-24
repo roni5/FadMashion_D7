@@ -4,7 +4,6 @@
  * @file
  * Template when sending a message to friends.
  */
-print pp(true);
 ?>
 
 <div class="wrapper" align="center" style="height: 100%; background-color: #221e1b; padding: 20px 0 ;">
