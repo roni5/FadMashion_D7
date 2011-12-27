@@ -140,8 +140,7 @@ function fm_deals_notify_cron() {
         'reminder',
         $user->mail,
         language_default(),
-        $params,
-        'Fadmashion <' . $email . '> '
+        $params
       );
   	}
      
