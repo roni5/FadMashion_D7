@@ -6,8 +6,17 @@
     </div>
     <div class="form">
     <div class="login-form">
+    
+    <div class="login">
      <h3>Existing Customers</h3>
     <div style="margin-top: 10px;"><?php print render(drupal_get_form('user_login_block'));?></div>
+    </div>
+    <div style="display: none;" class="forgot_password">
+    <h3>Forgot your Password?</h3>
+    <?php print render(drupal_get_form('user_pass'));?>
+    </div>    
+    
+    
     </div>
     <div class="new-form">
     <h3>New to Fadmashion?</h3>
