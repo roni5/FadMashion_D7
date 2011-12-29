@@ -13,7 +13,7 @@
     </div>
     <div style="display: none;" class="forgot_password">
     <h3>Forgot your Password?</h3>
-    <?php print render(drupal_get_form('user_pass'));?>
+    <?php print render($forgot_password);?>
     </div>    
     
     

@@ -59,8 +59,10 @@ function fm_commerce_express_checkout_login() {
 		drupal_goto('express-checkout');
 	}
 	
+	$forgot_password_form = drupal_get_form('user_pass');
+	
 	drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register.js');
-	$output = theme('fm_commerce_express_checkout_login');
+	$output = theme('fm_commerce_express_checkout_login', array('forgot_password' => $forgot_password_form));
 	
 	return $output;
 }
@@ -550,6 +552,7 @@ function fm_commerce_express_checkout_theme($variables)
     (
         'fm_commerce_express_checkout_login' => array(
 	         'template' => 'fm_commerce_express_checkout_login', 
+           'variables' => array('forgot_password' => NULL)
          ), 
         'fm_commerce_express_checkout_form' => array(
             'render element' => 'form',
