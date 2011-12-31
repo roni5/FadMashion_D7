@@ -1,0 +1,1267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+        <title>{Title}</title>
+        <link rel="shortcut icon" href="{Favicon}">
+        <link rel="alternate" type="application/rss+xml" href="{RSS}">
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+
+
+<!--
+Mesh Theme by http://www.themestation.net
+Created November 2011
+
+Code is poetry.
+-->
+
+<meta name="if:Two Columns" content="0"/>
+<meta name="if:Three Columns" content="1"/>
+<meta name="if:Four Columns" content="0"/>
+<meta name="if:Shadow On Posts" content="1"/>
+<meta name="if:Display Captions" content="1"/>
+<meta name="if:Text Shadow" content="0"/>
+<meta name="if:Use Custom Font" content="1"/>
+<meta name="if:Use Loading Screen" content="0"/>
+<meta name="if:Use Infinte Scroll" content="0"/>
+
+<meta name="color:Background" content="#fff"/>
+<meta name="color:Text" content="#000"/>
+<meta name="color:Link" content="#aaa"/>
+<meta name="color:Link Hover" content="#000"/>
+<meta name="color:Circle" content="#000"/>
+<meta name="color:Chat" content="#ccc"/>
+<meta name="color:Text Shadow" content="#333"/>
+
+<meta name="font:Title" content="Arial, Helvetica, sans-serif"/>
+<meta name="font:Body" content="Arial, Helvetica, sans-serif"/>
+
+{block:IfUseCustomFont}<link rel="stylesheet" href="http://static.tumblr.com/7wtblbo/JP1lw6yjg/bebas.css">{/block:IfUseCustomFont}
+
+
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Mobile Specific Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+
+
+    <!-- CSS -->
+<link rel="stylesheet" href="http://static.tumblr.com/7wtblbo/9uUlw29aa/amazium.css">
+<link rel="stylesheet" href="http://static.tumblr.com/7wtblbo/rXqlw29b5/layout.css">
+
+
+<style type="text/css">
+
+body {
+     background:{color:Background};
+     font-family:{font:Body};
+     font-size:13px;
+     color:{color:Text};
+     margin:0;
+     padding: 0px;
+}
+
+img {border: 0px solid #000;}
+
+
+a:link, a:visited{
+    color:{color:Link};
+    text-decoration:none;
+    -moz-transition-duration:0.7s;
+    -o-transition-duration:0.7s;
+    -webkit-transition-duration:0.7s;
+    transition-duration:0.7s;
+    }
+a:hover{
+    color:{color:Link Hover};
+    text-decoration:none;
+    -moz-transition-duration:0.7s;
+    -o-transition-duration:0.7s;
+    -webkit-transition-duration:0.7s;
+    transition-duration:0.7s;
+    }
+    
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+ 
+.clearfix {
+  display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+  display: block;
+}
+ 
+* html .clearfix {
+  height: 1%;
+}
+
+#infscr-loading{
+    background:{color:Circle};
+    padding:20px;
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    opacity:0.7;
+    color:#fff;
+    }
+
+.container{
+    margin:auto !important;
+    display:block;
+    padding:50px 0;
+    background:{color:Background};
+    }
+
+.header{
+    background:{color:Background};
+    margin:auto !important;
+    display:block;
+    float:none !important;
+    }
+
+.header h1{
+    {block:IfUseCustomFont}font-family:'BebasNeueRegular', 'Arial', sans-serif;{/block:IfUseCustomFont}
+    {block:IfNotUseCustomFont}font-family:{font:Body};{/block:IfNotUseCustomFont}
+    font-weight:normal;
+    margin:0 0 10px 0;
+    padding:0;
+    font-size:50px;
+    text-align: center;
+    {block:IfTextShadow}text-shadow: 1px 1px {color:Text Shadow};{/block:IfTextShadow}
+    }
+    
+.header ul.nav{
+    margin:0;
+    padding:0;
+    list-style:none;
+    }
+
+.header ul.nav li{
+    padding:2px 0;
+    }
+    
+.header ul.nav li.column.grid_1{
+    padding:5px 5px 5px 0;
+    text-align:center;
+    margin:0 16px 0 0 !important;
+    -moz-transition-duration:0.7s;
+    -webkit-transition-duration:0.7s;
+    -o-transition-duration:0.7s;
+    transition-duration:0.7s;
+    }
+
+.posts{
+    background:{color:Background};
+    }
+    
+.posts .post{
+    background:{color:Background};
+    padding:16px 0;
+    }
+
+.posts .post h3{
+    font-size:15px;
+    font-weight:normal;
+
+}
+    
+.posts .post .caption{
+    padding:10px;
+    }
+
+.posts .post .caption blockquote{
+    border-left:1px solid #ccc;
+    padding-left:7px;
+    margin-left:5px;
+    }
+    
+.posts .post .permalink{
+    padding:10px;
+    }
+
+.posts .post .permalink ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+    }
+    
+.posts .post .permalink ul li{
+    display:inline-block;
+    }
+
+.posts .post .permalink ul li:first-child a{
+    background: url(http://static.tumblr.com/7wtblbo/dXwlw5hgv/link.png) left no-repeat;
+    display:block;
+    text-indent:-9999px;
+    width:20px;
+    height:12px;
+    }
+
+.posts .post .permalink ul li.notes a{
+    background: url(http://static.tumblr.com/7wtblbo/wrwlw61ln/notes.png) left no-repeat;
+    display:block;
+    margin-left:5px;
+    padding-left:20px;
+    }
+
+.posts .post .permalink ul li.date{
+    background: url(http://static.tumblr.com/7wtblbo/CgDlw63c6/time.png) left no-repeat;
+    margin-left:5px;
+    padding-left:20px;
+    }
+
+.post.audio{
+    }
+    
+.post.audio .player_cont{
+    z-index:9999;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    height:100px;
+    width:100px;
+    background:#fff;
+    margin-left:-50px;
+    margin-top:-50px;
+    }
+
+.post.audio .player{
+    overflow:hidden !important;
+    overflow-y:hidden !important;
+    background:#fff;
+    height:27px;
+    width:25px;
+    margin:37px 0 0 37px;
+
+}
+
+
+.post.audio .player span {
+    color:#fff;
+    font-size:0px;
+    line-height:0px;
+    }
+
+.post.audio .player span a{
+    color:#fff;
+    font-size:0px;
+    line-height:0px;
+    }
+
+.post.audio .music_cont{
+    }
+    
+.post.audio .albumart{
+    position:relative;
+    min-height:100px;
+    }
+    
+.post.audio .albumart img{
+    width:100%;
+    height:auto;
+    }
+
+.post.audio .music_info{
+    padding:5px 0;
+    }
+
+.post.audio .music_info ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-size:10px;
+    text-align:center;
+    }
+    
+.post.audio .music_info ul li{
+    padding:2px 0;    
+    }
+
+/*
+CHAT
+------------------------
+*/
+
+ul.chat{
+    margin:0;
+    padding:0;
+    list-style:none;
+    border:solid 1px {color:Chat};
+}
+
+ul.chat li{
+    margin:0;
+    padding:15px 5px;
+    border-bottom:solid 1px {color:Chat};
+}
+
+ul.chat li:last-child{
+    border:none;
+}
+
+ul.chat li.odd{
+
+}
+
+ul.chat li.even{
+
+}
+
+ul.chat li .label{
+    font-weight:italic;
+}
+
+
+/*
+PHOTOS
+------------------------
+*/
+.posts .post.photo{
+    position:relative;
+    }
+
+.notes_circle{
+    font-family: 'BebasNeueRegular';
+    font-size:30px;
+    position:absolute;
+    bottom:50%;
+    right:50%;
+    margin-right:-40px;
+    margin-bottom:-40px;
+    background:{color:Circle};
+    width: 80px;
+    height: 80px; 
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    opacity:0;
+    -moz-transition-duration:0.7s;
+    -o-transition-duration:0.7s;
+    -webkit-transition-duration:0.7s;
+    transition-duration:0.7s;
+}
+
+.notes_circle p{
+ text-align: center;
+ margin-top: 23px; 
+}
+
+.post:hover .notes_circle{
+    opacity:0.8;
+    -moz-transition-duration:0.7s;
+    -o-transition-duration:0.7s;
+    -webkit-transition-duration:0.7s;
+    transition-duration:0.7s;
+    }
+    
+
+.posts .post.photo div img{
+    margin:auto;
+    display:block;
+    width:100%;
+    height:auto;
+    }
+
+/*
+PHOTOSET
+------------------------
+*/
+.photoset_player{
+    color:#fff;
+    font-size:1px;
+    height:0px;
+    overflow:hidden;
+    }
+
+/*
+VIDEO
+------------------------
+*/
+.posts .post.video .video-container .vid_vis .video_player_label{
+    display:none;
+    }
+    
+.video-container {
+        position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden;
+    }
+    
+.video-container iframe,  
+.video-container object,  
+.video-container embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+.answer_box{
+    font-style:italic;
+    padding:10px;
+}
+
+.shadow{
+    {block:IfNotShadowOnPosts}display:none;{/block:IfNotShadowOnPosts}
+    width:100%;
+    height:auto;
+    }
+
+/*
+META
+--------------------
+*/
+    
+.meta ul.reblogged{
+    margin:0;
+    padding:0;
+    list-style:none;
+    }
+    
+.meta ul.reblogged{
+    display:inline-block;
+    
+}
+
+.meta ul.reblogged li{
+    text-transform:uppercase;
+    }
+
+.meta ul.reblogged li a{
+    text-transform:capitalize;
+    }
+
+.meta .tags{
+ background:url(http://static.tumblr.com/7wtblbo/9vylw645i/tags.png) center left no-repeat;
+ padding:20px 0 0 25px;
+}
+
+.meta .tags ul{
+ margin:0;
+ padding:0 0 20px 0;
+ list-style:none;
+}
+
+.meta .tags ul li{
+ padding:0 7px;
+ display:inline-block;
+}
+
+/*
+NOTES
+--------------------
+*/
+
+ol.notes {
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+    border-bottom: solid 0 #ccc;
+    font-size:9px;
+    }
+
+ol.notes li.note {
+    border-top: solid 0 #ccc;
+    padding: 5px 0;
+    }
+
+ol.notes li.note img.avatar {
+    vertical-align: -4px;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    display:none;
+    }
+
+ol.notes li.note span.action {
+
+    }
+
+ol.notes li.note span.action .tumblelog{
+    text-transform:uppercase;
+    }
+    
+ol.notes li.note span.action .source_tumblelog{
+    text-transform:uppercase;    
+    }
+
+ol.notes li.note .answer_content {
+    font-weight: normal;
+    }
+
+ol.notes li.note blockquote {
+    border-color: #eee;
+    padding: 4px 10px;
+    margin: 10px 0px 0px 25px;
+    }
+
+ol.notes li.note blockquote a {
+    text-decoration: none;
+    }
+ol.notes li.like span.action a {
+    text-transform:uppercase;
+    }  
+    
+.footer{
+    background:{color:Background};
+    padding:20px;
+    }
+
+.footer ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    text-align:center;
+} 
+
+.footer ul li {
+    margin:0 5px;
+    display:inline-block;
+}
+
+.footer ul li a{
+    padding:10px;
+    background:#555;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.footer ul li a:hover{
+    background:#888;
+}
+
+/*
+ * jQuery FlexSlider v1.8
+ * http://flex.madebymufffin.com
+ *
+ * Copyright 2011, Tyler Smith
+ * Free to use under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+ 
+/* Browser Resets */
+.flex-container a:active,
+.flexslider a:active {outline: none;}
+.slides,
+.flex-control-nav,
+.flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
+
+/* FlexSlider Necessary Styles
+*********************************/ 
+.flexslider {width: 100%; margin: 0; padding: 0;}
+.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides img {max-width: 100%; display: block;}
+.flex-pauseplay span {text-transform: capitalize;}
+
+/* Clearfix for the .slides element */
+.slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
+html[xmlns] .slides {display: block;} 
+* html .slides {height: 1%;}
+
+/* No JavaScript Fallback */
+/* If you are not using another script, such as Modernizr, make sure you
+ * include js that eliminates this class on page load */
+.no-js .slides > li:first-child {display: block;}
+
+
+/* FlexSlider Default Theme
+*********************************/
+.flexslider {background: {color:Background}; position: relative; zoom: 1;}
+.flexslider .slides {zoom: 1;}
+.flexslider .slides > li {position: relative;}
+/* Suggested container for "Slide" animation setups. Can replace this with your own, if you wish */
+.flex-container {zoom: 1; position: relative;}
+
+/* Caption style */
+/* IE rgba() hack */
+.flex-caption {
+    background:none; -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000);
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000); zoom: 1;
+    }
+
+.flex-caption {
+    width: 96%;
+    padding: 2%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.3);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.3);
+    font-size: 14px;
+    line-height: 18px;
+    }
+
+/* Direction Nav */
+.flex-direction-nav li a {
+    width: 52px;
+    height: 52px;
+    margin: -13px 0 0;
+    display: block;
+    background: url(http://static.tumblr.com/7wtblbo/D9Glw3zvw/bg_direction_nav.png) no-repeat 0 0;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    text-indent: -9999px;
+    }
+    
+.flex-direction-nav li .next {
+    background-position: -52px 0;
+    right: -10px;
+    }
+    
+.flex-direction-nav li .prev {
+    left: -5px;
+    }
+    
+.flex-direction-nav li .disabled {
+    opacity: .3;
+    filter:alpha(opacity=30);
+    cursor: default;
+    }
+
+/* Control Nav */
+.flex-control-nav {
+    width: 100%;
+    position: absolute;
+    bottom: -30px;
+    text-align: center;
+    display:none;
+    height:0px;
+    }
+    
+.flex-control-nav li {margin: 0 0 0 5px; display: inline-block; zoom: 1; *display: inline;}
+.flex-control-nav li:first-child {margin: 0;}
+.flex-control-nav li a {width: 13px; height: 13px; display: block; background: url(http://static.tumblr.com/7wtblbo/D9Glw3zvw/bg_direction_nav.png) no-repeat 0 0; cursor: pointer; text-indent: -9999px;}
+.flex-control-nav li a:hover {background-position: 0 -13px;}
+.flex-control-nav li a.active {background-position: 0 -26px; cursor: default;}
+
+/*
+|--------------------------------------------------------------------------
+| UItoTop jQuery Plugin 1.1
+| http://www.mattvarone.com/web-design/uitotop-jquery-plugin/
+|--------------------------------------------------------------------------
+*/
+
+#toTop {
+    display:none;
+    text-decoration:none; 
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    overflow:hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height:55px;
+    width:55px;
+    opacity:0.7;
+    border:none;
+    text-indent:-999px;
+    background:{color:Circle} url('http://static.tumblr.com/7wtblbo/mwClw54x9/uitotop.png') no-repeat center center;
+
+
+}
+
+#toTopHover {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height:55px;
+    width:55px;
+    opacity:0.7;
+    display:block;
+    overflow:hidden;
+    float:left;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:alpha(opacity=0);
+    background:{color:Circle} url('http://static.tumblr.com/7wtblbo/mwClw54x9/uitotop.png') no-repeat center center;
+
+
+}
+
+#toTop:active, #toTop:focus {
+ outline:none;
+}
+
+/**
+Loading
+---------------------**/
+#loading {
+position:fixed;
+top:0px;
+bottom:0px;
+left:0px;
+right:0px;
+background: {color:Background};
+z-index:9999;
+}
+      
+#loading #loadingtext {
+background: {color:Background};
+color: {color:Text};
+padding:20px;
+position:fixed;
+top:50%;
+left:50%;
+margin-left:-20px;
+margin-top:5px;
+text-transform:uppercase;
+text-decoration: blink;
+}
+#loading #loadingtext img{
+ padding:0 10px 0 0;
+}
+
+{CustomCSS}
+ #header{color: #fff}
+        .container{width:1000px; text-align: left; margin: 0 auto; color: #322f2c;  }
+        .container p {font-family:"museo-sans-1","museo-sans-2", Helvetica; line-height: 19px}
+        #header .row1{height: 32px; color: #c7b79f; }
+        #header .row2{height: 59px;}
+        #header .learnMore{color: #fff; font-size: 12px; }
+        #header .row1 p{padding: 8px 0 0 0; font-size: 12px;}
+        
+        #accountNav{float: right; height: 32px; }
+        #accountNav a{color:#c7b79f; padding: 0 14px; line-height: 32px; height:32px; float: left; font-style:normal; font-size: 11px;font-family:"museo-sans-1","museo-sans-2", Helvetica;}
+        #accountNav a:hover{color: #fff}
+        .flag{padding: 0px 8px 0 0; position: relative; top: 3px;}
+        .menu{ padding-right:0px;background: url(../images/arrow_small.png) center right no-repeat;}
+        .menu a{ margin-right: 10px;}
+        .tree li{float: left;}
+        
+        .logo{float: left; margin-top: 15px; }
+        .navBox{margin: 0 0 0 20px}
+        .navBox, .nav, .nav li{float: left; list-style-type:none;}
+        .nav{margin-top: 0; height: 59px; color: #fff; padding-left: 4px;}
+        .nav li a{font-family:"museo-sans-1","museo-sans-2", Helvetica;font-size: 16px; font-style: normal; color: #cdc6c0; height: 59px; line-height: 59px;  font-weight: 500; padding: 0 15px; text-decoration: none}
+        .nav li.active {background: url(http://fadmashion.com/sites/all/themes/fadmashion_commerce/images/nav_arrow.png) bottom center no-repeat;}
+        .nav li.active a, .nav li a:hover{color: #fff; }
+        .navBox img{float: left; }
+        #wrapper{text-align: center; background: url(http://fadmashion.com/sites/all/themes/fadmashion_commerce/images/bg_header.jpg) top left repeat-x; width: 100%;}
+        .header-container{width:1000px; text-align: left; margin: 0 auto; color: #322f2c; font-family:"museo-sans-1","museo-sans-2", Helvetica; }
+        .header a h1{color: #000}
+        .footer ul li a {
+-moz-border-radius:3px 3px 3px 3px;
+background:none repeat scroll 0 0 #555555;
+padding:10px;
+color: #ffffff
+}
+        
+</style>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="http://static.tumblr.com/7wtblbo/qNalw51j7/easing.js"></script>
+<script type="text/javascript" src="http://static.tumblr.com/7wtblbo/UBLlw51ko/jquery.ui.totop.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+    /*
+    var defaults = {
+        containerID: 'moccaUItoTop', // fading element id
+      containerHoverClass: 'moccaUIhover', // fading element hover class
+      scrollSpeed: 1200,
+      easingType: 'linear' 
+    };
+    */
+    
+    $().UItoTop({ easingType: 'easeOutQuart' });
+    
+  });
+</script>
+
+{block:permalinkPage}
+<script src="http://static.tumblr.com/7wtblbo/MEClw3oxj/jquery.flexslider-min.js"></script>
+
+<script type="text/javascript">
+$(window).load(function(){  
+    $('.flexslider').flexslider({
+    controlNav: false
+    });
+});
+</script>
+{/block:permalinkPage}
+
+{block:IndexPage}
+
+<script src="http://static.tumblr.com/7wtblbo/MEClw3oxj/jquery.flexslider-min.js"></script>
+{block:IfUseInfinteScroll}<script src="http://static.tumblr.com/7wtblbo/ttllw8zh9/jquery.infinitescroll.2.js"></script>{/block:IfUseInfinteScroll}
+<script src='http://static.tumblr.com/7wtblbo/TsJlw8zik/jquery.masonry2-0.min.js' type='text/javascript'></script>
+{/block:IndexPage}
+
+<script type="text/javascript" src="http://static.tumblr.com/7wtblbo/tXHlw8yvh/mesh_min.js"> </script>
+
+<script type="text/javascript">$(window).load(function() { $('#loading').fadeOut(1500); });</script>
+
+        <script type="text/javascript" src="http://use.typekit.com/dvb5chg.js"></script>
+        
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+</head>
+<body>
+{block:IndexPage}
+{block:IfUseInfinteScroll}{block:IfUseLoadingScreen}<div id="loading"><div id="loadingtext">Loading</div></div>{/block:IfUseLoadingScreen}{/block:IfUseInfinteScroll}
+{/block:IndexPage}
+<div id="wrapper">
+       <div class="header-container">
+          <div id="header">
+               <div class="row2"> 
+                       <a rel="home" title="Home" href="http://www.fadmashion.com" class="logo">
+                      <img alt="fadmashion" src="http://fadmashion.com/sites/all/themes/fadmashion_commerce/images/logo_fadmashion.png">
+                  </a>
+                 <div class="navBox">
+                       <ul class="nav">
+                           <li><a href="http://www.fadmashion.com/deals">Live Deal</a></li>
+                           <li><a href="http://www.fadmashion.com/deals/preview">Upcoming Deals</a></li>
+                           <li class="active"><a href="http://blog.fadmashion.com">Blog</a></li>
+                           <!-- <li class="beautytips" id="voting-header" title="Coming Soon"><a href="#">Voting Booth</a>  -->
+                           
+                           </ul>
+                             
+                 </div>
+               </div>
+          </div>
+          </div>
+          </div>
+               
+<div class="container">
+<div class="row">
+<div class="column grid_12">
+<div class="header">
+<a href="/"><h1>{Title}</h1></a>
+
+</div><!--header-->
+</div><!--twelvecol-->
+</div><!--row-->
+
+<div class="row">
+<div class="column grid_12">
+<div id="posts" class="posts clearfix row">
+{block:Posts}
+
+{block:Text}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post text column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post text column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post text column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post text column grid_8">
+{/block:PermalinkPage}
+
+{block:Title}
+<h3><a href="{Permalink}">{Title}</a></h3>
+{/block:Title}
+{Body}
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Text}
+
+{block:Photo}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post photo column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post photo column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post photo column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+<div style="position:relative">
+{block:IndexPage}<div class="notes_circle"><p><a href="{Permalink}" class="example5">{NoteCount}</a></p></div>{/block:IndexPage}
+
+{block:IndexPage}
+{block:IfTwoColumns}<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/>{block:IfTwoColumns}
+{block:IfThreeColumns}<img src="{PhotoURL-500}" alt="{PhotoAlt}"/>{block:IfThreeColumns}
+{block:IfFourColumns}<img src="{PhotoURL-400}" alt="{PhotoAlt}"/>{block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}{LinkOpenTag}<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" border="0"/>{LinkCloseTag}{/block:PermalinkPage}
+</div>
+{block:IfDisplayCaptions}
+{block:Caption}
+<div class="caption">{Caption}</div>
+{/block:Caption}
+{/block:IfDisplayCaptions}
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Photo}
+                
+{block:Photoset}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post photoset column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post photoset column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post photoset column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+<div class="flexslider">
+<ul class="slides">
+{block:Photos}
+<li><center><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></center>
+{block:Caption}<p>{Caption}</p>{/block:Caption}
+</li>{/block:Photos}
+</ul>
+</div>
+{block:IfDisplayCaptions}
+{block:Caption}
+<div class="caption">{Caption}</div>
+{/block:Caption}
+{/block:IfDisplayCaptions}
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Photoset}
+
+{block:Quote}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post quote column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post quote column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post quote column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+"{Quote}"
+
+{block:Source}
+  <div class="source">{Source}</div>
+{/block:Source}
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Quote}
+
+{block:Link}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post link column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post link column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post link column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+<h3><a href="{URL}" class="link" {Target}>{Name}</a></h3>
+
+{block:Description}
+  <div class="description">{Description}</div>
+{/block:Description}
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Link}
+
+{block:Chat}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post chat column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post chat column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post chat column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+{block:Title}
+  <h3><a href="{Permalink}">{Title}</a></h3>
+{/block:Title}
+
+<ul class="chat">
+{block:Lines}
+<li class="{Alt} user_{UserNumber}">
+{block:Label}
+<span class="label">{Label}</span>
+{/block:Label}
+
+{Line}
+</li>
+{/block:Lines}
+</ul>
+
+<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Chat}
+
+{block:Video}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post video column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post video column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post video column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+<div class="video-container">
+<div class="vid_vis" id="{PostID}">{Video-500}</div>
+</div>
+{block:IfDisplayCaptions}
+{block:Caption}
+   <div class="caption">{Caption}</div>
+{/block:Caption}
+{/block:IfDisplayCaptions}
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Video}
+
+{block:Audio}
+{block:IndexPage}
+{block:IfTwoColumns}
+<div class="post audio column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post audio column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post audio column grid_3">
+{/block:IfFourColumns}
+{/block:IndexPage}
+
+{block:PermalinkPage}
+<div class="post photo column grid_8">
+{/block:PermalinkPage}
+
+
+<div class="music_cont">
+<div class="albumart">
+<div class="player_cont">
+<div class="player" id="{PostID}">{AudioPlayerWhite}</div></div>
+{block:AlbumArt}
+<img src="{AlbumArtURL}" class="albumart">
+{/block:AlbumArt}
+</div><!--albumart-->
+
+<div class="music_info">
+<ul>
+<li>{block:TrackName}{TrackName}{/block:TrackName} {block:Artist} &middot; {Artist}{/block:Artist}{block:Album} &middot;  {Album}{/block:Album}</li>
+</ul>
+</div><!--music-info-->
+</div><!--music_cont-->
+
+{block:IfDisplayCaptions}
+{block:Caption}
+  <div class="caption">{Caption}</div>
+{/block:Caption}
+{/block:IfDisplayCaptions}
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Audio}
+
+{block:Answer}
+{block:IfTwoColumns}
+<div class="post answer column grid_6">
+{/block:IfTwoColumns}
+{block:IfThreeColumns}
+<div class="post answer column grid_4">
+{/block:IfThreeColumns}
+{block:IfFourColumns}
+<div class="post answer column grid_3">
+{/block:IfFourColumns}
+{Asker}: {Question}
+
+<div class="answer_box">{Answer}</div>
+
+{block:IndexPage}<div class="permalink">
+<ul>
+<li><a href="{Permalink}">Permalink</a></li>
+<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
+<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
+</ul>
+</div>{/block:IndexPage}
+
+<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
+
+{/block:Answer}
+
+{block:PermalinkPage}
+<div class="meta">
+<ul class="reblogged row">
+<li class="column grid_1">{NoteCountWithLabel}</li>
+{block:RebloggedFrom}<li class="column grid_1">Via <a href="">{ReblogParentName}</a></li> 
+<li class="column grid_1">Op <a href="{ReblogRootURL}">{ReblogRootName}</a> </li>
+{/block:RebloggedFrom}
+{block:ContentSource}<li class="column grid_1">
+ {lang:Source} <a href="{SourceURL}">
+{block:SourceLogo}<img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />{/block:SourceLogo}
+{block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}
+    </a>
+</li>{/block:ContentSource}
+</ul>
+
+{block:HasTags}<div class="tags"><ul>
+{block:Tags}<li><a href="{TagURL}">{Tag}</a></li>{/block:Tags} 
+</ul></div>{/block:HasTags}
+
+</div><!--meta-->
+{/block:PermalinkPage}
+</div><!--post-->
+<div class="column grid_4">{PostNotes}</div>
+
+{/block:Posts}
+</div><!--posts-->
+</div><!--twelvecol-->
+</div><!--row-->
+
+<div class="row">
+<div class="column grid_12">
+        <div class="footer">
+             <ul class="pagination">
+            {block:PreviousPage}
+                <li><a href="{PreviousPage}">&laquo; {lang:Previous}</a></li>
+                <li style="font-weight:bold;"> &middot;</li>
+            {/block:PreviousPage}
+
+            {block:NextPage}
+                <li><a href="{NextPage}">{lang:Next} &raquo;</a></li>
+            {/block:NextPage}
+             </ul>
+        </div><!--footer-->
+        </div><!--twelvecol-->
+        </div><!--row-->
+</div><!--container-->
+
+{block:Twitter}
+    <script type="text/javascript" src="/tweets.js"></script>
+{/block:Twitter}
+</body>
+</html>
+
+
+
+
+
+
+
+

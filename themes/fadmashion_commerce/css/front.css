@@ -1,4 +1,4 @@
-* {  margin:0; padding:0; border: none; font-family:"museo-sans-1","museo-sans-2", Helvetica; color: #fff;} 
+* {  margin:0; padding:0; border: none; text-align: center; font-family:"museo-sans-1","museo-sans-2", Helvetica; color: #fff;} 
 p{color: #fff; font-family: helvetica, arial;}
 html, body, #wrap { height: 100%; }
 body > #wrap {height: auto; min-height: 100%;}
@@ -94,6 +94,9 @@ div.password-confirm {display: none !important;}
 #fm-invite-request-form .form-text, #fm-invite-request-form .form-button, #fm-invite-request-form .form-text-readonly{float: left;}
 #fm-invite-request-form .form-text {width: 183px;} 
 #fm-invite-request-form .form-submit {margin: 4px 0 3px 3px; padding: 5px 12px;}
+
+ ul {border-bottom:1px solid #E4DBD3;list-style-type: none; border-top:1px solid #E4DBD3;margin:20px 0px;padding:20px 0;}
+ li {color:#6F5F55;font-size:15px;margin:0 0 5px; text-align: center;}
 
 
 #message_box{ margin: -10px 0 10px; width: 100%; color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px;  }
