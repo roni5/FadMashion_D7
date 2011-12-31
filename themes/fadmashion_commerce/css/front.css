@@ -10,7 +10,7 @@ a {text-decoration: none }
 a:hover {text-decoration: underline; }
 
 
- ul {list-style-type: none; border-top:1px solid #392d26;margin:20px 0px;padding:20px 0;}
+ ul {list-style-type: none; border-top:1px solid #392d26;padding-top:20px;}
  li {font-size:15px;margin:0 0 5px; text-align: center;}
  
 .button, .form-submit {-moz-border-radius:4px; -webkit-border-radius: 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
