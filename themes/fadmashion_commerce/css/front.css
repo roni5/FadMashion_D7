@@ -9,6 +9,10 @@ input[type="button"], input[type="submit"], button {cursor:pointer;}
 a {text-decoration: none }
 a:hover {text-decoration: underline; }
 
+
+ ul {list-style-type: none; border-top:1px solid #392d26;margin:20px 0px;padding:20px 0;}
+ li {color:#6F5F55;font-size:15px;margin:0 0 5px; text-align: center;}
+ 
 .button, .form-submit {-moz-border-radius:4px; -webkit-border-radius: 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
 
 #fb_js_pb{display: none;}
@@ -96,8 +100,6 @@ div.password-confirm {display: none !important;}
 #fm-invite-request-form .form-text {width: 183px;} 
 #fm-invite-request-form .form-submit {margin: 4px 0 3px 3px; padding: 5px 12px;}
 
- ul {border-bottom:1px solid #E4DBD3;list-style-type: none; border-top:1px solid #E4DBD3;margin:20px 0px;padding:20px 0;}
- li {color:#6F5F55;font-size:15px;margin:0 0 5px; text-align: center;}
 
 
 #message_box{ margin: -10px 0 10px; width: 100%; color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px;  }
