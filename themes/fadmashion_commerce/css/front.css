@@ -12,7 +12,7 @@ strong {font-weight: 700}
 
 
  ul {list-style-type: none; border-top:1px solid #392d26;padding-top:20px;}
- li {font-size:15px;margin:0 0 5px; text-align: center;}
+ li {font-size:14px;margin:0 0 5px; text-align: center;}
  
 .button, .form-submit {-moz-border-radius:4px; -webkit-border-radius: 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
 
@@ -29,7 +29,7 @@ h1{font-size: 26px;  font-weight: 100; margin: 4px 0 6px 0; color: #fff;}
 h2{font-size: 13px; line-height: 18px; font-weight: 300; margin: 0 0 8px 0; color: #c5b5a8;}
 h2 span{color: #fff; font-weight: 700;}
 h3{color: #8a766b; font-size: 11px; font-family: Georgia, "Times New Roman", Times, serif; margin: 0 0 7px 0; font-style: italic; font-weight:normal; text-align:right;}
-.logo{ margin-top: 0px; margin-bottom: 18px; padding-bottom: 18px;}
+.logo{ margin-top: 0px; margin-bottom: 18px; }
 .logo img{margin-bottom: 0px; } 
 .slogan{color: #9c7f70; font-size: 15px; font-weight:500; border: none;}
 
