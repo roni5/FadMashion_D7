@@ -97,9 +97,9 @@ label a, label a:hover{text-decoration: underline;}
 .password-strength-text {display: none;}
 div.password-confirm {display: none !important;}
 
-#fm-invite-request-form .form-text, #fm-invite-request-form .form-button, #fm-invite-request-form .form-text-readonly{float: left;}
-#fm-invite-request-form .form-text {width: 183px;} 
-#fm-invite-request-form .form-submit {margin: 4px 0 3px 3px; padding: 5px 12px;}
+#fm-users-register-intro-form .form-text, #fm-users-register-intro-form .form-button, #fm-users-register-intro-form .form-text-readonly{float: left;}
+#fm-users-register-intro-form .form-text {width: 183px;} 
+#fm-users-register-intro-form .form-submit {margin: 4px 0 3px 3px; padding: 5px 12px;}
 
 
 
