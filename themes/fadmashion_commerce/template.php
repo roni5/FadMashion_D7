@@ -174,7 +174,7 @@ function fadmashion_commerce_intro_supersize_images() {
     
     //Supersize output
 		$output .= '{';
-		$output .= 'image : ' . $path;
+		$output .= 'image : \'' . $path . '\'';
 		//$output .= 'title: Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'; 
 		$output .= '},';
 	}										
