@@ -162,7 +162,7 @@ function fadmashion_commerce_static_pages() {
 	return array('faq', 'about', 'not-authorized', 'access-denied', 'story', 'people', 'terms-use', 'privacy', 'contact');
 }
 
-function fadmashion_commerce_intro_supersized_images() {
+function fadmashion_commerce_intro_supersize_images() {
 	$nq = nodequeue_nids_visible(INTRO_IMAGES_NODEQUEUE);
 	$output = '';
 	foreach($nq as $nid) {
@@ -170,11 +170,11 @@ function fadmashion_commerce_intro_supersized_images() {
 		$picture = field_get_items('node', $node, 'field_product_image');
     $picture = $picture[0];
     
-    var_dump($picture);
+    $path = file_create_url($picture['uri']);
     
     //Supersize output
 		$output .= '{';
-		$output .= 'image : ' . $picture;
+		$output .= 'image : ' . $path;
 		//$output .= 'title: Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'; 
 		$output .= '},';
 	}										
