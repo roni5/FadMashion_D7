@@ -42,8 +42,9 @@ h3{color: #8a766b; font-size: 11px; font-family: Georgia, "Times New Roman", Tim
 /* registration */
 
 
-.form-text, .form-text-readonly{color: #72655C; background: url(../images/bg_field.jpg) top left  repeat-x; height: 23px; line-height:23px; border: 1px solid #cbc1be; padding-left: 4px; width: 230px; margin: 4px 0 2px 0;}
+.form-text, .form-text-readonly{ color: #000; text-align: left; background: url(../images/bg_field.jpg) top left  repeat-x; height: 23px; line-height:23px; border: 1px solid #cbc1be; padding-left: 4px; width: 230px; margin: 4px 0 2px 0;}
 .form-item input:focus { border-color: #BC4038 }
+.form-text.default {color: #72655C;}
 
 .registrationForm {margin-bottom: 16px; }
 .registrationForm .form-text{width: 255px; display: block; margin: 0 0 8px 0;}
