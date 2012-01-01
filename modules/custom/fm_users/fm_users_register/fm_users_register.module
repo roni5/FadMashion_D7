@@ -63,7 +63,7 @@ function fm_users_register_intro_form() {
 	
 	$form['mail'] = array(
     '#type' => 'textfield', 
-    '#size' => 40, 
+    '#size' => 24, 
 	  '#maxlength' => 255,
     '#default_value' => t('Enter E-mail Address'), 
     '#required' => TRUE,
