@@ -54,6 +54,30 @@ function fm_users_register_theme(){
   );
 }
 
+/*
+ * 
+ */
+function fm_users_register_intro_form() {
+ 
+	drupal_add_library('jquery_plugin', 'validate');
+	
+	$form['mail'] = array(
+    '#type' => 'textfield', 
+    '#size' => 40, 
+	  '#maxlength' => 255,
+    '#default_value' => t('Enter E-mail Address'), 
+    '#required' => TRUE,
+		'#attributes' => array('class' => array('clear-defaults')),
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => t('Continue'),
+    '#attributes' => array('class' => array('red')),
+  );
+  
+  return $form;
+}
 
 /*
  * Implements hook_init
