@@ -181,14 +181,14 @@ function fm_invite_request_form() {
     '#type' => 'textfield', 
     '#size' => 25, 
 	  '#maxlength' => 255,
-    '#default_value' => t('you@email.com'), 
+    '#default_value' => t('Enter E-mail Address'), 
     '#required' => TRUE,
 		'#attributes' => array('class' => array('clear-defaults')),
   );
   
   $form['submit'] = array(
     '#type' => 'submit', 
-    '#value' => t('Continue'),
+    '#value' => t('Invite Me!'),
     '#attributes' => array('class' => array('red')),
   );
   
