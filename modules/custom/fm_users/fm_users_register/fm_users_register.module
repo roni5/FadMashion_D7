@@ -90,9 +90,9 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 	$user = user_load_by_mail($mail);
 	if(isset($user)) {
 		if($user->status == 0){
-			$_SESSION[FM_USER_STATUS_SESSION] = 'member';
-		} else {
 			$_SESSION[FM_USER_STATUS_SESSION] = 'non_member';
+		} else {
+			$_SESSION[FM_USER_STATUS_SESSION] = 'member';
 		}
 	} else {
 		//Create dummy user
