@@ -39,8 +39,8 @@
                 			print '<a  class="colorbox-inline" href="' . $url . '">' . t('+ Invite Friends') . '</a>'; ?>
                 </li>
              <?php } else{ ?>
-               <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();jQuery('.state3').hide();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
-               <li><a href="javascript:void(0);" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
+               <li><a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
+               <li><a href="javascript:void(0);" onClick="fmUserStateRestart();j Query('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
              <?php } ?>
              
                 	</ul> 

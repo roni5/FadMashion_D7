@@ -206,6 +206,14 @@ function fmForceRegister() {
 	 jQuery('#' + regBlockId).hide();	 
 }
 
+function fmUserStateRestart() {
+	jQuery('.state1').hide();
+	jQuery('.state2').hide();
+	jQuery('.login').show();
+	jQuery('.forgot_password').hide();
+			
+}
+
 function passConfirmation() {
 	jQuery('.pass-form').hide();
 	jQuery('.pass-text').show();
