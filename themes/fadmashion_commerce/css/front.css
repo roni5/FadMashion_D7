@@ -18,7 +18,7 @@ strong {font-weight: 700}
  ul {list-style-type: none; border-top:1px solid #392d26;padding-top:20px;}
  li {font-size:14px;margin:0 0 5px; text-align: center;}
  
-.button, .form-submit {-moz-border-radius:4px; -webkit-border-radius: 4px; background:url("../images/b_bg_brown.jpg") repeat scroll left top transparent;border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
+.button, .form-submit {-moz-border-radius:4px; -webkit-border-radius: 4px; border:medium none;color:#FFFFFF;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-size:12px;font-style:normal;margin:10px 0;padding:6px 12px;}
 
 #fb_js_pb{display: none;}
 .form-item input.error {border: 1px solid #CBC1BE}
@@ -40,7 +40,7 @@ h3{color: #8a766b; font-size: 11px; font-family: Georgia, "Times New Roman", Tim
 
 .register {padding:30px 0 0;}
 .register .button {font-size:14px;padding:7px 18px;}
-.red {background-image:url("../images/b_bg_red.jpg");}
+.red {background: url("../images/b_login.png") no-repeat scroll left top transparent;}
 .buttonFB {display:block;margin:25px 0;}
 
 /* registration */
