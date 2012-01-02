@@ -27,13 +27,13 @@
                 
                
              <?php } else if($status == 'member'){ ?>
-               <li><a href="javascript:void(0);" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
+               <li><a href="javascript:void(0);" onClick="fmUserStateRestart();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
                 <li><?php 
                       $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
                 			print '<a  class="colorbox-inline" href="' . $url . '">' . t('+ Invite Friends') . '</a>'; ?>
                 </li>
              <?php } else if($status == 'non_member'){ ?>
-               <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();jQuery('.state3').hide();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
+               <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();fmUserStateRestart();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
                <li><?php 
                       $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
                 			print '<a  class="colorbox-inline" href="' . $url . '">' . t('+ Invite Friends') . '</a>'; ?>
