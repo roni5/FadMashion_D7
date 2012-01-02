@@ -76,7 +76,7 @@ function fm_users_register_intro_form() {
     '#attributes' => array('class' => array('red')),
   );
   
-  $form['error_box'] = array('#type' => 'markup', '#markcup' => '<div class="errorSplashBox"></div>');
+  $form['error_box'] = array('#markcup' => '<div class="errorSplashBox">Please Enter Valid Email Address</div>');
   
   return $form;
 }
