@@ -108,6 +108,10 @@ function fm_users_register_session_email() {
 	return $_SESSION[FM_USER_EMAIL_SESSION];
 }
 
+function fm_users_register_asdf() {
+	return $_SESSION[FM_USER_EMAIL_SESSION];
+}
+
 /*
  * Implements hook_init
  */

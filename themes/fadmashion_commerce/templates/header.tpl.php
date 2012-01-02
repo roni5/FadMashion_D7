@@ -3,6 +3,7 @@
               <div id="accountNav">
                 <ul class="tree">
             <?php global $user;
+            $status = fm_users_register_sessions_status();
             if ($user->uid) { ?>
                 
                 <li ><?php if(module_exists('fm_commerce_store_owners')) {
@@ -25,9 +26,13 @@
                 <li ><?php print l('Logout', 'user/logout');?></li>
                 
                
-             <?php } else { ?>
-             <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();jQuery('.state3').hide();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
-             <li><a href="javascript:void(0);" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
+             <?php } else if($status == 'member'){ ?>
+               <li><a href="javascript:void(0);" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
+             <?php } else if($status == 'non_member'){ ?>
+               <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();jQuery('.state3').hide();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
+             <?php } else{ ?>
+               <li><a href="javascript:void(0);" onClick="jQuery('.state1').hide();jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
+               <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();jQuery('.state3').hide();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
              <?php } ?>
              
                 	</ul> 
