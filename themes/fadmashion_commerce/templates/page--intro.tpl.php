@@ -59,7 +59,7 @@ jQuery(function($){
       
       
       <?php if(!empty($page['triptych_first'])): ?>
-      <div id="invite" class="pad extend">
+      <div id="invite" class="pad extend rounded-top rounded-bottom">
   			  <?php print render($page['triptych_first']);?>
   			  </div>
       <?php endif;  ?> 
