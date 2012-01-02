@@ -268,8 +268,14 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   		
   		unset($form['account']['mail']['#title']);
   		unset($form['account']['mail']['#description']);
-  		$form['account']['mail']['#default_value'] = t('Email');
-  	  $form['account']['mail']['#attributes'] = array('class' => array('clear-defaults'));
+  
+  		$mail = fm_users_register_session_email();
+    	if(isset($mail) && !empty($mail)) {
+  	    $form['account']['mail']['#default_value'] = $mail;
+    	} else {
+  		  $form['account']['mail']['#default_value'] = t('Email');
+  	    $form['account']['mail']['#attributes'] = array('class' => array('clear-defaults'));
+    	}
   	  $form['account']['mail']['#weight'] = -48;
   	  $form['account']['#weight'] = -48;
   		
