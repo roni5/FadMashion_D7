@@ -1,6 +1,8 @@
 <?php 
 
 define('REGISTRATION_NODEQUEUE', 3);
+define('FM_USER_STATUS_SESSION', 'user_status');
+define('FM_USER_EMAIL_SESSION', 'user_email');
 
 /*
  * implements hook_menu
@@ -59,13 +61,11 @@ function fm_users_register_theme(){
  */
 function fm_users_register_intro_form() {
  
-	drupal_add_library('jquery_plugin', 'validate');
-	
 	$form['mail'] = array(
     '#type' => 'textfield', 
     '#size' => 25, 
 	  '#maxlength' => 255,
-    '#default_value' => t('you@email.com'), 
+    '#default_value' => t('E-mail'), 
     '#required' => TRUE,
 		'#attributes' => array('class' => array('clear-defaults')),
   );
@@ -77,6 +77,35 @@ function fm_users_register_intro_form() {
   );
   
   return $form;
+}
+
+/*
+ * 3 States after submission
+ * 1.  Email is already a member, in which case they just need to login
+ * 2.  Email has signed up but hasn't become a member
+ * 3.  Email signed up for first time.
+ */
+function fm_users_register_intro_form_submit($form, &$form_state) {
+	$mail = $form_state['values']['mail'];
+	$user = user_load_by_mail($mail);
+	if(isset($user)) {
+		if($user->status == 0){
+			$_SESSION[FM_USER_STATUS_SESSION] = 'member';
+		} else {
+			$_SESSION[FM_USER_STATUS_SESSION] = 'non_member';
+		}
+	} else {
+		//Create dummy user
+		$_SESSION[FM_USER_STATUS_SESSION] = 'non_member';
+	}
+	
+	$_SESSION[FM_USER_EMAIL_SESSION] = $mail;
+	
+	drupal_goto('deals');
+}
+
+function fm_users_register_session_email() {
+	return $_SESSION[FM_USER_EMAIL_SESSION];
 }
 
 /*
@@ -198,8 +227,14 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
 	    $form['links']['#markup'] = '<a class="forgotPassword" href="javascript:void(0)" onClick="jQuery(\'.login\').hide();jQuery(\'.forgot_password\').show();">Forgot password?</a>';
     	$form['links']['#weight'] = -10;
     	
-  	  $form['name']['#default_value'] = t('Email');
-  	  $form['name']['#attributes'] = array('class' => array('clear-defaults'));
+    	$mail = fm_users_register_session_email();
+    	if(isset($mail) && !empty($mail)) {
+  	    $form['name']['#default_value'] = $mail;
+    	} else {
+    		$form['name']['#default_value'] = t('Email');
+  	    $form['name']['#attributes'] = array('class' => array('clear-defaults'));
+    	}
+  	  
   	  $form['name']['#weight'] = -20;
   	  
   	  $form['name']['#prefix'] = '<div class="text-form-icon-wrapper">';
