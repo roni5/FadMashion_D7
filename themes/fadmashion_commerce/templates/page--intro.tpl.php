@@ -7,7 +7,8 @@
  */
 
 global $user;
-if(!user_access('view splash page')) {
+$mail = fm_users_register_session_email();
+if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
 	drupal_goto('deals');
 }
 
