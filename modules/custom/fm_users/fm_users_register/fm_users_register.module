@@ -109,7 +109,7 @@ function fm_users_register_session_email() {
 }
 
 function fm_users_register_sessions_status() {
-	return $_SESSION[FM_USER_EMAIL_SESSION];
+	return $_SESSION[FM_USER_STATUS_SESSION];
 }
 
 /*
