@@ -61,7 +61,6 @@ function fm_users_register_theme(){
  */
 function fm_users_register_intro_form() {
  
-	drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register.js');
 	$form['mail'] = array(
     '#type' => 'textfield', 
     '#size' => 25, 
@@ -76,6 +75,8 @@ function fm_users_register_intro_form() {
     '#value' => t('Continue'),
     '#attributes' => array('class' => array('red')),
   );
+  
+  $form['error_box'] = array('#type' => 'markup', '#markcup' => '<div class="errorSplashBox"></div>');
   
   return $form;
 }

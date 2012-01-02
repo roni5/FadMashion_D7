@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 		   
 		jQuery('#fm-users-register-intro-form').validate({
 			errorClass: 'invalid',
-	    	errorContainer: jQuery(".errorText"),
+	    	errorContainer: jQuery(".errorSplashBox"),
 	  	    onkeyup: false,
 	  	    wrapper: 'div id="message_box"',
 	     });
