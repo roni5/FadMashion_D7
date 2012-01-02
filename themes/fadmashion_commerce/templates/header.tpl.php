@@ -40,7 +40,7 @@
                 </li>
              <?php } else{ ?>
                <li><a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
-               <li><a href="javascript:void(0);" onClick="fmUserStateRestart();j Query('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
+               <li><a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a></li>
              <?php } ?>
              
                 	</ul> 

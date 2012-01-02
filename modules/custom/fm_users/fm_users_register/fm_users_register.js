@@ -209,8 +209,8 @@ function fmForceRegister() {
 function fmUserStateRestart() {
 	jQuery('.state1').hide();
 	jQuery('.state2').hide();
-	jQuery('.login').show();
 	jQuery('.forgot_password').hide();
+	jQuery('.login').show();
 			
 }
 
