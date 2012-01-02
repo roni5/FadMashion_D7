@@ -384,6 +384,13 @@ function fm_invite_get_invite_url($user = null) {
 	   } else {
 	   	 $reg_code = $inviter->reg_code;
 	   }
+  } else  {
+  	$session_email = fm_users_register_session_email();
+  	if(isset($session_email) && !empty($session_email)) {
+  		$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $session_email));
+	    $inviter = $result->fetchObject();
+	    $reg_code = $inviter->reg_code;
+  	}
   }
   
   if(isset($reg_code)) {

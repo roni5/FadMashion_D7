@@ -379,13 +379,13 @@ function fm_users_register_form_submit($form, &$form_state) {
   
         $email = variable_get('site_mail', 'admin@fadmashion.com');
   
-        drupal_mail(
+       /* drupal_mail(
            'fm_invite',
            'confirmation',
            $mail,
            language_default(),
            $params
-         );
+         );*/
    
     
 		} else {
