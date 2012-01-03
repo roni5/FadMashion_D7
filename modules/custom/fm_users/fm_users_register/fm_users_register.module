@@ -111,8 +111,6 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
     );
     
     $new_user = user_save(drupal_anonymous_user(), $edit);
-    var_dump($new_user);
-    exit();
 	}
 	
 	$_SESSION[FM_USER_EMAIL_SESSION] = $mail;
