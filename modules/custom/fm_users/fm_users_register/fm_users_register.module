@@ -120,13 +120,13 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 
 
 function fm_users_register_session_email() {
-	if(isset($_SESSION)) {
+	if(isset($_SESSION[FM_USER_STATUS_SESSION])) {
 	  return $_SESSION[FM_USER_EMAIL_SESSION];
 	}
 }
 
 function fm_users_register_sessions_status() {
-	if(isset($_SESSION)) {
+	if(isset($_SESSION[FM_USER_STATUS_SESSION])) {
 	  return $_SESSION[FM_USER_STATUS_SESSION];
 	}
 }
