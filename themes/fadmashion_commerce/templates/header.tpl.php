@@ -33,7 +33,7 @@
                 			print '<a  class="colorbox-inline" href="' . $url . '">' . t('+ Invite Friends') . '</a>'; ?>
                 </li>
              <?php } else if($status == 'non_member'){ ?>
-               <li><a href="javascript:void(0);" onClick="jQuery('.state1').show();fmUserStateRestart();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
+               <li><a href="javascript:void(0);" onClick="fmUserStateRestart();jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a></li>
                <li><?php 
                       $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
                 			print '<a  class="colorbox-inline" href="' . $url . '">' . t('+ Invite Friends') . '</a>'; ?>
