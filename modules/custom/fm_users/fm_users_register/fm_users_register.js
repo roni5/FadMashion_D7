@@ -211,7 +211,7 @@ function fmUserStateRestart() {
 	jQuery('.state2').hide();
 	jQuery('.state3').hide();
 	jQuery('.forgot_password').hide();
-	jQuery('.login').hide();
+	jQuery('.login').show();
 			
 }
 
