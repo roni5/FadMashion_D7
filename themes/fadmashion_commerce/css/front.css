@@ -46,7 +46,7 @@ h3{color: #8a766b; font-size: 11px; font-family: Georgia, "Times New Roman", Tim
 /* registration */
 
 
-.form-text, .form-text-readonly{ -moz-border-radius:5px 5px 5px 5px; color: #000; text-align: left; background: url(../images/bg_field.jpg) top left  repeat-x; height: 23px; line-height:23px; border: 1px solid #cbc1be; padding-left: 4px; width: 230px; margin: 4px 0 2px 0;}
+.form-text, .form-text-readonly{ border-radius:4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; color: #000; text-align: left; background: url(../images/bg_field.jpg) top left  repeat-x; height: 23px; line-height:23px; border: 1px solid #cbc1be; padding-left: 4px; width: 230px; margin: 4px 0 2px 0;}
 .form-item input:focus { border-color: #BC4038 }
 .form-text.default {color: #72655C;}
 
@@ -115,7 +115,7 @@ div.password-confirm {display: none !important;}
 .form-type-checkbox #message_box {float: right; margin-top: 1px;}
 
 .errorSplashBox {display: none; background: url("../images/arrow_error.png") 8px 0px no-repeat; font-size: 11px; padding-top: 6px;-moz-border-radius:3px 3px 3px 3px;  width:180px; color: #fff; border: 0px solid #000;}
-.errorSplashBox .error{ -moz-border-radius:3px 3px 3px 3px; text-align: left; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
+.errorSplashBox .error{ -moz-border-radius:3px 3px 3px 3px;  -webkit-border-radius: 3px; text-align: left; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
 label.invalid {  margin-top: 6px; font-size: 11px; -moz-border-radius:3px 3px 3px 3px; background:none repeat scroll 0 0 #CC3333; padding:5px; color: #fff; border: 0px solid #000; }
 
 #fm-invite-send-email-form .form-text, #fm-invite-send-email-form .form-textarea {
