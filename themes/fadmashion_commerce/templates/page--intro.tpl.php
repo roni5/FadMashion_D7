@@ -24,7 +24,7 @@ if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
 					vertical_center   : 0,
 					slide_interval : 7800,
 					transition_speed : 1000,
-					slideshow : 1, 
+					slideshow : 0, 
 					//Size & Position
 					min_width		        :   1024,		//Min width allowed (in pixels)
 					min_height		        :   300,		//Min height allowed (in pixels)
