@@ -60,7 +60,7 @@ if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
     <td valign="middle" align="center" width="50%"> <div class="content">
     <div class="pad">
     
-    <img src="images/logo.png" alt="Fadmashion.com" />
+    <img src="<?php print pp();?>logo_black.png" alt="Fadmashion.com" />
     <h1>Everything you need to<br /> fall in love with a new <br />independent designer.</h1>
 
     <ul>
