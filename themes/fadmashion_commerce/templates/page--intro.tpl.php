@@ -53,22 +53,14 @@ if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
     <div class="pad">
     
     <img src="<?php print pp();?>logo_black.png" alt="Fadmashion.com" />
-    <h1>Everything you need to<br /> fall in love with a new <br />independent designer.</h1>
-
-    <ul>
-    <li>Inspiration Behind the Designs</li>
-	<li>High Quality Images</li>
-	<li>Press Coverage</li>
-	<li>Exclusive Prices</li>
-    </ul>
+    <?php print render($page['content']); ?>
     
     <div class="email">
 
-    <p>Enter your email to start browsing instantly.</p>
-                    <input type="text" class="form-text required" value="Enter email address" name="" id="" >
-                  <a href="#" class="buttonSmall">Continue</a>
-                  <br clear="all">
-</div>
+      <?php if(!empty($page['triptych_first'])): ?>
+  			  <?php print render($page['triptych_first']);?>
+      <?php endif;  ?> 
+    </div>
    
     </div><!--pad--> 
     </div><!--content-->  <br clear="all"></td>
