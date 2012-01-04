@@ -14,71 +14,85 @@ if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
 
 ?>
 
-<script type="text/javascript">  
-			
+<script>
+
+jQuery(function($){
+	$.supersized({
+		start_slide				:	0,
+		vertical_center   : 0,
+		slide_interval : 7800,
+		transition_speed : 3000,
+		slideshow : 1, 
+		navigation              :   1,		//Slideshow controls on/off
+		thumbnail_navigation    :   1,		//Thumbnail navigation
+		slide_counter           :   1,		//Display slide numbers
+		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
+		slides 					:  	[		//Slideshow Images
+										<?php print fadmashion_commerce_intro_supersize_images();?>	  	  
+									]
+	}); 
+});
 
 
-			jQuery(function($){
-				$.supersized({
-					start_slide				:	0,
-					vertical_center   : 0,
-					slide_interval : 7800,
-					transition_speed : 10,
-					slideshow : 1, 
-					//Size & Position
-					min_width		        :   1024,		//Min width allowed (in pixels)
-					min_height		        :   300,		//Min height allowed (in pixels)
-					vertical_center         :   1,		//Vertically center background
-					horizontal_center       :   1,		//Horizontally center background
-					fit_portrait         	:   1,		//Portrait images will not exceed browser height
-					fit_landscape			:   0,		//Landscape images will not exceed browser width
-					
-					//Components
-					navigation              :   0,		//Slideshow controls on/off
-					thumbnail_navigation    :   0,		//Thumbnail navigation
-					slide_counter           :   0,		//Display slide numbers
-					slide_captions          :   0,		//Slide caption (Pull from "title" in slides array)
-					slides 					:  	[		//Slideshow Images
-													<?php print fadmashion_commerce_intro_supersize_images();?>	  	  
-												]
-				}); 
 
-				
-			});
 </script>
 
-    <table id="wrapper" cellpadding="0" cellspacing="0" width="100%" height="100%">
-    <tr>
-    <td valign="middle" align="center" width="50%"> <div class="content">
-    <div class="pad">
-    
-    <img src="<?php print pp();?>logo_black.png" alt="Fadmashion.com" />
-    <h1>Everything you need to<br /> fall in love with a new <br />independent designer.</h1>
-
-    <ul>
-    <li>Inspiration Behind the Designs</li>
-	<li>High Quality Images</li>
-	<li>Press Coverage</li>
-	<li>Exclusive Prices</li>
-    </ul>
-    
-    <div class="email">
-
-    <p>Enter your email to start browsing instantly.</p>
-                    <input type="text" class="form-text required" value="Enter email address" name="" id="" >
-                  <a href="#" class="buttonSmall">Continue</a>
-                  <br clear="all">
+<div id="wrap">
+  <div id="main">
+    <div id="box">
+      <div class="pad">
+        <div class="logo">
+	        	<a  href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" >
+        			    <img src="<?php print pp();?>logo_fadmashion.png" alt="<?php print t('fadmashion'); ?>" />
+      			    </a>
+      			 <div class="slogan"><?php //print $site_slogan; ?></div>   
+        </div>
+        <?php if ($messages): ?>
+          <div id="messages"><div class="section clearfix">
+          <?php print $messages; ?>
+          </div></div> <!-- /.section, /#messages -->
+       <?php endif; ?>
+       
+        <?php print render($page['content']); ?>
+        <?php print render($page['featured']);?>
+      </div>
+      
+      
+      <?php if(!empty($page['triptych_first'])): ?>
+      <div id="invite" class="pad extend rounded-top rounded-bottom">
+  			  <?php print render($page['triptych_first']);?>
+  			  </div>
+      <?php endif;  ?> 
+      
+  			<?php if(!empty($page['triptych_middle'])): ?>
+  			<div class="login">
+  			  <div class="pad"> 
+  			 <?php print render($page['triptych_middle']);?></div>
+        
+        </div>
+        
+        <?php endif;  ?>
+        
+        
+        <?php if(!empty($page['triptych_last'])): ?>
+  			<div class="quote">
+  			 <?php print render($page['triptych_last']);?>
+        </div>
+        <?php endif;  ?>
+        </div>
+			 
+      
+		</div>
+	</div>
 </div>
-   
-    </div><!--pad--> 
-    </div><!--content-->  <br clear="all"></td>
-    <td width="50%">&nbsp;</td>
 
-    </tr>
-</table>
+
 
 <?php if(!empty($page['footer'])): ?>
 <div id="footer">
 <?php print render($page['footer']); ?>
 </div>
 <?php endif;  ?>
+
+
+
