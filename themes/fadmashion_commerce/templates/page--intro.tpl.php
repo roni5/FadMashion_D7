@@ -21,18 +21,28 @@ jQuery(function($){
 		start_slide				:	0,
 		vertical_center   : 0,
 		slide_interval : 7800,
-		transition_speed : 3000,
+		transition_speed : 10,
 		slideshow : 1, 
-		navigation              :   1,		//Slideshow controls on/off
-		thumbnail_navigation    :   1,		//Thumbnail navigation
-		slide_counter           :   1,		//Display slide numbers
-		slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
+		//Size & Position
+		min_width		        :   1024,		//Min width allowed (in pixels)
+		min_height		        :   300,		//Min height allowed (in pixels)
+		vertical_center         :   1,		//Vertically center background
+		horizontal_center       :   1,		//Horizontally center background
+		fit_portrait         	:   1,		//Portrait images will not exceed browser height
+		fit_landscape			:   0,		//Landscape images will not exceed browser width
+		
+		//Components
+		navigation              :   0,		//Slideshow controls on/off
+		thumbnail_navigation    :   0,		//Thumbnail navigation
+		slide_counter           :   0,		//Display slide numbers
+		slide_captions          :   0,		//Slide caption (Pull from "title" in slides array)
 		slides 					:  	[		//Slideshow Images
 										<?php print fadmashion_commerce_intro_supersize_images();?>	  	  
 									]
 	}); 
-});
 
+	
+});
 
 
 </script>
