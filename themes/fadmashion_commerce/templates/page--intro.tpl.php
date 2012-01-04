@@ -23,7 +23,7 @@ if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
 					start_slide				:	0,
 					vertical_center   : 0,
 					slide_interval : 7800,
-					transition_speed : 10,
+					transition_speed : 1000,
 					slideshow : 1, 
 					//Size & Position
 					min_width		        :   1024,		//Min width allowed (in pixels)
@@ -40,7 +40,7 @@ if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
 					slide_captions          :   0,		//Slide caption (Pull from "title" in slides array)
 					slides 					:  	[		//Slideshow Images
 													<?php print fadmashion_commerce_intro_supersize_images();?>	  	  
-												]
+							]
 				}); 
 
 				
