@@ -167,7 +167,7 @@ function fadmashion_commerce_intro_supersize_images() {
 	$output = '';
 	foreach($nq as $nid) {
 		$node = node_load($nid);
-		$picture = field_get_items('node', $node, 'field_splash_image');
+		$picture = field_get_items('node', $node, 'field_product_image');
     $picture = $picture[0];
     
     $path = file_create_url($picture['uri']);
