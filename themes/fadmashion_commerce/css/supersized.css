@@ -18,7 +18,7 @@ body { background:#111; }
 			#supersized.speed img { -ms-interpolation-mode:nearest-neighbor; image-rendering: -moz-crisp-edges; }	/*Speed*/
 			#supersized.quality img { -ms-interpolation-mode:bicubic; image-rendering: optimizeQuality; }			/*Quality*/
 		
-		#supersized a { z-index:-30; position:absolute; overflow:hidden; top:0; left:20; width:1%00%; height:100%; background: #eae8e6 url("../images/background_white.jpg") center center no-repeat;}
+		#supersized a { z-index:-30; position:absolute; overflow:hidden; top:0; left:20%; width:100%; height:100%; background: #eae8e6 url("../images/background_white.jpg") center center no-repeat;}
 			#supersized a.prevslide { z-index:-20; }
 			#supersized a.activeslide { z-index:-10; }
 			#supersized a.prevslide img, #supersized a.activeslide img{ display:inline; }
