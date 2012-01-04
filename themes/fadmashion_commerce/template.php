@@ -84,7 +84,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   $front_intro = 0;
   if($split_url[0] == 'intro') {
     drupal_add_js(path_to_theme().'/js/supersized.min.js');
-    //drupal_add_css(path_to_theme().'/css/supersized.css');
+    drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/splash.css');  
     
     $variables['front_intro'] = false;
