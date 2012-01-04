@@ -99,7 +99,7 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 		}
 	} else {
 		//Create dummy user
-		$_SESSION[FM_USER_STATUS_SESSION] = 'non_member';
+		$_SESSION[FM_USER_STATUS_SESSION] = 'non_member_first_time';
 		
   	$edit = array(
           'name' => $mail,
@@ -118,7 +118,6 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 	drupal_goto('deals');
 }
 
-
 function fm_users_register_session_email() {
 	if(isset($_SESSION[FM_USER_STATUS_SESSION])) {
 	  return $_SESSION[FM_USER_EMAIL_SESSION];
@@ -128,6 +127,21 @@ function fm_users_register_session_email() {
 function fm_users_register_sessions_status() {
 	if(isset($_SESSION[FM_USER_STATUS_SESSION])) {
 	  return $_SESSION[FM_USER_STATUS_SESSION];
+	}
+}
+
+/*
+ * Check to see if the user is actually registered and not just initially signed up.
+ * 
+ */
+function fm_users_register_user_is_registered($user) {
+	$user_entity_wrapper = entity_metadata_wrapper('user', $user);
+	$first_name = $user_entity_wrapper->field_first_name->value();
+	  
+	if($user->status == 0 && empty($first_name)) {
+		return FALSE;
+	} else {
+		return TRUE;
 	}
 }
 
