@@ -21,7 +21,7 @@ jQuery(function($){
 		start_slide				:	0,
 		vertical_center   : 0,
 		slide_interval : 7800,
-		transition_speed : 10,
+		transition_speed : 1000,
 		slideshow : 1, 
 		//Size & Position
 		min_width		        :   1024,		//Min width allowed (in pixels)
