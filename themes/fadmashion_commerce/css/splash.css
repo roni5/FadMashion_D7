@@ -4,7 +4,7 @@
 p{color: #fff; font-family: helvetica, arial;}
 html, body, #wrap { height: 100%; }
 body > #wrap {height: auto; min-height: 100%;}
-body{background: #eae8e6 url(images/background_white.jpg) center center no-repeat;}
+body{background: #eae8e6 url("../images/background_white.jpg") center center no-repeat;}
 #main { padding-bottom: 36px; }  /* must be same height as the footer */
 #footer {position: relative;margin-top: -36px; background: #000; height: 36px;clear:both;} 
 
