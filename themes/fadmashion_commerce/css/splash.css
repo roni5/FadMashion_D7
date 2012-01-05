@@ -35,7 +35,7 @@ body{background: #eae8e6 url("../images/background_white.jpg") center center no-
 
 .content .form-text{background: url("../images/bg_form.jpg") top left no-repeat; width: 212px; height: 28px; float: left; margin-right: 10px; color: #a4968f; padding-left: 5px; line-height: 28px; font-size: 13px;}
 
-.content .form-submit{background:url("../images/b_small.png") no-repeat scroll left 3px transparent;float:left;font-size:13px;height:33px;line-height:30px;margin-top:-3px;width:74px;}
+.content .form-submit{float: left; color: #fff; background: url("../images/b_small.png") top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 30px; font-size: 13px;}
 .content .form-submit:hover{background-position: bottom left;}
 
 #message_box{ display: none !important; margin: -10px 0 10px; width: 100%; color: #fff; font-size: 11px; background: url(../images/arrow_error.png) 8px 6px no-repeat; padding-top: 6px;  }
@@ -47,6 +47,7 @@ body{background: #eae8e6 url("../images/background_white.jpg") center center no-
 .errorSplashBox {display: none; background: url("../images/arrow_error.png") 8px 0px no-repeat; font-size: 11px; padding-top: 6px;-moz-border-radius:3px 3px 3px 3px;  width:180px; color: #fff; border: 0px solid #000;}
 .errorSplashBox .error{ -moz-border-radius:3px 3px 3px 3px; text-align: left; background:none repeat scroll 0 0 #CC3333; padding:5px; width:180px; color: #fff; border: 0px solid #000; }
 
+#fm-users-register-intro-form{overflow: hidden;}
 
 
 /* footer */
