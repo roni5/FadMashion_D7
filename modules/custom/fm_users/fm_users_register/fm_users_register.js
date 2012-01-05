@@ -199,7 +199,7 @@ function fmForceRegister() {
 	      //overlayClose: false, 
 	      //escKey: false, 
 	      href:"#" + regBlockId,
-	      onComplete: fmFadeRegisterBlock
+	     // onComplete: fmFadeRegisterBlock
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
 	 jQuery('#cboxClose').hide();
