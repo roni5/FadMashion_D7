@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 	     });
 	  
 	    jQuery("#fm-users-register-intro-form #edit-mail").rules("add", {
-	 	   notEqual: "E-mail",
+	 	   notEqual: "you@email.com",
 	 	   email: true,
 	     });
 		  
