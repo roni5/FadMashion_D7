@@ -60,8 +60,6 @@ function fm_users_register_theme(){
  * 
  */
 function fm_users_register_intro_form() {
- 
-	$_SESSION[FM_USER_STATUS_SESSION] = '';
 	
 	drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register_splash.js');
 	$form['mail'] = array(
