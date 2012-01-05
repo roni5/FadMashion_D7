@@ -193,7 +193,7 @@ function regSlideConfirmation() {
 
 function fmForceRegister() {
 	jQuery.colorbox({ 
-	      opacity: '0',
+	      opacity: '.75',
 	      innerWidth: '930px', innerHeight: '560px', 
 	      inline: true, 
 	      //overlayClose: false, 
@@ -203,7 +203,7 @@ function fmForceRegister() {
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
 	 jQuery('#cboxClose').hide();
-	 jQuery('#' + regBlockId).hide();	 
+	 //jQuery('#' + regBlockId).hide();	 
 }
 
 function fmUserStateRestart() {
