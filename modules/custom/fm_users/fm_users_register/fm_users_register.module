@@ -61,6 +61,8 @@ function fm_users_register_theme(){
  */
 function fm_users_register_intro_form() {
  
+	$_SESSION[FM_USER_STATUS_SESSION] = '';
+	
 	drupal_add_js(drupal_get_path('module', 'fm_users_register') . '/fm_users_register_splash.js');
 	$form['mail'] = array(
     '#type' => 'textfield', 
@@ -91,7 +93,7 @@ function fm_users_register_intro_form() {
 function fm_users_register_intro_form_submit($form, &$form_state) {
 	$mail = $form_state['values']['mail'];
 	$user = user_load_by_mail($mail);
-	$_SESSION[FM_USER_STATUS_SESSION] = '';
+	
 	
 	if($user != false) {
 		if($user->status == 0){
