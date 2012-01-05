@@ -3,7 +3,7 @@
 <div class="box">
 
 <div class="form">
-<h1>Member Signup</h1>
+<h1>Become a Member</h1>
 
 <div class="fieldsRequired">all fields required</div>
 <?php print render($register_form);?>
@@ -14,7 +14,7 @@
 
 <div id="intro" class="pad">
 	<div class="text">
-   <h1><?php print $node->title;?></h1>
+   <h1><?php //print $node->title;?></h1>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
 
 <p class="loginHere rounded-top rounded-bottom">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Log In Here</a></p>
