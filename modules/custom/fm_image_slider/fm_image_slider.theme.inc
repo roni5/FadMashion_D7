@@ -98,8 +98,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   //Zoom Colorbox Url
   $url = '/?height=80%&width=840&inline=true#zoomed';
   drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
-  
-  $loadingImagePath = pp() . 'slides_loading.gif';
+  $loadingImagePath = pp() . 'confirm-ajax-loader.gif';
   drupal_add_js('var loadingImagePath = "' . $loadingImagePath . '";', 'inline');
   
   $i = 0;
