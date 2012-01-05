@@ -172,7 +172,7 @@ function fadmashion_commerce_intro_supersize_images() {
     
     
     $path = file_create_url($picture['uri']);
-    $path .= '?fm_main_product_image';
+    //$path .= '?fm_main_product_image';
     
     //Supersize output
     $url = 'http://www.google.com';
