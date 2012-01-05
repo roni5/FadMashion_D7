@@ -174,11 +174,10 @@ function fadmashion_commerce_intro_supersize_images() {
     $path = file_create_url($picture['uri']);
     $path = image_style_url('fm_zoom_product_image', $picture['uri']);
     
+    var_dump('test');
     var_dump($path);
     $path = file_create_url($path);
     var_dump($path);
-    exit();
-    
     
     //Supersize output
 		$output .= '{';
