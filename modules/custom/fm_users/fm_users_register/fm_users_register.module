@@ -66,7 +66,7 @@ function fm_users_register_intro_form() {
     '#type' => 'textfield', 
     '#size' => 25, 
 	  '#maxlength' => 255,
-    '#default_value' => t('E-mail'), 
+    '#default_value' => t('you@email.com'), 
     '#required' => TRUE,
 		'#attributes' => array('class' => array('clear-defaults')),
   );
@@ -310,7 +310,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
     	if(isset($mail) && !empty($mail)) {
   	    $form['account']['mail']['#default_value'] = $mail;
     	} else {
-  		  $form['account']['mail']['#default_value'] = t('Email');
+  		  $form['account']['mail']['#default_value'] = t('you@email.com');
   	    $form['account']['mail']['#attributes'] = array('class' => array('clear-defaults'));
     	}
   	  $form['account']['mail']['#weight'] = -48;
