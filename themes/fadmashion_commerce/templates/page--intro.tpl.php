@@ -33,10 +33,13 @@ if(!user_access('view splash page')) {
 					horizontal_center       :   1,		//Horizontally center background
 					fit_portrait         	:   1,		//Portrait images will not exceed browser height
 					fit_landscape			:   0,		//Landscape images will not exceed browser width
+
+					slide_links				:	1,			// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+					thumb_links				:	1,			// Individual thumb links for each slide
+					thumbnail_navigation    :   0			// Thumbnail navigation
 					
 					//Components
 					navigation              :   0,		//Slideshow controls on/off
-					thumbnail_navigation    :   0,		//Thumbnail navigation
 					slide_counter           :   0,		//Display slide numbers
 					slide_captions          :   0,		//Slide caption (Pull from "title" in slides array)
 					slides 					:  	[		//Slideshow Images
