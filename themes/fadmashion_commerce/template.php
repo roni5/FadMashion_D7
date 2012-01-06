@@ -83,7 +83,7 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   //Use splash template only for URL's that have a splash as the first item in the URL
   $front_intro = 0;
   if($split_url[0] == 'intro') {
-    drupal_add_js(path_to_theme().'/js/supersized.min.js');
+    drupal_add_js(path_to_theme().'/js/supersized.3.2.6.js');
     drupal_add_css(path_to_theme().'/css/supersized.css');
     drupal_add_css(path_to_theme().'/css/splash.css');  
     
