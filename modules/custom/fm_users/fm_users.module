@@ -2,6 +2,13 @@
 
 function fm_users_menu() {
 	
+  $items['fm_users/login_as_user/%'] = array(
+    'title' => t('Login as Another User'),
+    'page callback' => 'fm_users_login_as_user',
+    'page arguments' => array(2),
+    'access arguments' => array('administer deals list'),
+    'type' => MENU_NORMAL_ITEM,
+  );
   
   $items['fm_users/auth'] = array(
     'page callback' => 'fm_users_authorize',
@@ -16,6 +23,7 @@ function fm_users_menu() {
   );
   return $items;	
 }
+
 
 function fm_users_theme(){
 	return array(
@@ -253,4 +261,15 @@ function fm_users_user_delete($account) {
   db_delete('fm_invite')
     ->condition('email', $account->mail)
     ->execute();
+}
+
+/*
+ *  A VERY SECURE FUNCTION!!!
+ *  TODO: NEED to make sure to have permissions and security tight
+ */
+function fm_users_login_as_user($uid) {
+  global $user;
+  $new_user = user_load(uid);
+  $user = $new_user;
+  
 }
