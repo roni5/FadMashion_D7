@@ -6,7 +6,7 @@ function fm_users_menu() {
     'title' => t('Login as Another User'),
     'page callback' => 'fm_users_login_as_user',
     'page arguments' => array(2),
-    'access arguments' => array('administer deals list'),
+    'access arguments' => array('login as user'),
     'type' => MENU_NORMAL_ITEM,
   );
   
@@ -272,4 +272,5 @@ function fm_users_login_as_user($uid) {
   drupal_set_message('ADMIN ONLY:  Logged in as new user ' . $user->mail);
   $form_state['uid'] = $uid;
   user_login_submit(array(), $form_state);
+  drupal_goto('deals');
 }

@@ -226,6 +226,9 @@ function fm_commerce_orders_admin_store($store) {
 	$output .= '<div class="orders_admin_wrapper ">';
 	if($designer_user) {
 		$output .= 'Store Owner, ' . fm_users_fullname($designer_user->uid) . ' at <a href="mailto: '. $designer_user->mail . '">' . $designer_user->mail . '</a>';
+		if(user_access('login as user')) {
+			$output .= l('Login as user', 'fm_users/login_as_user/' . $designer_user->uid);
+		}
 	} else {
 		$output .= '<span style="color: red;">There is no Designer User setup for this store. </span>' 
 		. l('Add Designer to Shop!', 'admin/commerce/stores/' . $store->store_id . '/edit', array('query' => array('destination' => 'admin/fadmashion/orders') ));
