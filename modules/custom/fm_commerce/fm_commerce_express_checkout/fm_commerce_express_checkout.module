@@ -119,7 +119,13 @@ function fm_commerce_express_checkout_form($form, $form_state) {
   		 $field_name = 'user_register';
   		 $form[$field_name]['first_name'] = array('#type' => 'textfield', '#required' => true, '#title' => t('First Name') );
   		 $form[$field_name]['last_name'] = array('#type' => 'textfield','#required' => true, '#title' => t('Last Name') );
-  		 $form[$field_name]['mail'] = array('#type' => 'textfield', '#required' => true, '#title' => t('E-mail Address') );
+  	   $form[$field_name]['mail'] = array('#type' => 'textfield', '#required' => true, '#title' => t('E-mail Address') );
+  	   
+  		 $session_mail = fm_users_register_session_email();
+    	 if(isset($session_mail) && !empty($session_mail)) {
+  	    $form[$field_name]['mail']['#default_value'] =  $session_mail;
+    	 } 
+    	
   		 $form[$field_name]['pass'] = array('#type' => 'password_confirm', '#required' => true);
        //field_attach_form('user', $user, $form, $form_state);
     }
