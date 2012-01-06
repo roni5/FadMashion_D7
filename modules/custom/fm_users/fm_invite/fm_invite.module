@@ -35,13 +35,6 @@ function fm_invite_menu() {
   );
   
   
-  $items['invite/rewards'] = array(
-    'title' => t('Fadmashion Rewards'), 
-    'page callback' => 'fm_invite_rewards_popup',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-  );
-  
   $items['admin/fadmashion/invite'] = array(
     'title' => t('Fadmashion Invite'), 
     'description' => t('Invintation list for Fadmashion\'s Splash page'),
@@ -125,6 +118,24 @@ function theme_fm_invite_ajax_sending_email($vars) {
   return $output;
 }
 
+function fm_invite_user_insert(&$edit, $account, $category) {
+  $referred_by_id = null;
+	if($inviter = fm_invite_load_from_session()) {
+	 	$referred_by_id = $inviter->id;
+	}
+	
+	$reg_code = fm_invite_generate_code();
+	$id = db_insert('fm_invite')
+    ->fields(array(
+      'reg_code' => $reg_code,
+      'referred_by_id' => $referred_by_id,
+      'email' => $account->mail,
+      'timestamp' => time(),
+      'link_back_views' => 0
+    ))
+  ->execute();
+}
+
 function fm_invite_twitter_text($reg_code_url = '') {
 	if(empty($reg_code_url)) {
 		$reg_code_url = fm_invite_get_invite_url();
@@ -133,15 +144,6 @@ function fm_invite_twitter_text($reg_code_url = '') {
 	print urlencode($output);
 }
 
-
-
-function fm_invite_rewards_popup() {
-	$reg_code_url = fm_invite_get_invite_url();
-	
-	$output = theme('fm_invite_rewards_popup', $reg_code_url);
-	print $output;
-	exit;
-}
 /**
  * Implements hook_js_alter().
  */
@@ -360,13 +362,7 @@ function fm_invite_get_invite_url($user = null) {
     global $user;
 	}
 	
-  if(isset($_GET['id'])) {
-  	//Splash page invite rewards pop-up
-		$id = $_GET['id'];
-		$result = db_query('SELECT * FROM {fm_invite} WHERE id = :id', array(':id' => $id));
-	  $inviter = $result->fetchObject();
-	  $reg_code = $inviter->reg_code;
-  } elseif($user->uid) {
+   if($user->uid) {
   	//User logged in popped-up
   	 $result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $user->mail));
 	   $inviter = $result->fetchObject();
