@@ -24,6 +24,17 @@ function fm_users_menu() {
   return $items;	
 }
 
+/**
+ * Implements hook_permission().
+ */
+function fm_users_permission() {
+  return array(
+    'login as user' => array(
+      'title' => t('View Deals List Admin List'),
+    ),
+  );
+}
+
 
 function fm_users_theme(){
 	return array(
