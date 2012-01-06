@@ -34,9 +34,8 @@ if(!user_access('view splash page')) {
 					fit_portrait         	:   1,		//Portrait images will not exceed browser height
 					fit_landscape			:   0,		//Landscape images will not exceed browser width
 
-					slide_links				:	1,			// Individual links for each slide (Options: false, 'num', 'name', 'blank')
-					thumb_links				:	1,			// Individual thumb links for each slide
-					thumbnail_navigation    :   0			// Thumbnail navigation
+					slide_links				:	0,			// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+					thumb_links				:	0,			// Individual thumb links for each slide
 					
 					//Components
 					navigation              :   0,		//Slideshow controls on/off
