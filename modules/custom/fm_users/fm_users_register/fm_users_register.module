@@ -93,29 +93,37 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 	$user = user_load_by_mail($mail);
 	
 	
-	if($user != false) {
-		if($user->status == 0){
-			$_SESSION[FM_USER_STATUS_SESSION] = 'non_member';
-		} else {
-			$_SESSION[FM_USER_STATUS_SESSION] = 'member';
-		}
+	if($user->uid) {
+		$_SESSION[FM_USER_STATUS_SESSION] = 'member';
 	} else {
-		//Create dummy user
-		$_SESSION[FM_USER_STATUS_SESSION] = 'non_member_first_time';
+
+		$result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $mail));
+	  $obj = $result->fetchObject();
+	  if($obj == FALSE) {
+		  //Insert into the Invite form (master sign-up list)
+		  $_SESSION[FM_USER_STATUS_SESSION] = 'non_member_first_time';
 		
-  	$edit = array(
-          'name' => $mail,
-          'pass' => $mail,
-          'mail' => $mail,
-          'init' => $mail,
-          'status' => 0,
-          'access' => REQUEST_TIME,
-    );
-    
-    $new_user = user_save(drupal_anonymous_user(), $edit);
+  	  $referred_by_id = null;
+	    if($inviter = fm_invite_load_from_session()) {
+	 	    $referred_by_id = $inviter->id;
+	    }
+	
+	    $reg_code = fm_invite_generate_code();
+	    $id = db_insert('fm_invite')
+        ->fields(array(
+        'reg_code' => $reg_code,
+        'referred_by_id' => $referred_by_id,
+        'email' => $account->mail,
+        'timestamp' => time(),
+        'link_back_views' => 0
+      ))
+       ->execute();
+	  } else {
+	  	$_SESSION[FM_USER_STATUS_SESSION] = 'non_member';
+	  }
 	}
 	
-	$_SESSION[FM_USER_EMAIL_SESSION] = $mail;
+  $_SESSION[FM_USER_EMAIL_SESSION] = $mail;
 	
 	drupal_goto('deals');
 }
@@ -364,7 +372,7 @@ function fm_users_register_form_submit($form, &$form_state) {
 	 	
 	//user_register_submit
 	
-	global $user;
+/*	global $user;
 	
 	//check to see if an active e-mail sent.
 	$values = $form_state['values'];
@@ -381,9 +389,10 @@ function fm_users_register_form_submit($form, &$form_state) {
 		$private = FALSE;
   }
 	
-	$mail = $user->mail;
+	$mail = $user->mail;*/
 	
 		
+	
 	$new_user = TRUE;
 	$invite_form = drupal_get_form('fm_invite_send_email_form', $user, $new_user);
 	$invite_url = fm_invite_get_invite_url($user);

@@ -119,21 +119,26 @@ function theme_fm_invite_ajax_sending_email($vars) {
 }
 
 function fm_invite_user_insert(&$edit, $account, $category) {
-  $referred_by_id = null;
-	if($inviter = fm_invite_load_from_session()) {
-	 	$referred_by_id = $inviter->id;
-	}
+   $result = db_query('SELECT * FROM {fm_invite} WHERE email = :email', array(':email' => $account->mail));
+	$obj = $result->fetchObject();
+	   
+	if($obj == FALSE) {
+		$referred_by_id = null;
+	  if($inviter = fm_invite_load_from_session()) {
+	 	  $referred_by_id = $inviter->id;
+	  }
 	
-	$reg_code = fm_invite_generate_code();
-	$id = db_insert('fm_invite')
-    ->fields(array(
-      'reg_code' => $reg_code,
-      'referred_by_id' => $referred_by_id,
-      'email' => $account->mail,
-      'timestamp' => time(),
-      'link_back_views' => 0
-    ))
-  ->execute();
+	  $reg_code = fm_invite_generate_code();
+	  $id = db_insert('fm_invite')
+      ->fields(array(
+        'reg_code' => $reg_code,
+        'referred_by_id' => $referred_by_id,
+        'email' => $account->mail,
+        'timestamp' => time(),
+        'link_back_views' => 0
+      ))
+    ->execute();
+	}
 }
 
 function fm_invite_twitter_text($reg_code_url = '') {
