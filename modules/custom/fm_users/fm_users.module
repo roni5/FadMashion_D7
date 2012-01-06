@@ -30,7 +30,7 @@ function fm_users_menu() {
 function fm_users_permission() {
   return array(
     'login as user' => array(
-      'title' => t('View Deals List Admin List'),
+      'title' => t('Login as User'),
     ),
   );
 }
