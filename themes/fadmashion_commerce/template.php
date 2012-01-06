@@ -185,7 +185,7 @@ function fadmashion_commerce_intro_supersize_images() {
 		$images_array[] = $image;
 	}								
 
-	$output .= implode(', ', $image_array);
+	$output .= implode(', ', $images_array);
 	
 	return $output;
 }
