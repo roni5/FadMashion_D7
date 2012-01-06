@@ -272,4 +272,6 @@ function fm_users_login_as_user($uid) {
   $new_user = user_load(uid);
   $user = $new_user;
   
+  drupal_set_message('ADMIN ONLY:  Logged in as new user ' . $user->mail);
+  drupal_goto('deals');
 }
