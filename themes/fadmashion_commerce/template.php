@@ -175,13 +175,18 @@ function fadmashion_commerce_intro_supersize_images() {
     //$path .= '?fm_main_product_image';
     
     //Supersize output
+    $images_array = array();
     $url = 'http://www.google.com';
-		$output .= '{';
-		$output .= 'image : \'' . $path . '\'' . ', ';
-		$output .= 'url : \'' . $url . '\'';
+		$image = '{';
+		$image .= 'image : \'' . $path . '\'' . ', ';
+		$image .= 'url : \'' . $url . '\'';
 		//$output .= 'title: Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'; 
-		$output .= '},';
-	}										
+		$image .= '}';
+		$images_array[] = $image;
+	}								
+
+	$output .= implode(', ', $image_array);
+	
 	return $output;
 }
 
