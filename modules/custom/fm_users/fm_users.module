@@ -268,10 +268,8 @@ function fm_users_user_delete($account) {
  *  TODO: NEED to make sure to have permissions and security tight
  */
 function fm_users_login_as_user($uid) {
-  global $user;
-  $new_user = user_load(uid);
-  $user = $new_user;
-  
+  // Log user in
   drupal_set_message('ADMIN ONLY:  Logged in as new user ' . $user->mail);
-  drupal_goto('deals');
+  $form_state['uid'] = $uid;
+  user_login_submit(array(), $form_state);
 }
