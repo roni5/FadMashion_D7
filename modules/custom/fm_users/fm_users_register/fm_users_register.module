@@ -362,6 +362,8 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
 
 function fm_users_register_form_submit($form, &$form_state) {
 	 	
+	//user_register_submit
+	
 	global $user;
 	
 	//check to see if an active e-mail sent.
