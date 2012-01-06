@@ -165,6 +165,7 @@ function fadmashion_commerce_static_pages() {
 function fadmashion_commerce_intro_supersize_images() {
 	$nq = nodequeue_nids_visible(INTRO_IMAGES_NODEQUEUE);
 	$output = '';
+  $images_array = array();
 	foreach($nq as $nid) {
 		$node = node_load($nid);
 		$picture = field_get_items('node', $node, 'field_splash_image');
@@ -175,7 +176,6 @@ function fadmashion_commerce_intro_supersize_images() {
     //$path .= '?fm_main_product_image';
     
     //Supersize output
-    $images_array = array();
     $url = 'http://www.google.com';
 		$image = '{';
 		$image .= 'image : \'' . $path . '\'' . ', ';
