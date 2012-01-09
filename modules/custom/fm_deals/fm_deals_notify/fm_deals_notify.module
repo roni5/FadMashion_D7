@@ -164,7 +164,7 @@ function fm_deals_notify_cron() {
         $params
       );
       
-      db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, ':uid' => $row->mail));
+      db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, ':mail' => $row->mail));
   	}  
 	}
 	
