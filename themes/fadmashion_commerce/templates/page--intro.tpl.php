@@ -67,7 +67,7 @@ if(!user_access('view splash page')) {
    
     </div><!--pad--> 
     </div><!--content-->  <br clear="all"></td>
-    <td width="50%">&nbsp;</td>
+    <td class="supersized-img" width="50%">&nbsp;</td>
 
     </tr>
 </table>

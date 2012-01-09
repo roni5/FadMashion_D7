@@ -18,6 +18,22 @@ function fm_deals_facebookshare( url, thumb_path, description, name, message) {
     );
 }
 
+jQuery(document).ready(function() {
+  /*Disable The "RemindMe" Button */
+  if(jQuery('.notify a.alert').length) {
+    if(notify_show_register) {
+	  jQuery('.notify a.alert').unbind('click');
+	  jQuery('.notify a.alert').click(function() {
+		fmUserStateRestart(); 
+		jQuery('.state3').show();
+		fmForceRegister();
+		fmClearRegisterTimeout();
+	    return false;
+	  });
+    }
+  }
+});
+
 /**
  *  Javascript Tools to handle Forms in FAdmashion 
  */

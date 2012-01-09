@@ -320,7 +320,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
     	if(isset($mail) && !empty($mail)) {
   	    $form['account']['mail']['#default_value'] = $mail;
     	} else {
-  		  $form['account']['mail']['#default_value'] = t('you@email.com');
+  		  $form['account']['mail']['#default_value'] = t('E-mail');
   	    $form['account']['mail']['#attributes'] = array('class' => array('clear-defaults'));
     	}
   	  $form['account']['mail']['#weight'] = -48;

@@ -152,15 +152,7 @@ jQuery(document).ready(function() {
 	   } //End registration VAlidate
 	  
 	  
-
-		//Disable The "Buy It Button
-	  /*if(!user_status) {
-		jQuery('#commerce-cart-add-to-cart-form #edit-submit').click(function() {
-			fmForceRegister();
-			fmClearRegisterTimeout();
-		    return false;
-		});
-	  }*/
+     
 
 });
 

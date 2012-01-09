@@ -34,13 +34,25 @@ function fm_deals_notify_theme() {
 }
 function fm_deals_notify_add_reminder($nid) {
 	global $user;
+	if($user->uid) {
+		$mail = $user->mail;
+	} else {
+		$mail = fm_users_register_session_email();
+		if(!isset($mail)) {
+			$message = t('Oops, there was an error.');
+			drupal_json_output(array('message' => $message));
+	    exit;
+		}
+	}
 	
-	$exists = fm_deals_notify_entry_exists($nid, $user->uid);
+	$exists = fm_deals_notify_entry_exists($nid, $mail);
 	
 	$event_vars = array();
+	$event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
 	if(!$exists) {
 	  $id = db_insert('fm_deals_notify')
       ->fields(array(
+        'mail' => $mail,
         'nid' => $nid,
         'uid' => $user->uid,
         'timestamp' => REQUEST_TIME,
@@ -49,41 +61,52 @@ function fm_deals_notify_add_reminder($nid) {
     ->execute();
     
     $message =  t('Wise Choice. Expect a reminder e-mail from us ' . FM_NOTIFY_MINUTES . ' minutes before this deal starts');
-    
-    $replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => true, 'nid' => $nid));
-    $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
-    
+    $replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => TRUE, 'nid' => $nid));
 	}
 	else {
-		$result = db_query('DELETE FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $user->uid));
+		$result = db_query('DELETE FROM {fm_deals_notify} WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, 'mail' => $mail));
   
 		$message = t('Okay, we\'ve removed you from the list');
-		$replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => false, 'nid' => $nid));
-    $event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
-    
+		$replacement_button = theme('fm_deals_notify_remind_me_button', array('exists' => FALSE, 'nid' => $nid));
 	}
+	
+	$event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
 	
 	//Return message to
 	drupal_json_output(array('message' => $message, 'event' => 'fm_replaceHtml', 'vars' => $event_vars));
 	exit;
 }
 
-function fm_deals_notify_entry_exists($nid, $uid) {
-	$result = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, 'uid' => $uid));
+function fm_deals_notify_entry_exists($nid, $mail) {
+	$result = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, 'mail' => $mail));
   
 	$obj = $result->fetchObject();
   if($obj) {
-  	return true;
+  	return TRUE;
   }
   else {
-  	return false;
+  	return FALSE;
   }
 }
 
 function fm_deals_notify_get_button($node) {
 	global $user;
-	$exists = fm_deals_notify_entry_exists($node->nid, $user->uid);
+  if($user->uid) {
+		$mail = $user->mail;
+	} else {
+		$mail = fm_users_register_session_email();
+	} 
 	
+	
+	if(!$user->uid && !isset($mail)) {
+		$exists = FALSE;
+		//ADD trigger for register form because this is person needs to register to get reminders
+		drupal_add_js('var notify_show_register = 1;', 'inline');
+	} else {
+		$exists = fm_deals_notify_entry_exists($node->nid, $mail);
+		drupal_add_js('var notify_show_register = 0;', 'inline');
+	}
+
 	$output = theme('fm_deals_notify_remind_me_button', array('exists' => $exists, 'nid' => $node->nid));
 	
 	return $output;
@@ -99,7 +122,7 @@ function theme_fm_deals_notify_remind_me_button($vars) {
 	else {
 		$output =  l('<img class="check" src="/' . drupal_get_path("theme","fadmashion_commerce") . '/images/check.png">' . t('You\'re Covered'), 
 		              'deals/notify/' . $nid, 
-		               array('html' => true, 
+		               array('html' => TRUE, 
 		                     'attributes' => array('class' => array('alert', 'green', 'button'))
 		            ));
 	}
@@ -124,7 +147,7 @@ function fm_deals_notify_cron() {
 	  $product = fm_commerce_get_product($node);
 	
 	  $params = array(
-      'subject' => 'Deal Reminder: ' . $product->title,
+      'subject' => 'Sale Reminder: ' . $product->title,
 	    'nid' => $nid, 
 	    'product' => $product
     );
@@ -133,12 +156,10 @@ function fm_deals_notify_cron() {
     
     $results = db_query('SELECT * FROM {fm_deals_notify} WHERE nid = :nid AND sent = 0', array(':nid' => $nid));
   	while($row = $results->fetchObject()) {
-		  $user = user_load($row->uid);
-  		
 		  drupal_mail(
         'fm_deals_notify',
         'reminder',
-        $user->mail,
+        $row->mail,
         language_default(),
         $params
       );
@@ -146,7 +167,6 @@ function fm_deals_notify_cron() {
      
     db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, ':uid' => $user->uid));
 	} else{
-		var_dump('test');
 	}
 	
 }

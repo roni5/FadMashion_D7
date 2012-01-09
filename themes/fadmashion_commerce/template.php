@@ -83,9 +83,10 @@ function fadmashion_commerce_preprocess_page(&$variables) {
   //Use splash template only for URL's that have a splash as the first item in the URL
   $front_intro = 0;
   if($split_url[0] == 'intro') {
-    drupal_add_js(path_to_theme().'/js/supersized.min.js');
-    drupal_add_css(path_to_theme().'/css/supersized.css');
-    drupal_add_css(path_to_theme().'/css/splash.css');  
+    drupal_add_js(path_to_theme() . '/js/supersized.min.js');
+    drupal_add_js(path_to_theme() . '/js/supersized.fadmashion.js');
+    drupal_add_css(path_to_theme() . '/css/supersized.css');
+    drupal_add_css(path_to_theme() . '/css/splash.css');  
     
     $variables['front_intro'] = false;
     if(count($split_url) == 1) {
@@ -176,10 +177,12 @@ function fadmashion_commerce_intro_supersize_images() {
     //$path .= '?fm_main_product_image';
     
     //Supersize output
-    $url = 'http://www.google.com';
+    $url = field_get_items('node', $node, 'field_splash_link'); 
+    $url = $url[0]['url'];
+    
 		$image = '{';
 		$image .= 'image : \'' . $path . '\'' . ', ';
-		$image .= 'url : \'' . $url . '\'';
+		$image .= 'url : \'' . ($url) . '\'';
 		//$output .= 'title: Designer: <a target="_blank"  style="font-style: normal; font-family:\'museo-sans-1\',\'museo-sans-2\',Helvetica;" href="http://www.daniellakallmeyer.com/"> Daniella Kallmeyer</a>'; 
 		$image .= '}';
 		$images_array[] = $image;

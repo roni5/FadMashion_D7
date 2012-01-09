@@ -18,7 +18,7 @@
 <div class="invite_state2"><?php print theme('fm_invite_ajax_sending_email'); ?></div>
 <div class="invite_state3"><p>Invitations Sent!</p><a href="javascript:void(0);" onClick="jQuery.colorbox.close(); ">Close</a></div>
 <div class="invite_state1">
-<p>Share your code with your friends</p>
+<p>Send Directly to Friend's Inbox.</p>
 <?php print render($invite_form); ?>
 <script>fmValidateInviteForm();</script>
 </div>
