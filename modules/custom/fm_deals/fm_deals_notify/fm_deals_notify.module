@@ -136,7 +136,7 @@ function theme_fm_deals_notify_remind_me_button($vars) {
 function fm_deals_notify_cron() {
 
 	//Make sure it is 15 minutes before only
-	$next_fortyfive_time = mktime(date('G', REQUEST_TIME), 40, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
+	$next_fortyfive_time = mktime(date('G', REQUEST_TIME), 5, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	$next_hour_start_time = mktime(date('G', REQUEST_TIME)+1, 0, 0, date('m', REQUEST_TIME), date('d', REQUEST_TIME), date('y', REQUEST_TIME));
 	
 	if(REQUEST_TIME >= $next_fortyfive_time && REQUEST_TIME <= $next_hour_start_time) {
@@ -165,7 +165,7 @@ function fm_deals_notify_cron() {
       );
   	}
      
-    db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND uid = :uid', array(':nid' => $nid, ':uid' => $user->uid));
+    db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, ':uid' => $row->mail));
 	} else{
 	}
 	
