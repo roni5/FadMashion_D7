@@ -163,10 +163,9 @@ function fm_deals_notify_cron() {
         language_default(),
         $params
       );
-  	}
-     
-    db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, ':uid' => $row->mail));
-	} else{
+      
+      db_query('UPDATE {fm_deals_notify} SET sent = 1 WHERE nid = :nid AND mail = :mail', array(':nid' => $nid, ':uid' => $row->mail));
+  	}  
 	}
 	
 }
