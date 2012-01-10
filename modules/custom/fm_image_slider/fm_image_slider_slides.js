@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 		jQuery('#product').slides({
 			preload: true,
 			preloadImage: loadingImagePath,
-			effect: 'slide, fade',
+			effect: 'fade',
 			crossfade: true,
 			slideSpeed: slideSpeed,
 			fadeSpeed: fadeSpeed,
