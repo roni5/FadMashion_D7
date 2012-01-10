@@ -37,6 +37,13 @@ jQuery(document).ready(function() {
   	        replace : 'fm_zoom_product_image/',  
 			lighbox : false
 	     });*/
+		 $('.zoom01').addimagezoom({
+			  zoomrange: [3, 10],
+			  magnifiersize: [300,300],
+			  magnifierpos: 'right',
+			  cursorshade: true,
+			  largeimage: 'hayden.jpg' //<-- No comma after last option!
+			 })
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 		Drupal.attachBehaviors();
 
