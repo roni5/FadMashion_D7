@@ -155,11 +155,13 @@ jQuery.fn.gzoom = function(settings) {
 	      });
 	    }
 		
+		var origValue;
 		ig.mouseover(function(e){
-			 valore = parseInt($slider.slider('value')) + settings.step;
-	  		  $slider.slider('value', valore);
+			origValue = $slider.slider('value');
+			valore = origValue + (4 * settings.step);
+	  		$slider.slider('value', valore);
 	    }).mouseout(function(e){
-	    	 valore = parseInt($slider.slider('value')) + settings.step;
+	    	 valore = origValue;
 	  		 $slider.slider('value', valore);
 	     });
 		/* if (delta > 0) {
