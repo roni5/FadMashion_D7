@@ -43,7 +43,8 @@ jQuery(document).ready(function() {
 			  magnifierpos: 'right',
 			  cursorshade: true,
 			  largeimage: 'hayden.jpg' //<-- No comma after last option!
-			 })
+	     });
+		 
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 		Drupal.attachBehaviors();
 
