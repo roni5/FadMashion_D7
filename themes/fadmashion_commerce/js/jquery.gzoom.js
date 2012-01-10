@@ -158,7 +158,7 @@ jQuery.fn.gzoom = function(settings) {
 		var origValue;
 		ig.mouseover(function(e){
 			origValue = $slider.slider('value');
-			valore = origValue + (4 * settings.step);
+			valore = origValue + (10 * settings.step);
 	  		$slider.slider('value', valore);
 	    }).mouseout(function(e){
 	    	 valore = origValue;
