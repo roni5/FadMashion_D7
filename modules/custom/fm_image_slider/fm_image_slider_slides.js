@@ -34,7 +34,7 @@ jQuery(document).ready(function() {
 			step: 10,
 			frameColor: "#F0EEEA",
 			re : /fm_main_product_image\//, 
-  	        replace : 'fm_zoom_product_image/',  
+  	        replace : 'fm_product_super_zoom/',  
 			lighbox : false
 	     });
 		 /*$('.zoom01').addimagezoom({
