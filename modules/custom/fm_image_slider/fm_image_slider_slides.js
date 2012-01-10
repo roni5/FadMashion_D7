@@ -37,7 +37,7 @@ jQuery(document).ready(function() {
   	        replace : 'fm_zoom_product_image/',  
 			lighbox : false
 	     });*/
-		 jQuery('.zoom01').addimagezoom({
+		 jQuery('.zoom01 img').addimagezoom({
 			  zoomrange: [3, 10],
 			  magnifiersize: [300,300],
 			  magnifierpos: 'right',
