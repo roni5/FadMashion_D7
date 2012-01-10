@@ -3,7 +3,7 @@
  *  Javascript Tools to add Nivo Slider
  */
 
-var slideSpeed = 300;
+var slideSpeed = 600;
 var fadeSpeed = 500;
 jQuery(document).ready(function() {
 	
@@ -19,15 +19,15 @@ jQuery(document).ready(function() {
 		});
 		jQuery('#product').show();
 		
-		//Mousewheel zoom for main product image
+		/*Mousewheel zoom for main product image
 		jQuery(".photos .slides_container img").mousemove(function(e){
 			jQuery("#photo_tooltip").show();
 	    });
 	    jQuery(".photos .slides_container img").mouseout(function(e){
 	    	jQuery("#photo_tooltip").hide();
-	    });
+	    });*/
 
-		jQuery(".zoom01").gzoom({sW: 372,
+		/*jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
 			lW: 650,
 			lH: 828,
@@ -36,7 +36,7 @@ jQuery(document).ready(function() {
 			re : /fm_main_product_image\//, 
   	        replace : 'fm_zoom_product_image/',  
 			lighbox : false
-	     });
+	     });*/
 		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 		Drupal.attachBehaviors();
 
