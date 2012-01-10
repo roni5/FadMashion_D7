@@ -10,7 +10,7 @@ function fm_deals_states_get_status($node) {
 	} else {
 		//Check to see if it is upcoming in the next week
 		$result = db_query('SELECT * FROM {fm_deals_schedule} WHERE nid = :nid &&  startTime > :request_time && endTime < :next_week ', 
-		                   array(':request_time' => REQUEST_TIME, ':next_week' => strtotime('+1 week', REQUEST_TIME), ':nid' => $node->nid))->fetchObject();
+		                   array(':request_time' => REQUEST_TIME, ':next_week' => strtotime('+1 day', REQUEST_TIME), ':nid' => $node->nid))->fetchObject();
 		if(isset($result)) {
 		   $status = 'upcoming';
 		}

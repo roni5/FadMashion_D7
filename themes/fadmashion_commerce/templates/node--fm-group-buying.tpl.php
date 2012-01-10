@@ -85,7 +85,6 @@
 <div class="info">
 
 <?php print $groupDetails;?>
-<br clear="all">
  <?php print $product_details; ?> 
 <div class="pricing">
     <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>

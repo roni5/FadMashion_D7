@@ -48,8 +48,11 @@ function fadmashion_commerce_preload() {
 	drupal_add_js(drupal_get_path('module', 'fm_deals') . '/fm_deals.js');;
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_store_owners') . '/fm_commerce_store_owners.js');
 	
-	global $user;
+	global $status;
+	$status = fm_users_register_sessions_status();
+	
 	drupal_add_js('var uid = ' . $user->uid . ';', 'inline');
+	drupal_add_js('var user_status = \'' . $status . '\';', 'inline');
 	
 }
 

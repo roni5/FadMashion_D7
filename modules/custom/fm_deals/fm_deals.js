@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 	  jQuery('.notify a.alert').unbind('click');
 	  jQuery('.notify a.alert').click(function() {
 		fmUserStateRestart(); 
-		jQuery('.state3').show();
+		jQuery('.state1').show();
 		fmForceRegister();
 		fmClearRegisterTimeout();
 	    return false;

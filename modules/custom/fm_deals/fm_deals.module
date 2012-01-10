@@ -392,16 +392,24 @@ function fm_deals_group_details(&$vars) {
 	//$color_options = fm_commerce_color_options($node);
 	//
 	//If start time is GREATER THAN NOW than disabled.
-	if($status == 'upcoming') {
-		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
-		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts @<span>' . date("g:ia", $unixStartTime) . ' <span class="timezone">EST</span></span></div>';
-		
-		$timerDetails .= '</div>';
+	if($status == 'upcoming') {  
+		if(isset($unixStartTime)) {
+		  $timerDetails = '<div class="timer rounded-top rounded-bottom">';
+		  if($unixStartTime > strtotime('+15 minutes', REQUEST_TIME)) {
+		  	$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts @<span>' . date("g:ia", $unixStartTime) . ' <span class="timezone">EST</span></span></div>';
+		  } else {
+		  	$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts in <span class="countdownToStart">--:--</span> mins</div>';;//If start time is LESS THAN NOW this is ACTIVE
+	      jquery_countdown_add(".countdownToStart", array("until" =>  date("F d, Y g:i a", $unixStartTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
+	
+		  }
+		  $timerDetails .= '</div><br clear="all">';
+		}
 		
 		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
 		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
-		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">(We\'ll send you an e-mail ' . FM_NOTIFY_MINUTES . ' minutes before the deal starts)</p>';
+		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">We\'ll send you an e-mail ' . FM_NOTIFY_MINUTES . ' minutes before a sale starts</p>';
 		$purchaseDetails .= '</div>';
+		
 		
 	
 	}
@@ -420,7 +428,7 @@ function fm_deals_group_details(&$vars) {
                         </tr>
                         </tbody></table>';
 		//$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
-		$timerDetails .= '</div>';
+		$timerDetails .= '</div><br clear="all">';
 		
 		$untilTime = $unixEndTime;
 		
@@ -442,9 +450,7 @@ function fm_deals_group_details(&$vars) {
 	
 	} 
 	else {
-		$timerDetails = '<div class="timer rounded-top rounded-bottom">';
-		$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Deal Has Ended</div>';
-		$timerDetails .= '</div>';
+		$timerDetails = '';
 		
 		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
 		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';

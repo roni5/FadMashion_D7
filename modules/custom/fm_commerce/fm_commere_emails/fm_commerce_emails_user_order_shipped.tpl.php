@@ -8,7 +8,7 @@
   $commission = fm_commerce_store_order_commission_value($order, $shop);
 ?>
 
-<h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">Your order is on it's way! </h1>
+<h1 style="font-weight: normal; font-size: 28px; margin-top: 0;">Your order is on its way! </h1>
 <p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print $shop->name?> has confirmed shipping.  It should be arriving to you shortly.  If you have issues, please contact us.   </p>
 
     

@@ -1,6 +1,6 @@
 
 <div class="bar" style="background: #A5332C; height: 36px; line-height: 36px; font-size: 18px; font-weight:bold; color: #fff; position: relative; top: -18px; padding-left: 8px;">
-<img align="absmiddle" src="<?php print url('', array('absolute' => true)) . drupal_get_path("theme","fadmashion_commerce"); ?>/images/bar_timer_icon.jpg"> Deal Reminder</div>
+<img align="absmiddle" src="<?php print url('', array('absolute' => true)) . drupal_get_path("theme","fadmashion_commerce"); ?>/images/bar_timer_icon.jpg"> Sale Reminder</div>
 
 	<table cellspacing="0" cellpadding="0" class="message" style="margin: 10px 0 25px 0;  "><tbody><tr>
 <td class="col1" style="width: 146px; vertical-align: top;">

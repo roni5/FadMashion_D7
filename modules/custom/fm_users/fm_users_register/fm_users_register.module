@@ -137,6 +137,8 @@ function fm_users_register_session_email() {
 function fm_users_register_sessions_status() {
 	if(isset($_SESSION[FM_USER_STATUS_SESSION])) {
 	  return $_SESSION[FM_USER_STATUS_SESSION];
+	} else {
+		return '';
 	}
 }
 
