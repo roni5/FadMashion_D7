@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
 	    	jQuery("#photo_tooltip").hide();
 	    });*/
 
-		/*jQuery(".zoom01").gzoom({sW: 372,
+		jQuery(".zoom01").gzoom({sW: 372,
 			sH: 474,
 			lW: 650,
 			lH: 828,
@@ -36,7 +36,7 @@ jQuery(document).ready(function() {
 			re : /fm_main_product_image\//, 
   	        replace : 'fm_zoom_product_image/',  
 			lighbox : false
-	     });*/
+	     });
 		 /*$('.zoom01').addimagezoom({
 			  zoomrange: [3, 10],
 			  magnifiersize: [300,300],
