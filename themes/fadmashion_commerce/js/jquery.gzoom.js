@@ -144,16 +144,31 @@ jQuery.fn.gzoom = function(settings) {
 		
 		if(typeof(jQuery.event.special.mousewheel) != 'undefined') {
 			ig.mousewheel(function(event, delta) {
-	      if (delta > 0) {
-	        valore = parseInt($slider.slider('value')) + settings.step;
+	        if (delta > 0) {
+	          valore = parseInt($slider.slider('value')) + settings.step;
 	  		  $slider.slider('value', valore);
 	  		} else if (delta < 0) {
 	  		  valore = parseInt($slider.slider('value')) - settings.step;
 		  	  $slider.slider('value', valore);
 		  	}
-	      return false; // prevent default
-	    });
-	  }
+	        return false; // prevent default
+	      });
+	    }
+		
+		ig.mouseover(function(e){
+			 valore = parseInt($slider.slider('value')) + settings.step;
+	  		  $slider.slider('value', valore);
+	    }).mouseout(function(e){
+	    	 valore = parseInt($slider.slider('value')) + settings.step;
+	  		 $slider.slider('value', valore);
+	     });
+		/* if (delta > 0) {
+	          valore = parseInt($slider.slider('value')) + settings.step;
+	  		  $slider.slider('value', valore);
+	  		} else if (delta < 0) {
+	  		  valore = parseInt($slider.slider('value')) - settings.step;
+		  	  $slider.slider('value', valore);
+		  	}*/
 		
 		function resize_fx(intImageWidth,intImageHeight) {
 		
