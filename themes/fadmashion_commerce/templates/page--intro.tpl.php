@@ -8,8 +8,8 @@
 
 global $user;
 $mail = fm_users_register_session_email();
-//if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
-if(!user_access('view splash page')) {	
+if(!user_access('view splash page') || (isset($mail) && !empty($mail)) ) {
+//if(!user_access('view splash page')) {	
   drupal_goto('deals');
 }
 
