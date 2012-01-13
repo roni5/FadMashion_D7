@@ -6,7 +6,7 @@
 
 function fm_invite_list() {
 	
-	$result = db_query('SELECT * FROM {fm_invite}');
+	$result = db_query('SELECT * FROM {fm_invite} ORDER BY timestamp DESC');
 	$rows = array();
 	$header = array('Name/E-mail', 'Date', 'Invite Code',  'Sign-Ups', 'Link View Count (Clicks)' );
 	
