@@ -155,10 +155,11 @@ jQuery.fn.gzoom = function(settings) {
 	      });
 	    }
 		
+		//FADMASHION Addition for
 		var origValue;
 		ig.mouseover(function(e){
 			origValue = $slider.slider('value');
-			valore = origValue + (10 * settings.step);
+			valore = origValue + (7 * settings.step);
 	  		$slider.slider('value', valore);
 	    }).mouseout(function(e){
 	    	 valore = origValue;

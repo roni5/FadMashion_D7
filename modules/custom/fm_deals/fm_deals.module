@@ -359,8 +359,11 @@ function fm_deals_insert_schedule($time_slots, $nids) {
 }
 
 function fm_deals_insert_directly($nid, $start_time) {
+	db_delete('fm_deals_schedule')->condition('startTime', $start_time)->execute();
+	
 	$end_time = strtotime('+1 hour', $start_time);
-  $nid = db_insert('fm_deals_schedule')->fields(array('nid' => $nid, 'startTime' => $start_time, 'endTime' => $end_time))->execute();
+	$record = array('nid' => $nid, 'startTime' => $start_time, 'endTime' => $end_time);
+	drupal_write_record ('fm_deals_schedule', $record);
 }
 
 function fm_deals_has_stock($nid) {
