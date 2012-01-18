@@ -358,6 +358,11 @@ function fm_deals_insert_schedule($time_slots, $nids) {
 	
 }
 
+function fm_deals_insert_directly($nid, $start_time) {
+	$end_time = strtotime('+1 hour', $start_time);
+  $nid = db_insert('fm_deals_schedule')->fields(array('nid' => $nid, 'startTime' => $start_time, 'endTime' => $end_time))->execute();
+}
+
 function fm_deals_has_stock($nid) {
 	$node = node_load($nid);
 	if($node->type == 'fm_group_buying') {

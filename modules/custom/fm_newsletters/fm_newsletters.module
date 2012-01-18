@@ -44,8 +44,6 @@ abstract class fm_newsletters {
  * Implements hook_node_insert()
  */
 function fm_newsletters_node_presave($node) {
-	drupal_set_message('insert_test');
-	drupal_set_message($node->type);
 	if($node->type == 'fm_newsletters_deals') {
 	   $node = fm_newsletters_deals_generate_code($node);
 	}
@@ -108,13 +106,29 @@ function fm_newsletters_deals_generate_url($product, $image_style = 'fm_preview_
 }
 
 function fm_newsletters_deals_generate_code($node) {
-	$nids = field_get_items('node', $node, 'field_newsletter_deals');
+	$collection = field_get_items('node', $node, 'field_news_deals_collection');
+	$nids = array();
+	foreach($collection as $item) {
+	  $a_field_collection_item = entity_load('field_collection_item', array($item['value']) );
+	  foreach ($a_field_collection_item as $a_field_collection_item_object ) {
+	  	//var_dump($a_field_collection_item_object);
+	  	$deal_nid = field_get_items('field_collection_item', $a_field_collection_item_object, 'field_newsletters_deals');
+      $node_nid = $deal_nid[0]['nid'];
+      $nids[] = $node_nid;
+      
+      $deal_time = field_get_items('field_collection_item', $a_field_collection_item_object, 'field_newsletters_time');
+      $deal_time = strtotime($deal_time[0]['value']);
+      fm_deals_insert_directly($node_nid, $deal_time);
+    }
+	}
+	
 	$first_nid = array_shift($nids);
-	$featured_node = node_load($first_nid['nid']);
+	$featured_node = node_load($first_nid);
+	var_dump($featured_node);
 	
 	$more_deals = array();
 	foreach($nids as $nid) {
-		$more_deals[] = node_load($nid['nid']);
+		$more_deals[] = node_load($nid);
 	}
 	
 	
