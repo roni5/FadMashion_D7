@@ -12,9 +12,7 @@
   $status = fm_deals_states_get_status($node);
   $node->deal_status = $status;
   
-  $start_time = fm_deals_time($node->nid);
-  $start_time = $start_time['start'];
-  $end_time = $start_time['end'];
+  $start_time = $time;
   
 	$description = field_get_items('commerce_product', $product, 'field_description');
 	$description = $description[0]['value'];

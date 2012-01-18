@@ -62,19 +62,22 @@ function fm_newsletters_theme() {
     'fm_newsletters_deals_featured' => array (
        'template' => 'fm_newsletters_deals_featured',
        'variables' => array(
-         'node' => NULL
+         'node' => NULL,
+         'time' => NULL,
       )
     ),
     'fm_newsletters_deals_more' => array (
        'template' => 'fm_newsletters_deals_more',
        'variables' => array(
-         'nodes' => NULL
+         'nodes' => NULL,
+         'times' => NULL
       )
     ),
     'fm_newsletters_deals_more_item' => array (
        'template' => 'fm_newsletters_deals_more_item',
        'variables' => array(
-         'node' => NULL
+         'node' => NULL,
+          'time' => NULL
       )
     )
   );
@@ -108,6 +111,7 @@ function fm_newsletters_deals_generate_url($product, $image_style = 'fm_preview_
 function fm_newsletters_deals_generate_code($node) {
 	$collection = field_get_items('node', $node, 'field_news_deals_collection');
 	$nids = array();
+	$deal_times = array();
 	foreach($collection as $item) {
 	  $a_field_collection_item = entity_load('field_collection_item', array($item['value']) );
 	  foreach ($a_field_collection_item as $a_field_collection_item_object ) {
@@ -119,21 +123,22 @@ function fm_newsletters_deals_generate_code($node) {
       $deal_time = field_get_items('field_collection_item', $a_field_collection_item_object, 'field_newsletters_time');
       $deal_time = strtotime($deal_time[0]['value']);
       fm_deals_insert_directly($node_nid, $deal_time);
+      $deal_times[] = $deal_time;
     }
 	}
 	
 	$first_nid = array_shift($nids);
 	$featured_node = node_load($first_nid);
-	var_dump($featured_node);
+	$featured_time = array_shift();
+	
 	
 	$more_deals = array();
 	foreach($nids as $nid) {
 		$more_deals[] = node_load($nid);
 	}
 	
-	
-	$featured = theme('fm_newsletters_deals_featured', array('node' => $featured_node));
-	$more = theme('fm_newsletters_deals_more', array('nodes' => $more_deals) );
+	$featured = theme('fm_newsletters_deals_featured', array('node' => $featured_node, 'time' => $featured_time));
+	$more = theme('fm_newsletters_deals_more', array('nodes' => $more_deals, 'times' => $deal_times) );
 	$output = theme('fm_newsletters_deals', array('featured' => $featured, 'more' => $more));
 	
 	$node->body[$node->language][0]['value']   = $output;
