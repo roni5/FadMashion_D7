@@ -65,8 +65,8 @@ p{margin-bottom: 8px;}
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 <tbody><tr>
 <td class="">&nbsp;</td>
-<td width="400" class="logo"><a href="http://www.fadmashion.com"><img alt="Fadmashion.com | Choose Independent Fashion" src="<?php print $full_url;?>logo_black.jpg"></a></td>
-<td width="276" class="header">Today's Exclusive Deals</td>
+<td width="400" class="logo"><a href="http://www.fadmashion.com"><img alt="Fadmashion.com | Insider access to Independent Fashion" src="<?php print $full_url;?>logo_black.png"></a></td>
+<td width="276" class="header">Today's Sales</td>        
 <td class="">&nbsp;</td>
 </tr>
 </tbody></table>
