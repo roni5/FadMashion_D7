@@ -15,7 +15,7 @@ a{color: #0373a7; font-family:Georgia, "Times New Roman", Times, serif; font-sty
 .featureInfo .pad{padding: 22px 24px 0 24px;}
 
 h1{font-size: 22px; font-weight:normal; margin: 0 0 9px 0;}
-h2{font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font-weight:normal; color: #89786f; font-size: 15px; border-bottom: 1px solid #e9e3de; margin-bottom: 15px; padding-bottom: 15px;}
+h2{font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; font-weight:normal; color: #89786f; font-size: 15px;  margin-bottom: 15px; padding-bottom: 15px;}
 .featureInfo  p{font-size: 14px; margin-bottom: 12px; line-height: 18px;}
 .finePrint{padding-top: 12px; font-size: 12px; color: #89786f; text-align:center; }
 
@@ -66,7 +66,7 @@ p{margin-bottom: 8px;}
 <tbody><tr>
 <td class="">&nbsp;</td>
 <td width="400" class="logo"><a href="http://www.fadmashion.com"><img alt="Fadmashion.com | Insider access to Independent Fashion" src="<?php print $full_url;?>logo_black.png"></a></td>
-<td width="276" class="header">Today's Sales</td>        
+<td width="276" class="header">Today's One Hour Sales</td>        
 <td class="">&nbsp;</td>
 </tr>
 </tbody></table>
