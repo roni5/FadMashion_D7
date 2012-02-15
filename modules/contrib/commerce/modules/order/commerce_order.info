@@ -1,11 +1,12 @@
 name = Order
 description = Defines the Order entity and associated features.
 package = Commerce
-dependencies[] = rules
 dependencies[] = commerce
 dependencies[] = commerce_customer
 dependencies[] = commerce_line_item
 dependencies[] = commerce_price
+dependencies[] = entity
+dependencies[] = rules
 core = 7.x
 
 ; Module includes
@@ -15,6 +16,7 @@ files[] = includes/commerce_order.controller.inc
 files[] = includes/views/commerce_order.views.inc
 
 ; Views handlers
+files[] = includes/views/handlers/commerce_order_handler_area_empty_text.inc
 files[] = includes/views/handlers/commerce_order_handler_area_order_total.inc
 files[] = includes/views/handlers/commerce_order_handler_argument_order_order_id.inc
 files[] = includes/views/handlers/commerce_order_handler_field_order.inc
@@ -32,10 +34,13 @@ files[] = includes/views/handlers/commerce_order_handler_filter_order_type.inc
 ; Views plugins
 files[] = includes/views/handlers/commerce_order_plugin_argument_validate_user.inc
 
+; Tests
+files[] = tests/commerce_order.rules.test
+files[] = tests/commerce_order.test
 
-; Information added by drupal.org packaging script on 2011-05-20
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-01-25
+version = "7.x-1.2"
 core = "7.x"
 project = "commerce"
-datestamp = "1305850315"
+datestamp = "1327528840"
 

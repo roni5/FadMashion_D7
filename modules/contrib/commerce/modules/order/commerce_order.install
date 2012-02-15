@@ -19,13 +19,13 @@ function commerce_order_schema() {
         'description' => 'The order number displayed to the customer.',
         'type' => 'varchar',
         'length' => 255,
-        'not null' => TRUE,
+        'not null' => FALSE,
       ),
       'revision_id' => array(
         'description' => 'The current {commerce_order_revision}.revision_id version identifier.',
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE,
+        'not null' => FALSE,
         'default' => 0,
       ),
       'type' => array(
@@ -86,6 +86,9 @@ function commerce_order_schema() {
       'order_number' => array('order_number'),
       'revision_id' => array('revision_id'),
     ),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
     'foreign keys' => array(
       'current_revision' => array(
         'table' => 'commerce_order_revision',
@@ -112,7 +115,7 @@ function commerce_order_schema() {
         'description' => 'The order number displayed to the customer for this revision.',
         'type' => 'varchar',
         'length' => 255,
-        'not null' => TRUE,
+        'not null' => FALSE,
       ),
       'revision_id' => array(
         'description' => 'The primary identifier for this revision.',
@@ -166,6 +169,9 @@ function commerce_order_schema() {
       ),
     ),
     'primary key' => array('revision_id'),
+    'indexes' => array(
+      'order_id' => array('order_id'),
+    ),
     'foreign keys' => array(
       'order' => array(
         'table' => 'commerce_order',
@@ -179,6 +185,17 @@ function commerce_order_schema() {
   );
 
   return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function commerce_order_uninstall() {
+  // Delete any field instance attached to an order type.
+  module_load_include('module', 'commerce');
+  commerce_delete_instances('commerce_order');
+
+  variable_del('commerce_order_help_text');
 }
 
 /**
@@ -347,4 +364,97 @@ function commerce_order_update_7102(&$sandbox) {
 function commerce_order_update_7103() {
   db_truncate('commerce_calculated_price')->execute();
   return t('The calculated price table has been cleared. If your site uses product sell price pre-calculation, you will need to recalculate these prices.');
+}
+
+/**
+ * Update permission names for order entity management.
+ */
+function commerce_order_update_7104() {
+  // Load utility functions.
+  module_load_install('commerce');
+
+  $map = array(
+    'administer orders' => 'administer commerce_order entities',
+    'access orders' => 'view any commerce_order entity',
+    'create orders' => 'create commerce_order entities',
+    'edit any order' => 'edit any commerce_order entity',
+    'edit own orders' => 'edit own commerce_order entities',
+    'view own orders' => 'view own commerce_order entities',
+  );
+
+  commerce_update_rename_permissions($map);
+
+  return t('Role and custom View permissions updated for order entity management. Access checks in modules and permissions on default Views must be updated manually.');
+}
+
+/**
+ * Add an index to the commerce_order_revision table on order_id.
+ */
+function commerce_order_update_7105() {
+  if (db_index_exists('commerce_order_revision', 'order_id')) {
+    db_drop_index('commerce_order_revision', 'order_id');
+  }
+
+  db_add_index('commerce_order_revision', 'order_id', array('order_id'));
+}
+
+/**
+ * Assign the new 'Configure order settings' permission to roles that already
+ * have the 'Administer orders' permission.
+ */
+function commerce_order_update_7106() {
+  $roles = db_query("SELECT * FROM {role_permission} WHERE permission = 'administer commerce_order entities'")->fetchAllAssoc('rid', PDO::FETCH_ASSOC);
+
+  foreach ($roles as $rid => $permission) {
+    db_insert('role_permission')
+      ->fields(array('rid', 'permission', 'module'), array($rid, 'configure order settings', 'commerce_order'))
+      ->execute();
+  }
+
+  return t('All roles that had the <em>Administer orders</em> permission now also have the new <em>Configure order settings</em> permission.');
+}
+
+/**
+ * Add an index to the commerce_order table on uid.
+ */
+function commerce_order_update_7107() {
+  if (db_index_exists('commerce_order', 'uid')) {
+    db_drop_index('commerce_order', 'uid');
+  }
+
+  db_add_index('commerce_order', 'uid', array('uid'));
+
+  return t('Database index added to the uid column of the commerce_order table.');
+}
+
+/**
+ * Allow NULL values for order_number and revision_id on {commerce_order}, and
+ * order_number on {commerce_order_revision}.
+ */
+function commerce_order_update_7108() {
+  $order_number_spec = array(
+    'description' => 'The order number displayed to the customer.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => FALSE,
+  );
+  $revision_id_spec = array(
+    'description' => 'The current {commerce_order_revision}.revision_id version identifier.',
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => FALSE,
+    'default' => 0,
+  );
+  $order_number_revision_spec = array(
+    'description' => 'The order number displayed to the customer for this revision.',
+    'type' => 'varchar',
+    'length' => 255,
+    'not null' => FALSE,
+  );
+
+  db_change_field('commerce_order', 'order_number', 'order_number', $order_number_spec);
+  db_change_field('commerce_order', 'revision_id', 'revision_id', $revision_id_spec);
+  db_change_field('commerce_order_revision', 'order_number', 'order_number', $order_number_revision_spec);
+
+  return t('Schema for the commerce_order and commerce_order_revision tables has been updated.');
 }

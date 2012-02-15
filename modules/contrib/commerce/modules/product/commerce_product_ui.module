@@ -23,13 +23,13 @@ function commerce_product_ui_menu() {
   );
   foreach (commerce_product_types() as $type => $product_type) {
     $items['admin/commerce/products/add/' . strtr($type, array('_' => '-'))] = array(
-      'title' => 'Create @name',
-      'title arguments' => array('@name' => $product_type['name']),
+      'title' => 'Create !name',
+      'title arguments' => array('!name' => $product_type['name']),
       'description' => $product_type['description'],
       'page callback' => 'commerce_product_ui_product_form_wrapper',
       'page arguments' => array(commerce_product_new($type)),
       'access callback' => 'commerce_product_access',
-      'access arguments' => array('create', $type),
+      'access arguments' => array('create', commerce_product_new($type)),
       'file' => 'includes/commerce_product_ui.products.inc',
     );
   }
@@ -134,13 +134,13 @@ function commerce_product_ui_product_title($product) {
  */
 function commerce_product_ui_product_add_any_access() {
   // Grant automatic access to users with administer products permission.
-  if (user_access('administer products')) {
+  if (user_access('administer commerce_product entities')) {
     return TRUE;
   }
 
   // Check the user's access on a product type basis.
   foreach (commerce_product_types() as $type => $product_type) {
-    if (commerce_product_access('create', $type)) {
+    if (commerce_product_access('create', commerce_product_new($type))) {
       return TRUE;
     }
   }
@@ -250,21 +250,6 @@ function commerce_product_ui_theme() {
       'variables' => array('type' => NULL),
       'file' => 'includes/commerce_product_ui.types.inc',
     ),
-    'commerce_product_sku' => array(
-      'variables' => array('sku' => NULL, 'label' => NULL, 'product' => NULL),
-      'path' => drupal_get_path('module', 'commerce_product_ui') . '/theme',
-      'template' => 'commerce-product-sku',
-    ),
-    'commerce_product_title' => array(
-      'variables' => array('title' => NULL, 'label' => NULL, 'product' => NULL),
-      'path' => drupal_get_path('module', 'commerce_product_ui') . '/theme',
-      'template' => 'commerce-product-title',
-    ),
-    'commerce_product_status' => array(
-      'variables' => array('status' => NULL, 'label' => NULL, 'product' => NULL),
-      'path' => drupal_get_path('module', 'commerce_product_ui') . '/theme',
-      'template' => 'commerce-product-status',
-    ),
   );
 }
 
@@ -331,6 +316,7 @@ function commerce_product_ui_product_type_new() {
     'name' => '',
     'description' => '',
     'help' => '',
+    'revision' => 1,
   );
 }
 
@@ -503,12 +489,12 @@ function commerce_product_ui_form_commerce_product_ui_product_form_alter(&$form,
       '#type' => 'submit',
       '#value' => t('Save and add another'),
       '#submit' => $form['actions']['submit']['#submit'],
-      '#suffix' => l('Cancel', 'admin/commerce/products'),
+      '#suffix' => l(t('Cancel'), 'admin/commerce/products'),
       '#weight' => 45,
     );
   }
   else {
-    $form['actions']['submit']['#suffix'] = l('Cancel', 'admin/commerce/products');
+    $form['actions']['submit']['#suffix'] = l(t('Cancel'), 'admin/commerce/products');
   }
 }
 
@@ -519,7 +505,10 @@ function commerce_product_ui_form_commerce_product_ui_product_form_alter(&$form,
  */
 function commerce_product_ui_product_form_submit($form, &$form_state) {
   // Set the redirect based on the button clicked.
-  if ($form_state['triggering_element']['#parents'][0] == 'save_continue') {
+  $array_parents = $form_state['triggering_element']['#array_parents'];
+  $submit_element = array_pop($array_parents);
+
+  if ($submit_element == 'save_continue') {
     $form_state['redirect'] = 'admin/commerce/products/add/' . strtr($form_state['commerce_product']->type, array('_' => '-'));
   }
   elseif (arg(2) == 'products' && arg(3) == 'add') {

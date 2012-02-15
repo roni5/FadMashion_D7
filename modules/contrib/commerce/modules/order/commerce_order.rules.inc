@@ -9,81 +9,6 @@
  */
 
 /**
- * Implements hook_rules_event_info().
- */
-function commerce_order_rules_event_info() {
-  $events = array();
-
-  $events['commerce_order_presave'] = array(
-    'label' => t('Before saving an order'),
-    'group' => t('Commerce Order'),
-    'variables' => commerce_order_rules_event_variables(t('Order', array(), array('context' => 'a drupal commerce order')), TRUE, TRUE),
-    'access callback' => 'commerce_order_rules_access',
-  );
-  $events['commerce_order_insert'] = array(
-    'label' => t('After saving a new order'),
-    'group' => t('Commerce Order'),
-    'variables' => commerce_order_rules_event_variables(t('Created order'), TRUE),
-    'access callback' => 'commerce_order_rules_access',
-  );
-  $events['commerce_order_update'] = array(
-    'label' => t('After updating an existing order'),
-    'group' => t('Commerce Order'),
-    'variables' => commerce_order_rules_event_variables(t('Updated order'), TRUE),
-    'access callback' => 'commerce_order_rules_access',
-  );
-  $events['commerce_order_delete'] = array(
-    'label' => t('After deleting an order'),
-    'group' => t('Commerce Order'),
-    'variables' => commerce_order_rules_event_variables(t('Deleted order')),
-    'access callback' => 'commerce_order_rules_access',
-  );
-
-  return $events;
-}
-
-/**
- * Returns a variables array for order events.
- *
- * @param $label
- *   The label for the primary order variable.
- * @param $unchanged
- *   Boolean indicating whether or not to include the unchanged order.
- * @param $skip_save
- *   Boolean indicating whether or not the primary order variable should skip
- *     saving after event execution.
- */
-function commerce_order_rules_event_variables($label, $unchanged = FALSE, $skip_save = FALSE) {
-  $variables = array(
-    'order' => array(
-      'type' => 'commerce_order',
-      'label' => $label,
-      'skip save' => $skip_save,
-    ),
-  );
-
-  if ($unchanged) {
-    $variables['order_unchanged'] = array(
-      'type' => 'commerce_order',
-      'label' => t('Unchanged order'),
-      'skip save' => TRUE,
-      'handler' => 'rules_events_entity_unchanged',
-    );
-  }
-
-  return $variables;
-}
-
-/**
- * Rules integration access callback.
- */
-function commerce_order_rules_access($type, $name) {
-  if ($type == 'event' || $type == 'condition') {
-    return commerce_order_access('view');
-  }
-}
-
-/**
  * Implements hook_rules_condition_info().
  */
 function commerce_order_rules_condition_info() {
@@ -92,10 +17,10 @@ function commerce_order_rules_condition_info() {
   $conditions['commerce_order_compare_address'] = array(
     'label' => t('Order address component comparison'),
     'parameter' => array(
-      'order' => array(
+      'commerce_order' => array(
         'type' => 'commerce_order',
         'label' => t('Order'),
-        'description' => t('The order containing the profile reference with the address in question. In most cases, you will use line-item:order.'),
+        'description' => t('The order containing the profile reference with the address in question.'),
       ),
       'address_field' => array(
         'type' => 'text',
@@ -135,16 +60,15 @@ function commerce_order_rules_condition_info() {
   $conditions['commerce_order_contains_product'] = array(
     'label' => t('Order contains a particular product'),
     'parameter' => array(
-      'order' => array(
+      'commerce_order' => array(
         'type' => 'commerce_order',
         'label' => t('Order'),
-        'description' => t('The order whose line items should be checked for the specified product. In most cases, you will use line-item:order. If the specified order does not exist, the comparison will act as if it is against a quantity of 0.'),
+        'description' => t('The order whose line items should be checked for the specified product. If the specified order does not exist, the comparison will act as if it is against a quantity of 0.'),
       ),
       'product_id' => array(
         'type' => 'text',
         'label' => t('Product SKU'),
         'description' => t('The SKU of the product to look for on the order.'),
-        'restriction' => 'input',
       ),
       'operator' => array(
         'type' => 'text',
@@ -170,17 +94,17 @@ function commerce_order_rules_condition_info() {
   $conditions['commerce_order_compare_total_product_quantity'] = array(
     'label' => t('Total product quantity comparison'),
     'parameter' => array(
-      'order' => array(
+      'commerce_order' => array(
         'type' => 'commerce_order',
         'label' => t('Order'),
-        'description' => t('The order whose product line item quantities should be totalled. In most cases, you will use line-item:order. If the specified order does not exist, the comparison will act as if it is against a quantity of 0.'),
+        'description' => t('The order whose product line item quantities should be totalled. If the specified order does not exist, the comparison will act as if it is against a quantity of 0.'),
       ),
       'operator' => array(
         'type' => 'text',
         'label' => t('Operator'),
         'description' => t('The comparison operator to use against the total number of products on the order.'),
-        'default value' => 'at least',
-        'options list' => 'commerce_order_product_quantity_operator_options_list',
+        'default value' => '>=',
+        'options list' => 'commerce_numeric_comparison_operator_options_list',
         'restriction' => 'input',
       ),
       'value' => array(
@@ -305,7 +229,7 @@ function commerce_order_rules_contains_product($order, $sku, $operator, $value) 
 
     // Populate the array of the quantities of the products on the order.
     foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
-      if ($line_item_wrapper->type->value() == 'product') {
+      if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
         // Extract a product ID and quantity from the line item.
         $line_item_sku = $line_item_wrapper->commerce_product->sku->value();
         $quantity = $line_item_wrapper->quantity->value();
@@ -324,9 +248,9 @@ function commerce_order_rules_contains_product($order, $sku, $operator, $value) 
   // Make a quantity comparison based on the operator.
   switch ($operator) {
     case '<':
-      return $product[$sku] < $value;
+      return $products[$sku] < $value;
     case '<=':
-      return $product[$sku] <= $value;
+      return $products[$sku] <= $value;
     case '=':
       return $products[$sku] == $value;
     case '>=':
@@ -350,21 +274,21 @@ function commerce_order_rules_compare_total_quantity($order, $operator, $value) 
     $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
     if (!empty($wrapper->commerce_line_items)) {
-      $quantity = commerce_line_items_quantity($wrapper->commerce_line_items, 'product');
+      $quantity = commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types());
     }
   }
 
   // Make a quantity comparison based on the operator.
   switch ($operator) {
-    case 'less than':
+    case '<':
       return $quantity < $value;
-    case 'no more than':
+    case '<=':
       return $quantity <= $value;
-    case 'equals':
+    case '=':
       return $quantity == $value;
-    case 'at least':
+    case '>=':
       return $quantity >= $value;
-    case 'more than':
+    case '>':
       return $quantity > $value;
   }
 
@@ -380,7 +304,7 @@ function commerce_order_rules_action_info() {
   $actions['commerce_order_update_state'] = array(
     'label' => t('Update the order state'),
     'parameter' => array(
-      'order' => array(
+      'commerce_order' => array(
         'type' => 'commerce_order',
         'label' => t('Order to update'),
       ),
@@ -400,7 +324,7 @@ function commerce_order_rules_action_info() {
   $actions['commerce_order_update_status'] = array(
     'label' => t('Update the order status'),
     'parameter' => array(
-      'order' => array(
+      'commerce_order' => array(
         'type' => 'commerce_order',
         'label' => t('Order to update'),
       ),

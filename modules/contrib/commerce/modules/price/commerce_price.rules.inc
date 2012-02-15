@@ -8,19 +8,6 @@
  * @{
  */
 
-/**
- * Returns parameters suitable for using Rules to alter prices.
- */
-function commerce_price_rules_variables() {
-  $args = array(
-    'price' => array(
-      'type' => 'commerce_price',
-      'label' => t('Price'),
-    ),
-  );
-
-  return $args;
-}
 
 /**
  * Implements hook_rules_data_info().
@@ -74,7 +61,7 @@ class RulesDataUICommercePrice extends RulesDataUI implements RulesDataDirectInp
     // Load the default currency for this instance.
     $default_currency = commerce_currency_load($default_currency_code);
 
-    $form[$name]['#attached']['css'][] = drupal_get_path('module', 'commerce_price') . '/theme/commerce_price.css';
+    $form[$name]['#attached']['css'][] = drupal_get_path('module', 'commerce_price') . '/theme/commerce_price.theme.css';
 
     $form[$name]['amount'] = array(
       '#type' => 'textfield',

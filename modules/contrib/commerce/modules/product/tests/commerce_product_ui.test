@@ -30,6 +30,10 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $modules = parent::setUpHelper('all');
     parent::setUp($modules);
 
+    // Set a clean starting point. $_GET can be different between the UI test
+    // runner and the command line one. As a consequence, the 'active' classes
+    // on the links can end up being different.
+    $_GET['q'] = '';
 
     // User creation for different operations.
     $this->store_admin = $this->createStoreAdmin();
@@ -100,7 +104,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->assertFalse(empty($status_required), t('Status field is required'));
     $this->assertFieldById('edit-submit', t('Save product'), t('Save product button is present'));
     $this->assertFieldById('edit-save-continue', t('Save and add another'), t('Save an add another button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/products'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/products'), t('Cancel link is present'));
 
     // Try to save the product and check validation messages.
     $this->drupalPost(NULL, array(), t('Save product'));
@@ -109,10 +113,11 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->assertText(t('Title field is required'), t('Validation message for title is displayed when tryin to submit the form with the field empty.'));
 
     // Create the product.
+    $price = rand(2,500);
     $edit = array(
       'sku' => 'PROD-01',
       'title' => $this->randomName(10),
-      'commerce_price[und][0][amount]' => rand(2, 500),
+      'commerce_price[und][0][amount]' => commerce_currency_amount_to_decimal($price, 'USD'),
       'status' => 1,
     );
     $this->drupalPost(NULL, $edit, t('Save product'));
@@ -125,7 +130,8 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->pass(t('Test the product creation in database:'));
     $this->assertTrue($product_wrapper->sku->value()  == $edit['sku'], t('SKU stored in database correctly set'));
     $this->assertTrue($product_wrapper->title->value()  == $edit['title'], t('Title stored in database correctly set'));
-    $this->assertTrue($product_wrapper->commerce_price->amount->value()  == $edit['commerce_price[und][0][amount]'], t('Amount stored in database correctly set'));
+
+    $this->assertTrue($product_wrapper->commerce_price->amount->value()  == $price, t('Amount stored in database correctly set'));
     $this->assertTrue($product->status  == $edit['status'], t('Status stored in database correctly set'));
 
     // Check the product listing
@@ -151,10 +157,11 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->drupalGet('admin/commerce/products/add/product');
 
     // Create the product.
+    $price = rand(2, 500);
     $edit = array(
       'sku' => 'PROD-01',
       'title' => $this->randomName(10),
-      'commerce_price[und][0][amount]' => rand(2, 500),
+      'commerce_price[und][0][amount]' => commerce_currency_amount_to_decimal($price, 'USD'),
       'status' => 1,
     );
     // Save and add another.
@@ -166,7 +173,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->pass(t('Test the product creation in database:'));
     $this->assertTrue($product_wrapper->sku->value()  == $edit['sku'], t('SKU stored in database correctly set'));
     $this->assertTrue($product_wrapper->title->value()  == $edit['title'], t('Title stored in database correctly set'));
-    $this->assertTrue($product_wrapper->commerce_price->amount->value()  == $edit['commerce_price[und][0][amount]'], t('Amount stored in database correctly set'));
+    $this->assertTrue($product_wrapper->commerce_price->amount->value() == $price, t('Amount stored in database correctly set'));
     $this->assertTrue($product->status  == $edit['status'], t('Status stored in database correctly set'));
 
     // Check if we are in the product creation page.
@@ -204,13 +211,14 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->assertFieldByName('commerce_price[und][0][amount]', commerce_currency_amount_to_decimal($product_wrapper->commerce_price->amount->value(), $product_wrapper->commerce_price->currency_code->value()), t('Price field is present'));
     $this->assertFieldByName('status', $product->status, t('Status field is present'));
     $this->assertFieldById('edit-submit', t('Save product'), t('Save product button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/products'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/products'), t('Cancel link is present'));
 
     // Change the product values.
+    $price = rand(2, 500);
     $edit = array(
       'sku' => 'PROD-02',
       'title' => $this->randomName(10),
-      'commerce_price[und][0][amount]' => rand(2, 500),
+      'commerce_price[und][0][amount]' => commerce_currency_amount_to_decimal($price, 'USD'),
       'status' => 0,
     );
     $this->drupalPost(NULL, $edit, t('Save product'));
@@ -221,7 +229,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->pass(t('Test the product edit in database:'));
     $this->assertTrue($product_wrapper->sku->value()  == $edit['sku'], t('SKU stored in database correctly set'));
     $this->assertTrue($product_wrapper->title->value()  == $edit['title'], t('Title stored in database correctly set'));
-    $this->assertTrue($product_wrapper->commerce_price->amount->value()  == $edit['commerce_price[und][0][amount]'], t('Amount stored in database correctly set'));
+    $this->assertTrue($product_wrapper->commerce_price->amount->value() == $price, t('Amount stored in database correctly set'));
     $this->assertTrue($product->status  == $edit['status'], t('Status stored in database correctly set'));
 
     // Check the product listing
@@ -233,7 +241,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->assertFieldByName('commerce_price[und][0][amount]', $edit['commerce_price[und][0][amount]'], t('Price field has the correct value'));
     $this->assertFieldByName('status', $edit['status'], t('Status field is present'));
     $this->assertFieldById('edit-submit', t('Save product'), t('Save product button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/products'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/products'), t('Cancel link is present'));
   }
 
   /**
@@ -288,7 +296,8 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->drupalPost(NULL, array(), t('Delete'));
 
     // Check for the product in database.
-    $this->assertFalse(commerce_product_load($product->product_id), t('After deleting it, the product is no more in database'));
+    $deleted_product = commerce_product_load_multiple(array($product->product_id), array(), TRUE);
+    $this->assertFalse(reset($deleted_product), t('After deleting it, the product is no more in database'));
 
     $this->assertTrue($this->url == url('admin/commerce/products', array('absolute' => TRUE)), t('Landing page after deleting a product is the product listing page'));
 
@@ -307,7 +316,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $product = $this->createDummyProduct('PROD-01', 'Product One');
 
     // Associate the product in an order.
-    $order = $this->createDummyOrder($this->store_customer->uid, array($product));
+    $order = $this->createDummyOrder($this->store_customer->uid, array($product->product_id => 1));
 
     // Login with store admin.
     $this->drupalLogin($this->store_admin);
@@ -316,7 +325,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     $this->drupalGet('admin/commerce/products/' . $product->product_id . '/delete');
 
     $this->pass('Assertions for trying to delete a product associated to a line item:');
-    $this->assertText(t('This product is referenced by a line item and therefore cannot be deleted. Disable it instead.'), t('Product delete restriction message is displayed correctly'));
+    $this->assertText(t('This product is referenced by a line item on Order @order_num and therefore cannot be deleted. Disable it instead.', array('@order_num' => $order->order_id)), t('Product delete restriction message is displayed correctly'));
     $this->assertFieldByXPath('//input[@id="edit-submit" and @disabled="disabled"]', NULL, t('Delete button is present and is disabled'));
   }
 
@@ -503,12 +512,21 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     // deleted.
     $this->pass(t('Product type has at least one product, test the validation messages:'));
     $this->assertTitle(t('Cannot delete the !name product type', array('!name' => $product_types['product']['name'])) . ' | Drupal', t('Validation title of the page displayed correctly.'));
+
     // Get the count of products of the type
-    $count = db_query("SELECT product_id FROM {commerce_product} WHERE type = :product_type", array(':product_type' => $product_types['product']['type']))->rowCount();
+    $query = new EntityFieldQuery();
+
+    $query->entityCondition('entity_type', 'commerce_product', '=')
+      ->entityCondition('bundle', $product_types['product']['type'], '=')
+      ->count();
+
+    $count = $query->execute();
+
     $message = format_plural($count,
       'There is 1 product of this type. It cannot be deleted.',
       'There are @count products of this type. It cannot be deleted.'
     );
+
     $this->assertText($message, t('Display the reason why the product type cannot be deleted and show the number of products related to it'));
   }
 
@@ -558,7 +576,7 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
    * Test the admin breadcrumbs for product types.
    */
   public function testCommerceProductUIAdminBreadcrumbs() {
-  // Create dummy product.
+    // Create dummy product.
     $product = $this->createDummyProduct('PROD-01', 'Product One');
 
     // Login with store admin.
@@ -579,18 +597,6 @@ class CommerceProductUIAdminTest extends CommerceBaseTestCase {
     // Access to the delete product page.
     $this->drupalGet('admin/commerce/products/' . $product->product_id . '/delete');
     $this->assertRaw(theme('breadcrumb', array('breadcrumb' => $breadcrumb)), t('Delete product page has correct breadcrumb'));
-
-    // Access to the product types listing.
-    // TODO: Main listings doesn't seem to have right breadcrumb in tests.
-    // $this->drupalGet('admin/commerce/products/types');
-    // $this->assertRaw(theme('breadcrumb', array('breadcrumb' => $breadcrumb)), t('Product types list has correct breadcrumb'));
-
-    // Product list has one level less of breadcrumb.
-    // TODO: Main listings doesn't seem to have right breadcrumb in tests.
-    //array_pop($breadcrumb);
-    // Access to the admin product list.
-    //$this->drupalGet('admin/commerce/products');
-    //$this->assertRaw(theme('breadcrumb', array('breadcrumb' => $breadcrumb)), t('Product list page has correct breadcrumb'));
 
     // The admin screens below have the Product types addition to the
     // breadcrumb.

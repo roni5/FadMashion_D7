@@ -64,6 +64,12 @@ function commerce_product_ui_product_type_form($form, &$form_state, $product_typ
     '#rows' => 3,
   );
 
+  $form['product_type']['revision'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Default products of this type to be saved as new revisions when edited.'),
+    '#default_value' => $product_type['revision'],
+  );
+
   if (module_exists('entity_translation')) {
     $form['product_type']['multilingual'] = array(
       '#type' => 'radios',
@@ -101,7 +107,7 @@ function commerce_product_ui_product_type_form($form, &$form_state, $product_typ
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete product type'),
-      '#suffix' => l('Cancel', 'admin/commerce/products/types'),
+      '#suffix' => l(t('Cancel'), 'admin/commerce/products/types'),
       '#submit' => $submit + array('commerce_product_ui_product_type_form_delete_submit'),
       '#weight' => 45,
     );
@@ -110,7 +116,7 @@ function commerce_product_ui_product_type_form($form, &$form_state, $product_typ
     $form['actions']['save_continue'] = array(
       '#type' => 'submit',
       '#value' => t('Save and add fields'),
-      '#suffix' => l('Cancel', 'admin/commerce/products/types'),
+      '#suffix' => l(t('Cancel'), 'admin/commerce/products/types'),
       '#submit' => $submit + array('commerce_product_ui_product_type_form_submit'),
       '#weight' => 45,
     );

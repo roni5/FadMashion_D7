@@ -16,7 +16,7 @@ function commerce_product_menu() {
   $items['commerce_product/autocomplete'] = array(
     'title' => 'commerce_product autocomplete',
     'page callback' => 'commerce_product_autocomplete',
-    'access arguments' => array('access products'),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
@@ -28,12 +28,6 @@ function commerce_product_menu() {
  */
 function commerce_product_hook_info() {
   $hooks = array(
-    'commerce_product_uri' => array(
-      'group' => 'commerce',
-    ),
-    'commerce_product_view' => array(
-      'group' => 'commerce',
-    ),
     'commerce_product_type_info' => array(
       'group' => 'commerce',
     ),
@@ -49,6 +43,12 @@ function commerce_product_hook_info() {
     'commerce_product_type_delete' => array(
       'group' => 'commerce',
     ),
+    'commerce_product_uri' => array(
+      'group' => 'commerce',
+    ),
+    'commerce_product_view' => array(
+      'group' => 'commerce',
+    ),
     'commerce_product_presave' => array(
       'group' => 'commerce',
     ),
@@ -56,6 +56,9 @@ function commerce_product_hook_info() {
       'group' => 'commerce',
     ),
     'commerce_product_update' => array(
+      'group' => 'commerce',
+    ),
+    'commerce_product_can_delete' => array(
       'group' => 'commerce',
     ),
     'commerce_product_delete' => array(
@@ -72,14 +75,16 @@ function commerce_product_hook_info() {
 function commerce_product_entity_info() {
   $return = array(
     'commerce_product' => array(
-      'label' => t('Product'),
+      'label' => t('Commerce Product'),
       'controller class' => 'CommerceProductEntityController',
       'base table' => 'commerce_product',
+      'revision table' => 'commerce_product_revision',
       'fieldable' => TRUE,
       'entity keys' => array(
         'id' => 'product_id',
         'bundle' => 'type',
         'label' => 'title',
+        'revision' => 'revision_id',
       ),
       'bundle keys' => array(
         'bundle' => 'type',
@@ -91,28 +96,23 @@ function commerce_product_entity_info() {
           'label' => t('Admin display'),
           'custom settings' => FALSE,
         ),
-        'node_teaser' => array(
-          'label' => t('Node: Teaser'),
-          'custom settings' => TRUE,
-        ),
-        'node_full' => array(
-          'label' => t('Node: Full content'),
-          'custom settings' => FALSE,
-        ),
-        'node_rss' => array(
-          'label' => t('Node: RSS'),
-          'custom settings' => FALSE,
-        ),
       ),
       'uri callback' => 'commerce_product_uri',
-      'creation callback' => '_commerce_product_create',
-      'save callback' => 'commerce_product_save',
-      'deletion callback' => 'commerce_product_delete',
-      'access callback' => 'commerce_product_access',
-      'token type' => 'product',
+      'metadata controller class' => '',
+      'token type' => 'commerce-product',
+      'access callback' => 'commerce_entity_access',
+      'access arguments' => array(
+        'user key' => 'uid',
+        'access tag' => 'commerce_product_access',
+      ),
+      'permission labels' => array(
+        'singular' => t('product'),
+        'plural' => t('products'),
+      ),
 
-      // Add entity translation support.
+      // Add translation support.
       'translation' => array(
+        'locale' => TRUE,
         'entity_translation' => array(
           'class' => 'EntityTranslationCommerceProductHandler',
         ),
@@ -168,6 +168,32 @@ function commerce_product_uri($product) {
 }
 
 /**
+ * Implements hook_file_download_access().
+ *
+ * This hook is grants access to files based on a user's access to the entity
+ * a file is attached to. For example, users with access to a product should be
+ * allowed to download files attached to that product. Here we do this on a per-
+ * field basis for files attached to products.
+ *
+ * @param $field
+ *   The field to which the file belongs.
+ * @param $entity_type
+ *   The type of $entity; for example, 'node' or 'user' or 'commerce_product'.
+ * @param $entity
+ *   The $entity to which $file is referenced.
+ *
+ * @return
+ *   TRUE if access should be allowed by this entity or FALSE if denied. Note
+ *   that denial may be overridden by another entity controller, making this
+ *   grant permissive rather than restrictive.
+ */
+function commerce_product_file_download_access($field, $entity_type, $entity) {
+  if ($entity_type == 'commerce_product') {
+    return field_access('view', $field, $entity_type, $entity);
+  }
+}
+
+/**
  * Implements hook_field_extra_fields().
  */
 function commerce_product_field_extra_fields() {
@@ -177,30 +203,32 @@ function commerce_product_field_extra_fields() {
     $extra['commerce_product'][$type] = array(
       'form' => array(
         'sku' => array(
-          'label' => 'Product SKU',
+          'label' => t('Product SKU'),
           'description' => t('Product module SKU form element'),
           'weight' => -10,
         ),
         'title' => array(
-          'label' => 'Title',
+          'label' => t('Title'),
           'description' => t('Product module title form element'),
           'weight' => -5,
         ),
         'status' => array(
-          'label' => 'Status',
+          'label' => t('Status'),
           'description' => t('Product module status form element'),
           'weight' => 35,
         ),
       ),
       'display' => array(
         'sku' => array(
-          'label' => 'Product SKU',
+          'label' => t('SKU'),
           'description' => t('The human readable identifier of the product'),
+          'theme' => 'commerce_product_sku',
           'weight' => -10,
         ),
         'title' => array(
-          'label' => 'Title',
+          'label' => t('Title'),
           'description' => t('Full product title'),
+          'theme' => 'commerce_product_title',
           'weight' => -5,
         ),
       ),
@@ -208,6 +236,29 @@ function commerce_product_field_extra_fields() {
   }
 
   return $extra;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function commerce_product_theme() {
+  return array(
+    'commerce_product_sku' => array(
+      'variables' => array('sku' => NULL, 'label' => NULL, 'product' => NULL),
+      'path' => drupal_get_path('module', 'commerce_product') . '/theme',
+      'template' => 'commerce-product-sku',
+    ),
+    'commerce_product_title' => array(
+      'variables' => array('title' => NULL, 'label' => NULL, 'product' => NULL),
+      'path' => drupal_get_path('module', 'commerce_product') . '/theme',
+      'template' => 'commerce-product-title',
+    ),
+    'commerce_product_status' => array(
+      'variables' => array('status' => NULL, 'label' => NULL, 'product' => NULL),
+      'path' => drupal_get_path('module', 'commerce_product') . '/theme',
+      'template' => 'commerce-product-status',
+    ),
+  );
 }
 
 /**
@@ -225,36 +276,14 @@ function commerce_product_views_api() {
  */
 function commerce_product_permission() {
   $permissions = array(
-    'administer products' => array(
-      'title' => t('Administer products'),
-      'description' => t('Allows users to perform any action on products of any type.'),
-      'restrict access' => TRUE,
-    ),
     'administer product types' => array(
       'title' => t('Administer product types'),
       'description' => t('Allows users to configure product types and their fields.'),
       'restrict access' => TRUE,
     ),
-    'access products' => array(
-      'title' => t('Access products'),
-      'description' => t('Allows users to view lists of products in the Store admin and reference lists.'),
-    ),
   );
 
-  // Add product type specific permissions. Note that users with administer
-  // products permission should have access to do anything the permissions below
-  // grant a user to do.
-  foreach (commerce_product_type_get_name() as $type => $name) {
-    $permissions['create ' . $type . ' products'] = array(
-      'title' => t('Create %type products', array('%type' => $name)),
-    );
-    $permissions['edit any ' . $type . ' product'] = array(
-      'title' => t('Edit or delete any %type product', array('%type' => $name)),
-    );
-    $permissions['edit own ' . $type . ' products'] = array(
-      'title' => t('Edit or delete own %type products', array('%type' => $name)),
-    );
-  }
+  $permissions += commerce_entity_access_permissions('commerce_product');
 
   return $permissions;
 }
@@ -263,16 +292,47 @@ function commerce_product_permission() {
  * Implements hook_enable().
  */
 function commerce_product_enable() {
-  // Loop through and configure all the currently defined product types.
-  foreach (commerce_product_types() as $type => $product_type) {
-    commerce_product_configure_product_type($type);
-  }
+  commerce_product_configure_product_types();
 }
 
 /**
  * Implements hook_modules_enabled().
  */
 function commerce_product_modules_enabled($modules) {
+  commerce_product_configure_product_fields($modules);
+}
+
+/**
+ * Configure the product types defined by enabled modules.
+ */
+function commerce_product_configure_product_types() {
+  foreach (commerce_product_types() as $type => $product_type) {
+    commerce_product_configure_product_type($type);
+  }
+}
+
+/**
+ * Ensures a base price field is present on a product type bundle.
+ */
+function commerce_product_configure_product_type($type) {
+  commerce_price_create_instance('commerce_price', 'commerce_product', $type, t('Price'), 0, 'calculated_sell_price');
+}
+
+/**
+ * Configures the fields on product types provided by other modules.
+ *
+ * @param $modules
+ *   An array of module names whose product type fields should be configured;
+ *   if left NULL, will default to all modules that implement
+ *   hook_commerce_product_type_info().
+ */
+function commerce_product_configure_product_fields($modules = NULL) {
+  // If no modules array is passed, recheck the fields for all product types
+  // defined by enabled modules.
+  if (empty($modules)) {
+    $modules = module_implements('commerce_product_type_info');
+  }
+
   // Loop through all the enabled modules.
   foreach ($modules as $module) {
     // If the module implements hook_commerce_product_type_info()...
@@ -383,13 +443,6 @@ function commerce_product_type_to_arg($type) {
 }
 
 /**
- * Ensures a base price field is present on a product type bundle.
- */
-function commerce_product_configure_product_type($type) {
-  commerce_price_create_instance('commerce_price', 'commerce_product', $type, t('Price'), 0, 'calculated_sell_price');
-}
-
-/**
  * Returns an initialized product object.
  *
  * @param $type
@@ -399,24 +452,7 @@ function commerce_product_configure_product_type($type) {
  *   A product object with all default fields initialized.
  */
 function commerce_product_new($type = '') {
-  return entity_get_controller('commerce_product')->create($type);
-}
-
-/**
- * Creation callback for the Entity module.
- */
-function _commerce_product_create($values = array()) {
-  // Create a new product of the specified type.
-  $product = commerce_product_new($values['type']);
-  unset($values['type']);
-
-  $wrapper = entity_metadata_wrapper('commerce_product', $product);
-
-  foreach ($values as $name => $value) {
-    $wrapper->$name->set($value);
-  }
-
-  return $wrapper->value();
+  return entity_get_controller('commerce_product')->create(array('type' => $type));
 }
 
 /**
@@ -426,7 +462,7 @@ function _commerce_product_create($values = array()) {
  *   The full product object to save.
  *
  * @return
- *   The saved product object.
+ *   SAVED_NEW or SAVED_UPDATED depending on the operation performed.
  */
 function commerce_product_save($product) {
   return entity_get_controller('commerce_product')->save($product);
@@ -483,60 +519,37 @@ function commerce_product_load_multiple($product_ids = array(), $conditions = ar
  *   A fully loaded product object.
  * @param $view_mode
  *   The view mode for displaying the product, 'full', 'node_full',
- *     'node_teaser', or 'node_rss'.
+ *     'node_teaser', 'node_rss'...
  *
  * @return
  *   An array as expected by drupal_render().
+ *
+ * @deprecated since 7.x-1.0-rc1
  */
-function commerce_product_build_content($product, $view_mode = 'full', $breadcrumb = TRUE) {
-  // Remove previously built content, if it exists.
-  $product->content = array();
+function commerce_product_build_content($product, $view_mode = 'full') {
+  return entity_get_controller('commerce_product')->view(array($product->product_id => $product), $view_mode);
+}
 
-  // Prepare a reusable array representing the CSS file to attach to the view.
-  $attached = array(
-    'css' => array(drupal_get_path('module', 'commerce_product_ui') . '/theme/commerce_product.css'),
-  );
-
-  // Add the default fields inherent to the product entity.
-  $product->content['sku'] = array(
-    '#markup' => theme('commerce_product_sku', array('sku' => check_plain($product->sku), 'label' => t('SKU:'), 'product' => $product)),
-    '#attached' => $attached,
-  );
-
-  // Only display the title and status on the full page view.
-  if ($view_mode == 'full') {
-    $product->content['title'] = array(
-      '#markup' => theme('commerce_product_title', array('title' => check_plain($product->title), 'label' => t('Title:'), 'product' => $product)),
-      '#attached' => $attached,
-    );
-
-    $product->content['status'] = array(
-      '#markup' => theme('commerce_product_status', array('status' => $product->status ? t('Active') : t('Disabled'), 'label' => t('Status:'), 'product' => $product)),
-      '#attached' => $attached,
-    );
+/**
+ * Determines whether or not the give product can be deleted.
+ *
+ * @param $product
+ *   The product to be checked for deletion.
+ *
+ * @return
+ *   Boolean indicating whether or not the product can be deleted.
+ */
+function commerce_product_can_delete($product) {
+  // Return FALSE if the given product does not have an ID; it need not be
+  // deleted, which is functionally equivalent to cannot be deleted as far as
+  // code depending on this function is concerned.
+  if (empty($product->product_id)) {
+    return FALSE;
   }
 
-  // Build fields content.
-  field_attach_prepare_view('commerce_product', array($product->product_id => $product), $view_mode);
-  entity_prepare_view('commerce_product', array($product->product_id => $product));
-  $product->content += field_attach_view('commerce_product', $product, $view_mode);
-
-  // Allow modules to make their own additions to the product content.
-  module_invoke_all('commerce_product_view', $product, $view_mode);
-
-  // Remove the content array from the product to avoid duplicate rendering.
-  $build = $product->content;
-  unset($product->content);
-
-  $build += array(
-    '#product' => $product,
-    '#view_mode' => $view_mode,
-  );
-
-  // Allow modules to modify the final build array.
-  drupal_alter('commerce_product_view', $build);
-
-  return $build;
+  // If any module implementing hook_commerce_product_can_delete() returns FALSE
+  // the product cannot be deleted. Return TRUE if none return FALSE.
+  return !in_array(FALSE, module_invoke_all('commerce_product_can_delete', $product));
 }
 
 /**
@@ -578,33 +591,14 @@ function commerce_product_delete_multiple($product_ids) {
  *   The user to check for. Leave it to NULL to check for the current user.
  */
 function commerce_product_access($op, $product = NULL, $account = NULL) {
-  global $user;
-  $account = isset($account) ? $account : $user;
+  return commerce_entity_access($op, $product, $account, 'commerce_product');
+}
 
-  if (user_access('administer products', $account)) {
-    return TRUE;
-  }
-
-  if ($op == 'view' && user_access('access products', $account)) {
-    return TRUE;
-  }
-
-  if (isset($product) && is_string($product) && $op == 'create' && user_access('create ' . $product . ' products', $account)) {
-    return TRUE;
-  }
-
-  if (isset($product) && ($op == 'update' || $op == 'delete')) {
-    if (user_access('edit any ' . $product->type . ' product', $account)) {
-      return TRUE;
-    }
-
-    // Others either don't have any access or must match the product uid.
-    if ($account->uid && user_access('edit own ' . $product->type . ' products', $account) && $product->uid == $account->uid) {
-      return TRUE;
-    }
-  }
-
-  return FALSE;
+/**
+ * Implementation of hook_query_commerce_product_access_alter().
+ */
+function commerce_product_query_commerce_product_access_alter(QueryAlterableInterface $query) {
+  return commerce_entity_access_query_alter($query, 'commerce_product');
 }
 
 /**
@@ -671,6 +665,24 @@ function commerce_product_validate_sku_unique($sku, $product_id) {
     if (empty($product_id) || $match_id != $product_id) {
       return FALSE;
     }
+  }
+
+  return TRUE;
+}
+
+/**
+ * Checks to ensure a given SKU does not contain invalid characters.
+ *
+ * @param $sku
+ *   The string to validate as a SKU.
+ *
+ * @return
+ *   TRUE or FALSE indicating whether or not the SKU is valid.
+ */
+function commerce_product_validate_sku($sku) {
+  // Do not allow commas in a SKU.
+  if (strpos($sku, ',')) {
+    return FALSE;
   }
 
   return TRUE;
@@ -757,6 +769,9 @@ function commerce_product_autocomplete($entity_type, $field_name, $bundle, $stri
  *   not given).
  * @param $limit
  *   If non-zero, limit the size of the result set.
+ * @param $access_tag
+ *   Boolean indicating whether or not an access control tag should be added to
+ *   the query to find matching product data. Defaults to FALSE.
  *
  * @return
  *   An array of valid products in the form:
@@ -769,7 +784,7 @@ function commerce_product_autocomplete($entity_type, $field_name, $bundle, $stri
  *     ...
  *   )
  */
-function commerce_product_match_products($field, $instance = NULL, $string = '', $match = 'contains', $ids = array(), $limit = NULL) {
+function commerce_product_match_products($field, $instance = NULL, $string = '', $match = 'contains', $ids = array(), $limit = NULL, $access_tag = FALSE) {
   $results = &drupal_static(__FUNCTION__, array());
 
   // Create unique id for static cache.
@@ -781,7 +796,7 @@ function commerce_product_match_products($field, $instance = NULL, $string = '',
   ));
 
   if (!isset($results[$cid])) {
-    $matches = _commerce_product_match_products_standard($instance, $string, $match, $ids, $limit);
+    $matches = _commerce_product_match_products_standard($instance, $string, $match, $ids, $limit, $access_tag);
 
     // Store the results.
     $results[$cid] = !empty($matches) ? $matches : array();
@@ -795,9 +810,15 @@ function commerce_product_match_products($field, $instance = NULL, $string = '',
  *
  * Returns an array of products matching the specific parameters.
  */
-function _commerce_product_match_products_standard($instance, $string = '', $match = 'contains', $ids = array(), $limit = NULL) {
+function _commerce_product_match_products_standard($instance, $string = '', $match = 'contains', $ids = array(), $limit = NULL, $access_tag = FALSE) {
   // Build the query object with the necessary fields.
   $query = db_select('commerce_product', 'cp');
+
+  // Add the access control tag if specified.
+  if ($access_tag) {
+    $query->addTag('commerce_product_access');
+  }
+
   $product_id_alias = $query->addField('cp', 'product_id');
   $product_sku_alias = $query->addField('cp', 'sku');
   $product_title_alias = $query->addField('cp', 'title');
@@ -897,4 +918,18 @@ function commerce_product_entity_translation_tab_access($product) {
  */
 function commerce_product_entity_translation_supported_type($type) {
   return variable_get('language_product_type_' . $type, 0) == ENTITY_TRANSLATION_ENABLED;
+}
+
+/**
+ * Sanitizes the product SKU before output.
+ */
+function template_preprocess_commerce_product_sku(&$variables) {
+  $variables['sku'] = check_plain($variables['sku']);
+}
+
+/**
+ * Sanitizes the product title before output.
+ */
+function template_preprocess_commerce_product_title(&$variables) {
+  $variables['title'] = check_plain($variables['title']);
 }

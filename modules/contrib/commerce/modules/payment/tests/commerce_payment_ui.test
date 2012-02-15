@@ -83,7 +83,7 @@ class CommercePaymentUITest extends CommerceBaseTestCase {
       'customer_profile_billing[commerce_customer_address][und][0][administrative_area]' => $address_info['administrative_area'],
       'customer_profile_billing[commerce_customer_address][und][0][postal_code]' => $address_info['postal_code'],
     );
-    $this->drupalPost(NULL, $info, t('Continue'));
+    $this->drupalPost(NULL, $info, t('Continue to next step'));
 
     // Check for default panes and information in this checkout phase.
     $this->assertTitle(t('Review order') . ' | Drupal', t('Review order page successfully loaded'));
@@ -98,7 +98,7 @@ class CommercePaymentUITest extends CommerceBaseTestCase {
     $this->assertText('Example payment', t('Example payment method pane is present'));
 
     // Test validation messages not filling any information.
-    $this->drupalPost(NULL, array(), t('Continue'));
+    $this->drupalPost(NULL, array(), t('Continue to next step'));
 
     // Get all panes from the system to get their forms.
     $panes = commerce_checkout_panes();
@@ -114,12 +114,12 @@ class CommercePaymentUITest extends CommerceBaseTestCase {
 
     // Test payment information validation. Payment example module name field
     // will fail for single character value.
-    $this->drupalPost(NULL, array('commerce_payment[payment_details][name]' => $this->randomName(1)), t('Continue'));
+    $this->drupalPost(NULL, array('commerce_payment[payment_details][name]' => $this->randomName(1)), t('Continue to next step'));
     $this->assertTitle(t('Review order') . ' | Drupal', t('We should still be on review order page'));
     $this->assertText(t('You must enter a name two or more characters long.'), t('Validation error message found on the page'));
 
     // Finish checkout process.
-    $this->drupalPost(NULL, array('commerce_payment[payment_details][name]' => $this->randomName()), t('Continue'));
+    $this->drupalPost(NULL, array('commerce_payment[payment_details][name]' => $this->randomName()), t('Continue to next step'));
 
     // Load payment to check its status.
     $payment = commerce_payment_transaction_load_multiple(array(), array('order_id' => $this->order->order_id), TRUE);
@@ -156,40 +156,43 @@ class CommercePaymentUITest extends CommerceBaseTestCase {
     $this->assertFieldByXPath("//select[starts-with(@id, 'edit-currency-code')]", NULL, t('Currency code field is present'));
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-payment-details-name')]", NULL, t('Name text field from payment example module is present'));
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-submit')]", NULL, t('Save button is present'));
+    $payment_amount = intval($balance['amount'] / 2);
     $post_data = array(
-      'amount' => ($balance['amount'] / 2),
+      'amount' => (commerce_currency_amount_to_decimal($payment_amount, $balance['currency_code'])),
       'currency_code' => 'USD',
       'payment_details[name]' => $this->randomName(),
     );
     $this->drupalPost(NULL, $post_data, t('Save'));
 
     // Reload the order.
-    $order = reset(commerce_order_load_multiple(array($this->order->order_id), array(), TRUE));
+    $order = commerce_order_load_multiple(array($this->order->order_id), array(), TRUE);
+    // Reset the cache as we don't want to keep the lock.
+    entity_get_controller('commerce_order')->resetCache();
 
     // Check order balance, it should be half of total now.
-    $new_balance = commerce_payment_order_balance($order);
-    $this->assertEqual($new_balance['amount'], ($balance['amount'] - $post_data['amount']), t('Order balance is now half order amount'));
-    $this->assertRaw('<td class="label">' . t('Total paid') . '</td><td class="total">' . commerce_currency_format($post_data['amount'], $post_data['currency_code']) . '</td>', t('Total paid now reflects the new payment'));
+    $new_balance = commerce_payment_order_balance(reset($order));
+    $this->assertEqual($new_balance['amount'], $balance['amount'] - $payment_amount, t('After half payment order balance is correct'));
+    $this->assertRaw('<td class="label">' . t('Total paid') . '</td><td class="total">' . commerce_currency_format($payment_amount, $post_data['currency_code']) . '</td>', t('Total paid reflects the payment'));
     $this->assertRaw('<td class="label">' . t('Order balance') . '</td><td class="balance">' . commerce_currency_format($new_balance['amount'], $new_balance['currency_code']) . '</td>', t('Order balance is displayed correctly'));
 
-    // Add a payment for another half.
+    // Add a payment for the remainder.
     $this->drupalPostAJAX(NULL, array('payment_method' => 'commerce_payment_example|commerce_payment_commerce_payment_example'), array('op' => t('Add payment')));
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-amount')]", NULL, t('Amount field is present'));
     $this->assertFieldByXPath("//select[starts-with(@id, 'edit-currency-code')]", NULL, t('Currency code field is present'));
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-payment-details-name')]", NULL, t('Name text field from payment example module is present'));
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-submit')]", NULL, t('Save button is present'));
     $post_data = array(
-      'amount' => $new_balance['amount'],
+      'amount' => commerce_currency_amount_to_decimal($new_balance['amount'], $new_balance['currency_code']),
       'currency_code' => 'USD',
       'payment_details[name]' => $this->randomName(),
     );
     $this->drupalPost(NULL, $post_data, t('Save'));
 
     // Reload the order.
-    $order = reset(commerce_order_load_multiple(array($this->order->order_id), array(), TRUE));
+    $order = commerce_order_load_multiple(array($this->order->order_id), array(), TRUE);
 
-    // Check order balance, it should be half of total now.
-    $new_balance = commerce_payment_order_balance($order);
+    // Check order balance, it should be zero now.
+    $new_balance = commerce_payment_order_balance(reset($order));
     $this->assertEqual($new_balance['amount'], 0, t('Order balance is now zero'));
     $this->assertRaw('<td class="label">' . t('Total paid') . '</td><td class="total">' . commerce_currency_format($balance['amount'], $balance['currency_code']) . '</td>', t('Total paid is now equal to order total'));
     $this->assertRaw('<td class="label">' . t('Order balance') . '</td><td class="balance">' . commerce_currency_format(0, $new_balance['currency_code']) . '</td>', t('Balance is displayed as zero'));
@@ -217,7 +220,7 @@ class CommercePaymentUITest extends CommerceBaseTestCase {
     // Create new data comparison condition for amount > $50.
     $this->drupalPost(NULL, array('element_name' => 'data_is'), t('Continue'));
     $this->assertText(t('Compare two data values of the same type with each other.'), t('Second step page for adding a condition was successfully loaded'));
-    $this->drupalPost(NULL, array('parameter[data][settings][data:select]' => 'order:commerce-order-total:amount'), t('Continue'));
+    $this->drupalPost(NULL, array('parameter[data][settings][data:select]' => 'commerce-order:commerce-order-total:amount'), t('Continue'));
     $this->assertText(t('The data to be compared, specified by using a data selector, e.g. "node:author:name".'), t('Third step page for adding a condition was successfully loaded'));
     $this->drupalPost(NULL, array('parameter[op][settings][op]' => '>', 'parameter[value][settings][value]' => 50), t('Save'));
     $this->assertText(t('Your changes have been saved.'), t('New condition was successfully added'));
@@ -225,25 +228,18 @@ class CommercePaymentUITest extends CommerceBaseTestCase {
     // Adding a new action to enable the payment method if conditions are met.
     $this->clickLink(t('Add action'));
     $this->drupalPost(NULL, array('element_name' => 'commerce_payment_enable_commerce_payment_example'), t('Continue'));
-    $this->drupalPost(NULL, array('parameter[commerce_order][settings][commerce_order:select]' => 'order'), t('Save'));
+    $this->drupalPost(NULL, array('parameter[commerce_order][settings][commerce_order:select]' => 'commerce-order'), t('Save'));
     $this->assertText(t('Your changes have been saved.'), t('New action was successfully added'));
 
-    // Create a less than $50 order.
-    $products = array(
-       // We set price here to 1 cent, since createDummyProduct sets line item
-       // quantity ramdomly up to 100. So we need to ensure the order total will
-       // not be more than $50.
-       $this->createDummyProduct($this->randomName(), $this->randomName(), .01, 'USD', $this->store_admin->uid),
-    );
-    $this->createOrderAndGoToPayment($this->store_customer, $products);
+    // Create a less than $50 order (20 products $2 each).
+    $product = $this->createDummyProduct($this->randomName(), $this->randomName(), 2, 'USD', $this->store_admin->uid);
+    $this->createOrderAndGoToPayment($this->store_customer, array($product->product_id => 20));
     // Check that the payment method example is *not* there.
     $this->assertNoText('Example payment', t('Example payment method panel is not present'));
 
-    // Create a more than $50 order.
-    $products = array(
-       $this->createDummyProduct($this->randomName(), $this->randomName(), 60, 'USD', $this->store_admin->uid),
-    );
-    $this->createOrderAndGoToPayment($this->store_customer, $products);
+    // Create a more than $50 order (40 products $2 each).
+    $product = $this->createDummyProduct($this->randomName(), $this->randomName(), 2, 'USD', $this->store_admin->uid);
+    $this->createOrderAndGoToPayment($this->store_customer, array($product->product_id => 40));
     // Check that the payment method example is there.
     $this->assertText('Example payment', t('Example payment method panel is present'));
   }
@@ -341,14 +337,13 @@ class CommercePaymentOffsiteTest extends CommerceBaseTestCase {
     $this->drupalGet($this->getCommerceUrl('checkout'));
 
     // Process the order and check if the offsite payment is working.
-    $this->drupalPost(NULL, array(), t('Continue'));
+    $this->drupalPost(NULL, array(), t('Continue to next step'));
     $this->assertText(t('Dummy Payment Method Offsite'), t('Offsite example payment method is listed in the checkout process form'));
     $this->drupalPostAJAX(NULL, array('commerce_payment[payment_method]' => 'commerce_payment_dummy_offsite|commerce_payment_commerce_payment_dummy_offsite'), 'commerce_payment[payment_method]');
-    $this->drupalPost(NULL, array(), t('Continue'));
+    $this->drupalPost(NULL, array(), t('Continue to next step'));
 
     $this->assertFieldById('edit-submit', t('Redirect to Offsite platform'), t('Redirection button to offsite payment platform is present'));
     // We can't really test further than this.
   }
 
 }
-

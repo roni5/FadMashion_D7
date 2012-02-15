@@ -21,6 +21,9 @@ function commerce_price_hook_info() {
     'commerce_price_component_type_info_alter' => array(
       'group' => 'commerce',
     ),
+    'commerce_price_field_formatter_prepare_view' => array(
+      'group' => 'commerce',
+    ),
     'commerce_price_formatted_components_alter' => array(
       'group' => 'commerce',
     ),
@@ -67,7 +70,7 @@ function commerce_price_field_validate($entity_type, $entity, $field, $instance,
     if (!empty($item['amount']) && !is_numeric($item['amount'])) {
       $errors[$field['field_name']][$langcode][$delta][] = array(
         'error' => 'price_numeric',
-        'message' => t('%name: you must enter a numeric value for the price.', array('%name' => check_plain($instance['label']))),
+        'message' => t('%name: you must enter a numeric value for the price.', array('%name' => $instance['label'])),
       );
     }
   }
@@ -95,7 +98,7 @@ function commerce_price_field_load($entity_type, $entities, $field, $instances, 
  * Implements hook_field_presave().
  */
 function commerce_price_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  // Convert amounts to integers and serialize data arrays before saving.
+  // Serialize data arrays before saving.
   foreach ($items as $delta => $item) {
     // Serialize an existing data array.
     if (isset($item['data']) && is_array($item['data'])) {
@@ -138,10 +141,13 @@ function _commerce_price_field_attach_unserialize_data($entity_type, $entity) {
 
         // For each item in the array, unserialize or initialize its data array.
         foreach ($items as $delta => $item) {
+          // If we have a non-array $item['data'], unserialize it.
           if (!empty($item['data']) && !is_array($item['data'])) {
             $entity->{$field_name}[$langcode][$delta]['data'] = unserialize($item['data']);
           }
-          elseif (!is_array($item['data'])) {
+          // If we have no data element (or an existing empty), create an empty
+          // array.
+          elseif (empty($item['data'])) {
             $entity->{$field_name}[$langcode][$delta]['data'] = array('components' => array());
           }
         }
@@ -175,7 +181,7 @@ function commerce_price_field_attach_update($entity_type, $entity) {
 }
 
 /**
- * Implementation of hook_field_is_empty().
+ * Implements of hook_field_is_empty().
  */
 function commerce_price_field_is_empty($item, $field) {
   return !isset($item['amount']) || (string) $item['amount'] == '';
@@ -249,8 +255,11 @@ function commerce_price_create_instance($field_name, $entity_type, $bundle, $lab
 
     $entity_info = entity_get_info($entity_type);
 
-    // Spoof the default view mode so its display type is set.
-    $entity_info['view modes']['default'] = array();
+    // Spoof the default view mode and node teaser so its display type is set.
+    $entity_info['view modes'] += array(
+      'default' => array(),
+      'node_teaser' => array(),
+    );
 
     foreach ($entity_info['view modes'] as $view_mode => $data) {
       $instance['display'][$view_mode] = $display + array(
@@ -384,6 +393,13 @@ function commerce_price_field_formatter_view($entity_type, $entity, $field, $ins
 
   // Loop through each price value in this field.
   foreach ($items as $delta => $item) {
+    // Do not render a price if the amount is NULL (i.e. non-zero empty value).
+    if (is_null($item['amount'])) {
+      // TODO: Consider if we should render as N/A or something indicating a
+      // price was not available as opposed to just leaving a blank.
+      continue;
+    }
+
     // Theme the display of the price based on the display type.
     switch ($display['type']) {
       case 'commerce_price_raw_amount':
@@ -408,7 +424,7 @@ function commerce_price_field_formatter_view($entity_type, $entity, $field, $ins
 
           if (empty($components[$component['name']])) {
             $components[$component['name']] = array(
-              'title' => $component_type['display_title'],
+              'title' => check_plain($component_type['display_title']),
               'price' => commerce_price_component_total($item, $component['name']),
               'weight' => $component_type['weight'],
             );
@@ -463,7 +479,7 @@ function commerce_price_field_formatter_view($entity_type, $entity, $field, $ins
  */
 function theme_commerce_price_formatted_components($variables) {
   // Add the CSS styling to the table.
-  drupal_add_css(drupal_get_path('module', 'commerce_price') . '/theme/commerce_price.css');
+  drupal_add_css(drupal_get_path('module', 'commerce_price') . '/theme/commerce_price.theme.css');
 
   // Build table rows out of the components.
   $rows = array();
@@ -568,7 +584,7 @@ function commerce_price_field_widget_form(&$form, &$form_state, $field, $instanc
   // Load the default currency for this instance.
   $default_currency = commerce_currency_load($default_currency_code);
 
-  $element['#attached']['css'][] = drupal_get_path('module', 'commerce_price') . '/theme/commerce_price.css';
+  $element['#attached']['css'][] = drupal_get_path('module', 'commerce_price') . '/theme/commerce_price.theme.css';
 
   // Build the form based on the type of price widget.
   switch ($instance['widget']['type']) {
@@ -578,9 +594,16 @@ function commerce_price_field_widget_form(&$form, &$form_state, $field, $instanc
         '#type' => 'textfield',
         '#title' => $element['#title'],
         '#default_value' => $default_amount,
+        '#required' => $instance['required'] && ($delta == 0 || $field['cardinality'] > 0),
         '#size' => 10,
         '#field_suffix' => $default_currency['code'],
       );
+
+      // Add the help text if specified.
+      if (!empty($element['#description'])) {
+        $element['amount']['#field_suffix'] .= '<div class="description">' . $element['#description'] . '</div>';
+      }
+
       $element['currency_code'] = array(
         '#type' => 'value',
         '#default_value' => $default_currency['code'],
@@ -593,6 +616,7 @@ function commerce_price_field_widget_form(&$form, &$form_state, $field, $instanc
         '#type' => 'textfield',
         '#title' => $element['#title'],
         '#default_value' => $default_amount,
+        '#required' => $instance['required'] && ($delta == 0 || $field['cardinality'] > 0),
         '#size' => 10,
       );
 
@@ -620,6 +644,11 @@ function commerce_price_field_widget_form(&$form, &$form_state, $field, $instanc
 
         $element['amount']['#field_suffix'] = $currency_code;
 
+        // Add the help text if specified.
+        if (!empty($element['#description'])) {
+          $element['amount']['#field_suffix'] .= '<div class="description">' . $element['#description'] . '</div>';
+        }
+
         $element['currency_code'] = array(
           '#type' => 'value',
           '#default_value' => $currency_code,
@@ -635,6 +664,11 @@ function commerce_price_field_widget_form(&$form, &$form_state, $field, $instanc
           '#default_value' => isset($items[$delta]['currency_code']) ? $items[$delta]['currency_code'] : $default_currency['code'],
           '#suffix' => '</div>',
         );
+
+        // Add the help text if specified.
+        if (!empty($element['#description'])) {
+          $element['currency_code']['#suffix'] .= '<div class="description">' . $element['#description'] . '</div>';
+        }
       }
       break;
   }
@@ -650,12 +684,19 @@ function commerce_price_field_widget_form(&$form, &$form_state, $field, $instanc
 }
 
 /**
- * Implements hook_field_widget_validate().
+ * Validate callback: ensures the amount value is numeric and converts it from a
+ * decimal value to an integer price amount.
  */
 function commerce_price_field_widget_validate($element, &$form_state) {
   if ($element['amount']['#value'] !== '') {
-    // Convert the decimal amount value entered to an integer based amount value.
-    form_set_value($element['amount'], commerce_currency_decimal_to_amount($element['amount']['#value'], $element['currency_code']['#value']), $form_state);
+    // Ensure the price is numeric.
+    if (!is_numeric($element['amount']['#value'])) {
+      form_error($element['amount'], t('%title: you must enter a numeric value for the price amount.', array('%title' => $element['amount']['#title'])));
+    }
+    else {
+      // Convert the decimal amount value entered to an integer based amount value.
+      form_set_value($element['amount'], commerce_currency_decimal_to_amount($element['amount']['#value'], $element['currency_code']['#value']), $form_state);
+    }
   }
 }
 
@@ -723,6 +764,34 @@ function commerce_price_field_data_property_info($name = NULL) {
 }
 
 /**
+ * Returns the data array of a single value price field from a wrapped entity,
+ * using an optional default value if the entity does not have data in the field.
+ *
+ * @param $wrapper
+ *   An EntityMetadataWrapper for the entity whose price should be retrieved.
+ * @param $field_name
+ *   The name of the field to retrieve data from in the wrapper.
+ * @param $default
+ *   Boolean indicating whether or not to return a default price array if the
+ *   entity does not have data in the specified price field.
+ *
+ * @return
+ *   The data array of the specified price field.
+ */
+function commerce_price_wrapper_value($wrapper, $field_name, $default = FALSE) {
+  // Extract the price field's value array from the given entity.
+  $price = $wrapper->{$field_name}->value();
+
+  // If the value is empty and we want to return a default value for the field,
+  // use the auto creation value defined for Entity API usage.
+  if (empty($price) && $default) {
+    $price = commerce_price_field_data_auto_creation();
+  }
+
+  return $price;
+}
+
+/**
  * Implements hook_commerce_price_component_type_info().
  */
 function commerce_price_commerce_price_component_type_info() {
@@ -731,6 +800,14 @@ function commerce_price_commerce_price_component_type_info() {
       'title' => t('Base price'),
       'display_title' => t('Subtotal'),
       'weight' => -50,
+    ),
+    'discount' => array(
+      'title' => t('Discount'),
+      'weight' => -10,
+    ),
+    'fee' => array(
+      'title' => t('Fee'),
+      'weight' => -20,
     ),
   );
 }
@@ -771,7 +848,7 @@ function commerce_price_component_titles() {
 
   if (empty($titles)) {
     foreach (commerce_price_component_types() as $name => $component_type) {
-      $titles['name'] = $component_type['title'];
+      $titles[$name] = $component_type['title'];
     }
   }
 
@@ -803,14 +880,17 @@ function commerce_price_component_type_load($name) {
  *   The price array for the component as defined by the price field.
  * @param $included
  *   Boolean indicating whether or not the price component has already been
- *     included in the price the component is being added to.
+ *   included in the price the component is being added to.
+ * @param $add_base_price
+ *   Boolean indicating whether or not to add the base price component if it is
+ *   missing.
  *
  * @return
  *   The updated data array.
  */
-function commerce_price_component_add($price, $type, $component_price, $included) {
+function commerce_price_component_add($price, $type, $component_price, $included, $add_base_price = TRUE) {
   // If no price components have been added yet, add the base price first.
-  if (empty($price['data']['components']) && $type != 'base_price') {
+  if ($add_base_price && empty($price['data']['components']) && $type != 'base_price') {
     $price['data'] = commerce_price_component_add($price, 'base_price', $price, TRUE);
   }
 
@@ -890,6 +970,12 @@ function commerce_price_components_combine($price, $price2) {
 
   // Loop over the components in the second price's data array.
   foreach ($price2['data']['components'] as $key => $component) {
+    // Convert the component to the proper currency first.
+    if ($component['price']['currency_code'] != $price['currency_code']) {
+      $component['price']['amount'] = commerce_currency_convert($component['price']['amount'], $component['price']['currency_code'], $price['currency_code']);
+      $component['price']['currency_code'] = $price['currency_code'];
+    }
+
     // Look for a matching component in the base price data array.
     $matched = FALSE;
 
@@ -897,8 +983,7 @@ function commerce_price_components_combine($price, $price2) {
       // If the component type matches the component in question...
       if ($base_component['name'] == $component['name']) {
         // Add the two prices together and mark this as a match.
-        $amount = commerce_currency_convert($component['price']['amount'], $component['price']['currency_code'], $price['currency_code']);
-        $price['data']['components'][$base_key]['price']['amount'] += $amount;
+        $price['data']['components'][$base_key]['price']['amount'] += $component['price']['amount'];
 
         $matched = TRUE;
       }
@@ -952,4 +1037,14 @@ function commerce_price_component_total($price, $name = NULL) {
   }
 
   return $total;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function commerce_price_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'commerce_price') . '/includes/views',
+  );
 }

@@ -16,7 +16,9 @@ function commerce_line_item_views_data() {
     'field' => 'line_item_id',
     'title' => t('Commerce Line Item'),
     'help' => t('A line item referenced by another entity.'),
+    'access query tag' => 'commerce_line_item_access',
   );
+  $data['commerce_line_item']['table']['entity type'] = 'commerce_line_item';
 
   // Expose the line item ID.
   $data['commerce_line_item']['line_item_id'] = array(
@@ -171,6 +173,60 @@ function commerce_line_item_views_data() {
     ),
   );
 
+  $data['commerce_line_item']['created_fulldate'] = array(
+    'title' => t('Created date'),
+    'help' => t('In the form of CCYYMMDD.'),
+    'argument' => array(
+      'field' => 'created',
+      'handler' => 'views_handler_argument_node_created_fulldate',
+    ),
+  );
+
+  $data['commerce_line_item']['created_year_month'] = array(
+    'title' => t('Created year + month'),
+    'help' => t('In the form of YYYYMM.'),
+    'argument' => array(
+      'field' => 'created',
+      'handler' => 'views_handler_argument_node_created_year_month',
+    ),
+  );
+
+  $data['commerce_line_item']['created_timestamp_year'] = array(
+    'title' => t('Created year'),
+    'help' => t('In the form of YYYY.'),
+    'argument' => array(
+      'field' => 'created',
+      'handler' => 'views_handler_argument_node_created_year',
+    ),
+  );
+
+  $data['commerce_line_item']['created_month'] = array(
+    'title' => t('Created month'),
+    'help' => t('In the form of MM (01 - 12).'),
+    'argument' => array(
+      'field' => 'created',
+      'handler' => 'views_handler_argument_node_created_month',
+    ),
+  );
+
+  $data['commerce_line_item']['created_day'] = array(
+    'title' => t('Created day'),
+    'help' => t('In the form of DD (01 - 31).'),
+    'argument' => array(
+      'field' => 'created',
+      'handler' => 'views_handler_argument_node_created_day',
+    ),
+  );
+
+  $data['commerce_line_item']['created_week'] = array(
+    'title' => t('Created week'),
+    'help' => t('In the form of WW (01 - 53).'),
+    'argument' => array(
+      'field' => 'created',
+      'handler' => 'views_handler_argument_node_created_week',
+    ),
+  );
+
   $data['commerce_line_item']['changed'] = array(
     'title' => t('Updated date'),
     'help' => t('The date the line item was last updated.'),
@@ -186,6 +242,60 @@ function commerce_line_item_views_data() {
     ),
   );
 
+  $data['commerce_line_item']['changed_fulldate'] = array(
+    'title' => t('Updated date'),
+    'help' => t('In the form of CCYYMMDD.'),
+    'argument' => array(
+      'field' => 'changed',
+      'handler' => 'views_handler_argument_node_created_fulldate',
+    ),
+  );
+
+  $data['commerce_line_item']['changed_year_month'] = array(
+    'title' => t('Updated year + month'),
+    'help' => t('In the form of YYYYMM.'),
+    'argument' => array(
+      'field' => 'changed',
+      'handler' => 'views_handler_argument_node_created_year_month',
+    ),
+  );
+
+  $data['commerce_line_item']['changed_timestamp_year'] = array(
+    'title' => t('Updated year'),
+    'help' => t('In the form of YYYY.'),
+    'argument' => array(
+      'field' => 'changed',
+      'handler' => 'views_handler_argument_node_created_year',
+    ),
+  );
+
+  $data['commerce_line_item']['changed_month'] = array(
+    'title' => t('Updated month'),
+    'help' => t('In the form of MM (01 - 12).'),
+    'argument' => array(
+      'field' => 'changed',
+      'handler' => 'views_handler_argument_node_created_month',
+    ),
+  );
+
+  $data['commerce_line_item']['changed_day'] = array(
+    'title' => t('Updated day'),
+    'help' => t('In the form of DD (01 - 31).'),
+    'argument' => array(
+      'field' => 'changed',
+      'handler' => 'views_handler_argument_node_created_day',
+    ),
+  );
+
+  $data['commerce_line_item']['changed_week'] = array(
+    'title' => t('Updated week'),
+    'help' => t('In the form of WW (01 - 53).'),
+    'argument' => array(
+      'field' => 'changed',
+      'handler' => 'views_handler_argument_node_created_week',
+    ),
+  );
+
   // Define a handler for an area used to summarize a set of line items.
   $data['commerce_line_item']['line_item_summary'] = array(
     'title' => t('Line item summary'),
@@ -195,39 +305,5 @@ function commerce_line_item_views_data() {
     ),
   );
 
-  // Define an area handler for displaying line item action buttons.
-  $data['commerce_line_item']['line_item_actions'] = array(
-    'title' => t('Line item actions'),
-    'help' => t('Display buttons to act on line items.'),
-    'area' => array(
-      'handler' => 'commerce_line_item_handler_area_line_item_actions',
-    ),
-  );
-
   return $data;
-}
-
-/**
- * Implements hook_views_post_render().
- */
-function commerce_line_item_views_post_render(&$view, &$output, &$cache) {
-  if ($view->base_table == 'commerce_order') {
-    // Check the fields on the View to see if any adding to an edit form by
-    // extending the field edit handler.
-    $has_form_fields = FALSE;
-
-    foreach ($view->field as $field_name => $field) {
-      if(is_a($field, 'commerce_line_item_handler_field_edit')) {
-        $has_form_fields = TRUE;
-      }
-    }
-
-    // If we did find form fields in the View, format the output of the View as
-    // a form using the line item Views form.
-    if ($has_form_fields) {
-      module_load_include('inc', 'commerce_line_item', 'includes/commerce_line_item.forms');
-      $form = drupal_get_form(commerce_line_item_views_form_id($view), $view, $output);
-      $output = drupal_render($form);
-    }
-  }
 }

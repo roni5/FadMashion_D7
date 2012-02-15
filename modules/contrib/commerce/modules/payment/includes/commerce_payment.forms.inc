@@ -188,7 +188,7 @@ function commerce_payment_order_transaction_add_form_payment_terminal_validate($
 function commerce_payment_order_transaction_add_form_validate($form, &$form_state) {
   // If the button used to submit was not the "Add payment" button, give the
   // payment method a chance to validate the input.
-  if ($form_state['values']['op'] != t('Add payment')) {
+  if (end($form_state['triggering_element']['#array_parents']) != 'add_payment') {
     $payment_method = $form_state['payment_method'];
     $order = $form_state['order'];
 
@@ -204,7 +204,7 @@ function commerce_payment_order_transaction_add_form_validate($form, &$form_stat
  */
 function commerce_payment_order_transaction_add_form_submit($form, &$form_state) {
   // If the "Add payment" button was clicked...
-  if ($form_state['values']['op'] == t('Add payment')) {
+  if (end($form_state['triggering_element']['#array_parents']) == 'add_payment') {
     // Store the payment method in the form state and rebuild the form.
     $form_state['payment_method'] = commerce_payment_method_instance_load($form_state['values']['payment_method']);
     $form_state['rebuild'] = TRUE;
@@ -220,10 +220,18 @@ function commerce_payment_order_transaction_add_form_submit($form, &$form_state)
         'currency_code' => $form_state['values']['currency_code'],
       );
 
-      $callback($payment_method, $form['payment_terminal']['payment_details'], $form_state['values']['payment_details'], $order, $charge);
-    }
+      $details_form = !empty($form['payment_terminal']['payment_details']) ? $form['payment_terminal']['payment_details'] : array();
+      $details_values = !empty($form_state['values']['payment_details']) ? $form_state['values']['payment_details'] : array();
 
-    drupal_set_message(t('Payment transaction created.'));
+      $result = $callback($payment_method, $details_form, $details_values, $order, $charge);
+
+      if ($result === FALSE) {
+        $form_state['rebuild'] = TRUE;
+      }
+      else {
+        drupal_set_message(t('Payment transaction created.'));
+      }
+    }
   }
 }
 

@@ -136,15 +136,16 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
       'administer checkout',
       'access checkout',
       'configure store',
-      'administer customer profiles',
+      'administer commerce_customer_profile entities',
       'administer customer profile types',
       'administer line items',
       'administer line item types',
-      'administer orders',
-      'access orders',
-      'create orders',
-      'edit any order',
-      'administer products',
+      'administer commerce_order entities',
+      'configure order settings',
+      'view any commerce_order entity',
+      'create commerce_order entities',
+      'edit any commerce_order entity',
+      'administer commerce_product entities',
       'administer product types',
       'administer product pricing',
       'administer payments',
@@ -154,7 +155,7 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
     $store_customer = array(
       'access content',
       'access checkout',
-      'view own orders',
+      'view own commerce_order entities',
     );
 
     $final_permissions = array();
@@ -162,13 +163,13 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
     foreach ($sets as $set) {
       switch ($set) {
         case 'site admin':
-          $final_permissions = array_merge($final_permissions, $site_admin);
+          $final_permissions = array_unique(array_merge($final_permissions, $site_admin));
           break;
         case 'store admin':
-          $final_permissions = array_merge($final_permissions, $store_admin);
+          $final_permissions = array_unique(array_merge($final_permissions, $store_admin));
           break;
         case 'store customer':
-          $final_permissions = array_merge($final_permissions, $store_customer);
+          $final_permissions = array_unique(array_merge($final_permissions, $store_customer));
           break;
       }
     }
@@ -282,7 +283,7 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
       $new_product->commerce_price[LANGUAGE_NONE][0]['amount'] = ($amount < 0) ? rand(2, 500) : $amount;
       $new_product->commerce_price[LANGUAGE_NONE][0]['currency_code'] = 'USD';
 
-      $save_result = commerce_product_save($new_product);
+      commerce_product_save($new_product);
 
       return $new_product;
     }
@@ -345,7 +346,8 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
    * @param $uid
    * 	 ID of the user that owns the order.
    * @param $products
-   *  	Array of products that are going to be added to the order.
+   *  	Array of products that are going to be added to the order: keys are
+   *    product ids, values are the quantity of products to add.
    * @param $status
    * 	 Status of the order
    *
@@ -356,12 +358,15 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
     // If there aren't any products to add to the order, create one.
     if (empty($products)) {
       $product = $this->createDummyProduct('PROD-01', 'Product One', -1, 'USD', $uid);
-      $products[] = $product;
+      $products[$product->product_id] = rand(1,10);
     }
 
     // Create a new shopping cart order by adding the products to it.
-    foreach($products as $product) {
-      commerce_cart_product_add($uid, $product->product_id, rand(1,10));
+    foreach($products as $product_id => $quantity) {
+      if ($product = commerce_product_load($product_id)) {
+        $line_item = commerce_product_line_item_new($product, $quantity);
+        $line_item = commerce_cart_product_add($uid, $line_item);
+      }
     }
 
     // Load the order for returning it.
@@ -376,7 +381,7 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
       $order = commerce_order_status_update($order, $status, TRUE);
     }
 
-    $order = commerce_order_save($order);
+    commerce_order_save($order);
 
     return $order;
   }
@@ -601,8 +606,8 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
         $profile->{$name}[LANGUAGE_NONE][] = $values;
       }
     }
-    $profile = commerce_customer_profile_save($profile);
-    return !empty($profile) ? $profile : FALSE;
+    commerce_customer_profile_save($profile);
+    return $profile;
   }
 
   /**
@@ -649,6 +654,19 @@ abstract class CommerceBaseTestCase extends DrupalWebTestCase {
     $address_info['administrative_area'] = 'KY';
 
     return $address_info;
+  }
+
+  /**
+   * Generate a random valid email
+   *
+   * @param string $type
+   *  Domain type
+   *
+   * @return string
+   *  Valid email
+   */
+  protected function generateEmail($type = 'com'){
+    return $this->randomName() . '@' . $this->randomName() . '.' . $type;
   }
 
   /**
@@ -958,13 +976,13 @@ class CommerceBaseTesterTestCase extends CommerceBaseTestCase {
     $sku = 'PROD-01';
     $product_name = 'Product One';
     $product = $this->createDummyProduct($sku, $product_name);
-    $order = $this->createDummyOrder($normal_user->uid, array($product));
+    $order = $this->createDummyOrder($normal_user->uid, array($product->product_id => 1));
 
     // Check if the order is in cart status.
-    $this->assertTrue(commerce_cart_order_is_cart($order), t('Order is in cart status'));
+    $this->assertTrue(commerce_cart_order_is_cart($order), t('Order is in a shopping cart status'));
     $this->drupalGet('checkout');
 
-    $this->assertTitle(t('Checkout'). ' | Drupal', t('Checkout accesible for the order'));
+    $this->assertTitle(t('Checkout'). ' | Drupal', t('Checkout accessible for the order'));
     $this->assertText($product_name, t('Product is added to the order'));
   }
 
@@ -1070,5 +1088,4 @@ class CommerceBaseTesterTestCase extends CommerceBaseTestCase {
     $this->drupalGet('admin/commerce/config/taxes/rates');
     $this->assertText($tax_rate['display_title'], t('Dummy tax rate found on admin page at admin/commerce/config/taxes/rates'));
   }
-
 }

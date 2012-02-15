@@ -1,9 +1,10 @@
 name = Line Item
 description = Defines the Line Item entity and associated features.
 package = Commerce
-dependencies[] = rules
 dependencies[] = commerce
 dependencies[] = commerce_price
+dependencies[] = entity
+dependencies[] = rules
 core = 7.x
 
 ; Module includes
@@ -11,21 +12,19 @@ files[] = includes/commerce_line_item.controller.inc
 
 ; Views handlers
 files[] = includes/views/handlers/commerce_line_item_handler_area_line_item_summary.inc
-files[] = includes/views/handlers/commerce_line_item_handler_area_line_item_actions.inc
 files[] = includes/views/handlers/commerce_line_item_handler_argument_line_item_line_item_id.inc
 files[] = includes/views/handlers/commerce_line_item_handler_field_line_item_title.inc
 files[] = includes/views/handlers/commerce_line_item_handler_field_line_item_type.inc
 files[] = includes/views/handlers/commerce_line_item_handler_filter_line_item_type.inc
-files[] = includes/views/handlers/commerce_line_item_handler_field_edit.inc
 files[] = includes/views/handlers/commerce_line_item_handler_field_edit_quantity.inc
 files[] = includes/views/handlers/commerce_line_item_handler_field_edit_delete.inc
 
 ; Simple tests
 ; files[] = tests/commerce_line_item.test
 
-; Information added by drupal.org packaging script on 2011-05-20
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-01-25
+version = "7.x-1.2"
 core = "7.x"
 project = "commerce"
-datestamp = "1305850315"
+datestamp = "1327528840"
 

@@ -118,7 +118,7 @@ class CommerceCartTestCaseSimpleProduct extends CommerceCartTestCase {
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-edit-quantity')]", 1, t('Quantity field has correct number of items'));
 
     // Check if the Update cart and Checkout buttons are present.
-    $this->assertField("edit-update", t('Update cart button present'));
+    $this->assertField("edit-submit", t('Update cart button present'));
     $this->assertField("edit-checkout", t('Checkout button present'));
   }
 
@@ -132,7 +132,7 @@ class CommerceCartTestCaseSimpleProduct extends CommerceCartTestCase {
     $this->assertTrue(commerce_cart_order_is_cart($order), t('User has currently an order in cart status.'));
     // Get the products out of the order and store them in an array.
     foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
-       if ($line_item_wrapper->type->value() == 'product') {
+       if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
          $product = $line_item_wrapper->commerce_product->value();
          $products[$product->product_id]= $product;
        }
@@ -285,7 +285,7 @@ class CommerceCartTestCaseMultiProducts extends CommerceCartTestCase {
     $this->assertFieldByXPath("//input[starts-with(@id, 'edit-edit-quantity')]", 1, t('Quantity field has correct number of items'));
 
     // Check if the Update cart and Checkout buttons are present.
-    $this->assertField("edit-update", t('Update cart button present'));
+    $this->assertField("edit-submit", t('Update cart button present'));
     $this->assertField("edit-checkout", t('Checkout button present'));
   }
 
@@ -302,7 +302,7 @@ class CommerceCartTestCaseMultiProducts extends CommerceCartTestCase {
 
     // Get the products out of the order and store them in an array.
     foreach (entity_metadata_wrapper('commerce_order', $order)->commerce_line_items as $delta => $line_item_wrapper) {
-       if ($line_item_wrapper->type->value() == 'product') {
+       if (in_array($line_item_wrapper->type->value(), commerce_product_line_item_types())) {
          $product = $line_item_wrapper->commerce_product->value();
          $products_in_cart[$product->product_id]= $product;
        }
@@ -377,6 +377,10 @@ class CommerceCartTestCaseAttributes extends CommerceCartTestCase {
           'module' => 'options',
           'type' => 'options_select',
         ),
+        'commerce_cart_settings' => array(
+          'attribute_field' => TRUE,
+          'attribute_widget' => 'select',
+        ),
       );
       field_create_instance($instance);
     }
@@ -388,7 +392,7 @@ class CommerceCartTestCaseAttributes extends CommerceCartTestCase {
         $product->field_1[LANGUAGE_NONE][0]['value'] = $field_1_value;
         $product->field_2[LANGUAGE_NONE][0]['value'] = $field_2_value;
         $product->is_new = FALSE;
-        $product = commerce_product_save($product);
+        commerce_product_save($product);
         $this->products[$product->product_id] = $product;
       }
     }
@@ -506,6 +510,8 @@ class CommerceCartTestCaseAnonymousToAuthenticated extends CommerceCartTestCase 
 
     // Get the order just created.
     $order_anonymous = reset(commerce_order_load_multiple(array(), array('uid' => $user->uid, 'status' => 'cart'), TRUE));
+    // Reset the cache as we don't want to keep the lock.
+    entity_get_controller('commerce_order')->resetCache();
 
     // Access to the cart and check if the product is in it.
     $this->drupalGet($this->getCommerceUrl('cart'));
@@ -515,15 +521,17 @@ class CommerceCartTestCaseAnonymousToAuthenticated extends CommerceCartTestCase 
     // Change the price to check if the amount gets updated when the user logs
     // in.
     $new_price = $this->product->commerce_price[LANGUAGE_NONE][0]['amount'] + rand(2, 500);
-    $this->product->commerce_price[LANGUAGE_NONE][0]['amount'] = commerce_currency_amount_to_decimal($new_price, $this->product->commerce_price[LANGUAGE_NONE][0]['currency_code']);
+    $this->product->commerce_price[LANGUAGE_NONE][0]['amount'] = $new_price;
     $this->product->is_new = FALSE;
-    $this->product = commerce_product_save($this->product);
+    commerce_product_save($this->product);
 
     // Log in with normal user.
     $this->drupalPost('user', array('name' => $this->store_customer->name, 'pass' => $this->store_customer->pass_raw), t('Log in'));
 
     // Get the order for user just logged in.
     $order_authenticated = reset(commerce_order_load_multiple(array(), array('uid' => $this->store_customer->uid, 'status' => 'cart'), TRUE));
+    // Reset the cache as we don't want to keep the lock.
+    entity_get_controller('commerce_order')->resetCache();
 
     // Access to the cart and check if the product is in it.
     $this->drupalGet($this->getCommerceUrl('cart'));

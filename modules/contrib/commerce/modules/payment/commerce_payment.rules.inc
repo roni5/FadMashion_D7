@@ -12,93 +12,31 @@
  * Implements hook_rules_event_info().
  */
 function commerce_payment_rules_event_info() {
+  // So that we can use the entity_rules_events_variables() helper function.
+  module_load_include('inc', 'entity', 'entity.rules');
+
   $events = array();
 
   $events['commerce_payment_methods'] = array(
     'label' => t('Select available payment methods for an order'),
     'group' => t('Commerce Payment'),
-    'variables' => commerce_order_rules_event_variables(t('Order', array(), array('context' => 'a drupal commerce order'))),
+    'variables' => entity_rules_events_variables('commerce_order', t('Order', array(), array('context' => 'a drupal commerce order'))),
     'access callback' => 'commerce_order_rules_access',
-  );
-  $events['commerce_payment_transaction_presave'] = array(
-    'label' => t('Before saving a payment transaction'),
-    'group' => t('Commerce Payment'),
-    'variables' => commerce_payment_rules_event_variables(t('Payment transaction'), TRUE, TRUE),
-    'access callback' => 'commerce_payment_rules_access',
-  );
-  $events['commerce_payment_transaction_insert'] = array(
-    'label' => t('After saving a new payment transaction'),
-    'group' => t('Commerce Payment'),
-    'variables' => commerce_payment_rules_event_variables(t('Created payment transaction'), TRUE),
-    'access callback' => 'commerce_payment_rules_access',
-  );
-  $events['commerce_payment_transaction_update'] = array(
-    'label' => t('After updating an existing payment transaction'),
-    'group' => t('Commerce Payment'),
-    'variables' => commerce_payment_rules_event_variables(t('Updated payment transaction'), TRUE),
-    'access callback' => 'commerce_payment_rules_access',
-  );
-  $events['commerce_payment_transaction_delete'] = array(
-    'label' => t('After deleting a payment transaction'),
-    'group' => t('Commerce Payment'),
-    'variables' => commerce_payment_rules_event_variables(t('Deleted payment transaction')),
-    'access callback' => 'commerce_payment_rules_access',
   );
 
   $variables = array_merge(
-    commerce_order_rules_event_variables(t('Order', array(), array('context' => 'a drupal commerce order')), TRUE, TRUE),
-    commerce_payment_rules_event_variables(t('Last completed transaction'), TRUE)
+    entity_rules_events_variables('commerce_order', t('Order', array(), array('context' => 'a drupal commerce order')), TRUE, TRUE),
+    entity_rules_events_variables('commerce_payment_transaction', t('Last completed transaction'), TRUE)
   );
 
   $events['commerce_payment_order_paid_in_full'] = array(
     'label' => t('When an order is first paid in full'),
     'group' => t('Commerce Payment'),
     'variables' => $variables,
-    'access callback' => 'commerce_payment_rules_access',
+    'access callback' => 'commerce_order_rules_access',
   );
 
   return $events;
-}
-
-/**
- * Returns a variables array for payment transaction events.
- *
- * @param $label
- *   The label for the primary payment transaction variable.
- * @param $unchanged
- *   Boolean indicating whether or not to include the unchanged transaction.
- * @param $skip_save
- *   Boolean indicating whether or not the primary transaction variable should
- *     skip saving after event execution.
- */
-function commerce_payment_rules_event_variables($label, $unchanged = FALSE, $skip_save = FALSE) {
-  $variables = array(
-    'payment_transaction' => array(
-      'type' => 'commerce_payment_transaction',
-      'label' => $label,
-      'skip save' => $skip_save,
-    ),
-  );
-
-  if ($unchanged) {
-    $variables['payment_transaction_unchanged'] = array(
-      'type' => 'commerce_payment_transaction',
-      'label' => t('Unchanged payment transaction'),
-      'skip save' => TRUE,
-      'handler' => 'rules_events_entity_unchanged',
-    );
-  }
-
-  return $variables;
-}
-
-/**
- * Rules integration access callback.
- */
-function commerce_payment_rules_access($type, $name) {
-  if ($type == 'event' || $type == 'condition') {
-    return TRUE;
-  }
 }
 
 /**
@@ -110,7 +48,7 @@ function commerce_payment_rules_condition_info() {
   $conditions['commerce_payment_order_balance_comparison'] = array(
     'label' => t('Order balance comparison'),
     'parameter' => array(
-      'order' => array(
+      'commerce_order' => array(
         'type' => 'commerce_order',
         'label' => t('Order'),
         'description' => t('The order whose balance should be compared (calculated as the order total minus completed payment amounts).'),
@@ -134,6 +72,28 @@ function commerce_payment_rules_condition_info() {
     'group' => t('Commerce Payment'),
     'callbacks' => array(
       'execute' => 'commerce_payment_rules_compare_balance',
+    ),
+  );
+
+  $conditions['commerce_payment_selected_payment_method'] = array(
+    'label' => t('Selected payment method comparison'),
+    'parameter' => array(
+      'commerce_order' => array(
+        'type' => 'commerce_order',
+        'label' => t('Order'),
+        'description' => t('The order whose selected payment method (if any) should be compared against the method specified below.'),
+      ),
+      'method_id' => array(
+        'type' => 'text',
+        'label' => t('Payment method'),
+        'description' => t('This condition will perform a simple equivalency check to see if the payment method you specify matches what a customer selected on the checkout form.'),
+        'options list' => 'commerce_payment_rules_payment_method_options_list',
+        'restriction' => 'input',
+      ),
+    ),
+    'group' => t('Commerce Payment'),
+    'callbacks' => array(
+      'execute' => 'commerce_payment_rules_compare_selected_payment_method',
     ),
   );
 
@@ -170,6 +130,27 @@ function commerce_payment_rules_compare_balance($order, $operator, $value) {
 }
 
 /**
+ * Returns an options list of available payment methods including a None option.
+ */
+function commerce_payment_rules_payment_method_options_list() {
+  return array('-none-' => t('None')) + commerce_payment_method_get_title();
+}
+
+/**
+ * Condition callback: compares the selected payment method for an order.
+ */
+function commerce_payment_rules_compare_selected_payment_method($order, $method_id) {
+  if (!empty($order->data['payment_method'])) {
+    list($selected_method_id, ) = explode('|', $order->data['payment_method']);
+  }
+  else {
+    $selected_method_id = '-none-';
+  }
+
+  return $method_id == $selected_method_id;
+}
+
+/**
  * Implements hook_rules_action_info().
  */
 function commerce_payment_rules_action_info() {
@@ -180,7 +161,11 @@ function commerce_payment_rules_action_info() {
     $actions['commerce_payment_enable_' . $payment_method['method_id']] = array(
       'label' => t('Enable payment method: @method', array('@method' => $payment_method['title'])),
       'parameter' => array(
-        'commerce_order' => array('type' => 'commerce_order', 'label' => t('Order', array(), array('context' => 'a drupal commerce order'))),
+        'commerce_order' => array(
+          'type' => 'commerce_order',
+          'label' => t('Order', array(), array('context' => 'a drupal commerce order')),
+          'skip save' => TRUE,
+        ),
         'payment_method' => array(
           'type' => 'commerce_payment_settings',
           'restriction' => 'input',
@@ -270,13 +255,13 @@ class RulesDataUIPaymentSettings extends RulesDataUI implements RulesDataDirectI
 
   public static function inputForm($name, $info, $settings, RulesPlugin $element) {
     // If the specified payment method exists...
-    if ($payment_method = commerce_payment_method_load($info['payment_method'])) {
+    if (!empty($info['payment_method']) && $payment_method = commerce_payment_method_load($info['payment_method'])) {
       $form[$name]['method_id'] = array('#type' => 'value', '#value' => $info['payment_method']);
 
       // If the payment method has a settings callback...
       if ($callback = commerce_payment_method_callback($payment_method, 'settings_form')) {
         // Prepare an array of payment method settings defaults.
-        $method_settings = !empty($settings[$name]) ? $settings[$name]['settings'] : array();
+        $method_settings = !empty($settings[$name]['settings']) && is_array($settings[$name]['settings']) ? $settings[$name]['settings'] : array();
 
         // Add the settings form elements to the action form.
         $form[$name]['settings'] = $callback($method_settings);
@@ -287,7 +272,7 @@ class RulesDataUIPaymentSettings extends RulesDataUI implements RulesDataDirectI
       }
     }
     else {
-      $form[$name]['invalid']['#markup'] = t('Invalid payment method.');
+      $form[$name]['invalid']['#markup'] = t('Invalid or missing payment method.');
     }
 
     return $form;

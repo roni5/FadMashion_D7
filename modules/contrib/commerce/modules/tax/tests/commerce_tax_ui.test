@@ -39,7 +39,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
 
     // User creation for different operations.
     $this->store_admin = $this->createStoreAdmin();
-    $this->normal_user = $this->drupalCreateUser(array('access checkout', 'view own orders'));
+    $this->normal_user = $this->drupalCreateUser(array('access checkout', 'view own commerce_order entities'));
 
     // Create a dummy tax type for testing.
     $this->tax_type = $this->createDummyTaxType();
@@ -70,8 +70,8 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
       'customer_profile_billing[commerce_customer_address][und][0][administrative_area]' => 'KY',
       'customer_profile_billing[commerce_customer_address][und][0][postal_code]' => rand(00000, 99999),
     );
-    $this->drupalPost(NULL, $info, t('Continue'));
-    $this->drupalPost(NULL, array('commerce_payment[payment_details][name]' => 'Example payment method'), t('Continue'));
+    $this->drupalPost(NULL, $info, t('Continue to next step'));
+    $this->drupalPost(NULL, array('commerce_payment[payment_details][name]' => 'Example payment method'), t('Continue to next step'));
   }
 
   /**
@@ -138,9 +138,8 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
       $this->assertTrue(in_array($tax_type['display_title'], (array)$tax_select_types), t('Tax rate type %type is available for the rate', array('%type' => $tax_type['display_title'])));
     }
 
-    $this->assertFieldChecked('edit-tax-rate-rules-component', t('Define a rules component checkbox is present and checked'));
     $this->assertFieldById('edit-submit', t('Save tax rate'), t('\'Save tax rate\' button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/config/taxes'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/config/taxes'), t('Cancel link is present'));
 
     // Fill the tax rate information and save tax rate.
     $edit = array(
@@ -200,7 +199,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     $this->assertOptionSelected('edit-tax-rate-type', $tax_rate['type'], t('Type select value corresponds with tax rate'));
     $this->assertFieldById('edit-submit', t('Save tax rate'), t('\'Save tax rate\' button is present'));
     $this->assertFieldById('edit-delete', t('Delete tax rate'), t('Delete button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/config/taxes'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/config/taxes'), t('Cancel link is present'));
 
     // Modify tax rate information and save the form.
     $edit = array(
@@ -287,7 +286,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     $this->drupalLogin($this->normal_user);
 
     // Access the configure component page for tax rates.
-    $this->drupalGet('admin/config/workflow/rules/components/manage/commerce_tax_rate_' . $tax_rate['name']);
+    $this->drupalGet('admin/config/workflow/rules/components/manage/' . $tax_rate['rules_component']);
 
     // It should return a 403.
     $this->assertResponse(403, t('Normal user is not able to access the component configure page for a tax rate'));
@@ -296,7 +295,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     $this->drupalLogin($this->store_admin);
 
     // Access the configure component page for tax rates.
-    $this->drupalGet('admin/config/workflow/rules/components/manage/commerce_tax_rate_' . $tax_rate['name']);
+    $this->drupalGet('admin/config/workflow/rules/components/manage/' . $tax_rate['rules_component']);
 
     // It should return a 200.
     $this->assertResponse(200, t('Store admin user can access the component configure page for a tax rate'));
@@ -309,11 +308,11 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     // saving process is working.
     $this->drupalPost(NULL, array('element_name' => 'entity_is_of_type'), t('Continue'));
 
-    $this->drupalPost(NULL, array('parameter[entity][settings][entity:select]' => 'line-item', 'parameter[type][settings][type]' => 'commerce_line_item'), t('Save'));
+    $this->drupalPost(NULL, array('parameter[entity][settings][entity:select]' => 'commerce-line-item', 'parameter[type][settings][type]' => 'commerce_line_item'), t('Save'));
 
     // Check that after saving the url is correct and the condition has been
     // added.
-    $this->assertTrue($this->url == url('admin/config/workflow/rules/components/manage/commerce_tax_rate_' . $tax_rate['name'], array('absolute' => TRUE)), t('After adding a new condition component the landing page is the edit components one'));
+    $this->assertTrue($this->url == url('admin/config/workflow/rules/components/manage/' . $tax_rate['rules_component'], array('absolute' => TRUE)), t('After adding a new condition component the landing page is the edit components one'));
     $this->assertText(t('Entity is of type'), t('Condition was added correctly'));
   }
 
@@ -378,7 +377,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     $this->assertFieldById('edit-tax-type-description', NULL, t('Tax type description is present'));
     $this->assertFieldById('edit-tax-type-display-inclusive', NULL, t('Tax type checkbox for configure inclusive taxes is present'));
     $this->assertFieldById('edit-submit', t('Save tax type'), t('\'Save tax type\' button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/config/taxes/types'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/config/taxes/types'), t('Cancel link is present'));
 
     // Save the tax type.
     $edit = array(
@@ -436,7 +435,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     $this->assertFieldById('edit-tax-type-display-title', $this->tax_type['display_title'], t('Display title field corresponds with tax type'));
     $this->assertFieldById('edit-submit', t('Save tax type'), t('\'Save tax rate\' button is present'));
     $this->assertFieldById('edit-delete', t('Delete tax type'), t('Delete button is present'));
-    $this->assertRaw(l('Cancel', 'admin/commerce/config/taxes/types'), t('Cancel link is present'));
+    $this->assertRaw(l(t('Cancel'), 'admin/commerce/config/taxes/types'), t('Cancel link is present'));
 
     // Modify the tax type and save it.
     $edit = array(
@@ -492,7 +491,7 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     // saving process is working.
     $this->drupalPost(NULL, array('element_name' => 'entity_is_of_type'), t('Continue'));
 
-    $this->drupalPost(NULL, array('parameter[entity][settings][entity:select]' => 'line-item', 'parameter[type][settings][type]' => 'commerce_line_item'), t('Save'));
+    $this->drupalPost(NULL, array('parameter[entity][settings][entity:select]' => 'commerce-line-item', 'parameter[type][settings][type]' => 'commerce_line_item'), t('Save'));
 
     // Check that after saving the url is correct and the condition has been
     // added.
@@ -665,10 +664,10 @@ class CommerceTaxUIAdminTest extends CommerceBaseTestCase {
     $this->drupalLogin($this->store_admin);
 
     // Modify the tax rate to no match condition.
-    $this->drupalGet('admin/config/workflow/rules/components/manage/commerce_tax_rate_' . $tax_rate['name']);
+    $this->drupalGet('admin/config/workflow/rules/components/manage/' . $tax_rate['rules_component']);
     $this->clickLink(t('Add condition'));
     $this->drupalPost(NULL, array('element_name' => 'data_is'), t('Continue'));
-    $this->drupalPost(NULL, array('parameter[data][settings][data:select]' => 'line-item:commerce-total:amount'), t('Continue'));
+    $this->drupalPost(NULL, array('parameter[data][settings][data:select]' => 'commerce-line-item:commerce-total:amount'), t('Continue'));
     $this->drupalPost(NULL, array('parameter[op][settings][op]' => '<', 'parameter[value][settings][value]' => '0'), t('Save'));
 
     // Login with normal user.

@@ -19,7 +19,7 @@ function commerce_tax_rules_action_info() {
     $actions['commerce_tax_rate_apply'] = array(
       'label' => t('Apply a tax rate to a line item'),
       'parameter' => array(
-        'line_item' => array(
+        'commerce_line_item' => array(
           'type' => 'commerce_line_item',
           'label' => t('Line item'),
         ),
@@ -27,6 +27,12 @@ function commerce_tax_rules_action_info() {
           'type' => 'text',
           'label' => t('Tax rate'),
           'options list' => 'commerce_tax_rate_titles',
+        ),
+      ),
+      'provides' => array(
+        'applied_tax' => array(
+          'type' => 'commerce_price',
+          'label' => t('Applied tax'),
         ),
       ),
       'group' => t('Commerce Tax'),
@@ -40,7 +46,7 @@ function commerce_tax_rules_action_info() {
     $actions['commerce_tax_calculate_by_type'] = array(
       'label' => t('Calculate taxes for a line item'),
       'parameter' => array(
-        'line_item' => array(
+        'commerce_line_item' => array(
           'type' => 'commerce_line_item',
           'label' => t('Line item'),
         ),
@@ -62,7 +68,13 @@ function commerce_tax_rules_action_info() {
  */
 function commerce_tax_rate_rules_apply($line_item, $name) {
   if ($tax_rate = commerce_tax_rate_load($name)) {
-    commerce_tax_rate_apply($tax_rate, $line_item);
+    $tax_price = commerce_tax_rate_apply($tax_rate, $line_item);
+
+    // If tax was applied, return the price array as a new variable for use in
+    // subsequent actions.
+    if ($tax_price) {
+      return array('applied_tax' => $tax_price);
+    }
   }
 }
 

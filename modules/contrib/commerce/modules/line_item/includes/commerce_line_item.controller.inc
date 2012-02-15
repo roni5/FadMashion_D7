@@ -9,29 +9,30 @@
  * The controller class for line items contains methods for the line item CRUD
  * operations. The load method is inherited from the default controller.
  */
-class CommerceLineItemEntityController extends DrupalDefaultEntityController {
+class CommerceLineItemEntityController extends DrupalCommerceEntityController {
 
   /**
    * Create a default line item.
    *
-   * @param $type
-   *   The machine-readable type of the line item.
-   * @param $order_id
-   *   The ID of the order the line item belongs to (if available).
+   * @param array $values
+   *   An array of values to set, keyed by property name.
    *
    * @return
    *   A line item object with all default fields initialized.
    */
-  public function create($type = '', $order_id = 0) {
-    return (object) array(
+  public function create(array $values = array()) {
+    $values += array(
       'line_item_id' => '',
-      'order_id' => $order_id,
-      'type' => $type,
+      'order_id' => 0,
+      'type' => '',
       'line_item_label' => '',
       'quantity' => 1,
       'created' => '',
       'changed' => '',
+      'data' => array(),
     );
+
+    return parent::create($values);
   }
 
   /**
@@ -39,75 +40,54 @@ class CommerceLineItemEntityController extends DrupalDefaultEntityController {
    *
    * @param $line_item
    *   The full line item object to save.
+   * @param $transaction
+   *   An optional transaction object.
    *
    * @return
-   *   The saved line item object.
+   *   SAVED_NEW or SAVED_UPDATED depending on the operation performed.
    */
-  public function save($line_item) {
+  public function save($line_item, DatabaseTransaction $transaction = NULL) {
+    if (!isset($transaction)) {
+      $transaction = db_transaction();
+      $started_transaction = TRUE;
+    }
+
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
-    $transaction = db_transaction();
 
     try {
+      // Set the timestamp fields.
+      if (empty($line_item->line_item_id) && empty($line_item->created)) {
+        $line_item->created = REQUEST_TIME;
+      }
+
       $line_item->changed = REQUEST_TIME;
 
       // Update the total of the line item based on the quantity and unit price.
-      $wrapper->commerce_total->amount = $line_item->quantity * $wrapper->commerce_unit_price->amount->value();
-      $wrapper->commerce_total->currency_code = $wrapper->commerce_unit_price->currency_code->value();
+      $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
+
+      $wrapper->commerce_total->amount = $line_item->quantity * $unit_price['amount'];
+      $wrapper->commerce_total->currency_code = $unit_price['currency_code'];
 
       // Add the components multiplied by the quantity to the data array.
-      $data = $wrapper->commerce_unit_price->data->value();
-
-      if (empty($data['components'])) {
-        $data['components'] = array();
+      if (empty($unit_price['data']['components'])) {
+        $unit_price['data']['components'] = array();
       }
       else {
-        foreach ($data['components'] as $key => $component) {
-          $data['components'][$key]['price']['amount'] *= $line_item->quantity;
+        foreach ($unit_price['data']['components'] as $key => &$component) {
+          $component['price']['amount'] *= $line_item->quantity;
         }
       }
 
       // Set the updated data array to the total price.
-      $wrapper->commerce_total->data = $data;
+      $wrapper->commerce_total->data = $unit_price['data'];
 
-      // Give modules the opportunity to prepare field data for saving.
-      module_invoke_all('entity_presave', $line_item, 'commerce_line_item');
-      rules_invoke_all('commerce_line_item_presave', $line_item);
-      field_attach_presave('commerce_line_item', $line_item);
-
-      // If this is a new line item...
-      if (empty($line_item->line_item_id)) {
-        // Set the creation timestamp.
-        $line_item->created = REQUEST_TIME;
-
-        // Save the new line item and fields.
-        drupal_write_record('commerce_line_item', $line_item);
-
-        $op = 'insert';
-      }
-      else {
-        // Save the updated line item and fields.
-        drupal_write_record('commerce_line_item', $line_item, 'line_item_id');
-
-        $op = 'update';
-      }
-
-      // Save fields.
-      $function = 'field_attach_' . $op;
-      $function('commerce_line_item', $line_item);
-
-      module_invoke_all('commerce_line_item_' . $op, $line_item);
-      module_invoke_all('entity_' . $op, $line_item, 'commerce_line_item');
-      rules_invoke_event('commerce_line_item_' . $op, $line_item);
-
-      // Ignore slave server temporarily to give time for the saved line item to
-      // be propagated to the slave.
-      db_ignore_slave();
-
-      return $line_item;
+      return parent::save($line_item, $transaction);
     }
     catch (Exception $e) {
-      $transaction->rollback();
-      watchdog_exception('commerce_line_item', $e);
+      if (!empty($started_transaction)) {
+        $transaction->rollback();
+        watchdog_exception($this->entityType, $e);
+      }
       throw $e;
     }
   }
@@ -126,46 +106,43 @@ class CommerceLineItemEntityController extends DrupalDefaultEntityController {
   }
 
   /**
-   * Deletes multiple line items by ID.
+   * Delete permanently saved line items.
+   *
+   * In case of failures, an exception is thrown.
    *
    * @param $line_item_ids
    *   An array of line item IDs to delete.
-   *
-   * @return
-   *   TRUE on success, FALSE otherwise.
+   * @param $transaction
+   *   An optional transaction object to pass thru. If passed the caller is
+   *   responsible for rolling back the transaction if something goes wrong.
    */
-  public function delete($line_item_ids) {
-    if (!empty($line_item_ids)) {
-      $line_items = $this->load($line_item_ids, array());
+  public function delete($line_item_ids, DatabaseTransaction $transaction = NULL) {
+    $line_items = $line_item_ids ? $this->load($line_item_ids) : FALSE;
 
-      $transaction = db_transaction();
-
-      try {
-        db_delete('commerce_line_item')
-          ->condition('line_item_id', $line_item_ids, 'IN')
-          ->execute();
-
-        foreach ($line_items as $line_item_id => $line_item) {
-          module_invoke_all('commerce_line_item_delete', $line_item);
-          field_attach_delete('commerce_line_item', $line_item);
-          rules_invoke_event('commerce_line_item_delete', $line_item);
-        }
-
-        // Ignore slave server temporarily to give time for the
-        // saved line item to be propagated to the slave.
-        db_ignore_slave();
-      }
-      catch (Exception $e) {
-        $transaction->rollback();
-        watchdog_exception('commerce_line_item', $e);
-        throw $e;
-      }
-
-      // Clear the page and block and line_item_load_multiple caches.
-      cache_clear_all();
-      $this->resetCache();
+    if (!$line_items) {
+      // Do nothing, in case invalid or no ids have been passed.
+      return;
     }
 
-    return TRUE;
+    if (!isset($transaction)) {
+      $transaction = db_transaction();
+      $started_transaction = TRUE;
+    }
+
+    try {
+      // First attempt to delete references for the given line items.
+      foreach ($line_items as $line_item_id => $line_item) {
+        commerce_line_item_delete_references($line_item);
+      }
+
+      return parent::delete($line_item_ids, $transaction);
+    }
+    catch (Exception $e) {
+      if (!empty($started_transaction)) {
+        $transaction->rollback();
+        watchdog_exception($this->entityType, $e);
+      }
+      throw $e;
+    }
   }
 }

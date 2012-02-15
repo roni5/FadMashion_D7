@@ -25,6 +25,9 @@ define('COMMERCE_PAYMENT_STATUS_FAILURE', 'failure');
 // Used to just authorize an amount on a credit card account.
 define('COMMERCE_CREDIT_AUTH_ONLY', 'authorize');
 
+// User to just capture an amount on a credit card account.
+define('COMMERCE_CREDIT_CAPTURE_ONLY', 'capture');
+
 // Used to capture funds from a prior authorization.
 define('COMMERCE_CREDIT_PRIOR_AUTH_CAPTURE', 'prior_auth_capture');
 
@@ -55,7 +58,7 @@ define('COMMERCE_CREDIT_VOID', 'void');
 function commerce_payment_entity_info() {
   $return = array(
     'commerce_payment_transaction' => array(
-      'label' => t('Payment transaction'),
+      'label' => t('Commerce Payment transaction'),
       'controller class' => 'CommercePaymentTransactionEntityController',
       'base table' => 'commerce_payment_transaction',
       'revision table' => 'commerce_payment_transaction_revision',
@@ -78,11 +81,13 @@ function commerce_payment_entity_info() {
         ),
       ),
       'uri callback' => 'commerce_payment_transaction_uri',
-      'creation callback' => '_commerce_payment_transaction_create',
-      'save callback' => 'commerce_payment_transaction_save',
-      'deletion callback' => 'commerce_payment_transaction_delete',
       'access callback' => 'commerce_payment_transaction_access',
-      'token type' => 'payment',
+      'token type' => 'commerce-payment-transaction',
+      'metadata controller class' => '',
+      'permission labels' => array(
+        'singular' => t('payment transaction'),
+        'plural' => t('payment transactions'),
+      ),
     ),
   );
 
@@ -118,10 +123,19 @@ function commerce_payment_transaction_uri($transaction) {
  */
 function commerce_payment_hook_info() {
   $hooks = array(
+    'commerce_payment_totals_row_info' => array(
+      'group' => 'commerce',
+    ),
+    'commerce_payment_totals_row_info_alter' => array(
+      'group' => 'commerce',
+    ),
     'commerce_payment_method_info' => array(
       'group' => 'commerce',
     ),
     'commerce_payment_method_info_alter' => array(
+      'group' => 'commerce',
+    ),
+    'commerce_payment_methods' => array(
       'group' => 'commerce',
     ),
     'commerce_payment_transaction_status_info' => array(
@@ -134,12 +148,6 @@ function commerce_payment_hook_info() {
       'group' => 'commerce',
     ),
     'commerce_payment_transaction_access' => array(
-      'group' => 'commerce',
-    ),
-    'commerce_payment_totals_row_info' => array(
-      'group' => 'commerce',
-    ),
-    'commerce_payment_totals_row_info_alter' => array(
       'group' => 'commerce',
     ),
     'commerce_payment_transaction_insert' => array(
@@ -164,6 +172,11 @@ function commerce_payment_hook_info() {
  */
 function commerce_payment_permission() {
   return array(
+    'administer payment methods' => array(
+      'title' => t('Administer payment methods'),
+      'description' => t('Allows users to configure enabled payment methods.'),
+      'restrict access' => TRUE,
+    ),
     'administer payments' => array(
       'title' => t('Administer payments'),
       'description' => t('Allows users to perform any payment action for any order and view transaction payloads.'),
@@ -218,7 +231,39 @@ function commerce_payment_theme() {
  * Adds the necessary CSS for the line item summary template.
  */
 function template_preprocess_commerce_payment_totals(&$variables) {
-  drupal_add_css(drupal_get_path('module', 'commerce_payment') . '/theme/commerce_payment.css');
+  drupal_add_css(drupal_get_path('module', 'commerce_payment') . '/theme/commerce_payment.admin.css');
+}
+
+/**
+ * Implements hook_modules_enabled().
+ */
+function commerce_payment_modules_enabled($modules) {
+  _commerce_payment_default_rules_reset($modules);
+}
+
+/**
+ * Resets default Rules if necessary when modules are enabled or disabled.
+ *
+ * @param $modules
+ *   An array of module names that have been enabled or disabled.
+ */
+function _commerce_payment_default_rules_reset($modules) {
+  $reset_default_rules = FALSE;
+
+  // Look for any module defining a new payment method.
+  foreach ($modules as $module) {
+    if (function_exists($module . '_commerce_payment_method_info')) {
+      $reset_default_rules = TRUE;
+    }
+  }
+
+  // If we found a module defining a new payment method, we need to rebuild the
+  // default Rules especially for this module so the default payment method Rule
+  // will appear properly for this module.
+  if ($reset_default_rules) {
+    entity_defaults_rebuild();
+    rules_clear_cache(TRUE);
+  }
 }
 
 /**
@@ -263,6 +308,53 @@ function commerce_payment_commerce_checkout_pane_info() {
   );
 
   return $checkout_panes;
+}
+
+/**
+ * Moves an order ahead to the next page via an order update and redirect.
+ *
+ * Redirected payment methods are responsible for calling this method when
+ * receiving external notifications of successful payment.
+ *
+ * @param $order
+ *   An order object.
+ */
+function commerce_payment_redirect_pane_next_page($order) {
+  // Load the order status object for the current order.
+  $order_status = commerce_order_status_load($order->status);
+
+  if ($order_status['state'] == 'checkout' && $order_status['checkout_page'] == 'payment') {
+    $payment_page = commerce_checkout_page_load($order_status['checkout_page']);
+    $next_page = $payment_page['next_page'];
+
+    $order = commerce_order_status_update($order, 'checkout_' . $next_page);
+
+    // Inform modules of checkout completion if the next page is Completed.
+    if ($next_page == 'complete') {
+      commerce_checkout_complete($order);
+    }
+  }
+}
+
+/**
+ * Moves an order back to the previous page via an order update and redirect.
+ *
+ * Redirected payment methods are responsible for calling this method when
+ * receiving external notifications of failed payment.
+ *
+ * @param $order
+ *   An order object.
+ */
+function commerce_payment_redirect_pane_previous_page($order) {
+  // Load the order status object for the current order.
+  $order_status = commerce_order_status_load($order->status);
+
+  if ($order_status['state'] == 'checkout' && $order_status['checkout_page'] == 'payment') {
+    $payment_page = commerce_checkout_page_load($order_status['checkout_page']);
+    $prev_page = $payment_page['prev_page'];
+
+    $order = commerce_order_status_update($order, 'checkout_' . $prev_page);
+  }
 }
 
 /**
@@ -338,7 +430,7 @@ function commerce_payment_commerce_payment_totals_row_info($totals, $order) {
  * When a new payment transaction is inserted that is already completed, check
  * the order balance and invoke a Rules event if the order is paid in full.
  */
-function commerce_order_commerce_payment_transaction_insert($transaction) {
+function commerce_payment_commerce_payment_transaction_insert($transaction) {
   // If the inserted transaction was marked as a success and placed against a
   // valid order...
   if ($transaction->status == COMMERCE_PAYMENT_STATUS_SUCCESS &&
@@ -369,8 +461,8 @@ function commerce_order_commerce_payment_transaction_insert($transaction) {
  * completed, check the order balance and invoke a Rules event if the order is
  * paid in full.
  */
-function commerce_order_commerce_payment_transaction_update($transaction) {
-  commerce_order_commerce_payment_transaction_insert($transaction);
+function commerce_payment_commerce_payment_transaction_update($transaction) {
+  commerce_payment_commerce_payment_transaction_insert($transaction);
 }
 
 /**
@@ -394,7 +486,18 @@ function commerce_payment_methods() {
 
   // If the payment methods haven't been defined yet, do so now.
   if (!isset($payment_methods)) {
-    $payment_methods = module_invoke_all('commerce_payment_method_info');
+    $payment_methods = array();
+
+    // Build the payment methods array, including module names for the purpose
+    // of including files if necessary.
+    foreach (module_implements('commerce_payment_method_info') as $module) {
+      foreach (module_invoke($module, 'commerce_payment_method_info') as $method_id => $payment_method) {
+        $payment_method['method_id'] = $method_id;
+        $payment_method['module'] = $module;
+        $payment_methods[$method_id] = $payment_method;
+      }
+    }
+
     drupal_alter('commerce_payment_method_info', $payment_methods);
 
     foreach ($payment_methods as $method_id => &$payment_method) {
@@ -406,7 +509,9 @@ function commerce_payment_methods() {
         'active' => FALSE,
         'terminal' => TRUE,
         'offsite' => FALSE,
+        'offsite_autoredirect' => FALSE,
         'callbacks' => array(),
+        'file' => '',
       );
 
       $payment_method += $defaults;
@@ -518,6 +623,12 @@ function commerce_payment_method_options_list() {
  *     not be found.
  */
 function commerce_payment_method_callback($payment_method, $callback) {
+  // Include the payment method file if specified.
+  if (!empty($payment_method['file'])) {
+    $parts = explode('.', $payment_method['file']);
+    module_load_include(array_pop($parts), $payment_method['module'], implode('.', $parts));
+  }
+
   // If the specified callback function exists, return it.
   if (!empty($payment_method['callbacks'][$callback]) &&
       function_exists($payment_method['callbacks'][$callback])) {
@@ -546,8 +657,8 @@ function commerce_payment_method_instance_id($method_id, $rule) {
 }
 
 /**
- * Returns a payment method instance object which includes the settings specific
- *   to the context of the instance.
+ * Returns a payment method instance array which includes the settings specific
+ * to the context of the instance.
  *
  * @param $instance_id
  *   A payment method instance ID in the form of a pipe delimited string
@@ -641,8 +752,7 @@ function commerce_payment_transaction_statuses() {
  */
 function theme_commerce_payment_transaction_status_icon($variables) {
   $transaction_status = $variables['transaction_status'];
-
-  return '<img src="' . url($transaction_status['icon'], array('absolute' => TRUE)) . '" class="' . drupal_html_class($transaction_status['status']) . '" title="' . $transaction_status['title'] . '" alt="' . $transaction_status['title'] . '" />';
+  return theme('image', array('path' => $transaction_status['icon'], 'alt' => $transaction_status['title'], 'title' => $transaction_status['title'], 'attributes' => array('class' => drupal_html_class($transaction_status['status']))));
 }
 
 /**
@@ -679,24 +789,10 @@ function commerce_payment_transaction_status_load($status) {
  *   A transaction object with all default fields initialized.
  */
 function commerce_payment_transaction_new($method_id = '', $order_id = 0) {
-  return entity_get_controller('commerce_payment_transaction')->create($method_id, $order_id);
-}
-
-/**
- * Creation callback for the Entity module.
- */
-function _commerce_payment_transaction_create($values = array()) {
-  // Create a new transaction of the specified type.
-  $transaction = commerce_payment_transaction_new($values['method_id']);
-  unset($values['method_id']);
-
-  $wrapper = entity_metadata_wrapper('commerce_payment_transaction', $transaction);
-
-  foreach ($values as $name => $value) {
-    $wrapper->$name->set($value);
-  }
-
-  return $wrapper->value();
+  return entity_get_controller('commerce_payment_transaction')->create(array(
+    'payment_method' => $method_id,
+    'order_id' => $order_id,
+  ));
 }
 
 /**
@@ -706,7 +802,7 @@ function _commerce_payment_transaction_create($values = array()) {
  *   The full transaction object to save.
  *
  * @return
- *   The saved transaction object.
+ *   SAVED_NEW or SAVED_UPDATED depending on the operation performed.
  */
 function commerce_payment_transaction_save($transaction) {
   return entity_get_controller('commerce_payment_transaction')->save($transaction);
@@ -777,78 +873,11 @@ function commerce_payment_transaction_delete_multiple($transaction_ids) {
  *
  * @return
  *   An array as expected by drupal_render().
+ *
+ * @deprecated since 7.x-1.0-rc1
  */
 function commerce_payment_transaction_build_content($order, $transaction, $view_mode = 'administrator') {
-  // Populate $transaction->content with a render() array.
-  // Remove previously built content, if it exists.
-  $transaction->content = array();
-
-  // Add the default fields inherent to the transaction entity.
-  if (!empty($transaction->instance_id) && $payment_method = commerce_payment_method_instance_load($transaction->instance_id)) {
-    list($method_id, $rule_name) = explode('|', $payment_method['instance_id']);
-    $title = l(check_plain($payment_method['title']), 'admin/config/workflow/rules/reaction/manage/' . $rule_name);
-  }
-  else {
-    $payment_method = commerce_payment_method_load($transaction->payment_method);
-    $title = check_plain($payment_method['title']);
-  }
-
-  $transaction_statuses = commerce_payment_transaction_statuses();
-
-  $rows = array(
-    array(t('Transaction ID'), $transaction->transaction_id),
-    array(t('Order', array(), array('context' => 'a drupal commerce order')), l(check_plain($order->order_number), 'admin/commerce/orders/' . $order->order_id)),
-    array(t('Payment method'), $title),
-    array(t('Remote ID'), check_plain($transaction->remote_id)),
-    array(t('Message'), t($transaction->message, $transaction->message_variables)),
-    array(t('Amount'), commerce_currency_format($transaction->amount, $transaction->currency_code)),
-    array(t('Status'), check_plain($transaction_statuses[$transaction->status]['title'])),
-    array(t('Remote status'), check_plain($transaction->remote_status)),
-    array(t('Created'), format_date($transaction->created)),
-  );
-
-  if ($transaction->changed > $transaction->created) {
-    $rows[] = array(t('Last changed'), format_date($transaction->changed));
-  }
-
-  if (user_access('administer payments')) {
-    if (!empty($transaction->payload)) {
-      $rows[] = array(t('Payload'), '<pre>' . check_plain(print_r($transaction->payload, TRUE)) . '</pre>');
-    }
-  }
-
-  $transaction->content['transaction_table'] = array(
-    '#attached' => array(
-      'css' => array(
-        drupal_get_path('module', 'commerce_payment') . '/theme/commerce_payment.css',
-      ),
-    ),
-    '#markup' => theme('table', array('rows' => $rows, 'attributes' => array('class' => array('payment-transaction')))),
-  );
-
-  // Build fields content.
-  field_attach_prepare_view('commerce_payment_transaction', array($transaction->transaction_id => $transaction), $view_mode);
-  entity_prepare_view('commerce_payment_transaction', array($transaction->transaction_id => $transaction));
-  $transaction->content += field_attach_view('commerce_payment_transaction', $transaction, $view_mode);
-
-  // Allow modules to make their own additions to the transaction content.
-  module_invoke_all('commerce_transaction_view', $transaction, $view_mode);
-
-  // Remove the content array from the transaction to avoid duplicate rendering.
-  $build = $transaction->content;
-  unset($transaction->content);
-
-  $build += array(
-    '#theme' => 'commerce_payment_transaction',
-    '#order' => $order,
-    '#transaction' => $transaction,
-    '#view_mode' => $view_mode,
-  );
-
-  // Allow modules to modify the final build array.
-  drupal_alter('commerce_payment_transaction_view', $build);
-
-  return $build;
+  return entity_get_controller('commerce_payment_transaction')->view(array($transaction->transaction_id => $transaction), $view_mode);
 }
 
 /**
@@ -856,37 +885,63 @@ function commerce_payment_transaction_build_content($order, $transaction, $view_
  *
  * @param $op
  *   The operation being performed, one of view, update, create, or delete.
- * @param $order
- *   The order object the payment operation applies to.
  * @param $transaction
- *   The payment transaction to check. Required for updating and deleting.
+ *   The payment transaction to check.
  * @param $account
  *   The user account attempting the operation; defaults to the current user.
  *
  * @return
  *   TRUE or FALSE indicating access for the operation.
  */
-function commerce_payment_transaction_access($op, $order, $transaction = NULL, $account = NULL) {
-  global $user;
-
-  // Grant administrators access to do anything.
-  if (user_access('administer payments')) {
-    return TRUE;
-  }
-
-  if (empty($order)) {
+function commerce_payment_transaction_access($op, $transaction, $account = NULL) {
+  if (isset($transaction->order_id)) {
     $order = commerce_order_load($transaction->order_id);
+    if (!$order) {
+      return FALSE;
+    }
   }
+  else {
+    $order = NULL;
+  }
+
+  return commerce_payment_transaction_order_access($op, $order, $account);
+}
+
+/**
+ * Determines access for a variety of operations for payment transactions on a given order.
+ *
+ * @param $op
+ *   The payment transaction operation being performed, one of view, update, create, or delete.
+ * @param $order
+ *   The order to check against (optional if $op == 'create').
+ * @param $account
+ *   The user account attempting the operation; defaults to the current user.
+ *
+ * @return
+ *   TRUE or FALSE indicating access for the operation.
+ */
+function commerce_payment_transaction_order_access($op, $order, $account = NULL) {
+  global $user;
 
   if (empty($account)) {
     $account = clone($user);
   }
 
+  // Grant administrators access to do anything.
+  if (user_access('administer payments', $account)) {
+    return TRUE;
+  }
+
   switch ($op) {
     // Creating new payment transactions.
     case 'create':
-      if (user_access('create payments')) {
-        if (commerce_order_access('update', $order, $account)) {
+      if (user_access('create payments', $account)) {
+        // We currently allow any user to create any payment transaction,
+        // regardless of the order, because entity_access() doesn't give us a
+        // way to discriminate on the order.
+        // @todo: find a way to prevent creating a payment transaction if the
+        // user doesn't have access to the order.
+        if (!isset($order) || commerce_order_access('update', $order, $account)) {
           return TRUE;
         }
       }
@@ -894,7 +949,7 @@ function commerce_payment_transaction_access($op, $order, $transaction = NULL, $
 
     // Viewing payment transactions.
     case 'view':
-      if (user_access('view payments')) {
+      if (user_access('view payments', $account)) {
         if (commerce_order_access('view', $order, $account)) {
           return TRUE;
         }
@@ -902,13 +957,15 @@ function commerce_payment_transaction_access($op, $order, $transaction = NULL, $
       break;
 
     case 'update':
-      if (user_access('update payments')) {
+      if (user_access('update payments', $account)) {
         if (commerce_order_access('view', $order, $account)) {
           return TRUE;
         }
       }
+      break;
+
     case 'delete':
-      if (user_access('delete payments')) {
+      if (user_access('delete payments', $account)) {
         if (commerce_order_access('update', $order, $account)) {
           return TRUE;
         }
@@ -916,14 +973,41 @@ function commerce_payment_transaction_access($op, $order, $transaction = NULL, $
       break;
   }
 
-  // Allow other modules to provide other cases for access grants.
-  foreach (module_invoke_all('commerce_payment_transaction_access', $op, $order, $transaction, $account) as $access) {
-    if ($access) {
-      return TRUE;
-    }
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_query_commerce_payment_transaction_access_alter().
+ *
+ * Implement access control on payment transaction. This is different from other
+ * entities because the access to a payment transaction is partially delegated
+ * to its order.
+ */
+function commerce_payment_query_commerce_payment_transaction_access_alter(QueryAlterableInterface $query) {
+  // Read the meta-data from the query.
+  if (!$account = $query->getMetaData('account')) {
+    global $user;
+    $account = $user;
   }
 
-  return FALSE;
+  // If the user has the administration permission, nothing to do.
+  if (user_access('administer payments', $account)) {
+    return;
+  }
+
+  // Join the payment transaction to their orders.
+  if (user_access('view payments', $account)) {
+    $tables = &$query->getTables();
+    $base_table = key($tables);
+    $order_alias = $query->innerJoin('commerce_order', 'co', '%alias.order_id = ' . $base_table . '.order_id');
+
+    // Perform the access control on the order.
+    commerce_entity_access_query_alter($query, 'commerce_order', $order_alias);
+  }
+  else {
+    // The user has access to no payment transaction.
+    $query->where('1 = 0');
+  }
 }
 
 /**
@@ -1011,7 +1095,7 @@ function commerce_payment_transaction_get_properties($transaction, array $option
     case 'user':
       return $transaction->uid;
     case 'order':
-      return $transaction->order_id;
+      return !empty($transaction->order_id) ? $transaction->order_id : commerce_order_new();
     case 'message':
       if ($transaction->message) {
         return t($transaction->message, is_array($transaction->message_variables) ? $transaction->message_variables : array());

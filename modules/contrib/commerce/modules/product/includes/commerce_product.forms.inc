@@ -24,7 +24,7 @@ function commerce_product_product_form($form, &$form_state, $product) {
   $form['sku'] = array(
     '#type' => 'textfield',
     '#title' => t('Product SKU'),
-    '#description' => t('Supply a unique identifier for this product using letters, numbers, hypens, and underscores.'),
+    '#description' => t('Supply a unique identifier for this product using letters, numbers, hyphens, and underscores. Commas may not be used.'),
     '#default_value' => $product->sku,
     '#maxlength' => 128,
     '#required' => TRUE,
@@ -55,6 +55,32 @@ function commerce_product_product_form($form, &$form_state, $product) {
     '#default_value' => $product->status,
     '#required' => TRUE,
     '#weight' => 35,
+  );
+
+  // Load the product type to get the default revision setting.
+  $product_type = commerce_product_type_load($product->type);
+
+  $form['change_history'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Change history'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 50,
+  );
+  if (!empty($product->product_id)) {
+    $form['change_history']['revision'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Create new revision on update'),
+      '#description' => t('If an update log message is entered, a revision will be created even if this is unchecked.'),
+      '#default_value' => $product_type['revision'],
+      '#access' => user_access('administer commerce_product entities'),
+    );
+  }
+  $form['change_history']['log'] = array(
+    '#type' => 'textarea',
+    '#title' => !empty($product->product_id) ? t('Update log message') : t('Creation log message'),
+    '#rows' => 4,
+    '#description' => t('Provide an explanation of the changes you are making. This will provide a meaningful history of changes to this product.'),
   );
 
   $form['actions'] = array(
@@ -112,6 +138,14 @@ function commerce_product_product_form_validate($form, &$form_state) {
     if (!commerce_product_validate_sku_unique($sku, $product->product_id)) {
       form_set_error('sku', t('This SKU is already in use and must be unique. Please supply another value.'));
     }
+
+    // Validate the SKU for invalid characters.
+    if (!commerce_product_validate_sku($sku)) {
+      form_set_error('sku', t('The SKU %sku contains invalid characters.', array('%sku' => $sku)));
+    }
+
+    // Trim leading and trailing whitespace from the SKU.
+    form_set_value($form['sku'], trim($sku), $form_state);
   }
 
   // Notify field widgets to validate their data.
@@ -135,6 +169,14 @@ function commerce_product_product_form_submit($form, &$form_state) {
   // Set the product's uid if it's being created at this time.
   if (empty($product->product_id)) {
     $product->uid = $user->uid;
+  }
+
+  // Trigger a new revision if the checkbox was enabled or a log message supplied.
+  if ((user_access('administer commerce_product entities') && !empty($form_state['values']['revision'])) ||
+    (!user_access('administer commerce_product entities') && !empty($form['change_history']['revision']['#default_value'])) ||
+    !empty($form_state['values']['log'])) {
+    $product->revision = TRUE;
+    $product->log = $form_state['values']['log'];
   }
 
   // Notify field widgets.
@@ -163,7 +205,7 @@ function commerce_product_product_delete_form($form, &$form_state, $product) {
 
   $form['#submit'][] = 'commerce_product_product_delete_form_submit';
 
-  $content = commerce_product_build_content($product);
+  $content = entity_view('commerce_product', array($product->product_id => $product));
 
   $form = confirm_form($form,
     t('Are you sure you want to delete %title?', array('%title' => $product->title)),

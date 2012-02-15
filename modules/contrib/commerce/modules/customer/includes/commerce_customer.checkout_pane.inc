@@ -66,6 +66,12 @@ function commerce_customer_profile_pane_checkout_form($form, &$form_state, $chec
     $profile = commerce_customer_profile_new($type, $order->uid);
   }
 
+  // Add the entity context of the current cart order.
+  $profile->entity_context = array(
+    'entity_type' => 'commerce_order',
+    'entity_id' => $order->order_id,
+  );
+
   $pane_form['customer_profile'] = array(
     '#type' => 'value',
     '#value' => $profile,
@@ -74,14 +80,30 @@ function commerce_customer_profile_pane_checkout_form($form, &$form_state, $chec
   // Add the field widgets for the profile.
   field_attach_form('commerce_customer_profile', $profile, $pane_form, $form_state);
 
-  // Tweak the form to remove the fieldset from address fields.
-  $field_name = 'commerce_customer_address';
-  $language = $pane_form[$field_name]['#language'];
+  // Tweak the form to remove the fieldset from the address field if there
+  // is only one on this profile.
+  $addressfields = array();
 
-  foreach (element_children($pane_form[$field_name][$language]) as $delta) {
-    // Don't mess with the "Add another item" button that could be present.
-    if ($pane_form[$field_name][$language][$delta]['#type'] != 'submit') {
-      $pane_form[$field_name][$language][$delta]['#type'] = 'container';
+  foreach (commerce_info_fields('addressfield', 'commerce_customer_profile') as $field_name => $field) {
+    if (!empty($pane_form[$field_name]['#language'])) {
+      $langcode = $pane_form[$field_name]['#language'];
+
+      // Only consider this addressfield if it's represented on the form.
+      if (!empty($pane_form[$field_name][$langcode])) {
+        $addressfields[] = array($field_name, $langcode);
+      }
+    }
+  }
+
+  // Check to ensure only one addressfield was found on the form.
+  if (count($addressfields) == 1) {
+    list($field_name, $langcode) = array_shift($addressfields);
+
+    foreach (element_children($pane_form[$field_name][$langcode]) as $delta) {
+      // Don't mess with the "Add another item" button that could be present.
+      if ($pane_form[$field_name][$langcode][$delta]['#type'] != 'submit') {
+        $pane_form[$field_name][$langcode][$delta]['#type'] = 'container';
+      }
     }
   }
 
@@ -147,7 +169,7 @@ function commerce_customer_profile_pane_review($form, $form_state, $checkout_pan
   }
 
   if ($profile) {
-    $content = commerce_customer_profile_build_content($profile, 'customer');
+    $content = entity_view('commerce_customer_profile', array($profile->profile_id => $profile), 'customer');
 
     return drupal_render($content);
   }

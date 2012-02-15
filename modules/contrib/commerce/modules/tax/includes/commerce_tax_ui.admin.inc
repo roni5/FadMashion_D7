@@ -10,7 +10,7 @@
  * Displays an overview of Tax UI defined tax rates.
  */
 function commerce_tax_ui_overview($type) {
-  drupal_add_css(drupal_get_path('module', 'commerce_tax_ui') . '/theme/commerce_tax_ui.css');
+  drupal_add_css(drupal_get_path('module', 'commerce_tax') . '/theme/commerce_tax.admin.css');
 
   // Load the items that will be represented in the overview table.
   if ($type == 'rates') {
@@ -62,7 +62,6 @@ function commerce_tax_ui_overview($type) {
   return theme('table', array('header' => $header, 'rows' => $rows));
 }
 
-
 /**
  * Builds an overview of a tax rate for display to an administrator.
  *
@@ -87,7 +86,7 @@ function theme_tax_rate_admin_overview($variables) {
 
   // Build the actual output.
   $output = check_plain($tax_rate['title']);
-  $output .= ' <small> (Machine name: ' . check_plain($tax_rate['name']) . ')</small>';
+  $output .= ' <small>' . t('(Machine name: @type)', array('@type' => $tax_rate['name'])) . '</small>';
   $output .= '<div class="description">' . implode('<br />', $description) . '</div>';
 
   return $output;
@@ -106,7 +105,7 @@ function theme_tax_type_admin_overview($variables) {
   $tax_type = $variables['tax_type'];
 
   $output = check_plain($tax_type['title']);
-  $output .= ' <small> (Machine name: ' . check_plain($tax_type['name']) . ')</small>';
+  $output .= ' <small>' . t('(Machine name: @type)', array('@type' => $tax_type['name'])) . '</small>';
   $output .= '<div class="description">' . filter_xss_admin($tax_type['description']) . '</div>';
 
   return $output;
@@ -213,13 +212,13 @@ function commerce_tax_ui_tax_rate_form($form, &$form_state, $tax_rate) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete tax rate'),
-      '#suffix' => l('Cancel', 'admin/commerce/config/taxes'),
+      '#suffix' => l(t('Cancel'), 'admin/commerce/config/taxes'),
       '#submit' => array('commerce_tax_ui_tax_rate_form_delete_submit'),
       '#weight' => 45,
     );
   }
   else {
-    $form['actions']['submit']['#suffix'] = l('Cancel', 'admin/commerce/config/taxes');
+    $form['actions']['submit']['#suffix'] = l(t('Cancel'), 'admin/commerce/config/taxes');
   }
 
   return $form;
@@ -378,6 +377,14 @@ function commerce_tax_ui_tax_type_form($form, &$form_state, $tax_type) {
     '#default_value' => $tax_type['display_inclusive'],
   );
 
+  $form['tax_type']['round_mode'] = array(
+    '#type' => 'radios',
+    '#title' => t('Tax amount rounding mode'),
+    '#description' => t('Specify what type of rounding should occur when tax rates of this type are calculated for the unit price of a line item. Sales taxes will generally not round these amounts at the unit price level, while VAT style taxes will generally round the half up.'),
+    '#options' => commerce_round_mode_options_list(),
+    '#default_value' => $tax_type['round_mode'],
+  );
+
   $form['actions'] = array(
     '#type' => 'container',
     '#attributes' => array('class' => array('form-actions')),
@@ -393,13 +400,13 @@ function commerce_tax_ui_tax_type_form($form, &$form_state, $tax_type) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete tax type'),
-      '#suffix' => l('Cancel', 'admin/commerce/config/taxes/types'),
+      '#suffix' => l(t('Cancel'), 'admin/commerce/config/taxes/types'),
       '#submit' => array('commerce_tax_ui_tax_type_form_delete_submit'),
       '#weight' => 45,
     );
   }
   else {
-    $form['actions']['submit']['#suffix'] = l('Cancel', 'admin/commerce/config/taxes/types');
+    $form['actions']['submit']['#suffix'] = l(t('Cancel'), 'admin/commerce/config/taxes/types');
   }
 
   return $form;
@@ -439,6 +446,11 @@ function commerce_tax_ui_tax_type_form_submit($form, &$form_state) {
   $tax_type['is_new'] = !$updated;
   commerce_tax_ui_tax_type_save($tax_type);
 
+  // Clear the field cache if the round mode changed.
+  if ($form_state['tax_type']['round_mode'] != $tax_type['round_mode']) {
+    field_cache_clear();
+  }
+
   // Redirect based on the button clicked.
   drupal_set_message(t('Tax type saved.'));
 
@@ -469,8 +481,16 @@ function commerce_tax_ui_tax_type_delete_form_wrapper($tax_type) {
   }
 
   // Don't allow deletion of tax types that have tax rates.
-  if (($count = db_query("SELECT name FROM {commerce_tax_rate} WHERE type = :tax_type", array(':tax_type' => $tax_type['name']))->rowCount()) > 0) {
+  $query = db_select('commerce_tax_rate')
+    ->condition('type', $tax_type['name'])
+    ->countQuery()
+    ->execute();
+
+  $count = $query->fetchField();
+
+  if ($count > 0) {
     drupal_set_title(t('Cannot delete the %title tax type', array('%title' => $tax_type['title'])), PASS_THROUGH);
+
     return format_plural($count,
       'There is a tax rate of this type. It cannot be deleted.',
       'There are @count tax rates of this type. It cannot be deleted.'

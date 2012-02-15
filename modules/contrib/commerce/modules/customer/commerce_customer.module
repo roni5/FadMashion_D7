@@ -12,7 +12,7 @@
 function commerce_customer_entity_info() {
   $return = array(
     'commerce_customer_profile' => array(
-      'label' => t('Customer profile'),
+      'label' => t('Commerce Customer profile'),
       'controller class' => 'CommerceCustomerProfileEntityController',
       'base table' => 'commerce_customer_profile',
       'revision table' => 'commerce_customer_profile_revision',
@@ -29,6 +29,9 @@ function commerce_customer_entity_info() {
       'bundles' => array(),
       'load hook' => 'commerce_customer_profile_load',
       'view modes' => array(
+        // Neither of these provide a full view of the profile but rather give
+        // the summary of field data as seen on the checkout form or in the
+        // customer profile reference field's display formatter.
         'administrator' => array(
           'label' => t('Administrator'),
           'custom settings' => FALSE,
@@ -39,11 +42,17 @@ function commerce_customer_entity_info() {
         ),
       ),
       'uri callback' => 'commerce_customer_profile_uri',
-      'creation callback' => '_commerce_customer_profile_create',
-      'save callback' => 'commerce_customer_profile_save',
-      'deletion callback' => 'commerce_customer_profile_delete',
-      'access callback' => 'commerce_customer_profile_access',
-      'token type' => 'customer',
+      'token type' => 'commerce-customer-profile',
+      'metadata controller class' => '',
+      'access callback' => 'commerce_entity_access',
+      'access arguments' => array(
+        'user key' => 'uid',
+        'access tag' => 'commerce_customer_profile_access',
+      ),
+      'permission labels' => array(
+        'singular' => t('customer profile'),
+        'plural' => t('customer profiles'),
+      ),
     ),
   );
 
@@ -79,6 +88,12 @@ function commerce_customer_profile_uri($profile) {
  */
 function commerce_customer_hook_info() {
   $hooks = array(
+    'commerce_customer_profile_type_info' => array(
+      'group' => 'commerce',
+    ),
+    'commerce_customer_profile_type_info_alter' => array(
+      'group' => 'commerce',
+    ),
     'commerce_customer_profile_uri' => array(
       'group' => 'commerce',
     ),
@@ -97,6 +112,9 @@ function commerce_customer_hook_info() {
     'commerce_customer_profile_delete' => array(
       'group' => 'commerce',
     ),
+    'commerce_customer_profile_can_delete' => array(
+      'group' => 'commerce',
+    ),
   );
 
   return $hooks;
@@ -106,27 +124,159 @@ function commerce_customer_hook_info() {
  * Implements hook_enable().
  */
 function commerce_customer_enable() {
-  // Add the address field to customer profile bundles.
-  foreach (commerce_customer_profile_types() as $type => $profile_type) {
-    commerce_customer_configure_customer_profile_type($profile_type);
-  }
+  commerce_customer_configure_customer_types();
 }
 
 /**
  * Implements hook_modules_enabled().
  */
 function commerce_customer_modules_enabled($modules) {
+  commerce_customer_configure_customer_fields($modules);
+}
+
+/**
+ * Configures customer profile types defined by enabled modules.
+ */
+function commerce_customer_configure_customer_types() {
+  foreach (commerce_customer_profile_types() as $type => $profile_type) {
+    commerce_customer_configure_customer_profile_type($profile_type);
+  }
+}
+
+/**
+ * Ensures the address field is present on the specified customer profile bundle.
+ */
+function commerce_customer_configure_customer_profile_type($profile_type) {
+  if ($profile_type['addressfield']) {
+    // If a field type we know should exist isn't found, clear the Field cache.
+    if (!field_info_field_types('addressfield')) {
+      field_cache_clear();
+    }
+
+    // Look for or add an address field to the customer profile type.
+    $field_name = 'commerce_customer_address';
+    $field = field_info_field($field_name);
+    $instance = field_info_instance('commerce_customer_profile', $field_name, $profile_type['type']);
+
+    if (empty($field)) {
+      $field = array(
+        'field_name' => $field_name,
+        'type' => 'addressfield',
+        'cardinality' => 1,
+        'entity_types' => array('commerce_customer_profile'),
+        'translatable' => FALSE,
+      );
+
+      $field = field_create_field($field);
+    }
+
+    if (empty($instance)) {
+      $instance = array(
+        'field_name' => $field_name,
+        'entity_type' => 'commerce_customer_profile',
+        'bundle' => $profile_type['type'],
+        'label' => t('Address'),
+        'required' => TRUE,
+        'widget' => array(
+          'type' => 'addressfield_standard',
+          'weight' => -10,
+          'settings' => array(
+            'format_handlers' => array('address', 'name-oneline'),
+          ),
+        ),
+        'display' => array(),
+      );
+
+      // Set the default display formatters for various view modes.
+      foreach (array('default', 'customer', 'administrator') as $view_mode) {
+        $instance['display'][$view_mode] = array(
+          'label' => 'hidden',
+          'type' => 'addressfield_default',
+          'weight' => -10,
+        );
+      }
+
+      field_create_instance($instance);
+    }
+  }
+}
+
+/**
+ * Configures fields referencing customer profile types defined by enabled
+ * modules and configures the fields on those profile types if necessary.
+ *
+ * @param $modules
+ *   An array of module names whose customer profile type fields should be
+ *   configured; if left NULL, will default to all modules that implement
+ *   hook_commerce_customer_profile_type_info().
+ */
+function commerce_customer_configure_customer_fields($modules = NULL) {
+  // If no modules array is passed, recheck the fields for all customer profile
+  // types defined by enabled modules.
+  if (empty($modules)) {
+    $modules = module_implements('commerce_customer_profile_type_info');
+  }
+
   // Loop through all the enabled modules.
   foreach ($modules as $module) {
     // If the module implements hook_commerce_customer_profile_type_info()...
     if (module_hook($module, 'commerce_customer_profile_type_info')) {
       $profile_types = module_invoke($module, 'commerce_customer_profile_type_info');
 
+      // If this profile type has been previously disabled, update any reference
+      // fields to be active again before attempting to recreate them.
+      foreach ($profile_types as $type => $profile_type) {
+        foreach (field_read_fields(array('type' => 'commerce_customer_profile_reference', 'active' => 0, 'storage_active' => 1, 'deleted' => 0), array('include_inactive' => TRUE)) as $field_name => $field) {
+          // If this field references profiles of the re-enabled type...
+          if ($field['settings']['profile_type'] == $type) {
+            commerce_activate_field($field_name);
+          }
+        }
+      }
+
       // Loop through and configure the customer profile types defined by the module.
       foreach ($profile_types as $type => $profile_type) {
         // Default the addressfield property if it isn't set.
         $profile_type = array_merge(array('addressfield' => TRUE), $profile_type);
         commerce_customer_configure_customer_profile_type($profile_type);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_modules_disabled().
+ */
+function commerce_customer_modules_disabled($modules) {
+  // Loop through all the disabled modules.
+  foreach ($modules as $module) {
+    // If the module implements hook_commerce_customer_profile_type_info()...
+    if (module_hook($module, 'commerce_customer_profile_type_info')) {
+      $profile_types = module_invoke($module, 'commerce_customer_profile_type_info');
+
+      // Disable any profiles of the types disabled.
+      $query = db_update('commerce_customer_profile')
+        ->fields(array('status' => 0))
+        ->condition('type', array_keys($profile_types), 'IN')
+        ->execute();
+
+      // Ensure each profile's current revision is also disabled.
+      $query = db_update('commerce_customer_profile_revision')
+        ->fields(array('status' => 0))
+        ->where('revision_id IN (SELECT revision_id FROM {commerce_customer_profile} WHERE type IN (:profile_types))', array(':profile_types' => array_keys($profile_types)))
+        ->execute();
+
+      // Loop through and disable customer profile reference fields that may
+      // correspond to the disabled profile types.
+      foreach ($profile_types as $type => $profile_type) {
+        foreach (field_read_fields(array('type' => 'commerce_customer_profile_reference')) as $field_name => $field) {
+          // If this field references profiles of the disabled type...
+          if ($field['settings']['profile_type'] == $type) {
+            // Set it to inactive and save it.
+            $field['active'] = 0;
+            field_update_field($field);
+          }
+        }
       }
     }
   }
@@ -147,36 +297,14 @@ function commerce_customer_views_api() {
  */
 function commerce_customer_permission() {
   $permissions = array(
-    'administer customer profiles' => array(
-      'title' => t('Administer customer profiles'),
-      'description' => t('Allows users to perform any action on customer profiles of any type.'),
-      'restrict access' => TRUE,
-    ),
     'administer customer profile types' => array(
       'title' => t('Administer customer profile types'),
       'description' => t('Allows users to add customer profile types and configure their fields.'),
       'restrict access' => TRUE,
     ),
-    'access customer profiles' => array(
-      'title' => t('Access customer profiles'),
-      'description' => t('Allows users to view lists of customer profiles in the Store admin and reference lists.'),
-    ),
   );
 
-  // Add profile type specific permissions. Note that users with administer
-  // customer profiles permission should have access to do anything the
-  //  permissions below grant a user to do.
-  foreach (commerce_customer_profile_type_get_name() as $type => $name) {
-    $permissions['create ' . $type . ' customer profiles'] = array(
-      'title' => t('Create %type customer profiles', array('%type' => $name)),
-    );
-    $permissions['edit any ' . $type . ' customer profile'] = array(
-      'title' => t('Edit or delete any %type customer profile', array('%type' => $name)),
-    );
-    $permissions['edit own ' . $type . ' customer profiles'] = array(
-      'title' => t('Edit or delete own %type customer profiles', array('%type' => $name)),
-    );
-  }
+  $permissions += commerce_entity_access_permissions('commerce_customer_profile');
 
   return $permissions;
 }
@@ -216,18 +344,21 @@ function commerce_customer_commerce_checkout_pane_info() {
   $weight = 5;
 
   foreach (commerce_customer_profile_types() as $type => $profile_type) {
+    // Get instance data for the customer profile reference field.
+    $field_name = variable_get('commerce_customer_profile_' . $type . '_field', '');
+    $instance = field_info_instance('commerce_order', $field_name, 'commerce_order');
+
     $checkout_panes['customer_profile_' . $type] = array(
-      'title' => $profile_type['name'],
+      'title' => !empty($instance['label']) ? check_plain($instance['label']) : $profile_type['name'],
       'file' => 'includes/commerce_customer.checkout_pane.inc',
       'base' => 'commerce_customer_profile_pane',
       'page' => 'checkout',
-      'weight' => $weight++,
+      'weight' => isset($profile_type['checkout_pane_weight']) ? $profile_type['checkout_pane_weight'] : $weight++,
     );
   }
 
   return $checkout_panes;
 }
-
 
 /**
  * Implements hook_field_views_data().
@@ -372,24 +503,10 @@ function commerce_customer_profile_type_to_arg($type) {
  *   A customer profile object with all default fields initialized.
  */
 function commerce_customer_profile_new($type = '', $uid = 0) {
-  return entity_get_controller('commerce_customer_profile')->create($type, $uid);
-}
-
-/**
- * Creation callback for the Entity module.
- */
-function _commerce_customer_profile_create($values = array()) {
-  // Create a new customer profile for the specified user.
-  $profile = commerce_customer_profile_new($values['type'], $values['uid']);
-  unset($values['type'], $values['uid']);
-
-  $wrapper = entity_metadata_wrapper('commerce_customer_profile', $profile);
-
-  foreach ($values as $name => $value) {
-    $wrapper->$name->set($value);
-  }
-
-  return $wrapper->value();
+  return entity_get_controller('commerce_customer_profile')->create(array(
+    'type' => $type,
+    'uid' => $uid,
+  ));
 }
 
 /**
@@ -400,7 +517,7 @@ function _commerce_customer_profile_create($values = array()) {
  *     a new customer profile will be created.
  *
  * @return
- *   The saved customer profile object.
+ *   SAVED_NEW or SAVED_UPDATED depending on the operation performed.
  */
 function commerce_customer_profile_save($profile) {
   return entity_get_controller('commerce_customer_profile')->save($profile);
@@ -444,34 +561,34 @@ function commerce_customer_profile_load_multiple($profile_ids = array(), $condit
  *
  * @return
  *   An array as expected by drupal_render().
+ *
+ * @deprecated since 7.x-1.0-rc1
  */
 function commerce_customer_profile_build_content($profile, $view_mode = 'administrator') {
-  // Populate $profile->content with a render() array.
-  // Remove previously built content, if it exists.
-  $profile->content = array();
+  return entity_get_controller('commerce_customer_profile')->view(array($profile->profile_id => $profile), $view_mode);
+}
 
-  // Build fields content.
-  field_attach_prepare_view('commerce_customer_profile', array($profile->profile_id => $profile), $view_mode);
-  entity_prepare_view('commerce_customer_profile', array($profile->profile_id => $profile));
-  $profile->content += field_attach_view('commerce_customer_profile', $profile, $view_mode);
+/**
+ * Determines whether or not the give customer profile can be deleted.
+ *
+ * @param $profile
+ *   The customer profile to be checked for deletion.
+ *
+ * @return
+ *   Boolean indicating whether or not the customer profile can be deleted.
+ */
+function commerce_customer_profile_can_delete($profile) {
+  // Return FALSE if the given profile does not have an ID; it need not be
+  // deleted, which is functionally equivalent to cannot be deleted as far as
+  // code depending on this function is concerned.
+  if (empty($profile->profile_id)) {
+    return FALSE;
+  }
 
-  // Allow modules to make their own additions to the customer profile content.
-  module_invoke_all('commerce_customer_profile_view', $profile, $view_mode);
-
-  // Remove the content array from the profile to avoid duplicate rendering.
-  $build = $profile->content;
-  unset($profile->content);
-
-  $build += array(
-    '#theme' => 'commerce_customer_profile',
-    '#profile' => $profile,
-    '#view_mode' => $view_mode,
-  );
-
-  // Allow modules to modify the final build array.
-  drupal_alter('commerce_customer_profile_view', $build);
-
-  return $build;
+  // If any module implementing hook_commerce_customer_profile_can_delete()
+  // returns FALSE the customer profile cannot be deleted. Return TRUE if none
+  // return FALSE.
+  return !in_array(FALSE, module_invoke_all('commerce_customer_profile_can_delete', $profile));
 }
 
 /**
@@ -479,12 +596,17 @@ function commerce_customer_profile_build_content($profile, $view_mode = 'adminis
  *
  * @param $profile_id
  *   The ID of the customer profile to delete.
+ * @param $entity_context
+ *   An optional entity context array that specifies the entity throgh whose
+ *   customer profile reference field the given profiles are being deleted:
+ *   - entity_type: the type of entity
+ *   - entity_id: the unique ID of the entity
  *
  * @return
  *   TRUE on success, FALSE otherwise.
  */
-function commerce_customer_profile_delete($profile_id) {
-  return commerce_customer_profile_delete_multiple(array($profile_id));
+function commerce_customer_profile_delete($profile_id, $entity_context = array()) {
+  return commerce_customer_profile_delete_multiple(array($profile_id), $entity_context);
 }
 
 /**
@@ -492,12 +614,17 @@ function commerce_customer_profile_delete($profile_id) {
  *
  * @param $profile_ids
  *   An array of customer profile IDs to delete.
+ * @param $entity_context
+ *   An optional entity context array that specifies the entity throgh whose
+ *   customer profile reference field the given profiles are being deleted:
+ *   - entity_type: the type of entity
+ *   - entity_id: the unique ID of the entity
  *
  * @return
  *   TRUE on success, FALSE otherwise.
  */
-function commerce_customer_profile_delete_multiple($profile_ids) {
-  return entity_get_controller('commerce_customer_profile')->delete($profile_ids);
+function commerce_customer_profile_delete_multiple($profile_ids, $entity_context = array()) {
+  return entity_get_controller('commerce_customer_profile')->delete($profile_ids, NULL, $entity_context);
 }
 
 /**
@@ -523,7 +650,7 @@ function commerce_customer_commerce_customer_profile_delete($profile) {
 
         // Loop over each entity and remove the reference to the deleted profile.
         foreach ($entities as $entity_id => $entity) {
-          $entity = commerce_entity_reference_delete($entity_type, $entity, $field_name, $profile->profile_id);
+          commerce_entity_reference_delete($entity, $field_name, 'profile_id', $profile->profile_id);
 
           // Store the changes to the entity.
           entity_save($entity_type, $entity);
@@ -546,89 +673,14 @@ function commerce_customer_commerce_customer_profile_delete($profile) {
  *   The user to check for. Leave it to NULL to check for the current user.
  */
 function commerce_customer_profile_access($op, $profile = NULL, $account = NULL) {
-  global $user;
-  $account = isset($account) ? $account : $user;
-
-  if (user_access('administer customer profiles', $account)) {
-    return TRUE;
-  }
-
-  if ($op == 'view' && user_access('access customer profiles', $account)) {
-    return TRUE;
-  }
-
-  if (isset($profile) && is_string($profile) && $op == 'create' && user_access('create ' . $profile . ' customer profiles', $account)) {
-    return TRUE;
-  }
-
-  if (isset($profile) && ($op == 'update' || $op == 'delete')) {
-    if (user_access('edit any ' . $profile->type . ' customer profile', $account)) {
-      return TRUE;
-    }
-
-    // Others either don't have any access or must match the profile uid.
-    if ($account->uid && user_access('edit own ' . $profile->type . ' customer profiles', $account) && $profile->uid == $account->uid) {
-      return TRUE;
-    }
-  }
-
-  return FALSE;
+  return commerce_entity_access($op, $profile, $account, 'commerce_customer_profile');
 }
 
 /**
- * Ensures the address field is present on the specified customer profile bundle.
+ * Implementation of hook_query_commerce_customer_profile_access_alter().
  */
-function commerce_customer_configure_customer_profile_type($profile_type) {
-  if ($profile_type['addressfield']) {
-    // If a field type we know should exist isn't found, clear the Field cache.
-    if (!field_info_field_types('addressfield')) {
-      field_cache_clear();
-    }
-
-    // Look for or add an address field to the customer profile type.
-    $field_name = 'commerce_customer_address';
-    $field = field_info_field($field_name);
-    $instance = field_info_instance('commerce_customer_profile', $field_name, $profile_type['type']);
-
-    if (empty($field)) {
-      $field = array(
-        'field_name' => $field_name,
-        'type' => 'addressfield',
-        'cardinality' => 1,
-        'entity_types' => array('commerce_customer_profile'),
-        'translatable' => FALSE,
-      );
-
-      $field = field_create_field($field);
-    }
-
-    if (empty($instance)) {
-      $instance = array(
-        'field_name' => $field_name,
-        'entity_type' => 'commerce_customer_profile',
-        'bundle' => $profile_type['type'],
-        'label' => t('Address'),
-        'required' => TRUE,
-        'widget' => array(
-          'type' => 'addressfield_standard',
-          'weight' => -10,
-        ),
-        'settings' => array(),
-        'display' => array(),
-      );
-
-      // Set the default display formatters for various view modes.
-      foreach (array('default', 'customer', 'administrator') as $view_mode) {
-        $instance['display'][$view_mode] = array(
-          'label' => 'hidden',
-          'type' => 'addressfield_default',
-          'weight' => -10,
-        );
-      }
-
-      field_create_instance($instance);
-    }
-  }
+function commerce_customer_profile_query_commerce_customer_profile_access_alter(QueryAlterableInterface $query) {
+  return commerce_entity_access_query_alter($query, 'commerce_customer_profile');
 }
 
 /**
@@ -642,7 +694,7 @@ function commerce_customer_field_info() {
       'settings' => array('profile_type' => 'billing'),
       'instance_settings' => array(),
       'default_widget' => 'options_select',
-      'default_formatter' => 'commerce_customer_profile_reference_view',
+      'default_formatter' => 'commerce_customer_profile_reference_display',
       'property_type' => 'commerce_customer_profile',
       'property_callbacks' => array('commerce_customer_profile_property_info_callback'),
     ),
@@ -765,7 +817,7 @@ function commerce_customer_field_formatter_view($entity_type, $entity, $field, $
         $profile = commerce_customer_profile_load($item['profile_id']);
 
         if ($profile) {
-          $content = commerce_customer_profile_build_content($profile, 'customer');
+          $content = entity_view('commerce_customer_profile', array($profile->profile_id => $profile), 'customer', $langcode);
 
           $result[$delta] = array(
             '#markup' => drupal_render($content),
@@ -809,7 +861,7 @@ function commerce_customer_field_widget_info() {
 function commerce_customer_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
   // Alter the field edit form so it's obvious that customer profile manager
   // widgets do not support multiple values.
-  if (!empty($form['locked']) &&
+  if (empty($form['locked']) &&
       !empty($form['instance']) &&
       $form['instance']['widget']['type']['#value'] == 'commerce_customer_profile_manager') {
     $form['field']['cardinality']['#options'] = array('1' => '1');
@@ -829,7 +881,7 @@ function commerce_customer_field_widget_info_alter(&$info) {
  */
 function commerce_customer_options_list($field) {
   $options = array();
- 
+
   // Loop through all customer matches.
   foreach (commerce_customer_match_customer_profiles($field) as $profile_id => $data) {
     // Add them to the options list in optgroups by customer profile type.
@@ -894,15 +946,27 @@ function commerce_customer_field_widget_form(&$form, &$form_state, $field, $inst
 
       field_attach_form('commerce_customer_profile', $profile, $element['profiles'][$key], $form_state);
 
-      // Tweak the form to remove the fieldset from address fields.
-      if ($profile_type['addressfield']) {
-        $field_name = 'commerce_customer_address';
-        $language = $element['profiles'][$key][$field_name]['#language'];
+      // Tweak the form to remove the fieldset from the address field if there
+      // is only one on this profile.
+      $addressfields = array();
 
-        foreach (element_children($element['profiles'][$key][$field_name][$language]) as $delta) {
+      foreach (commerce_info_fields('addressfield', 'commerce_customer_profile') as $field_name => $field) {
+        $langcode = $element['profiles'][$key][$field_name]['#language'];
+
+        // Only consider this addressfield if it's represented on the form.
+        if (!empty($element['profiles'][$key][$field_name][$langcode])) {
+          $addressfields[] = array($field_name, $langcode);
+        }
+      }
+
+      // Check to ensure only one addressfield was found on the form.
+      if (count($addressfields) == 1) {
+        list($field_name, $langcode) = array_shift($addressfields);
+
+        foreach (element_children($element['profiles'][$key][$field_name][$langcode]) as $delta) {
           // Don't mess with the "Add another item" button that could be present.
-          if ($element['profiles'][$key][$field_name][$language][$delta]['#type'] != 'submit') {
-            $element['profiles'][$key][$field_name][$language][$delta]['#type'] = 'container';
+          if ($element['profiles'][$key][$field_name][$langcode][$delta]['#type'] != 'submit') {
+            $element['profiles'][$key][$field_name][$langcode][$delta]['#type'] = 'container';
           }
         }
 
@@ -913,9 +977,18 @@ function commerce_customer_field_widget_form(&$form, &$form_state, $field, $inst
       // This checkbox will be overridden with a clickable delete image.
       // TODO: Make this an #ajaxy submit button.
       if ($profile->profile_id) {
+        // Create a title for this box based on whether or not the currently
+        // referenced customer profile can be deleted.
+        if (commerce_customer_profile_can_delete($profile)) {
+          $title = t('Delete this profile');
+        }
+        else {
+          $title = t('Clear this profile');
+        }
+
         $element['profiles'][$key]['remove'] = array(
           '#type' => 'checkbox',
-          '#title' => t('Delete this profile'),
+          '#title' => $title,
           '#default_value' => FALSE,
           '#access' => commerce_customer_profile_access('delete', $profile),
         );
@@ -951,8 +1024,17 @@ function commerce_customer_profile_manager_validate($element, &$form_state, $for
 
     // If the line item has been marked for deletion...
     if ($profile->profile_id && $element['profiles'][$key]['remove']['#value']) {
-      // Delete the profile now and don't include it from the $value array.
-      commerce_customer_profile_delete($profile->profile_id);
+      // Delete the profile now if we can and don't include it in the $value array.
+      if (commerce_customer_profile_can_delete($profile)) {
+        // If another module altered in an entity context, be sure to pass it to
+        // the delete function.
+        if (!empty($profile->entity_context)) {
+          commerce_customer_profile_delete($profile->profile_id, $profile->entity_context);
+        }
+        else {
+          commerce_customer_profile_delete($profile->profile_id);
+        }
+      }
     }
     else {
       // Notify field widgets to validate their data.
@@ -990,7 +1072,6 @@ function commerce_customer_field_widget_error($element, $error) {
 function commerce_customer_profile_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
   $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']];
   $property['options list'] = 'entity_metadata_field_options_list';
-  unset($property['query callback']);
 }
 
 /**

@@ -3,12 +3,14 @@ description = Defines the Customer entity with Address Field integration.
 package = Commerce
 dependencies[] = addressfield
 dependencies[] = commerce
+dependencies[] = entity
 core = 7.x
 
 ; Module includes
 files[] = includes/commerce_customer_profile.controller.inc
 
 ; Views handlers
+files[] = includes/views/handlers/commerce_customer_handler_area_empty_text.inc
 files[] = includes/views/handlers/commerce_customer_handler_field_customer_profile.inc
 files[] = includes/views/handlers/commerce_customer_handler_field_customer_profile_link.inc
 files[] = includes/views/handlers/commerce_customer_handler_field_customer_profile_link_delete.inc
@@ -19,9 +21,9 @@ files[] = includes/views/handlers/commerce_customer_handler_filter_customer_prof
 ; Simple tests
 ; files[] = tests/commerce_customer.test
 
-; Information added by drupal.org packaging script on 2011-05-20
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-01-25
+version = "7.x-1.2"
 core = "7.x"
 project = "commerce"
-datestamp = "1305850315"
+datestamp = "1327528840"
 

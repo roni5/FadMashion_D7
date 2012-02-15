@@ -30,13 +30,17 @@ function commerce_checkout_review_pane_checkout_form($form, &$form_state, $check
     foreach (commerce_checkout_panes(array('page' => $page_id, 'enabled' => TRUE, 'review' => TRUE)) as $pane_id => $checkout_pane_local) {
       // If the pane has a valid review callback...
       if ($callback = commerce_checkout_pane_callback($checkout_pane_local, 'review')) {
-        // Add a row for it in the review data.
-        $pane_form['review']['#data'][$pane_id] = array(
-          'title' => $checkout_pane_local['title'],
-        );
-
         // Get the review data for this pane.
-        $pane_form['review']['#data'][$pane_id]['data'] = $callback($form, $form_state, $checkout_pane_local, $order);
+        $pane_data = $callback($form, $form_state, $checkout_pane_local, $order);
+
+        // Only display the pane if there is data in the pane.
+        if (!empty($pane_data)) {
+          // Add a row for it in the review data.
+          $pane_form['review']['#data'][$pane_id] = array(
+            'title' => $checkout_pane_local['title'],
+            'data' => $pane_data,
+          );
+        }
       }
     }
   }
@@ -60,7 +64,13 @@ function commerce_checkout_completion_message_pane_settings_form($checkout_pane)
   }
   else {
     $message = commerce_checkout_completion_message_default();
-    $text_format = 'filtered_html';
+
+    if (filter_format_load('filtered_html')) {
+      $text_format = 'filtered_html';
+    }
+    else {
+      $text_format = 'plain_text';
+    }
   }
 
   $form['commerce_checkout_completion_message_override'] = array(
@@ -94,7 +104,7 @@ function commerce_checkout_completion_message_pane_settings_form($checkout_pane)
       'label' => t('Site information'),
       'description' => t('Site-wide settings and other global information.'),
     ),
-    'order' => array(
+    'commerce_order' => array(
       'label' => t('Order'),
       'type' => 'commerce_order',
     ),
@@ -120,11 +130,17 @@ function commerce_checkout_completion_message_pane_checkout_form($form, &$form_s
   }
   else {
     $message = commerce_checkout_completion_message_default();
-    $text_format = 'filtered_html';
+
+    if (filter_format_load('filtered_html')) {
+      $text_format = 'filtered_html';
+    }
+    else {
+      $text_format = 'plain_text';
+    }
   }
 
   // Perform token replacement.
-  $message = token_replace($message, array('order' => $order));
+  $message = token_replace($message, array('commerce-order' => $order));
 
   // Apply the proper text format.
   $message = check_markup($message, $text_format);

@@ -1,9 +1,10 @@
 name = Payment
 description = Implement core payment features for Drupal commerce.
 package = Commerce
-dependencies[] = rules
 dependencies[] = commerce
 dependencies[] = commerce_order
+dependencies[] = entity
+dependencies[] = rules
 core = 7.x
 
 ; Module includes
@@ -26,11 +27,12 @@ files[] = includes/views/handlers/commerce_payment_handler_filter_currency_code.
 files[] = includes/views/handlers/commerce_payment_handler_field_balance.inc
 
 ; Tests
+files[] = tests/commerce_payment.rules.test
 ;files[] = tests/commerce_payment.test
 
-; Information added by drupal.org packaging script on 2011-05-20
-version = "7.x-1.x-dev"
+; Information added by drupal.org packaging script on 2012-01-25
+version = "7.x-1.2"
 core = "7.x"
 project = "commerce"
-datestamp = "1305850315"
+datestamp = "1327528840"
 

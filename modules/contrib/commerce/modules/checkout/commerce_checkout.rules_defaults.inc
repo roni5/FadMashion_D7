@@ -24,7 +24,7 @@ function commerce_checkout_default_rules_configuration() {
   $rule
     ->event('commerce_checkout_complete')
     ->action('commerce_order_update_state', array(
-      'order:select' => 'order',
+      'commerce_order:select' => 'commerce-order',
       'order_state' => 'pending',
     ));
 
@@ -40,24 +40,24 @@ function commerce_checkout_default_rules_configuration() {
   $rule
     ->event('commerce_checkout_complete')
     ->condition('data_is', array(
-      'data:select' => 'order:uid',
+      'data:select' => 'commerce-order:uid',
       'op' => '==',
       'value' => '0',
     ))
     ->condition('entity_exists', array(
       'type' => 'user',
       'property' => 'mail',
-      'value:select' => 'order:mail',
+      'value:select' => 'commerce-order:mail',
     ))
     ->condition('data_is', array(
-      'data:select' => 'order:type',
+      'data:select' => 'commerce-order:type',
       'op' => '==',
       'value' => 'commerce_order',
     ))
     ->action('entity_query', array(
       'type' => 'user',
       'property' => 'mail',
-      'value:select' => 'order:mail',
+      'value:select' => 'commerce-order:mail',
       'limit' => 1,
       'entity_fetched:label' => t('Fetched account'),
       'entity_fetched:var' => 'account_fetched',
@@ -72,17 +72,21 @@ function commerce_checkout_default_rules_configuration() {
     'item:type' => 'user',
   ))
     ->action('data_set', array(
-      'data:select' => 'order:uid',
+      'data:select' => 'commerce-order:uid',
       'value:select' => 'list-item:uid',
     ));
 
   // Accommodate any profile types referenced by the order.
   foreach ($customer_profile_entity_info['bundles'] as $type => $data) {
-    $loop
-      ->action('data_set', array(
-        'data:select' => 'order:' . strtr('commerce-customer-' . $type, '_', '-') . ':uid',
-        'value:select' => 'list-item:uid',
-      ));
+    $instance = field_info_instance('commerce_order', 'commerce_customer_' . $type, 'commerce_order');
+
+    if (!empty($instance)) {
+      $loop
+        ->action('data_set', array(
+          'data:select' => 'commerce-order:' . strtr('commerce-customer-' . $type, '_', '-') . ':uid',
+          'value:select' => 'list-item:uid',
+        ));
+    }
   }
 
   // Add the loop to the rule as an action.
@@ -107,24 +111,24 @@ function commerce_checkout_default_rules_configuration() {
   $rule
     ->event('commerce_checkout_complete')
     ->condition('data_is', array(
-      'data:select' => 'order:uid',
+      'data:select' => 'commerce-order:uid',
       'op' => '==',
       'value' => '0',
     ))
     ->condition(rules_condition('entity_exists', array(
       'type' => 'user',
       'property' => 'mail',
-      'value:select' => 'order:mail',
+      'value:select' => 'commerce-order:mail',
     ))->negate())
     ->condition('data_is', array(
-      'data:select' => 'order:type',
+      'data:select' => 'commerce-order:type',
       'op' => '==',
       'value' => 'commerce_order',
     ))
     ->action('entity_create', array(
       'type' => 'user',
-      'param_name:select' => 'order:mail',
-      'param_mail:select' => 'order:mail',
+      'param_name:select' => 'commerce-order:mail',
+      'param_mail:select' => 'commerce-order:mail',
       'entity_created:label' => t('Created account'),
       'entity_created:var' => 'account_created',
     ))
@@ -139,7 +143,7 @@ function commerce_checkout_default_rules_configuration() {
     ->action('entity_query', array(
       'type' => 'user',
       'property' => 'mail',
-      'value:select' => 'order:mail',
+      'value:select' => 'commerce-order:mail',
       'limit' => 1,
       'entity_fetched:label' => t('Fetched account'),
       'entity_fetched:var' => 'account_fetched',
@@ -158,17 +162,21 @@ function commerce_checkout_default_rules_configuration() {
       'email_type' => 'register_admin_created',
     ))
     ->action('data_set', array(
-      'data:select' => 'order:uid',
+      'data:select' => 'commerce-order:uid',
       'value:select' => 'list-item:uid',
     ));
 
   // Accommodate any profile types referenced by the order.
   foreach ($customer_profile_entity_info['bundles'] as $type => $data) {
-    $loop
-      ->action('data_set', array(
-        'data:select' => 'order:' . strtr('commerce-customer-' . $type, '_', '-') . ':uid',
-        'value:select' => 'list-item:uid',
-      ));
+    $instance = field_info_instance('commerce_order', 'commerce_customer_' . $type, 'commerce_order');
+
+    if (!empty($instance)) {
+      $loop
+        ->action('data_set', array(
+          'data:select' => 'commerce-order:' . strtr('commerce-customer-' . $type, '_', '-') . ':uid',
+          'value:select' => 'list-item:uid',
+        ));
+    }
   }
 
   // Add the loop to the rule as an action.
@@ -189,9 +197,9 @@ function commerce_checkout_default_rules_configuration() {
   $rule
     ->event('commerce_checkout_complete')
     ->action('mail', array(
-      'to:select' => 'order:mail',
-      'subject' => t('Order [order:order-number] at [site:name]'),
-      'message' => t("Thanks for your order [order:order-number] at [site:name].\n\nIf this is your first order with us, you will receive a separate e-mail with login instructions. You can view your order history with us at any time by logging into our website at:\n\n[site:login-url]\n\nYou can find the status of your current order at:\n\n[site:url]user/[order:uid]/orders/[order:order-id]\n\nPlease contact us if you have any questions about your order."),
+      'to:select' => 'commerce-order:mail',
+      'subject' => t('Order [commerce-order:order-number] at [site:name]'),
+      'message' => t("Thanks for your order [commerce-order:order-number] at [site:name].\n\nIf this is your first order with us, you will receive a separate e-mail with login instructions. You can view your order history with us at any time by logging into our website at:\n\n[site:login-url]\n\nYou can find the status of your current order at:\n\n[commerce-order:customer-url]\n\nPlease contact us if you have any questions about your order."),
       'from' => '',
     ));
 

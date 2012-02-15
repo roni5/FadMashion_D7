@@ -9,73 +9,6 @@
  */
 
 /**
- * Implements hook_rules_event_info().
- */
-function commerce_line_item_rules_event_info() {
-  $events = array();
-
-  $events['commerce_line_item_presave'] = array(
-    'label' => t('Before saving a line item'),
-    'group' => t('Commerce Line Item'),
-    'variables' => commerce_line_item_rules_event_variables(t('Line item'), TRUE, TRUE),
-    'access callback' => 'commerce_line_item_rules_access',
-  );
-  $events['commerce_line_item_insert'] = array(
-    'label' => t('After saving a new line item'),
-    'group' => t('Commerce Line Item'),
-    'variables' => commerce_line_item_rules_event_variables(t('Created line item'), TRUE),
-    'access callback' => 'commerce_line_item_rules_access',
-  );
-  $events['commerce_line_item_update'] = array(
-    'label' => t('After updating an existing line item'),
-    'group' => t('Commerce Line Item'),
-    'variables' => commerce_line_item_rules_event_variables(t('Updated line item'), TRUE),
-    'access callback' => 'commerce_line_item_rules_access',
-  );
-  $events['commerce_line_item_delete'] = array(
-    'label' => t('After deleting a line item'),
-    'group' => t('Commerce Line Item'),
-    'variables' => commerce_line_item_rules_event_variables(t('Deleted line item')),
-    'access callback' => 'commerce_line_item_rules_access',
-  );
-
-  return $events;
-}
-
-/**
- * Returns a variables array for line item events.
- *
- * @param $label
- *   The label for the primary line item variable.
- * @param $unchanged
- *   Boolean indicating whether or not to include the unchanged line item.
- * @param $skip_save
- *   Boolean indicating whether or not the primary line item variable should
- *     skip saving after event execution.
- */
-function commerce_line_item_rules_event_variables($label, $unchanged = FALSE, $skip_save = FALSE) {
-  $variables = array(
-    'line_item' => array(
-      'type' => 'commerce_line_item',
-      'label' => $label,
-      'skip save' => $skip_save,
-    ),
-  );
-
-  // Include the unchanged line item if specified.
-  if ($unchanged) {
-    $variables['line_item_unchanged'] = array(
-      'type' => 'commerce_line_item',
-      'label' => t('Unchanged line item'),
-      'skip save' => TRUE,
-      'handler' => 'rules_events_entity_unchanged',
-    );
-  }
-
-  return $variables;
-}
-
-/**
  * Rules integration access callback.
  */
 function commerce_line_item_rules_access($type, $name) {
@@ -119,7 +52,7 @@ function commerce_line_item_rules_action_info() {
     $actions[$key] = array(
       'label' => $value['label'],
       'parameter' => array(
-        'line_item' => array(
+        'commerce_line_item' => array(
           'type' => 'commerce_line_item',
           'label' => t('Line item'),
         ),
@@ -127,6 +60,20 @@ function commerce_line_item_rules_action_info() {
           'type' => 'decimal',
           'label' => t('Amount'),
           'description' => $value['amount description'],
+        ),
+        'component_name' => array(
+          'type' => 'text',
+          'label' => t('Price component type'),
+          'description' => t('Price components track changes to prices made during the price calculation process, and they are carried over from the unit price to the total price of a line item. When an order total is calculated, it combines all the components of every line item on the order. When the unit price is altered by this action, the selected type of price component will be added to its data array and reflected in the order total display when it is formatted with components showing. Defaults to base price, which displays as the order Subtotal.'),
+          'options list' => 'commerce_line_item_price_component_options_list',
+          'default value' => 'base_price',
+        ),
+        'round_mode' => array(
+          'type' => 'integer',
+          'label' => t('Price rounding mode'),
+          'description' => t('Round the resulting price amount after performing this operation.'),
+          'options list' => 'commerce_round_mode_options_list',
+          'default value' => COMMERCE_ROUND_HALF_UP,
         ),
       ),
       'group' => t('Commerce Line Item'),
@@ -136,7 +83,7 @@ function commerce_line_item_rules_action_info() {
   $actions['commerce_line_item_unit_price_currency_code'] = array(
     'label' => t("Set the unit price's currency code"),
     'parameter' => array(
-      'line_item' => array(
+      'commerce_line_item' => array(
         'type' => 'commerce_line_item',
         'label' => t('Line item'),
       ),
@@ -152,7 +99,7 @@ function commerce_line_item_rules_action_info() {
   $actions['commerce_line_item_unit_price_currency_convert'] = array(
     'label' => t("Convert the unit price to a different currency"),
     'parameter' => array(
-      'line_item' => array(
+      'commerce_line_item' => array(
         'type' => 'commerce_line_item',
         'label' => t('Line item'),
       ),
@@ -169,20 +116,28 @@ function commerce_line_item_rules_action_info() {
 }
 
 /**
+ * Options list callback: price component selection list.
+ */
+function commerce_line_item_price_component_options_list() {
+  return commerce_price_component_titles();
+}
+
+/**
  * Rules action: add an amount to the unit price.
  */
-function commerce_line_item_unit_price_add($line_item, $amount) {
+function commerce_line_item_unit_price_add($line_item, $amount, $component_name, $round_mode) {
   if (is_numeric($amount)) {
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
 
     // Calculate the updated amount and create a price array representing the
     // difference between it and the current amount.
-    $current_amount = $wrapper->commerce_unit_price->amount->value();
-    $updated_amount = $current_amount + $amount;
+    $current_amount = $unit_price['amount'];
+    $updated_amount = commerce_round($round_mode, $current_amount + $amount);
 
     $difference = array(
       'amount' => $updated_amount - $current_amount,
-      'currency_code' => $wrapper->commerce_unit_price->currency_code->value(),
+      'currency_code' => $unit_price['currency_code'],
       'data' => array(),
     );
 
@@ -191,7 +146,7 @@ function commerce_line_item_unit_price_add($line_item, $amount) {
 
     $wrapper->commerce_unit_price->data = commerce_price_component_add(
       $wrapper->commerce_unit_price->value(),
-      'base_price',
+      $component_name,
       $difference,
       TRUE
     );
@@ -201,18 +156,19 @@ function commerce_line_item_unit_price_add($line_item, $amount) {
 /**
  * Rules action: subtract an amount from the unit price.
  */
-function commerce_line_item_unit_price_subtract($line_item, $amount) {
+function commerce_line_item_unit_price_subtract($line_item, $amount, $component_name, $round_mode) {
   if (is_numeric($amount)) {
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
 
     // Calculate the updated amount and create a price array representing the
     // difference between it and the current amount.
-    $current_amount = $wrapper->commerce_unit_price->amount->value();
-    $updated_amount = $current_amount - $amount;
+    $current_amount = $unit_price['amount'];
+    $updated_amount = commerce_round($round_mode, $current_amount - $amount);
 
     $difference = array(
       'amount' => $updated_amount - $current_amount,
-      'currency_code' => $wrapper->commerce_unit_price->currency_code->value(),
+      'currency_code' => $unit_price['currency_code'],
       'data' => array(),
     );
 
@@ -221,7 +177,7 @@ function commerce_line_item_unit_price_subtract($line_item, $amount) {
 
     $wrapper->commerce_unit_price->data = commerce_price_component_add(
       $wrapper->commerce_unit_price->value(),
-      'base_price',
+      $component_name,
       $difference,
       TRUE
     );
@@ -231,18 +187,19 @@ function commerce_line_item_unit_price_subtract($line_item, $amount) {
 /**
  * Rules action: multiply the unit price by some amount.
  */
-function commerce_line_item_unit_price_multiply($line_item, $amount) {
+function commerce_line_item_unit_price_multiply($line_item, $amount, $component_name, $round_mode) {
   if (is_numeric($amount)) {
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
 
     // Calculate the updated amount and create a price array representing the
     // difference between it and the current amount.
-    $current_amount = $wrapper->commerce_unit_price->amount->value();
-    $updated_amount = $current_amount * $amount;
+    $current_amount = $unit_price['amount'];
+    $updated_amount = commerce_round($round_mode, $current_amount * $amount);
 
     $difference = array(
       'amount' => $updated_amount - $current_amount,
-      'currency_code' => $wrapper->commerce_unit_price->currency_code->value(),
+      'currency_code' => $unit_price['currency_code'],
       'data' => array(),
     );
 
@@ -251,7 +208,7 @@ function commerce_line_item_unit_price_multiply($line_item, $amount) {
 
     $wrapper->commerce_unit_price->data = commerce_price_component_add(
       $wrapper->commerce_unit_price->value(),
-      'base_price',
+      $component_name,
       $difference,
       TRUE
     );
@@ -261,18 +218,19 @@ function commerce_line_item_unit_price_multiply($line_item, $amount) {
 /**
  * Rules action: divide the unit price by some amount.
  */
-function commerce_line_item_unit_price_divide($line_item, $amount) {
+function commerce_line_item_unit_price_divide($line_item, $amount, $component_name, $round_mode) {
   if (is_numeric($amount)) {
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
 
     // Calculate the updated amount and create a price array representing the
     // difference between it and the current amount.
-    $current_amount = $wrapper->commerce_unit_price->amount->value();
-    $updated_amount = $current_amount / $amount;
+    $current_amount = $unit_price['amount'];
+    $updated_amount = commerce_round($round_mode, $current_amount / $amount);
 
     $difference = array(
       'amount' => $updated_amount - $current_amount,
-      'currency_code' => $wrapper->commerce_unit_price->currency_code->value(),
+      'currency_code' => $unit_price['currency_code'],
       'data' => array(),
     );
 
@@ -281,7 +239,7 @@ function commerce_line_item_unit_price_divide($line_item, $amount) {
 
     $wrapper->commerce_unit_price->data = commerce_price_component_add(
       $wrapper->commerce_unit_price->value(),
-      'base_price',
+      $component_name,
       $difference,
       TRUE
     );
@@ -291,18 +249,19 @@ function commerce_line_item_unit_price_divide($line_item, $amount) {
 /**
  * Rules action: set the unit price to a specific amount.
  */
-function commerce_line_item_unit_price_amount($line_item, $amount) {
+function commerce_line_item_unit_price_amount($line_item, $amount, $component_name, $round_mode) {
   if (is_numeric($amount)) {
     $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+    $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price', TRUE);
 
     // Calculate the updated amount and create a price array representing the
     // difference between it and the current amount.
-    $current_amount = $wrapper->commerce_unit_price->amount->value();
-    $updated_amount = $amount;
+    $current_amount = $unit_price['amount'];
+    $updated_amount = commerce_round($round_mode, $amount);
 
     $difference = array(
       'amount' => $updated_amount - $current_amount,
-      'currency_code' => $wrapper->commerce_unit_price->currency_code->value(),
+      'currency_code' => $unit_price['currency_code'],
       'data' => array(),
     );
 
@@ -311,7 +270,7 @@ function commerce_line_item_unit_price_amount($line_item, $amount) {
 
     $wrapper->commerce_unit_price->data = commerce_price_component_add(
       $wrapper->commerce_unit_price->value(),
-      'base_price',
+      $component_name,
       $difference,
       TRUE
     );
@@ -323,17 +282,22 @@ function commerce_line_item_unit_price_amount($line_item, $amount) {
  */
 function commerce_line_item_unit_price_currency_code($line_item, $currency_code) {
   $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+  $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price');
+
+  // Only set the currency on prices with non-NULL amounts.
+  if (empty($unit_price)) {
+    return;
+  }
+
   $wrapper->commerce_unit_price->currency_code = $currency_code;
 
   // Update the currency code of the price's components.
-  $data = $wrapper->commerce_unit_price->data->value();
-
-  if (!empty($data['components'])) {
-    foreach ($data['components'] as $key => &$component) {
+  if (!empty($unit_price['data']['components'])) {
+    foreach ($unit_price['data']['components'] as $key => &$component) {
       $component['price']['currency_code'] = $currency_code;
     }
 
-    $wrapper->commerce_unit_price->data = $data;
+    $wrapper->commerce_unit_price->data = $unit_price['data'];
   }
 }
 
@@ -342,19 +306,24 @@ function commerce_line_item_unit_price_currency_code($line_item, $currency_code)
  */
 function commerce_line_item_unit_price_currency_convert($line_item, $currency_code) {
   $wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+  $unit_price = commerce_price_wrapper_value($wrapper, 'commerce_unit_price');
+
+  // Only convert non-NULL amounts since NULL amounts do not have a currency.
+  if (empty($unit_price)) {
+    return;
+  }
+
   $wrapper->commerce_unit_price->amount = commerce_currency_convert($wrapper->commerce_unit_price->amount->value(), $wrapper->commerce_unit_price->currency_code->value(), $currency_code);
   $wrapper->commerce_unit_price->currency_code = $currency_code;
 
   // Convert the curreny code of the price's components.
-  $data = $wrapper->commerce_unit_price->data->value();
-
-  if (!empty($data['components'])) {
-    foreach ($data['components'] as $key => &$component) {
-      $component['price']['amount'] = commerce_currency_convert($component['price']['amount'], $component['currency_code'], $currency_code);
+  if (!empty($unit_price['data']['components'])) {
+    foreach ($unit_price['data']['components'] as $key => &$component) {
+      $component['price']['amount'] = commerce_currency_convert($component['price']['amount'], $component['price']['currency_code'], $currency_code);
       $component['price']['currency_code'] = $currency_code;
     }
 
-    $wrapper->commerce_unit_price->data = $data;
+    $wrapper->commerce_unit_price->data = $unit_price['data'];
   }
 }
 

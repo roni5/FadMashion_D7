@@ -12,7 +12,7 @@ function commerce_payment_token_info() {
   $type = array(
     'name' => t('Payment transactions', array(), array('context' => 'a drupal commerce payment transaction')),
     'description' => t('Tokens related to payment transactions.'),
-    'needs-data' => 'transaction',
+    'needs-data' => 'commerce-payment-transaction',
   );
 
   // Tokens for payments.
@@ -75,7 +75,7 @@ function commerce_payment_token_info() {
   $transaction['order'] = array(
     'name' => t('Order'),
     'description' => t('The order related to the payment transaction.'),
-    'type' => 'order',
+    'type' => 'commerce-order',
   );
   $transaction['creator'] = array(
     'name' => t('Creator'),
@@ -93,8 +93,8 @@ function commerce_payment_token_info() {
     'type' => 'date',
   );
   return array(
-    'types' => array('transaction' => $type),
-    'tokens' => array('transaction' => $transaction),
+    'types' => array('commerce-payment-transaction' => $type),
+    'tokens' => array('commerce-payment-transaction' => $transaction),
   );
 }
 
@@ -116,8 +116,8 @@ function commerce_payment_tokens($type, $tokens, array $data = array(), array $o
 
   $replacements = array();
 
-  if ($type == 'transaction' && !empty($data['transaction'])) {
-    $transaction = $data['transaction'];
+  if ($type == 'commerce-payment-transaction' && !empty($data['commerce-payment-transaction'])) {
+    $transaction = $data['commerce-payment-transaction'];
 
     foreach ($tokens as $name => $original) {
       switch ($name) {
@@ -207,7 +207,7 @@ function commerce_payment_tokens($type, $tokens, array $data = array(), array $o
 
     if ($order_tokens = token_find_with_prefix($tokens, 'order')) {
       $order = commerce_order_load($transaction->order_id);
-      $replacements += token_generate('order', $order_tokens, array('order' => $order), $options);
+      $replacements += token_generate('commerce-order', $order_tokens, array('commerce-order' => $order), $options);
     }
 
     if ($creator_tokens = token_find_with_prefix($tokens, 'creator')) {

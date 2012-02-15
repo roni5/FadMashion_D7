@@ -13,7 +13,7 @@ function commerce_line_item_token_info() {
   $type = array(
     'name' => t('Line items'),
     'description' => t('Tokens related to individual line items.'),
-    'needs-data' => 'line_item',
+    'needs-data' => 'commerce-line-item',
   );
 
   // Tokens for line items.
@@ -44,7 +44,7 @@ function commerce_line_item_token_info() {
   $line_item['order'] = array(
     'name' => t('Order'),
     'description' => t('Order associated with the line item'),
-    'type' => 'order',
+    'type' => 'commerce-order',
   );
   $line_item['created'] = array(
     'name' => t('Date created'),
@@ -58,8 +58,8 @@ function commerce_line_item_token_info() {
   );
 
   return array(
-    'types' => array('line_item' => $type),
-    'tokens' => array('line_item' => $line_item),
+    'types' => array('commerce-line-item' => $type),
+    'tokens' => array('commerce-line-item' => $line_item),
   );
 }
 
@@ -81,8 +81,8 @@ function commerce_line_item_tokens($type, $tokens, array $data = array(), array 
 
   $replacements = array();
 
-  if ($type == 'line_item' && !empty($data['line_item'])) {
-    $line_item = $data['line_item'];
+  if ($type == 'commerce-line-item' && !empty($data['commerce-line-item'])) {
+    $line_item = $data['commerce-line-item'];
 
     foreach ($tokens as $name => $original) {
       switch ($name) {
@@ -127,7 +127,7 @@ function commerce_line_item_tokens($type, $tokens, array $data = array(), array 
 
     if ($order_tokens = token_find_with_prefix($tokens, 'order')) {
       $order = commerce_order_load($line_item->order_id);
-      $replacements += token_generate('order', $order_tokens, array('order' => $order), $options);
+      $replacements += token_generate('commerce-order', $order_tokens, array('commerce-order' => $order), $options);
     }
 
     foreach (array('created', 'changed') as $date) {

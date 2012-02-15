@@ -92,7 +92,7 @@ function commerce_order_order_form($form, &$form_state, $order) {
     '#title' => t('User information'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
-    '#access' => user_access('administer orders'),
+    '#access' => user_access('administer commerce_order entities'),
     '#group' => 'additional_settings',
     '#attached' => array(
       'js' => array(
@@ -138,7 +138,7 @@ function commerce_order_order_form($form, &$form_state, $order) {
     '#title' => t('Create new revision on update'),
     '#description' => t('If an update log message is entered, a revision will be created even if this is unchecked.'),
     '#default_value' => TRUE,
-    '#access' => user_access('administer orders'),
+    '#access' => user_access('administer commerce_order entities'),
   );
   $form['order_history']['date'] = array(
     '#type' => 'textfield',
@@ -202,6 +202,11 @@ function commerce_order_order_form_validate($form, &$form_state) {
   // Validate the "created on" field.
   if (!empty($form_state['values']['date']) && strtotime($form_state['values']['date']) === FALSE) {
     form_set_error('date', t('You have to specify a valid date.'));
+  }
+
+  // Validate the e-mail address entered.
+  if (!empty($form_state['values']['mail']) && !valid_email_address($form_state['values']['mail'])) {
+    form_set_error('mail', t('You have specified an invalid e-mail address.'));
   }
 
   // TODO: Pending token patterns for order numbers, validate the characters and
@@ -286,7 +291,7 @@ function commerce_order_order_form_submit($form, &$form_state) {
   }
 
   // Save the order.
-  $order = commerce_order_save($order);
+  commerce_order_save($order);
 
   // Ensure the attached line items are associated with the order if they do not
   // have an order_id set yet.
@@ -340,6 +345,6 @@ function commerce_order_order_delete_form_submit($form, &$form_state) {
     watchdog('commerce_order', 'Deleted order @number.', array('@number' => $order->order_number), WATCHDOG_NOTICE);
   }
   else {
-    drupal_set_message(t('Order @number could not be deleted.', array('@number' => $order-->order_number)), 'error');
+    drupal_set_message(t('Order @number could not be deleted.', array('@number' => $order->order_number)), 'error');
   }
 }

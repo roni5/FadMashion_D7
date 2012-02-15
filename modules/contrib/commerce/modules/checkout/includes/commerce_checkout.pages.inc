@@ -20,14 +20,29 @@ function commerce_checkout_router($order, $checkout_page = NULL) {
   // If the user does not have access to checkout the order, return a 404. We
   // could return a 403, but then the user would know they've identified a
   // potentially valid checkout URL.
-  if (!commerce_checkout_access($order, $checkout_page)) {
+  if (!commerce_checkout_access($order)) {
     return drupal_not_found();
+  }
+
+  // If the user is attempting to access an inaccessible page for their order,
+  // redirect them to the proper page.
+  if (!commerce_checkout_page_access($checkout_page, $order)) {
+    $target_uri = commerce_checkout_order_uri($order);
+
+    // Only redirect if the target page is different from the page the user was
+    // trying to access. Otherwise give a 403 error.
+    if (!empty($target_uri) && $target_uri !== $_GET['q']) {
+      return drupal_goto($target_uri);
+    }
+    else {
+      return drupal_access_denied();
+    }
   }
 
   // If there are no line items on the order, redirect away.
   $wrapper = entity_metadata_wrapper('commerce_order', $order);
 
-  if (commerce_line_items_quantity($wrapper->commerce_line_items, 'product') == 0) {
+  if (commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types()) == 0) {
     drupal_goto('<front>');
   }
 
@@ -44,7 +59,7 @@ function commerce_checkout_router($order, $checkout_page = NULL) {
 }
 
 /**
- * Builds the checkout form based on the current step in checkout.
+ * Builds the checkout form for the given order on the specified checkout page.
  *
  * @param $order
  *   The fully loaded order object being checked out.
@@ -54,17 +69,22 @@ function commerce_checkout_router($order, $checkout_page = NULL) {
 function commerce_checkout_form($form, &$form_state, $order, $checkout_page) {
   global $user;
 
-  $form['#attached']['css'][] = drupal_get_path('module', 'commerce_checkout') .'/theme/commerce_checkout.css';
+  $form['#attached']['css'][] = drupal_get_path('module', 'commerce_checkout') .'/theme/commerce_checkout.base.css';
+  $form['#attached']['css'][] = drupal_get_path('module', 'commerce_checkout') .'/theme/commerce_checkout.theme.css';
   $form['#attached']['js'][] = drupal_get_path('module', 'commerce_checkout') . '/commerce_checkout.js';
 
   $form_state['order'] = $order;
   $form_state['checkout_page'] = $checkout_page;
   $form_state['account'] = clone($user);
 
-  // Add any instructions for the checkout page.
-  $form['help'] = array(
-    '#markup' => '<div class="checkout-help">' . filter_xss($checkout_page['help']) . '</div>',
-  );
+  // Add any help text that has been defined for this checkout page.
+  $help = filter_xss($checkout_page['help']);
+
+  if (!empty($help)) {
+    $form['help'] = array(
+      '#markup' => theme('commerce_checkout_help', array('help' => $help)),
+    );
+  }
 
   // Restore form errors.
   if (!empty($form_state['storage']['errors'])) {
@@ -72,20 +92,44 @@ function commerce_checkout_form($form, &$form_state, $order, $checkout_page) {
     $form_errors = $form_state['storage']['errors'];
   }
 
+  // Catch and clear already pushed messages.
+  $previous_messages = drupal_get_messages();
+  $show_errors_message = FALSE;
+  $visible_panes = 0;
+
   // Add any enabled checkout panes for this page to the form.
   foreach (commerce_checkout_panes(array('enabled' => TRUE, 'page' => $checkout_page['page_id'])) as $pane_id => $checkout_pane) {
     if ($callback = commerce_checkout_pane_callback($checkout_pane, 'checkout_form')) {
-      // Display error messages before the form.
+      // Generate the pane form.
+      $pane_form = $callback($form, $form_state, $checkout_pane, $order);
+
+      // Combine the messages that were created during this pane's validation or
+      // submit process with any that were created during the pane generation
+      // and merge them into the session's current messages array.
       if (!empty($form_state['storage']['messages'][$pane_id])) {
-        $form[$pane_id . '_errors'] = array(
-          '#markup' =>  $form_state['storage']['messages'][$pane_id],
+        $_SESSION['messages'] = array_merge_recursive($form_state['storage']['messages'][$pane_id], drupal_get_messages());
+      }
+
+      // If there are messages in the session right now for this pane, theme
+      // them into the form right above the pane itself.
+      if (!empty($_SESSION['messages'])) {
+        // If there are error messages and this is not the first pane on the
+        // form, then indicate we need to show an error message at the top of
+        // the page.
+        if ($visible_panes > 0 && !empty($_SESSION['messages']['error'])) {
+          $show_errors_message = TRUE;
+        }
+
+        $form_state['storage']['themed_messages'][$pane_id] = theme('status_messages');
+
+        $form[$pane_id . '_messages'] = array(
+          '#markup' =>  $form_state['storage']['themed_messages'][$pane_id],
         );
       }
 
       // Create a fieldset for the pane and add the form data defined in the
       // pane's form callback.
-      // $pane_values = isset($form_state['values'][$pane_id]) ? $form_state['values'][$pane_id] : array();
-      if ($pane_form = $callback($form, $form_state, $checkout_pane, $order)) {
+      if ($pane_form) {
         $form[$pane_id] = $pane_form + array(
           '#type' => $checkout_pane['fieldset'] ? 'fieldset' : 'container',
           '#title' => check_plain($checkout_pane['title']),
@@ -94,8 +138,21 @@ function commerce_checkout_form($form, &$form_state, $order, $checkout_page) {
           '#attributes' => array('class' => array($pane_id)),
           '#tree' => TRUE,
         );
+
+        $visible_panes++;
       }
     }
+  }
+
+  // Restore general messages to the current session's messages array.
+  $_SESSION['messages'] = array_merge_recursive(array_filter($previous_messages), drupal_get_messages());
+
+  // If there are errors on the form, add a message to the top of the page.
+  if ($show_errors_message) {
+    $form['error_message'] = array(
+      '#markup' => theme('commerce_checkout_errors_message', array('label' => t('Errors on form'), 'message' => t('There are errors on the page. Please correct them and resubmit the form.'))),
+      '#weight' => -10,
+    );
   }
 
   // Only add buttons to the form if the checkout page hasn't disabled them.
@@ -103,6 +160,13 @@ function commerce_checkout_form($form, &$form_state, $order, $checkout_page) {
     $form['buttons'] = array(
       '#type' => 'fieldset',
       '#attributes' => array('class' => array('checkout-buttons')),
+    );
+    $form['buttons']['continue'] = array(
+      '#type' => 'submit',
+      '#value' => $checkout_page['submit_value'],
+      '#attributes' => array('class' => array('checkout-continue')),
+      '#validate' => array('commerce_checkout_form_validate'),
+      '#submit' => array('commerce_checkout_form_submit'),
     );
 
     // Add the cancel or back button where appropriate. We define button level
@@ -125,6 +189,7 @@ function commerce_checkout_form($form, &$form_state, $order, $checkout_page) {
         '#attributes' => array('class' => array('checkout-cancel')),
         '#submit' => array('commerce_checkout_form_cancel_submit'),
         '#limit_validation_errors' => array(),
+        '#prefix' => t('or'),
       );
     }
     elseif ($checkout_page['prev_page'] && !empty($checkout_page['back_value'])) {
@@ -134,29 +199,27 @@ function commerce_checkout_form($form, &$form_state, $order, $checkout_page) {
         '#attributes' => array('class' => array('checkout-back')),
         '#submit' => array('commerce_checkout_form_back_submit'),
         '#limit_validation_errors' => array(),
+        '#prefix' => t('or'),
       );
     }
-
-    $form['buttons']['continue'] = array(
-      '#type' => 'submit',
-      '#value' => $checkout_page['submit_value'],
-      '#attributes' => array('class' => array('checkout-continue')),
-      '#submit' => array('commerce_checkout_form_submit'),
-    );
   }
+
+  // Remove form level validate and submit handlers.
+  $form['#validate'] = array();
+  $form['#submit'] = array();
 
   return $form;
 }
 
 /**
- * Submit handler for the continue and back buttons of the checkout form.
+ * Validate handler for the continue button of the checkout form.
  *
  * This function calls the validation function of each pane, followed by
  * the submit function if the validation succeeded. As long as one pane
  * fails validation, we then ask for the form to be rebuilt. Once all the panes
  * are happy, we move on to the next page.
  */
-function commerce_checkout_form_submit($form, &$form_state) {
+function commerce_checkout_form_validate($form, &$form_state) {
   global $user;
 
   $checkout_page = $form_state['checkout_page'];
@@ -167,15 +230,39 @@ function commerce_checkout_form_submit($form, &$form_state) {
   // Catch and clear already pushed messages.
   $previous_messages = drupal_get_messages();
 
+  // Load any pre-existing validation errors for the elements.
+  $errors = array();
+
+  foreach ((array) form_get_errors() as $element_path => $error) {
+    list($pane_id, ) = explode('][', $element_path, 2);
+    $errors[$pane_id][$element_path] = $error;
+  }
+
   // Loop through the enabled checkout panes for the current page.
   $form_validate = TRUE;
   foreach (commerce_checkout_panes(array('enabled' => TRUE, 'page' => $checkout_page['page_id'])) as $pane_id => $checkout_pane) {
     $validate = TRUE;
 
+    // If any element in the pane failed validation, we mark the pane as
+    // unvalidated and replay the validation messages on top of it.
+    if (!empty($errors[$pane_id])) {
+      $validate = FALSE;
+
+      foreach ($errors[$pane_id] as $element_path => $message) {
+        if ($message) {
+          drupal_set_message($message, 'error');
+        }
+      }
+
+      if (isset($previous_messages['error'])) {
+        $previous_messages['error'] = array_diff($previous_messages['error'], $errors[$pane_id]);
+      }
+    }
+
     // If the pane has defined a checkout form validate handler...
     if ($callback = commerce_checkout_pane_callback($checkout_pane, 'checkout_form_validate')) {
       // Give it a chance to process the submitted data.
-      $validate = $callback($form, $form_state, $checkout_pane, $order);
+      $validate &= $callback($form, $form_state, $checkout_pane, $order);
     }
 
     // Catch and clear panes' messages.
@@ -186,32 +273,50 @@ function commerce_checkout_form_submit($form, &$form_state) {
       $callback($form, $form_state, $checkout_pane, $order);
     }
 
-    // Generate status messages and theme them.
-    $_SESSION['messages'] = array_merge_recursive($pane_messages, drupal_get_messages());
-    $form_state['storage']['messages'][$pane_id] = theme('status_messages');
+    // Generate status messages.
+    $form_state['storage']['messages'][$pane_id] = array_merge_recursive($pane_messages, drupal_get_messages());
 
     // A failed pane makes the form fail.
     $form_validate &= $validate;
   }
 
   // Restore messages and form errors.
-  $_SESSION['messages'] = $previous_messages;
+  $_SESSION['messages'] = array_merge_recursive(array_filter($previous_messages), drupal_get_messages());
   $form_errors = &drupal_static('form_set_error', array());
   $form_state['storage']['errors'] = $form_errors;
   $form_errors = array();
 
   // Save the updated order object.
-  $order = commerce_order_save($order);
+  commerce_order_save($order);
 
   // If a pane failed validation or the form state has otherwise been altered to
   // initiate a rebuild, return without moving to the next checkout page.
   if (!$form_validate || $form_state['rebuild']) {
     $form_state['rebuild'] = TRUE;
-    return;
+  }
+}
+
+/**
+ * Submit handler for the continue button of the checkout form.
+ */
+function commerce_checkout_form_submit($form, &$form_state) {
+  $checkout_page = $form_state['checkout_page'];
+
+  // Load a fresh copy of the order stored in the form.
+  $order = commerce_order_load($form_state['order']->order_id);
+
+  // If we are going to redirect with checkout pane messages stored in the form
+  // state, they will not be displayed on a subsequent form build like normal.
+  // Move them out of the form state messages array and into the current
+  // session's general message array instead.
+  if (!empty($form_state['storage']['messages'])) {
+    foreach ($form_state['storage']['messages'] as $pane_id => $pane_messages) {
+      $_SESSION['messages'] = array_merge_recursive($_SESSION['messages'], $pane_messages);
+    }
   }
 
   // If the form was submitted via the continue button...
-  if ($form_state['values']['op'] == $form_state['values']['continue']) {
+  if (end($form_state['triggering_element']['#array_parents']) == 'continue') {
     // If there is another checkout page...
     if ($checkout_page['next_page']) {
       // Update the order status to reflect the next checkout page.

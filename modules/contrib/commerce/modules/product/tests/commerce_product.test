@@ -114,11 +114,11 @@ class CommerceProductCRUDTestCase extends CommerceBaseTestCase {
     $new_product->sku = $sku = $this->randomName(10);
     $new_product->type = $type = 'product';
     $new_product->title = $title = $this->randomName(10);
-    $new_product->uid = $uid = 1;
+    $new_product->uid = 1;
 
-    // Ensure commerce_product_save() returns TRUE when saving a new product
+    // Ensure commerce_product_save() returns SAVED_NEW when saving a new product
     $return = commerce_product_save($new_product);
-    $this->assertNotEqual($return, FALSE, 'commerce_product_save() successfully saved the new product.');
+    $this->assertIdentical($return, SAVED_NEW, 'commerce_product_save() successfully saved the new product.');
 
     // Ensure commerce_product_load() loaded the saved product.
     $loaded_product = commerce_product_load($new_product->product_id);
@@ -128,6 +128,11 @@ class CommerceProductCRUDTestCase extends CommerceBaseTestCase {
 
     $this->assertTrue($loaded_product->created > 0, 'commerce_product_save() added a created date to the product');
     $this->assertTrue($loaded_product->changed > 0, 'commerce_product_save() added a changed date to the product');
+
+    // Ensure commerce_product_save() returns SAVED_UPDATED when saving an existing product.
+    $loaded_product->uid = 0;
+    $return = commerce_product_save($loaded_product);
+    $this->assertIdentical($return, SAVED_UPDATED, 'commerce_product_save() successfully updated the product.');
 
     // Ensure commerce_product_load_by_sku() can load a product by SKU.
     $loaded_product_by_sku = commerce_product_load_by_sku($sku);
@@ -178,23 +183,62 @@ class CommerceProductCRUDTestCase extends CommerceBaseTestCase {
     $product->sku = $this->randomName(10);
     $product->title = $this->randomName(10);
     $product->uid = $creator->uid;
-    $product = commerce_product_save($product);
+    commerce_product_save($product);
 
-    $this->assertEqual(token_replace('[product:product-id]', array('product' => $product)), $product->product_id, '[product:product-id] was replaced with the product ID.');
-    $this->assertEqual(token_replace('[product:sku]', array('product' => $product)), $product->sku, '[product:sku] was replaced with the SKU.');
-    $this->assertEqual(token_replace('[product:type]', array('product' => $product)), commerce_product_type_get_name($product->type), '[product:type] was replaced with the product type.');
-    $this->assertEqual(token_replace('[product:title]', array('product' => $product)), $product->title, '[product:title] was replaced with the title.');
-    $this->assertNotIdentical(strpos(token_replace('[product:edit-url]', array('product' => $product)), url('admin/commerce/products/' . $product->product_id . '/edit')), FALSE, '[product:edit-url] was replaced with the edit URL.');
-    $this->assertEqual(token_replace('[product:creator:uid]', array('product' => $product)), $product->uid, '[product:creator:uid] was replaced with the uid of the creator.');
-    $this->assertEqual(token_replace('[product:creator:name]', array('product' => $product)), check_plain(format_username($creator)), '[product:creator:name] was replaced with the name of the author.');
-    $this->assertEqual(token_replace('[product:created]', array('product' => $product)), format_date($product->created, 'medium'), '[product:created] was replaced with the created date.');
-    $this->assertEqual(token_replace('[product:changed]', array('product' => $product)), format_date($product->changed, 'medium'), '[product:changed] was replaced with the changed date.');
+    $this->assertEqual(token_replace('[commerce-product:product-id]', array('commerce-product' => $product)), $product->product_id, '[commerce-product:product-id] was replaced with the product ID.');
+    $this->assertEqual(token_replace('[commerce-product:sku]', array('commerce-product' => $product)), $product->sku, '[commerce-product:sku] was replaced with the SKU.');
+    $this->assertEqual(token_replace('[commerce-product:type]', array('commerce-product' => $product)), $product->type, '[commerce-product:type] was replaced with the product type.');
+    $this->assertEqual(token_replace('[commerce-product:type-name]', array('commerce-product' => $product)), commerce_product_type_get_name($product->type), '[commerce-product:type-name] was replaced with the product type.');
+    $this->assertEqual(token_replace('[commerce-product:title]', array('commerce-product' => $product)), $product->title, '[commerce-product:title] was replaced with the title.');
+    $this->assertNotIdentical(strpos(token_replace('[commerce-product:edit-url]', array('commerce-product' => $product)), url('admin/commerce/products/' . $product->product_id . '/edit')), FALSE, '[commerce-product:edit-url] was replaced with the edit URL.');
+    $this->assertEqual(token_replace('[commerce-product:creator:uid]', array('commerce-product' => $product)), $product->uid, '[commerce-product:creator:uid] was replaced with the uid of the creator.');
+    $this->assertEqual(token_replace('[commerce-product:creator:name]', array('commerce-product' => $product)), check_plain(format_username($creator)), '[commerce-product:creator:name] was replaced with the name of the author.');
+    $this->assertEqual(token_replace('[commerce-product:created]', array('commerce-product' => $product)), format_date($product->created, 'medium'), '[commerce-product:created] was replaced with the created date.');
+    $this->assertEqual(token_replace('[commerce-product:changed]', array('commerce-product' => $product)), format_date($product->changed, 'medium'), '[commerce-product:changed] was replaced with the changed date.');
+  }
+
+  /**
+   * Test product revision management.
+   */
+  function testCommerceProductRevisions() {
+    $new_product = commerce_product_new('product');
+
+    $new_product->sku = $this->randomName(10);
+    $new_product->type = 'product';
+    $new_product->title = $this->randomName(10);
+    $new_product->uid = 1;
+    commerce_product_save($new_product);
+
+    // Ensure commerce_product_save() returns an entity with the revision_id set.
+    $this->assertNotNull($new_product->revision_id, 'Revision id was created after first save.');
+
+    // Ensure that on update with the revision set to TRUE a new revision is
+    // created.
+    $old_revision_id = $new_product->revision_id;
+    $new_product->revision = TRUE;
+    $new_product->title = $this->randomName(10);
+    commerce_product_save($new_product);
+
+    $this->assertNotEqual($old_revision_id, $new_product->revision_id, 'New revision was created');
+
+    // Ensure that on update with the revision set to FALSE a new revision is
+    // not created.
+    $old_revision_id = $new_product->revision_id;
+    $new_product->revision = FALSE;
+    $new_product->title = $this->randomName(10);
+    commerce_product_save($new_product);
+
+    $this->assertEqual($old_revision_id, $new_product->revision_id, 'No new revision was created');
   }
 }
 
 /**
  * Test the Rules and Entity integration.
- */
+ *
+ * TODO: replace this with a simpler event test that doesn't depend on the odd
+ * product loading / saving interplay. I don't even think the unchanged
+ * condition will ever work as is in here.
+ *
 class CommerceProductRulesTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
@@ -211,7 +255,7 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
 
   /**
    * Calculates the output of t() given an array of placeholders to replace.
-   */
+   *
   static function t($text, $strings) {
     $placeholders = array();
     foreach ($strings as $string) {
@@ -222,7 +266,7 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
 
   /**
    * Tests rules CRUD actions for products.
-   */
+   *
   function testRulesCRUD() {
     // Test creation.
     $action = rules_action('entity_create', array(
@@ -256,13 +300,12 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
     $pos = ($pos !== FALSE) ? strpos($text, self::t('Saved %product of type %commerce_product.', array('product', 'commerce_product')), $pos) : FALSE;
     $pos = ($pos !== FALSE) ? strpos($text, self::t('Evaluating the action %entity_delete.', array('entity_delete')), $pos) : FALSE;
     $this->assertTrue($pos !== FALSE, 'Product has been fetched, saved and deleted.');
-    //debug(RulesLog::logger()->render());
     $this->assertFalse(commerce_product_load($product->product_id), 'Product has been deleted.');
   }
 
   /**
    * Tests making use of product metadata.
-   */
+   *
   function testProductPropertyInfo() {
     // Populate $values with all values that are setable. They will be set
     // with an metadata wrapper, so we also test setting that way.
@@ -287,7 +330,7 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
 
   /**
    * Assert the value for the given property is returned.
-   */
+   *
   protected function assertValue($wrapper, $key) {
     $this->assertTrue($wrapper->$key->value() !== NULL, check_plain($key) . ' property returned.');
     $info = $wrapper->$key->info();
@@ -299,7 +342,7 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
 
   /**
    * Creates a value for the given data type.
-   */
+   *
   protected function createValue($type, $info) {
     if (!isset($this->node)) {
       // Create some entities to use the first time this runs.
@@ -336,10 +379,6 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
    * Tests making use of the product 'presave' event and loading the unchanged
    * product.
    *
-   * TODO: replace this with a simpler event test that doesn't depend on the odd
-   * product loading / saving interplay. I don't even think the unchanged
-   * condition will ever work as is in here.
-   *
   public function testProductEvent() {
     $rule = rules_reaction_rule();
     $rule->event('commerce_product_presave')
@@ -369,5 +408,5 @@ class CommerceProductRulesTestCase extends DrupalWebTestCase {
     $this->assertFalse(commerce_product_load($product->product_id), 'Reaction rule fired.');
     RulesLog::logger()->checkLog();
   }
-   */
 }
+ */
