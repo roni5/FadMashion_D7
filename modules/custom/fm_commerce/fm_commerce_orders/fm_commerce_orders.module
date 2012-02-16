@@ -416,6 +416,7 @@ function fm_commerce_orders_fb_social_info($order_id) {
 	$product = fm_commerce_get_order_product($order);
 	
 	$images = field_get_items('commerce_product', $product, 'field_product_images');
+	
 	//Get First Image
   $first_image = node_load($images[0]['nid']);
 	$first_image = field_get_items('node', $first_image, 'field_product_image');
@@ -424,7 +425,7 @@ function fm_commerce_orders_fb_social_info($order_id) {
   $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
   
 
-  $percent = fm_deals_percentage($node, $product);
+  //$percent = fm_deals_percentage($node, $product);
   $title = $product->title;
   $name = 'Just Bought!! ' . $title;
   $status = fm_deals_states_get_status($node);

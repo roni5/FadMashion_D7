@@ -260,7 +260,6 @@ function theme_fm_deals_product_details($vars) {
  * Site Logged in Homepage for deals
  */
 function fm_deals_page($nid = '') {
-
 	if(empty($nid)) {
 		$nid = fm_deals_get_default_deal();
 	}

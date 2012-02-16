@@ -103,8 +103,8 @@ function fm_deals_states_clean_expired_deals() {
   if (!empty($order)) {
     $node = fm_deals_states_get_order_node($order);
     if(fm_deals_states_get_status($node) != 'active') {
-      commerce_order_status_update($order, 'fm_orders_expired');
-      drupal_set_message('Your cart is expired.');
+      //commerce_order_status_update($order, 'fm_orders_expired');
+      //drupal_set_message('Your cart is expired.');
     } 	
   }
   

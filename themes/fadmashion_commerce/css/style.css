@@ -484,10 +484,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .checkoutPanel .form-item .narrow{width: 100px;}
 .checkoutPanel .form-item .long{width: 500px;}
 
-#shipping.checkoutPanel, #about-you.checkoutPanel {margin-bottom:25px;}
+#billing_address.checkoutPanel, #about-you.checkoutPanel {margin-bottom:25px;}
 
 .form-item-commerce-customer-address-und-0-country, .form-item-commerce-customer-address-und-0-name-line{display: none}
-
+.commerce-credit-card-expiration .form-item {float: none;}
+	
 .checkoutFooter {border-top:2px solid #E5E1DD; float:left; margin-top:25px; padding:12px 0; width:680px;}
 .checkoutFooter span {color:#9D9085;font-family:Georgia,"Times New Roman",Times,serif;font-size:12px;font-style:italic;}
 .checkoutFooter .logo {display:block;float:none;margin-top:10px;}
@@ -496,13 +497,18 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndCol
 .completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;}
 
 #billing .form {border-right:1px solid #E2D9D0; width: 315px; float: left;}
-#billing .sameAddress {font-size:12px;padding:10px 0;}
+#shipping .sameAddress {font-size:12px;padding:10px 0;}
 #billing .billingAddress {float:left;margin:25px 0;text-align:left;width:280px;}
 .saveTo {-moz-border-radius:5px 5px 5px 5px;background:none repeat scroll 0 0 #E2D9D0;clear:both;display:block;font-size:12px;padding:7px;width:160px;}
 .saveTo .form-item{float: none; font-size: 12px; padding:0;}
 
 .securityText {background:none repeat scroll 0 0 #FFFFFF;clear:both;color:#A0978F;float:left;font-size:12px;margin:6px 16px 16px;padding:10px;}
 .securityText img {float:left;margin:0 12px 0 0;}
+
+#checkoutSummary #billing_info, #checkoutSummary #shipping_info {float: left; }
+#checkoutSummary #billing_info {border-right: 1px dotted #888888;width: 320px}
+#checkoutSummary #shipping_info{margin-left: 20px;}
+#checkoutSummary #edit-edit {margin: -5px 0;}
 
 /* Checkout Block */
 #block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7; width: 267px; margin-bottom: 20px;}

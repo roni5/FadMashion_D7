@@ -19,11 +19,11 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
  <div class="addresses">
             <div class="billing">
             <h1>Billing</h1>
-            <?php print render($order_view['commerce_customer_billing']); ?>
+            <?php print render($order_view['commerce_order'][$order->order_id]['commerce_customer_billing']); ?>
             </div>
             
                <div class="shipping">
             <h1>Shipping</h1>
-            <?php print render($order_view['commerce_customer_shipping']); ?>
+            <?php print render($order_view['commerce_order'][$order->order_id]['commerce_customer_shipping']); ?>
             </div>
 </div>

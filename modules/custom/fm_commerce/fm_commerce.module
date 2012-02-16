@@ -118,7 +118,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
   // Wrap the order for easy access to field data.
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
   
-	$node_entity = $form_state['values']['display_uri']['options']['entity'];
+	$node_entity = $form_state['context']['entity'];
 	
 	$line_item = $form_state['line_item'];
 	$line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
@@ -136,13 +136,12 @@ function fm_commerce_cart_submit($form, &$form_state) {
 	
 	//SPECIAL FOR Deals functionality, make only 1.
 	$line_item->quantity = 1;
-	$line_item = commerce_line_item_save($line_item);
-	
+	$ref_line_item_id = $line_item->line_item_id;
+	commerce_line_item_save($line_item);
 	// Clear the line item cache so the updated quantity will be available to
   // the ensuing load instead of the original quantity as loaded above.
   entity_get_controller('commerce_line_item')->resetCache(array($line_item->line_item_id));
-	
-	$ref_line_item_id = $line_item->line_item_id;
+
 	
 	
 	//ADD the Discount Line Type
@@ -197,7 +196,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
     $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
     
     // Save the line item now so we get its ID.
-    $discount_line_item = commerce_line_item_save($discount_line_item);
+    commerce_line_item_save($discount_line_item);
      
     //Add it to the order's line item reference value.
     $order_wrapper->commerce_line_items[] = $discount_line_item;
@@ -210,12 +209,11 @@ function fm_commerce_cart_submit($form, &$form_state) {
     
     
     $discount_line_item->quantity = 1;
-  	$discount_line_item = commerce_line_item_save($discount_line_item);
+  	commerce_line_item_save($discount_line_item);
   }
   
   
   //SHIPPING LINE ITEM
-  
   if (empty($shipping_line_item)) { 
   	
   	if(isset($store->field_shipping_rate) && !empty( $store->field_shipping_rate['und'][0]['amount'])) {
@@ -238,7 +236,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
       );
     
       // Save the line item now so we get its ID.
-      $shipping_line_item = commerce_line_item_save($shipping_line_item);
+      commerce_line_item_save($shipping_line_item);
      
       //Add it to the order's line item reference value.
       $order_wrapper->commerce_line_items[] = $shipping_line_item;
@@ -251,7 +249,8 @@ function fm_commerce_cart_submit($form, &$form_state) {
   commerce_order_save($order);
   
    //Redirect here
-  $form_state['redirect'] = 'express-checkout'; 
+ $form_state['redirect'] = 'express-checkout'; 
+ //$form_state['redirect'] = 'deals/preview'; 
 }
 
 

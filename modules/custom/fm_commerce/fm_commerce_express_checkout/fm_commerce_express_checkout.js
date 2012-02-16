@@ -21,11 +21,11 @@ jQuery(document).ready(function() {
 	    	onkeyup: false,
 	    	wrapper: 'div class="message_box"',
 	    	submitHandler: function(form) {
-	    		billingUnCheckedEvent();
+	    		billingUnCheckedEvent(false);
 	    		
 	    	    var $this = jQuery('input.form-submit');
 	    	    $this.attr('disabled', true);
-	    	    $this.attr('value', 'Placing Order...');
+	    	    $this.attr('value', 'Saving...');
 	    		
 	    		form.submit();
 			},
@@ -53,12 +53,20 @@ jQuery(document).ready(function() {
 	  });
 	}
 	
+    if(isEdit) {
+    	if(address1.val() != address1_bill.val()) {
+    		jQuery('#edit-billing-info').attr("checked", false)
+    	}
+    } else {
+    	addFullNameEvent();
+    }
+    
 	 addBillingCheckedEvents();
-	 if(!jQuery('#edit-billing-info').hasClass("checked")) {
-		 billingCheckedEvent();
+	 if(jQuery('#edit-billing-info').attr("checked") == true) {
+		billingCheckedEvent();
 	 }
 	 
-	 addFullNameEvent();
+	 
 	 
 	 //Right column follow
 	 var cart = jQuery(".column2")
@@ -107,20 +115,15 @@ function setCheckoutFormVariables() {
 }
 
 function addFullNameEvent() {
-	full_name_card.val(full_name.val());
-	full_name_bill.val(full_name.val());
+	full_name.val(full_name_card.val());
+	full_name_bill.val(full_name_card.val());
 	
-	full_name.keyup (function() {
+	full_name_card.keyup (function() {
 		if(first_name.length) {
 		  first_name.unbind("keyup");
 		  last_name.unbind("keyup");
 		}
-		full_name_card.val(jQuery(this).val());
-		full_name_bill.val(jQuery(this).val());
-	});
-	
-	full_name_card.keyup(function() {
-		full_name.unbind("keyup");
+		full_name.val(jQuery(this).val());
 		full_name_bill.val(jQuery(this).val());
 	});
 	
@@ -143,14 +146,12 @@ function addBillingCheckedEvents() {
   var box = jQuery('#edit-billing-info');
   
   box.change(function () {
-	if(!jQuery(this).hasClass("checked")) {
+	if(jQuery(this).attr("checked") != true) {
 		
-		billingUnCheckedEvent()
-		jQuery(this).addClass("checked");
+		billingUnCheckedEvent(true);
 		return;
     }
 	billingCheckedEvent();
-	jQuery(this).removeClass('checked');
 	
   });
 
@@ -159,42 +160,45 @@ function addBillingCheckedEvents() {
 
 
 function billingCheckedEvent() {
-	jQuery('.billingAddress .form-text, .billingAddress .form-select').each(function(index) {
+	jQuery('#shipping  .form-text, #shipping  .form-select').each(function(index) {
 		  jQuery(this).attr( 'disabled', 'disabled' );
 	  });
 	
 	//ADD individual form events to attach to shipping fields
-	address1_bill.val(address1.val());
-	address1.keyup (function() {
-		address1_bill.val(jQuery(this).val());
+	address1.val(address1_bill.val());
+	address1_bill.keyup (function() {
+		address1.val(jQuery(this).val());
 	});
-	address2_bill.val(address2.val());
-	address2.keyup (function() {
-		address2_bill.val(jQuery(this).val());
+	address2.val(address2_bill.val());
+	address2_bill.keyup (function() {
+		address2.val(jQuery(this).val());
 	});
-	city_bill.val(city.val());
-	city.keyup (function() {
-		city_bill.val(jQuery(this).val());
+	city.val(city_bill.val());
+	city_bill.keyup (function() {
+		city.val(jQuery(this).val());
 	});
-	state_bill.val(state.val());
-	state.change (function() {
-		state_bill.val(jQuery(this).val());
+	state.val(state_bill.val());
+	state_bill.change (function() {
+		state.val(jQuery(this).val());
 	});
-	zip_bill.val(zip.val());
-	zip.keyup (function() {
-		zip_bill.val(jQuery(this).val());
+	zip.val(zip_bill.val());
+	zip_bill.keyup (function() {
+		zip.val(jQuery(this).val());
 	});
 
 }
 
-function billingUnCheckedEvent() {
-	jQuery('.billingAddress .form-text, .billingAddress .form-select').each(function(index) {
+function billingUnCheckedEvent(clear) {
+	jQuery('#shipping .form-text, #shipping .form-select').each(function(index) {
 		  jQuery(this).attr( 'disabled', '' );
+		  if(clear) {
+			  jQuery(this).val('' );
+		  }
 	});
-	address1.unbind("keyup");
-	address2.unbind("keyup");
-	city.unbind("keyup");
-	state.unbind("change");
-	zip.unbind("keyup");
+	address1_bill.unbind("keyup");
+	address2_bill.unbind("keyup");
+	city_bill.unbind("keyup");
+	state_bill.unbind("change");
+	zip_bill.unbind("keyup");
 
 }
