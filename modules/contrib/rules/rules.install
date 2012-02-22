@@ -355,7 +355,7 @@ function rules_update_7204() {
 
 /**
  * Add the rules_dependencies table and the rules_config.dirty column.
- */
+
 function rules_update_7205() {
   if (!db_table_exists('rules_dependencies')) {
     $schema['rules_dependencies'] = array(
@@ -392,7 +392,7 @@ function rules_update_7205() {
     ));
   }
 }
-
+ */
 /**
  * Flush all caches.
  */
