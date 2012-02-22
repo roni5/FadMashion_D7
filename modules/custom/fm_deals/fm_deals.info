@@ -4,7 +4,6 @@ description = Main Deals page
 core = 7.x
 package = Fadmashion
 
-dependencies[] = fm_deals_states
 dependencies[] = fm_commerce_store
 dependencies[] = fm_commerce_store_reference
 dependencies[] = fm_image_slider
