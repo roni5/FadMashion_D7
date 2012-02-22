@@ -7,8 +7,8 @@
  */
 
 ini_set('memory_limit', -1);
-//define('DRUPAL_ROOT', define_drupal_root());
-define('DRUPAL_ROOT', 'C:\Development_Projects\eclipse_fadmashion_d7\workspace\fadmashion-d7');
+define('DRUPAL_ROOT', define_drupal_root());
+//define('DRUPAL_ROOT', 'C:\Development_Projects\eclipse_fadmashion_d7\workspace\fadmashion-d7');
 chdir(DRUPAL_ROOT);
 print "DRUPAL_ROOT is " . DRUPAL_ROOT . ".<br/>\n";
 define('MAINTENANCE_MODE', 'update');
