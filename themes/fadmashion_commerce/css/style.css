@@ -107,8 +107,9 @@ ul.quicktabs_tabs, .quicktabs_tabs li{float: left; list-style-type:none;}
 #signup .password-min, #about-you .password-min{float: left;}
 #signup .password-min, div.password-confirm  {color:#C5B5A8;font-family:Georgia,"Times New Roman",Times,serif;font-size:11px;font-style:italic; font-weight: normal;}
 #signup .password-parent {margin:0;width:270px;}
-#about-you .password-parent {width: 235px; padding-bottom: 0px}
-#about-you .form-type-password-confirm {padding-bottom: 0px;}
+#about-you .password-parent {width: 235px; padding-bottom: 0px; float: left;}
+#about-you .confirm-parent {width: 200px; float: left; clear: none;}
+#about-you .form-type-password-confirm {padding-bottom: 0px; width: 500px;}
 #signup .password-indicator, #about-you .password-indicator{display: none;}
 #signup .password-strength-text, #about-you .password-strength-text{display: none;}
 #signup div.password-confirm, #about-you div.password-confirm{display: none !important;}
