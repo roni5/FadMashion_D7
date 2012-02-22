@@ -30,10 +30,10 @@ class RulesEntityController extends EntityAPIControllerExportable {
     foreach ($result as $row) {
       $tags[$row->id][] = $row->tag;
     }
-    /*$result = db_select('rules_dependencies')
+    $result = db_select('rules_dependencies')
       ->fields('rules_dependencies', array('id', 'module'))
       ->condition('id', $ids, 'IN')
-      ->execute();*/
+      ->execute();
     foreach ($result as $row) {
       $modules[$row->id][] = $row->module;
     }
