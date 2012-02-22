@@ -244,7 +244,7 @@ function fm_commerce_express_checkout_form($form, $form_state) {
 	$form['payment_details']['credit_card']['number']['#suffix'] = '<div id="lock_markup">
          <img  src="' . pp() . 'lock.png">
          </div>';
-	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div><img border="0" style="margin-bottom: 10px;" alt="Credit Card Logos" src="http://www.merchantaccountguide.com/credit-card-logos/visa-mc-amex-disc/small_horizontal.png"></div>';
+	$form['payment_details']['credit_card']['number']['#suffix'] .= '<div><img border="0" style="margin-bottom: 10px;" alt="Credit Card Logos" src="'. pp() .'small_horizontal_creditcards.png"></div>';
 	$form['payment_details']['credit_card']['number']['#suffix'] .= '</div>';
   $form['payment_details']['credit_card']['number'] ['#default_value'] = isset($form_state['page_values'][1]['credit_card']['number']) ? $form_state['page_values'][1]['credit_card']['number'] : '';
   
