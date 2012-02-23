@@ -655,3 +655,7 @@ function fm_commerce_express_checkout_theme($variables)
         ),
     );
 }
+
+
+//Define The block for the promo code
+
