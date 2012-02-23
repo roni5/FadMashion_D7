@@ -30,6 +30,21 @@ jQuery(document).ready(function() {
 		
 	}*/
 	
+	//inviteBlockID is defined in fm_onload.js
+	if(jQuery("#" + inviteBlockId).length && !inviteShow) {
+		if(typeof Drupal.settings.fm_users_register != 'undefined') {	
+		  if(Drupal.settings.fm_users_register.invite_show) {
+			//Show login Block
+			fmUserStateRestart(); 
+			jQuery('.state2').show();
+			fmFirstTimeShowInvite();
+			fmClearRegisterTimeout();
+			
+			fmUsersOpened(2);
+		  } 
+		}
+	}
+	
 	jQuery('.form-type-password-confirm .description ').html('');
 	 
 	
@@ -166,9 +181,9 @@ function regFormSuccess(responseText, statusText, xhr, $form) {
 	}
 	
 	//Track the Registration Conversion in Google Web Optimizer. JS Code in Configuration
-	fmWebOptimizerDoGoal();
-	
+	fmWebOptimizerDoGoal();	
 }
+
 
 function regSlideConfirmation() {
 	if ( jQuery.browser.msie ) {
@@ -184,7 +199,8 @@ function regSlideConfirmation() {
 function fmForceRegister() {
 	jQuery.colorbox({ 
 	      opacity: '.75',
-	      innerWidth: '930px', innerHeight: '560px', 
+	      innerWidth: '930px', 
+	      innerHeight: '560px', 
 	      inline: true, 
 	      //overlayClose: false, 
 	      //escKey: false, 
@@ -194,6 +210,31 @@ function fmForceRegister() {
 	 jQuery('#colorbox').addClass('blankBox');
 	 //jQuery('#cboxClose').hide();
 	 //jQuery('#' + regBlockId).hide();	 
+}
+
+function fmFirstTimeShowInvite() {
+	jQuery.colorbox({ 
+	      opacity: '.75',
+	      innerWidth: '930px', 
+	      innerHeight: '560px', 
+	      inline: true, 
+	      //overlayClose: false, 
+	      //escKey: false, 
+	      href:"#" + inviteBlockId,
+	     // onComplete: fmFadeRegisterBlock
+	    });
+	 jQuery('#colorbox').addClass('blankBox');
+	 
+	 jQuery('.new_signup').show();
+	 jQuery('.old_signup').hide();
+	 //jQuery('#cboxClose').hide();
+	 //jQuery('#' + regBlockId).hide();	 
+}
+
+function fmInviteReset() {
+	 jQuery('.new_signup').hide();
+	 jQuery('.old_signup').show();
+	 fmInvitesRestoreForm(); 
 }
 
 function fmUserStateRestart() {

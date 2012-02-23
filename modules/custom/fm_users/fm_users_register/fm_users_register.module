@@ -179,6 +179,15 @@ function fm_users_register_init(){
 		$register = FALSE;
 	}
 	drupal_add_js(array('fm_users_register' => array('register' => $register)), 'setting');
+	
+	$status = fm_users_register_sessions_status(); 
+	if($status == 'non_member_first_time') {
+	  $invite_show = TRUE;
+	} else {
+		$invite_show = FALSE;
+	}
+	  drupal_add_js(array('fm_users_register' => array('invite_show' => $invite_show)), 'setting');
+	
 }
 
 function fm_users_register_variable_test($test_num = 0) {

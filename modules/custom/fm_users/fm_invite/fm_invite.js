@@ -67,8 +67,6 @@ Drupal.behaviors.addFMInviteSendEmail= {
         return valid;}, "Oops! One of the e-mails is not valid"
     );
     
-    
-    
   } 
 };
 

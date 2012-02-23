@@ -4,6 +4,7 @@
 
 //Global Variables
 var regBlockId = 'block-fm-users-register-fm-users-register-block';
+var inviteBlockId = 'block-fm-users-fm-users-invite';
 
 jQuery(document).ready(function() {
 	

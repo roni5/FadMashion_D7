@@ -1,6 +1,7 @@
 <?php 
 
 define('HOWITWORKS', 1);
+define('INVITE_SHOW', 2);
 
 function fm_users_opens_menu() {
 	
@@ -16,12 +17,19 @@ function fm_users_opens_menu() {
 /*
  * Check to see if the item has been opened already
  */
-function fm_users_opens_has_open($item_id, $uid = '') {
-	if(empty($uid)) {
-		global $user;
-		$uid = $user->uid;
+function fm_users_opens_has_open($item_id, $mail = '') {
+  global $user;
+	if($user->uid) {
+		$mail = $user->mail;
+	} else {
+		$mail = fm_users_register_session_email();
+		if(!isset($mail)) {
+			$message = t('Oops, there was an error.');
+			return false;
+		}
 	}
-	$result = db_query('SELECT * FROM {fm_users_opens} WHERE uid = :uid AND item_id = :item_id', array(':uid' => $uid, ':item_id' => $item_id))->fetchObject();
+	
+	$result = db_query('SELECT * FROM {fm_users_opens} WHERE mail = :mail AND item_id = :item_id', array(':mail' => $mail, ':item_id' => $item_id))->fetchObject();
 	if($result) {
 		return $result->opened;	
 	} else {
@@ -29,26 +37,35 @@ function fm_users_opens_has_open($item_id, $uid = '') {
 	}
 }
 
-function fm_users_opens_opened($item_id, $uid = '') {
-  if(empty($uid)) {
-		global $user;
-		$uid = $user->uid;
+function fm_users_opens_opened($item_id, $mail = '') {
+  global $user;
+	if($user->uid) {
+		$mail = $user->mail;
+	} else {
+		$mail = fm_users_register_session_email();
+		if(!isset($mail)) {
+			$message = t('Oops, there was an error.');
+			drupal_json_output(array('message' => $message));
+	    exit;
+		}
 	}
+	
+	
 	//TODO: Define Table in Schema and use drupal_write_record instead of this.
-	 if ($exists = $result = db_query('SELECT * FROM {fm_users_opens} WHERE uid = :uid AND item_id = :item_id', array(':uid' => $uid, ':item_id' => $item_id))->fetchField()) {
+	 if ($exists = $result = db_query('SELECT * FROM {fm_users_opens} WHERE mail = :mail AND item_id = :item_id', array(':mail' => $mail, ':item_id' => $item_id))->fetchField()) {
      // UPDATE
      $num_updated = db_update('fm_users_opens') // Table name no longer needs {}
       ->fields(array(
       'opened' => 1,
     ))
-    ->condition('uid', $uid, '=')
+    ->condition('mail', $mail, '=')
     ->condition('item_id', $item_id, '=')
     ->execute();
    } else {
      // INSERT
      db_insert('fm_users_opens') // Table name no longer needs {
   	   ->fields(array(
-          'uid' => $uid,
+          'mail' => $mail,
           'item_id' => $item_id,
           'opened' => 1,
       ))->execute();
@@ -63,8 +80,11 @@ function fm_users_opens_init() {
 	global $user;
 	
   //How it Works Pop-up
-    $val = fm_users_opens_has_open(HOWITWORKS);
-    drupal_add_js('var howItWorks = ' . $val . ';', 'inline');
+  $val = fm_users_opens_has_open(HOWITWORKS);
+  drupal_add_js('var howItWorks = ' . $val . ';', 'inline');
+  
+  $val = fm_users_opens_has_open(INVITE_SHOW);
+  drupal_add_js('var inviteShow = ' . $val . ';', 'inline');
   
 }
 

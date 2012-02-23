@@ -2,9 +2,17 @@
 <div class="state2">
 <div class="box">
 
-
+<div class="old_signup">
 <h1>Invite Friends</h1>
-<p style="width: 460px; margin: 0 auto;">As a member, we have provided you with a <b>private invite code</b></b> that gives <b>insider access</b> to your friends, family and biggest fans.  </p>
+<p style="width: 460px; margin: 0 auto;">We have provided you with a private invite code that gives insider access for your <b>friends, family and biggest fans</b>.  </p>
+</div>
+
+<div class="new_signup" style="display:none;">
+<h1>Welcome to Fadmashion!</h1>
+<p style="width: 460px; margin: 0 auto;"> Below is your personal invite code that you can <b>share on Facebook, Twitter or send directly to your friend's inbox</b>.  We keep track of each friend who signs up and will be offering loyalty benefits for fashion show VIP tix, parties, exclusive discounts and much more.</p>
+
+</div>
+
 
 <table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
 <tbody><tr>
@@ -24,6 +32,8 @@
 </div>
 
 </div>
+
+<fb:like style="margin-top: 10px;" href="http://www.facebook.com/pages/FadMashion/8251371790" send="true" width="300" show_faces="false"></fb:like>
 
 </div> <!-- box -->
 </div> <!-- state2 -->
