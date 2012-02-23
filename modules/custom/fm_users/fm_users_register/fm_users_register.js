@@ -192,7 +192,7 @@ function fmForceRegister() {
 	     // onComplete: fmFadeRegisterBlock
 	    });
 	 jQuery('#colorbox').addClass('blankBox');
-	 jQuery('#cboxClose').hide();
+	 //jQuery('#cboxClose').hide();
 	 //jQuery('#' + regBlockId).hide();	 
 }
 
