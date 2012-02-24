@@ -25,15 +25,15 @@ function fm_users_opens_has_open($item_id, $mail = '') {
 		$mail = fm_users_register_session_email();
 		if(!isset($mail)) {
 			$message = t('Oops, there was an error.');
-			return false;
+			return 'false';
 		}
 	}
 	
 	$result = db_query('SELECT * FROM {fm_users_opens} WHERE mail = :mail AND item_id = :item_id', array(':mail' => $mail, ':item_id' => $item_id))->fetchObject();
 	if($result) {
-		return $result->opened;	
+		return 'true';	
 	} else {
-		return 0;
+		return 'false';
 	}
 }
 
