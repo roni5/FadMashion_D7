@@ -4,12 +4,12 @@
 
 <div class="old_signup">
 <h1>Invite Friends</h1>
-<p style="width: 460px; margin: 0 auto;">We have provided you with a private invite code that gives insider access for your <b>friends, family and biggest fans</b>.  </p>
+<p style="width: 460px; margin: 0 auto; font-weight: 500">We have provided you with a private invite code that gives insider access for your <b>friends, family and biggest fans</b>.  </p>
 </div>
 
 <div class="new_signup" style="display:none;">
 <h1>Welcome to Fadmashion!</h1>
-<p style="width: 460px; margin: 0 auto;"> Below is your personal invite code that you can <b>share on Facebook, Twitter or send directly to your friend's inbox</b>.  We keep track of each friend who signs up and will be offering loyalty benefits for fashion show VIP tix, parties, exclusive discounts and much more.</p>
+<p style="width: 460px; margin: 0 auto; font-weight: 500"> Below is your personal invite code that you can <b>share on Facebook, Twitter or send directly to your friend's inbox</b>.  We keep track of each friend who signs up and will be offering loyalty benefits for fashion show VIP tix, parties, exclusive discounts and much more.</p>
 
 </div>
 

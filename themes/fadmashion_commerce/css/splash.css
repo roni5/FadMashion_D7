@@ -33,7 +33,7 @@ body{background: #eae8e6 url("../images/background_white.jpg") center center no-
 .content .email{margin-top: 26px;background: #f5f2ef; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; text-align: center; padding: 18px; }
 .content .email p{color: #6b5e58; font-size: 13px; text-align: center; }
 
-.content .form-text{background: url("../images/bg_form.jpg") top left no-repeat; width: 212px; height: 28px; float: left; margin-right: 10px; color: #a4968f; padding-left: 5px; line-height: 28px; font-size: 13px;}
+.content .form-text{background: url("../images/bg_form.jpg") top left no-repeat; width: 212px; height: 28px; float: left; margin-right: 10px; color: #444444; padding-left: 5px; line-height: 28px; font-size: 13px;}
 
 .content .form-submit{color: #fff; background: url("../images/b_small.png") top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 30px; font-size: 13px;}
 .content .form-submit:hover{background-position: bottom left;}
