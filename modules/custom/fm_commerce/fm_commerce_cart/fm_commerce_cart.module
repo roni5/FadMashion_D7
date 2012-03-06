@@ -138,15 +138,10 @@ function fm_commerce_cart_block_view($block_name = '') {
   $output .= '<div class="total">Total: ';
   $output .=  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
   $output .= '</div>';
-
   
-  
-//  $output .= render(drupal_get_form('fm_commerce_cart_promo_form'));
-  
-  
-  
+  $output .= render(drupal_get_form('fm_commerce_cart_promo_form'));
+    
   $output .='</div>';  //end class="pad"
-  
   $output .= '</div>'; //End class="summary"
   
   
@@ -166,12 +161,13 @@ function fm_commerce_cart_promo_form($form, &$form_state) {
   // Store the payment methods in the form for validation purposes.
   $pane_form['coupon_code'] = array(
     '#type' => 'textfield',
-    '#title' => t('Coupon Code'),
+    '#attributes' => array('class' => array('clear-defaults', 'default')),
+    '#default_value' => t('Enter Promo Code')
   );
   $pane_form['add_code'] = array(
     '#type' => 'submit',
-    '#value' => t('add'),
-    '#attributes' => array('class' => array('red'),)
+    '#value' => t('Add'),
+    '#attributes' => array('class' => array('green'))
   );
 
   return $pane_form;
