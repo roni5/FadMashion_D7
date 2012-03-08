@@ -83,8 +83,12 @@ function commerce_coupon_basic_apply_percentage_coupon_to_item_line($line_item, 
               FALSE
       );
     }
-
     commerce_coupon_log_save($commerce_coupon_log->value());
+   
+    //TODO: Fadmashion ADDITION to add line_item directly in this action
+    $commerce_order = commerce_order_load($line_item->order_id);
+    $coupon_log = $commerce_coupon_log->commerce_granted_amount->value();
+    commerce_coupon_action_create_coupon_line_item($coupon->value(), $commerce_order, $coupon_log['amount'], $coupon_log['currency_code']);
   }
 }
 

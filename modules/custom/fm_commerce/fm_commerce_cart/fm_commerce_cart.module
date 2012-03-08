@@ -109,8 +109,12 @@ function fm_commerce_cart_block_view($block_name = '') {
 	     }
   		 break;
   		case 	'coupon':
+  		 $coupon_id = $line_item_wrapper->commerce_coupon_reference->value();
+  		 $coupon = commerce_coupon_load($coupon_id);
+  		 $coupon = entity_metadata_wrapper('commerce_coupon', $coupon);
+  		 $long_title = $coupon->field_coupon_long_name->value();
   	   $discount_price = $line_item_wrapper->commerce_total->value();
-       $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Coupon', 
+       $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => $long_title, 
                                      'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
                                      'red' => true)
                                     );

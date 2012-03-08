@@ -209,6 +209,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
     
     
     $discount_line_item->quantity = 1;
+    commerce_line_item_rebase_unit_price($discount_line_item);
   	commerce_line_item_save($discount_line_item);
   }
   
