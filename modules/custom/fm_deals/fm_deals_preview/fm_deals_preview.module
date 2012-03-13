@@ -30,7 +30,7 @@ function fm_deals_preview_page() {
  * Implements main content for preview deals window
  */
 function fm_deals_preview_page_content($pop_up = false) {
-	$nodes = fm_deals_preview_nodes($pop_up);
+	//$nodes = fm_deals_preview_nodes($pop_up);
 	$rendered_items = array();
 	
 	foreach($nodes as $node) {
