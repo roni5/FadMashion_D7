@@ -206,7 +206,7 @@ function commerce_coupon_basic_entity_presave($entity, $type) {
     // something could be changed since we add the coupon. Important this hook will
     // be invoked before the rule event. It can be that the order needs to be stored
     // twice to avoid incorrect calcuations.
-    commerce_coupon_basic_apply_percentage_amounts(&$entity);
+    commerce_coupon_basic_apply_percentage_amounts($entity);
   }
 }
 
