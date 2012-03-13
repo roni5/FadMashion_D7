@@ -36,4 +36,4 @@
 </div><!--container-->
 
 <br clear="all"><br><br>
-<?php //include('footer.tpl.php');?>
+<?php include('footer.tpl.php');?>
