@@ -53,7 +53,6 @@ function fm_deals_preview_page_content($pop_up = false) {
 	//$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
 	
 	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
-	print $output;
 	return $output;
 }
 
