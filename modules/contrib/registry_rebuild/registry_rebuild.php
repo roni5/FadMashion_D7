@@ -9,7 +9,7 @@
 ini_set('memory_limit', -1);
 //define('DRUPAL_ROOT', define_drupal_root());
 //define('DRUPAL_ROOT', 'C:\Development_Projects\eclipse_fadmashion_d7\workspace\fadmashion-d7');
-define('DRUPAL_ROOT', '/opt/bitnami/apps/drupal/fadmashion_d7/exp');
+define('DRUPAL_ROOT', '/opt/bitnami/apps/drupal/fadmashion_d7/master');
 chdir(DRUPAL_ROOT);
 print "DRUPAL_ROOT is " . DRUPAL_ROOT . ".<br/>\n";
 define('MAINTENANCE_MODE', 'update');
@@ -29,12 +29,12 @@ if (file_exists(DRUPAL_ROOT . '/core/includes/bootstrap.inc')) {
 $includes = array(
   $include_dir . '/bootstrap.inc',
   $include_dir . '/common.inc',
-  $module_dir . '/entity/entity.module',
-  $module_dir . '/entity/entity.controller.inc',
+  //$module_dir . '/entity/entity.module',
+  //$module_dir . '/entity/entity.controller.inc',
   $module_dir . '/system/system.module',
   $include_dir . '/database/query.inc',
   $include_dir . '/database/select.inc',
-  $module_dir . '/entity/entity.module',
+  //$module_dir . '/entity/entity.module',
   $include_dir . '/registry.inc',
   $include_dir . '/module.inc',
 );
