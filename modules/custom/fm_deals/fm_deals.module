@@ -264,6 +264,7 @@ function fm_deals_page($nid = '') {
 		$nid = fm_deals_get_default_deal();
 	}
 	
+	print 'test';
 	if(!empty($nid)) {
 		//drupal_goto('node/' . $nid);
 		$node = node_load($nid);

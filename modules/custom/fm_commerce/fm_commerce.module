@@ -251,8 +251,8 @@ function fm_commerce_cart_submit($form, &$form_state) {
   } else {
   	
   }
+  
   if(!empty($coupon_line_item)) {
-  	commerce_order_save($order);
   	commerce_order_save($order);
   }
   // Save the updated order.
