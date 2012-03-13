@@ -252,17 +252,19 @@ function fm_commerce_cart_submit($form, &$form_state) {
   	
   }
   
-  // Save the updated order.
-  commerce_order_save($order);
   
   //remove coupon line item from order
  if(!empty($coupon_line_item)) {
  	  // Remove the line item from the line item reference field.
     commerce_entity_reference_delete($order, 'commerce_line_items', 'line_item_id', $coupon_line_item->line_item_id);
  	  $ret = commerce_line_item_delete($coupon_line_item->line_item_id);
+ 	  entity_get_controller('commerce_line_item')->resetCache(array($coupon_line_item->line_item_id));
  	  //db_query('DELETE FROM {commerce_coupon_log} WHERE order_id = :order_id', array(':order_id' => $order->order_id));
  	  commerce_order_save($order);
   }
+  
+  // Save the updated order.
+  commerce_order_save($order);
   
    //Redirect here
  $form_state['redirect'] = 'express-checkout'; 
