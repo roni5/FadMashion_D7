@@ -294,7 +294,7 @@ function commerce_coupon_basic_apply_percentage_amounts(&$commerce_order) {
         TRUE,
         FALSE
       );
-
+      
       $coupon_line_item->save();
       if ($line_item_is_new) {
         $commerce_order->commerce_line_items[] = $coupon_line_item;

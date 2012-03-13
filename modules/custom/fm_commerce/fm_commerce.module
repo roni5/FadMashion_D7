@@ -152,6 +152,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
 
   $discount_line_item = NULL;
   $shipping_line_item = NULL;
+  $coupon_line_item = NULL;
   // Loop through the line items looking for discounts.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
@@ -178,6 +179,11 @@ function fm_commerce_cart_submit($form, &$form_state) {
        // Exit this loop with the $line_item intact so it gets updated.
        $shipping_line_item = $line_item_wrapper->value();
      }
+     
+    // Find line item associated with this coupon:
+     if ($line_item_wrapper->type->value() == 'coupon' ) {
+        $coupon_line_item = $line_item_wrapper->value();
+    }
   }
   
   if (empty($discount_line_item)) { 
@@ -245,7 +251,10 @@ function fm_commerce_cart_submit($form, &$form_state) {
   } else {
   	
   }
-  
+  if(!empty($coupon_line_item)) {
+  	commerce_order_save($order);
+  	commerce_order_save($order);
+  }
   // Save the updated order.
   commerce_order_save($order);
   

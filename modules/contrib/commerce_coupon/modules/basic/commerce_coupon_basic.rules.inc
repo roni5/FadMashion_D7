@@ -35,6 +35,7 @@ function commerce_coupon_basic_rules_action_info() {
 
 function commerce_coupon_basic_apply_percentage_coupon_to_item_line($line_item, $coupon) {
 
+	var_dump($line_item->type);
   $amounts = &drupal_static(__FUNCTION__);
 
   if (!($coupon instanceof EntityMetadataWrapper)) {
@@ -55,7 +56,6 @@ function commerce_coupon_basic_apply_percentage_coupon_to_item_line($line_item, 
 
     // Calculate the total granted amount for this line item
     $amount = $line_item_wrapper->commerce_total->amount->value() * $rate * -1;
-
     // Save the amount for later use:
     $amounts[$line_item->order_id][$coupon->coupon_id->value()][$line_item->line_item_id] = $amount;
 
