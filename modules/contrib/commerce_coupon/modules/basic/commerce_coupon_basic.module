@@ -206,7 +206,7 @@ function commerce_coupon_basic_entity_presave($entity, $type) {
     // something could be changed since we add the coupon. Important this hook will
     // be invoked before the rule event. It can be that the order needs to be stored
     // twice to avoid incorrect calcuations.
-    commerce_coupon_basic_apply_percentage_amounts($entity);
+    commerce_coupon_basic_apply_percentage_amounts(&$entity);
   }
 }
 
@@ -214,7 +214,7 @@ function commerce_coupon_basic_entity_presave($entity, $type) {
  * Apply percentage amounts to an order.
  *
  */
-function commerce_coupon_basic_apply_percentage_amounts($commerce_order) {
+function commerce_coupon_basic_apply_percentage_amounts(&$commerce_order) {
   if (!($commerce_order instanceof EntityMetadataWrapper)) {
     $commerce_order = entity_metadata_wrapper('commerce_order', $commerce_order);
   }
@@ -260,6 +260,7 @@ function commerce_coupon_basic_apply_percentage_amounts($commerce_order) {
       }
 
       $amounts = &drupal_static('commerce_coupon_basic_apply_percentage_coupon_to_item_line');
+      
       $coupon_amount = array_sum($amounts[$order_id][$coupon_id]);
 
       $line_item_is_new = FALSE;
@@ -269,6 +270,7 @@ function commerce_coupon_basic_apply_percentage_amounts($commerce_order) {
         $coupon_line_item = commerce_coupon_line_item_new($coupon->value(), $order_id);
         $coupon_line_item->commerce_unit_price = array();
         $line_item_is_new = TRUE;
+        
       }
 
       if (!($coupon_line_item instanceof EntityMetadataWrapper)) {
@@ -297,7 +299,7 @@ function commerce_coupon_basic_apply_percentage_amounts($commerce_order) {
       if ($line_item_is_new) {
         $commerce_order->commerce_line_items[] = $coupon_line_item;
       }
-
+      
       // TODO: Update the $coupon with the new $amount
 
     }

@@ -50,13 +50,17 @@ function fm_commerce_cart_block_view($block_name = '') {
 	
   if($block_name == 'fm_commerce_cart') {
   	
-  	$output = '<div class="summary">';
-  	$output .= '<div class="header rounded-top">Order Summary</div>';
   	
-  	
-  global $user;
+  	global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
+  
+  
+  	$output = '<div class="summary">';
+  	$output .= '<div class="header rounded-top">Order Summary #' . $order->order_id. '</div>';
+  	
+  	
+  
 
   // If no order existed, create one now.
   if (empty($order)) {
@@ -218,6 +222,11 @@ function fm_commerce_cart_promo_form_submit($form, &$form_state, $checkout_pane,
   if ($code = $form_state['values']['coupon_code']) {
     $commerce_coupon = commerce_coupon_load_by_code($code);
     commerce_coupon_redeem_coupon($commerce_coupon, $order);
+     
+    // Save the updated order.
+    commerce_order_save($order);
+    commerce_order_save($order);
+     
   }
 }
 
