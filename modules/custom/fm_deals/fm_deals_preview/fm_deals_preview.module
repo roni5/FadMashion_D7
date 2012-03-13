@@ -30,8 +30,7 @@ function fm_deals_preview_page() {
  * Implements main content for preview deals window
  */
 function fm_deals_preview_page_content($pop_up = false) {
-	print 'test';
-	//$nodes = fm_deals_preview_nodes($pop_up);
+	$nodes = fm_deals_preview_nodes($pop_up);
 	$rendered_items = array();
 	
 	foreach($nodes as $node) {
@@ -52,8 +51,9 @@ function fm_deals_preview_page_content($pop_up = false) {
 	}
 	
 	//$rendered_items[] = theme('fm_deals_preview_social_item', array('nextDate' => $date));
-	var_dump('blalsdflkj');
+	
 	$output = theme('fm_deals_preview_week', array('date' => $date, 'items' => $rendered_items));
+	print $output;
 	return $output;
 }
 
