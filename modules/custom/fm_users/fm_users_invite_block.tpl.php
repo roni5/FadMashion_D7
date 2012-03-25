@@ -35,7 +35,7 @@
 </div>
 
 <div class="old_signup">
-<fb:like style="margin-top: 10px;" href="http://www.facebook.com/Fadmashion" send="true" width="300" show_faces="false"></fb:like>
+<fb:like style="margin-top: 10px;" href="http://www.facebook.com/Fadmashion" send="true" width="400" show_faces="false"></fb:like>
 </div>
 
 
