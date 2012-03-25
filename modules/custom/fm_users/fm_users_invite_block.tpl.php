@@ -10,7 +10,7 @@
 
 <div class="new_signup" style="display:none;">
 <h1>Welcome to Fadmashion!</h1>
-<p style="width: 500px; margin: -15px auto 0; font-weight: 500">  We are growing community of trendsetters whose common passion celebrates individuality and origniality. Follow us on Facebook to get coverage on the hottest designer collections, fashion shows, and special sale annoucements.</p>
+<p style="width: 500px; margin: -15px auto 0; font-weight: 500">  We are growing community of trendsetters with a common passion that celebrates individuality and origniality. Follow us on Facebook to get coverage on the hottest designer collections, fashion shows, and special sale annoucements.</p>
 <fb:like style="margin-top: 10px;" href="http://www.facebook.com/Fadmashion" send="true" width="300" show_faces="false"></fb:like>
 
 </div>
