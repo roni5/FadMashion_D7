@@ -1,0 +1,60 @@
+.ic_container{
+    vertical-align:baseline;
+    position:relative;
+    
+}
+.overlay{
+    opacity:0.3;
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+}
+.ic_caption{
+    position:absolute;    
+    opacity:1;   
+    overflow:hidden;
+    margin:0px;
+    padding:0px;
+    left:0px;
+    right:0px;
+    cursor:default;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=10);
+}
+.ic_category{
+	color: #fff;
+    font-size:14px;
+    padding:5px;
+       text-align:left;
+ margin:0px;
+}
+.ic_caption h3{
+    padding:0px 8px 5px 8px;
+    margin:0px;
+	color: #aeaeae;
+	float: left; 
+	text-decoration:line-through;
+        text-align:left;font-style:italic;	font-family:"jubilat-1","jubilat-2", Georgia; font-size: 13px;  font-weight: 400;
+
+font-size:14px;
+}
+.ic_caption h2{
+    padding:0px 8px 8px 5px;
+	font-family:"jubilat-1","jubilat-2", Georgia; font-size: 13px;  font-weight: 400;
+    margin:0px;
+	color: #b63030;
+	float: left; 
+        text-align:left;font-style:italic;
+font-size:14px;
+}
+
+.ic_caption p{padding: 10px 8px 5px 8px;}
+.ic_text{
+    margin:0px;
+    text-align:left;
+    font-size:11px;
+
+}
+

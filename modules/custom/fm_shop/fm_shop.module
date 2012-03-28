@@ -1,0 +1,65 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function fm_shop_menu() {
+	
+	$items['shop'] = array(
+    'page callback' => 'fm_shop_page',
+	  'access arguments' => array('view deals'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fm_shop_theme() {
+  return array(
+    'fm_shop_page' => array(
+	     'variables' => array('filters' => '', 'content' => ''),
+	    'template' => 'fm_shop_page'
+    ),
+    'fm_shop_page_panel' => array(
+	     'variables' => array('shop' => NULL, 'products' => NULL),
+       'template' => 'fm_shop_page_panel'
+    ),
+    'fm_shop_page_panel_thumb' => array(
+	     'variables' => array('product' => NULL, 'height' => 446, 'width' => 315),
+       'template' => 'fm_shop_page_panel_thumb'
+    ),
+  );
+}
+
+function fm_shop_page() {
+	$filters = array();
+	
+	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
+    drupal_add_css(path_to_theme() . '/css/captions.css');
+    
+	//Get Designer List
+	$filters['designers']['title'] = t('Designers');
+	$filters['designers']['links'] = array();
+	$content['designers'] = array();
+	
+	$query = db_select('fm_commerce_store', 'cs');
+  $query->fields('cs', array('store_id', 'name'));
+  $result = $query->execute();
+
+  $matches = array();
+  foreach ($result->fetchAll() as $store) {
+    $filters['designers']['links'][$store->store_id] = check_plain($store->name);
+    
+    $shop = fm_commerce_store_load($store->store_id);
+    $products = fm_commerce_store_get_products($store);
+    $content['designers'][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products));
+  }
+  
+  
+  return theme('fm_shop_page', array('filters' => $filters, 'content' => $content));
+  
+  
+}

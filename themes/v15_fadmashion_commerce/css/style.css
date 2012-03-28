@@ -1,0 +1,158 @@
+*{margin: 0; padding: 0; border: none; text-decoration:none;font-family:"museo-sans-1","museo-sans-2", Helvetica; outline:none;}
+body{background: url(../images/bg_grey.jpg);}
+ul, li{list-style-type: none;}
+a{color: #0f6da3;}
+a:hover{color: #2e92cc;}
+
+#wrapper{background: url(../images/bg_header.jpg) top left repeat-x;}
+#container{width: 1024px; margin: 0 auto;}
+
+tbody {border: medium none}
+
+/********* header **********/
+
+#header{height: 94px;}
+#subHeader{height: 68px; background: #fff;}
+
+#header .links {color: #fff; float: left; height: 30px; margin-top: 8px;width: 450px; }
+#header .links a{color: #fff; float: right; margin-left: 20px;line-height: 30px;}
+#header .invite{ font-size: 11px;}
+#header .bag{background: url(../images/icon_bag.png) center left no-repeat; padding: 0 0 0 23px;font-size: 11px;}
+#header a.button{float: right; color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
+#header .button:hover{background-position: bottom left;}
+#header .logo{float: left; margin-top: 17px;}
+#header .right{float: right; color: #fff; clear: both;width: 450px;}
+#header .shipping{float: right; width: 450px; text-align: right; font-size: 12px;}
+#header .shipping p{font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 400; color: #b7b7b7;font-style:italic;}
+#header .shipping span{color: #fff;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
+.shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
+.nav{float: left; background: url(../images/sep_logo.png) center left no-repeat;height: 52px; margin: 20px 0 0 30px; padding-left: 30px;}
+.nav a.active{color: #fff; background: url(../images/arrow_nav.png) bottom center no-repeat;}
+.nav a{color: #ababab; line-height: 52px; font-size: 16px;margin-right: 35px; height: 74px;float: left;}
+
+#subHeader .press{float: right; padding: 12px 0 0 90px; background: url(../images/l_asseenin.jpg) 0px 27px no-repeat;}
+#subHeader .press a{height: 41px; width: 100px; float: left; background-position: top left; text-indent: -9999px; margin-left: 15px;}
+#subHeader .press a:hover{background-position: bottom left;}
+.press a.press1{background: url(../images/logo_nymag.png) no-repeat;}
+.press a.press2{background: url(../images/logo_myfashionlife.png) no-repeat;}
+.press a.press3{background: url(../images/logo_fashionspot.png) no-repeat;}
+
+#subHeader .slogan{font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia; font-size: 16px; line-height: 68px; font-weight: 400}
+#subHeader .slogan span{color: #b63030; font-size: 16px;font-style: italic;font-family:"jubilat-1","jubilat-2", Georgia;font-weight: 400}
+
+
+/********* content **********/
+#content {padding: 0 0 30px 0;float: left;}
+#content .col1{width: 207px; float: left;}
+	#content .col1 .pad{padding: 30px 20px 0 0;}
+#content .col2{width: 817px; float: left;}
+	#content .col2 .pad{padding: 30px 0 0 0;}
+	
+	
+.col1 ul, .col1 li{list-style-type: none;}	
+.col1 a{color: #444;display: block;font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; font-size: 13px;}
+.col1 a:hover{color: #b63030}
+.col1 a.active{background: url(../images/arrow_red.png) center right no-repeat;color: #b63030}
+.col1 h1{color: #b63030; font-size: 18px; font-weight: 100; margin: 0 0 12px 0;}
+.col1 ul{margin: 0 0 35px 0; } 
+.col1 li{padding: 3px 0;}
+
+
+/********* designer panel **********/
+
+.designerPanel{ width: 817px; margin: 0 0 28px 0; }
+.designerPanelTop{background: url(../images/frame_top.png) top left no-repeat;padding-top: 14px; width: 817px;}
+.designerPanelTop.featured{background: url(../images/frame_top_featured.png) top left no-repeat;padding-top: 10px; width: 817px;}
+#content .col2 .designerPanel .pad{text-align: center; padding: 5px 5px 0px 5px;}
+.designerPanel table{margin: 0 auto;}
+.frameBottom{float: left; display: block;}
+.collectionPanel{background: url(../images/frame_bg.png) top left repeat-y;padding-top: 0px; width: 817px; float: left;}
+.collectionPanel .product{padding: 30px 0 0 36px;}
+
+.info{text-align: center; width: 350px;}
+.designerPanel .quote{background: url(../images/sep_designer.png) top center no-repeat; margin: 24px 0 6px 0; padding:15px 0 0 0; width: 350px;}
+.quoteOpen{background: url(../images/quote_open.png) top left no-repeat; padding: 20px;}
+.quoteClose{background: url(../images/quote_close.png) bottom right no-repeat; color: #2e74a0; font-size: 22px; line-height: 28px; font-style: italic; font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 200;letter-spacing: 1px;}
+.buttonShop{ color: #fff; background: url(../images/b_shop.png) top left no-repeat; width: 156px; height: 36px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0 auto}
+.buttonShop:hover{background-position: bottom left;}
+
+
+
+
+/********* collection page  **********/
+
+#photoBox{width: 374px; float: left;}
+.photos{padding-bottom: 0px; float: left;}
+.photos img{border: 1px solid #f0eeea;}
+.imgNavBar{ float: left;}
+.imgNavBar a{float: left; display: block; text-indent: -9999px;}
+.imgNavBar .prev{background: url(../images/img_nav_prev.jpg) top left no-repeat; height: 27px; width:56px;}
+.imgNavBar .next{background: url(../images/img_nav_next.jpg) top left no-repeat; height: 27px; width:56px;}
+.imgNavBar .zoom{background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
+.imgNavBar a:hover{background-position: bottom left;}
+.imgThumbs {padding: 5px 0 0 0; float: left;}
+.imgThumbs a{margin: 0 4px 4px 0; float: left; }
+.imgThumbs a.active img, .imgThumbs a:hover img{border: 1px solid #a32e27}
+
+.productInfo{float: left; text-align: left; margin: 0 0 0 30px; width: 335px;}
+
+h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
+h2.designer{margin: 0 0 8px 0;}
+p.description{margin: 0 0 4px 0; color: #777;}
+
+.socialButtons{float: right;}
+.socialButtons a:hover{position: relative; top: 2px;}
+
+.buyIt{ color: #fff; background: url(../images/b_buyit.png) top left no-repeat; width: 110px; height: 39px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0; position: relative; left: 100px;}
+.buyIt:hover{background-position: bottom left;}
+
+.pricing{margin: 2px 0 10px 0; width: 332px;  font-size: 12px; padding: 20px 0 14px 0;float: left; display: block; clear: both;}
+.pricing div{float: left; width: 110px; text-align:center; display: inline}
+.pricing h3{font-size: 22px; font-weight:700; padding-top: 6px;}
+.pricing .original{color: #aaa;background: url(../images/dotted_vertical.png) top right repeat-y;}
+.pricing .original h3 span{ background: url(../images/strikethrough.jpg) left center repeat-x; padding: 0 8px;font-size: 22px; font-weight:700; padding-top: 6px;}
+.pricing .exclusive{}
+.pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top left repeat-y;}
+
+.itemOptions{ width: 332px; background: url(../images/bg_itemOptions.jpg) top left repeat-y; clear: both; margin-bottom: 14px; text-align:center;}
+.itemOptions .frame{display: block; }
+.itemOptions .box{padding: 14px 4px 14px 14px; font-size: 12px; }
+.itemOptions .form-submit{padding: 8px 22px; font-size: 16px; margin: 0;}
+.itemOptions label{float: left; width: 60px; text-align:left;}
+
+.guarantee{background: url(../images/icon_guarantee.jpg) top left no-repeat; padding: 6px 12px 0 50px; margin: 10px 0; height: 42px;font-style: italic; font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 200;letter-spacing: .2px; color: #888; font-size: 11px;}
+
+.form-item-colors li.colorName{ padding-right: 5px;}
+.form-item-colors, .form-item-sizes{ padding: 0 0 18px 0; float: left;}
+.form-item-colors .selectBox-options li, .form-item-sizes .selectBox-options li {float:left;}
+.form-item-colors .selectBox-options li.selectBox-selected{background: url(../images/arrow_color.png) bottom center no-repeat;padding-bottom: 5px;} 
+.form-item-colors .selectBox-options li a, .form-item-sizes .selectBox-options li a {
+background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;width:20px;font-family:"museo-sans-1","museo-sans-2", Helvetica; font-style:normal; line-height: 20px; margin: -3px 2px 0 2px;}
+.form-item-sizes .selectBox-options li.selectBox-selected a{background: #0f6da3;color: #fff; }
+.form-item-sizes .selectBox-options li.sizeChart a{margin-left: 6px; background: none; border: none; width: auto; font-family: Georgia, "Times New Roman", Times, serif; font-size: 11px; font-style:italic;}
+
+.tabbedInfo{background: #eee; padding: 4px; margin: 15px 0; width: 324px;}
+.tabbedInfo ul, .tabbedInfo li{float: left; list-style-type:none;}
+.tabbedInfo ul{width: 330px;}
+.tabbedInfo li{width: 80px; font-size: 11px; padding: 4px 0; text-align:center;}
+.tabbedInfo li.active{background: #fff;}
+.tabbedInfo .content{background: #fff;display: block; clear: both; padding: 10px; }
+
+.designerInfo{width: 740px; border-top: 3px solid #eee; padding: 10px 0 0 0; margin-top: 25px;}
+.designerInfo h1{font-size: 16px; margin-bottom: 15px; font-weight: 100;}
+.designerInfo h1 span{font-weight: 700;font-size: 16px;}
+.designerInfo .colA, .designerInfo .colB{float: left;}
+.designerInfo.colB{}
+
+.designerInfo .quote{ width: 574px; background: url(../images/bg_quote.jpg) top left repeat-y; margin-bottom: 15px;}
+.designerInfo .quote .top{ background: url(../images/bg_quote_top.jpg) top left no-repeat;}
+.designerInfo .quote .bg{ background: url(../images/bg_quote_bottom.jpg) bottom left no-repeat;}
+.designerInfo .quoteImg1{background: url(../images/bg_quote1.png) 30px 12px no-repeat; padding: 15px;}
+.designerInfo .quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 10px 15px 15px 45px; font-size: 16px; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 20px;}
+.subCol{float: left; width: 250px; padding: 0 30px 0 0; position: relative; left: 30px;}
+
+.subCol h1{margin-bottom: 10px;}
+.subCol ul{float: left; list-style-type: none;}
+.subCol li{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 0px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
+.press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
+.source {color: #767272; font-size: 11px; padding: 5px 0; margin-bottom: 5px;}

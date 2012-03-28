@@ -456,7 +456,7 @@ function _fm_commerce_match_stores($string = '', $match = 'contains', $ids = arr
 }
 
 /*
- * Get all the orders for this store
+ * Get all the products for this store
  */
 function fm_commerce_store_get_products($store) {
 	$query = new EntityFieldQuery();
