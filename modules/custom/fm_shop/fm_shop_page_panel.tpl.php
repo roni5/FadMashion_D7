@@ -41,11 +41,13 @@
         print theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => 229, 'width' => 157));
         print '</td>';
         
-        if ($i%5 == 0) {
+        if ($i%5 == 4 ) {
       		print '</tr>';
       	}
       	$i++;
-      }?>
+      }
+      if($i%5 < 4) {print '</tr>';}
+      ?>
     
     </tbody></table>
   
