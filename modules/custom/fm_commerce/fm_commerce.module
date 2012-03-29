@@ -339,6 +339,7 @@ function fm_commerce_get_display_node($product, $type = 'fm_group_buying') {
 	    	}
 	  }
 	  
+	  return null;
 }
 
 function fm_commerce_get_order_product($order) {

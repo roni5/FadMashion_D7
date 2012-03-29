@@ -468,7 +468,6 @@ function fm_commerce_store_get_products($store) {
 	$products = $query->execute();
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
-	  //load orders with the line item and check if cart status is correct
     foreach($products['commerce_product'] as $product_id => $product) {
   	   $products_ret[$product_id] = commerce_product_load($product_id);
 	  }

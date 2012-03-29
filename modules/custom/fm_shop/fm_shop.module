@@ -53,11 +53,12 @@ function fm_shop_page() {
     	foreach($products as $id => $product) {
     		$node = fm_commerce_get_display_node($product);
     		if(!isset($node)) {
-    			var_dump($id);
-    		  unset($products[$id]);
+    		 unset($products[$id]);
     		}
     	}
-    	$content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products));
+    	if(!empty($products)) {
+    	  $content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products));
+    	}
     }
   } 
   
