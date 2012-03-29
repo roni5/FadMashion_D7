@@ -50,7 +50,9 @@
       foreach($products as $product) {
       	
       	print '<div style="float: left;">';
-        print theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => $height, 'width' => $width));
+        $img = theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => $height, 'width' => $width));
+        $node = fm_commerce_get_display_node($product);
+        print l($img, 'node/' . $node->nid, array('html' => true));
         print '</div>';
         
       	$i++;
