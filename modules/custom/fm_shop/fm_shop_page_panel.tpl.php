@@ -34,29 +34,12 @@
     <tr><td colspan="2">
       <?php 
       
+      $max_products = 8;
+      
       $row_width = 786;
       $default_height = 229;
       $default_width = 157;
-      $product_count = count($products);
-      switch($product_count) {
-      	case 6:
-      		$product_count = 3;
-      		break;
-      	case 7:
-      		$product_count = 4;
-      		break;
-      	case 8:
-      		$product_count = 4;
-      		break;
-      	case 9:
-      		$product_count = 5;
-      		break;
-      	case 10:
-      		$product_count = 5;
-      		break;
-      	default:
-      		break;
-      }
+      $product_count = count($products) > $max_products ? $max_products : count(products);
       $width = $row_width/$product_count;
       $height = ($width * $default_height) / $default_width;
       
@@ -68,6 +51,7 @@
         print '</div>';
         
       	$i++;
+      	if(i >= $max_products) { break;}
       }
       
       ?>
