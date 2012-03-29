@@ -18,13 +18,6 @@ jQuery(document).ready(function() {
 	  jQuery('.views-field-body', this).html('');
 	});
 	
-	jQuery(".capslide_img_cont").capslide({
-        caption_color	: 'white',
-        caption_bgcolor	: 'black',
-        overlay_bgcolor : 'black',
-        border			: '',
-        showcaption	    : false
-    });
 
 	
 	//ADD deep linking, 
@@ -37,23 +30,30 @@ jQuery(document).ready(function() {
      }).change(function(event) {
 
          // Identifies the page selection 
-         var page = event.parameters.page ? '/?page=' + event.parameters.page : event.path;
+         var page = event.parameters.nid ?  event.parameters.nid : 'all';
          console.dir(event)
          
          var handler = function(data) {
-             jQuery('.page-shop .col2').html(jQuery('.page-shop .col2', data).html()).parent().show();
-             
+             jQuery('.page-shop .col2 .pad').html(data);
+
+         	jQuery(".capslide_img_cont").capslide({
+                 caption_color	: 'white',
+                 caption_bgcolor	: 'black',
+                 overlay_bgcolor : 'black',
+                 border			: '',
+                 showcaption	    : false
+             });
          };
 
 
          // Loads the page content and inserts it into the content area
          jQuery.ajax({
-             url: location.pathname + '?_escaped_fragment_=' + encodeURIComponent(event.value),
+             url: location.pathname + '?q=shop/ajax/' + page,
              error: function(XMLHttpRequest, textStatus, errorThrown) {
                  handler(XMLHttpRequest.responseText);
              },
              success: function(data, textStatus, XMLHttpRequest) {
-                 //handler(data);
+                 handler(data);
              }
          });
 
