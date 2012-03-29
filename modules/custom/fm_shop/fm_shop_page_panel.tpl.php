@@ -5,7 +5,7 @@
   <!-- Start of Table Content -->
   <table width="" cellspacing="1" cellpadding="0">
     <tbody><tr>
-       <td align="center" colspan="3"> 
+       <td align="center" width="471px" > 
        <div class="info">
        <?php $logo = field_view_field('fm_commerce_store', $shop, 'field_logo', 'node_full');
 	       print render($logo);
@@ -21,7 +21,7 @@
        </div><!-- quote-->
        <a class="buttonShop" href="##">Shop this Collection</a>
       </div><!-- info--></td>
-      <td colspan="2">
+      <td >
         <div class="demo">
         <?php $first_product = array_shift($products);
               print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'height' => 446, 'width' => 315));
@@ -30,25 +30,21 @@
         </div>
       </td>
     </tr>
+    
+    <tr><td colspan="2">
       <?php 
       $i = 0;
       foreach($products as $product) {
-      	if ($i%5 == 0) {
-      		print '<tr>';
-      	}
       	
-      	print '<td>';
+      	print '<div style="float: left;">';
         print theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => 229, 'width' => 157));
-        print '</td>';
+        print '</div>';
         
-        if ($i%5 == 4 ) {
-      		print '</tr>';
-      	}
       	$i++;
       }
-      if($i%5 < 4) {print '</tr>';}
+      
       ?>
-    
+    </tr></tr>
     </tbody></table>
   
   <!-- End of Table Content -->
