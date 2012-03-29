@@ -33,11 +33,27 @@
     
     <tr><td colspan="2">
       <?php 
+      
+      switch(count($products)) {
+      	case 2:
+      		$height = 229;
+      		$width = 157;
+      	case 3:
+      		$height = 229;
+      		$width = 157;
+      	case 4:
+      		$height = 229;
+      		$width = 157;
+      	case 5:
+      		$height = 229;
+      		$width = 157;
+      }
+      
       $i = 0;
       foreach($products as $product) {
       	
       	print '<div style="float: left;">';
-        print theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => 229, 'width' => 157));
+        print theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => $height, 'width' => $width));
         print '</div>';
         
       	$i++;
