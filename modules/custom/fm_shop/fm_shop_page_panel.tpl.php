@@ -35,6 +35,7 @@
       <?php 
       
       $max_products = 8;
+      $min_products = 3;
       
       $row_width = 786;
       $default_height = 229;
@@ -42,6 +43,7 @@
       
       $product_count = count($products);
       if($product_count > $max_products) {$product_count = $max_products; }
+      if($product_count < $min_products) {$product_count = $min_products; }
       
       $width = $row_width/$product_count;
       $height = ($width * $default_height) / $default_width;
