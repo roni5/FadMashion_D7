@@ -48,6 +48,15 @@ function fm_shop_page() {
     foreach($filter_group['links'] as $id => $link) {
     	$shop = fm_commerce_store_load($id);
     	$products = fm_commerce_store_get_products($shop);
+    	
+    	//Filter products without a Display node
+    	foreach($products as $id => $product) {
+    		$node = fm_commerce_get_display_node($product);
+    		if(!isset($node)) {
+    			var_dump($id);
+    		  unset($products[$id]);
+    		}
+    	}
     	$content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products));
     }
   } 
