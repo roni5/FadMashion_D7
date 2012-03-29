@@ -34,7 +34,11 @@
     <tr><td colspan="2">
       <?php 
       
-      switch(count($products)) {
+      $row_width = 786;
+      $default_height = 229;
+      $default_width = 157;
+      $product_count = count($products);
+      switch($product_count) {
       	case 2:
       		$height = 229;
       		$width = 157;
@@ -48,6 +52,8 @@
       		$height = 229;
       		$width = 157;
       }
+      $width = $row_width/$product_count;
+      $height = ($width * $default_height) / $default_width;
       
       $i = 0;
       foreach($products as $product) {
