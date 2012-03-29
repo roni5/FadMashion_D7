@@ -39,18 +39,18 @@
       $default_width = 157;
       $product_count = count($products);
       switch($product_count) {
-      	case 2:
-      		$height = 229;
-      		$width = 157;
-      	case 3:
-      		$height = 229;
-      		$width = 157;
-      	case 4:
-      		$height = 229;
-      		$width = 157;
-      	case 5:
-      		$height = 229;
-      		$width = 157;
+      	case 6:
+      		$product_count = 3;
+      	case 7:
+      		$product_count = 4;
+      	case 8:
+      		$product_count = 4;
+      	case 9:
+      		$product_count = 5;
+      	case 10:
+      		$product_count = 5;
+      	default:
+      		break;
       }
       $width = $row_width/$product_count;
       $height = ($width * $default_height) / $default_width;
