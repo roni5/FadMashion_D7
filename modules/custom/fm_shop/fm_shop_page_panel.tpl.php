@@ -39,7 +39,10 @@
       $row_width = 786;
       $default_height = 229;
       $default_width = 157;
-      $product_count = count($products) > $max_products ? $max_products : count(products);
+      
+      $product_count = count($products);
+      if($product_count > $max_products) {$product_count = $max_products; }
+      
       $width = $row_width/$product_count;
       $height = ($width * $default_height) / $default_width;
       
