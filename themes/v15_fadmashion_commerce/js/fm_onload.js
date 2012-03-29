@@ -27,19 +27,39 @@ jQuery(document).ready(function() {
     });
 
 	
-	/*HowItWorks
-	if(!howItWorks) {
-	  jQuery.colorbox({ 
-	      opacity: '.9',
-	      innerWidth: '930px', innerHeight: '560px', 
-	      inline: true, 
-	      href:"#block-views-nodequeue-2-block"
-	    });
-	  jQuery('#colorbox').addClass('blankBox');
-	  
-	  fmUsersOpened(1);
-	}*/
-	
+	//ADD deep linking, 
+	 jQuery.address.crawlable(true).init(function(event) {
+
+         // Initializes plugin support for links
+		 jQuery('.page-shop .col2 .designerPanel a').address();
+
+
+     }).change(function(event) {
+
+         // Identifies the page selection 
+         var page = event.parameters.page ? '/?page=' + event.parameters.page : event.path;
+         console.dir(event)
+         
+         var handler = function(data) {
+             jQuery('.page-shop .col2').html(jQuery('.page-shop .col2', data).html()).parent().show();
+             
+         };
+
+
+         // Loads the page content and inserts it into the content area
+         jQuery.ajax({
+             url: location.pathname + '?_escaped_fragment_=' + encodeURIComponent(event.value),
+             error: function(XMLHttpRequest, textStatus, errorThrown) {
+                 handler(XMLHttpRequest.responseText);
+             },
+             success: function(data, textStatus, XMLHttpRequest) {
+                 //handler(data);
+             }
+         });
+
+     });
+     
+
 	
 	if(jQuery.browser.msie) {
 	//Remove Arrows if it is msie because the fading doesn't work well for it.

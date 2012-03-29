@@ -47,6 +47,7 @@ function v15_fadmashion_commerce_preload() {
 	drupal_add_js(drupal_get_path('module', 'fm_invite') . '/fm_invite.js');
 	drupal_add_js(drupal_get_path('module', 'fm_deals') . '/fm_deals.js');;
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_store_owners') . '/fm_commerce_store_owners.js');
+	drupal_add_js(path_to_theme() . '/js/jquery.address.js');
 	
 	global $status;
 	$status = fm_users_register_sessions_status();
