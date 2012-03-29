@@ -3,7 +3,7 @@
 
 /**
  * @file
- * FadMashion Commerce Splash page implementation.
+ * Fadmashion Commerce Splash page implementation.
  */
 
 global $user;

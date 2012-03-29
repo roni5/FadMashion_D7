@@ -12,13 +12,8 @@
   </div>
 </div>
 <div class="col2">
+  <div class="shopAjaxLoader"><img src="<?php print pp();?>confirm-ajax-loader.gif"> Loading...</div>
 	<div class="pad">
-     <?php foreach($content as $content_group) {
-     	 foreach($content_group as $content) {
-     	 	 print $content;
-     	 }
-     }
-      
-      ?>
+     
   </div>
 </div>

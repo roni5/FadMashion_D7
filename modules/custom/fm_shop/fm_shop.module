@@ -47,7 +47,7 @@ function fm_shop_page() {
   drupal_add_css(path_to_theme() . '/css/captions.css');
     
   $filters = fm_shop_page_filters();
-  $content = fm_shop_page_all_panels($filters);
+  //$content = fm_shop_page_all_panels($filters);
   
   return theme('fm_shop_page', array('filters' => $filters, 'content' => $content));
 }

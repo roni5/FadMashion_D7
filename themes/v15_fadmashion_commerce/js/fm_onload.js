@@ -33,8 +33,11 @@ jQuery(document).ready(function() {
          var page = event.parameters.nid ?  event.parameters.nid : 'all';
          console.dir(event)
          
+
          var handler = function(data) {
-             jQuery('.page-shop .col2 .pad').html(data);
+        	 jQuery('.shopAjaxLoader').hide();
+        	jQuery('.page-shop .col2 .pad').html(data);
+        	jQuery('.page-shop .col2 .pad').fadeIn();
 
          	jQuery(".capslide_img_cont").capslide({
                  caption_color	: 'white',
@@ -44,11 +47,19 @@ jQuery(document).ready(function() {
                  showcaption	    : false
              });
          };
+         
+         
 
 
          // Loads the page content and inserts it into the content area
          jQuery.ajax({
              url: location.pathname + '?q=shop/ajax/' + page,
+             beforeSend: function() {
+            	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+                 jQuery('.shopAjaxLoader').show();
+                 jQuery('.page-shop .col2 .pad').hide();
+              },
+
              error: function(XMLHttpRequest, textStatus, errorThrown) {
                  handler(XMLHttpRequest.responseText);
              },
