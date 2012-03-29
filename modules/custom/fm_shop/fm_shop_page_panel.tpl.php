@@ -41,14 +41,19 @@
       switch($product_count) {
       	case 6:
       		$product_count = 3;
+      		break;
       	case 7:
       		$product_count = 4;
+      		break;
       	case 8:
       		$product_count = 4;
+      		break;
       	case 9:
       		$product_count = 5;
+      		break;
       	case 10:
       		$product_count = 5;
+      		break;
       	default:
       		break;
       }
