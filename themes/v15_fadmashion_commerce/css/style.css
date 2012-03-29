@@ -15,7 +15,7 @@ tbody {border: medium none}
 #subHeader{height: 68px; background: #fff;}
 
 #header .links {color: #fff; float: left; height: 30px; margin-top: 8px;width: 450px; }
-#header .links a{color: #fff; float: right; margin-left: 20px;line-height: 30px;}
+#header .links a{color: #fff; float: right; margin-left: 20px;line-height: 30px; font-size: 11px;}
 #header .invite{ font-size: 11px;}
 #header .bag{background: url(../images/icon_bag.png) center left no-repeat; padding: 0 0 0 23px;font-size: 11px;}
 #header a.button{float: right; color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}

@@ -79,25 +79,28 @@
  */
 ?>
 
-<div class="photos">
+<div class="collectionPanel">
+<div class="product">
+<div id="photoBox">
   <?php print render($content['product:field_product_images']); ?>
 </div>
-<div class="info">
+<div class="productInfo">
 
-<?php print $groupDetails;?>
  <?php print $product_details; ?> 
 <div class="pricing">
     <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
     <div class="exclusive">Exclusive Price<h3><?php print render($content['field_sale_price']); ?></h3></div>
     <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>
 </div>
-
+<br clear="all">
 <div class="itemOptions">
  <?php print $purchaseDetails;  ?>
 </div> <!-- end itemOptions -->
+<div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>
 <?php print render($detail_tabs); ?>  
                 
 </div> <!--end info -->
+<br clear="all">
 
 <div class="designerInfo">
 <h1>ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
@@ -122,4 +125,5 @@
 </div> <!-- End designerInfo Col2 -->
 </div> <!-- End designerInfo -->
 
-
+</div> <!-- product -->
+</div>  <!-- End collectionPanel -->
