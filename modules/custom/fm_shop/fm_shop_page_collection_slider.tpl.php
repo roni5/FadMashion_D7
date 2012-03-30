@@ -14,12 +14,6 @@
             	print '<li>' . $link . '</li>';
             }
             ?>
-            <li>
-
-              <a href="images/9.jpg">
-                <img src="images/thumbs/t9.jpg" title="A title for 9.jpg" alt="This is a nice, and incredibly descriptive, description of the image 9.jpg" class="image13">
-              </a>
-            </li>
           </ul>
         </div>
       </div>
