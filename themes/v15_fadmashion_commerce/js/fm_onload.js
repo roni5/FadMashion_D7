@@ -88,7 +88,7 @@ jQuery(document).ready(function() {
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
                  jQuery('.shopAjaxLoader').show();
-                 jQuery('.page-shop .col2 .pad').fadeTo('fast', .3);
+                 jQuery('.page-shop .col2 .pad').fadeTo('fast', .33);
               },
 
              error: function(XMLHttpRequest, textStatus, errorThrown) {
