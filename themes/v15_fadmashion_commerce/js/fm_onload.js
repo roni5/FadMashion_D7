@@ -78,6 +78,14 @@ jQuery(document).ready(function() {
                  showcaption	    : false
              });
          	
+         	
+         	
+         	jQuery('.ad-thumb-list img').each(function() {
+         		var src = jQuery(this).attr('src');
+         		var parentLink = jQuery(this).parent('a');
+         		parentLink.attr('href', src);
+         	});
+         	
          	var galleries = jQuery('.ad-gallery').adGallery();
          	jQuery('#switch-effect').change(
          		      function() {

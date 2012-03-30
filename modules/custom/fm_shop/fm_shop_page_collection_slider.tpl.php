@@ -10,24 +10,11 @@
             <?php 
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
-            	$link = l($img, '', array('html' => true));
+            	$link = l($img, '', array('html' => true, 'absolute' => true));
             	print '<li>' . $link . '</li>';
             }
             ?>
-             <?php 
-            foreach($products as $product) {
-            	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
-            	$link = l($img, '', array('html' => true));
-            	print '<li>' . $link . '</li>';
-            }
-            ?>
-             <?php 
-            foreach($products as $product) {
-            	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
-            	$link = l($img, '', array('html' => true));
-            	print '<li>' . $link . '</li>';
-            }
-            ?>
+            <li><a href="http://exp.fadmashion.com/sites/default/files/styles/fm_thumb_product_image/public/product_images/gp-sapp-deer-grey.jpg"><img src="http://exp.fadmashion.com/sites/default/files/styles/fm_thumb_product_image/public/product_images/gp-sapp-deer-grey.jpg"></a></li>
           </ul>
         </div>
       </div>
