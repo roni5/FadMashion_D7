@@ -11,7 +11,7 @@
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
             	$link = l($img, '', array('html' => true));
-            	print '<li>' . $img . '</li>';
+            	print '<li>' . $link . '</li>';
             }
             ?>
             <li>
