@@ -104,7 +104,7 @@ tbody {border: medium none}
 
 h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
 h2.designer{margin: 0 0 8px 0;}
-p.description{margin: 0 0 4px 0; color: #777;}
+p.description{margin: 0 0 16px 0; color: #777;}
 
 .socialButtons{float: right;}
 .socialButtons a:hover{position: relative; top: 2px;}
@@ -112,17 +112,17 @@ p.description{margin: 0 0 4px 0; color: #777;}
 .buyIt{ color: #fff; background: url(../images/b_buyit.png) top left no-repeat; width: 110px; height: 39px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0; position: relative; left: 100px;}
 .buyIt:hover{background-position: bottom left;}
 
-.pricing{margin: 2px 0 10px 0; width: 332px;  font-size: 12px; padding: 20px 0 14px 0;float: left; display: block; clear: both;}
-.pricing div{float: left; width: 110px; text-align:center; display: inline}
-.pricing h3{font-size: 22px; font-weight:700; padding-top: 6px;}
+.pricing{margin: 2px 0 10px 0; width: 332px;  font-size: 12px; float: left; display: block; clear: both;}
+.pricing div{float: left; width: 110px; text-align:center; display: inline; font-size: 19px; font-weight: 500; height: 45px; line-height:45px;}
 .pricing .original{color: #aaa;background: url(../images/dotted_vertical.png) top right repeat-y;}
-.pricing .original h3 span{ background: url(../images/strikethrough.jpg) left center repeat-x; padding: 0 8px;font-size: 22px; font-weight:700; padding-top: 6px;}
+.pricing .original  span{ background: url(../images/strikethrough.jpg) left center repeat-x;font-size: 19px; font-weight: 500; height: 45px; line-height:45px; padding: 0 4px; }
 .pricing .exclusive{}
-.pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top left repeat-y;}
+.pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top right repeat-y;}
 
-.itemOptions{ width: 332px; background: url(../images/bg_itemOptions.jpg) top left repeat-y; clear: both; margin-bottom: 14px; text-align:center;}
+.itemOptions{ width: 332px; background: #f9f7f5 url(../images/bg_price.jpg) top left repeat-x; margin-bottom: 12px 0; text-align:center; border: 1px solid #ddd4ce;border-radius:5px; 
+-webkit-border-radius: 5px; -moz-border-radius: 5px;}
 .itemOptions .frame{display: block; }
-.itemOptions .box{padding: 14px 4px 14px 14px; font-size: 12px; }
+.itemOptions .box{padding: 8px 4px 14px 14px; font-size: 12px; }
 .itemOptions .form-submit{padding: 8px 22px; font-size: 16px; margin: 0;}
 .itemOptions label{float: left; width: 60px; text-align:left;}
 
@@ -137,12 +137,8 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .form-item-sizes .selectBox-options li.selectBox-selected a{background: #0f6da3;color: #fff; }
 .form-item-sizes .selectBox-options li.sizeChart a{margin-left: 6px; background: none; border: none; width: auto; font-family: Georgia, "Times New Roman", Times, serif; font-size: 11px; font-style:italic;}
 
-.tabbedInfo{background: #eee; padding: 4px; margin: 15px 0; width: 324px;}
-.tabbedInfo ul, .tabbedInfo li{float: left; list-style-type:none;}
-.tabbedInfo ul{width: 330px;}
-.tabbedInfo li{width: 80px; font-size: 11px; padding: 4px 0; text-align:center;}
-.tabbedInfo li.active{background: #fff;}
-.tabbedInfo .content{background: #fff;display: block; clear: both; padding: 10px; }
+.tabbedInfo{background: #fff;width: 324px;}
+
 
 .designerInfo{width: 740px; border-top: 3px solid #eee; padding: 10px 0 0 0; margin-top: 25px;}
 .designerInfo h1{font-size: 16px; margin-bottom: 15px; font-weight: 100;}
@@ -154,10 +150,11 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .designerInfo .quote .top{ background: url(../images/bg_quote_top.jpg) top left no-repeat;}
 .designerInfo .quote .bg{ background: url(../images/bg_quote_bottom.jpg) bottom left no-repeat;}
 .designerInfo .quoteImg1{background: url(../images/bg_quote1.png) 30px 12px no-repeat; padding: 15px;}
-.designerInfo .quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 10px 15px 15px 45px; font-size: 16px; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 20px;}
-.subCol{float: left; width: 250px; padding: 0 30px 0 0; position: relative; left: 30px;}
+.designerInfo .quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 10px 15px 15px 45px; font-size: 16px; font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic; line-height: 20px; text-align:center; }
+.subCol{float: left; width: 330px; padding: 0 20px 0 0; }
+.subCol p, .subCol div{margin-bottom: 6px;}
 
-.subCol h1{margin-bottom: 10px;}
+.subCol h1{margin-bottom: 10px; color: #888;}
 .subCol ul{float: left; list-style-type: none;}
 .subCol li{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 0px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
 .press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}

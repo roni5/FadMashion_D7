@@ -24,7 +24,7 @@
       <td >
         <div class="demo">
         <?php $first_product = array_shift($products);
-              print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'height' => 446, 'width' => 315));
+              print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'shop' => $shop, 'height' => 446, 'width' => 315));
         ?>
         
         </div>
@@ -52,7 +52,7 @@
       foreach($products as $product) {
       	
       	print '<div style="float: left;">';
-        print theme('fm_shop_page_panel_thumb', array('product' => $product, 'height' => $height, 'width' => $width));
+        print theme('fm_shop_page_panel_thumb', array('product' => $product, 'shop' => $shop, 'height' => $height, 'width' => $width));
         
         print '</div>';
         
@@ -61,7 +61,7 @@
       }
       
       ?>
-    </tr></tr>
+    </td></tr>
     </tbody></table>
   
   <!-- End of Table Content -->

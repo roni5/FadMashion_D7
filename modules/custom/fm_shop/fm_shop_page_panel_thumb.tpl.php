@@ -10,6 +10,6 @@
      $img .= '</div>';
      
      $node = fm_commerce_get_display_node($product);
-     print l($img, 'node/' . $node->nid, array('html' => true, 'query' => array('nid' => $node->nid) ));
+     print l($img, 'node/' . $node->nid, array('html' => true, 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
   ?>
 </div>

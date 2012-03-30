@@ -35,9 +35,14 @@ function fm_shop_theme() {
        'template' => 'fm_shop_page_panel'
     ),
     'fm_shop_page_panel_thumb' => array(
-	     'variables' => array('product' => NULL, 'height' => 446, 'width' => 315),
+	     'variables' => array('product' => NULL, 'shop' => NULL,  'height' => 446, 'width' => 315),
        'template' => 'fm_shop_page_panel_thumb'
     ),
+    'fm_shop_page_collection_slider' => array(
+	     'variables' => array('products' => NULL),
+       'template' => 'fm_shop_page_collection_slider'
+    ),
+    
   );
 }
 
@@ -45,6 +50,8 @@ function fm_shop_page() {
 
 	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
   drupal_add_css(path_to_theme() . '/css/captions.css');
+  drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
+  drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
     
   $filters = fm_shop_page_filters();
   //$content = fm_shop_page_all_panels($filters);
@@ -53,6 +60,17 @@ function fm_shop_page() {
 }
 
 function fm_shop_page_ajax($type, $var) {
+	
+	if($type == 'store') {
+			$shop = fm_commerce_store_load($var);
+			$products = fm_commerce_store_get_products($shop, true);
+			$first_product = array_shift($products);
+			$node = fm_commerce_get_display_node($first_product);
+			
+			$type = 'node';
+			$var = $node->nid;
+	}
+			
 	switch($type) {
 		case 'all':
 		  $filters = fm_shop_page_filters();
@@ -66,20 +84,30 @@ function fm_shop_page_ajax($type, $var) {
 	   break;
 		case 'node':
 		  $node = node_load($var);
-	    $content = render(node_view($node));
+		  $content =  fm_shop_collection_viewer('store', $shop); 
+	    $content .= render(node_view($node));
 	    break;
-		case 'store':
-			$shop = fm_commerce_store_load($var);
-			$products = fm_commerce_store_get_products($shop, true);
-			$first_product = array_shift($products);
-			$node = fm_commerce_get_display_node($first_product);
-			$content = render(node_view($node));
-			break;
+		
 	}
 	
 	print $content;
 	exit();
 }
+
+function fm_shop_collection_viewer($type, $var) {
+
+	switch($type) {
+		case 'store':
+			$shop = $var;
+			$products = fm_commerce_store_get_products($shop, true);
+			return theme('fm_shop_page_collection_slider', array('products' => $products));
+			break;
+		case '':
+			break;
+	}
+	
+}
+
 
 function fm_shop_page_filters() {
 	$filters = array();

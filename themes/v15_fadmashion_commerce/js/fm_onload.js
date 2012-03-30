@@ -77,6 +77,9 @@ jQuery(document).ready(function() {
                  border			: '',
                  showcaption	    : false
              });
+         	
+         	var galleries = jQuery('.ad-gallery').adGallery();
+
          };
          
          
