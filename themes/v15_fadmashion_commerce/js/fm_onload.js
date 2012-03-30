@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
         	jQuery('.shopAjaxLoader').fadeOut();
         	jQuery('.page-shop .col2 .pad ').hide();
         	jQuery('.page-shop .col2 .pad ').html(data);
-        	jQuery('.page-shop .col2 .pad ').fadeIn();
+        	jQuery('.page-shop .col2 .pad ').fadeTo('slow', 1);
 
          	jQuery(".capslide_img_cont").capslide({
                  caption_color	: 'white',
@@ -88,7 +88,7 @@ jQuery(document).ready(function() {
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
                  jQuery('.shopAjaxLoader').show();
-                 //jQuery('.page-shop .col2 .pad .shopContent').hide();
+                 jQuery('.page-shop .col2 .pad').fadeTo('fast', .3);
               },
 
              error: function(XMLHttpRequest, textStatus, errorThrown) {
