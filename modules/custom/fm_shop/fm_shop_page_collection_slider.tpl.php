@@ -14,7 +14,7 @@
             	print '<li>' . $link . '</li>';
             }
             ?>
-            <li><a href="http://exp.fadmashion.com/sites/default/files/styles/fm_thumb_product_image/public/product_images/gp-sapp-deer-grey.jpg"><img src="http://exp.fadmashion.com/sites/default/files/styles/fm_thumb_product_image/public/product_images/gp-sapp-deer-grey.jpg"></a></li>
+           
           </ul>
         </div>
       </div>
