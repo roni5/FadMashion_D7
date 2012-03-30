@@ -35,7 +35,7 @@ jQuery(document).ready(function() {
          
 
          var handler = function(data) {
-        	jQuery('.shopAjaxLoader').hide();
+        	jQuery('.shopAjaxLoader').fadeOut();
         	jQuery('.page-shop .col2 .pad ').hide();
         	jQuery('.page-shop .col2 .pad ').html(data);
         	jQuery('.page-shop .col2 .pad ').fadeIn();
