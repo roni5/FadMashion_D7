@@ -24,15 +24,45 @@ jQuery(document).ready(function() {
 	 jQuery.address.crawlable(true).init(function(event) {
 
          // Initializes plugin support for links
-		 jQuery('.page-shop .col2 .designerPanel a').address();
+		 jQuery('.page-shop .col2 .designerPanel a, .page-shop .col1 a').address();
 
 
      }).change(function(event) {
 
-         // Identifies the page selection 
-         var page = event.parameters.nid ?  event.parameters.nid : 'all';
-         console.dir(event)
-         
+         // Identifies the page selection
+    	 var type, id;
+    	 if(event.parameters.store_id) {
+        	 type = 'store';
+        	 id = event.parameters.store_id;
+
+    		 jQuery('.page-shop .col1 a').each(function() {
+    			 if (jQuery(this).attr('id') == id) {
+ 			    jQuery(this).addClass('active').focus();
+               } else {
+             	jQuery(this).removeClass('active');
+               }
+             });
+	 
+	 
+         } else {
+        	 type = 'all';
+        	 id = 'a';
+        	 
+        	 jQuery('.page-shop .col1 a').each(function() {
+    			 if (jQuery(this).attr('id') == 'all') {
+ 			    jQuery(this).addClass('active').focus();
+               } else {
+             	jQuery(this).removeClass('active');
+               }
+             });
+         }
+    	 
+    	 if(event.parameters.nid) {
+    		 type = 'node';
+    		 id = event.parameters.nid
+    	 }
+    	 
+        
 
          var handler = function(data) {
         	jQuery('.shopAjaxLoader').fadeOut();
@@ -54,7 +84,7 @@ jQuery(document).ready(function() {
 
          // Loads the page content and inserts it into the content area
          jQuery.ajax({
-             url: location.pathname + '?q=shop/ajax/' + page,
+             url: location.pathname + '?q=shop/ajax/' + type + '/' + id,
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
                  jQuery('.shopAjaxLoader').show();

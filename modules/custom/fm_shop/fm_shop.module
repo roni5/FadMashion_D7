@@ -10,10 +10,10 @@ function fm_shop_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
-  $items['shop/ajax/%'] = array(
+  $items['shop/ajax/%/%'] = array(
     'page callback' => 'fm_shop_page_ajax',
 	  'access arguments' => array('view deals'), 
-    'page arguments' => array(2),
+    'page arguments' => array(2, 3),
     'type' => MENU_NORMAL_ITEM,
   );
   
@@ -52,19 +52,29 @@ function fm_shop_page() {
   return theme('fm_shop_page', array('filters' => $filters, 'content' => $content));
 }
 
-function fm_shop_page_ajax($var) {
-	if($var == 'all') {
-		$filters = fm_shop_page_filters();
-		$content = '';
-    $panels = fm_shop_page_all_panels($filters);
-    foreach($panels as $panels_group) {
-     	 foreach($panels_group as $panel) {
-     	 	 $content .= $panel;
-     	 }
-     } 
-	} else {
-		$node = node_load($var);
-	  $content = render(node_view($node));
+function fm_shop_page_ajax($type, $var) {
+	switch($type) {
+		case 'all':
+		  $filters = fm_shop_page_filters();
+		  $content = '';
+      $panels = fm_shop_page_all_panels($filters);
+      foreach($panels as $panels_group) {
+     	   foreach($panels_group as $panel) {
+       	 	 $content .= $panel;
+     	   }
+       } 
+	   break;
+		case 'node':
+		  $node = node_load($var);
+	    $content = render(node_view($node));
+	    break;
+		case 'store':
+			$shop = fm_commerce_store_load($var);
+			$products = fm_commerce_store_get_products($shop, true);
+			$first_product = array_shift($products);
+			$node = fm_commerce_get_display_node($first_product);
+			$content = render(node_view($node));
+			break;
 	}
 	
 	print $content;
@@ -119,15 +129,8 @@ function fm_shop_page_all_panels($filters) {
   	$content[$title] = array();
     foreach($filter_group['links'] as $id => $link) {
     	$shop = fm_commerce_store_load($id);
-    	$products = fm_commerce_store_get_products($shop);
-    	
-    	//Filter products without a Display node
-    	foreach($products as $id => $product) {
-    		$node = fm_commerce_get_display_node($product);
-    		if(!isset($node)) {
-    		 unset($products[$id]);
-    		}
-    	}
+    	$products = fm_commerce_store_get_products($shop, true);
+    
     	if(!empty($products)) {
     	  $content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products));
     	}

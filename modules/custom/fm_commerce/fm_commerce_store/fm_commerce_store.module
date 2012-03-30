@@ -458,7 +458,7 @@ function _fm_commerce_match_stores($string = '', $match = 'contains', $ids = arr
 /*
  * Get all the products for this store
  */
-function fm_commerce_store_get_products($store) {
+function fm_commerce_store_get_products($store, $withDisplayNode = false) {
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	      ->entityCondition('bundle', 'fm_fashion_product');
@@ -469,7 +469,17 @@ function fm_commerce_store_get_products($store) {
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
     foreach($products['commerce_product'] as $product_id => $product) {
-  	   $products_ret[$product_id] = commerce_product_load($product_id);
+      $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	
+	  if($withDisplayNode) {
+	    //Filter products without a Display node
+      foreach($products_ret as $id => $product) {
+      	$node = fm_commerce_get_display_node($product);
+    	  if(!isset($node)) {
+    		   unset($products_ret[$id]);
+    	  }
+      }	
 	  }
 	}
 	return $products_ret;

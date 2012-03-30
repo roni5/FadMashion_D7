@@ -80,17 +80,7 @@ tbody {border: medium none}
 .buttonShop{ color: #fff; background: url(../images/b_shop.png) top left no-repeat; width: 156px; height: 36px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0 auto}
 .buttonShop:hover{background-position: bottom left;}
 
-.shopAjaxLoader {background-color:rgba(255, 255, 255, 0.8);
-background-image: url(../images/confirm-ajax-loader.gif) ;
-background-position:5px 50%;
-background-repeat:no-repeat;
-bottom:20px;
-color:#666;
-font-size:14px;
-padding:5px 5px 5px 25px;
-position:fixed;
-right:40px;
-text-align:center;}
+.shopAjaxLoader {background-color:rgba(255, 255, 255, 0.8);background-image: url(../images/confirm-ajax-loader.gif) ;background-position:5px 50%;background-repeat:no-repeat;bottom:20px;color:#666;font-size:14px;padding:5px 5px 5px 25px;position:fixed;right:40px;text-align:center;}
 
 
 
