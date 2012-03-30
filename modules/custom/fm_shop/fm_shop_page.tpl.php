@@ -12,8 +12,6 @@
   </div>
 </div>
 <div class="col2">
-  <div class="shopAjaxLoader"><img src="<?php print pp();?>confirm-ajax-loader.gif"> Loading...</div>
-	<div class="pad">
-     
-  </div>
+  <div class="shopAjaxLoader rounded-top rounded-bottom"><img src="<?php print pp();?>confirm-ajax-loader.gif"> Loading...</div>
+  <div class="pad"></div>
 </div>
