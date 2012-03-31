@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
 				slideSpeed: slideSpeed,
 				fadeSpeed: fadeSpeed,
 				generateNextPrev: true,
-				generatePagination: true
+				generatePagination: false
 			});
 			jQuery('#product').show();
 			jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
