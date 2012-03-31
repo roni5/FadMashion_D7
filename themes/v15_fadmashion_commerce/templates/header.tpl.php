@@ -50,7 +50,7 @@
         			    <img src="<?php print pp();?>logo_fadmashion.png?v2" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-      <?php print l('Shop', 'shop', array('attributes' => array('class' => array('acitve'))));?>
+     <?php print l('Shop', 'shop', array('attributes' => array('class' => array('active') )));?>
       <a href="#">Explore</a>              
     </div>
 </div>
@@ -61,5 +61,5 @@
         	<a class="press2" href="#">My Fashion Life</a>
         	<a class="press3" href="#">FashionSpot</a>
             </div>
-        <div class="slogan"><span>Browse</span> designer collections.&nbsp;&nbsp;&nbsp;<span>Shop</span> private sales.&nbsp;&nbsp;&nbsp;<span>Love</span> your new look.</div>
+        <div class="slogan"><span>Browse</span> designer collections.&nbsp;&nbsp;&nbsp;<span>Shop</span> private sales.&nbsp;&nbsp;&nbsp;<span>Look</span> better than your friends.</div>
         </div>

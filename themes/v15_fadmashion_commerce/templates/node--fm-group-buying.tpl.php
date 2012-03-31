@@ -124,7 +124,7 @@
 <div class="quote"><div class="top"><div class="bg">
 <div class="quoteImg1"><div class="quoteImg2"><?php print render($content['store:field_quote']); ?></div></div>
 </div></div> </div></div><!-- End colB--> 
-
+<br clear="all">
 <div class="subCol" style="margin-right: 30px;">
 <h1>Biography</h1>
 <?php print render($content['store:field_quick_facts']); ?>
