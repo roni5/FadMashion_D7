@@ -100,7 +100,7 @@ tbody {border: medium none}
 #photoBox .next, .photos .prev, .photos .zoom, #zoomed .next, #zoomed .prev, #zoomed .zoom {float: left; display: block; text-indent: -9999px; overflow: hidden; }
 #photoBox.next:hover, .photos .prev:hover, .photos .zoom:hover {background-position: bottom left;}
 #photoBox .next { background:url("../images/img_nav_next.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
-#photoBox.prev { background:url("../images/img_nav_prev.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
+#photoBox .prev { background:url("../images/img_nav_prev.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
 #photoBox .zoom{background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
 .gzoombutton, .gzoomSlider {display: none;}
 
