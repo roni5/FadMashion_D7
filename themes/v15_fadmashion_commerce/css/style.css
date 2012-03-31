@@ -104,6 +104,17 @@ tbody {border: medium none}
 #photoBox .zoom{background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
 .gzoombutton, .gzoomSlider {display: none;}
 
+#zoomed {width: 840px;}
+#zoomed .slides_container {float: left; margin: 0 9px 0 0; width: 652px;}
+#zoomed .pagination{float:left;width:153px;}
+#zoomed .next, #zoomed .prev, #zoomed .logo {position: absolute; z-index: 100;  }
+#zoomed .next, #zoomed .prev {height: 31px; width: 31px; }
+#zoomed .prev {left: 19px; background:url("../images/b_zoom_prev.png") no-repeat scroll left top transparent;}
+#zoomed .next {left: 638px; background:url("../images/b_zoom_next.png") no-repeat scroll left top transparent;}
+#zoomed .logo {bottom: 13px; right: 8px;}
+#zoomed .next:hover, #zoomed .prev:hover {background-position: bottom left; }
+#zoomed .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
+
 .productInfo{float: left; text-align: left; margin: 0 0 0 30px; width: 335px;}
 
 h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
