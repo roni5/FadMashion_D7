@@ -108,9 +108,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
     );
     
     $images .= '<div class="image_container">';
-    //$images .= '<a class="colorbox-inline" href="' . $url . '"><div class="zoom01" class="zoom">';
+    $images .= '<div class="zoom01" class="zoom">';
     $images .= theme('image_style', $image);
-    //$images .= '</div></a>';
+    $images .= '</div>';
     //$images .= '</div>';
     
     $image = array(
