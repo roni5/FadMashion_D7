@@ -88,17 +88,21 @@ tbody {border: medium none}
 /********* collection page  **********/
 
 #photoBox{width: 374px; float: left;}
-.photos{padding-bottom: 0px; float: left;}
-.photos img{border: 1px solid #f0eeea;}
-.imgNavBar{ float: left;}
-.imgNavBar a{float: left; display: block; text-indent: -9999px;}
-.imgNavBar .prev{background: url(../images/img_nav_prev.jpg) top left no-repeat; height: 27px; width:56px;}
-.imgNavBar .next{background: url(../images/img_nav_next.jpg) top left no-repeat; height: 27px; width:56px;}
-.imgNavBar .zoom{background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
-.imgNavBar a:hover{background-position: bottom left;}
-.imgThumbs {padding: 5px 0 0 0; float: left;}
-.imgThumbs a{margin: 0 4px 4px 0; float: left; }
-.imgThumbs a.active img, .imgThumbs a:hover img{border: 1px solid #a32e27}
+#photoBox{padding-bottom: 10px;}
+#photoBox .slides_container { height: 474px; }
+#photoBox .slides_container img{border:1px solid #F0EEEA; cursor: pointer;}
+#photoBox .pagination{float: left; margin-top: 5px;}
+#photoBox .pagination li,  #zoomed .pagination li{float: left; margin: 0 4px 4px 0; }
+#photoBox.pagination li.current a img, #zoomed .pagination li.current a img{border:1px solid #A32E27; }
+#photoBox.pagination li a img, #zoomed .pagination li a img{border:1px solid #F0EEEA;}
+#photoBox .pagination li a img:hover, #zoomed .pagination li a img:hover{border:1px solid #A32E27;}
+
+#photoBox .next, .photos .prev, .photos .zoom, #zoomed .next, #zoomed .prev, #zoomed .zoom {float: left; display: block; text-indent: -9999px; overflow: hidden; }
+#photoBox.next:hover, .photos .prev:hover, .photos .zoom:hover {background-position: bottom left;}
+#photoBox .next { background:url("../images/img_nav_next.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
+#photoBox.prev { background:url("../images/img_nav_prev.jpg") no-repeat scroll left top transparent;height:27px;width:56px;}
+#photoBox .zoom{background: url(../images/img_nav_zoom.jpg) top left no-repeat; height: 27px; width:262px;}
+.gzoombutton, .gzoomSlider {display: none;}
 
 .productInfo{float: left; text-align: left; margin: 0 0 0 30px; width: 335px;}
 
