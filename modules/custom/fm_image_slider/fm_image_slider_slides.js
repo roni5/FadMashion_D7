@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
 				generatePagination: false
 			});
 			jQuery('#product').show();
-			jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+			jQuery('#photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 	  }
 	};
 })(jQuery);
