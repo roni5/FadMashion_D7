@@ -107,11 +107,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'style_name' => $image_style
     );
     
-    $images .= '<div class="image_container">';
-    $images .= '<div class="zoom01" class="zoom">';
+    $images .= '<a class="colorbox-inline" href="' . $url . '"><div class="zoom01" class="zoom">';
     $images .= theme('image_style', $image);
-    $images .= '</div>';
-    //$images .= '</div>';
+    $images .= '</div></a>';
     
     $image = array(
       'path' => $picture['uri'],
@@ -137,6 +135,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   }
   
   $output = '<div id="product" style="position: relative; display: none;">';
+  $output .= '<div id="photo_tooltip">mousewheel to zoom</div>';
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
