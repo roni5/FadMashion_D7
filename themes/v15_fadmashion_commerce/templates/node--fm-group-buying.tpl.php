@@ -119,14 +119,11 @@
 <br clear="all">
 
 <div class="designerInfo">
-<h1>ABOUT <span><?php print strtoupper($store->name); ?></span></h1>
-<div class="col1">
-<?php print render($content['store:field_logo']); ?>
-</div> <!-- End designerInfo Col1 -->
-<div class="col2">
+<div class="colA"><?php print render($content['store:field_logo']); ?></div>
+<div class="colB">
 <div class="quote"><div class="top"><div class="bg">
 <div class="quoteImg1"><div class="quoteImg2"><?php print render($content['store:field_quote']); ?></div></div>
-</div></div> </div><!-- End col2 quote--> 
+</div></div> </div></div><!-- End colB--> 
 
 <div class="subCol" style="margin-right: 30px;">
 <h1>Biography</h1>
@@ -143,3 +140,5 @@
 
 </div> <!-- product -->
 </div>  <!-- End collectionPanel -->
+<br clear="all">
+<img class="frameBottom" src="<?php print pp();?>frame_bottom.png">

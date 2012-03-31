@@ -50,7 +50,7 @@
         			    <img src="<?php print pp();?>logo_fadmashion.png?v2" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-      <a class="active" href="#">Shop</a>
+      <?php print l('Shop', 'shop', array('attributes' => array('class' => array('acitve'))));?>
       <a href="#">Explore</a>              
     </div>
 </div>

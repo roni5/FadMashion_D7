@@ -167,7 +167,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .designerInfo .quoteImg1{background: url(../images/bg_quote1.png) 30px 12px no-repeat; padding: 15px;}
 .designerInfo .quoteImg2{background: url(../images/bg_quote2.png) bottom right no-repeat; padding: 10px 15px 15px 45px; font-size: 16px; font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic; line-height: 20px; text-align:center; }
 .subCol{float: left; width: 330px; padding: 0 20px 0 0; }
-.subCol p, .subCol div{margin-bottom: 6px;}
+.subCol p, .subCol div{margin-bottom: 6px; font-size: 12px;}
 
 .subCol h1{margin-bottom: 10px; color: #888;}
 .subCol ul{float: left; list-style-type: none;}
