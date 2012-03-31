@@ -119,7 +119,7 @@ tbody {border: medium none}
 
 h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
 h2.designer{margin: 0 0 8px 0; font-size: 12px;}
-p.description{margin: 0 0 16px 0; color: #777; font-size: 12px}
+p.description{margin: 0 0 16px 0; color: #777; font-size: 13px}
 
 .socialButtons{float: right;}
 .socialButtons a:hover{position: relative; top: 2px;}

@@ -90,7 +90,6 @@ jQuery(document).ready(function() {
          	
          	Drupal.attachBehaviors();
 
-
          };
          
          
@@ -141,6 +140,17 @@ jQuery(document).ready(function() {
     });
 
 });
+
+(function ($) {
+	Drupal.behaviors.addSimpleTabs = {
+	  attach: function (context, settings) {
+		  if(jQuery(".currentTab").length) {
+		    	return;
+		  }
+	    kmrSimpleTabs.init();
+	  }
+	};
+})(jQuery);
 
 (function ($) {
 	Drupal.behaviors.colorboxFullHeight = {

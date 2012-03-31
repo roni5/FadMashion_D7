@@ -100,7 +100,20 @@
  <?php print $purchaseDetails;  ?>
 </div> <!-- end itemOptions -->
 <div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>
-<?php print render($detail_tabs); ?>  
+  
+<div class="tabbedInfo">
+  <div class="simpleTabs">
+	  <ul class="simpleTabsNavigation">
+		  <li><a href="#">Product Details</a></li>
+		  <li><a href="#">Shipping</a></li>
+		  <li><a href="#">Return Policy</a></li>
+		</ul>
+		 <div class="simpleTabsContent"><?php print $tab_details; ?></div>
+		 <div class="simpleTabsContent"><?php print $tab_shipping; ?></div>
+    <div class="simpleTabsContent"><?php print $tab_returns; ?></div>
+		    </div>
+</div><!--tabbedInfo-->
+ 
                 
 </div> <!--end info -->
 <br clear="all">

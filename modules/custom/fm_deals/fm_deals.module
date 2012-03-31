@@ -197,43 +197,19 @@ function fm_deals_preprocess_node(&$vars) {
 	  
 	  $details = field_get_items('commerce_product', $product, 'field_details');
     
-	  $default_tab = 'product_shipping';
-	 if(!empty($details)) {
+	  $vars['tab_details'] = '';
+	  if(!empty($details)) {
 	 	  $details_text = '<ul class="details-list">';
 	 	  foreach($details as $detail) {
 	 	  	$details_text .= '<li>' . $detail['value'] . '</li>';
 	 	  }
 	 	  $details_text .= '</ul>';
-      $tabs['product_details'] = array(
-              'title' => t('Details'),
-              'type' => 'freetext',
-              'text' => $details_text
-      );
-      $default_tab = 'product_details';
-	  }  
-	 
-	 $tabs['product_shipping'] = array(
-            'title' => t('Shipping'),
-            'type' => 'freetext',
-            'text' => theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) ),
-    );
-   $tabs['product_returns'] = array(
-            'title' => t('Returns'),
-            'type' => 'freetext',
-            'text' => theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) ),
-    );
+      $vars['tab_details'] = $details_text;
+	   }  
 	  
-    $quicktabs->tabs = $tabs;
-    $quicktabs->table = 'quicktabs';
-    $quicktabs->ajax= '0';
-    $quicktabs->style = 'default';
-    $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = $default_tab;
-    $quicktabs->hide_empty_tabs = '0';
-    $quicktabs->machine_name = 'fm_product_details';
-    
-    $qt = quicktabs_render($quicktabs);
-    $vars['detail_tabs'] = $qt;
+	   $vars['tab_shipping'] = theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) );
+	   $vars['tab_returns'] = theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) );
+
 	}
 }
 
