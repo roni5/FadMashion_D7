@@ -87,13 +87,16 @@
 <div class="productInfo">
 
  <?php print $product_details; ?> 
+ 
+ <div class="itemOptions">
 <div class="pricing">
-    <div class="original">Original Price<h3><?php print render($content['product:commerce_price']); ?></h3></div>
-    <div class="exclusive">Exclusive Price<h3><?php print render($content['field_sale_price']); ?></h3></div>
-    <div class="savings">Savings<h3><?php print $sale_percentage; ?></h3></div>
+    <div class="savings"><?php print $sale_percentage; ?> Off</div>
+    <div class="original"><span><?php print render($content['product:commerce_price']); ?></span></div>
+    <div class="exclusive"><?php print render($content['field_sale_price']); ?></div>
+    
 </div>
 <br clear="all">
-<div class="itemOptions">
+
  <?php print $purchaseDetails;  ?>
 </div> <!-- end itemOptions -->
 <div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>

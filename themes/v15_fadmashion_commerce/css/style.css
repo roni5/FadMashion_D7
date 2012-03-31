@@ -118,8 +118,8 @@ tbody {border: medium none}
 .productInfo{float: left; text-align: left; margin: 0 0 0 30px; width: 335px;}
 
 h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
-h2.designer{margin: 0 0 8px 0;}
-p.description{margin: 0 0 16px 0; color: #777;}
+h2.designer{margin: 0 0 8px 0; font-size: 12px;}
+p.description{margin: 0 0 16px 0; color: #777; font-size: 12px}
 
 .socialButtons{float: right;}
 .socialButtons a:hover{position: relative; top: 2px;}
@@ -130,7 +130,7 @@ p.description{margin: 0 0 16px 0; color: #777;}
 .pricing{margin: 2px 0 10px 0; width: 332px;  font-size: 12px; float: left; display: block; clear: both;}
 .pricing div{float: left; width: 110px; text-align:center; display: inline; font-size: 19px; font-weight: 500; height: 45px; line-height:45px;}
 .pricing .original{color: #aaa;background: url(../images/dotted_vertical.png) top right repeat-y;}
-.pricing .original  span{ background: url(../images/strikethrough.jpg) left center repeat-x;font-size: 19px; font-weight: 500; height: 45px; line-height:45px; padding: 0 4px; }
+.pricing .original  span .field-item { width: 80px; background: url(../images/strikethrough.jpg) left center repeat-x;font-size: 19px; font-weight: 500; height: 45px; line-height:45px; padding: 0 4px; }
 .pricing .exclusive{}
 .pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top right repeat-y;}
 
