@@ -88,6 +88,7 @@ jQuery(document).ready(function() {
          	
          	var galleries = jQuery('.ad-gallery').adGallery();
          	
+         	Drupal.attachBehaviors();
 
 
          };

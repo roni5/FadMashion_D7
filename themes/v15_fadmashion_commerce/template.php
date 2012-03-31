@@ -49,6 +49,17 @@ function v15_fadmashion_commerce_preload() {
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_store_owners') . '/fm_commerce_store_owners.js');
 	drupal_add_js(path_to_theme() . '/js/jquery.address.js');
 	
+	//For Image viewer on products
+	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider_slides.js');
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/slides.jquery.js');
+	
+	//Add Zoom JS
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.gzoom.js');
+	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/jquery.gzoom.css');
+	//drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/featuredimagezoomer.js');
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.mousewheel.min.js');
+	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.panFullSize.js');
+	
 	global $status;
 	$status = fm_users_register_sessions_status();
 	

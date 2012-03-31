@@ -5,49 +5,37 @@
 
 var slideSpeed = 600;
 var fadeSpeed = 500;
+var loadingImagePath =  'confirm-ajax-loader.gif';
+
 jQuery(document).ready(function() {
 	
-		jQuery('#product').slides({
-			preload: true,
-			preloadImage: loadingImagePath,
-			effect: 'fade',
-			crossfade: true,
-			slideSpeed: slideSpeed,
-			fadeSpeed: fadeSpeed,
-			generateNextPrev: true,
-			generatePagination: false
-		});
-		jQuery('#product').show();
-		
-		/*Mousewheel zoom for main product image
-		jQuery(".photos .slides_container img").mousemove(function(e){
-			jQuery("#photo_tooltip").show();
-	    });
-	    jQuery(".photos .slides_container img").mouseout(function(e){
-	    	jQuery("#photo_tooltip").hide();
-	    });*/
-
-		/*jQuery(".zoom01").gzoom({sW: 372,
-			sH: 474,
-			lW: 942,
-			lH: 1200,
-			step: 10,
-			frameColor: "#F0EEEA",
-			re : /fm_main_product_image\//, 
-  	        replace : 'fm_product_super_zoom/',  
-			lighbox : false
-	     });*/
-		 /*$('.zoom01').addimagezoom({
-			  zoomrange: [3, 10],
-			  magnifiersize: [300,300],
-			  magnifierpos: 'right',
-			  cursorshade: true,
-			  largeimage: 'hayden.jpg' //<-- No comma after last option!
-	     })*/;
-		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+	
 		Drupal.attachBehaviors();
 
 });
+(function ($) {
+	Drupal.behaviors.imageSlider = {
+	  attach: function (context, settings) {
+		  if(!jQuery('#product').length) {
+		    	return;
+		  }
+
+			jQuery('#product').slides({
+				preload: true,
+				preloadImage: loadingImagePath,
+				effect: 'fade',
+				crossfade: true,
+				slideSpeed: slideSpeed,
+				fadeSpeed: fadeSpeed,
+				generateNextPrev: true,
+				generatePagination: false
+			});
+			jQuery('#product').show();
+			jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+	  }
+	};
+})(jQuery);
+
 
 (function ($) {
 	Drupal.behaviors.zoomedBox = {

@@ -74,16 +74,7 @@ function theme_fm_image_slider_nivo_formatter($variables) {
  * @ingroup themeable
  */
 function theme_fm_image_slider_slides_formatter($variables) {
-	
-	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider_slides.js');
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/slides.jquery.js');
-	
-	//Add Zoom JS
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.gzoom.js');
-	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/jquery.gzoom.css');
-	//drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/featuredimagezoomer.js');
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.mousewheel.min.js');
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.panFullSize.js');
+
 	
 	drupal_add_library('system', 'ui.slider');
 	
@@ -99,8 +90,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   //Zoom Colorbox Url
   $url = '/?height=80%&width=840&inline=true#zoomed';
   drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
-  $loadingImagePath = pp() . 'confirm-ajax-loader.gif';
-  drupal_add_js('var loadingImagePath = "' . $loadingImagePath . '";', 'inline');
+  
   
   $i = 0;
   $images = $zooms = $thumbs = ''; 
