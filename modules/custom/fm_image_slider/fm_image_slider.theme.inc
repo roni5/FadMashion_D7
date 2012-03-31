@@ -154,7 +154,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
    
   //$output .= '<div id="zoom_photo_tooltip">hover to view more of the image</div>';
   
-  /*$output .= '<div class="slides_container">';
+  $output .= '<div class="slides_container">';
   $output .= $zooms;
   $output .= '</div>';
   if($show_thumbs) {
@@ -168,7 +168,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   
   $output .= '</div>';
   $output .= '</div>';
-  */
+  
   
   return $output;
 }
