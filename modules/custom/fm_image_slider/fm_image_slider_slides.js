@@ -22,13 +22,12 @@ jQuery(document).ready(function() {
 
 			jQuery('#product').slides({
 				preload: true,
-				preloadImage: loadingImagePath,
 				effect: 'fade',
 				crossfade: true,
 				slideSpeed: slideSpeed,
 				fadeSpeed: fadeSpeed,
 				generateNextPrev: true,
-				generatePagination: false
+				generatePagination: true
 			});
 			jQuery('#product').show();
 			jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
