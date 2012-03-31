@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.imageSlider = {
 	  attach: function (context, settings) {
-		  if(!jQuery('#product').length) {
+		  if(!jQuery('#product').length || jQuery('#product .slides_control').length) {
 		    	return;
 		  }
 
