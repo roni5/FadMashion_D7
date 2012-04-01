@@ -81,7 +81,7 @@ jQuery(document).ready(function() {
 
          };
          
-         var q = '';
+         var q = '/';
          var qParam = '?';
          if(event.parameters.q) {
         	  q = '?q=shop/';
