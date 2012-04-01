@@ -54,31 +54,16 @@ jQuery(document).ready(function() {
         
 
          var handler = function(data) {
-        	jQuery('.shopAjaxLoader').fadeOut();
+        	
+         	
+         	jQuery('.shopAjaxLoader').fadeOut();
         	jQuery('.page-shop .col2 .pad ').hide();
         	jQuery('.page-shop .col2 .pad ').html(data);
         	jQuery('.page-shop .col2 .pad ').fadeTo('slow', 1);
 
-         	jQuery(".capslide_img_cont").capslide({
-                 caption_color	: 'white',
-                 caption_bgcolor	: 'black',
-                 overlay_bgcolor : 'black',
-                 border			: '',
-                 showcaption	    : false
-             });
-         	
-         	
-         	
-         	jQuery('.ad-thumb-list img').each(function() {
-         		var src = jQuery(this).attr('src');
-         		var parentLink = jQuery(this).parent('a');
-         		parentLink.attr('href', src);
-         	});
-         	
-         	var galleries = jQuery('.ad-gallery').adGallery();
-         	
          	Drupal.attachBehaviors();
-
+         
+         	
          };
          
          var q = '/';
@@ -108,3 +93,47 @@ jQuery(document).ready(function() {
 
      });
  });
+
+(function ($) {
+	Drupal.behaviors.addCapSlide = {
+	  attach: function (context, settings) {
+		  if(!jQuery(".designerPanel").length) {
+		    	return;
+		  }
+		  
+		  jQuery(".capslide_img_cont").capslide({
+                caption_color	: 'white',
+                caption_bgcolor	: 'black',
+                overlay_bgcolor : 'black',
+                border			: '',
+                showcaption	    : false
+            });
+       	
+       	
+       	
+	  }
+	};
+})(jQuery);
+
+(function ($) {
+	Drupal.behaviors.collectionViewer = {
+	  attach: function (context, settings) {
+		  if(jQuery("#gallery").length) {
+		    	return;
+		  }
+
+       	
+       	
+       	jQuery('.ad-thumb-list img').each(function() {
+       		var src = jQuery(this).attr('src');
+       		var parentLink = jQuery(this).parent('a');
+       		parentLink.attr('href', src);
+       	});
+       	
+       	var galleries = jQuery('.ad-gallery').adGallery();
+       	
+       	
+       	
+	  }
+	};
+})(jQuery);

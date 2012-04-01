@@ -10,7 +10,9 @@
             <?php 
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
-            	$link = l($img, '', array('html' => true, 'absolute' => true));
+            	$node = fm_commerce_get_display_node($product);
+            	
+            	$link = l($img, '', array('html' => true, 'attributes' => array('id' => $node->nid), 'absolute' => true));
             	print '<li>' . $link . '</li>';
             }
             ?>
