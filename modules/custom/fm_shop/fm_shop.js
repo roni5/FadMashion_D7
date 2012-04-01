@@ -53,7 +53,7 @@ jQuery(document).ready(function() {
     	 
         
 
-         var handler = function(data) {
+         var handler = function(data, id) {
         	
          	
          	jQuery('.shopAjaxLoader').fadeOut();
@@ -62,6 +62,14 @@ jQuery(document).ready(function() {
         	jQuery('.page-shop .col2 .pad ').fadeTo('slow', 1);
 
          	Drupal.attachBehaviors();
+         	
+
+         	//add Address functionality to the collection viewer thumbnails
+         	//first, select the 
+           	jQuery('ul.ad-thumb-list li a').each(function() {
+    		  if (jQuery(this).attr('id') == id) {
+    			  jQuery(this).trigger('click', [true]);
+            });
          
          	
          };
@@ -87,7 +95,7 @@ jQuery(document).ready(function() {
                  handler(XMLHttpRequest.responseText);
              },
              success: function(data, textStatus, XMLHttpRequest) {
-                 handler(data);
+                 handler(data, id);
              }
          });
 
@@ -131,7 +139,6 @@ jQuery(document).ready(function() {
        	});
        	
        	var galleries = jQuery('.ad-gallery').adGallery();
-       	
        	
        	
 	  }
