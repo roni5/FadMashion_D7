@@ -69,6 +69,7 @@ jQuery(document).ready(function() {
            	jQuery('ul.ad-thumb-list li a').each(function() {
     		  if (jQuery(this).attr('id') == id) {
     			  jQuery(this).trigger('click', [true]);
+    		  }
             });
          
          	
