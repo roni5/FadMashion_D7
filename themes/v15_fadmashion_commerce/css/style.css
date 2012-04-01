@@ -26,13 +26,13 @@ tbody {border: medium none}
 #header .button:hover{background-position: bottom left;}
 #header .logo{float: left; margin-top: 17px;}
 #header .right{float: right; color: #fff; clear: both;width: 450px;}
-#header .shipping{float: right; width: 450px; text-align: right; font-size: 12px;}
+#header .shipping{color:#CCCCCC;font-family:"jubilat-1","jubilat-2",Georgia;font-style:italic;font-weight:400;font-size: 12px;}
 #header .shipping p{font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 400; color: #b7b7b7;font-style:italic;}
 #header .shipping span{color: #fff;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
 .shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
 .nav{float: left; background: url(../images/sep_logo.png) center left no-repeat;height: 52px; margin: 20px 0 0 30px; padding-left: 30px;}
 .nav a.active{color: #fff; background: url(../images/arrow_nav.png) bottom center no-repeat;}
-.nav a{color: #ababab; line-height: 52px; font-size: 16px;margin-right: 35px; height: 74px;float: left;}
+.nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 35px; height: 74px;float: left;}
 
 #subHeader .press{float: right; padding: 12px 0 0 90px; background: url(../images/l_asseenin.jpg) 0px 27px no-repeat;}
 #subHeader .press a{height: 41px; width: 100px; float: left; background-position: top left; text-indent: -9999px; margin-left: 15px;}

@@ -44,10 +44,10 @@
                <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
              <?php } ?>
     </div><!-- links-->
-    <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus <span>hassle-free returns</span></p></div></div>
+    <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus hassle-free returns</p></div></div>
         
     <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Fadmashion'); ?>" rel="home" >
-        			    <img src="<?php print pp();?>logo_fadmashion.png?v2" alt="<?php print t('Fadmashion'); ?>" />
+        			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
      <?php print l('Shop', 'shop', array('attributes' => array('class' => array('active') )));?>
@@ -61,5 +61,5 @@
         	<a class="press2" href="#">My Fashion Life</a>
         	<a class="press3" href="#">FashionSpot</a>
             </div>
-        <div class="slogan"><span>Browse</span> designer collections.&nbsp;&nbsp;&nbsp;<span>Shop</span> private sales.&nbsp;&nbsp;&nbsp;<span>Dress</span> better than your friends.</div>
+        <div class="slogan"><span>Browse</span> designer collections.&nbsp;&nbsp;&nbsp;<span>Shop</span> private sales.&nbsp;&nbsp;&nbsp;<span>Look</span> better than your friends.</div>
         </div>
