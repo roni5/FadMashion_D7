@@ -48,15 +48,10 @@ jQuery(document).ready(function() {
                }
              });
     	 }
-         
-    	
-    	 
-        
+
 
          var handler = function(data, id) {
-        	
-         	
-         	jQuery('.shopAjaxLoader').fadeOut();
+        	jQuery('.shopAjaxLoader').fadeOut();
         	jQuery('.page-shop .col2 .pad ').hide();
         	jQuery('.page-shop .col2 .pad ').html(data);
         	jQuery('.page-shop .col2 .pad ').fadeTo('slow', 1);
@@ -71,8 +66,6 @@ jQuery(document).ready(function() {
     			 // jQuery(this).trigger('click', [true]);
     		  }
             });
-         
-         	
          };
          
          var q = '/';
@@ -127,12 +120,10 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.collectionViewer = {
 	  attach: function (context, settings) {
-		  if(jQuery("#gallery").length) {
-		    	return;
-		  }
+		 if(jQuery("#gallery").length) {
+		   return;
+		 }
 
-       	
-       	
        	jQuery('.ad-thumb-list img').each(function() {
        		var src = jQuery(this).attr('src');
        		var parentLink = jQuery(this).parent('a');
