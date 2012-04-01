@@ -21,6 +21,10 @@ function fm_shop_menu() {
   return $items;
 }
 
+function fm_shop_init() {
+	drupal_add_js(drupal_get_path('module', 'fm_shop') . '/fm_shop.js');
+}
+
 /**
  * Implements hook_theme().
  */
@@ -61,14 +65,15 @@ function fm_shop_page() {
 
 function fm_shop_page_ajax($type, $var) {
 	
-	if($type == 'store') {
-			$shop = fm_commerce_store_load($var);
+	if(isset($_GET['store_id']) && $_GET['store_id'] != '' ) {
+		$store_id = $_GET['store_id'];
+		$shop = fm_commerce_store_load($store_id);
+		if($var == 'empty') {
 			$products = fm_commerce_store_get_products($shop, true);
 			$first_product = array_shift($products);
 			$node = fm_commerce_get_display_node($first_product);
-			
-			$type = 'node';
 			$var = $node->nid;
+		}
 	}
 			
 	switch($type) {

@@ -51,7 +51,7 @@
     </a>
     <div class="nav">
      <?php print l('Shop', 'shop', array('attributes' => array('class' => array('active') )));?>
-      <a href="#">Explore</a>              
+      <a href="#">Discover</a>              
     </div>
 </div>
 
