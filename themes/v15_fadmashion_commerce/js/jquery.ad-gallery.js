@@ -291,8 +291,8 @@
           link.addClass('ad-thumb'+ i);
           link.click(
             function() {
-              //context.showImage(i);
-              //context.slideshow.stop();
+              context.showImage(i);
+              context.slideshow.stop();
               //return false;
             }
           ).hover(
