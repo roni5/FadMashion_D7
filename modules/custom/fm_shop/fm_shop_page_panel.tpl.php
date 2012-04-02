@@ -34,7 +34,7 @@
     <tr><td colspan="2">
       <?php 
       
-      $max_products = 8;
+      $max_products = 5;
       $min_products = 3;
       
       $row_width = 786;
