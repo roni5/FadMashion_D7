@@ -11,8 +11,10 @@
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
             	$node = fm_commerce_get_display_node($product);
+            	$shop = fm_commerce_get_store($product);
+            	$link = l($img, 'node/' . $node->nid, array('html' => true, 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
             	
-            	$link = l($img, '', array('html' => true, 'attributes' => array('id' => $node->nid), 'absolute' => true));
+            	//$link = l($img, '', array('html' => true, 'attributes' => array('id' => $node->nid), 'absolute' => true));
             	print '<li>' . $link . '</li>';
             }
             ?>

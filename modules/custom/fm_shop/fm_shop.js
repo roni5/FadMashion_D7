@@ -11,7 +11,8 @@ jQuery(document).ready(function() {
 		 jQuery('.page-shop .col2 .designerPanel a, .page-shop .col1 a').address();
 
 
-     }).change(function(event) {
+     })
+     .change(function(event) {
 
          // Identifies the page selection
     	 var type, id;
@@ -68,7 +69,8 @@ jQuery(document).ready(function() {
     		  }
             });
 
-         	
+            jQuery('.ad-nav .ad-thumbs li a').address();
+
          	
          };
          
@@ -131,10 +133,10 @@ jQuery(document).ready(function() {
        	jQuery('.ad-thumb-list img').each(function() {
        		var src = jQuery(this).attr('src');
        		var parentLink = jQuery(this).parent('a');
-       		parentLink.attr('href', src);
+       		//parentLink.attr('href', src);
        	});
        	
-       	var galleries = jQuery('.ad-gallery').adGallery();
+       	//var galleries = jQuery('.ad-gallery').adGallery();
        	
        	
 	  }
