@@ -129,7 +129,33 @@ jQuery(document).ready(function() {
 		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
-
+		 /*
+		 var thumbs_wrapper = jQuery("#gallery");
+		 jQuery('.ad-thumb-list img').each(function() {
+	       	   
+	       		jQuery(this).click(
+	       	            function() {
+	       	            	jQuery(this).addClass('active');
+	       	            	thumbs_wrapper.find('.ad-active').removeClass('ad-active');
+	       	            }
+	       	     ).hover(
+		            function() {
+		              if(!jQuery(this).is('.ad-active') ) {
+		            	  jQuery(this).find('img').fadeTo(300, 1);
+		              };
+		              context.preloadImage(i);
+		            },
+		            function() {
+		              if(!jQuery(this).is('.ad-active')) {
+		            	  jQuery(this).find('img').fadeTo(300, .7);
+		              };
+		            }
+		         );
+		 
+		 });
+		 */
+		 
+		 
        	jQuery('.ad-thumb-list img').each(function() {
        		var src = jQuery(this).attr('src');
        		var parentLink = jQuery(this).parent('a');

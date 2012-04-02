@@ -274,6 +274,8 @@
           var link = $(this);
           var image_src = link.attr('href');
           var thumb = link.find('img');
+          image_src = thumb.attr('src');
+          
           // Check if the thumb has already loaded
           if(!context.isImageLoaded(thumb[0])) {
             thumb.load(
@@ -289,9 +291,9 @@
           link.addClass('ad-thumb'+ i);
           link.click(
             function() {
-              context.showImage(i);
-              context.slideshow.stop();
-              return false;
+              //context.showImage(i);
+              //context.slideshow.stop();
+              //return false;
             }
           ).hover(
             function() {
