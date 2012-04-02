@@ -55,16 +55,18 @@ jQuery(document).ready(function() {
         	jQuery('.page-shop .col2 .pad ').hide();
         	jQuery('.page-shop .col2 .pad ').html(data);
         	jQuery('.page-shop .col2 .pad ').fadeTo('slow', 1, function() {
-        		Drupal.attachBehaviors();
         		
-             	//add Address functionality to the collection viewer thumbnails
-             	//first, select the 
-               	jQuery('ul.ad-thumb-list li a').each(function() {
-        		  if (jQuery(this).attr('id') == id) {
-        			 // jQuery(this).trigger('click', [true]);
-        		  }
-                });
         	});
+        	
+        	Drupal.attachBehaviors();
+    		
+         	//add Address functionality to the collection viewer thumbnails
+         	//first, select the 
+           	jQuery('ul.ad-thumb-list li a').each(function() {
+    		  if (jQuery(this).attr('id') == id) {
+    			 // jQuery(this).trigger('click', [true]);
+    		  }
+            });
 
          	
          	
