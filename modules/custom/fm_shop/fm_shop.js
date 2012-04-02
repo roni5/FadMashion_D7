@@ -122,7 +122,7 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.collectionViewer = {
 	  attach: function (context, settings) {
-		 if(jQuery("#gallery").length) {
+		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
 
