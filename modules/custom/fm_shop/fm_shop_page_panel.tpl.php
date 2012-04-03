@@ -1,13 +1,18 @@
 <?php 
 //For three products don't show the 1st product in the first row.  Consolidate all to one row.  
-$twoRows = false;
+$twoRows = true;
+$quoteOnlyRow = true;
 $quoteWidth = '';
 $nextRowColSpan = 1;
 
 if(count($products) != 3) { 
   $quoteWidth = '471px';
 	$nextRowColSpan = 2;
-	$twoRows = true;
+	$quoteOnlyRow = false;
+}
+
+if(count($products) != 2) {
+  $twoRows = false;
 }
 ?>
         
@@ -35,7 +40,7 @@ if(count($products) != 3) {
        </div><!-- quote-->
        <a class="buttonShop" href="##">Shop this Collection</a>
       </div><!-- info--></td>
-      <?php if($twoRows) {  ?>
+      <?php if(!$quoteOnlyRow) {  ?>
         <td >
           <div class="demo">
         <?php
@@ -45,7 +50,7 @@ if(count($products) != 3) {
         </td>
         <?php } ?>
     </tr>
-    
+    <?php if ($twoRows) {?>
     <tr><td colspan="<?php print $nextRowColSpan?>">
       <?php 
       
@@ -79,6 +84,7 @@ if(count($products) != 3) {
       
       ?>
     </td></tr>
+    <?php } ?>
     </tbody></table>
   
   <!-- End of Table Content -->
