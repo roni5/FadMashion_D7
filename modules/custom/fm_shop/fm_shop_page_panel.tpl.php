@@ -24,7 +24,7 @@ if(count($products) <= 2) {
   <!-- Start of Table Content -->
   <table width="" cellspacing="1" cellpadding="0">
     <tbody><tr>
-       <td align="center" width="<?print $quoteWidth?>" > 
+       <td align="center" width="<?php print $quoteWidth?>" > 
        <div class="info">
        <?php $logo = field_view_field('fm_commerce_store', $shop, 'field_logo', 'node_full');
 	       print render($logo);
