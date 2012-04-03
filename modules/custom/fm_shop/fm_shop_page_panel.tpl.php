@@ -1,11 +1,25 @@
+<?php 
+//For three products don't show the 1st product in the first row.  Consolidate all to one row.  
+$twoRows = false;
+$quoteWidth = '';
+$nextRowColSpan = 1;
+
+if(count($products) != 3) { 
+  $quoteWidth = '471px';
+	$nextRowColSpan = 2;
+	$twoRows = true;
+}
+?>
+        
+
 <div class="designerPanel">
   <div class="designerPanelTop">
   	<div class="pad">
-  
+
   <!-- Start of Table Content -->
   <table width="" cellspacing="1" cellpadding="0">
     <tbody><tr>
-       <td align="center" width="471px" > 
+       <td align="center" width="<?print $quoteWidth?>" > 
        <div class="info">
        <?php $logo = field_view_field('fm_commerce_store', $shop, 'field_logo', 'node_full');
 	       print render($logo);
@@ -21,9 +35,7 @@
        </div><!-- quote-->
        <a class="buttonShop" href="##">Shop this Collection</a>
       </div><!-- info--></td>
-       <?php if(count($products) != 3) { 
-           $nextRowColSpan = 2;
-        ?>
+      <?php if($twoRows) {  ?>
         <td >
           <div class="demo">
         <?php
@@ -31,7 +43,7 @@
               print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'shop' => $shop, 'height' => 446, 'width' => 315));
         ?> </div>
         </td>
-        <?php } else { $nextRowColSpan = 1;}?>
+        <?php } ?>
     </tr>
     
     <tr><td colspan="<?php print $nextRowColSpan?>">
