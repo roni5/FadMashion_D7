@@ -57,7 +57,9 @@
         print '</div>';
         
       	$i++;
-      	if($i >= $max_products) {// break;}
+      	if($i >= $max_products) {
+      		// break;
+      	}
       }
       
       ?>
