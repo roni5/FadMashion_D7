@@ -76,7 +76,8 @@ tbody {border: medium none}
 .info{text-align: center; width: 350px;}
 .designerPanel .quote{background: url(../images/sep_designer.png) top center no-repeat; margin: 24px 0 6px 0; padding:15px 0 0 0; width: 350px;}
 .quoteOpen{background: url(../images/quote_open.png) top left no-repeat; padding: 20px;}
-.quoteClose .field-item{background: url(../images/quote_close.png) bottom right no-repeat; color: #2e74a0; font-size: 22px; line-height: 28px; font-style: italic; font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 200;letter-spacing: 1px;}
+.quoteClose .field-item{ background: url(../images/quote_close.png) bottom right no-repeat; color: #2e74a0; font-size: 22px; line-height: 28px; font-style: italic; font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 200;letter-spacing: 1px;}
+.quoteClose .field-items {width: 310px; height: 115px;}
 .buttonShop{ color: #fff; background: url(../images/b_shop.png) top left no-repeat; width: 156px; height: 36px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0 auto}
 .buttonShop:hover{background-position: bottom left;}
 

@@ -56,6 +56,7 @@ function fm_shop_page() {
   drupal_add_css(path_to_theme() . '/css/captions.css');
   drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
   drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
+  drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
     
   $filters = fm_shop_page_filters();
   //$content = fm_shop_page_all_panels($filters);

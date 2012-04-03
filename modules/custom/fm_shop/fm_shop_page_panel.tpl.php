@@ -58,7 +58,7 @@
         
       	$i++;
       	if($i >= $max_products) {
-      		// break;
+      		break;
       	}
       }
       

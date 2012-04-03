@@ -60,6 +60,8 @@ jQuery(document).ready(function() {
         	});
         	
         	Drupal.attachBehaviors();
+        	
+        	jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
     		
          	//add Address functionality to the collection viewer thumbnails
          	//first, select the 
