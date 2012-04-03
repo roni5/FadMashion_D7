@@ -79,7 +79,7 @@
  */
 ?>
 
-<div class="collectionPanel">
+<div class="collectionPanel" id="<?php print $node->nid?>">
 <div class="product">
 <div id="photoBox">
   <?php print render($content['product:field_product_images']); ?>

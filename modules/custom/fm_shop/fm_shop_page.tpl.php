@@ -16,3 +16,7 @@
   <div class="shopAjaxLoader rounded-top rounded-bottom">Loading...</div>
   <div class="pad"></div>
 </div>
+
+<div id="cache"  style="display:none;">
+
+</div>

@@ -80,18 +80,22 @@ function fm_shop_page_ajax($type, $var) {
 	switch($type) {
 		case 'all':
 		  $filters = fm_shop_page_filters();
-		  $content = '';
+		  $content = '<div id="all">';
       $panels = fm_shop_page_all_panels($filters);
       foreach($panels as $panels_group) {
      	   foreach($panels_group as $panel) {
        	 	 $content .= $panel;
      	   }
        } 
-	   break;
+      $content .= '</div>';
+	    break;
 		case 'node':
 		  $node = node_load($var);
-		  $content =  fm_shop_collection_viewer('store', $shop); 
-	    $content .= render(node_view($node));
+		  $content = '';
+		  if(isset ($shop)) {
+		    $content =  fm_shop_collection_viewer('store', $shop);
+		  } 
+	    $content .= '<div class="product_content">' . render(node_view($node)) . '</div>';
 	    break;
 		
 	}
@@ -102,11 +106,15 @@ function fm_shop_page_ajax($type, $var) {
 
 function fm_shop_collection_viewer($type, $var) {
 
+	$content = '';
 	switch($type) {
 		case 'store':
 			$shop = $var;
 			$products = fm_commerce_store_get_products($shop, true);
-			return theme('fm_shop_page_collection_slider', array('products' => $products));
+			$content = '<div id = "collection_store_' . $shop->store_id . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products));
+			$content .= '</div>';
+			return $content;
 			break;
 		case '':
 			break;

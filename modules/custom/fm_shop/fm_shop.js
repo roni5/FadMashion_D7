@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
     	 
     	 if((!event.parameters.nid  && !event.parameters.store_id) ) {
            type = 'all';
-           id = 'a';
+           id = 'all';
         	 jQuery('.page-shop .col1 a').each(function() {
     			 if (jQuery(this).attr('id') == 'all') {
  			    jQuery(this).addClass('active').focus();
@@ -51,13 +51,51 @@ jQuery(document).ready(function() {
     	 }
 
 
-         var handler = function(data, id) {
+         
+         var q = '/';
+         var qParam = '?';
+         if(event.parameters.q) {
+        	  q = '?q=shop/';
+        	  qParam = '&';
+         }
+
+         var dataPage;
+         jQuery('#collection_store_' + store_id).addClass('test');
+         if(!jQuery('#collection_store_' + store_id).length) {
+        	 dataPage = jQuery('.page-shop .col2 .pad');
+         } else {
+        	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
+        	 store_id = '';
+         }
+
+         // Loads the page content and inserts it into the content area
+         if(true) { 
+           jQuery.ajax({
+             url: location.pathname + q + 'ajax/' + type + '/' + id + qParam + 'store_id=' + store_id,
+             beforeSend: function() {
+            	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+                 jQuery('.shopAjaxLoader').show();
+                 dataPage.fadeTo('fast', .33);
+              },
+
+             error: function(XMLHttpRequest, textStatus, errorThrown) {
+                 handler(XMLHttpRequest.responseText, id, store_id);
+             },
+             success: function(data, textStatus, XMLHttpRequest) {
+                 handler(data, id, store_id);
+             }
+           });
+         } else {
+        	 
+         }
+         
+
+         var handler = function(data, id, store_id) {
         	jQuery('.shopAjaxLoader').fadeOut();
-        	jQuery('.page-shop .col2 .pad ').hide();
-        	jQuery('.page-shop .col2 .pad ').html(data);
-        	jQuery('.page-shop .col2 .pad ').fadeTo('slow', 1, function() {
-        		
-        	});
+        	
+        	dataPage.hide();
+        	dataPage.html(data);
+        	dataPage.fadeTo('slow', 1);
         	
         	Drupal.attachBehaviors();
         	
@@ -72,35 +110,10 @@ jQuery(document).ready(function() {
             });
 
             jQuery('.ad-nav .ad-thumbs li a').address();
-
-         	
          };
+
          
-         var q = '/';
-         var qParam = '?';
-         if(event.parameters.q) {
-        	  q = '?q=shop/';
-        	  qParam = '&';
-         }
-
-
-         // Loads the page content and inserts it into the content area
-         jQuery.ajax({
-             url: location.pathname + q + 'ajax/' + type + '/' + id + qParam + 'store_id=' + store_id,
-             beforeSend: function() {
-            	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
-                 jQuery('.shopAjaxLoader').show();
-                 jQuery('.page-shop .col2 .pad').fadeTo('fast', .33);
-              },
-
-             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                 handler(XMLHttpRequest.responseText);
-             },
-             success: function(data, textStatus, XMLHttpRequest) {
-                 handler(data, id);
-             }
-         });
-
+         
      });
  });
 
