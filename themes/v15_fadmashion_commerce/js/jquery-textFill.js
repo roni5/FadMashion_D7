@@ -25,7 +25,7 @@
 				textHeight = ourText.height();
 				textWidth = ourText.width();
 				fontSize = fontSize - 1;
-			} while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
+			} while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 10);
 		});
 	};
 })(jQuery);
