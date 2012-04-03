@@ -10,13 +10,14 @@
 	$.fn.textfill = function(options) {
 		var defaults = {
 			maxFontPixels: 40,
+			maxHeight: 115, 
 			innerTag: 'span'
 		};
 		var Opts = jQuery.extend(defaults, options);
 		return this.each(function() {
 			var fontSize = Opts.maxFontPixels;
 			var ourText = $(Opts.innerTag + ':visible:first', this);
-			var maxHeight = $(this).height();
+			var maxHeight = Opts.maxHeight;
 			var maxWidth = $(this).width();
 			var textHeight;
 			var textWidth;
@@ -25,7 +26,7 @@
 				textHeight = ourText.height();
 				textWidth = ourText.width();
 				fontSize = fontSize - 1;
-			} while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 10);
+			} while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 15);
 		});
 	};
 })(jQuery);
