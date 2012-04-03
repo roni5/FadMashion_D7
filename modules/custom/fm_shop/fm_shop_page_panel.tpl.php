@@ -11,7 +11,7 @@ if(count($products) != 3) {
 	$quoteOnlyRow = false;
 }
 
-if(count($products) != 2) {
+if(count($products) <= 2) {
   $twoRows = false;
 }
 ?>
