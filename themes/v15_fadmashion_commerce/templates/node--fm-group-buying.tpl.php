@@ -138,7 +138,7 @@
 </div> <!-- End designerInfo Col2 -->
 </div> <!-- End designerInfo -->
 
-</div> <!-- product -->
-</div>  <!-- End collectionPanel -->
+</div> <!-- collectionPanel -->
+
 <br clear="all">
 <img class="frameBottom" src="<?php print pp();?>frame_bottom.png">

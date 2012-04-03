@@ -91,11 +91,15 @@ function fm_shop_page_ajax($type, $var) {
 	    break;
 		case 'node':
 		  $node = node_load($var);
-		  $content = '';
+		  $node_content = render(node_view($node));;
 		  if(isset ($shop)) {
 		    $content =  fm_shop_collection_viewer('store', $shop);
-		  } 
-	    $content .= '<div class="product_content">' . render(node_view($node)) . '</div>';
+		    $content .= '<div class="product_content">';
+		    $content .= $node_content;
+		    $content .= '</div>';
+		  } else {
+		  	$content = $node_content;
+		  }
 	    break;
 		
 	}
