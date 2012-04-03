@@ -21,17 +21,20 @@
        </div><!-- quote-->
        <a class="buttonShop" href="##">Shop this Collection</a>
       </div><!-- info--></td>
-      <td >
-        <div class="demo">
-        <?php $first_product = array_shift($products);
-              print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'shop' => $shop, 'height' => 446, 'width' => 315));
+       <?php if(count($products) != 3) { 
+           $nextRowColSpan = 2;
         ?>
-        
-        </div>
-      </td>
+        <td >
+          <div class="demo">
+        <?php
+            $first_product = array_shift($products);
+              print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'shop' => $shop, 'height' => 446, 'width' => 315));
+        ?> </div>
+        </td>
+        <?php } else { $nextRowColSpan = 1;}?>
     </tr>
     
-    <tr><td colspan="2">
+    <tr><td colspan="<?php print $nextRowColSpan?>">
       <?php 
       
       $max_products = 5;
