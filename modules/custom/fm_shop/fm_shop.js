@@ -80,8 +80,7 @@ jQuery(document).ready(function() {
 
 
          var handler = function(data, newContent) {
-        	jQuery('.shopAjaxLoader').fadeOut();
-        	
+
         	
         	dataPage.hide();
       	    dataPage.html(data);
@@ -114,6 +113,9 @@ jQuery(document).ready(function() {
             });
 
             jQuery('.ad-nav .ad-thumbs li a').address();
+            
+        	jQuery('.shopAjaxLoader').fadeOut();
+        	
          };
 
 
@@ -135,7 +137,7 @@ jQuery(document).ready(function() {
              }
            });
          } else {
-             
+        	 jQuery('.shopAjaxLoader').show();
         	 var data = jQuery('#cache .' + cacheClass).html();
         	 handler(data, false);
          }
