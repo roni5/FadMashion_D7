@@ -87,9 +87,9 @@ jQuery(document).ready(function() {
         	  dataPage.html(data);
         	  dataPage.fadeTo('slow', 1);
         	} else {
-        	  dataPage.fadeOut('slow', function() {
+        	  dataPage.hide(function() {
         		  dataPage.html(data);
-            	  dataPage.fadeTo('slow', 1);
+            	  dataPage.fadeIn('slow', 1);
         	  });
         	}
         	
