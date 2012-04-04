@@ -85,8 +85,8 @@ jQuery(document).ready(function() {
         	
         	dataPage.hide();
       	    dataPage.html(data);
-        	if(newContent) {
-        	  dataPage.fadeTo('slow', 1);
+      	    dataPage.fadeTo('slow', 1);
+        	  
         	} else {
               dataPage.fadeIn('slow', 1);
         	}
