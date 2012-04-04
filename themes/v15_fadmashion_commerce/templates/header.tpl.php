@@ -58,7 +58,6 @@
 <div id="subHeader">
         <div class="press">
         	<a class="press1" href="#">NY Mag</a>
-        	<a class="press2" href="#">My Fashion Life</a>
         	<a class="press3" href="#">FashionSpot</a>
             </div>
         <div class="slogan"><span>Browse</span> designer collections.&nbsp;&nbsp;&nbsp;<span>Shop</span> private sales.&nbsp;&nbsp;&nbsp;<span>Love</span> your new look.</div>
