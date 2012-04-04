@@ -82,15 +82,13 @@ jQuery(document).ready(function() {
          var handler = function(data, newContent) {
         	jQuery('.shopAjaxLoader').fadeOut();
         	
+        	
+        	dataPage.hide();
+      	    dataPage.html(data);
         	if(newContent) {
-        	  dataPage.hide();
-        	  dataPage.html(data);
         	  dataPage.fadeTo('slow', 1);
         	} else {
-        	  dataPage.hide(function() {
-        		  dataPage.html(data);
-            	  dataPage.fadeIn('slow', 1);
-        	  });
+              dataPage.fadeIn('slow', 1);
         	}
         	
         	var newClass;
