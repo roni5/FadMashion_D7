@@ -10,7 +10,7 @@ function fm_shop_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
-  $items['shop/ajax/%/%'] = array(
+  $items['shop/ajax/%'] = array(
     'page callback' => 'fm_shop_page_ajax',
 	  'access arguments' => array('view deals'), 
     'page arguments' => array(2, 3),
@@ -64,19 +64,15 @@ function fm_shop_page() {
   return theme('fm_shop_page', array('filters' => $filters, 'content' => $content));
 }
 
-function fm_shop_page_ajax($type, $var) {
+function fm_shop_page_ajax($type) {
+	
 	
 	if(isset($_GET['store_id']) && $_GET['store_id'] != '' ) {
 		$store_id = $_GET['store_id'];
-		$shop = fm_commerce_store_load($store_id);
-		if($var == 'empty') {
-			$products = fm_commerce_store_get_products($shop, true);
-			$first_product = array_shift($products);
-			$node = fm_commerce_get_display_node($first_product);
-			$var = $node->nid;
-		}
+	} else {
+		$type = 'all';
 	}
-			
+	
 	switch($type) {
 		case 'all':
 		  $filters = fm_shop_page_filters();
@@ -89,19 +85,21 @@ function fm_shop_page_ajax($type, $var) {
        } 
       $content .= '</div>';
 	    break;
-		case 'node':
-		  $node = node_load($var);
-		  $node_content = render(node_view($node));;
-		  if(isset ($shop)) {
-		    $content =  fm_shop_collection_viewer('store', $shop);
-		    $content .= '<div class="product_content">';
-		    $content .= $node_content;
-		    $content .= '</div>';
-		  } else {
-		  	$content = $node_content;
-		  }
+		case 'shop':
+			$shop = fm_commerce_store_load($store_id);
+			$products = fm_commerce_store_get_products($shop, true);
+			
+			$content =  fm_shop_collection_viewer('store', $shop);
+			
+			$node_content = '';
+			foreach($products as $product) {
+			  $node = fm_commerce_get_display_node($product);
+		    $node_content .= render(node_view($node));
+			}
+			$content .= '<div class="product_content">';
+			$content .= $node_content;
+			$content .= '</div>';
 	    break;
-		
 	}
 	
 	print $content;

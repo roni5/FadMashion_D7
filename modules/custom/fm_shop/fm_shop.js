@@ -15,11 +15,11 @@ jQuery(document).ready(function() {
      .change(function(event) {
 
          // Identifies the page selection
-    	 var type, id;
+    	 var type, id, nid;
     	 var store_id;
     	 if(event.parameters.store_id) {
     		 store_id = event.parameters.store_id;
-    		 type = 'node';
+    		 type = 'shop';
     		 
     		 jQuery('.page-shop .col1 a').each(function() {
     			 if (jQuery(this).attr('id') == store_id) {
@@ -32,10 +32,10 @@ jQuery(document).ready(function() {
     		 store_id = '';
     	 }
     	 
-    	 id = 'empty';
     	 if(event.parameters.nid) {
-    		 type = 'node';
-    		 id = event.parameters.nid;
+    		 nid = event.parameters.nid;
+    	 } else {
+    		 nid = '';
     	 }
     	 
     	 if((!event.parameters.nid  && !event.parameters.store_id) ) {
@@ -52,16 +52,47 @@ jQuery(document).ready(function() {
     	 
     	//Set Cache Class name to retrieve/store from
      	var cacheId, cacheType;
-     	if(id != 'empty') {
-     		cacheId = id;
-     		cacheType = 'node';
-     	} else {
-     		cacheId = store_id;
-     		cacheType = 'store';
+     	cacheType = 'store';
+     	cacheId = store_id;
+     	var cacheClass = 'store_' + store_id ;
+     	
+     	if(type == 'all') {
+     		cacheClass = 'all';
      	}
-     	var cacheClass = cacheType + '_' + cacheId ;
+     	
 
-         
+        var handler = function(data, newContent) {
+          jQuery('.shopAjaxLoader').fadeOut();
+          
+          dataPage.hide();
+      	  dataPage.html(data);
+          if(newContent) {
+        	dataPage.fadeTo('slow', 1);
+          } else {
+            dataPage.show();
+          }
+        	
+        	var newClass;
+        	
+          if(!jQuery('#cache .' + cacheClass).length) {
+        	  newClass =  '<div class="' + cacheClass + '"></div>';
+              jQuery('#cache').prepend(newClass);
+              jQuery('#cache .' + cacheClass).html(data);
+          }
+        	
+          Drupal.attachBehaviors();
+          jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
+          //add Address functionality to the collection viewer thumbnails
+          //first, select the 
+          jQuery('ul.ad-thumb-list li a').each(function() {
+    		if (jQuery(this).attr('id') == id) {
+    	     jQuery(this).trigger('click', [true]);
+    		}
+          });
+          jQuery('.ad-nav .ad-thumbs li a').address();
+         };
+
+
          var q = '/';
          var qParam = '?';
          if(event.parameters.q) {
@@ -70,59 +101,17 @@ jQuery(document).ready(function() {
          }
 
          var dataPage;
-         jQuery('#collection_store_' + store_id).addClass('test');
-         if(!jQuery('#collection_store_' + store_id).length) {
+         if(!jQuery('.col2 #collection_store_' + store_id).length) {
         	 dataPage = jQuery('.page-shop .col2 .pad');
          } else {
         	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
         	 store_id = '';
          }
-
-
-         var handler = function(data, newContent) {
-
-        	
-        	dataPage.hide();
-      	    dataPage.html(data);
-        	if(newContent) {
-        	  dataPage.fadeTo('slow', 1);
-        	} else {
-              dataPage.show();
-        	}
-        	
-        	var newClass;
-        	
-        	if(!jQuery('#cache .' + cacheClass).length) {
-        	  newClass =  '<div class="' + cacheClass + '"></div>';
-              jQuery('#cache').prepend(newClass);
-              jQuery('#cache .' + cacheClass).html(data);
-        	}
-        	
-        	
-        	
-        	Drupal.attachBehaviors();
-        	
-        	jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
-    		
-         	//add Address functionality to the collection viewer thumbnails
-         	//first, select the 
-           	jQuery('ul.ad-thumb-list li a').each(function() {
-    		  if (jQuery(this).attr('id') == id) {
-    			 jQuery(this).trigger('click', [true]);
-    		  }
-            });
-
-            jQuery('.ad-nav .ad-thumbs li a').address();
-            
-        	jQuery('.shopAjaxLoader').fadeOut();
-        	
-         };
-
-
+         
          // Loads the page content and inserts it into the content area
          if(!jQuery('#cache .' + cacheClass).length) { 
            jQuery.ajax({
-             url: location.pathname + q + 'ajax/' + type + '/' + id + qParam + 'store_id=' + store_id,
+             url: location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
                  jQuery('.shopAjaxLoader').show();
@@ -137,13 +126,9 @@ jQuery(document).ready(function() {
              }
            });
          } else {
-        	 jQuery('.shopAjaxLoader').show();
         	 var data = jQuery('#cache .' + cacheClass).html();
         	 handler(data, false);
          }
-         
-         
-         
      });
  });
 
