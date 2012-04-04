@@ -85,8 +85,11 @@ jQuery(document).ready(function() {
         	
         	dataPage.hide();
       	    dataPage.html(data);
-      	    dataPage.fadeTo('slow', 1);
-        	  
+        	if(newContent) {
+        	  dataPage.fadeTo('slow', 1);
+        	} else {
+              dataPage.show();
+        	}
         	
         	var newClass;
         	
