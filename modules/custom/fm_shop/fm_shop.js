@@ -228,9 +228,9 @@ jQuery(document).ready(function() {
        		//parentLink.attr('href', src);
        	});
        	
-       	if(!jQuery('.col2 .ad-gallery .ad-back').length) {
+       	/*if(!jQuery('.col2 .ad-gallery .ad-back').length) {
        	  var galleries = jQuery('.ad-gallery').adGallery();
-       	}
+       	}*/
        	
        	
 	  }
