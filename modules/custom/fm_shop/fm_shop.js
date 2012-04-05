@@ -63,9 +63,36 @@ jQuery(document).ready(function() {
 
         var handler = function(data, newContent) {
           jQuery('.shopAjaxLoader').fadeOut();
+         
+          if(data != '') {
+            dataPage.hide();
+      	    dataPage.html(data);
+          }
           
-          dataPage.hide();
-      	  dataPage.html(data);
+          var collectionPanels = jQuery('.col2 .product_content .collectionPanel');
+          if(cacheClass != 'all') {
+        	  if(nid == '') {
+        		  var j = 0;
+        		  collectionPanels.each(function() {
+                    if(j == 0) {
+                	  jQuery(this).show();
+                	  j++;
+                    } else {
+                	  jQuery(this).hide();
+                    }
+               }); 
+        	  } else{
+        	  
+        	  collectionPanels.each(function() {
+          		if(jQuery(this).attr('id') == 'node_' + nid) {
+          			jQuery(this).show();
+          		} else {
+          			jQuery(this).hide();
+          		}
+          	   });  
+        	 }
+           }
+          
           if(newContent) {
         	dataPage.fadeTo('slow', 1);
           } else {
@@ -74,18 +101,14 @@ jQuery(document).ready(function() {
         	
         	var newClass;
         	
-          if(!jQuery('#cache .' + cacheClass).length) {
-        	  newClass =  '<div class="' + cacheClass + '"></div>';
-              jQuery('#cache').prepend(newClass);
-              jQuery('#cache .' + cacheClass).html(data);
-          }
+          
         	
           Drupal.attachBehaviors();
           jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
           jQuery('ul.ad-thumb-list li a').each(function() {
-    		if (jQuery(this).attr('id') == id) {
+    		if (jQuery(this).attr('id') == nid) {
     	     jQuery(this).trigger('click', [true]);
     		}
           });
@@ -105,7 +128,6 @@ jQuery(document).ready(function() {
         	 dataPage = jQuery('.page-shop .col2 .pad');
          } else {
         	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
-        	 store_id = '';
          }
          
          // Loads the page content and inserts it into the content area
@@ -116,17 +138,31 @@ jQuery(document).ready(function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
                  jQuery('.shopAjaxLoader').show();
                  dataPage.fadeTo('fast', .33);
+                
               },
 
              error: function(XMLHttpRequest, textStatus, errorThrown) {
                  handler(XMLHttpRequest.responseText);
              },
              success: function(data, textStatus, XMLHttpRequest) {
+            	 
+            	 //Add to Cache
+                 if(!jQuery('#cache .' + cacheClass).length) {
+               	   newClass =  '<div class="' + cacheClass + '"></div>';
+                   jQuery('#cache').prepend(newClass);
+                   jQuery('#cache .' + cacheClass).html(data);
+                 }
+                 
                  handler(data, true);
              }
            });
          } else {
-        	 var data = jQuery('#cache .' + cacheClass).html();
+        	 var data;
+        	 if(!jQuery('.col2 #collection_store_' + store_id).length ) {
+        		 data = jQuery('#cache .' + cacheClass).html();
+        	 } else {
+        		 data = '';
+        	 }
         	 handler(data, false);
          }
      });

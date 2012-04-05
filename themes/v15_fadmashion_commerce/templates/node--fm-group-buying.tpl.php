@@ -79,8 +79,9 @@
  */
 ?>
 
-<div class="collectionPanel" id="<?php print $node->nid?>">
-<div class="product">
+
+<div class="collectionPanel" id="node_<?php print $node->nid?>">
+<div class="product ">
 <div id="photoBox">
   <?php print render($content['product:field_product_images']); ?>
 </div>
@@ -138,7 +139,6 @@
 </div> <!-- End designerInfo Col2 -->
 </div> <!-- End designerInfo -->
 
-</div> <!-- collectionPanel -->
-
 <br clear="all">
 <img class="frameBottom" src="<?php print pp();?>frame_bottom.png">
+</div> <!-- collectionPanel -->
