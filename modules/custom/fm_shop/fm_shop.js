@@ -152,7 +152,7 @@ jQuery(document).ready(function() {
             	 //Add to Cache
                  if(!jQuery('#cache .' + cacheClass).length) {
                	   newClass =  '<div class="' + cacheClass + '"></div>';
-                   jQuery('#cache').prepend(newClass);
+                   jQuery('#cache').html(newClass);
                    jQuery('#cache .' + cacheClass).html(data);
                  }
                  
