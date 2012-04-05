@@ -64,12 +64,20 @@ jQuery(document).ready(function() {
      	}
      	
 
+     	/*
+     	 * Start of Handler function for data handling
+     	 */
         var handler = function(data, newContent) {
           jQuery('.shopAjaxLoader').fadeOut();
          
           if(data != '') {
             dataPage.hide();
       	    dataPage.html(data);
+          }
+
+          
+          if(nid == '') {
+        	  nid = jQuery('ul.ad-thumb-list li a').first().attr('id');
           }
           
           var collectionPanels = jQuery('.col2 .product_content .collectionPanel');
@@ -102,7 +110,7 @@ jQuery(document).ready(function() {
             dataPage.show();
           }
         	
-        	var newClass;
+          var newClass;
         	
           
         	
@@ -116,7 +124,10 @@ jQuery(document).ready(function() {
     		}
           });
           jQuery('.ad-nav .ad-thumbs li a').address();
-         };
+       };
+         /*
+    	 * End of Handler
+    	 */
 
 
          var q = '/';
@@ -138,7 +149,7 @@ jQuery(document).ready(function() {
            jQuery.ajax({
              url: location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
              beforeSend: function() {
-            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutQuad");
+            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutBounce");
                  jQuery('.shopAjaxLoader').show();
                  dataPage.fadeTo('fast', .33);
                 
