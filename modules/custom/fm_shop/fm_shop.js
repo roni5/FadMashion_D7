@@ -220,12 +220,16 @@ jQuery(document).ready(function() {
 		 
 		 });
 		 */
-		 
-		 
-       	jQuery('.ad-thumb-list img').each(function() {
-       		var src = jQuery(this).attr('src');
-       		var parentLink = jQuery(this).parent('a');
-       		//parentLink.attr('href', src);
+       	
+       	var links = jQuery('.col2 .ad-thumb-list li a');
+       	links.each(function() {
+       		jQuery(this).bind('click', function() {
+       			jQuery('.col2 .ad-active').each(function() {
+       				jQuery(this).removeClass('ad-active');
+       			});
+       			jQuery(this).addClass('ad-active');
+                
+       		});
        	});
        	
        	/*if(!jQuery('.col2 .ad-gallery .ad-back').length) {
