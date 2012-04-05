@@ -20,18 +20,22 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 
-			jQuery('#product:visible').slides({
-				preload: true,
-				effect: 'fade',
-				crossfade: true,
-				slideSpeed: slideSpeed,
-				fadeSpeed: fadeSpeed,
-				generateNextPrev: true,
-				generatePagination: false
-			});
-			jQuery('#product').show();
-			jQuery('#photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
-	  }
+		  
+		  jQuery('.col2 .collectionPanel:visible').each(function() { 
+				jQuery('#product', jQuery(this)).slides({
+					preload: true,
+					effect: 'fade',
+					crossfade: true,
+					slideSpeed: slideSpeed,
+					fadeSpeed: fadeSpeed,
+					generateNextPrev: true,
+					generatePagination: false
+				});
+				jQuery('#product', jQuery(this)).show();
+				jQuery('#photoBox #product .prev', jQuery(this)).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+		 
+		  });
+	}
 	};
 })(jQuery);
 
