@@ -228,7 +228,7 @@ jQuery(document).ready(function() {
        		//parentLink.attr('href', src);
        	});
        	
-       //	var galleries = jQuery('.ad-gallery').adGallery();
+       	var galleries = jQuery('.ad-gallery').adGallery();
        	
        	
 	  }
