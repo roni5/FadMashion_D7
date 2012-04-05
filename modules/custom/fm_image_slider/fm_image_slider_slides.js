@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 
-			jQuery('#product').slides({
+			/*jQuery('#product').slides({
 				preload: true,
 				effect: 'fade',
 				crossfade: true,
@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
 				fadeSpeed: fadeSpeed,
 				generateNextPrev: true,
 				generatePagination: false
-			});
+			});*/
 			jQuery('#product').show();
 			jQuery('#photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 	  }
