@@ -2,6 +2,9 @@
  * Javascript Tools to handle Forms in FAdmashion 
  */
 
+//global variables for Drupal.behaviors functions
+var contentSelector;
+
 jQuery(document).ready(function() {
 	
 	//ADD deep linking, 

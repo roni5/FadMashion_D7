@@ -16,26 +16,22 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.imageSlider = {
 	  attach: function (context, settings) {
-		  if(!jQuery('#product:visible').length || jQuery('#product:visible .slides_control').length) {
+		  if(!jQuery('.col2 #product').length || jQuery('.col2 #product .slides_control').length) {
 		    	return;
 		  }
 
-		  
-		  //jQuery('.col2 .collectionPanel:visible').each(function() { 
-				jQuery('#product::visible').slides({
-					preload: true,
-					effect: 'fade',
-					crossfade: true,
-					slideSpeed: slideSpeed,
-					fadeSpeed: fadeSpeed,
-					generateNextPrev: true,
-					generatePagination: false
-				});
-				jQuery('#product')).show();
-				jQuery('#photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
-		 
-		  //});
-	}
+			jQuery('.col2 #product').slides({
+				preload: true,
+				effect: 'fade',
+				crossfade: true,
+				slideSpeed: slideSpeed,
+				fadeSpeed: fadeSpeed,
+				generateNextPrev: true,
+				generatePagination: false
+			});
+			//jQuery('.col2 #product').show();
+			//jQuery('.col2 #photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+	  }
 	};
 })(jQuery);
 
