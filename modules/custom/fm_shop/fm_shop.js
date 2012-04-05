@@ -149,7 +149,7 @@ jQuery(document).ready(function() {
            jQuery.ajax({
              url: location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
              beforeSend: function() {
-            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutBounce");
+            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
                  dataPage.fadeTo('fast', .33);
                 
