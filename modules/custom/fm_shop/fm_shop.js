@@ -138,7 +138,7 @@ jQuery(document).ready(function() {
            jQuery.ajax({
              url: location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
              beforeSend: function() {
-            	 jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutQuad");
                  jQuery('.shopAjaxLoader').show();
                  dataPage.fadeTo('fast', .33);
                 
