@@ -16,13 +16,13 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.imageSlider = {
 	  attach: function (context, settings) {
-		  if(!jQuery('#product').length || jQuery('#product .slides_control').length) {
+		  if(!jQuery('#product:visible').length || jQuery('#product:visible .slides_control').length) {
 		    	return;
 		  }
 
 		  
-		  jQuery('.col2 .collectionPanel:visible').each(function() { 
-				jQuery('#product', jQuery(this)).slides({
+		  //jQuery('.col2 .collectionPanel:visible').each(function() { 
+				jQuery('#product::visible').slides({
 					preload: true,
 					effect: 'fade',
 					crossfade: true,
@@ -31,10 +31,10 @@ jQuery(document).ready(function() {
 					generateNextPrev: true,
 					generatePagination: false
 				});
-				jQuery('#product', jQuery(this)).show();
-				jQuery('#photoBox #product .prev', jQuery(this)).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+				jQuery('#product')).show();
+				jQuery('#photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 		 
-		  });
+		  //});
 	}
 	};
 })(jQuery);
