@@ -251,12 +251,12 @@ jQuery(document).ready(function() {
 			  return;
 		  }
 		  
-		  jQuery('#commerce-cart-add-to-cart-form').validate({
+		 jQuery('#commerce-cart-add-to-cart-form').validate({
 			 	errorClass: 'invalid',
 			   	onkeyup: false,
 			   	wrapper: 'div id="message_box"',
 		  });
-			 
+		 /* 	 
 		 var sizes = jQuery("#commerce-cart-add-to-cart-form #edit-sizes")
 		  if(sizes.length) {
 			 sizes.rules("add", {
@@ -275,7 +275,7 @@ jQuery(document).ready(function() {
 		   		   required: "Select a Color",
 		           }
 		       });
-		    }
+		    }*/
 		 
 
 		//Enable Javascript Color functionality for Fadmashion sizes
