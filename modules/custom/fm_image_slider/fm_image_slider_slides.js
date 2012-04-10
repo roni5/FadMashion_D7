@@ -14,6 +14,12 @@ jQuery(document).ready(function() {
 
 });
 (function ($) {
+	
+
+	//Set colorbox behavior weight to be after image slider
+	Drupal.behaviors['initColorboxInline.weight'] = 100;
+	
+	
 	Drupal.behaviors.imageSlider = {
 	  attach: function (context, settings) {
 		  
@@ -43,8 +49,7 @@ jQuery(document).ready(function() {
 				var node_id = vals[1];
 				jQuery('#zoomed', this).attr('id', 'zoomed_' +node_id);
 				
-				zoomUrl = zoomUrl + '_' + node_id;
-				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '_' + node_id + '">Enlarge</a>');
 
 		  });
 
@@ -58,7 +63,7 @@ jQuery(document).ready(function() {
 	Drupal.behaviors.zoomedBox = {
 	  attach: function (context, settings) {
 
-		  if(!jQuery('#zoomed').length || !jQuery('#cboxLoadedContent').length || !jQuery('#zoomed').is(":visible")) {
+		  if(!jQuery('.zoomedSlider').length || !jQuery('#cboxLoadedContent').length || !jQuery('.zoomedSlider').is(":visible")) {
 		    	return;
 		  }
 		  
