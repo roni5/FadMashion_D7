@@ -246,6 +246,11 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.productOptions = {
 	  attach: function (context, settings) {
+		  
+		  if(!jQuery("#commerce-cart-add-to-cart-form").length) {
+			  return;
+		  }
+		  
 		  jQuery('#commerce-cart-add-to-cart-form').validate({
 			 	errorClass: 'invalid',
 			   	onkeyup: false,
