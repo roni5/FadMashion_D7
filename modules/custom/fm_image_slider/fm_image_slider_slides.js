@@ -19,6 +19,10 @@ jQuery(document).ready(function() {
 		  
 		  jQuery('.collectionPanel').each(function (){
 		  
+			  if( !jQuery('#product', this).is(':visible')) {
+				  return;
+			  }
+			  
 			  if(!jQuery('#product', this).length || jQuery('#product .slides_control', this).length) {
 			    	return;
 			  }
