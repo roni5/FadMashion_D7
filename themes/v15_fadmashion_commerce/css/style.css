@@ -108,13 +108,13 @@ tbody {border: medium none}
 .zoomedSlider {width: 840px;}
 .zoomedSlider .slides_container {float: left; margin: 0 9px 0 0; width: 652px;}
 .zoomedSlider .pagination{float:left;width:153px;}
-.zoomedSlider  .next, #zoomed .prev, #zoomed .logo {position: absolute; z-index: 100;  }
-.zoomedSlider  .next, #zoomed .prev {height: 31px; width: 31px; }
+.zoomedSlider  .next, .zoomedSlider .prev, #zoomed .logo {position: absolute; z-index: 100; text-indent: 9999px }
+.zoomedSlider  .next, .zoomedSlider  .prev {height: 31px; width: 31px; }
 .zoomedSlider .prev {left: 19px; background:url("../images/b_zoom_prev.png") no-repeat scroll left top transparent;}
 .zoomedSlider  .next {left: 638px; background:url("../images/b_zoom_next.png") no-repeat scroll left top transparent;}
 .zoomedSlider .logo {bottom: 13px; right: 8px;}
-.zoomedSlider  .next:hover, #zoomed .prev:hover {background-position: bottom left; }
-.zoomedSlider  .slides_container img, #zoomed  .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
+.zoomedSlider  .next:hover, .zoomedSlider  .prev:hover {background-position: bottom left; }
+.zoomedSlider  .slides_container img, .zoomedSlider   .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
 
 .productInfo{float: left; text-align: left; margin: 0 0 0 30px; width: 335px;}
 
