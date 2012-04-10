@@ -147,7 +147,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
 	
   $output .= '<div style="display:none">';
-  $output .= '<div classs="zoomedSlider" id="zoomed">';
+  $output .= '<div class="zoomedSlider" id="zoomed">';
    
   //$output .= '<div id="zoom_photo_tooltip">hover to view more of the image</div>';
   
