@@ -53,13 +53,23 @@ tbody {border: medium none}
 	#content .col2 .pad{padding: 30px 0 0 0;}
 	
 	
-.col1 ul, .col1 li{list-style-type: none;}	
+.col1 ul, .col1 li{list-style-type: none;}  
 .col1 a{color: #444;display: block;font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; font-size: 13px;}
 .col1 a:hover{color: #b63030}
 .col1 a.active{background: url(../images/arrow_red.png) center right no-repeat;color: #b63030}
-.col1 h1{color: #b63030; font-size: 18px; font-weight: 100; margin: 0 0 12px 0;}
-.col1 ul{margin: 0 0 35px 0; } 
+.col1 h1{color: #b63030; font-size: 18px; font-weight: 100; margin: 20px 0 12px 0; border-top: 1px solid #ddd; padding: 20px 0 0 0;}
+.col1 a.viewAll{font-family:"museo-sans-1","museo-sans-2", Helvetica; outline:none; font-size: 12px;color: #b63030; font-style:normal;}
+.col1 ul{margin: 0 ; } 
 .col1 li{padding: 3px 0;}
+
+.col1 .itemLoved{float: left; display: block; clear: both; width: 190px; margin-bottom: 10px;}
+.col1 .itemLoved h1.itemName {font-size: 13px;  color: #000; line-height: 17px; padding: 0; margin: 0; border: 0;  font-style:normal;}
+.col1 .itemLoved h2.designer{margin: 0;}
+.col1 .itemLoved h2.designer a{font-size: 12px;color: #0f6da3; font-style:normal;font-family:"museo-sans-1","museo-sans-2", Helvetica; margin: 3px 0 0 0;}
+.col1 .itemLoved h3 {font-size: 12px; font-style:italic; background: url(../images/icon_star.png) left center no-repeat; padding: 0 0 0 18px; margin: 3px 0 0 0;}
+.col1 .itemLoved .thumb{float: left; margin: 0 10px 10px 0;}
+.col1 .itemLoved .text{float: left;  width: 120px;}
+
 
 
 /********* designer panel **********/
