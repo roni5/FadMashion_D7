@@ -93,7 +93,7 @@ tbody {border: medium none}
 #photoBox .slides_container { height: 474px; }
 #photoBox .slides_container img{border:1px solid #F0EEEA; cursor: pointer;}
 #photoBox .pagination{float: left; margin-top: 5px;}
-#photoBox .pagination li,  .zoomedSlider  .pagination li{float: left; margin: 0 4px 4px 0; }
+#photoBox .pagination li,  .zoomedSlider  .pagination li{float: left; margin: 0 3px 3px 0; }
 #photoBox .pagination li.current a img, .zoomedSlider .pagination li.current a img{border:1px solid #A32E27; }
 #photoBox .pagination li a img, .zoomedSlider  .pagination li a img{border:1px solid #F0EEEA;}
 #photoBox .pagination li a img:hover, .zoomedSlider  .pagination li a img:hover{border:1px solid #A32E27;}
