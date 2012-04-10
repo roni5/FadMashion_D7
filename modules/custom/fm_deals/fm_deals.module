@@ -364,8 +364,6 @@ function fm_deals_time($nid) {
 
 function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];
-	$status = fm_deals_states_get_status($node);
-	
 	$time = fm_deals_time($node->nid);
 	$unixStartTime = $time['start'];
 	$unixEndTime = $time['end'];
@@ -374,72 +372,14 @@ function fm_deals_group_details(&$vars) {
 	//$color_options = fm_commerce_color_options($node);
 	//
 	//If start time is GREATER THAN NOW than disabled.
-	if($status == 'upcoming') {  
-		if(isset($unixStartTime)) {
-		  $timerDetails = '<div class="timer rounded-top rounded-bottom">';
-		  if($unixStartTime > strtotime('+15 minutes', REQUEST_TIME)) {
-		  	$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts @<span>' . date("g:ia", $unixStartTime) . ' <span class="timezone">EST</span></span></div>';
-		  } else {
-		  	$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts in <span class="countdownToStart">--:--</span> mins</div>';;//If start time is LESS THAN NOW this is ACTIVE
-	      jquery_countdown_add(".countdownToStart", array("until" =>  date("F d, Y g:i a", $unixStartTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
-	
-		  }
-		  $timerDetails .= '</div><br clear="all">';
-		}
+
 		
-		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
-		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
-		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">We\'ll send you an e-mail ' . FM_NOTIFY_MINUTES . ' minutes before a sale starts</p>';
-		$purchaseDetails .= '</div>';
-		
-		
-	
-	}
-	elseif ($status == 'active') {
-		$qty_purchased = fm_deals_qty_purchased($node->nid);
-		$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
-		$product = fm_commerce_get_product($node);
-		
-		$timerDetails = '<h1 class="pageTitle">ON SALE  <span>NOW</span></h1>';
-		$timerDetails .= '<div class="timer rounded-top rounded-bottom">';
-		$timerDetails .= '<table cellspacing="0" cellpadding="0" class="timerTbl"><tbody><tr>
-                        <td width="110" align="right">Items Left:</td>
-                        <td width="56" align="left" class="sep1"><span>' . fm_commerce_stock_total($product) . '</span></td>
-                        <td width="75" align="right" class="sep2">Time  Left:</td>
-                        <td width="70" align="left"><span class="countdown">--:--</span></td>
-                        </tr>
-                        </tbody></table>';
-		//$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
-		$timerDetails .= '</div><br clear="all">';
-		
-		$untilTime = $unixEndTime;
-		
-		$purchaseDetails = '<img class="frame" src="' . pp(). 'bg_itemOptions_top.jpg">';
-		$purchaseDetails .= '<div class="box">';
-    if(true) {
-		//if(!($order_id = fm_deals_states_purchased_deal($node))) { 
-		  $purchaseDetails .= render($vars['content']['field_product_reference']);
-		} else {
-			$purchaseDetails .= '<div>Thank you for your ';
-			$purchaseDetails .= l('purchase', 'my-orders/' . $order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
-			$purchaseDetails .= '!</div>';
-		}
-		$purchaseDetails .=  '</div>';
-	  $purchaseDetails .= '<img class="frame" src="' . pp() . 'bg_itemOptions_bottom.jpg">';
-	  
-		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
-	
-	} 
-	else {
-		$timerDetails = '';
-		
-		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
-		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
-	}
-	
-	  $title = $node->title;
-	  drupal_add_js('var newTitle = "' . $title . '";', 'inline');
+	$purchaseDetails .= '<div class="box">';
+  $purchaseDetails .= render($vars['content']['field_product_reference']);
+	$purchaseDetails .=  '</div>';
+	 
+	$title = $node->title;
+	drupal_add_js('var newTitle = "' . $title . '";', 'inline');
 	
 	$vars['groupDetails'] = $timerDetails;
 	$vars['purchaseDetails'] = $purchaseDetails;

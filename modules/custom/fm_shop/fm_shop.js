@@ -209,32 +209,6 @@ jQuery(document).ready(function() {
 		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
-		 /*
-		 var thumbs_wrapper = jQuery("#gallery");
-		 jQuery('.ad-thumb-list img').each(function() {
-	       	   
-	       		jQuery(this).click(
-	       	            function() {
-	       	            	jQuery(this).addClass('active');
-	       	            	thumbs_wrapper.find('.ad-active').removeClass('ad-active');
-	       	            }
-	       	     ).hover(
-		            function() {
-		              if(!jQuery(this).is('.ad-active') ) {
-		            	  jQuery(this).find('img').fadeTo(300, 1);
-		              };
-		              context.preloadImage(i);
-		            },
-		            function() {
-		              if(!jQuery(this).is('.ad-active')) {
-		            	  jQuery(this).find('img').fadeTo(300, .7);
-		              };
-		            }
-		         );
-		 
-		 });
-		 */
-       	
        	var links = jQuery('.col2 .ad-thumb-list li a');
        	links.each(function() {
        		jQuery(this).bind('click', function() {
@@ -245,12 +219,104 @@ jQuery(document).ready(function() {
                 
        		});
        	});
-       	
-       	/*if(!jQuery('.col2 .ad-gallery .ad-back').length) {
-       	  var galleries = jQuery('.ad-gallery').adGallery();
-       	}*/
-       	
-       	
 	  }
 	};
 })(jQuery);
+
+(function ($) {
+	Drupal.behaviors.collectionViewer = {
+	  attach: function (context, settings) {
+		 if(!jQuery("#gallery").length) {
+		   return;
+		 }
+       	var links = jQuery('.col2 .ad-thumb-list li a');
+       	links.each(function() {
+       		jQuery(this).bind('click', function() {
+       			jQuery('.col2 .ad-active').each(function() {
+       				jQuery(this).removeClass('ad-active');
+       			});
+       			jQuery(this).addClass('ad-active');
+                
+       		});
+       	});
+	  }
+	};
+})(jQuery);
+
+(function ($) {
+	Drupal.behaviors.productOptions = {
+	  attach: function (context, settings) {
+		  jQuery('#commerce-cart-add-to-cart-form').validate({
+			 	errorClass: 'invalid',
+			   	onkeyup: false,
+			   	wrapper: 'div id="message_box"',
+		  });
+			 
+		 var sizes = jQuery("#commerce-cart-add-to-cart-form #edit-sizes")
+		  if(sizes.length) {
+			 sizes.rules("add", {
+		       required: true,
+		       messages: {
+		    	   required: "Select a size",
+		           }
+		       });
+		  }
+			 
+	     var colors = jQuery("#commerce-cart-add-to-cart-form #edit-colors");
+		 if(colors.length) {
+			 colors.rules("add", {
+		   	   required: true,
+		   	   messages: {
+		   		   required: "Select a Color",
+		           }
+		       });
+		    }
+		 
+
+		//Enable Javascript Color functionality for Fadmashion sizes
+		jQuery('.form-item-sizes select').selectBox();
+		
+		//Enable Javascript Color functionality for Fadmashion Commerce
+		jQuery('.form-item-colors select').selectBox();
+				
+		//Change color options to div structures
+		jQuery('.form-item-colors .selectBox-options li a').each(function() {
+		  var vals = jQuery(this).attr('rel').split('_');
+			var code = vals[0];
+			var title = vals[1];
+			var val = jQuery(this).html();
+			var qty_info = jQuery('#qty-' + jQuery(this).attr('rel'));
+					
+			if(qty_info.attr('val') == '' || qty_info.attr('val') == 0) {
+			  jQuery(this).parent().addClass('selectBox-disabled');
+			}
+			
+			jQuery(this).attr('style', 'background-color: #' + code);
+			jQuery(this).attr('title', qty_info.html()  + ' (' + title + ')');
+			jQuery(this).attr('pos', val);
+			jQuery(this).html('');
+		});
+		
+		jQuery('.form-item-sizes .selectBox-options li a').each(function() {
+				
+		  var qty_info = jQuery('#qty-' + jQuery(this).attr('rel'));
+			
+			if(qty_info.attr('val') == '' || qty_info.attr('val') == '0') {
+				jQuery(this).parent().addClass('selectBox-disabled');
+			}
+					
+			jQuery(this).attr('title', qty_info.html());
+		});
+				
+		jQuery('.selectBox-selected').each(function() {
+		  if(jQuery(this).hasClass('selectBox-disabled')) {
+			jQuery(this).removeClass('selectBox-selected');
+			var parent = jQuery(this).parent();
+			//find the next one and add the class there
+			jQuery('li:not(.selectBox-disabled)', parent).first().addClass('selectBox-selected');
+		  }
+		});
+	  }
+	};
+})(jQuery);
+

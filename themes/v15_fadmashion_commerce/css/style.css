@@ -125,8 +125,9 @@ p.description{margin: 0 0 16px 0; color: #777; font-size: 13px}
 .socialButtons{float: right;}
 .socialButtons a:hover{position: relative; top: 2px;}
 
-.buyIt{ color: #fff; background: url(../images/b_buyit.png) top left no-repeat; width: 110px; height: 39px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0; position: relative; left: 100px;}
-.buyIt:hover{background-position: bottom left;}
+.buyit-button { color: #fff; background: url(../images/b_buyit.png) top left no-repeat; width: 110px; height: 39px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0; position: relative; left: 100px;}
+.buyit-button:hover{background-position: bottom left;}
+#commerce-cart-add-to-cart-form .selectBox {height: auto !important;}
 
 .pricing{margin: 2px 0 10px 0; width: 332px;  font-size: 12px; float: left; display: block; clear: both;}
 .pricing div{float: left; width: 110px; text-align:center; display: inline; font-size: 19px; font-weight: 500; height: 45px; line-height:45px;}
@@ -140,7 +141,7 @@ p.description{margin: 0 0 16px 0; color: #777; font-size: 13px}
 .itemOptions .frame{display: block; }
 .itemOptions .box{padding: 8px 4px 14px 14px; font-size: 12px; }
 .itemOptions .form-submit{padding: 8px 22px; font-size: 16px; margin: 0;}
-.itemOptions label{float: left; width: 60px; text-align:left;}
+.itemOptions label{float: left; width: 60px; text-align:left; font-weight: normal}
 
 .guarantee{background: url(../images/icon_guarantee.jpg) top left no-repeat; padding: 6px 12px 0 50px; margin: 10px 0; height: 42px;font-style: italic; font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 200;letter-spacing: .2px; color: #888; font-size: 11px;}
 

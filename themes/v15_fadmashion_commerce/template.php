@@ -59,6 +59,7 @@ function v15_fadmashion_commerce_preload() {
 	//drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/featuredimagezoomer.js');
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.mousewheel.min.js');
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.panFullSize.js');  
+	
   //Zoom Colorbox Url
   $url = '/?height=80%&width=840&inline=true#zoomed';
   drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
@@ -67,6 +68,9 @@ function v15_fadmashion_commerce_preload() {
   drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/simpletabs_1.3.js');
 	drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/simpletabs.css');
 
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.selectBox.min.js'); 
+	
+	
 	global $status;
 	$status = fm_users_register_sessions_status();
 	
