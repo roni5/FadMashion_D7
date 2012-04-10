@@ -1,0 +1,12 @@
+
+name = "Behavior weights"
+description = "Allows to attach weights to your Drupal behaviors (javascript)."
+package = javascript
+core = 7.x
+
+; Information added by drupal.org packaging script on 2011-10-07
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "behavior_weights"
+datestamp = "1317966701"
+
