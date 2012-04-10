@@ -49,8 +49,11 @@ jQuery(document).ready(function() {
 				var node_id = vals[1];
 				jQuery('#zoomed', this).attr('id', 'zoomed_' +node_id);
 				
-				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '_' + node_id + '">Enlarge</a>');
-
+				var full_url = zoomUrl + '_' + node_id;
+				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + full_url + '">Enlarge</a>');
+				 jQuery('.slides_control a').each(function (){ 
+					 jQuery(this).attr('href', full_url);
+				 });
 		  });
 
 			
