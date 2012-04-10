@@ -92,10 +92,10 @@ jQuery(document).ready(function() {
 			  jQuery('#zoom_photo_tooltip').hide();
 		  }
 		  var middle = boxHeight/2;
-		  jQuery(".zoom02 img").panFullSize(zoomed_width, boxHeight);
+		  jQuery("#cboxLoadedContent .zoom02 img").panFullSize(zoomed_width, boxHeight);
 		  
-		  if(!jQuery('#zoomed .slides_control').length) {
-			  jQuery('#zoomed').slides({
+		  if(!jQuery('#cboxLoadedContent .zoomedSlider .slides_control').length) {
+			  jQuery('#cboxLoadedContent .zoomedSlider').slides({
 					preload: true,
 					preloadImage: loadingImagePath,
 					effect: 'fade',
@@ -106,14 +106,14 @@ jQuery(document).ready(function() {
 					generatePagination: false,
 					animationComplete: function() {
 						//Reset Pan
-						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
+						jQuery("#cboxLoadedContent  .zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
 					}
 				});
 
 		  }
 		  
-		  jQuery("#zoomed .slides_container").height(boxHeight);
-		  jQuery("#zoomed .prev, #zoomed .next").css('top', middle.toString() + 'px');
+		  jQuery("#cboxLoadedContent .zoomedSlider .slides_container").height(boxHeight);
+		  jQuery("#cboxLoadedContent .zoomedSlider .prev, #cboxLoadedContent .zoomedSlider .next").css('top', middle.toString() + 'px');
 		  
 		  
 		 
