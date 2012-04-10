@@ -185,7 +185,7 @@ jQuery.fn.panFullSize = function(x, y, afterLoaded){
                       newY = prevY + diffY;
                   }*/
                   
-                  var box_y = jQuery('#zoomed .slides_container #pan').offset().top;
+                  var box_y = jQuery('#cboxLoadedContent .zoomedSlider .slides_container #pan').offset().top;
                   
                   if(box_height > pic_real_height) {
                	   jQuery("#zoom_photo_tooltip").hide();
