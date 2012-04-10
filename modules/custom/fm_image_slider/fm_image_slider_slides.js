@@ -16,21 +16,28 @@ jQuery(document).ready(function() {
 (function ($) {
 	Drupal.behaviors.imageSlider = {
 	  attach: function (context, settings) {
-		  if(!jQuery('.col2 #product').length || jQuery('.col2 #product .slides_control').length) {
-		    	return;
-		  }
+		  
+		  jQuery('.collectionPanel').each(function (){
+		  
+			  if(!jQuery('#product', this).length || jQuery('#product .slides_control', this).length) {
+			    	return;
+			  }
+			  
+			  jQuery('#product', this).slides({
+					preload: true,
+					effect: 'fade',
+					crossfade: true,
+					slideSpeed: slideSpeed,
+					fadeSpeed: fadeSpeed,
+					generateNextPrev: true,
+					generatePagination: false
+				});
+				jQuery('#product', this).show();
+				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 
-			jQuery('.col2 #product').slides({
-				preload: true,
-				effect: 'fade',
-				crossfade: true,
-				slideSpeed: slideSpeed,
-				fadeSpeed: fadeSpeed,
-				generateNextPrev: true,
-				generatePagination: false
-			});
-			//jQuery('.col2 #product').show();
-			//jQuery('.col2 #photoBox #product .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+		  });
+
+			
 	  }
 	};
 })(jQuery);
