@@ -18,7 +18,7 @@ jQuery(document).ready(function() {
 	  attach: function (context, settings) {
 		  
 		  jQuery('.collectionPanel').each(function (){
-		  
+			  
 			  if( !jQuery('#product', this).is(':visible')) {
 				  return;
 			  }
@@ -27,7 +27,8 @@ jQuery(document).ready(function() {
 			    	return;
 			  }
 			  
-			  jQuery('#product', this).slides({
+
+			 jQuery('#product', this).slides({
 					preload: true,
 					effect: 'fade',
 					crossfade: true,
@@ -37,6 +38,12 @@ jQuery(document).ready(function() {
 					generatePagination: false
 				});
 				jQuery('#product', this).show();
+
+				var vals = jQuery(this).attr('id').split('_');
+				var node_id = vals[1];
+				jQuery('#zoomed', this).attr('id', 'zoomed_' +node_id);
+				
+				zoomUrl = zoomUrl + '_' + node_id;
 				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
 
 		  });
