@@ -186,3 +186,110 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .subCol li{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 0px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
 .press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
 .source {color: #767272; font-size: 11px; padding: 5px 0; margin-bottom: 5px;}
+
+
+/* Sign Up Box */
+
+#signup label{display: none}
+#signup .form-item, .form-actions{margin: 0 !important;}
+#signup .form-item .description {color: #8f837a }
+#signup .password-suggestions, #about-you .password-suggestions{position: absolute;left: -9999px;}
+#signup .password-suggestions, #about-you .password-suggestions{display: none}
+#signup .password-strength, #about-you .password-strength{width: 90px;  font-size: 12px; margin-top: 5px;display: none;}
+#signup .password-min, #about-you .password-min{float: left;}
+#signup .password-min, div.password-confirm  {color:#C5B5A8;font-family:Georgia,"Times New Roman",Times,serif;font-size:11px;font-style:italic; font-weight: normal;}
+#signup .password-parent {margin:0;width:270px;}
+#about-you .password-parent {width: 235px; padding-bottom: 0px; float: left;}
+#about-you .confirm-parent {width: 200px; float: left; clear: none;}
+#about-you .form-type-password-confirm {padding-bottom: 0px; width: 500px;}
+#signup .password-indicator, #about-you .password-indicator{display: none;}
+#signup .password-strength-text, #about-you .password-strength-text{display: none;}
+#signup div.password-confirm, #about-you div.password-confirm{display: none !important;}
+#signup .password-min, #about-you .password-min{display: none;}
+#signup label.option { color: #E4DAD2; display:inline;font-weight:normal; font-size: 12px;}
+#signup label.option a{color: #fff;text-decoration: underline;}
+
+#signup{width: 930px; height: 529px; background: url(../images/bg_panel.png) top left no-repeat; }
+#signup a{ font-style: none; text-decoration: none; font-style: normal; font-family: "museo-sans-1","museo-sans-2",Helvetica}
+.state1{background: url(../images/bg_model_1.png)  329px 5px no-repeat; width: 930px; height: 529px;}
+.state2, .state3{background: url(../images/bg_model_2.png)  50px 5px no-repeat; width: 930px; height: 529px;}
+#signup .state2 .box, #signup .state3 .box{width: 550px; margin-left: 352px; text-align:center; padding: 50px 0 0 0; }
+
+
+#signup .box{width: 880px;}
+#signup h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }
+#signup h2{color: #cabfb8; font-size: 13px; font-weight: 500; letter-spacing: 3px; margin-bottom: 30px;}
+#signup p{background-color: transparent; font-size: 18px; color: #908075; line-height: 26px; font-weight: 300; margin-bottom: 12px; padding: 0 30px;}
+#signup p b, #signup p strong{color: #68594f;}
+#signup p.loginHere{background:none repeat scroll 0 0 #ECE9E6;font-size:12px;margin:30px 60px;padding:5px;}
+#signup .pad{padding: 0px 0 0 36px;}
+#signup .text{width: 360px; text-align:center; padding-top: 75px; }
+#signup .login, #signup .forgot_password{width: 430px; text-align:center; padding-top: 70px; }
+#signup ul {border-bottom:1px solid #E4DBD3;list-style-type: none; border-top:1px solid #E4DBD3;margin:20px 40px;padding:20px 0;}
+#signup li {color:#6F5F55;font-size:15px;margin:0 0 5px;}
+
+
+#signup .form{float: right; width: 206px;}
+#signup  #message_box{margin: -10px 0 5px !important; }
+#signup label.invalid {display: none !important}
+#signup .form-item-mail label.invalid{display: block !important;}
+
+
+#signup .form-text{line-height: 32px; background: #b3a396 url(../images/bg_field_dark.jpg) top left repeat-x; border: 1px solid #83746a; width: 206px; height: 32px; padding-left: 5px; color: #fff; font-size: 12px; margin-bottom: 6px; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+#signup .form-text.invalid {border:1px solid #DE2C2C;}
+#signup .form-text.urlCode{width: 270px; border: none; margin: none;}
+
+#signup .form h1{color: #fff; font-size: 22px; font-weight: 100; margin: 72px 0 10px 0; padding: 0;}
+#signup .fieldsRequired{text-align: right; font-style:italic; color: #c3bcb7; font-size: 11px; padding-bottom: 4px;}
+
+#signup .options{color: #e4dad2; font-size: 12px; padding-top: 6px;}
+#signup .options a{color: #fff;}
+#signup .options div{padding-bottom: 4px;}
+
+#user-register-form .form-submit {background: url(../images/b_signup.png) top left no-repeat; display: block; width: 206px; height: 43px; text-indent:-9999px; margin: 10px 0 50px 0;}
+a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; display: block; width: 206px; height: 30px; text-indent:-9999px;}
+#signup .form-submit:hover, a.facebookConnect:hover, .inviteFriends:hover{background-position: bottom left;}
+
+#signup #user-login-form .forgotPassword {float: left; font-size: 11px; text-decoration:none; font-style: normal; }
+#signup #user-login-form{width: 237px; text-align: left; margin: 0 auto;}
+#signup #user-login-form .form-text, #signup .sendFields .form-text, #signup #user-pass .form-text{background: #fff url(../images/bg_field_light.jpg) top left repeat-x; border: 1px solid #e8e5e4; color: #9c8a7f; font-size: 14px; width: 231px; margin-bottom: 12px;}
+#signup #user-login-form .form-submit{ margin: 0 !important; padding: 0; float: right; color: #fff; background: url(../images/b_login.png) top left no-repeat; width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 14px;}
+#signup #user-login-form .form-submit:hover {background-position: bottom left;}
+
+.generatingCode{margin: 160px 0 0 0; text-align:center;}
+
+a.btnFacebook{width: 32px; height: 31px; background: url(../images/b_facebook_social.png) top left no-repeat; text-indent:-9999px; display: block;}
+a.btnTwitter{width: 32px; height: 31px; background: url(../images/b_twitter_social.png) top left no-repeat; text-indent:-9999px;display: block;}
+a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
+
+#inviteCode{border-collapse: separate !important; background: #74645a; padding: 5px; color: #fff; font-size: 13px; border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-top-radius: 5px;  border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-top-radius: 5px; margin: 20px auto 0 auto; width: 490px;}
+#inviteCode td{padding: 0 3px; background-color: transparent !important;}
+#inviteCode th{padding: 0 8px; border-bottom: 0px solid #000 !important; text-align: left; padding-right: 0px;}
+#inviteCode .form-text{margin: 0;}
+
+
+#signup .errorText{margin-top: 10px; background: #6e5e54; padding: 5px; font-size: 12px; color: #fff; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+#signup .loginErrorText { display: none; margin: 0 0 10px; font-size: 12px; }
+
+#signup .form-text.invalid {border:1px solid #DE2C2C !important;}
+#signup .backSignup {display:block;font-size:12px;margin:80px 0 0 135px;padding-left:12px;text-align:left;text-decoration:none;}
+
+#user-login-form .text-form-icon-wrapper #login_loader{position: absolute; top: 10px; right: 12px; display: none;}
+#user-login-form .text-form-icon-wrapper #login_loader img{ height: 17px; }
+#user-login-form .text-form-icon-wrapper {overflow:hidden;position:relative;width:240px;}
+
+/* invite Pop-up */
+.invite_state2, .invite_state3 {display: none; }
+.invite_state3 {margin-top: 50px; }
+.invite_state3 p{color: #A6352F; font-size: 16px;}
+#fm-invite-send-email-form {overflow: hidden; padding: 0 20px; }]
+#fm-invite-send-email-form .form-submit {float:left;margin: 10px 0 0 165px;  padding: 0;}
+#fm-invite-send-email-form #message_box{display: none !important;}
+
+.sendFields{ margin:0 0 15px 0; height: 165px; padding: 15px 0;text-align: center; background: #f0ebe5; width: 490px; margin: 0 auto; border-bottom-left-radius:5px; -webkit-border-bottom-left-radius: 5px; -moz-border-bottom-left-top-radius: 5px;  border-bottom-right-radius:5px; -webkit-border-bottom-right-radius: 5px; -moz-border-bottom-right-top-radius: 5px;}
+.inviteFriends{margin:15px 0 0 170px !important;  padding: 0 12px !important; display: block; float: left;  background: url(../images/b_invite.png) top left no-repeat; height: 34px; width: 121px; line-height: 34px; text-align:center; text-decoration: none; color: #fff; font-size: 14px; }
+#signup .sendFields .form-text{width: 210px; margin: 4px;float: left;}
+
+.skipInvites{ text-decoration: none; font-size: 12px; margin: 26px 0 0 0; display: block;}
+#signup .state2 p{font-size: 15px; line-height: 20px;}
+
