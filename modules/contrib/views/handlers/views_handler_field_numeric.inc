@@ -57,6 +57,7 @@ class views_handler_field_numeric extends views_handler_field {
         ',' => t('Comma'),
         ' ' => t('Space'),
         '.' => t('Decimal'),
+        '\'' => t('Apostrophe'),
       ),
       '#default_value' => $this->options['separator'],
       '#description' => t('What single character to use as the thousands separator.'),
@@ -123,6 +124,8 @@ class views_handler_field_numeric extends views_handler_field {
       $value = format_plural($value, $this->options['format_plural_singular'], $this->options['format_plural_plural']);
     }
 
-    return $this->sanitize_value($this->options['prefix'] . $value . $this->options['suffix']);
+    return $this->sanitize_value($this->options['prefix'], 'xss')
+      . $this->sanitize_value($value)
+      . $this->sanitize_value($this->options['suffix'], 'xss');
   }
 }

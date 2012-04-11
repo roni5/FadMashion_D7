@@ -160,7 +160,11 @@ function fm_deals_preprocess_node(&$vars) {
 			$i++;
 		}
 		
-		$vars['admin_links'] = $admin_links;
+		if(user_access('administer deals list')) {
+		  $vars['admin_links'] = '<div class="admin_links">' . theme('item_list', array('items' => $admin_links)) . '</div>';
+		} else {
+			$vars['admin_links'] = '';
+		}
 		
 		//Set Time Until for Countdown
 		$details= fm_deals_group_details($vars);

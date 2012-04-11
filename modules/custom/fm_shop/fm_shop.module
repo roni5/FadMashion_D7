@@ -134,6 +134,7 @@ function fm_shop_page_filters() {
 	
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'fm_commerce_store');
+	$query->propertyOrderBy('weight', 'asc');
 	$query->propertyCondition('status', 1);
 	$query->fieldCondition('field_featured', 'value', 1);
 	$result = $query->execute();
@@ -150,6 +151,7 @@ function fm_shop_page_filters() {
 	
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'fm_commerce_store');
+	$query->propertyOrderBy('weight', 'asc');
 	$query->propertyCondition('status', 1);
 	$result = $query->execute();
 

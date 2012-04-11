@@ -114,6 +114,8 @@
     <div class="simpleTabsContent"><?php print $tab_returns; ?></div>
 		    </div>
 </div><!--tabbedInfo-->
+
+<?php print $admin_links; ?>
  
                 
 </div> <!--end info -->

@@ -39,6 +39,12 @@ function fm_commerce_store_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'weight' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Weight of shop within format.',
+      ),
     ),
     'primary key' => array('store_id'),
    

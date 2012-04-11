@@ -39,7 +39,11 @@ function fm_commerce_store_theme() {
     'fm_commerce_store_commission_breakdown' => array(
       'variables' => array('before_commission' => array(), 'commission' => array(), 'after_commission' => array(), 'total_payment' =>  array() ),
       'template' => 'fm_commerce_store_commission_breakdown'
-    )
+    ),
+    'fm_commerce_store_rearrange_form' => array(
+      'render element' => 'form',
+      'file' => 'fm_commerce_store.admin.inc',
+    ),
   );
 }
 
@@ -88,6 +92,14 @@ function fm_commerce_store_menu() {
     'title' => 'Add a store',
     'type' => MENU_LOCAL_ACTION,
     'page callback' => 'fm_commerce_store_add_page',
+    'access arguments' => array( 'administer stores'),
+    'file' => 'fm_commerce_store.admin.inc',
+  );
+  $items['admin/commerce/stores/rearrange'] = array(
+    'title' => 'Rearrange Shops',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fm_commerce_store_rearrange_form'),
     'access arguments' => array( 'administer stores'),
     'file' => 'fm_commerce_store.admin.inc',
   );

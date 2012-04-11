@@ -166,6 +166,9 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 
 .tabbedInfo{background: #fff;width: 324px;}
 
+.admin_links {padding: 10px; border: 1px solid #888; overflow: auto; margin-top: 20px;}
+.admin_links li {float: left; font-size: 12px; }
+
 
 .designerInfo{width: 740px; border-top: 3px solid #eee; padding: 10px 0 0 0; margin-top: 25px;}
 .designerInfo h1{font-size: 16px; margin-bottom: 15px; font-weight: 100;}
