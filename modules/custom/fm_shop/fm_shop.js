@@ -147,7 +147,7 @@ jQuery(document).ready(function() {
          // Loads the page content and inserts it into the content area
          if(!jQuery('#cache .' + cacheClass).length) { 
            jQuery.ajax({
-             url: location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
+             url: 'http://' + location.host + location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
