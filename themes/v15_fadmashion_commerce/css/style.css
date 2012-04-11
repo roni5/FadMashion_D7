@@ -160,10 +160,10 @@ p.description{margin: 0 0 16px 0; color: #777; font-size: 13px}
 .form-item-colors .selectBox-options li, .form-item-sizes .selectBox-options li {float:left;}
 .form-item-colors .selectBox-options li.selectBox-selected{background: url(../images/arrow_color.png) bottom center no-repeat;padding-bottom: 5px;} 
 .form-item-colors .selectBox-options li a, .form-item-sizes .selectBox-options li a {
-background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;width:20px;font-family:"museo-sans-1","museo-sans-2", Helvetica; font-style:normal; line-height: 20px; margin: -3px 2px 0 2px;}
+background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;min-width:20px;font-family:"museo-sans-1","museo-sans-2", Helvetica; font-style:normal; line-height: 20px; margin: -3px 2px 0 2px;}
 .form-item-sizes .selectBox-options li.selectBox-selected a{background: #0f6da3;color: #fff; }
 .form-item-sizes .selectBox-options li.sizeChart a{margin-left: 6px; background: none; border: none; width: auto; font-family: Georgia, "Times New Roman", Times, serif; font-size: 11px; font-style:italic;}
-.form-item-sizes .selectBox-options li a { width: auto !important}
+
 .tabbedInfo{background: #fff;width: 324px;}
 
 
