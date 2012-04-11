@@ -144,10 +144,17 @@ jQuery(document).ready(function() {
         	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
          }
          
+         var fullPath = '';
+         if(location.pathname == '/') {
+        	 fullPath = 'http://' + location.host + location.pathname + '/shop';
+         } else {
+        	 fullPath =  location.pathname ;
+         }
+         
          // Loads the page content and inserts it into the content area
          if(!jQuery('#cache .' + cacheClass).length) { 
            jQuery.ajax({
-             url: 'http://' + location.host + location.pathname + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
+             url:  fullPath + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
