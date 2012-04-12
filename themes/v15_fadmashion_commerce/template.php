@@ -74,8 +74,11 @@ function v15_fadmashion_commerce_preload() {
 	global $status;
 	$status = fm_users_register_sessions_status();
 	
+	global $user;
 	drupal_add_js('var uid = ' . $user->uid . ';', 'inline');
 	drupal_add_js('var user_status = \'' . $status . '\';', 'inline');
+	
+	drupal_add_library('system', 'effects');
 	
 }
 
