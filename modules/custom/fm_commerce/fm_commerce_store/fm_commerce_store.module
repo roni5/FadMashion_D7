@@ -489,7 +489,9 @@ function fm_commerce_store_get_products($store, $withDisplayNode = false) {
 	$query->entityCondition('entity_type', 'commerce_product')
 	      ->entityCondition('bundle', 'fm_fashion_product');
 	      
+	      
 	$query->fieldCondition('field_store_reference', 'store_id', $store->store_id);
+	$query->fieldOrderBy('field_product_weight', 'value', 'ASC');
 	      
 	$products = $query->execute();
 	$products_ret = array();
