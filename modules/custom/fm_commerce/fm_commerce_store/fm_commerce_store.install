@@ -52,3 +52,25 @@ function fm_commerce_store_schema() {
   return $schema;
 }
 
+/**
+ * Add product information to product_weight field.
+ */
+function fm_commerce_store_update_7000() {
+  // Check because D6 installs may already have added this.
+  $query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	      ->entityCondition('bundle', 'fm_fashion_product');
+	      
+	      
+	$products = $query->execute();
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+      $product = commerce_product_load($product_id);
+      $product_wrapper = entity_metadata_wrapper('commerce_product', $product);
+      	$product_wrapper->field_product_weight = 0;
+      	commerce_product_save($product);
+	  }
+	}
+}
+
