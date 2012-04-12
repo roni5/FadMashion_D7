@@ -267,6 +267,93 @@ function theme_fm_commerce_store_rearrange_form($variables) {
 
 
 
+function fm_commerce_store_products_rearrange_form($form, $form_state, $store) {
+	$products = fm_commerce_store_get_products($store, true);
+	
+	 $form['#tree'] = TRUE;
+  foreach ($products as $product_id => $product) {
+  	$product_wrapper = entity_metadata_wrapper('commerce_product', $product);
+    $product_weight = $product_wrapper->field_product_weight->value();
+      	
+    $form['products'][$product_id]['title'] = array('#markup' => drupal_placeholder($product->title));
+
+    $form['products'][$product_id]['image'] = array('#markup' => 
+       fm_commerce_product_image_thumb($product, 'fm_thumb_product_image')
+    );
+    
+    $form['products'][$product_id]['weight'] = array(
+      '#type' => 'weight',
+      '#title' => t('Weight for @title', array('@title' => $product_weight)),
+      '#title_display' => 'invisible',
+      '#default_value' => $product_weight,
+    );
+    $form['products'][$product_id]['disabled'] = array(
+        '#type' =>'checkbox', 
+        '#title' => t('Disabled'),
+      );
+  }
+  
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Save changes'));
+  return $form;
+}
+
+function fm_commerce_store_products_rearrange_form_submit($form, &$form_state) {
+
+	foreach($form_state['values']['products'] as $product_id => $data){
+    if (is_array($data) && isset($data['weight'])) {
+      	$product = commerce_product_load($product_id);
+      	$product_wrapper = entity_metadata_wrapper('commerce_product', $product);
+      	$product_wrapper->field_product_weight = $data['weight'];
+      	commerce_product_save($product);
+     }
+	}
+  
+  drupal_set_message(t('The products in this shops ordering has been saved.'));
+}
+
+
+/**
+ * Returns HTML for the text format administration overview form.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - form: A render element representing the form.
+ *
+ * @ingroup themeable
+ */
+function theme_fm_commerce_store_products_rearrange_form($variables) {
+  $form = $variables['form'];
+
+  $rows = array();
+  foreach(element_children($form['products']) as $id => $product_id) {
+    	
+      $form['products'][$product_id]['weight']['#attributes']['class'] = array('products-order-weight');
+      
+      $rows[] = array(
+        'data' => array(
+          drupal_render($form['products'][$product_id]['image']),
+          drupal_render($form['products'][$product_id]['title']),
+          drupal_render($form['products'][$product_id]['weight']),
+          drupal_render($form['products'][$product_id]['disabled'])
+        ),
+        'class' => array('draggable'),
+      );
+  }
+  
+  $header = array('', t('Name'), t('Weight'), '');
+  $output = theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'products-order')));
+  $output .= drupal_render_children($form);
+
+  drupal_add_tabledrag('products-order', 'order', 'sibling', 'products-order-weight');
+ 
+ 
+  return $output;
+}
+
+
+
+
 
 
 

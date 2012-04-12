@@ -44,6 +44,11 @@ function fm_commerce_store_theme() {
       'render element' => 'form',
       'file' => 'fm_commerce_store.admin.inc',
     ),
+    'fm_commerce_store_products_rearrange_form' => array(
+      'render element' => 'form',
+      'file' => 'fm_commerce_store.admin.inc',
+    ),
+    
   );
 }
 
@@ -127,6 +132,15 @@ function fm_commerce_store_menu() {
     'context' => MENU_CONTEXT_INLINE,
     'file' => 'fm_commerce_store.admin.inc',
     'weight' => 20,
+  );
+  
+  $items['admin/commerce/stores/%fm_commerce_store/rearrange'] = array(
+    'title' => 'Rearrange Products',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fm_commerce_store_products_rearrange_form', 3),
+    'access arguments' => array( 'administer stores'),
+    'file' => 'fm_commerce_store.admin.inc',
   );
   
   $items['fm_commerce_store/autocomplete'] = array(
