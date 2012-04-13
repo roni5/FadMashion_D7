@@ -51,7 +51,7 @@
     </a>
     <div class="nav">
      <?php print l('Shop', 'shop', array('attributes' => array('class' => array('active') )));?>
-      <a href="#">Discover</a>              
+      <a href="http://blog.fadmashion.com">Discover</a>              
     </div>
 </div>
 
