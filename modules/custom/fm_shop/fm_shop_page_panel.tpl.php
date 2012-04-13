@@ -18,7 +18,7 @@ if(count($products) <= 2) {
         
 
 <div class="designerPanel">
-  <div class="designerPanelTop">
+  <div class="designerPanelTop <?php $filter_group == t('Featured') ? print 'featured' : ''?>">
   	<div class="pad">
 
   <!-- Start of Table Content -->

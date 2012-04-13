@@ -35,7 +35,7 @@ function fm_shop_theme() {
 	    'template' => 'fm_shop_page'
     ),
     'fm_shop_page_panel' => array(
-	     'variables' => array('shop' => NULL, 'products' => NULL),
+	     'variables' => array('shop' => NULL, 'products' => NULL, 'filter_group' => ''),
        'template' => 'fm_shop_page_panel'
     ),
     'fm_shop_page_panel_thumb' => array(
@@ -178,7 +178,7 @@ function fm_shop_page_all_panels($filters) {
     	$products = fm_commerce_store_get_products($shop, true);
     
     	if(!empty($products)) {
-    	  $content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products));
+    	  $content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
     	}
     }
   } 
