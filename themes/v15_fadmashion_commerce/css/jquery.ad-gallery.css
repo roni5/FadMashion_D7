@@ -85,6 +85,7 @@ position: relative; left: 4px;}
         .ad-gallery .ad-thumbs li {
           float: left;
           padding-right: 0px;
+          background-color: #000
         }
           .ad-gallery .ad-thumbs li a {
             display: block;
@@ -96,6 +97,10 @@ position: relative; left: 4px;}
             .ad-gallery .ad-thumbs li a.ad-active img {
               border: 1px solid red;
             }
+            
+            
+.ad-hovered {opacity: .6}
+
 /* Can't do display none, since Opera won't load the images then */
 .ad-preloads {
   position: absolute;
