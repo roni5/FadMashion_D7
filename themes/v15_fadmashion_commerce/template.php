@@ -18,7 +18,7 @@ function pp($absolute = false) {
 		return $path;
 	} else{
 	  //True for live server, else localhost remove the preceding slash
-	  if(false) {
+	  if(true) {
   		return '/' . $path; 
   	} else {
 		  return $path;
