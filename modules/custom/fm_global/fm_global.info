@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Global
+description = Defines Global functionality for Fadmashion
+core = 7.x
+package = Fadmashion
