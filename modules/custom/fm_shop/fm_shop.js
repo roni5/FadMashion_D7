@@ -245,6 +245,22 @@ jQuery(document).ready(function() {
        			jQuery(this).addClass('ad-active');
                 
        		});
+       		jQuery(this).hover(
+       			function() {
+       			  var thisId = jQuery(this).attr('id');
+       			  links.each(function() {
+       				  if(jQuery(this).attr('id') != thisId) {
+       				    jQuery(this).addClass('ad-hovered');
+       				  }
+       			  })
+       			},
+       			function() {
+       		      jQuery('.ad-hovered').each(function() {
+     			      jQuery(this).removeClass('ad-hovered');
+    			  })
+       			}
+       		);
+       		
        	});
 	  }
 	};

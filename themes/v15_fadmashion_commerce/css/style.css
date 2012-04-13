@@ -108,6 +108,8 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 
 /********* collection page  **********/
 
+.ad-hovered {opacity: .6}
+
 #photoBox{width: 374px; float: left;}
 #photoBox{padding-bottom: 10px;}
 #photoBox .slides_container { height: 474px; }
