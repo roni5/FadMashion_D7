@@ -17,7 +17,9 @@
          <?php print $messages; ?>
        </div></div> <!-- /.section, /#messages -->
        <?php endif; ?>
+       <div class="column1">
        <?php print render($page['content']); ?>
+       </div>
 	   
 	 
 	    <div class="column2">
