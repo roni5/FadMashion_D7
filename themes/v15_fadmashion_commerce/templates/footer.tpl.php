@@ -1,7 +1,7 @@
 
 
 <?php if(!empty($page['footer'])): ?>
-<div id="footer">
+<div id="footer rounded-top">
   			  <?php print render($page['footer']);?>
 </div>
 <?php endif;  ?> 
