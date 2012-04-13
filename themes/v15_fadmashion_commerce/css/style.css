@@ -1,8 +1,13 @@
 *{margin: 0; padding: 0; border: none; text-decoration:none;font-family:"museo-sans-1","museo-sans-2", Helvetica; outline:none;}
 body{background: url(../images/bg_grey.jpg);}
 ul, li{list-style-type: none;}
-a{color: #0f6da3;}
+a, .dotted-hover{color: #0f6da3;font-size: 12px}
 a:hover{color: #2e92cc;}
+
+.dotted-hover {
+border-bottom:1px dotted #0F6DA3;
+cursor:pointer;
+}
 
 #wrapper{background: url(../images/bg_header.jpg) top left repeat-x;}
 #container{width: 1024px; margin: 0 auto;}
@@ -298,6 +303,31 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 .skipInvites{ text-decoration: none; font-size: 12px; margin: 26px 0 0 0; display: block;}
 #signup .state2 p{font-size: 15px; line-height: 20px;}
 
+#block-views-nodequeue-1-block h2 {
+font-size:16px;
+margin-bottom:8px;
+}
+
+/* Global ACCORDIAN STYLING*/
+.ui-accordion { width: 100%; }
+.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.ui-accordion .ui-accordion-li-fix { display: inline; }
+.ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
+.ui-accordion .ui-accordion-header a { display: block;  font-size: 15px; padding: .5em .5em .5em .7em; }
+.ui-accordion-icons .ui-accordion-header a { padding-left: 1.4em; color: #0F6DA3;}
+.ui-accordion .ui-accordion-header .ui-icon { position: absolute;  top: 50%; left: 0; margin-top: -8px; }
+.ui-accordion .ui-accordion-content { padding-left: 20px; font-size: 11px; border-top: 0; margin-top: -2px; position: relative; top: 1px; margin-bottom: 2px; overflow: auto; display: none; zoom: 1; }
+.ui-accordion .ui-accordion-content-active { display: block; }
+.ui-accordion .ui-accordion-header a span {font-family: Georgia, "Times New Roman", Times, serif;}
+
+.ui-state-active .ui-icon { background: url(../images/b_collapse.png) no-repeat scroll 0 1px transparent;}
+.ui-state-default .ui-icon { background: url(../images/b_expand.png) no-repeat scroll 0 1px transparent;}
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active,
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default  {background:url("../images/dotted_horizontal.png") repeat-x scroll left top transparent;border:0px solid #AAAAAA;color:#212121;font-weight:normal;}
+.ui-state-hover .ui-icon{background-position: left bottom}
+  
+.ui-widget-content {border: 0px solid #000; }
+
 /********* Checkout ***********/
 
 
@@ -307,14 +337,22 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #authenticate .form-item {float: none !important; padding-bottom: 5px !important;}
 #authenticate label {display: none}
   
-.page-express-checkout  #wrapper{background-image: url(../images/bg_header_checkout.jpg)}
-.page-express-checkout  .title{color: #ccad97; border-left: 1px solid #574d46; height: 30px; line-height: 30px; padding: 0 0 0 16px; float: left; position: relative; left: 20px; top: 14px; font-family: Georgia, "Times New Roman", Times, serif; font-style:italic;}
+.page-express-checkout  .title{
+color:#dedede;
+text-shadow:2px 2px 2px #000000;
+float:left;
+font-family:"jubilat-1","jubilat-2",Georgia;
+font-style:italic;
+height:30px;
+line-height:30px;
+position:relative;
+top:14px;}
 .express-checkout .button {float: right; padding: 6px 9px; margin-top: 17px;}
 
 .page-express-checkout  #content{position: relative; width: 1000px; margin-top: 20px;background: url(../images/dotted_vertical.png) 704px 0 repeat-y;}
 .page-express-checkout  .sidebarRight .column1{width: 682px;background: ; padding-right: 25px; padding-bottom: 30px;}
-.page-express-checkout  .sidebarRight .column2{position: absolute; width:267px; background: }
-.page-express-checkout  .sidebarRight .sidebar{width: 100%}
+.page-express-checkout  .sidebarRight .column2{position: absolute; width:267px; display:inline;float:left; }
+.page-express-checkout  .sidebarRight .sidebar{width: 100%; padding-left:53px;}
 #fm-commerce-express-checkout-form .form-item-credit-card-number {padding-bottom: 4px;}
 #fm-commerce-express-checkout-form .text-form-icon-wrapper{position: relative; width:240px; overflow: hidden; }
 #fm-commerce-express-checkout-form .text-form-icon-wrapper #lock_markup{position: absolute; top: 21px; right: 8px; }
