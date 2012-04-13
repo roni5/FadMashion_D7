@@ -594,7 +594,7 @@ top:14px;}
   
   
 /* Footer */
-#footer{ width: 1024px; clear: both;z-index: 1000}
+#footer{ width: 1024px; clear: both;z-index: 1000; border-top: 1px solid #ddd; padding-top: 10px; }
 #footer .container{margin-top: 10px;}
 #footer .links{ float: left; margin-left: 20px; margin-top: 5px}
 #footer .links a{margin-right: 14px;}
