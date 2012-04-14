@@ -58,8 +58,8 @@ if(count($products) <= 2) {
       $min_products = 3;
       
       $row_width = 786;
-      $default_height = 229;
-      $default_width = 157;
+      $default_height = 474;
+      $default_width = 372;
       
       $product_count = count($products);
       if($product_count > $max_products) {$product_count = $max_products; }
