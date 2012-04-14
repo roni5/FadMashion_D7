@@ -6,7 +6,7 @@
   $node = fm_commerce_get_display_node($product);
   node_build_content($node);
   
-     $img =  fm_commerce_product_image_thumb($product, 'fm_main_product_image', array('style' => 'width: ' . $width . 'px;')); 
+     $img =  fm_commerce_product_image_thumb($product, 'fm_main_product_image', array('style' => 'height: auto; width: ' . $width . 'px;')); 
      $img .= '<div class="overlay" style="display:none;"></div>';
      $img .= '<div class="ic_caption">';
      $img .= '<p class="ic_category">' . $product->title . '</p>';
