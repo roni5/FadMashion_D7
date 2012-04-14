@@ -45,7 +45,7 @@ if(count($products) <= 2) {
           <div class="demo">
         <?php
             $first_product = array_shift($products);
-              print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'shop' => $shop, 'height' => 446, 'width' => 315));
+              print theme('fm_shop_page_panel_thumb', array('product' => $first_product, 'shop' => $shop, 'height' => 401, 'width' => 315));
         ?> </div>
         </td>
         <?php } ?>
