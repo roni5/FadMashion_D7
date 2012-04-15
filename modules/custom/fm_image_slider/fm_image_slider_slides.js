@@ -5,7 +5,7 @@
 
 var slideSpeed = 600;
 var fadeSpeed = 500;
-var loadingImagePath =  'http://exp.fadmashion.com/sites/all/themes/v15_fadmashion_commerce/images/confirm-ajax-loader.gif';
+var loadingImagePath =  'confirm-ajax-loader.gif';
 
 jQuery(document).ready(function() {
 	
@@ -36,6 +36,7 @@ jQuery(document).ready(function() {
 
 			 jQuery('#product', this).slides({
 					preload: true,
+					preloadImage: loadingImagePath,
 					effect: 'fade',
 					crossfade: true,
 					slideSpeed: slideSpeed,
