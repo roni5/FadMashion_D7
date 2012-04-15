@@ -5,7 +5,7 @@
 
 var slideSpeed = 600;
 var fadeSpeed = 500;
-var loadingImagePath =  'confirm-ajax-loader.gif';
+var loadingImagePath =  'http://exp.fadmashion.com/sites/all/themes/v15_fadmashion_commerce/images/confirm-ajax-loader.gif';
 
 jQuery(document).ready(function() {
 	
