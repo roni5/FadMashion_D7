@@ -342,7 +342,7 @@ margin-bottom:8px;
 #authenticate label {display: none}
   
 .page-express-checkout  .title{
-color:#dedede;
+color:#fff;
 text-shadow:2px 2px 2px #000000;
 float:left;
 font-family:"jubilat-1","jubilat-2",Georgia;
@@ -364,8 +364,8 @@ top:14px;}
   
 .customer_profile_shipping {margin-bottom: 25px;}
 
-.checkoutPanel{ background: #faf8f6; float: left; width: 680px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
-.checkoutPanel .header {width: 100%; background: #e2d9d0; border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; }
+.checkoutPanel{ background: #fff; float: left; width: 680px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
+.checkoutPanel .header {background: url("../images/bg_panelHeader.jpg") repeat-x scroll left top transparent; width: 100%; color: #fff;  font-size: 12px; border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; }
 .checkoutPanel .header .pad{padding: 10px;}
 .checkoutPanel .header .dropdown{float: right; }
 .checkoutPanel .header .dropdown .form-select{width: 200px; height: auto;}
@@ -413,8 +413,8 @@ top:14px;}
 #checkoutSummary #edit-edit {margin: -5px 0;}
 
 /* Checkout Block */
-#block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #F0EBE7; width: 267px; margin-bottom: 20px;}
-#block-fm-commerce-cart-fm-commerce-cart .summary .header {background: #917f6f; padding: 0 12px; height: 36px; line-height: 36px;border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; color: #fff;}
+#block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #fff; width: 267px; margin-bottom: 20px;}
+#block-fm-commerce-cart-fm-commerce-cart .summary .header {background: url("../images/bg_panelHeader.jpg") repeat-x scroll left top transparent; padding: 0 12px; height: 36px; line-height: 36px;border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; color: #fff;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .header a {color:#FFFFFF; float:right;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad {padding: 14px; font-size: 13px; }
 #block-fm-commerce-cart-fm-commerce-cart .summary .pad, .summary .pad a {color:#322F2C;font-family:"museo-sans-1","museo-sans-2",Helvetica;font-style:normal;}
