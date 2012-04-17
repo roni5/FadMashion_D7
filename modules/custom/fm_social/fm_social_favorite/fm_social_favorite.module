@@ -1,0 +1,115 @@
+<?php
+function fm_social_favorite_menu() {
+	
+	$items['social/favorites/%'] = array(
+    'title' => t('Fadmashion Loved Item'),
+	  'page arguments' => array(2), 
+    'page callback' => 'fm_social_favorites_add',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  return $items;	
+}
+
+function fm_social_favorite_theme() {
+	return array(
+    'fm_social_favorite_button' => array(
+	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+    ),
+    
+  );
+}
+
+function fm_social_favorites_add($product_id) {
+	global $user;
+	if($user->uid) {
+		$mail = $user->mail;
+	} else {
+		$mail = fm_users_register_session_email();
+		if(!isset($mail)) {
+			$message = t('Oops, there was an error.');
+			drupal_json_output(array('message' => $message));
+	    exit;
+		}
+	}
+	
+	$exists = fm_deals_notify_entry_exists($product_id, $mail);
+	
+	$event_vars = array();
+	
+	if(!$exists) {
+	  $id = db_insert('fm_social_favorite')
+      ->fields(array(
+        'mail' => $mail,
+        'nid' => $product_id,
+        'uid' => $user->uid,
+        'created' => REQUEST_TIME,
+      ))
+    ->execute();
+    
+    $replacement_button = theme('fm_social_favorite_button', array('exists' => TRUE, 'product_id' => $product_id));
+	}
+	else {
+		$result = db_query('DELETE FROM {fm_deals_notify} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
+		$replacement_button = theme('fm_social_favorite_button', array('exists' => FALSE, 'product_id' => $product_id));
+	}
+	
+	$event_vars = array('jquery_selector' => '.itemOptions .notify .button',  'replacementHTML' => $replacement_button);
+	
+	//Return message to
+ drupal_json_output(array('message' => $message, 'event' => 'fm_replaceHtml', 'vars' => $event_vars));
+	exit;
+}
+
+function fm_social_favorite_get_button($product_id, $full = true) {
+	global $user;
+  if($user->uid) {
+		$mail = $user->mail;
+	} else {
+		$mail = fm_users_register_session_email();
+	} 
+	
+	
+	if(!$user->uid && !isset($mail)) {
+		$exists = FALSE;
+		//ADD trigger for register form because this is person needs to register to get reminders
+		drupal_add_js('var notify_show_register = 1;', 'inline');
+	} else {
+		$exists = fm_deals_notify_entry_exists($node->nid, $mail);
+		drupal_add_js('var notify_show_register = 0;', 'inline');
+	}
+
+	$output = theme('fm_social_favorite_button', array('exists' => $exists, 'full' => $full,  'product_id' => $product_id));
+	
+	return $output;
+}
+
+function fm_social_favorite_entry_exists($product_id, $mail) {
+	$result = db_query('SELECT * FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
+  
+	$obj = $result->fetchObject();
+  if($obj) {
+  	return TRUE;
+  }
+  else {
+  	return FALSE;
+  }
+}
+
+function theme_fm_social_favorite_button($vars) {
+	$full = $vars['full'];
+	$exists = $vars['exists'];
+	$product_id =  $vars['product_id'];
+	
+  if(!$exists) {
+  	$img = '<img src="' . pp() . 'b_love_off_small.png' . '">';
+	  $output =  l($img, 'social/favorites/' . $product_id, array('html' => true));
+	}
+	else {
+		$img = '<img src="' . pp() . 'b_love_on_small.png' . '">';
+	  $output =  l($img, 'social/favorites/' . $product_id, array('html' => true));
+	}
+	
+	return $output;
+}

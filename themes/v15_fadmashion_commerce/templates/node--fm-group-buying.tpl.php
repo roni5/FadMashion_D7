@@ -83,6 +83,7 @@
 <div class="collectionPanel" id="node_<?php print $node->nid?>">
 <div class="product ">
 <div id="photoBox">
+  <div class="social_favorites"><?php print fm_social_favorite_get_button($product->product_id)?></div>
   <?php print render($content['product:field_product_images']); ?>
 </div>
 <div class="productInfo">

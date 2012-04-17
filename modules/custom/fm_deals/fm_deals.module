@@ -147,6 +147,7 @@ function fm_deals_preprocess_node(&$vars) {
 	  $product = fm_commerce_get_product($vars['node']);
 		$store = fm_commerce_get_store($product);  
 		
+		$vars['product'] = $product;
 		$vars['store'] = $store;
 		
 		$admin_links = array();

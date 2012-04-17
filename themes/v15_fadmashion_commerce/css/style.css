@@ -108,7 +108,8 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 /********* collection page  **********/
 
 
-#photoBox{width: 374px; float: left;}
+#photoBox{width: 374px; float: left; position: relative;}
+#photoBox .social_favorites {position:absolute;right:10px;top:10px;}
 #photoBox{padding-bottom: 10px;}
 #photoBox .slides_container { height: 474px; }
 #photoBox .slides_container img{border:1px solid #F0EEEA; cursor:url("../images/zoomin.png"), -moz-zoom-in;}
