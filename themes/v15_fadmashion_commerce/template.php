@@ -18,7 +18,7 @@ function pp($absolute = false) {
 		return $path;
 	} else{
 	  //True for live server, else localhost remove the preceding slash
-	  if(true) {
+	  if(false) {
   		return '/' . $path; 
   	} else {
 		  return $path;
@@ -69,6 +69,12 @@ function v15_fadmashion_commerce_preload() {
 	drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/simpletabs.css');
 
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.selectBox.min.js'); 
+	
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.imgpreload.min.js');  
+	$image_paths = v15_fadmashion_commerce_preload_image_paths();
+  drupal_add_js('var preload_image_paths = [' . implode(',', $image_paths) . '];', 'inline');
+	
+	
 	
 	
 	global $status;
@@ -222,5 +228,14 @@ function fadmashion_commerce_intro_supersize_images() {
 	return $output;
 }
 
+
+function v15_fadmashion_commerce_preload_image_paths() {
+	return array( '"' . pp() . 'bg_panel.png' . '"' , 
+	           '"' . pp() . 'bg_model_2.png' . '"', 
+	           '"' . pp() . 'frame_top_featured.png' . '"',
+	           '"' . pp() . 'bg_model_1.png' . '"', 
+	           '"' . pp() . 'frame_bg.png' . '"'
+	  );
+}
 
 ?>

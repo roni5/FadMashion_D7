@@ -17,8 +17,7 @@ tbody {border: medium none}
 .rounded-top {border-top-left-radius: 4px; border-top-right-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px; }
 .rounded-bottom {border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; -webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomleft: 4px; -webkit-border-bottom-right-radius: 4px; -moz-border-radius-bottomright: 4px; }
 
-.red{background-image: url(../images/b_bg_red.jpg) !important}
-.form-submit, a.button {a.button{float: right; color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}}
+.form-submit, a.button {color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
 
 .message_box, #message_box {background:url("../images/arrow_error.png") no-repeat scroll 8px 6px transparent;color:#FFFFFF;font-size:11px;padding-top:6px;}
 label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 0 0 #CC3333;border:0 solid #000000;color:#FFFFFF;font-size:11px;margin-top:6px;padding:5px;}
@@ -378,7 +377,7 @@ top:14px;}
 .checkoutPanel .form-item  .form-text{ background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:24px;line-height:24px; margin:4px 0 0; padding-left:4px; width:230px; }
 .checkoutPanel .form-select {border:1px solid #CBC1BE; height:26px;line-height:24px; margin-top:4px; width:240px;}
 .checkoutPanel .form-item input:focus { border-color: #BC4038 }
-
+.checkoutPanel h3{color: #000;}
 .checkoutPanel .form-item input:disabled { background-image: none; }
 
 

@@ -18,7 +18,12 @@ jQuery(document).ready(function() {
 	  jQuery('.views-field-body', this).html('');
 	});
 	
-
+	jQuery.imgpreload(preload_image_paths,function()
+			{
+	    // this = array of dom image objects
+	    // check for success with: $(this[i]).data('loaded')
+	    // callback executes when all images are loaded
+	});
      
 
 	

@@ -1,0 +1,15 @@
+<?php
+function fm_social_menu() {
+	
+
+  return $items;	
+}
+
+function fm_social_theme() {
+	return array(
+    'fm_social_loved_button' => array(
+	     'variables' => array('full' => ''),
+    ),
+    
+  );
+}
