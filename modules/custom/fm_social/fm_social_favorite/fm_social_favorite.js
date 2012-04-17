@@ -7,6 +7,8 @@
 	Drupal.behaviors.socialFavorites = {
 	  attach: function (context, settings) {
 		  
+		  jQuery('.my_favorites li a').address();
+		  
 		  jQuery(".social_favorites a").once('init-social-favorites-processed').click(function (e){
 				e.preventDefault();
 				var href_val = jQuery(this).attr('href');
