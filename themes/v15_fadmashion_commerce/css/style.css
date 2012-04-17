@@ -109,7 +109,7 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 
 
 #photoBox{width: 374px; float: left; position: relative;}
-#photoBox .social_favorites {position:absolute;right:10px;top:10px;}
+#photoBox .social_favorites {position:absolute;right:10px;top:10px;z-index: 1000}
 #photoBox{padding-bottom: 10px;}
 #photoBox .slides_container { height: 474px; }
 #photoBox .slides_container img{border:1px solid #F0EEEA; cursor:url("../images/zoomin.png"), -moz-zoom-in;}
@@ -591,6 +591,14 @@ top:14px;}
 
 #quicktabs-store_owners_admin #orders-list table{margin: 0px;}
 .orders-filter-list {list-style-type: none; display: inline;}
+  
+  
+  /* My Favorites */
+.my_favorites_containter {position: fixed; bottom: 0px;  background-color: #fff; width: 1024px;}
+.my_favorites_containter  .title {margin: 20px; float: left;}
+.my_favorites {float: left; padding: 5px;}
+.my_favorites li {float: left; }
+.my_favorites  li a img {border:1px solid #777777;display:block;}
   
   
 /* Footer */

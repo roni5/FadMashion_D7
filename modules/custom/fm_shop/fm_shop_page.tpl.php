@@ -17,6 +17,7 @@
   <div class="pad"></div>
 </div>
 
+<div class="my_favorites_containter rounded-top"><?php print theme('fm_social_favorite_my_favorites');?></div>
 <div id="cache"  style="display:none;">
   
 </div>
