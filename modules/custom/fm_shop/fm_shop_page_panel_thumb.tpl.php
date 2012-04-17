@@ -13,10 +13,10 @@
     
      
      $img .= '<h3>' . render($node->content['product:commerce_price']) . '</h3><h2>' . render($node->content['field_sale_price']) . '</h2>';
+     $img .= '<div style="float: right; padding: 5px;">'.fm_social_favorite_get_button($product->product_id, false).'</div>';
      $img .= '</div>';
      
      print l($img, 'node/' . $node->nid, array('html' => true, 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
      
   ?>
-  <div class="social_favorites"><?php print fm_social_favorite_get_button($product->product_id, false)?></div>
 </div>
