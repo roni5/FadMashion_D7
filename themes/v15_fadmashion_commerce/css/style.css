@@ -102,6 +102,7 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 
 .shopAjaxLoader {background-color:rgba(255, 255, 255, 0.8);background-image: url(../images/confirm-ajax-loader.gif) ;background-position:5px 50%;background-repeat:no-repeat;left: 372px; top:2px;;;color:#666;font-size:14px;padding:5px 5px 5px 25px;position:absolute;text-align:center;}
 
+.designerPanel .social_favorites {position:absolute;right:10px;top:10px;z-index: 1000}
 
 
 
@@ -598,7 +599,7 @@ top:14px;}
 .my_favorites_containter  .title {margin: 20px; float: left;}
 .my_favorites {float: left; padding: 5px;}
 .my_favorites li {float: left; }
-.my_favorites  li a img {border:1px solid #777777;display:block;}
+.my_favorites  li a img {border:1px solid #777777;display:block; width: 40px; height: 51px;}
   
   
 /* Footer */

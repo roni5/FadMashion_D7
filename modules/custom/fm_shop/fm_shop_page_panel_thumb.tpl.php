@@ -16,5 +16,7 @@
      $img .= '</div>';
      
      print l($img, 'node/' . $node->nid, array('html' => true, 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+     
   ?>
+  <div class="social_favorites"><?php print fm_social_favorite_get_button($product->product_id, false)?></div>
 </div>
