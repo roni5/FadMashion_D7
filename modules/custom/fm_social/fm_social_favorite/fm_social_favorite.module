@@ -141,7 +141,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	$output .= '<div class="my_favorites_containter rounded-top">';
 	
 	$result = db_query('SELECT * FROM {fm_social_favorite} WHERE   mail = :mail', array( 'mail' => $mail));
-  $output .= '<div class="title">' . t('myFadmashion Favorites') .'</div>';
+  $output .= '<div class="title">' . t('My Favorites') .'</div>';
 	$output .= '<ul class="my_favorites">';
 	while($obj = $result->fetchObject()) {
 		$product = commerce_product_load($obj->product_id);
