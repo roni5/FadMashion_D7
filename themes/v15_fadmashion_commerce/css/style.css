@@ -595,7 +595,7 @@ top:14px;}
   
   
   /* My Favorites */
-.my_favorites_containter {position: fixed; bottom: 0px;height:70px;background-color: #fff; width: 1024px;z-index: 1001}
+.my_favorites_containter {position: fixed; bottom: 0px;height: 61px;background-color: #fff; width: 1024px;z-index: 1001}
 .my_favorites_containter  .title {margin: 20px; float: left; font-size: 13px;}
 .my_favorites {float: left; padding: 5px;}
 .my_favorites li {float: left; }
