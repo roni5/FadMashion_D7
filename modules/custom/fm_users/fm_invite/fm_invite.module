@@ -355,7 +355,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 }
 
 function fm_invite_email_message() {
-	$message = t('Hey! I just signed up for Fadmashion.com and have private invites to share and I thought you might like the insider access.  The site has beautiful designs only offered to members at great prices, so definetly worth checking it out.');
+	$message = t('I just signed up for a different kind of fashion site called Fadmashion and thought you\'d be interested! Fadmashion is a Brooklyn-based retail site that helps shoppers discover some of the best and newest trends in local and global fashion. Check it out!');
 	return $message;
 }
 
