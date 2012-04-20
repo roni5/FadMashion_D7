@@ -46,43 +46,55 @@ function fm_social_favorites_add($product_id) {
 	} else {
 		$mail = fm_users_register_session_email();
 		if(!isset($mail)) {
-			$message = t('Oops, there was an error.');
-			drupal_json_output(array('message' => $message));
-	    exit;
+			
+		  if (!isset($_SESSION)){session_start();}
+			//if there is no my_favorites 
+			if(!isset($_SESSION['my_favorites'] )) {
+			  $_SESSION['my_favorites'] = array();
+			}
 		}
 	}
 	
-	$exists = fm_social_favorite_entry_exists($product_id, $mail);
-	$event_vars = array();
-	
-	if(!$exists) {
-	  $id = db_insert('fm_social_favorite')
-      ->fields(array(
-        'mail' => $mail,
-        'product_id' => $product_id,
-        'uid' => $user->uid,
-        'created' => REQUEST_TIME,
-      ))
-    ->execute();
+	//For Authenticated user
+	if(isset($mail)) {
+		$exists = fm_social_favorite_entry_exists($product_id, $mail);
+		
+	  if(!$exists) {
+  	  $id = db_insert('fm_social_favorite')
+        ->fields(array(
+          'mail' => $mail,
+          'product_id' => $product_id,
+          'uid' => $user->uid,
+          'created' => REQUEST_TIME,
+        ))
+        ->execute();
     
-    $replacement_button = theme('fm_social_favorite_button', array('exists' => TRUE, 'product_id' => $product_id));
-    
-    $product = commerce_product_load($product_id);
-    $img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
-    $node = fm_commerce_get_display_node($product);
-    $shop = fm_commerce_get_store($product);
-    $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-    $thumb_link = '<li id="my_favorites_product_id_' . $product_id . '">' . $link . '</li>';
-    $delete = FALSE;
-	}
-	else {
-		$result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
-		$replacement_button = theme('fm_social_favorite_button', array('exists' => FALSE, 'product_id' => $product_id));
-		$delete = TRUE;
+       $replacement_button = theme('fm_social_favorite_button', array('exists' => TRUE, 'product_id' => $product_id));
+     
+       $thumb_link = fm_fm_social_favorite_my_favorites_thumb($product_id);
+       $delete = FALSE;
+	 }
+	 else {
+		  $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
+		  $replacement_button = theme('fm_social_favorite_button', array('exists' => FALSE, 'product_id' => $product_id));
+		  $delete = TRUE; 		
+	 
+	 }
+	} else {
+		
+
+		//Anonymous users, store session
+		if(!isset($_SESSION['my_favorites'][$product_id])) {
+			 $thumb_link = fm_fm_social_favorite_my_favorites_thumb($product_id);
+			 $_SESSION['my_favorites'][$product_id] = $thumb_link;
+       $delete = FALSE;
+		} else {
+			unset($_SESSION['my_favorites'][$product_id]);
+			$delete = TRUE;
+		}
 		
 	}
-
-    
+   
 	//Return message to
   drupal_json_output(array('thumb' => $thumb_link, 'deleteAction' => $delete, 'product_id' => $product_id));
 	exit;
@@ -96,14 +108,17 @@ function fm_social_favorite_get_button($product_id, $full = true) {
 		$mail = fm_users_register_session_email();
 	} 
 	
-	
 	if(!$user->uid && !isset($mail)) {
-		$exists = FALSE;
-		//ADD trigger for register form because this is person needs to register to get reminders
-		drupal_add_js('var notify_show_register = 1;', 'inline');
-	} else {
-		$exists = fm_social_favorite_entry_exists($product_id, $mail);
-		drupal_add_js('var notify_show_register = 0;', 'inline');
+		if(isset($_SESSION['my_favorites'][$product_id])) {
+			$exists = TRUE;
+		} else {
+      $exists = FALSE;
+		}
+		//  ADD trigger for register form because this is person needs to register to get reminders
+		  //drupal_add_js('var notify_show_register = 1;', 'inline');
+  } else {
+ 	  $exists = fm_social_favorite_entry_exists($product_id, $mail);
+		 // drupal_add_js('var notify_show_register = 0;', 'inline');
 	}
 
 	$output = theme('fm_social_favorite_button', array('exists' => $exists, 'full' => $full,  'product_id' => $product_id));
@@ -172,16 +187,18 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	
 	$output .= '<div class="my_favorites_containter rounded-top">';
 	
-	$result = db_query('SELECT * FROM {fm_social_favorite} WHERE   mail = :mail', array( 'mail' => $mail));
   $output .= '<div class="title">' . t('My Favorites') .'</div>';
 	$output .= '<ul class="my_favorites">';
-	while($obj = $result->fetchObject()) {
-		$product = commerce_product_load($obj->product_id);
-		$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
-    $node = fm_commerce_get_display_node($product);
-    $shop = fm_commerce_get_store($product);
-    $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-    $output .= '<li id="my_favorites_product_id_' . $obj->product_id . '">' . $link . '</li>';
+	
+	if(isset($mail)) {
+	  $result = db_query('SELECT * FROM {fm_social_favorite} WHERE   mail = :mail', array( 'mail' => $mail));
+	  while($obj = $result->fetchObject()) {
+  		$output .= fm_fm_social_favorite_my_favorites_thumb($obj->product_id);
+  	}
+	} else {
+	  foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
+  		$output .= fm_fm_social_favorite_my_favorites_thumb($product_id);
+  	}
 	}
 	$output .= '</ul>';
 	
@@ -195,4 +212,15 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	
 	return $output;
 	
+}
+
+function fm_fm_social_favorite_my_favorites_thumb($product_id) {
+	
+	$product = commerce_product_load($product_id);
+	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
+  $node = fm_commerce_get_display_node($product);
+  $shop = fm_commerce_get_store($product);
+  $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+  return '<li id="my_favorites_product_id_' . $product_id . '">' . $link . '</li>';
+    
 }
