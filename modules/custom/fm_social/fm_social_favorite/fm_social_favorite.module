@@ -60,6 +60,29 @@ function fm_social_favorites_add($product_id) {
 		$exists = fm_social_favorite_entry_exists($product_id, $mail);
 		
 	  if(!$exists) {
+      $delete = FALSE;
+	 }
+	 else {
+		  $delete = TRUE;
+	 }
+	} else {
+		//Anonymous users, store session
+		$mail = session_id();
+		if(!isset($_SESSION['my_favorites'][$product_id])) {
+			 $_SESSION['my_favorites'][$product_id] = 'holder';
+       $delete = FALSE;
+		} else {
+			unset($_SESSION['my_favorites'][$product_id]);
+			$delete = TRUE;
+		}
+		
+	}
+	
+	$thumb_link = '';
+	if($delete) {
+		$result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
+	} else {
+		
   	  $id = db_insert('fm_social_favorite')
         ->fields(array(
           'mail' => $mail,
@@ -68,31 +91,7 @@ function fm_social_favorites_add($product_id) {
           'created' => REQUEST_TIME,
         ))
         ->execute();
-    
-       $replacement_button = theme('fm_social_favorite_button', array('exists' => TRUE, 'product_id' => $product_id));
-     
-       $thumb_link = fm_fm_social_favorite_my_favorites_thumb($product_id);
-       $delete = FALSE;
-	 }
-	 else {
-		  $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
-		  $replacement_button = theme('fm_social_favorite_button', array('exists' => FALSE, 'product_id' => $product_id));
-		  $delete = TRUE; 		
-	 
-	 }
-	} else {
-		
-
-		//Anonymous users, store session
-		if(!isset($_SESSION['my_favorites'][$product_id])) {
-			 $thumb_link = fm_fm_social_favorite_my_favorites_thumb($product_id);
-			 $_SESSION['my_favorites'][$product_id] = $thumb_link;
-       $delete = FALSE;
-		} else {
-			unset($_SESSION['my_favorites'][$product_id]);
-			$delete = TRUE;
-		}
-		
+      $thumb_link = fm_fm_social_favorite_my_favorites_thumb($product_id);
 	}
    
 	//Return message to
