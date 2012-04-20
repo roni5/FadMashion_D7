@@ -79,13 +79,13 @@ position: relative; left: 4px;}
     }
       .ad-gallery .ad-thumbs .ad-thumb-list {
         float: left;
-        width: 9000px;
         list-style: none;
+        background-color: #000;
       }
         .ad-gallery .ad-thumbs li {
           float: left;
           padding-right: 0px;
-          background-color: #000
+          
         }
           .ad-gallery .ad-thumbs li a {
             display: block;
@@ -94,7 +94,7 @@ position: relative; left: 4px;}
               border: 1px solid #777;
               display: block;
             }
-            .ad-gallery .ad-thumbs li a.ad-active img {
+            .ad-gallery .ad-thumbs li.ad-active a img {
               border: 1px solid red;
             }
             

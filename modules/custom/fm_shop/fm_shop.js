@@ -123,7 +123,7 @@ jQuery(document).ready(function() {
     	     jQuery(this).trigger('click', [true]);
     		}
           });
-          jQuery('.ad-nav .ad-thumbs li a').address();
+          jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
        };
          /*
     	 * End of Handler
@@ -236,7 +236,7 @@ jQuery(document).ready(function() {
 		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
-       	var links = jQuery('.col2 .ad-thumb-list li a');
+       	var links = jQuery('.col2 .ad-thumb-list li');
        	links.each(function() {
        		jQuery(this).bind('click', function() {
        			jQuery('.col2 .ad-active').each(function() {
@@ -248,6 +248,7 @@ jQuery(document).ready(function() {
        		jQuery(this).hover(
        			function() {
        			  var thisId = jQuery(this).attr('id');
+       			  jQuery('.social_favorites img', jQuery(this)).show();
        			  links.each(function() {
        				  if(jQuery(this).attr('id') != thisId) {
        				    jQuery(this).addClass('ad-hovered');
@@ -257,6 +258,7 @@ jQuery(document).ready(function() {
        			function() {
        		      jQuery('.ad-hovered').each(function() {
      			      jQuery(this).removeClass('ad-hovered');
+     			     jQuery('.social_favorites img', jQuery(this)).hide();
     			  })
        			}
        		);
