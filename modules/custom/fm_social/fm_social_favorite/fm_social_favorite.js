@@ -46,6 +46,7 @@
 						var thumb = data.thumb;
 						jQuery('.my_favorites .empty_thumb').remove();
 						jQuery('.my_favorites').prepend(thumb);
+						jQuery('.my_favorites li a').address();
 					},
 					error: function() {
 						
