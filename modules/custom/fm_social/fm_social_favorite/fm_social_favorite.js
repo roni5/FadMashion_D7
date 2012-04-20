@@ -46,7 +46,9 @@
 					},
 					success: function(data){  
 						if(data.deleteAction) {
-							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut();
+							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut(function() {
+								jQuery(this).remove();
+							});
 						} else {
                           var thumb = data.thumb;
 					      jQuery('.my_favorites .empty_thumb').remove();
