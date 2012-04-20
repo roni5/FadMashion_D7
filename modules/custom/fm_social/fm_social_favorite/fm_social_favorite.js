@@ -38,9 +38,14 @@
 		            	 var imgSrc = imgObj.attr('src');
 		            	 imgObj.attr('alt', imgSrc);
 		            	 imgObj.attr('src', alt);
+		            	 
+		            	 //Add Placeholder for image thumb
+		            	 jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
 					},
 					success: function(data){  
-						
+						var thumb = data.thumb;
+						jQuery('.my_favorites .empty_thumb').remove();
+						jQuery('.my_favorites').prepend(thumb);
 					},
 					error: function() {
 						
