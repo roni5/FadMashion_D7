@@ -13,7 +13,7 @@
             	$node = fm_commerce_get_display_node($product);
             	$shop = fm_commerce_get_store($product);
             	$link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-            	
+            	$link .= '<div class="social_favorites">' . fm_social_favorite_get_button($product->product_id, false) . '</div>'; 
             	//$link = l($img, '', array('html' => true, 'attributes' => array('id' => $node->nid), 'absolute' => true));
             	print '<li>' . $link . '</li>';
             }

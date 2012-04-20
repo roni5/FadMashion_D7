@@ -27,6 +27,15 @@ function fm_social_favorite_theme() {
 	     'variables' => array(),
     ),
     
+    'fm_social_favorite_most_loved' => array(
+	     'variables' => array(),
+    ),
+    
+    'fm_social_favorite_most_loved_item' => array(
+	     'variables' => array('product_id' => null, 'favorite_count' => 0 ),
+       'template' => 'fm_social_favorite_most_loved_item'
+    ),
+    
   );
 }
 
@@ -129,6 +138,20 @@ function theme_fm_social_favorite_button($vars) {
 
 
 /* Favorite Blocks*/
+
+function theme_fm_social_favorite_most_loved($vars) {
+	  $output = '<h1>' . t('MOST LOVED') . '</h1>';
+  	$result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 3');
+    while($obj = $result->fetchObject()) {
+		  $output .= theme('fm_social_favorite_most_loved_item', array('product_id' => $obj->product_id, 'favorite_count' => $obj->count));
+	  }
+	  
+	  return $output;
+  	
+}
+
+
+
 
 function theme_fm_social_favorite_my_favorites($vars) {
 	global $user;

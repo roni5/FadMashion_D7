@@ -20,6 +20,10 @@
 				  jQuery('.my_favorites_containter').slideToggle('5000');
 		  });
 		  
+		  jQuery('.itemLoved a').once('init-link-processed').click(function (e){
+			  jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
+		  });
+		  
 		  jQuery(".favorite_button").once('init-social-favorites-processed').click(function (e){
 				e.preventDefault();
 				var href_val = jQuery(this).attr('href');
