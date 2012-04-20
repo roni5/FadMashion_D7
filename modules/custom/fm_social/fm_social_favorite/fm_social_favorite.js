@@ -34,6 +34,8 @@
 					type: "POST", 
 					url: href_val,
 					beforeSend: function() {
+						
+						
 		            	 var alt = imgObj.attr('alt');
 		            	 var imgSrc = imgObj.attr('src');
 		            	 imgObj.attr('alt', imgSrc);
@@ -41,13 +43,21 @@
 		            	 
 		            	 if(alt.indexOf("love_on") != -1) {
 		            	   //Add Placeholder for image thumb
+		            		if(!jQuery('.my_favorites_containter').is(':visible')) {
+		            		 jQuery(".my_favorites_link a").trigger('click');
+		            		}
 		            	   jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
+
+							
 		            	 }
 					},
 					success: function(data){  
 						if(data.deleteAction) {
 							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut(function() {
 								jQuery(this).remove();
+								if(!jQuery('.my_favorites li').length) {
+									jQuery(".my_favorites_containter .close").trigger('click');
+								}
 							});
 						} else {
                           var thumb = data.thumb;

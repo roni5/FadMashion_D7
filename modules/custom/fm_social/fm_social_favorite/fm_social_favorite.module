@@ -205,7 +205,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	$output .= '</div>';
 	
 	
-	$output .= '<div class="my_favorites_link rounded-top" style="display:none">';
+	$output .= '<div class="my_favorites_link rounded-top" style="">';
 	$output .= '<a href="javascript:void(0)">My Favorites</a>';
 	$output .= '</div>';
 	
