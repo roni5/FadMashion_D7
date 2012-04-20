@@ -39,14 +39,23 @@
 		            	 imgObj.attr('alt', imgSrc);
 		            	 imgObj.attr('src', alt);
 		            	 
-		            	 //Add Placeholder for image thumb
-		            	 jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
+		            	 if(alt.indexOf("love_on") != -1) {
+		            	   //Add Placeholder for image thumb
+		            	   jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
+		            	 }
 					},
 					success: function(data){  
-						var thumb = data.thumb;
-						jQuery('.my_favorites .empty_thumb').remove();
-						jQuery('.my_favorites').prepend(thumb);
-						jQuery('.my_favorites li a').address();
+						if(data.deleteAction) {
+							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut();
+						} else {
+                          var thumb = data.thumb;
+					      jQuery('.my_favorites .empty_thumb').remove();
+						  jQuery('.my_favorites').prepend(thumb);
+						  jQuery('#my_favorites_product_id_' + data.product_id).hide();
+						  jQuery('#my_favorites_product_id_' + data.product_id).fadeIn();
+						  
+						  jQuery('.my_favorites li a').address();
+						}
 					},
 					error: function() {
 						

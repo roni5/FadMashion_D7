@@ -66,22 +66,25 @@ function fm_social_favorites_add($product_id) {
     ->execute();
     
     $replacement_button = theme('fm_social_favorite_button', array('exists' => TRUE, 'product_id' => $product_id));
+    
+    $product = commerce_product_load($product_id);
+    $img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
+    $node = fm_commerce_get_display_node($product);
+    $shop = fm_commerce_get_store($product);
+    $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+    $thumb_link = '<li id="my_favorites_product_id_' . $product_id . '">' . $link . '</li>';
+    $delete = FALSE;
 	}
 	else {
 		$result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
 		$replacement_button = theme('fm_social_favorite_button', array('exists' => FALSE, 'product_id' => $product_id));
+		$delete = TRUE;
+		
 	}
-	
-	
-	$product = commerce_product_load($product_id);
-  $img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
-  $node = fm_commerce_get_display_node($product);
-  $shop = fm_commerce_get_store($product);
-  $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-  $thumb_link = '<li>' . $link . '</li>';
+
     
 	//Return message to
-  drupal_json_output(array('thumb' => $thumb_link));
+  drupal_json_output(array('thumb' => $thumb_link, 'deleteAction' => $delete, 'product_id' => $product_id));
 	exit;
 }
 
@@ -178,7 +181,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
     $node = fm_commerce_get_display_node($product);
     $shop = fm_commerce_get_store($product);
     $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-    $output .= '<li>' . $link . '</li>';
+    $output .= '<li id="my_favorites_product_id_' . $obj->product_id . '">' . $link . '</li>';
 	}
 	$output .= '</ul>';
 	
