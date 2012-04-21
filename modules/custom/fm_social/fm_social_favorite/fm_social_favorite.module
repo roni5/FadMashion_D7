@@ -186,7 +186,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	
 	$output .= '<div class="my_favorites_containter rounded-top">';
 	
-  $output .= '<div class="title">' . t('My Favorites') .'</div>';
+  //$output .= '<div class="title">' . t('My Favorites') .'</div>';
 	$output .= '<ul class="my_favorites">';
 	
 	if(isset($mail)) {
