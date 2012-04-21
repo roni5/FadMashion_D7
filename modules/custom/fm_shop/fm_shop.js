@@ -257,8 +257,8 @@ jQuery(document).ready(function() {
        			},
        			function() {
        		      jQuery('.ad-hovered').each(function() {
-     			      jQuery(this).removeClass('ad-hovered');
-     			     jQuery('.social_favorites img', jQuery(this)).hide();
+     			     jQuery(this).removeClass('ad-hovered');
+     			     jQuery('.ad-nav .social_favorites img').hide();
     			  })
        			}
        		);

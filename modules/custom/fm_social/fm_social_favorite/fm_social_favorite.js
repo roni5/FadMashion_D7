@@ -35,11 +35,16 @@
 					url: href_val,
 					beforeSend: function() {
 						
-						
-		            	 var alt = imgObj.attr('alt');
-		            	 var imgSrc = imgObj.attr('src');
-		            	 imgObj.attr('alt', imgSrc);
-		            	 imgObj.attr('src', alt);
+						var alt, imgObj, imgSrc;
+						jQuery('.favorite_button').each(function() {
+							if(jQuery(this).attr('id') ==   product_id) {	
+						     imgObj = jQuery('img', jQuery(this));
+			                 alt = imgObj.attr('alt');
+			                 imgSrc = imgObj.attr('src');
+			                 imgObj.attr('alt', imgSrc);
+			                 imgObj.attr('src', alt);
+						   }
+						});
 		            	 
 		            	 if(alt.indexOf("love_on") != -1) {
 		            	   //Add Placeholder for image thumb
