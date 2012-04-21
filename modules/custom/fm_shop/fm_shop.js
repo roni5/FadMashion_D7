@@ -238,7 +238,7 @@ jQuery(document).ready(function() {
 		 }
        	var links = jQuery('.col2 .ad-thumb-list li');
        	links.each(function() {
-       		jQuery(this).bind('click', function() {
+       		jQuery('a.thumb_link', jQuery(this)).bind('click', function() {
        			jQuery('.col2 .ad-active').each(function() {
        				jQuery(this).removeClass('ad-active');
        			});

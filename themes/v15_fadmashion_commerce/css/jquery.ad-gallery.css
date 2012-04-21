@@ -94,7 +94,7 @@ position: relative; left: 4px;}
               border: 1px solid #777;
               display: block;
             }
-            .ad-gallery .ad-thumbs li.ad-active a img {
+            .ad-gallery .ad-thumbs li a.ad-active img {
               border: 1px solid red;
             }
             
