@@ -10,14 +10,23 @@
 		  jQuery('.my_favorites li a').address();
 		  
 		  jQuery('.my_favorites_containter .close').once('init-closed-processed').click(function (e){
-			  jQuery('.my_favorites_containter').slideToggle('5000', function() {
-				  jQuery('.my_favorites_link').fadeIn();
+			  jQuery('.my_favorites_list').slideToggle('5000', function() {
+				  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
+				    jQuery('.my_favorites_link').addClass()
+				  }
 			  });
 		  });
 		  jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
 			  e.preventDefault();
-			  jQuery('.my_favorites_link').fadeOut('slow');
-				  jQuery('.my_favorites_containter').slideToggle('5000');
+			  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
+				    jQuery('.my_favorites_link').removeClass('collapsed');
+				  } else {
+					  jQuery('.my_favorites_link').addClass('collapsed'); 
+				  }
+			  
+			  jQuery('.my_favorites_list').slideToggle('5000', function() {
+				
+			  });
 		  });
 		  
 		  jQuery('.itemLoved a').once('init-link-processed').click(function (e){

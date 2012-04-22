@@ -186,7 +186,11 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	
 	$output .= '<div class="my_favorites_containter">';
 	
+	$output .= '<div class="my_favorites_link rounded-top" style="">';
+	$output .= '<a href="javascript:void(0)">My Favorites</a>';
+	$output .= '</div>';
   //$output .= '<div class="title">' . t('My Favorites') .'</div>';
+  $output .= '<div class="my_favorites_list">';
 	$output .= '<ul class="my_favorites">';
 	
 	if(isset($mail)) {
@@ -200,14 +204,14 @@ function theme_fm_social_favorite_my_favorites($vars) {
   	}
 	}
 	$output .= '</ul>';
+	$output .= '</div>';
+	//$output .= '<div class="close">Close</div>';
 	
-	$output .= '<div class="close">Close</div>';
+	
 	$output .= '</div>';
 	
 	
-	$output .= '<div class="my_favorites_link rounded-top" style="">';
-	$output .= '<a href="javascript:void(0)">My Favorites</a>';
-	$output .= '</div>';
+	
 	
 	return $output;
 	
