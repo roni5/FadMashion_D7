@@ -598,7 +598,7 @@ top:14px;}
   
   
   /* My Favorites */
-.my_favorites_containter {display: none; position: fixed; bottom: 0px; left: 0px; height: 61px;background-color: #222; width: 100%; z-index: 1001}
+.my_favorites_containter {display: none; position: fixed; bottom: 0px; left: 0px; height: 61px;padding-top: 10px;background: url("../images/bg_favorites.png") repeat-x scroll left top transparent; width: 100%; z-index: 1001}
 .my_favorites_containter  .title {margin: 20px; float: left; font-size: 13px;}
 .my_favorites {text-align: center; padding: 5px;}
 .my_favorites li.empty_thumb {width: 40px; height: 51px; background-repeat:no-repeat;background-image: url(../images/confirm-ajax-loader.gif) ;background-position:50% 50%;}
