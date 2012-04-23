@@ -9,13 +9,6 @@
 		  
 		  jQuery('.my_favorites li a').address();
 		  
-		  jQuery('.my_favorites_containter .close').once('init-closed-processed').click(function (e){
-			  jQuery('.my_favorites_list').slideToggle('5000', function() {
-				  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
-				    jQuery('.my_favorites_link').addClass()
-				  }
-			  });
-		  });
 		  jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
 			  e.preventDefault();
 			  
@@ -58,7 +51,7 @@
 		            	 
 		            	 if(alt.indexOf("love_on") != -1) {
 		            	   //Add Placeholder for image thumb
-		            		if(!jQuery('.my_favorites_containter').is(':visible')) {
+		            		if(!jQuery('.my_favorites_list').is(':visible')) {
 		            		 jQuery(".my_favorites_link a").trigger('click');
 		            		}
 		            	   jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
@@ -71,7 +64,7 @@
 							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut(function() {
 								jQuery(this).remove();
 								if(!jQuery('.my_favorites li').length) {
-									jQuery(".my_favorites_containter .close").trigger('click');
+									jQuery(".my_favorites_link a").trigger('click');
 								}
 							});
 						} else {
