@@ -18,14 +18,15 @@
 		  });
 		  jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
 			  e.preventDefault();
-			  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
-				    jQuery('.my_favorites_link').removeClass('collapsed');
-				  } else {
-					  jQuery('.my_favorites_link').addClass('collapsed'); 
-				  }
 			  
+			  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
+			    jQuery('.my_favorites_link').removeClass('collapsed');
+			  } 
+				  
 			  jQuery('.my_favorites_list').slideToggle('5000', function() {
-				
+				  if(!jQuery('.my_favorites_link').hasClass('collapsed') && !jQuery('.my_favorites_list').is(':visible')) {
+						  jQuery('.my_favorites_link').addClass('collapsed'); 
+				  }
 			  });
 		  });
 		  
