@@ -603,7 +603,7 @@ top:14px;}
 .my_favorites_list {  min-height: 11px; height: 61px;padding-top: 10px; background: url("../images/bg_favorites.png") repeat-x scroll left top transparent; }
 
 .my_favorites {text-align: center; padding: 5px;}
-.my_favorites li.empty_thumb {width: 40px; height: 51px; background-repeat:no-repeat;background-image: url(../images/confirm-ajax-loader.gif) ;background-position:50% 50%;}
+.my_favorites li.empty_thumb {display: inline-block; width: 40px; height: 51px; background-repeat:no-repeat;background-image: url(../images/black-bg-ajax-loader.gif) ;background-position:50% 50%;}
 .my_favorites li {display:inline; margin-left: 3px; }
 .my_favorites  li a img {border:1px solid #777777; width: 40px; height: 51px;}
 .my_favorites_containter .close {cursor: pointer; background:url("../images/controls.png") no-repeat scroll -25px 0 transparent;height:25px;right:5px;position:absolute;text-indent:-9999px;top:5px;;width:25px;}
@@ -614,7 +614,7 @@ top:14px;}
 .my_favorites_link a { padding:10px 0 10px 18px; background: url("../images/icon_star.png") no-repeat scroll left center transparent; cursor: pointer;  font-size: 13px; color: #fff;}
  .my_favorites_link.collapsed{margin-bottom: 0px;} 
  
- #zero_favorites {color: #fff; font-style:italic; text-align: center; margin-top: 20px;}
+ #zero_favorites {color: #fff; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic; text-align: center; margin-top: 20px;}
  #zero_favorites img{height: 22px;}
 /* Footer */
 #footer{ width: 1024px; clear: both;z-index: 1000; border-top: 1px solid #ddd; padding-top: 10px; }
