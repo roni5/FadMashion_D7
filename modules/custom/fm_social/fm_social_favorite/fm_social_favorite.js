@@ -12,6 +12,8 @@
 		  jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
 			  e.preventDefault();
 			  
+			  jQuery('.my_favorites_list ul').toggle();
+			  
 			  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
 			    jQuery('.my_favorites_link').removeClass('collapsed');
 			  } 
@@ -20,8 +22,20 @@
 				  if(!jQuery('.my_favorites_link').hasClass('collapsed') && !jQuery('.my_favorites_list').is(':visible')) {
 						  jQuery('.my_favorites_link').addClass('collapsed'); 
 				  }
+				  
+				  if(jQuery('.my_favorites li').length) {
+						jQuery('#zero_favorites').hide();
+				 } else {
+					 jQuery('#zero_favorites').show();
+				 }
 			  });
 		  });
+		  
+		  if(jQuery('.my_favorites li').length) {
+				jQuery('#zero_favorites').hide();
+		 } else {
+			 jQuery('#zero_favorites').show();
+		 }
 		  
 		  jQuery('.itemLoved a').once('init-link-processed').click(function (e){
 			  jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
@@ -55,9 +69,11 @@
 		            		 jQuery(".my_favorites_link a").trigger('click');
 		            		}
 		            	   jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
-
-							
 		            	 }
+		            	 
+		            	 if(jQuery('.my_favorites li').length) {
+								jQuery('#zero_favorites').hide();
+						 }
 					},
 					success: function(data){  
 						if(data.deleteAction) {

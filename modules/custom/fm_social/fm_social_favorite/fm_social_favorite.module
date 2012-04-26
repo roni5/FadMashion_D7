@@ -191,7 +191,9 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	$output .= '</div>';
   //$output .= '<div class="title">' . t('My Favorites') .'</div>';
   $output .= '<div class="my_favorites_list">';
-	$output .= '<ul class="my_favorites">';
+	$output .= '<div style="display:none" id="zero_favorites">Look out for the ' . '<img align="top" style="width: 60px;" src="' . pp() . 'b_love_off.png">' .  ' button to bookmark your favorite designer items.</div>';
+	
+  $output .= '<ul class="my_favorites">';
 	
 	if(isset($mail)) {
 	  $result = db_query('SELECT * FROM {fm_social_favorite} WHERE   mail = :mail', array( 'mail' => $mail));
