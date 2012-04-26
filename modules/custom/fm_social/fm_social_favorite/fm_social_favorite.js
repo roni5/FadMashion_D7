@@ -3,39 +3,49 @@
  * TODO:  Eventually replace with Backbone.js Event & Bind.  
  */
 
+jQuery(document).ready(function() {
+
+	jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
+		  e.preventDefault();
+		  
+		  jQuery('.my_favorites_list ul').toggle();
+		  
+		  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
+		    jQuery('.my_favorites_link').removeClass('collapsed');
+		  } 
+			  
+		  jQuery('.my_favorites_list').slideToggle('5000', function() {
+			  if(!jQuery('.my_favorites_link').hasClass('collapsed') && !jQuery('.my_favorites_list').is(':visible')) {
+					  jQuery('.my_favorites_link').addClass('collapsed'); 
+			  }
+			  
+			  if(jQuery('.my_favorites li').length) {
+					jQuery('#zero_favorites').hide();
+			 } else {
+				 jQuery('#zero_favorites').show();
+			 }
+		  });
+	  });
+	  
+	
+	  if(jQuery('.my_favorites li').length) {
+		jQuery('#zero_favorites').hide();
+		jQuery(".my_favorites_link a").trigger('click');
+	 } else {
+		 jQuery('#zero_favorites').show();
+	 }
+	  
+
+	  jQuery('.my_favorites li a').address();
+	  
+});
+
+
 (function ($) {
 	Drupal.behaviors.socialFavorites = {
 	  attach: function (context, settings) {
 		  
-		  jQuery('.my_favorites li a').address();
 		  
-		  jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
-			  e.preventDefault();
-			  
-			  jQuery('.my_favorites_list ul').toggle();
-			  
-			  if(jQuery('.my_favorites_link').hasClass('collapsed')) {
-			    jQuery('.my_favorites_link').removeClass('collapsed');
-			  } 
-				  
-			  jQuery('.my_favorites_list').slideToggle('5000', function() {
-				  if(!jQuery('.my_favorites_link').hasClass('collapsed') && !jQuery('.my_favorites_list').is(':visible')) {
-						  jQuery('.my_favorites_link').addClass('collapsed'); 
-				  }
-				  
-				  if(jQuery('.my_favorites li').length) {
-						jQuery('#zero_favorites').hide();
-				 } else {
-					 jQuery('#zero_favorites').show();
-				 }
-			  });
-		  });
-		  
-		  if(jQuery('.my_favorites li').length) {
-				jQuery('#zero_favorites').hide();
-		 } else {
-			 jQuery('#zero_favorites').show();
-		 }
 		  
 		  jQuery('.itemLoved a').once('init-link-processed').click(function (e){
 			  jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
