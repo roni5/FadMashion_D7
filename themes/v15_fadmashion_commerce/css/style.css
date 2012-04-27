@@ -640,7 +640,7 @@ top:14px;}
 .footer_tabs_links li.ui-tabs-selected a, .footer_tabs_links li:hover a{color: #fff}
  
 .footer_tabs_closes {cursor: pointer; background:url("../images/controls.png") no-repeat scroll -25px 0 transparent;height:25px;right:5px;text-indent:-9999px;;width:25px;}
- 
+.footer_tabs_closes:hover {background-position: -25px -25px;} 
 /* Footer */
 #footer{ width: 1024px; clear: both;z-index: 1000; border-top: 1px solid #ddd; padding-top: 10px; }
 #footer .container{margin-top: 10px;}
