@@ -197,7 +197,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	
   //$output .= '<div class="title">' . t('My Favorites') .'</div>';
   $output .= '<div id="tab-favorites" class="my_favorites_list">';
-	$output .= '<div style="display:none" id="zero_favorites">Look out for ' . '<img align="top"  src="' . pp() . 'b_love_off_small.png">' .  ' to bookmark your favorite designer items.</div>';
+	$output .= '<div style="display:none" id="zero_favorites">Look out for ' . '<img align="absmiddle"  src="' . pp() . 'b_love_off_small.png">' .  ' to bookmark your favorite designer items.</div>';
 	
   $output .= '<ul class="my_favorites">';
 	
