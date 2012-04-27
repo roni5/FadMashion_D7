@@ -601,15 +601,15 @@ top:14px;}
 
 /* Footer User Register Style*/
 
-#register_footer_promo {margin: auto; width: 755px; margin-top: 9px; }
+#register_footer_promo {margin: auto; width: 755px; margin-top: 13px; }
 #register_footer_promo .text {padding-right: 20px; border-right: 1px dotted #888; float: left}
-#register_footer_promo .text h1 {font-weight: normal; color: #fff; font-size: 18px; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
+#register_footer_promo .text h1 {font-weight: normal; color: #fff; font-size: 17px; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
 #register_footer_promo .text h1 span {color: #B63030; font-family: "jubilat-1","jubilat-2",Georgia;}
-#register_footer_promo .text h2{font-size: 15px; margin-top: 3px; font-weight: normal; color: #aaa;}  
-#register_footer_promo .register {float: left; padding-left: 20px;}
-#register_footer_promo .register  a.button{color: #fff; float: left; margin-left: 20px; margin-top: 7px; font-size: 11px;margin: 9px 0 0 0; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
+#register_footer_promo .text h2{font-size: 12px; margin-top: 3px; font-weight: normal; color: #aaa;}  
+#register_footer_promo .register {float: left; padding-left: 20px; margin-top: 5px;}
+#register_footer_promo .register  a.button{color: #fff; float: left; margin-left: 20px; font-size: 11px; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
 #register_footer_promo .register  a.button:hover{background-position: bottom left;}
-#register_footer_promo .login{font-size: 12px; text-align: center;float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd; padding-top: 9px; }
+#register_footer_promo .login{font-size: 12px; text-align: center;float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd;  }
 #register_footer_promo .login a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
 
   /* My Favorites */
