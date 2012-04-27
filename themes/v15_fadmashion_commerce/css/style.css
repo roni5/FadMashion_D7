@@ -622,7 +622,7 @@ top:14px;}
 .my_favorites_link {padding-left:18px !important; background: url("../images/icon_star.png") no-repeat scroll left center transparent;}
   
  #zero_favorites {color: #fff; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic; text-align: center; font-size: 15px; margin-top: 20px;}
- #zero_favorites img{height: 22px;}
+ #zero_favorites img{}
  
  /* Floating footer tabs */
 .footer_tabs_container {position: fixed; bottom: 0px; left: 0px; width: 100%; z-index: 1001}
