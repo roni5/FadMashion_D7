@@ -445,7 +445,7 @@ function fm_users_register_module_implements_alter(&$implementations, $hook) {
 
 
 function fm_users_register_footer_tab_link() {
-	$output = '<a  style="font-style: italic" href="#tab-register">Insider Access.</a>';
+	$output = '<a  href="#tab-register">Insider Access</a>';
 	
 	return $output;
 }

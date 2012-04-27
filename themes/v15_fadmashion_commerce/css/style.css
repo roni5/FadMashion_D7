@@ -633,7 +633,7 @@ top:14px;}
 
 .footer_tabs_links {  position: fixed; right: 10px; bottom: 58px;z-index: 1000}
 .footer_tabs_links.collapsed{bottom: 0px !important;}
-.footer_tabs_links li {padding-top: 1px; display: inline-block; margin-right: 10px; background: url("../images/tab_inactive_up.jpg") repeat-x scroll left top transparent;  text-align: center; height:22px;border-top-left-radius: 4px; border-top-right-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px; }
+.footer_tabs_links li {padding-top: 1px; display: inline-block; margin-right: 5px; background: url("../images/tab_inactive_up.jpg") repeat-x scroll left top transparent;  text-align: center; height:22px;border-top-left-radius: 4px; border-top-right-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px; }
 .footer_tabs_links li:hover {background: url("../images/tab_inactive_over.jpg") repeat-x scroll left top transparent; }
 .footer_tabs_links li.ui-tabs-selected{background: url("../images/tab_active.jpg") repeat-x scroll left top transparent; } 
 
