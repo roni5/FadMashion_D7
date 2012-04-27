@@ -34,13 +34,13 @@
                 			print '<a  onClick="fmUserStateRestart(); fmInviteReset(); jQuery(\'.state2\').show();fmClearRegisterTimeout();" class="colorbox-inline invite" href="' . $url . '">' . t('Invite Friends') . '</a>'; ?>
                 
              <?php } elseif($status == 'non_member' || $status == 'non_member_first_time'){ ?>
-               <a href="javascript:void(0);" class="button"  onClick="fmUserStateRestart();jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
+               <a href="javascript:void(0);" onClick="fmUserStateRestart();jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <?php 
                       $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
                 			print '<a onClick="fmUserStateRestart(); fmInviteReset(); jQuery(\'.state2\').show();fmClearRegisterTimeout();" class="colorbox-inline invite" href="' . $url . '">' . t('Invite Friends') . '</a>'; ?>
                 
              <?php } else{ ?>
-               <a class="button" href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
+               <a  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
              <?php } ?>
     </div><!-- links-->

@@ -5,8 +5,8 @@
 
 jQuery(document).ready(function() {
 
-	jQuery('.my_favorites_link a').once('init-open-processed').click(function (e){
-		  e.preventDefault();
+	jQuery('.my_favorites_link').once('init-open-processed').click(function (e){
+		  /*e.preventDefault();
 		  
 		  jQuery('.my_favorites_list ul').toggle();
 		  
@@ -19,18 +19,19 @@ jQuery(document).ready(function() {
 					  jQuery('.my_favorites_link').addClass('collapsed'); 
 			  }
 			  
-			  if(jQuery('.my_favorites li').length) {
-					jQuery('#zero_favorites').hide();
-			 } else {
-				 jQuery('#zero_favorites').show();
-			 }
-		  });
+		  });*/
+
+		  if(jQuery('.my_favorites li').length) {
+				jQuery('#zero_favorites').hide();
+		 } else {
+			 jQuery('#zero_favorites').show();
+		 }
 	  });
 	  
 	
 	  if(jQuery('.my_favorites li').length) {
 		jQuery('#zero_favorites').hide();
-		jQuery(".my_favorites_link a").trigger('click');
+		jQuery(".my_favorites_link").trigger('click');
 	 } else {
 		 jQuery('#zero_favorites').show();
 	 }
@@ -63,6 +64,7 @@ jQuery(document).ready(function() {
 					beforeSend: function() {
 						
 						var alt, imgObj, imgSrc;
+						//Change the "love" button to the alternate state
 						jQuery('.favorite_button').each(function() {
 							if(jQuery(this).attr('id') ==   product_id) {	
 						     imgObj = jQuery('img', jQuery(this));
@@ -76,7 +78,7 @@ jQuery(document).ready(function() {
 		            	 if(alt.indexOf("love_on") != -1) {
 		            	   //Add Placeholder for image thumb
 		            		if(!jQuery('.my_favorites_list').is(':visible')) {
-		            		 jQuery(".my_favorites_link a").trigger('click');
+		            		 jQuery(".my_favorites_link").trigger('click');
 		            		}
 		            	   jQuery('.my_favorites').prepend('<li class="empty_thumb"></li>');
 		            	 }
@@ -90,7 +92,7 @@ jQuery(document).ready(function() {
 							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut(function() {
 								jQuery(this).remove();
 								if(!jQuery('.my_favorites li').length) {
-									jQuery(".my_favorites_link a").trigger('click');
+									jQuery(".my_favorites_link ").trigger('click');
 								}
 							});
 						} else {

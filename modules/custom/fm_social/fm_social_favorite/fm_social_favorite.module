@@ -175,6 +175,15 @@ function theme_fm_social_favorite_most_loved($vars) {
 
 
 
+function fm_social_favorite_footer_tab_link() {
+	$output .= '<a class="my_favorites_link" href="#tab-favorites">My Favorites</a>';
+	
+	return $output;
+}
+
+function fm_social_favorite_footer_tab_content() {
+	return theme('fm_social_favorite_my_favorites');
+}
 
 function theme_fm_social_favorite_my_favorites($vars) {
 	global $user;
@@ -184,13 +193,10 @@ function theme_fm_social_favorite_my_favorites($vars) {
 		$mail = fm_users_register_session_email();
 	} 
 	
-	$output .= '<div class="my_favorites_containter">';
+	//$output .= '<div class="my_favorites_containter">';
 	
-	$output .= '<div class="my_favorites_link rounded-top collapsed" style="">';
-	$output .= '<a href="javascript:void(0)">My Favorites</a>';
-	$output .= '</div>';
   //$output .= '<div class="title">' . t('My Favorites') .'</div>';
-  $output .= '<div class="my_favorites_list">';
+  $output .= '<div id="tab-favorites" class="my_favorites_list">';
 	$output .= '<div style="display:none" id="zero_favorites">Look out for ' . '<img align="top" src="' . pp() . 'b_love_off.png">' .  ' or ' . '<img align="top"  src="' . pp() . 'b_love_off_small.png">' .  ' to bookmark your favorite designer items.</div>';
 	
   $output .= '<ul class="my_favorites">';
@@ -210,11 +216,9 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	//$output .= '<div class="close">Close</div>';
 	
 	
-	$output .= '</div>';
+	//$output .= '</div>';
 	
-	
-	
-	
+
 	return $output;
 	
 }

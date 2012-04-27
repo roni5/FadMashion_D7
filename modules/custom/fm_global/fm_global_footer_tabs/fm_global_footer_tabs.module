@@ -1,0 +1,57 @@
+<?php
+
+function fm_global_footer_tabs_init() {
+	drupal_add_js(drupal_get_path('module', 'fm_global_footer_tabs').'/fm_global_footer_tabs.js');
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.ba-resize.min.js');
+} 
+
+function fm_global_footer_tabs_all() {
+	$modules = array('fm_users_register', 'fm_social_favorite', );
+	$tabs = array();
+	foreach($modules as $module) {
+		if(module_exists($module)) {
+			$tabs[$module]['link'] = call_user_func($module . '_footer_tab_link');
+			$tabs[$module]['content'] = call_user_func($module . '_footer_tab_content');
+		}
+	}
+	
+	return $tabs;
+}
+
+
+function fm_global_footer_tabs_theme() {
+	return array(
+    
+    'fm_global_footer_tabs' => array(
+	     'variables' => array(),
+    ),
+    
+    
+  );
+}
+
+function theme_fm_global_footer_tabs($vars) {
+	
+	$tabs = fm_global_footer_tabs_all();
+	$link_output = '<ul class="">';
+	$content_output = '';
+	foreach($tabs as $tab) {
+		$link_output .= '<li>' . $tab['link'] . '</li>';
+		$content_output .=  $tab['content'] ;
+	}
+	$link_output .= '<li class="footer_tabs_closes">' . t('close') . '</li>';
+	$link_output.= '</ul>';
+	
+	$output = '<div class="footer_tabs_container">';
+	$output .= '<div class="footer_tabs_links">';
+	$output .= $link_output;
+	$output .= '</div>';
+	$output .= '<div class="footer_tabs_content">';
+	$output .= $content_output;
+	$output .= '</div>';
+	
+	$output .= '</div>';
+	
+	
+	return $output;
+}

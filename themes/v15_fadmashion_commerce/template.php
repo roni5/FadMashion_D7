@@ -85,6 +85,7 @@ function v15_fadmashion_commerce_preload() {
 	drupal_add_js('var user_status = \'' . $status . '\';', 'inline');
 	
 	drupal_add_library('system', 'effects');
+	drupal_add_library('system', 'ui.tabs');
 	
 }
 
@@ -191,6 +192,10 @@ function v15_fadmashion_commerce_css_alter(&$css) {
   if(in_array($split_url[0], $static_pages)) {
   	//unset($css[path_to_theme().'/css/style.css']);
   }
+  
+  unset($css['misc/ui/jquery.ui.tabs.css']);
+  unset($css['misc/ui/jquery.ui.core.css']);
+   unset($css['misc/ui/jquery.ui.theme.css']);
   
 }
 

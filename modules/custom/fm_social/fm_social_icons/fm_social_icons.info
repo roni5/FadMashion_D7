@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Social Icons
+description = Defines the functionality of the Social Icons on teh site
+core = 7.x
+package = Fadmashion
