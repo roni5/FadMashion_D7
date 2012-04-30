@@ -146,7 +146,7 @@ p.description{margin: 0 0 16px 0; color: #666; font-size: 13px}
 .productInfo .highlights{height: 45px; background: url(../images/bg_highlights.jpg) center center no-repeat; text-align: center; color: #333; text-transform:uppercase;  font-weight: 700;letter-spacing: 1px; margin: 0 0 5px 0;}
 .productInfo .highlights span{font-size: 11px; line-height: 45px;}
 .productInfo .stylist {margin: 10px 0; text-align: right; }
-.productInfo .stylist .label{font-family: "jubilat-1","jubilat-2",Georgia; font-size: 9px;color: #888}
+.productInfo .stylist .label{font-family: "jubilat-1","jubilat-2",Georgia; font-size: 9px; font-style: italic; color: #888}
 .productInfo .stylist .title {font-size: 11px; color: #666;}
 .productInfo .stylist .name {}
 .socialButtons{float: right;}
