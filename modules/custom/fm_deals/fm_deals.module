@@ -243,6 +243,14 @@ function theme_fm_deals_product_details($vars) {
   }
   
   $output .= '<p class="description">' . $description . '</p>';
+  
+  $stylist = '';
+  $output .= '<div class="stylist">';
+  $output .= '<div class="label">' . t('Selected for you by') . '</div>';
+  $output .= '<div class="name">Yael Hartmann</div>';
+  $output .= '<div class="title">Stylist-in-Chief</div>';
+  $output .= '</div>';
+  
   $output .= '<script>jQuery(".designer .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
   
   
