@@ -239,7 +239,8 @@ function v15_fadmashion_commerce_preload_image_paths() {
 	           '"' . pp() . 'bg_model_2.png' . '"', 
 	           '"' . pp() . 'frame_top_featured.png' . '"',
 	           '"' . pp() . 'bg_model_1.png' . '"', 
-	           '"' . pp() . 'frame_bg.png' . '"'
+	           '"' . pp() . 'frame_bg.png' . '"',
+	           '"' . pp() . 'tab_inactive_over.jpg' . '"'
 	  );
 }
 

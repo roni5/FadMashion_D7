@@ -229,6 +229,19 @@ function theme_fm_deals_product_details($vars) {
   $output = '<h1 class="itemName">' . $title . '</h1>';
   
   $output .= '<h2 class="designer"><a href="javascript:void();">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</a></h2>';
+  
+  $product_highlights = field_get_items('commerce_product', $product, 'field_product_highlights');
+  $highlights = array();
+  foreach($product_highlights as $term) {
+  	$term = $term['taxonomy_term'];
+  	$highlights[] = '<span>' . $term->name . '</span>';
+  }
+  if(count($highlights) > 0){
+    //$highlights = array('<span>test</span>', '<span>test2</span>');
+    $highlights = implode('<img align="absmiddle" src="' . pp() . 'spacer_highlights.png">', $highlights);
+    $output .= '<div class="highlights">' . $highlights . '</div>';
+  }
+  
   $output .= '<p class="description">' . $description . '</p>';
   $output .= '<script>jQuery(".designer .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
   
