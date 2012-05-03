@@ -176,11 +176,24 @@ function fm_shop_page_all_panels($filters) {
 	$content = array();
 	$page = $_GET['page'];
   
-	$i = 0;
-	$step = 3;
+	$total = 0;
+	foreach($filters as $filter_group) {
+	  $total += count($filter_group['links']);
+	}
+	$half = ceil($total/2);
 	
-	$start = $page == 0 ? 0 : ($step*$page) - 2;
-	$end = $page == 0 ? 1 : ($step*$page) + 1;
+	switch($page) {
+		case 0:
+			$start = 0;
+			$end = 1;
+		case 1:
+			$start = 1;
+			$end = $half;
+		case 2:
+			$start = $half;
+			$end = $total;
+	}
+	
   foreach($filters as $filter_group) {
   	$title = $filter_group['title'];
   	$content[$title] = array();
