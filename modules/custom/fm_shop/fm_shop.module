@@ -186,12 +186,15 @@ function fm_shop_page_all_panels($filters) {
 		case 0:
 			$start = 0;
 			$end = 1;
+			break;
 		case 1:
 			$start = 1;
 			$end = $half;
+			break;
 		case 2:
 			$start = $half;
 			$end = $total;
+			break;
 	}
 	
   foreach($filters as $filter_group) {
