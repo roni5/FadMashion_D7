@@ -26,7 +26,6 @@ jQuery(document).ready(function() {
 	    // check for success with: $(this[i]).data('loaded')
 	    // callback executes when all images are loaded
 	});
-     
 
 	
 	if(jQuery.browser.msie) {

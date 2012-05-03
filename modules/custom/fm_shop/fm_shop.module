@@ -73,6 +73,8 @@ function fm_shop_page_ajax($type) {
 		$type = 'all';
 	}
 	
+	$page = $_GET['page'];
+	
 	switch($type) {
 		case 'all':
 		  $filters = fm_shop_page_filters();
@@ -84,6 +86,9 @@ function fm_shop_page_ajax($type) {
      	   }
        } 
       $content .= '</div>';
+      $content .= l('Next', 'shop/ajax/all', array('query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next', 'style' => 'display:none') )); 
+    	$content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: function() {Drupal.attachBehaviors();} });});</script>';
+    	    
 	    break;
 		case 'shop':
 			$shop = fm_commerce_store_load($store_id);
@@ -172,21 +177,21 @@ function fm_shop_page_all_panels($filters) {
 	$page = $_GET['page'];
   
 	$i = 0;
+	$step = 3;
+	
+	$start = $page == 0 ? 0 : ($step*$page) - 2;
+	$end = $page == 0 ? 1 : ($step*$page) + 1;
   foreach($filters as $filter_group) {
   	$title = $filter_group['title'];
   	$content[$title] = array();
     foreach($filter_group['links'] as $id => $link) {
-    	if($i == $page) {
+    	if($i >= $start && $i < $end) {
     	  $shop = fm_commerce_store_load($id);
     	  $products = fm_commerce_store_get_products($shop, true);
     
       	if(!empty($products)) {
     	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
-    	    $designerPanel .= l('Next', 'shop/ajax/all', array('query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next', 'style' => 'display:none') )); 
-    	    $designerPanel .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all"});});</script>
-    	    ';
     	    $content[$title][] = $designerPanel;
-    	    return $content;
     	    
     	  }
     	}
