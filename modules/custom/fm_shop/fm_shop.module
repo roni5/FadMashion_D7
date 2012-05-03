@@ -86,8 +86,10 @@ function fm_shop_page_ajax($type) {
      	   }
        } 
       $content .= '</div>';
-      $content .= l('Next', 'shop/ajax/all', array('query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next', 'style' => 'display:none') )); 
-    	$content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: function() {Drupal.attachBehaviors();} });});</script>';
+      if($page < 2) {
+        $content .= l('Next', 'shop/ajax/all', array('query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next', 'style' => 'display:none') )); 
+    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: function() {Drupal.attachBehaviors();} });});</script>';
+      }
     	    
 	    break;
 		case 'shop':
@@ -185,14 +187,14 @@ function fm_shop_page_all_panels($filters) {
 	switch($page) {
 		case 0:
 			$start = 0;
-			$end = 1;
+			$end = 3;
 			break;
 		case 1:
-			$start = 1;
-			$end = $half;
+			$start = 3;
+			$end = $half+2;
 			break;
 		case 2:
-			$start = $half;
+			$start = $half+2;
 			$end = $total;
 			break;
 	}

@@ -15,7 +15,7 @@
 </div>
 <div class="col2">
   <div class="shopAjaxLoader rounded-top rounded-bottom">Loading...</div>
-  <div class="pad"></div>
+  <div class="pad"><?php print $content;?></div>
 </div>
 
 <?php print theme('fm_global_footer_tabs');?>
