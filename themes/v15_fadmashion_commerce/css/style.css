@@ -101,8 +101,9 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 .buttonShop:hover{background-position: bottom left;}
 
 .shopAjaxLoader {background-color:rgba(255, 255, 255, 0.8);background-image: url(../images/confirm-ajax-loader.gif) ;background-position:5px 50%;background-repeat:no-repeat;left: 372px; top:2px;;;color:#666;font-size:14px;padding:5px 5px 5px 25px;position:absolute;text-align:center;}
-#loading_more {margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd; text-align: center; width: 100%;}
-
+#loading_more {margin-top: 10px; padding-top: 10px;  text-align: center; width: 100%;}
+#loading_more a{color: #777;}
+#loading_more img{margin-top: 10px;}
 .designerPanel .social_favorites {position:absolute;right:10px;top:10px;z-index: 1000}
 
 
