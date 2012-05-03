@@ -133,9 +133,9 @@
 	}
 
 	function loadOnScroll() {
-		if (content.offset().top + content.height() < $(document).scrollTop() + $(window).height()) {
+		//if (content.offset().top + content.height() < $(document).scrollTop() + $(window).height()) {
 			$.autopager.load();
-		}
+		//}
 	}
 
 	function insertContent(res) {

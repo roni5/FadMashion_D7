@@ -351,3 +351,13 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
+
+
+function autoPagerLoad() {
+	Drupal.attachBehaviors();
+	jQuery('#loading_more').hide();
+}
+
+function autoPagerStart() {
+  jQuery('#loading_more').show();
+}

@@ -86,9 +86,15 @@ function fm_shop_page_ajax($type) {
      	   }
        } 
       $content .= '</div>';
+      //WE only want a 3 step loading process (for now)
       if($page < 2) {
-        $content .= l('Next', 'shop/ajax/all', array('query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next', 'style' => 'display:none') )); 
-    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: function() {Drupal.attachBehaviors();} });});</script>';
+      	$html = 'Loading More...';
+      	$html .= '<br><img src="' . pp() .'confirm-ajax-loader.gif">';
+      	$content .= '<div id="loading_more" style="display:none">';
+        $content .= l($html, 'shop/ajax/all', array('html' => true, 'query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next',  ) ));
+        $content .= '</div>';
+         
+    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: autoPagerLoad, start: autoPagerStart });});</script>';
       }
     	    
 	    break;
