@@ -74,7 +74,7 @@ function v15_fadmashion_commerce_preload() {
 	$image_paths = v15_fadmashion_commerce_preload_image_paths();
   drupal_add_js('var preload_image_paths = [' . implode(',', $image_paths) . '];', 'inline');
 	
-	
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.autopager.js');
 	
 	
 	global $status;

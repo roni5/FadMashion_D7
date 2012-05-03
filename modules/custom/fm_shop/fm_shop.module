@@ -169,17 +169,28 @@ function fm_shop_page_filters() {
 
 function fm_shop_page_all_panels($filters) {
 	$content = array();
+	$page = $_GET['page'];
   
+	$i = 0;
   foreach($filters as $filter_group) {
   	$title = $filter_group['title'];
   	$content[$title] = array();
     foreach($filter_group['links'] as $id => $link) {
-    	$shop = fm_commerce_store_load($id);
-    	$products = fm_commerce_store_get_products($shop, true);
+    	if($i == $page) {
+    	  $shop = fm_commerce_store_load($id);
+    	  $products = fm_commerce_store_get_products($shop, true);
     
-    	if(!empty($products)) {
-    	  $content[$title][] = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
+      	if(!empty($products)) {
+    	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
+    	    $designerPanel .= l('Next', 'shop/ajax/all', array('query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next', 'style' => 'display:none') )); 
+    	    $designerPanel .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all"});});</script>
+    	    ';
+    	    $content[$title][] = $designerPanel;
+    	    return $content;
+    	    
+    	  }
     	}
+    	$i++;
     }
   } 
   

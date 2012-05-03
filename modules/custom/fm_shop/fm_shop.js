@@ -124,6 +124,7 @@ jQuery(document).ready(function() {
     		}
           });
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
+          
        };
          /*
     	 * End of Handler
