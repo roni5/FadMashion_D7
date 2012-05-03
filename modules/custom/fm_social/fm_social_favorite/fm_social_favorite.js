@@ -57,24 +57,24 @@ jQuery(document).ready(function() {
 				var href_val = jQuery(this).attr('href');
 				var product_id = jQuery(this).attr('id');
 				var imgObj = jQuery('img', jQuery(this));
+				var alt, imgObj, imgSrc;
+				
+				//Change the "love" button to the alternate state
+				jQuery('.favorite_button').each(function() {
+					if(jQuery(this).attr('id') == product_id) {	
+				     imgObj = jQuery('img', jQuery(this));
+	                 alt = imgObj.attr('alt');
+	                 imgSrc = imgObj.attr('src');
+	                 imgObj.attr('alt', imgSrc);
+	                 imgObj.attr('src', alt);
+				   }
+				});
 				
 				jQuery.ajax({
 					type: "POST", 
 					url: href_val,
 					beforeSend: function() {
 						
-						var alt, imgObj, imgSrc;
-						//Change the "love" button to the alternate state
-						jQuery('.favorite_button').each(function() {
-							if(jQuery(this).attr('id') ==   product_id) {	
-						     imgObj = jQuery('img', jQuery(this));
-			                 alt = imgObj.attr('alt');
-			                 imgSrc = imgObj.attr('src');
-			                 imgObj.attr('alt', imgSrc);
-			                 imgObj.attr('src', alt);
-						   }
-						});
-		            	 
 		            	 if(alt.indexOf("love_on") != -1) {
 		            	   //Add Placeholder for image thumb
 		            		if(!jQuery('.my_favorites_list').is(':visible')) {

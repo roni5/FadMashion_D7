@@ -7,14 +7,14 @@ function fm_shop_menu() {
 	$items['shop'] = array(
     'page callback' => 'fm_shop_page',
 	  'access arguments' => array('view deals'),
-    'type' => MENU_NORMAL_ITEM,
+    'type' => MENU_CALLBACK,
   );
   
   $items['shop/ajax/%'] = array(
     'page callback' => 'fm_shop_page_ajax',
 	  'access arguments' => array('view deals'), 
     'page arguments' => array(2, 3),
-    'type' => MENU_NORMAL_ITEM,
+    'type' => MENU_CALLBACK,
   );
   
   

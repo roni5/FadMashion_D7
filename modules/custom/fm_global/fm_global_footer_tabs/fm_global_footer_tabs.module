@@ -10,8 +10,10 @@ function fm_global_footer_tabs_all() {
 	$tabs = array();
 	foreach($modules as $module) {
 		if(module_exists($module)) {
-			$tabs[$module]['link'] = call_user_func($module . '_footer_tab_link');
-			$tabs[$module]['content'] = call_user_func($module . '_footer_tab_content');
+			if(call_user_func($module . '_footer_tab_active')) {
+			  $tabs[$module]['link'] = call_user_func($module . '_footer_tab_link');
+			  $tabs[$module]['content'] = call_user_func($module . '_footer_tab_content');
+			}
 		}
 	}
 	

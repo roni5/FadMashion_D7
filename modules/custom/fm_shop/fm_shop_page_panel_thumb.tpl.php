@@ -13,12 +13,11 @@
      $img .= '<div style="float: left"><p class="ic_category">' . $product->title . '</p>';
      $img .= '<h3>' . render($node->content['product:commerce_price']) . '</h3><h2>' . render($node->content['field_sale_price']) . '</h2>';
      $img .= '</div>';
-     
-     $img .= '<div style="float: right; padding: 10px;">'.fm_social_favorite_get_button($product->product_id, false).'</div>';
-     
      $img .= '</div>';//End of ic_caption
      
      print l($img, 'node/' . $node->nid, array('html' => true, 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+     
+     //print '<div style="float: right; padding: 10px;">'.fm_social_favorite_get_button($product->product_id, false).'</div>';
      
   ?>
 </div>
