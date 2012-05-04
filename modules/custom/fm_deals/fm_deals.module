@@ -230,7 +230,7 @@ function fm_deals_preprocess_node(&$vars) {
     $stylist .= '<div class="text">';
     $stylist .= '<div class="label">' . t('Selected for you by') . '</div>';
     $stylist .= '<div class="name">' . fm_users_fullname($stylist_uid) . '. ';
-    $stylist .= '<span class="title">Stylist-in-Chief</span></div>';
+    $stylist .= '<span class="title">Chief Stylist</span></div>';
     $stylist .= '</div>';
    
     $stylist .= '</div>';
