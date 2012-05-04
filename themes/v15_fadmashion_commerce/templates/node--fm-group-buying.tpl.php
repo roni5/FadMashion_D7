@@ -115,7 +115,7 @@
     <div class="simpleTabsContent"><?php print $tab_returns; ?></div>
 		    </div>
 </div><!--tabbedInfo-->
-
+<?php print $stylist;?>
 <?php print $admin_links; ?>
  
                 

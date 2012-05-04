@@ -216,6 +216,29 @@ function fm_deals_preprocess_node(&$vars) {
 	   $vars['tab_returns'] = theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) );
 
 	}
+	
+	// Stylist Info
+	$stylist_info = field_get_items('commerce_product', $product, 'field_product_stylist');
+	
+  $stylist = '';
+	if(!empty($stylist_info)) {
+		$stylist_uid = $stylist_info[0]['uid'];
+		$stylist_user = user_load($stylist_uid);
+		
+    $stylist .= '<div class="stylist">';
+    $stylist .= '<div class="avatar">' . theme('user_picture', array('account' => $stylist_user)) . '</div>';
+    $stylist .= '<div class="text">';
+    $stylist .= '<div class="label">' . t('Selected for you by') . '</div>';
+    $stylist .= '<div class="name">' . fm_users_fullname($stylist_uid) . '. ';
+    $stylist .= '<span class="title">Stylist-in-Chief</span></div>';
+    $stylist .= '</div>';
+   
+    $stylist .= '</div>';
+	}
+  
+  $vars['stylist'] = $stylist;
+  
+  
 }
 
 
@@ -244,12 +267,6 @@ function theme_fm_deals_product_details($vars) {
   
   $output .= '<p class="description">' . $description . '</p>';
   
-  $stylist = '';
-  $output .= '<div class="stylist">';
-  $output .= '<div class="label">' . t('Selected for you by') . '</div>';
-  $output .= '<div class="name">Yael Hartmann</div>';
-  $output .= '<div class="title">Stylist-in-Chief</div>';
-  $output .= '</div>';
   
   $output .= '<script>jQuery(".designer .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
   
