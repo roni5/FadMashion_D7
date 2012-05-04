@@ -101,8 +101,8 @@
 
  <?php print $purchaseDetails;  ?>
 </div> <!-- end itemOptions -->
-<div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>
-  
+<?php print $stylist;?>
+
 <div class="tabbedInfo">
   <div class="simpleTabs">
 	  <ul class="simpleTabsNavigation">
@@ -115,7 +115,7 @@
     <div class="simpleTabsContent"><?php print $tab_returns; ?></div>
 		    </div>
 </div><!--tabbedInfo-->
-<?php print $stylist;?>
+<div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>
 <?php print $admin_links; ?>
  
                 
