@@ -223,6 +223,10 @@ function fm_deals_preprocess_node(&$vars) {
   $stylist = '';
 	if(!empty($stylist_info)) {
 		$stylist_uid = $stylist_info[0]['uid'];
+	} else {
+		//Default NID for chief Stylist
+		$stylist_uid = 8;
+	}
 		$stylist_user = user_load($stylist_uid);
 		$picture = theme('user_picture', array('account' => $stylist_user)) ;
 		
@@ -233,7 +237,7 @@ function fm_deals_preprocess_node(&$vars) {
     $stylist .= '<span>Chief Stylist</span></h2>';
     $stylist .= '</div>';
    
-	}
+
   
   $vars['stylist'] = $stylist;
   
