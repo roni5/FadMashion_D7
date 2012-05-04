@@ -150,7 +150,7 @@ p.description{margin: 0 0 16px 0; color: #666; font-size: 13px}
 .productInfo .stylist {line-height: 20px;margin-top: 20px;overflow: hidden;padding: 0 25px;}
 .productInfo .stylist .avatar{float:left}
 .productInfo .stylist .avatar img {width: 50px;}
-.productInfo .stylist .text{ float: left; margin-left: 20px; text-align: center;}
+.productInfo .stylist .text{ margin-left: 20px; text-align: center;}
 .productInfo .stylist .label{font-size: 13px;color: #B83838}
 .productInfo .stylist .title { color: #999;}
 .productInfo .stylist .name {color: #666;font-size: 12px;}

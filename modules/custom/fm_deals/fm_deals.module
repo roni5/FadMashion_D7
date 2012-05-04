@@ -224,9 +224,10 @@ function fm_deals_preprocess_node(&$vars) {
 	if(!empty($stylist_info)) {
 		$stylist_uid = $stylist_info[0]['uid'];
 		$stylist_user = user_load($stylist_uid);
+		$picture = theme('user_picture', array('account' => $stylist_user)) ;
 		
     $stylist .= '<div class="stylist">';
-    $stylist .= '<div class="avatar">' . theme('user_picture', array('account' => $stylist_user)) . '</div>';
+    $stylist .= '<div class="avatar" style="' . (empty($picture) ? '' ? 'float:left'). '">' . $picture . '</div>';
     $stylist .= '<div class="text">';
     $stylist .= '<div class="label">' . t('Selected for you by') . '</div>';
     $stylist .= '<div class="name">' . fm_users_fullname($stylist_uid) . '. ';
