@@ -227,14 +227,12 @@ function fm_deals_preprocess_node(&$vars) {
 		$picture = theme('user_picture', array('account' => $stylist_user)) ;
 		
     $stylist .= '<div class="stylist">';
-    $stylist .= '<div class="avatar" style="' . (empty($picture) ? '' : 'float:left') . '">' . $picture . '</div>';
-    $stylist .= '<div class="text">';
-    $stylist .= '<div class="label">' . t('Selected for you by') . '</div>';
-    $stylist .= '<div class="name">' . fm_users_fullname($stylist_uid) . '. ';
-    $stylist .= '<span class="title">Chief Stylist</span></div>';
+    $stylist .= $picture; 
+    $stylist .= '<h1>' . t('Selected for you by') . '</h1>';
+    $stylist .= '<h2>' . fm_users_fullname($stylist_uid) . ' / ';
+    $stylist .= '<span>Chief Stylist</span></h2>';
     $stylist .= '</div>';
    
-    $stylist .= '</div>';
 	}
   
   $vars['stylist'] = $stylist;
