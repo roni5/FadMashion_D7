@@ -91,8 +91,8 @@ jQuery(document).ready(function() {
 						if(data.deleteAction) {
 							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut(function() {
 								jQuery(this).remove();
-								if(!jQuery('.my_favorites li').length) {
-									jQuery(".my_favorites_link ").trigger('click');
+								if(!jQuery('.my_favorites li').length && jQuery('.my_favorites').is(':visible')) {
+									jQuery('.footer_tabs_closes').trigger('click');
 								}
 							});
 						} else {
