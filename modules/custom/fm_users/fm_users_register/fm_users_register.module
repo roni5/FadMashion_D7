@@ -449,16 +449,13 @@ function fm_users_register_footer_tab_active() {
   return $user->uid ? FALSE : TRUE;
 }
 
-function fm_users_register_footer_tab_link() {
-	$output = '<a  href="#tab-register">Insider Access</a>';
+function fm_users_register_footer_tab_vars() {
+	$output = array();
+	$output['link'] = '<a  href="#tab-register">Insider Access</a>';
+	$output['content'] =  '<div id="tab-register">' . theme('fm_users_register_footer_tabs_promo') . '</div>';
 	
 	return $output;
 }
-
-function fm_users_register_footer_tab_content() {
-	return '<div id="tab-register">' . theme('fm_users_register_footer_tabs_promo') . '</div>';
-}
-
 
 
 ?>

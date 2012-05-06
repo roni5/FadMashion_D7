@@ -6,13 +6,12 @@ function fm_global_footer_tabs_init() {
 } 
 
 function fm_global_footer_tabs_all() {
-	$modules = array('fm_users_register', 'fm_social_favorite', );
+	$modules = array('fm_users_register', 'fm_social_favorite', 'fm_commerce_store_owners');
 	$tabs = array();
 	foreach($modules as $module) {
 		if(module_exists($module)) {
 			if(call_user_func($module . '_footer_tab_active')) {
-			  $tabs[$module]['link'] = call_user_func($module . '_footer_tab_link');
-			  $tabs[$module]['content'] = call_user_func($module . '_footer_tab_content');
+			  $tabs[$module] = call_user_func($module . '_footer_tab_vars');
 			}
 		}
 	}

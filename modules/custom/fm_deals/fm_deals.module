@@ -232,7 +232,7 @@ function fm_deals_preprocess_node(&$vars) {
 		
     $stylist .= '<div class="stylist">';
     $stylist .= $picture; 
-    $stylist .= '<h1>' . t('Selected for you by') . '</h1>';
+    $stylist .= '<h1>' . t('Recommended to you by') . '</h1>';
     $stylist .= '<h2>' . fm_users_fullname($stylist_uid) . ' / ';
     $stylist .= '<span>Chief Stylist</span></h2>';
     $stylist .= '</div>';

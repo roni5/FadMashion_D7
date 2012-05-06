@@ -178,14 +178,12 @@ function fm_social_favorite_footer_tab_active() {
 	return TRUE;
 }
 
-function fm_social_favorite_footer_tab_link() {
-	$output .= '<a class="my_favorites_link" href="#tab-favorites">My Favorites</a>';
+function fm_social_favorite_footer_tab_vars() {
+	$output = array();
+	$output['link'] = '<a class="my_favorites_link" href="#tab-favorites">My Favorites</a>';
+	$output['content'] = theme('fm_social_favorite_my_favorites');
 	
 	return $output;
-}
-
-function fm_social_favorite_footer_tab_content() {
-	return theme('fm_social_favorite_my_favorites');
 }
 
 function theme_fm_social_favorite_my_favorites($vars) {

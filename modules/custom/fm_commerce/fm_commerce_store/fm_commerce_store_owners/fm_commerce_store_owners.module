@@ -16,6 +16,38 @@ function fm_commerce_store_owners_menu() {
 }
 
 /*
+ * Fadmashion Footer Tabs implementation
+ * hook_footer_tab_active()
+ */
+function fm_commerce_store_owners_footer_tab_active() {
+	return fm_commerce_store_owners_is_admin();
+}
+
+/*
+ * Fadmashion Footer Tabs implementation
+ * hook_footer_tab_vars()
+ */
+function fm_commerce_store_owners_footer_tab_vars() {
+	$output = array();
+	
+	$store = fm_commerce_store_owners_get_store();
+	
+	$output['link'] = '<a  href="#tab-store-owners">' . $store->name. '</a>';
+	
+	$vars = fm_commerce_store_owners_footer_admin($store);
+	$output['content'] =  '<div id="tab-store-owners">' . theme('fm_commerce_store_owners_admin', array('vars' => $vars)) . '</div>';
+	
+	return $output;
+}
+
+/*
+ * Fadmashion Footer Store owner admin
+ */
+function fm_commerce_store_owners_footer_admin($store) {
+	
+}
+
+/*
  * implements hook_block_info()
  */
 function fm_commerce_store_owners_block_info() {
