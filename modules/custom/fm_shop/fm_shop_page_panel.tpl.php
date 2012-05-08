@@ -38,7 +38,7 @@ if(count($products) <= 2) {
            </div>
          </div>
        </div><!-- quote-->
-       <?php print l('Shop this Collection', check_plain($shop->name), array('attributes' => array('class' => array('buttonShop')), 'query' => array('store_id' => $shop->store_id))) ?> 
+       <?php //print l('Shop this Collection', check_plain($shop->name), array('attributes' => array('class' => array('buttonShop')), 'query' => array('store_id' => $shop->store_id))) ?> 
       </div><!-- info--></td>
       <?php if(!$quoteOnlyRow) {  ?>
         <td >
