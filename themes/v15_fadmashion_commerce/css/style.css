@@ -211,7 +211,8 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .subCol ul{float: left; list-style-type: none;}
 .subCol li{margin-left: 16px; font-size: 12px; background: url(../images/arrow_bullet.jpg) 2px 0px no-repeat; padding: 0 0 0 12px;margin: 0 0 4px 0;}
 .press p{font-family: Georgia, "Times New Roman", Times, serif; font-style:italic; line-height: 16px;}
-.source {color: #767272; font-size: 11px; padding: 5px 0; margin-bottom: 5px;}
+.source {color: #767272; font-size: 11px important!; padding: 5px 0; margin-bottom: 5px;}
+.source a{font-size: 11px important!;}
 
 #gallery .social_favorites {position: absolute; top:3px; right: 3px;}
 #gallery .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
