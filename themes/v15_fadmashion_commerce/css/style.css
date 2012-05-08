@@ -275,7 +275,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 #signup .options a{color: #fff;}
 #signup .options div{padding-bottom: 4px;}
 
-#user-register-form .form-submit {background: url(../images/b_signup.png) top left no-repeat; display: block; width: 206px; height: 43px; text-indent:-9999px; margin: 10px 0 50px 0;}
+#user-register-form .form-submit {cursor: pointer; background: url(../images/b_signup.png) top left no-repeat; display: block; width: 206px; height: 43px; text-indent:-9999px; margin: 10px 0 50px 0;}
 a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; display: block; width: 206px; height: 30px; text-indent:-9999px;}
 #signup .form-submit:hover, a.facebookConnect:hover, .inviteFriends:hover{background-position: bottom left;}
 
