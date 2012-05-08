@@ -21,7 +21,7 @@ function fm_users_credits_footer_tab_active() {
 function fm_users_credits_footer_tab_vars() {
 	$output = array();
 	$credits = fm_users_credits_get();
-	$output['link'] = '<a class="my_favorites_link" href="#tab-credits">Credits (' . $credits . ') </a>';
+	$output['link'] = '<a class="my_favorites_link" href="#tab-credits">Credits</a>';
 	$output['content'] = '<div id="tab-credits">' . theme('fm_users_credits_footer_tab', array('credits' => $credits)) . '</div>';
 	
 	return $output;
@@ -50,8 +50,8 @@ function fm_users_credits_get($uid = NULL) {
 
    $total_credits = 0;
    while($record = $result->fetchAssoc()) {
-        $total_credits += $record['credits'];
-    }
+     $total_credits += $record['credits'];
+   }
       
   return '$' . $total_credits;
 }
