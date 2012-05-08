@@ -626,11 +626,11 @@ top:14px;}
 /* Footer User Credits */
 #footer_credits_promo {margin: auto; width: 610px; margin-top: 13px;line-height: 20px;  }
 #footer_credits_promo .credits {  padding-top: 5px;  float: left}
-#footer_credits_promo .credits h1 {text-shadow: 2px 2px 2px #000000; font-size:11px; font-weight: normal; color: #fff;  font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
-#footer_credits_promo .credits h1 span {vertical-align: -30%; color: #B63030;font-size: 40px; font-family: "jubilat-1","jubilat-2",Georgia;}
+#footer_credits_promo .credits h1 {text-shadow: 2px 2px 2px #000000;  font-size:11px; font-weight: normal; color: #fff;   font-style:italic;}
+#footer_credits_promo .credits h1 span { color: #B63030;font-size: 20px; padding-left: 5px; }
 
 #footer_credits_promo .invite_friends .text {float: left;  padding-left: 20px; text-align: center;}
-#footer_credits_promo .invite_friends{font-size: 12px;  border-left: 1px dotted #888; float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd;  }
+#footer_credits_promo .invite_friends{font-size: 12px;  border-left: 1px dotted #888; float: left; margin-left: 35px; font-style: italic;color: #ddd;  }
 #footer_credits_promo .invite_friends a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
 #footer_credits_promo .signup_count span {color: #B63030;padding-left: 2px; font-size: 12px; font-weight: bold; font-style: normal}
 #footer_credits_promo .signup_count{float: left;  color: #fff; margin-left: 35px;}

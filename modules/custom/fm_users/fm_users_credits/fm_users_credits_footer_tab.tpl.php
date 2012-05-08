@@ -1,6 +1,8 @@
 <div id="footer_credits_promo">
 <div class="credits">
-<h1><span><?php print $credits?></span> worth of credits</h1>
+<h1>You have<span><?php print $credits?></span></h1>
+<div style="font-size: 11px; color: rgb(255, 255, 255); margin-top: -6px;"> worth of credits</div>
+
 
 </div>
 <div class="invite_friends">

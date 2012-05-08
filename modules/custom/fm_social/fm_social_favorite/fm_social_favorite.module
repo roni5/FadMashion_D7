@@ -180,7 +180,7 @@ function fm_social_favorite_footer_tab_active() {
 
 function fm_social_favorite_footer_tab_vars() {
 	$output = array();
-	$output['link'] = '<a class="my_favorites_link" href="#tab-favorites">My Favorites</a>';
+	$output['link'] = '<a class="my_favorites_link" href="#tab-favorites">Favorites</a>';
 	$output['content'] = theme('fm_social_favorite_my_favorites');
 	
 	return $output;
