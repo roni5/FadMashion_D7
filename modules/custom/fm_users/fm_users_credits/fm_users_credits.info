@@ -1,0 +1,6 @@
+; $Id: $
+name = FM User Credits
+description = Enables the credits to be used by uers. 
+core = 7.x
+package = Fadmashion
+dependencies[] = fm_commerce_store

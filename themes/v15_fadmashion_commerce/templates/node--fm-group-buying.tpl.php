@@ -133,7 +133,7 @@
 </div></div> </div></div><!-- End colB--> 
 <br clear="all">
 <div class="subCol" style="margin-right: 30px;">
-<h1>Biography</h1>
+<h1>Inside the Designer Studio</h1>
 <?php print render($content['store:field_quick_facts']); ?>
 </div>
 

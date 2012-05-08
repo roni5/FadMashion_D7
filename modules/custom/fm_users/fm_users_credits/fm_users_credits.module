@@ -1,0 +1,57 @@
+<?php
+
+function fm_users_credits_theme() {
+	return array(
+    'fm_users_credits_footer_tab' => array(
+	     'variables' => array('credits' => NULL),
+	     'template' => 'fm_users_credits_footer_tab'
+    ),
+  );	
+}
+
+function fm_users_credits_footer_tab_active() {
+	global $user;
+	if ($user->uid) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+
+function fm_users_credits_footer_tab_vars() {
+	$output = array();
+	$credits = fm_users_credits_get();
+	$output['link'] = '<a class="my_favorites_link" href="#tab-credits">Credits (' . $credits . ') </a>';
+	$output['content'] = '<div id="tab-credits">' . theme('fm_users_credits_footer_tab', array('credits' => $credits)) . '</div>';
+	
+	return $output;
+}
+
+function fm_users_credits_footer_tab($uid = NULL) {
+	if(isset($uid)) {
+		$user = user_load($uid);
+	} else {
+		global $user;
+	}
+}
+
+function fm_users_credits_get($uid = NULL) {
+	if(!isset($uid)) {
+		global $user;
+		$uid = $user->uid;
+	} 
+	
+	$result = db_select('commerce_credits', 'cc')
+	    ->fields('cc', array('credits'))
+      ->condition('entity_type', 'user')
+      ->condition('entity_id', $uid)
+      ->condition('credit_type', 'fm_dollar_credit')
+      ->execute();
+
+   $total_credits = 0;
+   while($record = $result->fetchAssoc()) {
+        $total_credits += $record['credits'];
+    }
+      
+  return '$' . $total_credits;
+}

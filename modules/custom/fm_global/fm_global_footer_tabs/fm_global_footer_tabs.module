@@ -6,7 +6,7 @@ function fm_global_footer_tabs_init() {
 } 
 
 function fm_global_footer_tabs_all() {
-	$modules = array('fm_users_register', 'fm_social_favorite', 'fm_commerce_store_owners');
+	$modules = array('fm_users_register', 'fm_users_credits', 'fm_social_favorite', 'fm_commerce_store_owners');
 	$tabs = array();
 	foreach($modules as $module) {
 		if(module_exists($module)) {

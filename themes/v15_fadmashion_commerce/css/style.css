@@ -623,6 +623,27 @@ top:14px;}
 #register_footer_promo .login{font-size: 12px; text-align: center;float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd;  }
 #register_footer_promo .login a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
 
+/* Footer User Credits */
+#footer_credits_promo {margin: auto; width: 610px; margin-top: 13px;line-height: 20px;  }
+#footer_credits_promo .credits {  padding-top: 5px;  float: left}
+#footer_credits_promo .credits h1 {text-shadow: 2px 2px 2px #000000; font-size:11px; font-weight: normal; color: #fff;  font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
+#footer_credits_promo .credits h1 span {vertical-align: -30%; color: #B63030;font-size: 40px; font-family: "jubilat-1","jubilat-2",Georgia;}
+
+#footer_credits_promo .invite_friends .text {float: left;  padding-left: 20px; text-align: center;}
+#footer_credits_promo .invite_friends{font-size: 12px;  border-left: 1px dotted #888; float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd;  }
+#footer_credits_promo .invite_friends a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
+#footer_credits_promo .signup_count span {color: #B63030;padding-left: 2px; font-size: 12px; font-weight: bold; font-style: normal}
+#footer_credits_promo .signup_count{float: left;  color: #fff; margin-left: 35px;}
+#footer_credits_promo .signup_count label {font-style: normal; display: inline;  font-size: 11px; }
+
+
+#footer_credits_promo  .limited_offer {display: none; font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd; border-left: 1px dotted #888; margin-left: 20px; float: left; padding-left: 20px; margin-top: 5px;}
+#footer_credits_promo  .limited_offer .promo_text{}
+#footer_credits_promo  .limited_offer .limited_time{font-size: 10px;}
+#footer_credits_promo .limited_offer .text{float: left; padding-left: 20px; margin-top: 5px;}
+#footer_credits_promo .limited_offer a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
+
+
   /* My Favorites */
 .my_favorites {text-align: center; padding: 5px;}
 .my_favorites li.empty_thumb {display: inline-block; width: 40px; height: 51px; background-repeat:no-repeat;background-image: url(../images/black-bg-ajax-loader.gif) ;background-position:50% 50%;}
