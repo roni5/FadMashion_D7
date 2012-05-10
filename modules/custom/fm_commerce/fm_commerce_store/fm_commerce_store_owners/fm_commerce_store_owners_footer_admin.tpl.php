@@ -10,6 +10,7 @@ $logo = render($logo);
 
 <div class="col">
 <?php print $logo?>
+</div>
 <div class="col">
 <div><?php print l('Visit Store');?></div>
 <div><?php print l('Store Settings', 'user/logout');?></div>
