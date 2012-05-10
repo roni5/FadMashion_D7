@@ -37,6 +37,6 @@
   <div><a href="javascript: void(0)">Learn More</a></div>
   </div>
 
-
+</div>
 
 </div>

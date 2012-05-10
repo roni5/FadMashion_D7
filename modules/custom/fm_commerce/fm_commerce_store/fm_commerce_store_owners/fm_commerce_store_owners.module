@@ -35,7 +35,7 @@ function fm_commerce_store_owners_footer_tab_vars() {
 	$output['link'] = '<a  href="#tab-store-owners">' . $store->name. '</a>';
 	
 	$vars = fm_commerce_store_owners_footer_admin($store);
-	$output['content'] =  '<div id="tab-store-owners">' . theme('fm_commerce_store_owners_admin', array('vars' => $vars)) . '</div>';
+	$output['content'] =  '<div id="tab-store-owners">' . theme('fm_commerce_store_owners_footer_admin', array('store' => $store)) . '</div>';
 	
 	return $output;
 }
@@ -127,6 +127,10 @@ function fm_commerce_store_owners_theme() {
     'fm_commerce_store_owners_promotion_admin' => array(
        'template' => 'fm_commerce_store_owners_promotion_admin',
        'variables' => array('store' => NULL)
+    ),
+    'fm_commerce_store_owners_footer_admin' => array(
+      'template' => 'fm_commerce_store_owners_footer_admin',
+      'variables' => array('store' => NULL)
     ),
     
     

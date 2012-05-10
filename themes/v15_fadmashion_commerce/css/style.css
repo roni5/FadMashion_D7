@@ -626,12 +626,12 @@ top:14px;}
 
 /* Footer User Credits */
 #footer_credits_promo {margin: auto; width: 820px; margin-top: 13px;line-height: 20px;  }
-#footer_credits_promo .credits {  padding-top: 5px;  float: left; padding-left: 20px;  border-left: 1px dotted #888;}
+#footer_credits_promo .credits {   float: left; padding-left: 20px;  border-left: 1px dotted #888;}
 #footer_credits_promo .credits h1 {text-shadow: 2px 2px 2px #000000;  font-size:11px; font-weight: normal; color: #fff;   font-style:italic;}
 #footer_credits_promo .credits h1 span { color: #B63030;font-size: 20px; padding-left: 5px; }
 
 #footer_credits_promo .invite_friends .text {float: left;  padding-left: 20px; text-align: center;}
-#footer_credits_promo .invite_friends{font-size: 12px;  border-left: 1px dotted #888; float: left; margin-left: 35px; font-style: italic;color: #ddd;  }
+#footer_credits_promo .invite_friends{font-size: 12px;  border-left: 1px dotted #888; float: left; margin-left: 20px; font-style: italic;color: #ddd;  }
 #footer_credits_promo .invite_friends a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
 #footer_credits_promo .signup_count span {color: #B63030;padding-left: 2px; font-size: 12px; font-weight: bold; font-style: normal}
 #footer_credits_promo .signup_count{float: left;  color: #fff; margin-left: 35px;}
@@ -649,6 +649,22 @@ top:14px;}
 #footer_credits_promo .quick_links .col {float: left; margin-left: 25px; font-size: 11px; }
 #footer_credits_promo .quick_links a{color: #fff;  font-size: 11px; font-weight: bold }
 #footer_credits_promo .quick_links a:hover{text-decoration: underline;}
+
+/* Footer Store Owners */
+#footer_store_owners {margin: auto; font-size: 12px; width: 820px; margin-top: 13px;line-height: 20px; color: #fff; }
+
+#footer_store_owners .quick_links img{height: 40px; }
+#footer_store_owners .quick_links {float: left;margin-right: 20px; }
+#footer_store_owners .quick_links .col {float: left; margin-left: 25px; font-size: 11px; }
+#footer_store_owners .quick_links a{color: #fff;  font-size: 11px; font-weight: bold }
+#footer_store_owners .quick_links a:hover{text-decoration: underline;}
+#footer_store_owners .designer_stats {float: left;  padding-left: 35px;}
+#footer_store_owners .designer_stats span{color: #B63030; font-size: 12px; font-weight: bold;}
+#footer_store_owners .designer_promotions .text {float: left;  padding-left: 20px; text-align: center;}
+#footer_store_owners .designer_promotions{font-size: 12px;  border-left: 1px dotted #888; float: left; margin-left: 20px;  font-style: italic;color: #ddd; }
+#footer_store_owners .designer_promotions a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
+#footer_store_owners .designer_promotions .store_loves{padding-left:18px !important; background: url("../images/icon_star.png") no-repeat scroll left center transparent;}
+
 
   /* My Favorites */
 .my_favorites {text-align: center; padding: 5px;}
