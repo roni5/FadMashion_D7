@@ -22,7 +22,6 @@ $logo = render($logo);
 </div>
 </div>
 
-</div>
 
 
 
@@ -35,5 +34,7 @@ $logo = render($logo);
     <div class="store_loves">Loves: <span>15</span> </div>
     <div class="store_pageviews">Pageviews: <span>534</span> </div>
   </div>
+</div>
+
 </div>
 
