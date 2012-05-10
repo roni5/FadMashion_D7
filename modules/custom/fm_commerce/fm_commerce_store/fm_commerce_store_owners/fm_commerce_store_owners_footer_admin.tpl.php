@@ -28,7 +28,7 @@ $logo = render($logo);
 <div class="designer_promotions">
 <div class="text">Drive Traffic, Increase Sales
   <?php $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
-  print '<div><a onClick="fmUserStateRestart(); fmInviteReset(); jQuery(\'.state2\').show();fmClearRegisterTimeout();" class="colorbox-inline invite" href="' . $url . '">' . t('Promote My Shop') . '</a></div>'; 
+  print '<div><a onClick="fmUserStateRestart(); fmInviteReset(); jQuery(\'.state2\').show();fmClearRegisterTimeout();" class="colorbox-inline invite" href="' . $url . '">' . t('Promote Your Shop') . '</a></div>'; 
   ?></div> 
   <div class="designer_stats">
     <div class="store_loves">Loves: <span>15</span> </div>
