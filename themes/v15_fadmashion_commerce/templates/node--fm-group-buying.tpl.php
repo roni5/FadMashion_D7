@@ -85,7 +85,6 @@
 <div id="photoBox">
   <div class="social_favorites"><?php print fm_social_favorite_get_button($product->product_id)?></div>
   <?php print render($content['product:field_product_images']); ?>
-  <div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>
 
 </div>
 
@@ -119,6 +118,8 @@
     <div class="simpleTabsContent"><?php print $tab_returns; ?></div>
 		    </div>
 </div><!--tabbedInfo-->
+  <div class="guarantee">We guarantee that Fadmashion is authorized to sell this product and that every item we sell is authentic.</div>
+
 <?php print $admin_links; ?>
  
                 
