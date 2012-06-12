@@ -1,6 +1,7 @@
 <?php
 
 define('FM_SUPPORT_MAIL', "support@fadmashion.com");
+define('FM_FREE_SHIPPING', 15000);
 
 /**
  * Implements hook_form_alter().
@@ -182,7 +183,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
      
     // Find line item associated with this coupon:
      if ($line_item_wrapper->type->value() == 'coupon' ) {
-        $coupon_line_item = $line_item_wrapper->value();
+        $line_item_wrapper->delete();
     }
   }
   
@@ -220,12 +221,33 @@ function fm_commerce_cart_submit($form, &$form_state) {
   }
   
   
+  //remove coupon line item from order
+/* if(!empty($coupon_line_item)) {
+ 	  // Remove the line item from the line item reference field.
+    commerce_entity_reference_delete($order, 'commerce_line_items', 'line_item_id', $coupon_line_item->line_item_id);
+ 	  $ret = commerce_line_item_delete($coupon_line_item->line_item_id);
+ 	  entity_get_controller('commerce_line_item')->resetCache(array($coupon_line_item->line_item_id));
+ 	  //db_query('DELETE FROM {commerce_coupon_log} WHERE order_id = :order_id', array(':order_id' => $order->order_id));
+ 	  commerce_order_save($order);
+  }*/
+  
+  
+  
+   
+  commerce_order_calculate_total($order);
+  $order_total = $order_wrapper->commerce_order_total->value();
+  $order_total = $order_total['amount'];
   //SHIPPING LINE ITEM
   if (empty($shipping_line_item)) { 
   	
   	if(isset($store->field_shipping_rate) && !empty( $store->field_shipping_rate['und'][0]['amount'])) {
   	
-  	  $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  		if($order_total < FM_FREE_SHIPPING) {
+  	    $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  		}
+  		else {
+  			$shipping_rate = 0;
+  		}
   	
   	  $shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
       $shipping_line_item = commerce_line_item_new('shipping');
@@ -250,21 +272,27 @@ function fm_commerce_cart_submit($form, &$form_state) {
   	}
   } else {
   	
+  	$shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
+  	if($order_total < FM_FREE_SHIPPING) {
+  		if(isset($store->field_shipping_rate) && !empty( $store->field_shipping_rate['und'][0]['amount'])) {
+  	    $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  	    $shipping_line_item_wrapper->commerce_unit_price->amount = $shipping_rate;
+  	    var_dump($shipping_rate);
+  		}
+  	} else {
+  		$shipping_line_item_wrapper->commerce_unit_price->amount = 0;
+  	}
+    $shipping_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+    
+    commerce_line_item_rebase_unit_price($shipping_line_item);
+  	commerce_line_item_save($shipping_line_item);
   }
   
-  
-  //remove coupon line item from order
- if(!empty($coupon_line_item)) {
- 	  // Remove the line item from the line item reference field.
-    commerce_entity_reference_delete($order, 'commerce_line_items', 'line_item_id', $coupon_line_item->line_item_id);
- 	  $ret = commerce_line_item_delete($coupon_line_item->line_item_id);
- 	  entity_get_controller('commerce_line_item')->resetCache(array($coupon_line_item->line_item_id));
- 	  //db_query('DELETE FROM {commerce_coupon_log} WHERE order_id = :order_id', array(':order_id' => $order->order_id));
- 	  commerce_order_save($order);
-  }
   
   // Save the updated order.
   commerce_order_save($order);
+  
+  
   
    //Redirect here
  $form_state['redirect'] = 'express-checkout'; 

@@ -17,7 +17,7 @@ tbody {border: medium none}
 .rounded-top {border-top-left-radius: 4px; border-top-right-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px; }
 .rounded-bottom {border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; -webkit-border-bottom-left-radius: 4px; -moz-border-radius-bottomleft: 4px; -webkit-border-bottom-right-radius: 4px; -moz-border-radius-bottomright: 4px; }
 
-.form-submit, a.button {color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
+.form-submit, a.button {color: #fff; background: url(../images/b_small.png) top left no-repeat; cursor:pointer; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
 
 .message_box, #message_box {background:url("../images/arrow_error.png") no-repeat scroll 8px 6px transparent;color:#FFFFFF;font-size:11px;padding-top:6px;}
 label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 0 0 #CC3333;border:0 solid #000000;color:#FFFFFF;font-size:11px;margin-top:6px;padding:5px;}
@@ -221,7 +221,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 /* Sign Up Box */
 
 #signup label{display: none}
-#signup .form-item, .form-actions{margin: 0 !important;}
+#signup .form-item, .form-actions{margin: 15px 0 0 !important;}
 #signup .form-item .description {color: #8f837a }
 #signup .password-suggestions, #about-you .password-suggestions{position: absolute;left: -9999px;}
 #signup .password-suggestions, #about-you .password-suggestions{display: none}
@@ -358,6 +358,7 @@ margin-bottom:8px;
 #authenticate .new-form {width: 300px; margin: auto; text-align: center; }
 #authenticate .form-item {float: none !important; padding-bottom: 5px !important;}
 #authenticate label {display: none}
+#authenticate .new-form a.button {padding: 6px 12px;}
   
 .page-express-checkout  .title{
 color:#fff;
@@ -414,7 +415,8 @@ top:14px;}
 .checkoutFooter .logo {display:block;float:none;margin-top:10px;}
 
 .completeOrder {float:right; font-size:12px; text-align:right;}
-.completeOrder .form-submit {background-image:url("../images/b_bg_red.jpg");display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;}
+.completeOrder .form-submit { background: url("../images/b_bg_red.jpg") repeat scroll left top transparent;
+    border-radius: 4px 4px 4px 4px;width: auto; height: auto; display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;}
 
 #billing .form {border-right:1px solid #E2D9D0; width: 315px; float: left;}
 #shipping .sameAddress {font-size:12px;padding:10px 0;}

@@ -36,7 +36,12 @@ function theme_fm_commerce_cart_line_item($vars) {
 	
 	$line_item_val = '<div class="item_wrapper">';
   $line_item_val .= '<div class="item_title">' . $title . '</div>';
-  $line_item_val .= '<div class="item_value ' .($red ? 'red_val' : '') . '">' . $price . '</div>';
+  if($price != '$0.00') {
+    $line_item_val .= '<div class="item_value ' .($red ? 'red_val' : '') . '">' . $price . '</div>';
+  } else {
+  	$line_item_val .= '<div class="item_value red_val">FREE</div>';
+  }
+  
   $line_item_val .= '</div>';
   
   return $line_item_val;
