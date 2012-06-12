@@ -495,9 +495,7 @@ function fm_commerce_store_get_products($store, $withDisplayNode = false) {
 	      
 	$products = $query->execute();
 	$products_ret = array();
-	var_dump($products);
 	if(isset($products['commerce_product'])) {
-		var_dump($products);
     foreach($products['commerce_product'] as $product_id => $product) {
       $products_ret[$product_id] = commerce_product_load($product_id);
 	  }
