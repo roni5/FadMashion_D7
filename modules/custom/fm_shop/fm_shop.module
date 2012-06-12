@@ -126,7 +126,6 @@ function fm_shop_collection_viewer($type, $var) {
 		case 'store':
 			$shop = $var;
 			$products = fm_commerce_store_get_products($shop, true);
-			var_dump($products);
 			$content = '<div id = "collection_store_' . $shop->store_id . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products));
 			$content .= '</div>';

@@ -491,11 +491,13 @@ function fm_commerce_store_get_products($store, $withDisplayNode = false) {
 	      
 	      
 	$query->fieldCondition('field_store_reference', 'store_id', $store->store_id);
-	$query->fieldOrderBy('field_product_weight', 'value', 'ASC');
+	//$query->fieldOrderBy('field_product_weight', 'value', 'ASC');
 	      
 	$products = $query->execute();
 	$products_ret = array();
+	var_dump($products);
 	if(isset($products['commerce_product'])) {
+		var_dump($products);
     foreach($products['commerce_product'] as $product_id => $product) {
       $products_ret[$product_id] = commerce_product_load($product_id);
 	  }
