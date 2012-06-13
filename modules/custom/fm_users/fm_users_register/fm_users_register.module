@@ -134,7 +134,7 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 	
   $_SESSION[FM_USER_EMAIL_SESSION] = $mail;
 	
-	drupal_goto('deals');
+	drupal_goto('shop');
 }
 
 function fm_users_register_session_email() {
@@ -408,8 +408,8 @@ function fm_users_register_form_submit($form, &$form_state) {
 		user_save($user, array('status' => 1));
 		$private = FALSE;
   }
-	
-	$mail = $user->mail;*/
+	dea
+	$mail = $user->mail;
 	
 		
 	
@@ -421,7 +421,8 @@ function fm_users_register_form_submit($form, &$form_state) {
 	} else {
     print theme('fm_users_register_private', array('user' => $user, 'invite_url' => $invite_url, 'invite_form' => $invite_form));
 	}
-	exit();
+	exit();*/
+	drupal_goto('shop');
 }
 
 function fm_users_register_pass_form_submit() {

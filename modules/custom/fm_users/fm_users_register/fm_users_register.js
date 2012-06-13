@@ -117,12 +117,6 @@ jQuery(document).ready(function() {
 	    	errorContainer: jQuery(".errorText"),
 	  	    onkeyup: false,
 	  	    wrapper: 'div id="message_box"',
-	  	    submitHandler: function(form) {
-				jQuery(form).ajaxSubmit({
-			        beforeSubmit:  regSlideConfirmation,  // pre-submit callback 
-			        success:       regFormSuccess  // post-submit callback 
-				});
-			},
 	  	  });
 	  
 	    jQuery("#user-register-form  #edit-field-first-name-und-0-value").rules("add", {

@@ -221,7 +221,8 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 /* Sign Up Box */
 
 #signup label{display: none}
-#signup .form-item, .form-actions{margin: 15px 0 0 !important;}
+ .form-actions {margin: 15px 0 0 !important;}
+ #signup .form-item {margin:  0 !important;}
 #signup .form-item .description {color: #8f837a }
 #signup .password-suggestions, #about-you .password-suggestions{position: absolute;left: -9999px;}
 #signup .password-suggestions, #about-you .password-suggestions{display: none}
@@ -358,7 +359,7 @@ margin-bottom:8px;
 #authenticate .new-form {width: 300px; margin: auto; text-align: center; }
 #authenticate .form-item {float: none !important; padding-bottom: 5px !important;}
 #authenticate label {display: none}
-#authenticate .new-form a.button {padding: 6px 12px;}
+#authenticate .new-form a.button {padding: 6px 11px;}
   
 .page-express-checkout  .title{
 color:#fff;
