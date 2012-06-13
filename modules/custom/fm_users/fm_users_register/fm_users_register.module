@@ -434,6 +434,9 @@ function fm_users_register_pass_form_submit() {
 }
 
 function fm_users_register_pass_reset_form_submit() {
+	var_dump('test');
+	exit();
+	
   drupal_goto('shop');
 }
 
