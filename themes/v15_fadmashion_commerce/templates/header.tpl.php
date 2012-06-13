@@ -4,9 +4,15 @@
 <div id="header">
   <div class="right">
     <div class="links">
-        <a href="">Contact Us</a>
-        <a href="">FAQ's</a>
-        <a href="">About Us</a>
+    
+        <?php global $user;
+            if ($user->uid) { ?>
+                
+                <?php print l('Logout', 'user/logout');?>
+             <?php } else{ ?>
+               <a  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
+               <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
+             <?php } ?>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus hassle-free returns</p></div></div>
         

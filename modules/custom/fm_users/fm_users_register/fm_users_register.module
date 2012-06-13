@@ -282,6 +282,7 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	case 'user_pass':  
   		$form['name']['#default_value'] = t('Enter E-maill Address');
   		$form['name']['#attributes'] = array('class' => array('clear-defaults'));
+  		$form['actions']['submit']['#value'] = t('E-mail Me');
   		$form['#submit'][] = 'fm_users_register_pass_form_submit';
   		break;
   	case 'user_login_block':  
