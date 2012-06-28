@@ -9,10 +9,10 @@
             if ($user->uid) { ?>
                 
                 <?php print l('Logout', 'user/logout', array('attributes' => array('target' => '_parent')));?>
-             <?php } else{ ?>
+             <?php } else{ /*?>
                <a  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
-             <?php } ?>
+             <?php */} ?>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus hassle-free returns</p></div></div>
         
