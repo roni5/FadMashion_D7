@@ -387,7 +387,7 @@ top:14px;}
   
 .customer_profile_shipping {margin-bottom: 25px;}
 
-.checkoutPanel{ background: #fff; float: left; width: 680px;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
+.checkoutPanel{ background: #fff; float: left; width: 100%;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px;}
 .checkoutPanel .header {background: url("../images/bg_panelHeader.jpg") repeat-x scroll left top transparent; width: 100%; color: #fff;  font-size: 12px; border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; }
 .checkoutPanel .header .pad{padding: 10px;}
 .checkoutPanel .header .dropdown{float: right; }
@@ -620,9 +620,10 @@ top:14px;}
 #avatar {width: 150px;float: left}
 #upload {float: left; width: 400px;}
 .page-user-edit .column1{width: 682px; float: left; border-right: 1px solid #ddd; padding-right: 25px; padding-bottom: 30px;}
-.page-user-edit  .column2{position: absolute;padding-left: 25px;  width:267px; display:inline;float:left; }
+.page-user-edit  .column2{position: absolute;padding-left: 25px;  width:292px; display:inline;float:left; }
 #fm_user_edit_form {margin-top: 25px;}
-#profile_information.checkoutPanel { margin-bottom: 25px;}
+#profile_information.checkoutPanel, #quicklinks_information.checkoutPanel{ margin-bottom: 25px;}
+#quicklinks_information .a{font-size: 14px;}
 
 
 

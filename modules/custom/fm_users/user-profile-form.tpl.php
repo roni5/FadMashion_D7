@@ -39,6 +39,21 @@
  </div>
 
 <div class="column2">
+<div class="checkoutPanel" id="quicklinks_information">
+  <div class="header rounded-top">
+    <div class="pad">
+       Quick Links
+    </div>
+  </div>
+  <div id="quicklinks_info">
+    <div class="form">
+      <div><?php print l('Order History');?></div>
+      <div><?php print l('Shipping & Returns');?></div>
+      <div><?php print l('Contact Us');?></div>
+      <div><?php print l('FAQ');?></div>
+    </div>
+  </div>
+</div>
 <?php print theme('fm_social_favorite_most_loved'); ?>
 </div>
 
