@@ -8,7 +8,7 @@
   			  <?php print render($page['featured']);?>
   	  </div><div class="shadow">&nbsp;</div>
   	  </div>
-      <?php endif;  ?> 
+      <?php endif;  ?>  
       
       
 	 <div id="content" class="sidebarRight">

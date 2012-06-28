@@ -1,4 +1,5 @@
-
+<div id="fm_user_edit_form">
+<div class="column1">
 <?php print $form_processing;?>
 <div class="checkoutPanel" id="profile_information">
   <div class="header rounded-top">
@@ -35,3 +36,10 @@
 </div>
 <br clear="all">
   <?php echo $actions; ?>
+ </div>
+
+<div class="column2">
+<?php print theme('fm_social_favorite_most_loved'); ?>
+</div>
+
+</div>
