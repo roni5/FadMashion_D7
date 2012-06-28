@@ -35,7 +35,9 @@
   </div>
 </div>
 <br clear="all">
+  <div style="float: right; ">
   <?php echo $actions; ?>
+  </div>
  </div>
 
 <div class="column2">
