@@ -11,7 +11,7 @@
 
 <div class="col">
 <div><?php print l('Order Status', '');?></div>
-<div><?php print l('Settings', '');?></div>
+<div><?php print l('Settings', 'user/' . $user->uid . '/edit');?></div>
 </div>
 </div>
 

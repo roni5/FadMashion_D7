@@ -33,10 +33,10 @@ Drupal.behaviors.addFMPaymentEmailForm= {
 		//showErrors: showErrorsColorbox
     });
     
-    $("#fm-commerce-store-owners-admin-form #edit-mail").rules("add", {
+   /* $("#fm-commerce-store-owners-admin-form #edit-mail").rules("add", {
     	 required: true, 
-    	 email: true
-    });
+         //email: true
+    });*/
     
     var needsAction = jQuery('#orders-list .needs-action').length;
     if(needsAction && !jQuery('.action-alert').length) {

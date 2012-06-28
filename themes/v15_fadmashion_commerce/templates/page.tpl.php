@@ -25,6 +25,9 @@
 </div><!--wrapper-->
 </div><!--container-->
 
+
+<?php print theme('fm_global_footer_tabs');?>
+
 <br clear="all">
 <br clear="all">
 <br clear="all">

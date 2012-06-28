@@ -9,8 +9,6 @@ var inviteBlockId = 'block-fm-users-fm-users-invite';
 jQuery(document).ready(function() {
 	
 
-	jQuery('.footer_tabs_container').tabs();
-	
 	jQuery('#block-views-nodequeue-2-block,  #block-views-nodequeue-3-block').addClass('basicPagePopUp');
 	
 	//TODO: Re-arrange body so it is in the title Div.  CSS ISSUE

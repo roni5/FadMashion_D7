@@ -6,6 +6,9 @@
 jQuery(document).ready(function() {
 
 
+	jQuery('.footer_tabs_container').tabs();
+	
+
 	  var tabs_content = jQuery('.footer_tabs_content');
 	  var tabs_links = jQuery('.footer_tabs_links');
 	  tabs_content.resize( function() {

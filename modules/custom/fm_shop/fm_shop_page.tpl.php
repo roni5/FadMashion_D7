@@ -18,7 +18,6 @@
   <div class="pad"><?php print $content;?></div>
 </div>
 
-<?php print theme('fm_global_footer_tabs');?>
 <div id="cache"  style="display:none;">
   
 </div>

@@ -400,7 +400,7 @@ top:14px;}
 .checkoutPanel .form-item input:focus { border-color: #BC4038 }
 .checkoutPanel h3{color: #000;}
 .checkoutPanel .form-item input:disabled { background-image: none; }
-
+.checkoutPanel .field-type-text {float: left;}
 
 
 .checkoutPanel .form-item .narrow{width: 100px;}
@@ -613,6 +613,13 @@ top:14px;}
 #quicktabs-store_owners_admin #orders-list table{margin: 0px;}
 .orders-filter-list {list-style-type: none; display: inline;}
   
+/* User Edit Form */
+#avatar {width: 150px;float: left}
+#upload {float: left; width: 400px;}
+
+#profile_information.checkoutPanel {margin-top: 25px; margin-bottom: 25px;}
+
+
 
 /* Footer User Register Style*/
 

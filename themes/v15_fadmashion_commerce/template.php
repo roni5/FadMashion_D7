@@ -41,6 +41,9 @@ function v15_fadmashion_commerce_colorbox_settings_alter(&$settings) {
  */
 function v15_fadmashion_commerce_preload() {
 	
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/fm_onload.js');
+	
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/slides.jquery.js');
 	drupal_add_library('jquery_plugin', 'validate');
 	drupal_add_library('system', 'jquery.form');
 	drupal_add_js(drupal_get_path('module', 'fm_commerce_orders') . '/fm_commerce_orders.js');
