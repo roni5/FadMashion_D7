@@ -49,8 +49,9 @@
     <div class="form">
       <div><?php print l('Order History');?></div>
       <div><?php print l('Shipping & Returns');?></div>
-      <div><?php print l('Contact Us');?></div>
-      <div><?php print l('FAQ');?></div>
+      <div><?php print l('Recommend to Friends');?></div>
+      <div><?php print l('Contact us');?></div>
+      <div><?php print l('Logout');?></div>
     </div>
   </div>
 </div>
