@@ -8,12 +8,12 @@
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus hassle-free returns</p></div></div>
         
-    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Fadmashion'); ?>" rel="home" >
+    <a target="_parent" class="logo" href="<?php print $front_page; ?>" title="<?php print t('Fadmashion'); ?>" rel="home" >
         			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-     <?php print l('Shop', 'shop', array('absolute' => true ));?>
-      <a href="http://blog.fadmashion.com" class="active">Discover</a>              
+     <?php print l('Shop', 'shop', array('absolute' => true, 'attributes' => array('target' => '_parent') ));?>
+      <a target="_parent" href="http://blog.fadmashion.com" class="active">Discover</a>              
     </div>
 </div>
 

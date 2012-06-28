@@ -3,8 +3,8 @@
 <div class="box">
 
 <div class="old_signup">
-<h1>Invite Friends</h1>
-<p style="width: 460px; margin: 0 auto; font-weight: 500">We have provided you with a private invite code that gives insider access for your <b>friends, family and biggest fans</b>.  </p>
+<h1>Share New York fashion with Friends</h1>
+<p style="width: 460px; margin: 0 auto; font-weight: 500">For every friend's you invite, you and your friend get $10 worth of free credits on any future purchse.  <b>Its always a good time to share!</b>  </p>
 </div>
 
 

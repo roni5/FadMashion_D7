@@ -1,5 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- //Updated code// -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31336301-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 <head>
         <title>{Title}</title>
         <link rel="shortcut icon" href="{Favicon}">
@@ -59,7 +72,7 @@ Code is poetry.
 body {
      background:{color:Background};
      font-family:{font:Body};
-     font-size:13px;
+     font-size:16px;
      color:{color:Text};
      margin:0;
      padding: 0px;
@@ -89,7 +102,7 @@ a:hover{
     content: ".";
     display: block;
     clear: both;
-  visibility: hidden;
+    visibility: hidden;
   line-height: 0;
   height: 0;
 }
@@ -752,7 +765,7 @@ text-decoration: blink;
         .menu a{ margin-right: 10px;}
         .tree li{float: left;}
         
-        .logo{float: left; margin-top: 15px; }
+        .logo{float: left; margin-top: 2px; }
         .navBox{margin: 0 0 0 20px}
         .navBox, .nav, .nav li{float: left; list-style-type:none;}
         .nav{margin-top: 0; height: 59px; color: #fff; padding-left: 4px;}
@@ -769,7 +782,33 @@ background:none repeat scroll 0 0 #555555;
 padding:10px;
 color: #ffffff
 }
-        
+   
+   
+   .grid_12               { width:1080px !important; }
+.grid_6               { width:510px !important; }
+.row {width: 1048px;}
+iframe#tumblr_controls{ top: 100px !important; right: px !important; position: fixed !important; display: none; }
+
+#header_tumblr_links {width: 170px; margin: auto;}
+
+#header_tumblr_links a.follow_btn {
+background:url("http://ofakind.com/images/buttons/social-btns-follow.png") no-repeat scroll left top transparent;
+height:20px;
+
+width:59px;
+}
+
+#header_tumblr_links a.tumblr_btn {
+background:url("http://ofakind.com/images/buttons/social-btns-tumblr.png") no-repeat scroll left top transparent;
+height:20px;
+width:105px;
+}
+
+a.btn{overflow:hidden; text-indent:-9999px; display: block; float: left; margin-right: 3px; }
+a.btn:hover{background-position:0 -50px!important;}
+a.btn:active{background-position:0 -100px!important;}
+
+    
 </style>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -797,9 +836,9 @@ color: #ffffff
 
 <script type="text/javascript">
 $(window).load(function(){  
-    $('.flexslider').flexslider({
+   /* $('.flexslider').flexslider({
     controlNav: false
-    });
+    });*/
 });
 </script>
 {/block:permalinkPage}
@@ -851,6 +890,12 @@ $(window).load(function(){
 <div class="column grid_12">
 <div class="header">
 <a href="/"><h1>{Title}</h1></a>
+
+<div id="header_tumblr_links">
+<a href="http://www.tumblr.com/follow/fadmashion" class="follow_btn btn">Follow</a>
+<a href="http://www.tumblr.com/follow/fadmashion" class="tumblr_btn btn">Join Tumblr</a>
+
+</div>
 
 </div><!--header-->
 </div><!--twelvecol-->
@@ -930,49 +975,7 @@ $(window).load(function(){
 <img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
 
 {/block:Photo}
-                
-{block:Photoset}
-{block:IndexPage}
-{block:IfTwoColumns}
-<div class="post photoset column grid_6">
-{/block:IfTwoColumns}
-{block:IfThreeColumns}
-<div class="post photoset column grid_4">
-{/block:IfThreeColumns}
-{block:IfFourColumns}
-<div class="post photoset column grid_3">
-{/block:IfFourColumns}
-{/block:IndexPage}
-
-{block:PermalinkPage}
-<div class="post photo column grid_8">
-{/block:PermalinkPage}
-
-<div class="flexslider">
-<ul class="slides">
-{block:Photos}
-<li><center><img src="{PhotoURL-500}" alt="{PhotoAlt}"/></center>
-{block:Caption}<p>{Caption}</p>{/block:Caption}
-</li>{/block:Photos}
-</ul>
-</div>
-{block:IfDisplayCaptions}
-{block:Caption}
-<div class="caption">{Caption}</div>
-{/block:Caption}
-{/block:IfDisplayCaptions}
-
-{block:IndexPage}<div class="permalink">
-<ul>
-<li><a href="{Permalink}">Permalink</a></li>
-<li class="notes"><a href="{Permalink}">{NoteCount}</a></li>
-<li class="date">{block:Date}<a href="{Permalink}">{ShortMonth} {DayOfMonthWithZero}, {Year}</a>{/block:Date}</li>
-</ul>
-</div>{/block:IndexPage}
-
-<img class="shadow" src="http://static.tumblr.com/7wtblbo/G6Rlw50mn/shadow.png">
-
-{/block:Photoset}
+ 
 
 {block:Quote}
 {block:IndexPage}
@@ -1106,8 +1109,8 @@ $(window).load(function(){
 <div class="post photo column grid_8">
 {/block:PermalinkPage}
 
-<div class="video-container">
-<div class="vid_vis" id="{PostID}">{Video-500}</div>
+<div class="media">
+<div id="{PostID}">{Video-500}</div>
 </div>
 {block:IfDisplayCaptions}
 {block:Caption}
