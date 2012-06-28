@@ -20,8 +20,8 @@
         			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-     <?php// print l('Shop', 'shop', array('absolute' => true, 'attributes' => array('target' => '_parent') ));?>
-      <a target="_parent" href="http://www.fadmashion.com" class="active">Discover</a>
+     <?php  // print l('Shop', 'shop', array('absolute' => true, 'attributes' => array('target' => '_parent') ));?>
+      <a target="_parent" href="http://www.fadmashion.com" class="active">Shop</a>
       <a target="_parent" href="http://blog.fadmashion.com" class="active">Discover</a>              
     </div>
 </div>
