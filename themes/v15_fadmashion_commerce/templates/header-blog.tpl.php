@@ -8,7 +8,7 @@
         <?php global $user;
             if ($user->uid) { ?>
                 
-                <?php print l('Logout', 'user/logout', array('attributes' => array('parent' => '_target')));?>
+                <?php print l('Logout', 'user/logout', array('attributes' => array('target' => '_parent')));?>
              <?php } else{ ?>
                <a  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
