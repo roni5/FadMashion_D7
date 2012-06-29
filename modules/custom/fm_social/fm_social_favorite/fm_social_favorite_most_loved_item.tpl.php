@@ -3,7 +3,7 @@ $product = commerce_product_load($product_id);
 $img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
 $node = fm_commerce_get_display_node($product);
 $shop = fm_commerce_get_store($product);
-$url = url('<front>', array('alias' => true));
+$url = url('shop', array('alias' => true));
 $url .= '/#!';
 $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
 $url = $url . $url2;
