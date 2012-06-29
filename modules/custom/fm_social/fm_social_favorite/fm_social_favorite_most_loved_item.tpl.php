@@ -3,9 +3,13 @@ $product = commerce_product_load($product_id);
 $img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
 $node = fm_commerce_get_display_node($product);
 $shop = fm_commerce_get_store($product);
-//$url = url('node/' . $node);
-$img_link = l($img, 'shop/' . $url, array('html' => true,  'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-$title_link = l('<h1 class="itemName">' . $product->title . '</h1>', 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+$url = url('shop', array('fragmet' => '!' ));
+$url .= '/#!';
+$url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
+$url = $url . $url2;
+$img_link = l($img, $url, array('html' => true, 'absolute' => true));
+//$title_link = l('<h1 class="itemName">' . $product->title . '</h1>', 'shop#', array('html' => true, 'absolute' => 'true', 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+$title_link = '<a href="' . $url . '">' . '<h1 class="itemName">' . $product->title . '</h1>' . '</a>';
 $shop_link = l($shop->name, $shop->name, array( 'query' => array('store_id' => $shop->store_id) ));
 ?>
 
