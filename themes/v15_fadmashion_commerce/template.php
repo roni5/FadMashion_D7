@@ -138,7 +138,7 @@ function v15_fadmashion_commerce_preprocess_page(&$variables) {
   $static_pages = fadmashion_commerce_static_pages();
   if(in_array($split_url[0], $static_pages)) {
   	drupal_add_css(path_to_theme().'/css/static.css');  
-    $variables['theme_hook_suggestions'][] = 'page__static';
+    //$variables['theme_hook_suggestions'][] = 'page__static';
   }
   
   

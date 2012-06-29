@@ -215,7 +215,7 @@ function fm_deals_preprocess_node(&$vars) {
 	   $vars['tab_shipping'] = theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) );
 	   $vars['tab_returns'] = theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) );
 
-	}
+	
 	
 	// Stylist Info
 	$stylist_info = field_get_items('commerce_product', $product, 'field_product_stylist');
@@ -237,10 +237,9 @@ function fm_deals_preprocess_node(&$vars) {
     $stylist .= '<span>Chief Stylist</span></h2>';
     $stylist .= '</div>';
    
-
-  
   $vars['stylist'] = $stylist;
   
+	}
   
 }
 

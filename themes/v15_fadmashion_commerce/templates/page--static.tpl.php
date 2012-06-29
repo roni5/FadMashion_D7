@@ -1,6 +1,6 @@
 <div align="center" id="wrapper">
 	<div id="static" class="container" >
-<?php include('header-static.tpl.php');?>
+<?php include('header.tpl.php');?>
   <div id="static">
 	 <div id="content" class="sidebarLeft" >
 	   <div class="column1">
