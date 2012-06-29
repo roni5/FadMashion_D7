@@ -7,8 +7,9 @@ $url = url('shop', array('alias' => true));
 $url .= '#!';
 $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
 $url = $url . $url2;
-$img_link = l($img, $url, array('html' => true, 'absolute' => true));
+//$img_link = l($img, $url, array('html' => true, 'absolute' => true));
 //$title_link = l('<h1 class="itemName">' . $product->title . '</h1>', 'shop#', array('html' => true, 'absolute' => 'true', 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
+$img_link = '<a href="' . $url . '">' . $img . '</a>';
 $title_link = '<a href="' . $url . '">' . '<h1 class="itemName">' . $product->title . '</h1>' . '</a>';
 $shop_link = l($shop->name, $shop->name, array( 'query' => array('store_id' => $shop->store_id) ));
 ?>
