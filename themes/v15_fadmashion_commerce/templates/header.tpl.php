@@ -30,5 +30,5 @@
         	<a class="press1" href="#">NY Mag</a>
         	<a class="press3" href="#">FashionSpot</a>
             </div>
-        <div class="slogan"><span>New York's</span> First Ever Online Style Collective.</div>
+        <div class="slogan"><span>New York's</span> designer collections.&nbsp;&nbsp;&nbsp;<span>Shop</span> private sales.&nbsp;&nbsp;&nbsp;<span>Love</span> your new style.</div>
         </div>
