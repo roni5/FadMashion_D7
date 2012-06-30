@@ -40,7 +40,7 @@ function fm_global_static_pages_page() {
 }
 
 function fm_global_static_pages() {
-	return array('about-us' => 'About Us', 'Press' => 'Press', 'faq' => 'FAQ', 'returns' => 'Returns', 'contact-us' => 'Contact Us');
+	return array('about-us' => 'About Us', 'Press' => 'Press',  'returns' => 'Returns', 'contact-us' => 'Contact Us', 'faq' => 'FAQ',);
 }
 
 function fm_global_static_pages_content($pages) {

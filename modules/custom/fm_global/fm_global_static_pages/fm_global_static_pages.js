@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
 	 jQuery.address.crawlable(true).init(function(event) {
 
          // Initializes plugin support for links
-		 jQuery('.page-static .col1 a').address();
+		 jQuery('.page-static .col1 ul a').address();
 
 
      })

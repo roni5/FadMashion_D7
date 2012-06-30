@@ -7,6 +7,7 @@
   }?>
   </ul>
   </div>
+  <?php print theme('fm_social_favorite_most_loved'); ?>
 </div>
 <div class="col2">
   <div class="pad rounded-top rounded-bottom"></div>
