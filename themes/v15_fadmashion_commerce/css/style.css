@@ -57,7 +57,7 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 /********* content **********/
 #content {padding: 0 0 30px 0;float: left;}
 #content .col1{width: 207px; float: left;}
-	#content .col1 .pad{padding: 30px 20px 0 0;}
+	#content .col1 .pad{padding: 30px 20px 20px 0;}
 #content .col2{width: 817px; float: left; position: relative}
 	#content .col2 .pad{padding: 30px 0 0 0;}
 	
@@ -331,6 +331,10 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 font-size:16px;
 margin-bottom:8px;
 }
+
+/* Global Static Pages */
+.page-static .col2 .pad {padding: 20px !important; margin-top: 30px;  background-color: #fff;}
+
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }

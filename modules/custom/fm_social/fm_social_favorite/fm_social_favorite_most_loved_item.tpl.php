@@ -11,7 +11,7 @@ $url = $url . $url2;
 //$title_link = l('<h1 class="itemName">' . $product->title . '</h1>', 'shop#', array('html' => true, 'absolute' => 'true', 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
 $img_link = '<a href="' . $url . '">' . $img . '</a>';
 $title_link = '<a href="' . $url . '">' . '<h1 class="itemName">' . $product->title . '</h1>' . '</a>';
-$shop_link = l($shop->name, $shop->name, array( 'query' => array('store_id' => $shop->store_id) ));
+$shop_link = '<a href="' . $url . '">' . $shop->name. '</a>';
 ?>
 
 <div class="itemLoved">

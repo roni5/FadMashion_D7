@@ -1,1 +1,62 @@
 <?php
+/**
+ * Implements hook_menu().
+ */
+function fm_global_static_pages_menu() {
+	
+	$items['static'] = array(
+    'page callback' => 'fm_global_static_pages_page',
+	  'access arguments' => array('view deals'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  
+  return $items;
+}
+
+function fm_global_static_pages_init() {
+	drupal_add_js(drupal_get_path('module', 'fm_global_static_pages') . '/fm_global_static_pages.js');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fm_global_static_pages_theme() {
+  return array(
+    'fm_global_static_pages_page' => array(
+	     'variables' => array('pages' => '', 'content' => ''),
+	    'template' => 'fm_global_static_pages_page'
+    ),
+  );
+}
+
+function fm_global_static_pages_page() {
+
+  $pages = fm_global_static_pages();
+  $content = fm_global_static_pages_content($pages);
+  //$content = fm_shop_page_all_panels($filters);
+  
+  return theme('fm_global_static_pages_page', array('pages' => $pages, 'content' => $content));
+}
+
+function fm_global_static_pages() {
+	return array('about-us' => 'About Us', 'Press' => 'Press', 'faq' => 'FAQ', 'returns' => 'Returns', 'contact-us' => 'Contact Us');
+}
+
+function fm_global_static_pages_content($pages) {
+	$content = array();
+	foreach($pages as $alias => $page) {
+		$path = drupal_get_normal_path($alias);
+		$path = explode('/', $path);
+		if($path[0] == 'node') {
+			$node = node_load($path[1]);
+			$node_content = render(node_view($node));
+			$node_content = '<div class="' . $alias . '">' . $node_content . '</div>';
+			$content[$alias] = $node_content;
+		}
+	}
+	
+	return $content;
+}
+
+
