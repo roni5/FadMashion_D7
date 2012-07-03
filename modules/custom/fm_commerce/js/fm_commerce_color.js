@@ -36,10 +36,11 @@ jQuery(document).ready(function() {
 	 
 
 		//Enable Javascript Color functionality for Fadmashion sizes
-		jQuery('.form-item-sizes select').selectBox();
+		//jQuery('.form-item-sizes select').selectBox();
 		
 	//Enable Javascript Color functionality for Fadmashion Commerce
-		jQuery('.form-item-colors select').selectBox();
+		//jQuery('.form-item-colors select').selectBox();
+	
 		
 		//Change color options to div structures
 		jQuery('.form-item-colors .selectBox-options li a').each(function() {
@@ -68,6 +69,9 @@ jQuery(document).ready(function() {
 			
 			jQuery(this).attr('title', qty_info.html());
 		});
+		
+		
+		
 		
 		jQuery('.selectBox-selected').each(function() {
 		  if(jQuery(this).hasClass('selectBox-disabled')) {

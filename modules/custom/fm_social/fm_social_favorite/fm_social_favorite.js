@@ -53,6 +53,7 @@ jQuery(document).ready(function() {
 		  });
 		  
 		  jQuery(".favorite_button").once('init-social-favorites-processed').click(function (e){
+			  
 				e.preventDefault();
 				var href_val = jQuery(this).attr('href');
 				var product_id = jQuery(this).attr('id');
@@ -110,7 +111,18 @@ jQuery(document).ready(function() {
 					}  
 				});
 			});
+
 		
 	  }
 	};
 })(jQuery);
+
+function save_for_later(varThis) {
+	alt = jQuery('img', varThis).attr('alt');
+	if(alt.indexOf("love_on") != -1) {
+ 	   //Add Placeholder for image thumb
+		return 'Save for Later';
+	} else {
+		return '';
+	}
+}

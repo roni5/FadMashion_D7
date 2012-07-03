@@ -323,7 +323,7 @@ jQuery(document).ready(function() {
 			}
 			
 			jQuery(this).attr('style', 'background-color: #' + code);
-			jQuery(this).attr('title', qty_info.html()  + ' (' + title + ')');
+			jQuery(this).attr('title', title + ' - ' +qty_info.html());
 			jQuery(this).attr('pos', val);
 			jQuery(this).html('');
 		});
@@ -337,6 +337,25 @@ jQuery(document).ready(function() {
 			}
 					
 			jQuery(this).attr('title', qty_info.html());
+		});
+		
+		jQuery('.form-item-sizes .selectBox-options li a').bt({
+			  contentSelector: "jQuery(this).attr('title')",
+			  fill: 'rgb(35, 35, 35)',
+			  cssStyles: {color: 'white', fontWeight: 'bold', fontSize: '10px'},
+			  shrinkToFit: true,
+			  padding: 5,
+			  spikeLength: 6,
+			  positions: ['top']
+		});
+		jQuery('.form-item-colors .selectBox-options li a').bt({
+			  contentSelector: "jQuery(this).attr('title')",
+			  fill: 'rgb(35, 35, 35)',
+			  cssStyles: {color: 'white', fontWeight: 'bold', fontSize: '10px'},
+			  shrinkToFit: true,
+			  padding: 5,
+			  spikeLength: 6,
+			  positions: ['top']
 		});
 				
 		jQuery('.selectBox-selected').each(function() {

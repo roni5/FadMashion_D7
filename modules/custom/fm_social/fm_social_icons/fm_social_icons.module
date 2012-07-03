@@ -1,1 +1,19 @@
 <?php
+
+
+function fm_social_icons_theme() {
+	 return array(
+	   'fm_social_icons_twitter_button' => array(
+	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+     ), 
+     'fm_social_icons_facebook_button' => array(
+	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+     ), 
+     'fm_social_icons_pinterest_button' => array(
+	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+     ), 
+     'fm_social_icons_email_button' => array(
+	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+     ), 
+   );
+}
