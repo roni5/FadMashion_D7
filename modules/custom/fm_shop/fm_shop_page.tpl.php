@@ -3,10 +3,12 @@
   <div class="pad">
   <ul><li><?php  print l('Browse All', 'shop/all', array('attributes' => array('id' => 'all', 'class' => array('active', 'viewAll')))) ?></li></ul>
   <?php foreach($filters as  $filter_group) {
-    print '<h1>' . $filter_group['title'] . '</h1>';
+  	if(!empty($filter_group['title'] )) {
+      print '<h1>' . $filter_group['title'] . '</h1>';
+  	}
     print '<ul>';
     foreach($filter_group['links'] as $id => $link) {
-    	print '<li>' . l($link, check_plain($link), array('attributes' => array('id' => $id), 'query' => array('store_id' => $id))) . '</li>';
+    	print '<li>' . l($link, check_plain($link), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $id))) . '</li>';
     }
     print '</ul>';
   }?>

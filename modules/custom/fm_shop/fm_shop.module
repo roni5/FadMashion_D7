@@ -66,12 +66,16 @@ function fm_shop_page() {
 
 function fm_shop_page_ajax($type) {
 	
-	
+	$type = 'all';
 	if(isset($_GET['store_id']) && $_GET['store_id'] != '' ) {
 		$store_id = $_GET['store_id'];
-	} else {
-		$type = 'all';
-	}
+		$type = 'shop';
+	} 
+	
+   if(isset($_GET['term']) && $_GET['term'] != '' ) {
+		$term_name = $_GET['term'];
+		$type = 'term';
+   }
 	
 	$page = $_GET['page'];
 	
@@ -80,6 +84,7 @@ function fm_shop_page_ajax($type) {
 		  $filters = fm_shop_page_filters();
 		  $content = '<div id="all">';
       $panels = fm_shop_page_all_panels($filters);
+      
       foreach($panels as $panels_group) {
      	   foreach($panels_group as $panel) {
        	 	 $content .= $panel;
@@ -102,47 +107,75 @@ function fm_shop_page_ajax($type) {
 			$shop = fm_commerce_store_load($store_id);
 			$products = fm_commerce_store_get_products($shop, true);
 			
-			$content =  fm_shop_collection_viewer('store', $shop);
+			$content =  fm_shop_collection_viewer('store', $shop, $products);
 			
-			$node_content = '';
-			foreach($products as $product) {
-			  $node = fm_commerce_get_display_node($product);
-		    $node_content .= render(node_view($node));
-			}
-			$content .= '<div class="product_content">';
-			$content .= $node_content;
-			$content .= '</div>';
 	    break;
+		case 'term':
+			$term = taxonomy_get_term_by_name($term_name);
+			$term = array_shift($term);
+			$products = fm_shop_products_by_taxonomy($term, true);
+			$content =  fm_shop_collection_viewer('term', $term, $products);
+	    break;
+			
 	}
+	
+	
+	$node_content = '';
+	foreach($products as $product) {
+	 $node = fm_commerce_get_display_node($product);
+	 $node_content .= render(node_view($node));
+	}
+	$content .= '<div class="product_content">';
+	$content .= $node_content;
+	$content .= '</div>';
 	
 	print $content;
 	exit();
 }
 
-function fm_shop_collection_viewer($type, $var) {
+function fm_shop_collection_viewer($type, $var, $products) {
 
 	$content = '';
 	switch($type) {
 		case 'store':
 			$shop = $var;
-			$products = fm_commerce_store_get_products($shop, true);
 			$content = '<div id = "collection_store_' . $shop->store_id . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products));
 			$content .= '</div>';
-			return $content;
+			
 			break;
-		case '':
+		case 'term':
+			$term = $var;
+			$content = '<div id = "collection_term_' . $term->tid . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products));
+			$content .= '</div>';
 			break;
 	}
+	
+	return $content;
 	
 }
 
 
 function fm_shop_page_filters() {
 	$filters = array();
+	
+	//Get Featured List 
+	$filters['product_type']['title'] = '';
+	$filters['product_type']['links'] = array();
+	$filters['product_type']['arg'] = 'term'; 
+	$vocab = taxonomy_vocabulary_machine_name_load('product_types');
+	$terms = taxonomy_get_tree($vocab->vid);
+  foreach ($terms as  $term) {
+    $filters['product_type']['links'][$term->name] = check_plain($term->name);
+  }
+	
+	
+	
 //Get Featured List 
 	$filters['featured']['title'] = t('Featured');
 	$filters['featured']['links'] = array();
+	$filters['featured']['arg'] = 'store_id';
 	
 	
 	$query = new EntityFieldQuery();
@@ -161,6 +194,7 @@ function fm_shop_page_filters() {
 	//Get Designer List
 	$filters['designers']['title'] = t('Designers');
 	$filters['designers']['links'] = array();
+	$filters['designers']['arg'] = 'store_id';
 	
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'fm_commerce_store');
@@ -186,7 +220,9 @@ function fm_shop_page_all_panels($filters) {
   
 	$total = 0;
 	foreach($filters as $filter_group) {
-	  $total += count($filter_group['links']);
+		if(!empty($filter_group['title'])) {
+	    $total += count($filter_group['links']);
+		}
 	}
 	$half = ceil($total/2);
 	
@@ -207,21 +243,52 @@ function fm_shop_page_all_panels($filters) {
 	
   foreach($filters as $filter_group) {
   	$title = $filter_group['title'];
-  	$content[$title] = array();
-    foreach($filter_group['links'] as $id => $link) {
-    	if($i >= $start && $i < $end) {
-    	  $shop = fm_commerce_store_load($id);
-    	  $products = fm_commerce_store_get_products($shop, true);
-    
-      	if(!empty($products)) {
-    	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
-    	    $content[$title][] = $designerPanel;
-    	    
+  	if(!empty($title)) {
+  	  $content[$title] = array();
+      foreach($filter_group['links'] as $id => $link) {
+      	if($i >= $start && $i < $end) {
+    	    $shop = fm_commerce_store_load($id);
+    	    $products = fm_commerce_store_get_products($shop, true);
+     
+      	  if(!empty($products)) {
+      	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
+    	      $content[$title][] = $designerPanel;
+      	    
+    	    }
     	  }
-    	}
-    	$i++;
-    }
+    	  $i++;
+      }
+  	}
   } 
   
   return $content;
+}
+
+function fm_shop_products_by_taxonomy($term, $withDisplayNode = false) {
+	$query = new EntityFieldQuery();
+	$entities = $query->entityCondition('entity_type', 'commerce_product')
+	   ->entityCondition('bundle', 'fm_fashion_product')
+    ->fieldCondition('field_product_type_top', 'tid', $term->tid) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
+    ->execute();
+    
+  $products = $query->execute();
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+      $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	
+	  if($withDisplayNode) {
+	    //Filter products without a Display node
+      foreach($products_ret as $id => $product) {
+      	$node = fm_commerce_get_display_node($product);
+    	  if(!isset($node)) {
+    		   unset($products_ret[$id]);
+    	  }
+      }	
+	  }
+	}
+	
+	return $products_ret;
+	
 }

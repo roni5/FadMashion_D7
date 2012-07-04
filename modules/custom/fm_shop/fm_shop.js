@@ -19,18 +19,11 @@ jQuery(document).ready(function() {
 
          // Identifies the page selection
     	 var type, id, nid;
-    	 var store_id;
+    	 var store_id, term;
     	 if(event.parameters.store_id) {
     		 store_id = event.parameters.store_id;
     		 type = 'shop';
-    		 
-    		 jQuery('.page-shop .col1 a').each(function() {
-    			 if (jQuery(this).attr('id') == store_id) {
- 			    jQuery(this).addClass('active').focus();
-               } else {
-             	jQuery(this).removeClass('active');
-               }
-             });
+    		 id = store_id;
     	 } else {
     		 store_id = '';
     	 }
@@ -41,17 +34,27 @@ jQuery(document).ready(function() {
     		 nid = '';
     	 }
     	 
-    	 if((!event.parameters.nid  && !event.parameters.store_id) ) {
+    	 if(event.parameters.term) {
+    		 term = event.parameters.term;
+    		 type = 'term';
+    		 id = term; 
+    	 } else {
+    		 term = '';
+    	 }
+    	 
+    	 if((!event.parameters.nid  && !event.parameters.store_id && !event.parameters.term) ) {
            type = 'all';
            id = 'all';
-        	 jQuery('.page-shop .col1 a').each(function() {
-    			 if (jQuery(this).attr('id') == 'all') {
- 			    jQuery(this).addClass('active').focus();
-               } else {
-             	jQuery(this).removeClass('active');
-               }
-             });
     	 }
+    	 
+
+    	 jQuery('.page-shop .col1 a').each(function() {
+			 if (jQuery(this).attr('id') == id) {
+			    jQuery(this).addClass('active').focus();
+           } else {
+         	jQuery(this).removeClass('active');
+           }
+         });
     	 
     	//Set Cache Class name to retrieve/store from
      	var cacheId, cacheType;
@@ -152,10 +155,17 @@ jQuery(document).ready(function() {
         	 fullPath =  location.pathname ;
          }
          
+         var args = '';
+         if(store_id) {
+        	 args = 'store_id=' + store_id;
+         } else if(term) {
+        	 args = 'term=' + term;
+         }
+        	 
          // Loads the page content and inserts it into the content area
          if(!jQuery('#cache .' + cacheClass).length) { 
            jQuery.ajax({
-             url:  fullPath + q + 'ajax/' + type + qParam + 'store_id=' + store_id,
+             url:  fullPath + q + 'ajax/' + type + qParam + args ,
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
