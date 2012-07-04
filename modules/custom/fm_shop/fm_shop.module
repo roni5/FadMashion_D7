@@ -146,7 +146,7 @@ function fm_shop_collection_viewer($type, $var, $products) {
 			break;
 		case 'term':
 			$term = $var;
-			$content = '<div id = "collection_term_' . $term->tid . '">';
+			$content = '<div id = "collection_term_' . $term->name . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('term' => $term->name)));
 			$content .= '</div>';
 			break;

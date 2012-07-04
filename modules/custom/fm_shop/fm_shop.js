@@ -130,7 +130,7 @@ jQuery(document).ready(function() {
           //first, select the 
           jQuery('ul.ad-thumb-list li a').each(function() {
     		if (jQuery(this).attr('id') == nid) {
-    	     //jQuery(this).trigger('click', [true]);
+    	     jQuery(this).trigger('click', [true]);
     		}
           });
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
@@ -149,7 +149,7 @@ jQuery(document).ready(function() {
          }
 
          var dataPage;
-         if(!jQuery('.col2 #collection_store_' + store_id).length) {
+         if(!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length) {
         	 dataPage = jQuery('.page-shop .col2 .pad');
          } else {
         	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
@@ -197,7 +197,7 @@ jQuery(document).ready(function() {
            });
          } else {
         	 var data;
-        	 if(!jQuery('.col2 #collection_store_' + store_id).length ) {
+        	 if(!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length) {
         		 data = jQuery('#cache .' + cacheClass).html();
         	 } else {
         		 data = '';
