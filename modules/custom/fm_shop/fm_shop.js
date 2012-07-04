@@ -20,10 +20,17 @@ jQuery(document).ready(function() {
          // Identifies the page selection
     	 var type, id, nid;
     	 var store_id, term;
+    	 var cacheId, cacheType;
+      	
+      	
     	 if(event.parameters.store_id) {
     		 store_id = event.parameters.store_id;
     		 type = 'shop';
     		 id = store_id;
+    		 
+    		 cacheType = 'store';
+    	     cacheId = store_id;
+    	      	
     	 } else {
     		 store_id = '';
     	 }
@@ -38,6 +45,9 @@ jQuery(document).ready(function() {
     		 term = event.parameters.term;
     		 type = 'term';
     		 id = term; 
+    		 
+    		 cacheType = 'term';
+    	     cacheId = term;
     	 } else {
     		 term = '';
     	 }
@@ -57,10 +67,7 @@ jQuery(document).ready(function() {
          });
     	 
     	//Set Cache Class name to retrieve/store from
-     	var cacheId, cacheType;
-     	cacheType = 'store';
-     	cacheId = store_id;
-     	var cacheClass = 'store_' + store_id ;
+    	 var cacheClass = cacheType + cacheId ;
      	
      	if(type == 'all') {
      		cacheClass = 'all';
