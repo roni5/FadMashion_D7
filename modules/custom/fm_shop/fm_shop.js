@@ -108,8 +108,7 @@ jQuery(document).ready(function() {
            }
           
           if(newContent) {
-        	//dataPage.fadeTo('slow', 1);
-        	  dataPage.show();
+        	dataPage.fadeTo('slow', 1);
           } else {
             dataPage.show();
           }
