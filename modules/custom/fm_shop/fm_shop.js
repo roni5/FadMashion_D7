@@ -263,7 +263,7 @@ jQuery(document).ready(function() {
        			jQuery(this).addClass('ad-active');
                 
        		});
-       		jQuery(this).hover(
+       		/*jQuery(this).hover(
        			function() {
        			  var thisId = jQuery(this).attr('id');
        			  jQuery('.social_favorites img', jQuery(this)).show();
@@ -279,7 +279,7 @@ jQuery(document).ready(function() {
      			     jQuery('.ad-nav .social_favorites img').hide();
     			  })
        			}
-       		);
+       		);*/
        		
        	});
 	  }
