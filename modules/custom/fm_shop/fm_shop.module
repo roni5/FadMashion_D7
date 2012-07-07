@@ -118,11 +118,12 @@ function fm_shop_page_ajax($type) {
 			$products = $values['products'];
 			
 			//Calculate oager
-			if(isset($_GET['page'])) {
-				$page = 0;
+			if(!isset($_GET['page'])) {
+				$page = 1;
 			} else {
 				$page = $_GET['page'] + 1;
 			}
+			
 			if($page * COLLECTION_VIEWER_PAGER > $values['total']) {
 				$pager = 0;
 			} else {
