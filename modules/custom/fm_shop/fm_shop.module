@@ -1,4 +1,5 @@
 <?php
+define('COLLECTION_VIEWER_PAGER', 10);
 /**
  * Implements hook_menu().
  */
@@ -43,7 +44,7 @@ function fm_shop_theme() {
        'template' => 'fm_shop_page_panel_thumb'
     ),
     'fm_shop_page_collection_slider' => array(
-	     'variables' => array('products' => NULL, 'argument' => array()),
+	     'variables' => array('products' => NULL, 'argument' => array(), 'pager' => 0),
        'template' => 'fm_shop_page_collection_slider'
     ),
     
@@ -105,7 +106,7 @@ function fm_shop_page_ajax($type) {
 	    break;
 		case 'shop':
 			$shop = fm_commerce_store_load($store_id);
-			$products = fm_commerce_store_get_products($shop, true);
+			$products = fm_commerce_store_get_products($shop);
 			
 			$content =  fm_shop_collection_viewer('store', $shop, $products);
 			
@@ -113,8 +114,22 @@ function fm_shop_page_ajax($type) {
 		case 'term':
 			$term = taxonomy_get_term_by_name($term_name);
 			$term = array_shift($term);
-			$products = fm_shop_products_by_taxonomy($term, true);
-			$content =  fm_shop_collection_viewer('term', $term, $products);
+			$values = fm_shop_products_by_taxonomy($term);
+			$products = $values['products'];
+			
+			//Calculate oager
+			if(isset($_GET['page'])) {
+				$page = 0;
+			} else {
+				$page = $_GET['page'] + 1;
+			}
+			if($page * COLLECTION_VIEWER_PAGER > $values['total']) {
+				$pager = 0;
+			} else {
+				$pager = $page;
+			}
+			
+			$content =  fm_shop_collection_viewer('term', $term, $products, $pager) ;
 	    break;
 			
 	}
@@ -125,6 +140,7 @@ function fm_shop_page_ajax($type) {
 	 $node = fm_commerce_get_display_node($product);
 	 $node_content .= render(node_view($node));
 	}
+	
 	$content .= '<div class="product_content">';
 	$content .= $node_content;
 	$content .= '</div>';
@@ -133,7 +149,7 @@ function fm_shop_page_ajax($type) {
 	exit();
 }
 
-function fm_shop_collection_viewer($type, $var, $products) {
+function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 
 	$content = '';
 	switch($type) {
@@ -147,7 +163,7 @@ function fm_shop_collection_viewer($type, $var, $products) {
 		case 'term':
 			$term = $var;
 			$content = '<div id = "collection_term_' . $term->name . '">';
-			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('term' => $term->name)));
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('term' => $term->name)));
 			$content .= '</div>';
 			break;
 	}
@@ -264,31 +280,24 @@ function fm_shop_page_all_panels($filters) {
   return $content;
 }
 
-function fm_shop_products_by_taxonomy($term, $withDisplayNode = false) {
+function fm_shop_products_by_taxonomy($term) {
 	$query = new EntityFieldQuery();
-	$entities = $query->entityCondition('entity_type', 'commerce_product')
+	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
     ->fieldCondition('field_product_type_top', 'tid', $term->tid) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
-    ->execute();
+    ->pager(COLLECTION_VIEWER_PAGER)
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC');
     
   $products = $query->execute();
+  
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
     foreach($products['commerce_product'] as $product_id => $product) {
       $products_ret[$product_id] = commerce_product_load($product_id);
 	  }
-	
-	  if($withDisplayNode) {
-	    //Filter products without a Display node
-      foreach($products_ret as $id => $product) {
-      	$node = fm_commerce_get_display_node($product);
-    	  if(!isset($node)) {
-    		   unset($products_ret[$id]);
-    	  }
-      }	
-	  }
 	}
 	
-	return $products_ret;
+	return array('products' => $products_ret, 'total' => $query->pager['total']);
 	
 }

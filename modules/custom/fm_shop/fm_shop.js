@@ -141,6 +141,12 @@ jQuery(document).ready(function() {
     	 */
 
 
+         var page;
+         if(event.parameters.page) {
+        	 page = event.parameters.page;
+         } else {
+        	 page = '';
+         }
          var q = '/';
          var qParam = '?';
          if(event.parameters.q) {
@@ -149,7 +155,7 @@ jQuery(document).ready(function() {
          }
 
          var dataPage;
-         if(!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length) {
+         if(page || (!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length)) {
         	 dataPage = jQuery('.page-shop .col2 .pad');
          } else {
         	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
@@ -168,9 +174,11 @@ jQuery(document).ready(function() {
          } else if(term) {
         	 args = 'term=' + term;
          }
+         
+         if(page) {args = args + '&page=' + page;}
         	 
          // Loads the page content and inserts it into the content area
-         if(!jQuery('#cache .' + cacheClass).length) { 
+         if(page || !jQuery('#cache .' + cacheClass).length) { 
            jQuery.ajax({
              url:  fullPath + q + 'ajax/' + type + qParam + args ,
              beforeSend: function() {

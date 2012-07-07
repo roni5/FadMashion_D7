@@ -351,6 +351,7 @@ function fm_commerce_get_product($node) {
     return $product;
 }
 
+
 function fm_commerce_get_display_node($product, $type = 'fm_group_buying') {
 
 	  $query = new EntityFieldQuery();
@@ -476,6 +477,32 @@ function ago($timestamp, $pre_text = '') {
     }
     return $time_ago;
 	
+}
+
+
+
+/*
+ * implements hook_cron()
+ * Sets product status to 0 if there is no display node
+ * */
+function fm_commerce_cron() {
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	      ->entityCondition('bundle', 'fm_fashion_product');
+	      
+	$products = $query->execute();
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+        $product = commerce_product_load($product_id);
+      	$node = fm_commerce_get_display_node($product);
+    	  if(!isset($node)) {
+    		   $product->status = 0;
+    		   commerce_product_save($product);
+    	}
+    }	
+	}
+	 
 }
 
 
