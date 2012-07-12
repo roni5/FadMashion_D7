@@ -16,7 +16,7 @@
   <?php print theme('fm_social_favorite_most_loved'); ?>
 </div>
 <div class="col2">
-  <div class="shopAjaxLoader rounded-top rounded-bottom">Loading...</div>
+  <div class="shopAjaxLoader rounded-top rounded-bottom"><img src="<?php print pp()?>loader-red.gif"></div>
   <div class="pad"><?php print $content;?></div>
 </div>
 
