@@ -267,7 +267,7 @@ function theme_fm_deals_product_details($vars) {
   $output .= '</div>';
  
   
-  $product_highlights = field_get_items('commerce_product', $product, 'field_product_highlights');
+  $product_highlights = field_get_items('commerce_product', $product, 'field_product_materials');
   $highlights = array();
   foreach($product_highlights as $term) {
   	$term = $term['taxonomy_term'];
