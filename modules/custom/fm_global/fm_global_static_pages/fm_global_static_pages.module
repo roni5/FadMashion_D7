@@ -40,7 +40,7 @@ function fm_global_static_pages_page() {
 }
 
 function fm_global_static_pages() {
-	return array('about-us' => 'What is Fadmashion?', 'Press' => 'Press',  'returns' => 'Shipping & Returns', 'contact-us' => 'Contact Us', 'faq' => 'FAQ',);
+	return array('about-us' => 'What is Fadmashion?', 'Press' => 'Press',  'returns' => 'Shipping & Returns', 'contact-us' => 'Contact Us', 'faq' => 'Frequently Asked Questions',);
 }
 
 function fm_global_static_pages_content($pages) {

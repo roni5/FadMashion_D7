@@ -4,6 +4,7 @@
 
 jQuery(document).ready(function() {
 	
+	if(jQuery('.page-static')).length > 0) {
 	//ADD deep linking, 
 	 jQuery.address.crawlable(true).init(function(event) {
 
@@ -36,6 +37,6 @@ jQuery(document).ready(function() {
     	dataPage.html(data);
     	dataPage.fadeTo('fast', 1);
      	
-        
      });
+   }
  });

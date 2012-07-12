@@ -246,7 +246,7 @@ jQuery(document).ready(function() {
        	links.each(function() {
        		jQuery(this).bind('click', function() {
        			jQuery('.col2 .ad-active').each(function() {
-       				jQuery(this).removeClass('ad-active');
+       				jQuery(this).removeClass('ad-active');a
        			});
        			jQuery(this).addClass('ad-active');
                 
