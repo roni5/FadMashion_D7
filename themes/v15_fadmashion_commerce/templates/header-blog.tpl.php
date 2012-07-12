@@ -14,7 +14,7 @@
                <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
              <?php */} ?>
              <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
-        <a href="<?php print $url?>/about-us">About Us</a>
+        <a target="_parent" href="<?php print $url?>/about-us">About Us</a>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus hassle-free returns</p></div></div>
         
