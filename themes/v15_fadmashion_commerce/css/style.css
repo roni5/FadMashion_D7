@@ -103,7 +103,7 @@ label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 
 .buttonShop{ color: #fff; background: url(../images/b_shop.png) top left no-repeat; width: 156px; height: 36px; text-decoration: none; text-align:center; text-indent: -9999px; display: block; margin: 0 auto}
 .buttonShop:hover{background-position: bottom left;}
 
-.shopAjaxLoader { background-color: rgba(255, 255, 255, 0);color: #666666;font-size: 14px;left: 372px;padding: 9px;position: absolute;text-align: center;top: 100px;z-index: 99;}
+.shopAjaxLoader { background-color: rgba(255, 255, 255);color: #666666;font-size: 14px;left: 372px;padding: 9px;position: absolute;text-align: center;top: 100px;z-index: 99;}
 #loading_more {margin-top: 10px; padding-top: 10px;  text-align: center; width: 100%;}
 #loading_more a{color: #777;}
 #loading_more img{margin-top: 10px;}
