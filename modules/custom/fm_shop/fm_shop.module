@@ -178,13 +178,12 @@ function fm_shop_page_filters() {
 	$filters = array();
 	
 	//Get Featured List 
-	$filters['product_type']['title'] = '';
+	$filters['product_type']['title'] = t('New Arrivals');
 	$filters['product_type']['links'] = array();
 	$filters['product_type']['arg'] = 'term'; 
 	$vocab = taxonomy_vocabulary_machine_name_load('product_types');
 	$terms = taxonomy_get_tree($vocab->vid);
 	
-	$filters['product_type']['links']['all'] = t('New Arrivals');
   foreach ($terms as  $term) {
     $filters['product_type']['links'][$term->name] = check_plain($term->name);
   }
