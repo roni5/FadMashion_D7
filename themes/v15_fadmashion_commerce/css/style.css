@@ -22,6 +22,12 @@ tbody {border: medium none}
 .message_box, #message_box {background:url("../images/arrow_error.png") no-repeat scroll 8px 6px transparent;color:#FFFFFF;font-size:11px;padding-top:6px;}
 label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 0 0 #CC3333;border:0 solid #000000;color:#FFFFFF;font-size:11px;margin-top:6px;padding:5px;}
 
+span {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;}
 /********* header **********/
 
 #header{height: 94px;}
