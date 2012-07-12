@@ -253,7 +253,17 @@ function theme_fm_deals_product_details($vars) {
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
   
-  $output .= '<h2 class="designer"><a href="javascript:void();">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</a></h2>';
+  $product_id = $product->product_id;
+  $result = db_query('SELECT count(*) as count FROM fm_social_favorite WHERE product_id = :product_id', array(':product_id' => $product_id));
+  $obj = $result->fetchObject();
+  
+  if($obj->count > 0) {
+    $output .= '<div  style="margin-bottom: 8px">';
+    $output .= '<span class="most_loved_number">' . $obj->count . '</span>';
+    $output .= '<span class="designer"><a href="javascript:void();">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</a></span>';
+    $output .= '</div>';
+  }
+ 
   
   $product_highlights = field_get_items('commerce_product', $product, 'field_product_highlights');
   $highlights = array();
