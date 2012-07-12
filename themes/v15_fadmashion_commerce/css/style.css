@@ -745,6 +745,6 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 #about .text h3{color: #a22a2a;}
 #about .text p{margin-bottom: 10px;}
 #about ul li{list-style-type: disc; margin-left: 20px;}
-#about table{width: 550px; height: 344px;}
+#about table{width: 550px; height: 344px; font-size: 12px}
 #about .bottomText, #about .bottomText a{color: #ddd; font-size: 15px;font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia;}
 #about .bottomText a{ text-decoration: underline; color: #fff;  width:207px; text-align:center; float: right; }
