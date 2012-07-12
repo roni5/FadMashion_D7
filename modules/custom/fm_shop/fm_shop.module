@@ -191,7 +191,7 @@ function fm_shop_page_filters() {
 	
 	
 //Get Featured List 
-	$filters['featured']['title'] = t('Featured');
+	$filters['featured']['title'] = t('Designers');
 	$filters['featured']['links'] = array();
 	$filters['featured']['arg'] = 'store_id';
 	
@@ -210,7 +210,7 @@ function fm_shop_page_filters() {
   }
   
 	//Get Designer List
-	$filters['designers']['title'] = t('Designers');
+	$filters['designers']['title'] = t('');
 	$filters['designers']['links'] = array();
 	$filters['designers']['arg'] = 'store_id';
 	
