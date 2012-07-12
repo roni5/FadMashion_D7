@@ -342,7 +342,7 @@ margin-bottom:8px;
 
 /* Global Static Pages */
 .page-static .col2 .pad {padding: 0px !important;  margin-top: 30px;}
-.page-static h2 {display:none;}
+.page-static .pad h2 {display:none;}
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
