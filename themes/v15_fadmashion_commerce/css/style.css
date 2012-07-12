@@ -335,7 +335,7 @@ margin-bottom:8px;
 }
 
 /* Global Static Pages */
-.page-static .col2 .pad {padding: 20px !important; margin-top: 30px;  background-color: #fff;}
+.page-static .col2 .pad {padding: 0px !important; }
 
 
 /* Global ACCORDIAN STYLING*/
@@ -735,3 +735,16 @@ top:14px;}
 #footer .subCol{float: left; width: 150px; text-align:center;}
 #footer .subCol img{margin: 0 3px;}
 
+
+/********* about **********/
+#about{background: url(../images/bg_about.jpg) top left no-repeat; width: 816px; height: 721px;}
+#about .text{padding: 262px 0px 0 40px}
+#about .text h1{font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia; font-size: 20px; line-height: 25px; font-weight: 200; margin: 0 0 30px 0;}
+#about .text h1 span{font-weight: bold;}
+table.timeline td{ padding-right: 30px; vertical-align:top;}
+#about .text h3{color: #a22a2a;}
+#about .text p{margin-bottom: 10px;}
+#about ul li{list-style-type: disc; margin-left: 20px;}
+#about table{width: 550px; height: 344px;}
+#about .bottomText, #about .bottomText a{color: #ddd; font-size: 15px;font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia;}
+#about .bottomText a{ text-decoration: underline; color: #fff;  width:207px; text-align:center; float: right; }

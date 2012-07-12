@@ -2,7 +2,7 @@
 <div class="col1">
   <div class="pad">
   <ul>
-    <li><?php  print l('Browse All', 'shop/all', array('attributes' => array('id' => 'all', 'class' => array('active', 'viewAll')))) ?></li>
+    <li><?php  print l('Home', 'shop/all', array('attributes' => array('id' => 'all', 'class' => array('active', 'viewAll')))) ?></li>
     <li><?php // print l('Most Loved', 'shop/all', array('attributes' => array('id' => 'most_loved', 'class' => array('active')))) ?></li>
   </ul>
   <?php foreach($filters as  $filter_group) {

@@ -4,7 +4,6 @@
 <div id="header">
   <div class="right">
     <div class="links">
-    
         <?php global $user;
             if ($user->uid) { ?>
                 
@@ -13,6 +12,9 @@
                <a  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
              <?php } ?>
+             
+        <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
+        <a href="<?php print $url?>/about-us">About Us</a>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping</span> on orders of $150 or more, plus hassle-free returns</p></div></div>
         
@@ -30,5 +32,5 @@
         	<a class="press1" href="#">NY Mag</a>
         	<a class="press3" href="#">FashionSpot</a>
             </div>
-        <h1 class="slogan">A <span>New York</span> Style Collective & Boutique.</h1>
+        <h1 class="slogan">A <span>New York</span> Style Collective & Boutique. </h1>
         </div>
