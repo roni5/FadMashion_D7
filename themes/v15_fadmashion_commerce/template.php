@@ -18,7 +18,7 @@ function pp($absolute = false) {
 		return $path;
 	} else{
 	  //True for live server, else localhost remove the preceding slash
-	  if(false) {
+	  if(true) {
   		return '/' . $path; 
   	} else {
 		  return $path;
@@ -243,7 +243,8 @@ function v15_fadmashion_commerce_preload_image_paths() {
 	           '"' . pp() . 'frame_top_featured.png' . '"',
 	           '"' . pp() . 'bg_model_1.png' . '"', 
 	           '"' . pp() . 'frame_bg.png' . '"',
-	           '"' . pp() . 'tab_inactive_over.jpg' . '"'
+	           '"' . pp() . 'tab_inactive_over.jpg' . '"',
+	            '"' . pp() . 'bg_about.jpg' . '"'
 	  );
 }
 
