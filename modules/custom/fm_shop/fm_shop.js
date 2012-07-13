@@ -87,7 +87,7 @@ jQuery(document).ready(function() {
           
           jQuery('.thumb_link img').hide()
           .load(function () {
-        	  jQuery(this).fadeIn();
+        	  jQuery(this).fadeIn('slow');
           });
 
           

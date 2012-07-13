@@ -85,6 +85,8 @@ position: relative; left: 4px;}
         .ad-gallery .ad-thumbs li {
           float: left;
           padding-right: 0px;
+          height: 90px;
+         width: 71px;
           
         }
           .ad-gallery .ad-thumbs li a {
