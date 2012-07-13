@@ -116,14 +116,14 @@ jQuery(document).ready(function() {
           
           if(newContent) {
         	dataPage.fadeTo('slow', 1);
-          } else {
-            dataPage.show();
 
             jQuery('.thumb_link img').hide()
             .load(function () {
           	  jQuery(this).fadeIn('slow');
             });
 
+          } else {
+            dataPage.show();
           }
         	
           var newClass;
