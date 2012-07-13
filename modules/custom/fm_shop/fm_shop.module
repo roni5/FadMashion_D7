@@ -238,7 +238,7 @@ function fm_shop_page_all_panels($filters) {
   
 	$total = 0;
 	foreach($filters as $filter_group) {
-		if(!empty($filter_group['title'])) {
+		if(($filter_group['title']) != t('New Arrivals')) {
 	    $total += count($filter_group['links']);
 		}
 	}
@@ -261,7 +261,7 @@ function fm_shop_page_all_panels($filters) {
 	
   foreach($filters as $filter_group) {
   	$title = $filter_group['title'];
-  	if(!empty($title)) {
+  	if($title != t('New Arrivals')) {
   	  $content[$title] = array();
       foreach($filter_group['links'] as $id => $link) {
       	if($i >= $start && $i < $end) {
