@@ -7,6 +7,7 @@ var contentSelector;
 
 jQuery(document).ready(function() {
 	
+  if(jQuery('.page-shop').length) {
 	//ADD deep linking, 
 	 jQuery.address.crawlable(true).init(function(event) {
 
@@ -219,6 +220,7 @@ jQuery(document).ready(function() {
         	 handler(data, false);
          }
      });
+   }
  });
 
 (function ($) {

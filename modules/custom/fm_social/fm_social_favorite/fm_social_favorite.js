@@ -37,7 +37,9 @@ jQuery(document).ready(function() {
 	 }
 	  
 
-	  jQuery('.my_favorites li a').address();
+	  if(jQuery('.page-shop').length) {
+	    jQuery('.my_favorites li a').address();
+	  }
 	  
 });
 
