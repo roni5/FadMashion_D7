@@ -88,9 +88,7 @@ jQuery(document).ready(function() {
           jQuery('.thumb_link img').hide()
           .load(function () {
         	  jQuery(this).fadeIn();
-          })
-
-
+          });
 
           
           if(nid == '') {
