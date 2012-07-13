@@ -12,7 +12,7 @@
 </div>
 </div>
 <div id="email">
-<h2>E-mail</h2>
+<h2>eMail</h2>
 <h3>Invite friends & family by sending them an invitation to their Inbox</h3>
 <?php print render($invite_form); ?>
 <script>fmValidateInviteForm();</script>
