@@ -22,6 +22,8 @@ tbody {border: medium none}
 .message_box, #message_box {background:url("../images/arrow_error.png") no-repeat scroll 8px 6px transparent;color:#FFFFFF;font-size:11px;padding-top:6px;}
 label.invalid {-moz-border-radius:3px 3px 3px 3px;background:none repeat scroll 0 0 #CC3333;border:0 solid #000000;color:#FFFFFF;font-size:11px;margin-top:6px;padding:5px;}
 
+.red {color: #B63030}
+
 span {
     color: inherit;
     font-family: inherit;
@@ -259,12 +261,12 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 
 
 #signup .box{width: 880px;}
-#signup h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }
+#signup h1, #invite_block h1{color: #a6352f; font-size: 29px; font-weight: 100; margin-bottom: 30px; line-height: 34px; }
 #signup h2{color: #cabfb8; font-size: 13px; font-weight: 500; letter-spacing: 3px; margin-bottom: 30px;}
-#signup p{background-color: transparent; font-size: 18px; color: #908075; line-height: 26px; font-weight: 300; margin-bottom: 12px; padding: 0 30px;}
+#signup p, {background-color: transparent; font-size: 18px; color: #908075; line-height: 26px; font-weight: 300; margin-bottom: 12px; padding: 0 30px;}
 #signup p b, #signup p strong{color: #68594f;}
 #signup p.loginHere{background:none repeat scroll 0 0 #ECE9E6;font-size:12px;margin:30px 60px;padding:5px;}
-#signup .pad{padding: 0px 0 0 36px;}
+#signup .pad, #invite_block pad{padding: 0px 0 0 36px;}
 #signup .text{width: 360px; text-align:center; padding-top: 75px; }
 #signup .login, #signup .forgot_password{width: 430px; text-align:center; padding-top: 70px; }
 #signup ul {border-bottom:1px solid #E4DBD3;list-style-type: none; border-top:1px solid #E4DBD3;margin:20px 40px;padding:20px 0;}
@@ -277,9 +279,9 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 #signup .form-item-mail label.invalid{display: block !important;}
 
 
-#signup .form-text{line-height: 32px; background: #b3a396 url(../images/bg_field_dark.jpg) top left repeat-x; border: 1px solid #83746a; width: 206px; height: 32px; padding-left: 5px; color: #fff; font-size: 12px; margin-bottom: 6px; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
-#signup .form-text.invalid {border:1px solid #DE2C2C;}
-#signup .form-text.urlCode{width: 270px; border: none; margin: none;}
+#signup .form-text, #invite_block .form-text{line-height: 32px; background: #b3a396 url(../images/bg_field_dark.jpg) top left repeat-x; border: 1px solid #83746a; width: 206px; height: 32px; padding-left: 5px; color: #fff; font-size: 12px; margin-bottom: 6px; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+#signup .form-text.invalid , #invite_block .form-text.invalid{border:1px solid #DE2C2C;}
+#signup .form-text.urlCode, #invite_block .form-text.urlCode{width: 270px; border: none; margin: none;}
 
 #signup .form h1{color: #fff; font-size: 22px; font-weight: 100; margin: 72px 0 10px 0; padding: 0;}
 #signup .fieldsRequired{text-align: right; font-style:italic; color: #c3bcb7; font-size: 11px; padding-bottom: 4px;}
@@ -294,7 +296,7 @@ a.facebookConnect{background: url(../images/b_facebook.png) top left no-repeat; 
 
 #signup #user-login-form .forgotPassword {float: left; font-size: 11px; text-decoration:none; font-style: normal; }
 #signup #user-login-form{width: 237px; text-align: left; margin: 0 auto;}
-#signup #user-login-form .form-text, #signup .sendFields .form-text, #signup #user-pass .form-text{background: #fff url(../images/bg_field_light.jpg) top left repeat-x; border: 1px solid #e8e5e4; color: #9c8a7f; font-size: 14px; width: 231px; margin-bottom: 12px;}
+#signup #user-login-form .form-text, #invite_block .form-text, #signup #user-pass .form-text{background: #fff url(../images/bg_field_light.jpg) top left repeat-x; border: 1px solid #e8e5e4; color: #9c8a7f; font-size: 14px; width: 231px; margin-bottom: 12px;}
 #signup #user-login-form .form-submit{ margin: 0 !important; padding: 0; float: right; color: #fff; background: url(../images/b_login.png) top left no-repeat; width: 80px; height: 34px; text-decoration: none; text-align:center; line-height: 34px; font-size: 14px;}
 #signup #user-login-form .form-submit:hover {background-position: bottom left;}
 
@@ -324,16 +326,25 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 .invite_state2, .invite_state3 {display: none; }
 .invite_state3 {margin-top: 50px; }
 .invite_state3 p{color: #A6352F; font-size: 16px;}
-#fm-invite-send-email-form {overflow: hidden; padding: 0 20px; }]
+#fm-invite-send-email-form {overflow: hidden; width: 610px;  }
 #fm-invite-send-email-form .form-submit {float:left;margin: 10px 0 0 165px;  padding: 0;}
 #fm-invite-send-email-form #message_box{display: none !important;}
 
 .sendFields{ margin:0 0 15px 0; height: 165px; padding: 15px 0;text-align: center; background: #f0ebe5; width: 490px; margin: 0 auto; border-bottom-left-radius:5px; -webkit-border-bottom-left-radius: 5px; -moz-border-bottom-left-top-radius: 5px;  border-bottom-right-radius:5px; -webkit-border-bottom-right-radius: 5px; -moz-border-bottom-right-top-radius: 5px;}
-.inviteFriends{margin:15px 0 0 170px !important;  padding: 0 12px !important; display: block; float: left;  background: url(../images/b_invite.png) top left no-repeat; height: 34px; width: 121px; line-height: 34px; text-align:center; text-decoration: none; color: #fff; font-size: 14px; }
-#signup .sendFields .form-text{width: 210px; margin: 4px;float: left;}
+.inviteFriends{margin:5px 0 0 30px !important;  padding: 0 12px !important; display: block; float: left;  background: url(../images/b_invite.png) top left no-repeat; height: 34px; width: 121px; line-height: 34px; text-align:center; text-decoration: none; color: #fff; font-size: 14px; }
+
 
 .skipInvites{ text-decoration: none; font-size: 12px; margin: 26px 0 0 0; display: block;}
 #signup .state2 p{font-size: 15px; line-height: 20px;}
+
+#fm-invite-send-email-form  .form-text{width: 210px; margin: 4px;float: left;}
+#invite_block h2{color: #888; margin-bottom: 5px; }
+#invite_block h3 {font-style: italic; font-size: 12px; font-weight: normal; color: #888;}
+#invite_block #explanation {background-color: #fff; text-align: left;  padding: 15px; border: 1px solid #444; overflow: hidden;}
+#invite_block #explanation #col1, #invite_block #explanation #col2 {float: left}
+#invite_block #explanation #col1 {width: 50%; margin-right: 10px; padding-right: 10px; border-right: 1px dotted #aaa}
+#invite_block #email, #invite_block #share_link {margin-top: 15px; }
+
 
 #block-views-nodequeue-1-block h2 {
 font-size:16px;
@@ -405,7 +416,7 @@ top:14px;}
 .checkoutPanel .header .dropdown{float: right; }
 .checkoutPanel .header .dropdown .form-select{width: 200px; height: auto;}
 .checkoutPanel .header .dropdown span{font-size: 13px;}
-.checkoutPanel .form{margin: 25px; float: left;}
+.checkoutPanel .form{margin: 25px; }
 
 .checkoutPanel label {font-weight: normal}
 .checkoutPanel .header .form-select{position: relative; top: -3px;}
@@ -485,7 +496,7 @@ top:14px;}
 /* Order List*/
 
 #orders-list, #order-detail{ font-family:"museo-sans-1","museo-sans-2",Helvetica; font-size: 13px;} 
-#orders-list table  { width: 100%; text-align: center; margin: 10px; }
+#orders-list table  { width: 630px; text-align: center; }
 #orders-list table th { text-align: center; background-color: #fff; font-weight: normal; color: #888;padding: 10px 0 2px; }
 #orders-list table thead { background-color: #ddd; }
 #orders-list table tr td { padding: 10px 0;}
@@ -517,6 +528,7 @@ top:14px;}
 #orders-list .needs-action{padding-left: 18px; background: url(../images/icon_needsaction.png) 0px -1px no-repeat;}
 .action-alert {width: 50%; margin: auto;}
   
+.order-link a.button {margin-left: 54px; float: left}
 
 /* Order Confirmation*/
 .page-express-checkout-confirmation #header {margin-bottom: 16px;}
@@ -631,8 +643,8 @@ top:14px;}
 /* User Edit Form */
 #avatar {width: 150px;float: left}
 #upload {float: left; width: 400px;}
-.page-user-edit .column1{width: 682px; float: left; border-right: 1px solid #ddd; padding-right: 25px; padding-bottom: 30px;}
-.page-user-edit  .column2{position: absolute;padding-left: 25px;  width:292px; display:inline;float:left; }
+#fm_user_edit_form .column1{width: 682px; min-height: 700px; float: left; border-right: 1px solid #ddd; padding-right: 25px; padding-bottom: 30px;}
+#fm_user_edit_form   .column2{position: absolute;padding-left: 25px;  width:292px; display:inline;float:left; }
 #fm_user_edit_form {margin-top: 25px;}
 #profile_information.checkoutPanel, #quicklinks_information.checkoutPanel{ margin-bottom: 25px;}
 #quicklinks_information .a{font-size: 14px;}
@@ -653,7 +665,7 @@ top:14px;}
 #register_footer_promo .login a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
 
 /* Footer User Credits */
-#footer_credits_promo {margin: auto; width: 830px; margin-top: 13px;line-height: 20px;  }
+#footer_credits_promo {margin: auto; width: 683px; margin-top: 13px;line-height: 20px;  }
 #footer_credits_promo .credits {   float: left; padding-left: 20px;  border-left: 1px dotted #888;}
 #footer_credits_promo .credits h1 {text-shadow: 2px 2px 2px #000000;  font-size:11px; font-weight: normal; color: #fff;   font-style:italic;}
 #footer_credits_promo .credits h1 span { color: #B63030;font-size: 20px; padding-left: 5px; }

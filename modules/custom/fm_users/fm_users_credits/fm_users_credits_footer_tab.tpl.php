@@ -10,7 +10,7 @@
 </div>
 
 <div class="col">
-<div><?php print l('Order Status', '');?></div>
+<div><?php print l('Order Status', 'user/orders');?></div>
 <div><?php print l('Settings', 'user/' . $user->uid . '/edit');?></div>
 </div>
 </div>
@@ -23,13 +23,14 @@
 
 <div class="invite_friends">
   <div class="text">1 Friend's Purchase = $10 worth of credits
-  <?php $url = '/?inline=true#block-fm-users-fm-users-invite&blankBox=1';
-  print '<div><a onClick="fmUserStateRestart(); fmInviteReset(); jQuery(\'.state2\').show();fmClearRegisterTimeout();" class="colorbox-inline invite" href="' . $url . '">' . t('Recommend to Friends') . '</a></div>'; 
-  ?></div> 
-  <div class="signup_count">
+  <div><?php print l('Recommend to Friends', 'user/share-with-friends'); ?></div>
+  </div> 
+  
+<?php /* <div class="signup_count">
     <div><label>Signup Count: </label><span>0</span></div>
     <div><label>Quick Share: </label></div>
-  </div>
+  </div> */?>
+  
 </div>
 <div class="limited_offer">
   <div class="promo_text">Special Offer<div class="limited_time">Available only for aLimited Time*</div></div>
