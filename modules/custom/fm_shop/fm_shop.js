@@ -85,11 +85,6 @@ jQuery(document).ready(function() {
       	    dataPage.html(data);
           }
           
-          jQuery('.thumb_link img').hide()
-          .load(function () {
-        	  jQuery(this).fadeIn('slow');
-          });
-
           
           if(nid == '') {
         	  nid = jQuery('ul.ad-thumb-list li a').first().attr('id');
@@ -123,6 +118,12 @@ jQuery(document).ready(function() {
         	dataPage.fadeTo('slow', 1);
           } else {
             dataPage.show();
+
+            jQuery('.thumb_link img').hide()
+            .load(function () {
+          	  jQuery(this).fadeIn('slow');
+            });
+
           }
         	
           var newClass;
