@@ -1,0 +1,8 @@
+; $Id: $
+name = Fadmashion Line Item Type - Credits
+description = Main module to define Credits line item type
+core = 7.x
+package = Fadmashion
+
+
+dependencies[] = commerce

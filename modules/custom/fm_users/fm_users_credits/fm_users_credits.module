@@ -21,6 +21,7 @@ function fm_users_credits_footer_tab_active() {
 function fm_users_credits_footer_tab_vars() {
 	$output = array();
 	$credits = fm_users_credits_get();
+	$credits = '$' . $credits;
 	$output['link'] = '<a href="#tab-user-credits">My Fadmashion</a>';
 	$output['content'] = '<div id="tab-user-credits">' . theme('fm_users_credits_footer_tab', array('credits' => $credits)) . '</div>';
 	
@@ -53,5 +54,5 @@ function fm_users_credits_get($uid = NULL) {
      $total_credits += $record['credits'];
    }
       
-  return '$' . $total_credits;
+  return $total_credits;
 }

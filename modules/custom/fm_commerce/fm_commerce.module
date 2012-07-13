@@ -154,6 +154,8 @@ function fm_commerce_cart_submit($form, &$form_state) {
   $discount_line_item = NULL;
   $shipping_line_item = NULL;
   $coupon_line_item = NULL;
+  $credits_line_item = NULL;
+  
   // Loop through the line items looking for discounts.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
@@ -185,6 +187,11 @@ function fm_commerce_cart_submit($form, &$form_state) {
      if ($line_item_wrapper->type->value() == 'coupon' ) {
         $line_item_wrapper->delete();
     }
+  
+    if (empty($credits_line_item) &&
+        $line_item_wrapper->type->value() == 'credits_amount' ) {
+        $credits_line_item = $line_item_wrapper->value();
+    }
   }
   
   if (empty($discount_line_item)) { 
@@ -199,7 +206,6 @@ function fm_commerce_cart_submit($form, &$form_state) {
       $discount_line_item_wrapper->commerce_unit_price->value(),
       TRUE
     );
-    
     $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
     
     // Save the line item now so we get its ID.
@@ -218,6 +224,31 @@ function fm_commerce_cart_submit($form, &$form_state) {
     $discount_line_item->quantity = 1;
     commerce_line_item_rebase_unit_price($discount_line_item);
   	commerce_line_item_save($discount_line_item);
+  }
+  
+  
+  if (empty($credits_line_item)) { 
+  	$credits_ammount = fm_users_credits_get();
+  	
+  	if($credits_ammount > 0) {
+	    $credits_line_item = fm_commerce_credits_line_item_new($order->order_id);
+	    $credits_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $credits_line_item);
+		  $credits_line_item_wrapper->commerce_unit_price->amount = -1 * $credits_ammount * 100;
+	    $credits_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+	    $credits_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+	    $credits_line_item_wrapper->commerce_unit_price->value(),
+	      'base_price',
+	      $credits_line_item_wrapper->commerce_unit_price->value(),
+	      TRUE
+	    );
+	    
+	    // Save the line item now so we get its ID.
+	    commerce_line_item_save($credits_line_item);
+	     
+	    //Add it to the order's line item reference value.
+	    $order_wrapper->commerce_line_items[] = $credits_line_item;
+  	}
+  } else {
   }
   
   

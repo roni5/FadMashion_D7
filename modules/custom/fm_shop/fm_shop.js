@@ -84,6 +84,13 @@ jQuery(document).ready(function() {
             dataPage.hide();
       	    dataPage.html(data);
           }
+          
+          jQuery('.thumb_link img').hide()
+          .load(function () {
+        	  jQuery(this).fadeIn();
+          })
+
+
 
           
           if(nid == '') {

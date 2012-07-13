@@ -111,7 +111,7 @@ function fm_commerce_cart_block_view($block_name = '') {
 	     if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
 	       $node = $line_item_wrapper->field_product_line_item->field_node_reference->value();
 	       $discount_time = fm_deals_time($node->nid);
-         $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
+         $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Exclusive Discount', 
                                      'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
                                      'red' => true)
                                     );
@@ -128,6 +128,14 @@ function fm_commerce_cart_block_view($block_name = '') {
                                      'red' => true)
                                     ));
 	     break;
+	     
+	    case 	'credits_amount':
+  	   $credits_price = $line_item_wrapper->commerce_total->value();
+  			$discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Credits', 
+                                      'price' => commerce_currency_format($credits_price['amount'], $credits_price['currency_code']),
+  			                              'red' => true)
+                                    );
+  			break;
 	     
   	}
   }
