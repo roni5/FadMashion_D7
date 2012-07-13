@@ -100,7 +100,7 @@ position: relative; left: 4px;}
             }
             
             
-.ad-hovered {opacity: .75}
+.ad-hovered {opacity: .65}
 
 /* Can't do display none, since Opera won't load the images then */
 .ad-preloads {
