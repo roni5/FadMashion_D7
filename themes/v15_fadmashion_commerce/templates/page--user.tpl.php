@@ -51,7 +51,6 @@
             <fb:like  href="http://www.facebook.com/Fadmashion" send="true" width="220" show_faces="false"></fb:like>
         </div>
       </div>
-			<?php print theme('fm_social_favorite_most_loved'); ?>
 			</div>
 				   
 	 </div>
