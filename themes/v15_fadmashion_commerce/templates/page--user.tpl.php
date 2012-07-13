@@ -33,7 +33,7 @@
 			    <div class="form">
 			      <div><?php print l('Order History', 'user/orders');?></div>
 			      <div><?php global $user; print l('Settings', 'user/'  . $user->uid . '/edit');?></div>
-			      <div><?php print l('Recommend to Friends', 'user/share-with-friends');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;">(Get $10 in Credits)</span></div>
+			      <div><?php print l('Recommend to Friends', 'user/share-with-friends');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
 			      <div><?php print l('Logout', 'user/logout');?></div>
 			      <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
 			      <div style="width: 248px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee"><a href="<?php print $url?>/returns">Shipping & Returns</a></div>
