@@ -80,7 +80,6 @@ position: relative; left: 4px;}
       .ad-gallery .ad-thumbs .ad-thumb-list {
         float: left;
         list-style: none;
-        background-color: #000;
       }
         .ad-gallery .ad-thumbs li {
           float: left;
