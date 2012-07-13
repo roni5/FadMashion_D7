@@ -246,7 +246,12 @@ function fm_fm_social_favorite_my_favorites_thumb($product_id) {
 	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image');
   $node = fm_commerce_get_display_node($product);
   $shop = fm_commerce_get_store($product);
-  $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid), 'query' => array('store_id' => $shop->store_id, 'nid' => $node->nid) ));
-  return '<li id="my_favorites_product_id_' . $product_id . '">' . $link . '</li>';
+  
+  $url = url('shop', array('alias' => true, 'fragment' => '!'));
+  $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
+  $url = $url . $url2;
+  $img_link = '<a href="' . $url . '">' . $img . '</a>';
+
+  return '<li id="my_favorites_product_id_' . $product_id . '">' . $img_link . '</li>';
     
 }
