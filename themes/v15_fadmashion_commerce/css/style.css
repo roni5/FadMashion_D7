@@ -92,7 +92,7 @@ span {
 
 .most_loved_number {font-size: 12px; font-weight: bold; font-style:italic; background: url(../images/icon_star.png) left center no-repeat; padding: 0 0 0 18px; margin: 3px 0 0 0;}
 .productInfo .most_loved_number {padding-right: 10px; margin-right: 10px; border-right: 1px solid #ddd;}
-#all-time {background: url(../images/icon_star.png) left center no-repeat; padding: 0 0 0 18px; font-size: 12px; font-weight: normal}
+#all-time {   float: left;font-size: 12px; font-weight: normal; padding: 0 0 0 7px;width: 165px;}
 
 /********* designer panel **********/
 

@@ -117,8 +117,7 @@ function fm_shop_page_ajax($type) {
 			
 	    break;
 	  case 'favorites':
-			$shop = fm_commerce_store_load(1);
-			$products = fm_commerce_store_get_products($shop);
+			$products = fm_shop_products_by_favorites($params);
 			
 			$content =  fm_shop_collection_viewer('favorites', $params, $products);
 	    break;
@@ -318,5 +317,13 @@ function fm_shop_products_by_taxonomy($term) {
 	}
 	
 	return array('products' => $products_ret, 'total' => $query->pager['total']);
-	
+}
+
+function fm_shop_products_by_favorites($param) {
+   $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 10');
+    while($obj = $result->fetchObject()) {
+		  $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
+	  }
+	  
+	  return $products_ret;
 }
