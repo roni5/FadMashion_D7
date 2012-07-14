@@ -181,7 +181,7 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 		case 'favorites':
 			$type = $var;
 			$content = '<div id = "collection_favorites_' . $type . '">';
-			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('favorite' => $type)));
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('favorites' => $type)));
 			$content .= '</div>';
 			break;
 	}
