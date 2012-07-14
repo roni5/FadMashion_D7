@@ -3,7 +3,7 @@
   <div class="pad">
   <ul style="overflow: hidden;">
     <li><?php  print l('Home', 'shop/all', array('attributes' => array('id' => 'all', 'class' => array('active', 'viewAll')))) ?></li>
-    <li><img style="float: left" src="<?php print pp()?>icon_star.png"><?php $id = 'all-time'; print l('Most Loved', 'shop', array('attributes' =>  array('id' => $id, 'class' => array('active')), 'query' => array('favorites' => $id)) ) ?></li>
+    <li><img style="float: left" src="<?php print pp()?>icon_star.png"><?php $id = 'all-time'; print l('Most Loved', 'shop', array('attributes' =>  array('id' => $id, 'class' => array('')), 'query' => array('favorites' => $id)) ) ?></li>
   </ul>
   <?php foreach($filters as  $filter_group) {
   	if(!empty($filter_group['title'] )) {
