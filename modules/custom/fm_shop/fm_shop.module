@@ -77,6 +77,11 @@ function fm_shop_page_ajax($type) {
 		$term_name = $_GET['term'];
 		$type = 'term';
    }
+   
+  if(isset($_GET['favorites']) && $_GET['favorites'] != '' ) {
+		$params = $_GET['favorites'];
+		$type = 'favorites';
+   }
 	
 	$page = $_GET['page'];
 	
@@ -110,6 +115,12 @@ function fm_shop_page_ajax($type) {
 			
 			$content =  fm_shop_collection_viewer('store', $shop, $products);
 			
+	    break;
+	  case 'favorites':
+			$shop = fm_commerce_store_load(1);
+			$products = fm_commerce_store_get_products($shop);
+			
+			$content =  fm_shop_collection_viewer('favorites', $params, $products);
 	    break;
 		case 'term':
 			$term = taxonomy_get_term_by_name($term_name);
@@ -165,6 +176,12 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 			$term = $var;
 			$content = '<div id = "collection_term_' . $term->name . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('term' => $term->name)));
+			$content .= '</div>';
+			break;
+		case 'favorites':
+			$type = $var;
+			$content = '<div id = "collection_favorites_' . $type . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('favorite' => $type)));
 			$content .= '</div>';
 			break;
 	}

@@ -20,7 +20,7 @@ jQuery(document).ready(function() {
 
          // Identifies the page selection
     	 var type, id, nid;
-    	 var store_id, term;
+    	 var store_id, term, param;
     	 var cacheId, cacheType;
       	
       	
@@ -53,7 +53,20 @@ jQuery(document).ready(function() {
     		 term = '';
     	 }
     	 
-    	 if((!event.parameters.nid  && !event.parameters.store_id && !event.parameters.term) ) {
+    	 if(event.parameters.favorites) {
+    		 param = event.parameters.favorites;
+    		 type = 'favorites';
+    		 id = param; 
+    		 
+    		 cacheType = 'favorites';
+    	     cacheId = param;
+    	 } else {
+    		 param = '';
+    	 }
+    	 
+    	 
+    	 
+    	 if((!event.parameters.nid  && !event.parameters.store_id && !event.parameters.term && !event.parameters.favorites) ) {
            type = 'all';
            id = 'all';
     	 }
@@ -136,9 +149,9 @@ jQuery(document).ready(function() {
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
           jQuery('ul.ad-thumb-list li a').each(function() {
-    		if (jQuery(this).attr('id') == nid) {
-    	     jQuery(this).trigger('click', [true]);
-    		}
+    		   if (jQuery(this).attr('id') == nid) {
+         	     //jQuery(this).trigger('click', [true]);
+    		   } 
           });
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
           
@@ -162,7 +175,7 @@ jQuery(document).ready(function() {
          }
 
          var dataPage;
-         if(page || (!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length)) {
+         if(page || (!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length && !jQuery('.col2 #collection_favorites_' + param).length)) {
         	 dataPage = jQuery('.page-shop .col2 .pad');
          } else {
         	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
@@ -180,6 +193,8 @@ jQuery(document).ready(function() {
         	 args = 'store_id=' + store_id;
          } else if(term) {
         	 args = 'term=' + term;
+         } else if(param) {
+        	 args = 'favorites=' + param;
          }
          
          if(page) {args = args + '&page=' + page;}
@@ -212,7 +227,7 @@ jQuery(document).ready(function() {
            });
          } else {
         	 var data;
-        	 if(!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length) {
+        	 if(!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length &&  !jQuery('.col2 #collection_favorites_' + param).length) {
         		 data = jQuery('#cache .' + cacheClass).html();
         	 } else {
         		 data = '';

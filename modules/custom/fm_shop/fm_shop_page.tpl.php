@@ -3,7 +3,7 @@
   <div class="pad">
   <ul>
     <li><?php  print l('Home', 'shop/all', array('attributes' => array('id' => 'all', 'class' => array('active', 'viewAll')))) ?></li>
-    <li><?php print l('Most Loved', 'shop/all', array('attributes' => array('id' => 'most_loved', 'class' => array('active')))) ?></li>
+    <li><?php $id = 'all-time'; print l('Most Loved', 'shop', array('attributes' =>  array('id' => $id, 'class' => array('active')), 'query' => array('favorites' => $id)) ) ?></li>
   </ul>
   <?php foreach($filters as  $filter_group) {
   	if(!empty($filter_group['title'] )) {
@@ -16,7 +16,7 @@
     print '</ul>';
   }?>
   </div>
-  <?php print theme('fm_social_favorite_most_loved'); ?>
+  <?php //print theme('fm_social_favorite_most_loved'); ?>
 </div>
 <div class="col2">
   <div class="shopAjaxLoader rounded-top rounded-bottom"><img src="<?php print pp()?>loader-red.gif"></div>
