@@ -26,7 +26,7 @@ function theme_fm_social_icons_facebook_button($vars) {
   $theme_path = drupal_get_path("theme","fadmashion_commerce"); 
   $social_info = fm_commerce_orders_fb_social_info(237);
   
-  $url = 'http://www.fadmashion.com/deals';
+  $url = 'http://exp.fadmashion.com/shop';
 
   $javascript = "javascript:fm_deals_facebookshare( '" . $url . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
 	$output = '<a href="javascript:void(0);" onClick="' . $javascript . '"><img src="' . pp() . 'icon_share_facebook.jpg"></a>';
