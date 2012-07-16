@@ -5,6 +5,6 @@
         			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-      <div class="title">Express Checkout</div>        
+      <div class="title">Secure Checkout</div>        
     </div>
 </div>
