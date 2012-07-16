@@ -27,7 +27,7 @@ function theme_fm_social_icons_facebook_button($vars) {
    $url = 'http://exp.fadmashion.com/shop#!/deals/coral-pendant?store_id=1&nid=5';
   
   $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
-	$output = '<a href="javascript:void(0);" onClick="' . $javascript . '"><img src="' . pp() . 'icon_share_facebook.jpg"></a>';
+	$output = '<a href="javascript:void(0);" onClick="' . $javascript . '"><img src="' . pp() . 'b_facebook.jpg"></a>';
 
 	return $output;
 }
