@@ -305,9 +305,10 @@ jQuery(document).ready(function() {
        			  })
        			},
        			function() {
+       			  jQuery('.social_favorites img', jQuery(this)).hide();
        		      jQuery('.ad-hovered').each(function() {
      			     jQuery(this).removeClass('ad-hovered');
-     			     jQuery('.ad-nav .social_favorites img').fadeOut();
+     			     
     			  })
        			}
        		);
