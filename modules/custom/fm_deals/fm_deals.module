@@ -252,6 +252,7 @@ function theme_fm_deals_product_details($vars) {
   $store = $vars['store'];
   
   $output = '<h1 class="itemName">' . $title . '</h1>';
+  $output .= theme('fm_social_icons_facebook_button');
   
   $product_id = $product->product_id;
   $result = db_query('SELECT count(*) as count FROM fm_social_favorite WHERE product_id = :product_id', array(':product_id' => $product_id));

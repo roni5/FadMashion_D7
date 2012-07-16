@@ -32,5 +32,5 @@
         	<a class="press1" href="#">NY Mag</a>
         	<a class="press3" href="#">FashionSpot</a>
             </div>
-        <h1 class="slogan">A <span>New York</span> Style Collective & Boutique. </h1>
+        <h1 class="slogan">A <span>New York</span> Fashion Collective & Boutique. </h1>
         </div>

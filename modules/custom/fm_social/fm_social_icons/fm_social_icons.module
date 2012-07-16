@@ -4,16 +4,30 @@
 function fm_social_icons_theme() {
 	 return array(
 	   'fm_social_icons_twitter_button' => array(
-	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+	     'variables' => array('type' => '',  'product_id' => 0),
      ), 
      'fm_social_icons_facebook_button' => array(
-	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+	     'variables' => array('type' => '', 'product_id' => 0),
      ), 
      'fm_social_icons_pinterest_button' => array(
-	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+	     'variables' => array('type' => '','product_id' => 0),
      ), 
      'fm_social_icons_email_button' => array(
-	     'variables' => array('full' => TRUE, 'exists' => FALSE, 'product_id' => 0),
+	     'variables' => array('type' => '', 'product_id' => 0),
      ), 
    );
+}
+
+
+function theme_fm_social_icons_facebook_button($vars) {
+	
+	$order_id = $_GET['order-id'];
+  $deals_url = url('deals', array('absolute' => true)); 
+  $theme_path = drupal_get_path("theme","fadmashion_commerce"); 
+  $social_info = fm_commerce_orders_fb_social_info(237);
+
+  $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
+	$output = '<a href="javascript:void(0);" onClick="' . $javascript . '"><img src="' . pp() . 'icon_share_facebook.jpg"></a>';
+
+	return $output;
 }
