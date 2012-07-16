@@ -24,8 +24,6 @@ function theme_fm_social_icons_facebook_button($vars) {
 	$product_id = $vars['product_id'];
   $social_info = fm_social_icons_facebook_info($product_id);
   
-  var_dump($social_info['url']);
-  exit();
    $url = 'http://exp.fadmashion.com/shop#!/deals/coral-pendant?store_id=1&nid=5';
   
   $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
@@ -39,7 +37,7 @@ function fm_social_icons_facebook_info($product_id, $type = '') {
 	$product = commerce_product_load($product_id);
   $node = fm_commerce_get_display_node($product);
   $shop = fm_commerce_get_store($product);
-  $url = url('shop', array('alias' => true, 'fragment' => '!'));
+  $url = url('shop', array('alias' => true, 'fragment' => '!', 'absolute' => true));
   $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
   $url = $url . $url2;
 
