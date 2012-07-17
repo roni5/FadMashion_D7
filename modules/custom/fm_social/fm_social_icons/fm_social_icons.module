@@ -28,7 +28,7 @@ function theme_fm_social_icons_pinterest_button($vars) {
   $social_info = fm_social_icons_facebook_info($product_id);
   
   $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
-	$output = '<a onClick="javascript:void(0);" href="' . $javascript . '"><img title="Send to Friends" src="' . pp() . 'b_pinterest.jpg"></a>';
+	$output = '<a onClick="javascript:void(0);"  href="' . $javascript . '"><img title="Send to Friends" src="' . pp() . 'b_pinterest.jpg"></a>';
 
 	return $output;
 }
