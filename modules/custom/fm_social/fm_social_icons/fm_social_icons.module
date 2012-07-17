@@ -18,6 +18,20 @@ function fm_social_icons_theme() {
    );
 }
 
+function fm_social_icons_init() {
+	drupal_add_js();
+}
+
+function theme_fm_social_icons_pinterest_button($vars) {
+	
+	$product_id = $vars['product_id'];
+  $social_info = fm_social_icons_facebook_info($product_id);
+  
+  $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
+	$output = '<a onClick="javascript:void(0);" href="' . $javascript . '"><img title="Send to Friends" src="' . pp() . 'b_pinterest.jpg"></a>';
+
+	return $output;
+}
 
 function theme_fm_social_icons_facebook_button($vars) {
 	
@@ -27,7 +41,7 @@ function theme_fm_social_icons_facebook_button($vars) {
    $url = 'http://exp.fadmashion.com/shop#!/deals/coral-pendant?store_id=1&nid=5';
   
   $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
-	$output = '<a href="javascript:void(0);" onClick="' . $javascript . '"><img title="Share with Friends" src="' . pp() . 'b_facebook.jpg"></a>';
+	$output = '<a href="javascript:void(0);" onClick="' . $javascript . '"><img title="Send to Friends" src="' . pp() . 'b_facebook.jpg"></a>';
 
 	return $output;
 }
