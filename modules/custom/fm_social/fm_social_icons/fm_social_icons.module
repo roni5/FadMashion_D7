@@ -25,11 +25,28 @@ function fm_social_icons_init() {
 function theme_fm_social_icons_pinterest_button($vars) {
 	
 	$product_id = $vars['product_id'];
-  $social_info = fm_social_icons_facebook_info($product_id);
+	$product = commerce_product_load($product_id);
+  $node = fm_commerce_get_display_node($product);
+  $shop = fm_commerce_get_store($product);
+  $url = url('shop', array('alias' => true, 'fragment' => '!', 'absolute' => true));
+  $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
+  $url = $url . $url2;
   
-  $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
-	$output = '<a onClick="javascript:void(0);"  href="' . $javascript . '"><img title="Sendds to Friends" src="' . pp() . 'b_pinterest.jpg"></a>';
-
+  $images = field_get_items('commerce_product', $product, 'field_product_images');
+	
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+	$first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
+  
+  $title = $product->title;
+  $title = $title;
+  
+  $output = '<a href="http://pinterest.com/pin/create/button/?url=' . $url . '&media=' 
+            . render(file_create_url($image_path)) . '&description=' . render($title) . '" class="pin-it-button" count-layout="horizontal" target="_blank">
+            <img title="Pin it" src="' . pp() . 'b_pinterest.jpg"></a>';
+  
 	return $output;
 }
 

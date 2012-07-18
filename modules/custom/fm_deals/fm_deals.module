@@ -255,6 +255,7 @@ function theme_fm_deals_product_details($vars) {
   $product_id = $product->product_id;
   $output = '<div class="socialButtons">';
   $output .= theme('fm_social_icons_facebook_button', array('product_id' => $product_id));
+  $output .= theme('fm_social_icons_pinterest_button', array('product_id' => $product_id));
   $output .= '</div>';
   $output .= '<h1 class="itemName">' . $title . '</h1>';
   
