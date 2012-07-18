@@ -297,7 +297,7 @@ jQuery(document).ready(function() {
        		jQuery(this).hover(
        			function() {
        			  var thisId = jQuery(this).attr('id');
-       			  jQuery('.social_favorites img', jQuery(this)).show();
+       			  jQuery('.social_favorites img', jQuery(this)).fadeIn("fast"); 
        			  links.each(function() {
        				  if(jQuery(this).attr('id') != thisId) {
        				    jQuery(this).addClass('ad-hovered');
@@ -305,8 +305,9 @@ jQuery(document).ready(function() {
        			  })
        			},
        			function() {
-       			  jQuery('.social_favorites img', jQuery(this)).hide();
+       			  
        		      jQuery('.ad-hovered').each(function() {
+       		    	jQuery('.social_favorites img', jQuery(this)).hide();
      			     jQuery(this).removeClass('ad-hovered');
      			     
     			  })
