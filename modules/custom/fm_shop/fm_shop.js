@@ -297,7 +297,7 @@ jQuery(document).ready(function() {
        		jQuery(this).hover(
        			function() {
        			  var thisId = jQuery(this).attr('id');
-       			  jQuery('.social_favorites img', jQuery(this)).show('fast');
+       			  jQuery('.social_favorites img', jQuery(this)).show();
        			  links.each(function() {
        				  if(jQuery(this).attr('id') != thisId) {
        				    jQuery(this).addClass('ad-hovered');
