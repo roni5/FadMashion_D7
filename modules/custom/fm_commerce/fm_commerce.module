@@ -388,7 +388,7 @@ function fm_commerce_get_display_node($product, $type = 'fm_group_buying') {
 	  $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node');
     $query->entityCondition('bundle', $type);
-	  //$query->propertyCondition('status', 1);
+	  $query->propertyCondition('status', 1);
 	  $query->fieldCondition('field_product_reference', 'product_id', $product->product_id);
     $result = $query->execute();
 	  
