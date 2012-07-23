@@ -306,7 +306,7 @@ jQuery(document).ready(function() {
        			},
        			function() {
        		      jQuery('.ad-hovered').each(function() {
-       		    	jQuery('.social_favorites img', jQuery(this)).hide();
+       		    	jQuery('.social_favorites img').hide();
      			     jQuery(this).removeClass('ad-hovered');
      			     
     			  })
