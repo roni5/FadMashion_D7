@@ -24,6 +24,7 @@
         <div class="tracking_info" style="font-size: 12px; padding: 10px 0; border-bottom: 1px solid #e2dcd6;">Tracking: <?php print $opts[$tracking_company] . ': ' . $tracking_id;?></div>
      <?php 
 $order_view = commerce_order_ui_order_view($order, 'customer');
+$order_view = $order_view['commerce_order'][$order->order_id];
 ?>    
         <div class="ships" style="color: #a4897b; font-size: 12px; font-weight: bold; margin-top: 10px;">SHIPS TO:</div>
         <p style="margin-bottom: 10px; font-size: 14px; line-height: 18px; margin-top: 0;"><?php print render($order_view['commerce_customer_shipping']);  ?></p>

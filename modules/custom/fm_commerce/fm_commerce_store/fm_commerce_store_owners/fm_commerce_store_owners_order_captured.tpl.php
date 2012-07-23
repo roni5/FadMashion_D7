@@ -5,6 +5,7 @@
 	$row_info = fm_commerce_orders_row_info($order);
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
   $order_view = commerce_order_ui_order_view($order, 'customer');
+  $order_view = $order_view['commerce_order'][$order->order_id];
 ?>
 
 <div class="orders_admin_wrapper">
