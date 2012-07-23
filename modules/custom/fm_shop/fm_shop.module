@@ -170,11 +170,6 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('store_id' => $shop->store_id)));
 			$content .= '</div>';
 			
-			var_dump($shop);	
-	var_dump($products);
-	exit();
-			
-			break;
 		case 'term':
 			$term = $var;
 			$content = '<div id = "collection_term_' . $term->name . '">';
