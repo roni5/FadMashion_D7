@@ -149,7 +149,9 @@ function fm_shop_page_ajax($type) {
 	$node_content = '';
 	foreach($products as $product) {
 	 $node = fm_commerce_get_display_node($product);
-	 $node_content .= render(node_view($node));
+	 if(isset($node)) {
+	   $node_content .= render(node_view($node));
+	 }
 	}
 	
 	$content .= '<div class="product_content">';
