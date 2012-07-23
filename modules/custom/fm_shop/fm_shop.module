@@ -167,11 +167,12 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 		case 'store':
 			$shop = $var;
 			$content = '<div id = "collection_store_' . $shop->store_id . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('store_id' => $shop->store_id)));
+			$content .= '</div>';
+			
 			var_dump($shop);	
 	var_dump($products);
 	exit();
-			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('store_id' => $shop->store_id)));
-			$content .= '</div>';
 			
 			break;
 		case 'term':
