@@ -392,9 +392,6 @@ function fm_commerce_get_display_node($product, $type = 'fm_group_buying') {
 	  $query->fieldCondition('field_product_reference', 'product_id', $product->product_id);
     $result = $query->execute();
 	  
-    var_dump( $product->product_id);
-     var_dump($result);
-     
     foreach($result['node'] as $nid => $row) {
 	    	if ($row->type == $type) {
 	    		$node = node_load($nid);
