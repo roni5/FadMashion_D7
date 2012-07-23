@@ -10,13 +10,15 @@
             <?php 
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
-            	$node = fm_commerce_get_display_node($product);
-            	$shop = fm_commerce_get_store($product);
-            	$query_array = array_merge($argument ,array('nid' => $node->nid));
-            	$link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid, 'class' => 'thumb_link'), 'query' => $query_array ));
-            	$link .= '<div class="social_favorites">' . fm_social_favorite_get_button($product->product_id, false) . '</div>'; 
-            	//$link = l($img, '', array('html' => true, 'attributes' => array('id' => $node->nid), 'absolute' => true));
-            	print '<li id="collection_viewer_' . $node->nid .'">' . $link . '</li>';
+            	$node = fm_commerce_get_display_node($product);  
+            	if(isset($node)) {
+            	  $shop = fm_commerce_get_store($product);
+            	  $query_array = array_merge($argument ,array('nid' => $node->nid));
+            	  $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid, 'class' => 'thumb_link'), 'query' => $query_array ));
+            	  $link .= '<div class="social_favorites">' . fm_social_favorite_get_button($product->product_id, false) . '</div>'; 
+             	//$link = l($img, '', array('html' => true, 'attributes' => array('id' => $node->nid), 'absolute' => true));
+            	  print '<li id="collection_viewer_' . $node->nid .'">' . $link . '</li>';
+            	}
             }
             
             
