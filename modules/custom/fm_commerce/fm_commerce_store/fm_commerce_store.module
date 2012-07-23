@@ -502,7 +502,6 @@ function fm_commerce_store_get_products($store, $withDisplayNode = false) {
       $products_ret[$product_id] = commerce_product_load($product_id);
 	  }
 	}
-	var_dump($products_ret);
 	return $products_ret;
 }
 

@@ -112,8 +112,9 @@ function fm_shop_page_ajax($type) {
 		case 'shop':
 			$shop = fm_commerce_store_load($store_id);
 			$products = fm_commerce_store_get_products($shop);
-			var_dump();
 			
+	var_dump($products);
+	exit();
 			$content =  fm_shop_collection_viewer('store', $shop, $products);
 			
 	    break;
