@@ -17,8 +17,8 @@ jQuery(document).ready(function() {
 
          // Identifies the page selection
     	 var static_id = 'about-us';
-    	 if(event.pathNames[0]) {
-		   static_id = event.pathNames[0];
+    	 if(event.pathNames[1]) {
+		   static_id = event.pathNames[1];
 	     }
     	 
     	 jQuery('.page-static .col1 a').each(function() {
