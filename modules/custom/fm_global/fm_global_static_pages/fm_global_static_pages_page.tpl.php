@@ -4,7 +4,7 @@
   <h1 style="border: none; margin-top: 0; padding-top: 0px;">ABOUT</h1>
   <ul>
   <?php foreach($pages as  $alias => $page) {
-    print '<li><a id="' . $alias . '" href="' . $alias . '">' . $page . '</a></li>';
+    print '<li><a id="#!/?page=' . $alias . '" href="' . $alias . '">' . $page . '</a></li>';
   }?>
   </ul>
   </div>
