@@ -38,7 +38,9 @@ jQuery(document).ready(function() {
     	 
     	 data = jQuery('#cache .' + static_id).html();
      	
+    	 if(!jump) {
     	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
+    	 }
      	dataPage = jQuery('.page-static .col2 .pad');
      	dataPage.hide();
     	dataPage.html(data);
