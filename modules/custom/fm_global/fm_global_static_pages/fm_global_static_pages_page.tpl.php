@@ -5,7 +5,7 @@
   <ul>
   <?php foreach($pages as  $alias => $page) {
   	
-    print '<li><a id="#!/?page=' . $alias . '" href="' . $alias . '">' . $page . '</a></li>';
+    print '<li><a id="' . $alias . '" href="#!/?page=' . $alias . '">' . $page . '</a></li>';
   }?>
   </ul>
   </div>
