@@ -29,6 +29,13 @@ jQuery(document).ready(function() {
            }
          });
     	 
+    	 if(event.parameters.jump) {
+        	 jump = event.parameters.jump;
+        	 alert(jump);
+         } else {
+        	 jump = '';
+         }
+    	 
     	 data = jQuery('#cache .' + static_id).html();
      	
     	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
