@@ -31,7 +31,7 @@ jQuery(document).ready(function() {
     	 
     	 if(event.parameters.jump) {
         	 jump = event.parameters.jump;
-        	 alert(jump);
+        	 jQuery().scrollTo('#' + jump);
          } else {
         	 jump = '';
          }
