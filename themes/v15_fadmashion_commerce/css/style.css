@@ -361,7 +361,7 @@ margin-bottom:8px;
 #faq ul, #faq li {}
 #faq li {line-height: 28px;}
 #faq li a{font-size: 20px;}
-#faq ul {margin-bottom: 50px;}
+#faq ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
 #faq p {margin: 15px 0}
 #faq h3 {margin-top: 15px;}
 
