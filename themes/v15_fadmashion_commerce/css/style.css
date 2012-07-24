@@ -359,7 +359,7 @@ margin-bottom:8px;
 .static_panel {background-color: #fff; min-height: 500px; padding: 30px; }
 
 #faq ul, #faq li {}
-#faq li {}
+#faq li {line-height: 28px;}
 #faq li a{font-size: 20px;}
 #faq ul {margin-bottom: 50px;}
 #faq p {margin: 15px 0}
