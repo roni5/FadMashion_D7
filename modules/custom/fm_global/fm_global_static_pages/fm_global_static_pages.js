@@ -40,11 +40,12 @@ jQuery(document).ready(function() {
      	
     	 if(!jump) {
     	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
+
+      	dataPage = jQuery('.page-static .col2 .pad');
+      	dataPage.hide();
+     	dataPage.html(data);
+     	dataPage.fadeTo('fast', 1);
     	 }
-     	dataPage = jQuery('.page-static .col2 .pad');
-     	dataPage.hide();
-    	dataPage.html(data);
-    	dataPage.fadeTo('fast', 1);
      	
      });
    }
