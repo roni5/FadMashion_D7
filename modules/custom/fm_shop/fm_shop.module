@@ -74,7 +74,7 @@ function fm_shop_page_ajax($type) {
 	} 
 	
    if(isset($_GET['term']) && $_GET['term'] != '' ) {
-		$term_name = $_GET['term'];
+		$tid = $_GET['term'];
 		$type = 'term';
    }
    
@@ -120,8 +120,7 @@ function fm_shop_page_ajax($type) {
 			$content =  fm_shop_collection_viewer('favorites', $params, $products);
 	    break;
 		case 'term':
-			$term = taxonomy_get_term_by_name($term_name);
-			$term = array_shift($term);
+			$term = taxonomy_term_load($tid);
 			$values = fm_shop_products_by_taxonomy($term);
 			$products = $values['products'];
 			
@@ -192,6 +191,17 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 function fm_shop_page_filters() {
 	$filters = array();
 	
+//Get Featured List 
+	$filters['trends']['title'] = t('Trends');
+	$filters['trends']['links'] = array();
+	$filters['trends']['arg'] = 'term'; 
+	$vocab = taxonomy_vocabulary_machine_name_load('trends');
+	$terms = taxonomy_get_tree($vocab->vid);
+	
+  foreach ($terms as  $term) {
+    $filters['trends']['links']['term_' . $term->tid] = check_plain($term->name);
+  }
+  
 	//Get Featured List 
 	$filters['product_type']['title'] = t('New Arrivals');
 	$filters['product_type']['links'] = array();
@@ -200,7 +210,7 @@ function fm_shop_page_filters() {
 	$terms = taxonomy_get_tree($vocab->vid);
 	
   foreach ($terms as  $term) {
-    $filters['product_type']['links'][$term->name] = check_plain($term->name);
+    $filters['product_type']['links']['term_' . $term->tid] = check_plain($term->name);
   }
 	
 	
@@ -298,10 +308,17 @@ function fm_shop_page_all_panels($filters) {
 }
 
 function fm_shop_products_by_taxonomy($term) {
+	
+	if($term->vocabulary_machine_name == 'product_types') {
+		$field = 'field_product_type_top';
+	} else {
+		$field = 'field_product_trend';
+	}
+	
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
-    ->fieldCondition('field_product_type_top', 'tid', $term->tid) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
+    ->fieldCondition($field, 'tid', $term->tid) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
     ->pager(COLLECTION_VIEWER_PAGER)
     ->propertyCondition('status', 1)
     ->propertyOrderBy('created', 'DESC');
@@ -317,6 +334,8 @@ function fm_shop_products_by_taxonomy($term) {
 	
 	return array('products' => $products_ret, 'total' => $query->pager['total']);
 }
+
+
 
 function fm_shop_products_by_favorites($param) {
    $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 10');

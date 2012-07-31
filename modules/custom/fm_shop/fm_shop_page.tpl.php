@@ -11,7 +11,13 @@
   	}
     print '<ul>';
     foreach($filter_group['links'] as $id => $link) {
-    	print '<li>' . l($link, check_plain($link), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $id))) . '</li>';
+    	$arg_array = explode("_", $id);
+    	if($arg_array[0] != 'term') {
+    		$arg = $id;
+    	} else {
+    		$arg = $arg_array[1];
+    	}
+    	print '<li>' . l($link, check_plain($link), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $arg))) . '</li>';
     }
     print '</ul>';
   }?>

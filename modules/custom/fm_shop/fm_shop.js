@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
     	 if(event.parameters.term) {
     		 term = event.parameters.term;
     		 type = 'term';
-    		 id = term; 
+    		 id = 'term_' + term; 
     		 
     		 cacheType = 'term';
     	     cacheId = term;

@@ -8,7 +8,7 @@
   <p>Invite 10 friends to join, and we will give you $10 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for helping us grow.</p>
 </div>
 <div id="col2">
-  <p>Some Graphic</p>
+  <p>You have <span>10</span> more friends to invite</p>
 </div>
 </div>
 <div id="email">
@@ -19,7 +19,7 @@
 </div>
 
 <div id="share_link">
-<h2>Share Using Your Personal Invite Link</h2>
+<h2>Invite Using Your Personal Invite Link</h2>
 <h3>Copy & Paste the link in an E-mail, IM Message, Facebook or Twitter to invite your friends</h3>
 <div style="margin-top: 10px;">
 <input onClick="this.select()" type="text" id="" name="" value="<?php print $invite_url;?>" class="form-text required urlCode">
