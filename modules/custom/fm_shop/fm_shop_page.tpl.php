@@ -1,13 +1,18 @@
 
 <div class="col1">
   <div class="pad">
-  <ul style="overflow: hidden;">
-    <li><?php  print l('Home', 'shop/all', array('attributes' => array('id' => 'all', 'class' => array('active', 'viewAll')))) ?></li>
-    <li><img style="float: left " src="<?php print pp()?>icon_star.png"><?php $id = 'all-time'; print l('Most Loved', 'shop/favorites', array('attributes' =>  array('id' => $id), 'query' => array('favorites' => $id)) ) ?></li>
-  </ul>
-  <?php foreach($filters as  $filter_group) {
+  
+    <div class="sideNavBlock">
+    <?php $id = 'all-time'; $img = '<img style="margin: 0;" class="title" alt="Most Loved" src="' . pp() . 'title_small_mostloved.png">'; print l($img, 'shop/favorites', array('attributes' =>  array('id' => $id), 'html' => true, 'query' => array('favorites' => $id)) ) ?>
+
+    </div>
+ 
+  <?php 
+  
+   foreach($filters as  $filter_group) {
+   	print '<div class="sideNavBlock">';
   	if(!empty($filter_group['title'] )) {
-      print '<h1>' . $filter_group['title'] . '</h1>';
+      print  $filter_group['title'];
   	}
     print '<ul>';
     foreach($filter_group['links'] as $id => $link) {
@@ -20,13 +25,15 @@
     	print '<li>' . l($link, check_plain($link), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $arg))) . '</li>';
     }
     print '</ul>';
-  }?>
+    print '</div>';
+  }
+  ?>
   </div>
   <?php //print theme('fm_social_favorite_most_loved'); ?>
 </div>
 <div class="col2">
   <div class="shopAjaxLoader rounded-top rounded-bottom"><img src="<?php print pp()?>loader-red.gif"></div>
-  <div class="pad"><?php print $content;?></div>
+  <div id="contentPanel"><?php print $content;?></div>
 </div>
 
 <div id="cache"  style="display:none;">

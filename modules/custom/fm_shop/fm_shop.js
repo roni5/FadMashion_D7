@@ -176,9 +176,9 @@ jQuery(document).ready(function() {
 
          var dataPage;
          if(page || (!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length && !jQuery('.col2 #collection_favorites_' + param).length)) {
-        	 dataPage = jQuery('.page-shop .col2 .pad');
+        	 dataPage = jQuery('.page-shop .col2 #contentPanel');
          } else {
-        	 dataPage = jQuery('.page-shop .col2 .pad .product_content');
+        	 dataPage = jQuery('.page-shop .col2 #contentPanel .product_content');
          }
          
          var fullPath = '';

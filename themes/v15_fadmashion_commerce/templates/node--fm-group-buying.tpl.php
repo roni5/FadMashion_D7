@@ -147,5 +147,4 @@
 </div> <!-- End designerInfo -->
 
 <br clear="all">
-<img class="frameBottom" src="<?php print pp();?>frame_bottom.png">
 </div> <!-- collectionPanel -->

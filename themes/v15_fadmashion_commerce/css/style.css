@@ -1,5 +1,5 @@
 *{margin: 0; padding: 0; border: none; text-decoration:none;font-family:"museo-sans-1","museo-sans-2", Helvetica; outline:none;}
-body{background: url(../images/bg_grey.jpg);}
+body{ background: url("../images/bg_pattern.jpg") repeat scroll 0 0 transparent;}
 ul, li{list-style-type: none;}
 a, .dotted-hover{color: #0f6da3;font-size: 12px}
 a:hover{color: #2e92cc;}
@@ -9,7 +9,7 @@ border-bottom:1px dotted #0F6DA3;
 cursor:pointer;
 }
 
-#wrapper{background: url(../images/bg_header.jpg) top left repeat-x;}
+#wrapper{background: url(../images/bg_header.png) top left repeat-x;}
 #container{width: 1024px; margin: 0 auto 100px;; }
 
 tbody {border: medium none}
@@ -32,8 +32,8 @@ span {
     font-weight: inherit;}
 /********* header **********/
 
-#header{height: 94px;}
-#subHeader{height: 68px; background: #fff;}
+#header{height: 89px;}
+#subHeader{ background: #fff;}
 
 #header .links {color: #fff; float: left; height: 30px; margin-top: 8px;width: 450px; }
 #header .links a{color: #fff; float: right; margin-left: 20px;line-height: 30px; font-size: 11px;}
@@ -41,15 +41,17 @@ span {
 #header .bag{background: url(../images/icon_bag.png) center left no-repeat; padding: 0 0 0 23px;font-size: 11px;}
 #header a.button{float: right; color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
 #header .button:hover{background-position: bottom left;}
-#header .logo{float: left; margin-top: 17px;}
+#header .logo{float: left; margin-top: 19px;}
 #header .right{float: right; color: #fff; clear: both;width: 450px;}
 #header .shipping{color:#CCCCCC;font-family:"jubilat-1","jubilat-2",Georgia;font-style:italic;font-weight:400;font-size: 12px;}
-#header .shipping p{font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 400; color: #b7b7b7;font-style:italic;}
-#header .shipping span{color: #fff;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
+#header .shipping p{ font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 400; color: #b7b7b7;font-style:italic;}
+#header .shipping span{font-size: 13px;color: #ccc;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
 .shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
 .nav{float: left; background: url(../images/sep_logo.png) center left no-repeat;height: 52px; margin: 20px 0 0 30px; padding-left: 30px;}
 .nav a.active{color: #fff; background: url(../images/arrow_nav.png) bottom center no-repeat;}
-.nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 35px; height: 74px;float: left;}
+.nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 34px; height: 74px;float: left;}
+.nav a.home{background: url(../images/b_home.png) top left no-repeat; height: 17px; width: 19px; text-indent: -9999px; float: left; margin-top: 16px;}
+.nav a.home:hover, .nav li.active a.home{background-position: bottom left;}
 
 #subHeader .press{float: right; padding: 12px 0 0 90px; background: url(../images/l_asseenin.jpg) 0px 27px no-repeat;}
 #subHeader .press a{height: 41px; width: 100px; float: left; background-position: top left; text-indent: -9999px; margin-left: 15px;}
@@ -58,22 +60,23 @@ span {
 .press a.press2{background: url(../images/logo_myfashionlife.png) no-repeat;}
 .press a.press3{background: url(../images/logo_fashionspot.png) no-repeat;}
 
-#subHeader .slogan{font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia; font-size: 16px; line-height: 68px; font-weight: 400}
+#subHeader .slogan{font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia; font-size: 16px; line-height: 48px; font-weight: 400}
 #subHeader .slogan span{color: #b63030; font-size: 16px;font-style: italic;font-family:"jubilat-1","jubilat-2", Georgia;font-weight: 400}
 
 
 /********* content **********/
-#content {padding: 0 0 30px 0;float: left;}
+#content {  clear: both;float: left;padding: 20px 0 30px;;}
 #content .col1{width: 207px; float: left;}
-	#content .col1 .pad{padding: 30px 20px 20px 0;}
+	#content .col1 .pad{padding: 0 20px 0 0;}
 #content .col2{width: 817px; float: left; position: relative}
-	#content .col2 .pad{padding: 30px 0 0 0;}
+#content .col2 #contentPanel{    background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;border-radius: 5px 5px 5px 5px;float: left;width: 817px;}
+#content .sideNavBlock {border-top: 1px solid #CCCCCC;padding: 15px 0; overflow: hidden}
 	
 	
 .col1 ul, .col1 li{list-style-type: none;}  
-.col1 a{color: #444;display: block;font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; font-size: 13px;}
+.col1 a{  color: #777777;display: block;font-size: 13px;font-weight: 300; width: 100%;}
 .col1 a:hover{color: #b63030}
-.col1 a.active{background: url(../images/arrow_red.png) center right no-repeat;color: #b63030}
+.col1 a.active{background: url(../images/arrow_red.png) center right no-repeat;color: #000000;font-weight: bold;}
 .col1 h1{color: #b63030; font-size: 18px; font-weight: 100; margin: 20px 0 12px 0; border-top: 1px solid #ddd; padding: 20px 0 0 0;}
 .col1 a.viewAll{font-family:"museo-sans-1","museo-sans-2", Helvetica; outline:none; font-size: 12px;color: #b63030; font-style:normal;}
 .col1 ul{margin: 0 ; } 
@@ -92,7 +95,7 @@ span {
 
 .most_loved_number {font-size: 12px; font-weight: bold; font-style:italic; background: url(../images/icon_star.png) left center no-repeat; padding: 0 0 0 18px; margin: 3px 0 0 0;}
 .productInfo .most_loved_number {padding-right: 10px; margin-right: 10px; border-right: 1px solid #ddd;}
-#all-time {   float: left;font-size: 12px; font-weight: normal; padding: 0 0 0 7px;width: 165px;}
+#all-time {   float: left;font-size: 12px; font-weight: normal; width: }
 
 /********* designer panel **********/
 
@@ -102,7 +105,7 @@ span {
 #content .col2 .designerPanel .pad{text-align: center; padding: 5px 5px 0px 5px;}
 .designerPanel table{margin: 0 auto;}
 .frameBottom{float: left; display: block;}
-.collectionPanel{background: url(../images/frame_bg.png) top left repeat-y;padding-top: 0px; width: 817px; float: left;}
+.collectionPanel{padding-top: 0px; width: 817px; float: left;}
 .collectionPanel .product{padding: 30px 0 0 36px;}
 
 .info{text-align: center; width: 350px;}
@@ -228,10 +231,14 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .source {color: #767272; font-size: 11px important!; padding: 5px 0; margin-bottom: 5px;}
 .source a{font-size: 11px important!;}
 
+#gallery {background: -moz-linear-gradient(center top , #FFFFFF 0%, #F3F3F3 100%) repeat scroll 0 0 transparent;
+    box-shadow: 0 -2px 2px #CCCCCC inset;}
 #gallery .social_favorites {position: absolute; top:3px; right: 3px;}
 #gallery .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
 #gallery  .ad-thumbs li {position: relative;}
 #collection_viewer_more{color: #fff; font-style: italic; font-size: 16px; width: 100px; text-align: center; line-height: 90px}
+
+.product_content {padding: 30px 0 0 30px;}
 /* Sign Up Box */
 
 #signup label{display: none}

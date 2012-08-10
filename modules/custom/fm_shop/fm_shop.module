@@ -192,7 +192,7 @@ function fm_shop_page_filters() {
 	$filters = array();
 	
 //Get Featured List 
-	$filters['trends']['title'] = t('Trends');
+	$filters['trends']['title'] = '<img class="title" alt="Trends" src="' . pp() .'title_small_trends.png">';
 	$filters['trends']['links'] = array();
 	$filters['trends']['arg'] = 'term'; 
 	$vocab = taxonomy_vocabulary_machine_name_load('trends');
@@ -203,7 +203,7 @@ function fm_shop_page_filters() {
   }
   
 	//Get Featured List 
-	$filters['product_type']['title'] = t('New Arrivals');
+	$filters['product_type']['title'] = '<img class="title" alt="New Arrivals" src="' . pp() .'title_small_newarrivals.png">';
 	$filters['product_type']['links'] = array();
 	$filters['product_type']['arg'] = 'term'; 
 	$vocab = taxonomy_vocabulary_machine_name_load('product_types');
@@ -216,7 +216,7 @@ function fm_shop_page_filters() {
 	
 	
 //Get Featured List 
-	$filters['featured']['title'] = t('Designers');
+	$filters['featured']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
 	$filters['featured']['links'] = array();
 	$filters['featured']['arg'] = 'store_id';
 	
