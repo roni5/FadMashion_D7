@@ -11,5 +11,5 @@
   }
 ?>       	  
     <h1><?php print $node->title?></h1>
-   <h2><?php print render($node->content['product:commerce_price']); ?><?php print render($node->content['field_sale_price']); ?></h2>
+   <h2><span><?php node_build_content($node); print render($node->content['field_sale_price']); ?></span></h2>
 </div>
