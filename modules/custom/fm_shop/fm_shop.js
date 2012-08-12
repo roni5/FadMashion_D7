@@ -206,8 +206,12 @@ jQuery(document).ready(function() {
              beforeSend: function() {
             	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
-                 dataPage.fadeTo('fast', .33);
-                
+                 if(dataPage.html()) {
+                   dataPage.fadeTo('fast', .33);
+                 } else {
+                	 dataPage.hide(); 
+                 }
+                 
               },
 
              error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -33,7 +33,7 @@
 </div>
 <div class="col2">
   <div class="shopAjaxLoader rounded-top rounded-bottom"><img src="<?php print pp()?>loader-red.gif"></div>
-  <div id="contentPanel"><?php print $content;?></div>
+  <div  id="contentPanel"><?php print $content;?></div>
 </div>
 
 <div id="cache"  style="display:none;">
