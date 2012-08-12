@@ -109,8 +109,8 @@ jQuery(document).ready(function() {
         		  jQuery('#contentPanel .product_content').hide();
         	  } else {
         		  jQuery('#contentPanel #grid_view').hide();
-        		  jQuery('#contentPanel .collection_viewer').show();
-        		  jQuery('#contentPanel .product_content').show();
+        		  jQuery('#contentPanel .collection_viewer').fadeIn();
+        		  jQuery('#contentPanel .product_content').fadeIn();
         	  }
           }
           
