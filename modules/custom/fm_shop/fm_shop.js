@@ -113,7 +113,7 @@ jQuery(document).ready(function() {
         		  jQuery('#contentPanel .product_content').fadeIn();
         		  
         		  var position = jQuery('.collection_viewer').position();
-                  jQuery("html, body").animate({ scrollTop: 228 }, 'slow', "easeOutCubic");
+                  jQuery("html, body").animate({ scrollTop: 250 }, 'slow', "easeOutCubic");
         	  }
           }
           
