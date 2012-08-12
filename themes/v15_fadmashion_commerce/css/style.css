@@ -83,6 +83,20 @@ span {
 .col1 li{padding: 3px 0;}
 
 
+/********* grid view **********/
+
+.banner{text-align: center; padding: 30px;}
+.banner .title{margin: 0 0 20px 0;}
+.banner p.description{ font-size: 19px;font-style: italic;font-family:"jubilat-1","jubilat-2", Georgia; font-weight:normal; line-height:24px;}
+
+#grid .row{float: left; clear: both; width: 100%; padding: 0 0 20px 28px}
+#grid .block{width: 174px; margin: 0 20px 0 0; float: left;}
+#grid .block img{border: 1px solid #ccc;}
+#grid .block h1{margin: 5px 0; font-size: 12px;}
+#grid .block h2{font-size: 12px; color: #999; font-weight:normal;}
+
+
+
 /* Most Loved theme*/
 .mostLoved h1{color: #b63030; font-size: 18px; font-weight: 100; margin: 0 0 12px 0;}
 .mostLoved .itemLoved{float: left; display: block; clear: both; width: 190px; margin-bottom: 10px;}
