@@ -111,7 +111,9 @@ jQuery(document).ready(function() {
         		  jQuery('#contentPanel #grid_view').hide();
         		  jQuery('#contentPanel .collection_viewer').fadeIn();
         		  jQuery('#contentPanel .product_content').fadeIn();
-        		  jQuery("html, body").animate('.collection_viewer', 'slow', "easeOutCubic");
+        		  
+        		  var position = jQuery('.collection_viewer').position();
+                  jQuery("html, body").animate({ scrollTop: 228 }, 'slow', "easeOutCubic");
         	  }
           }
           
