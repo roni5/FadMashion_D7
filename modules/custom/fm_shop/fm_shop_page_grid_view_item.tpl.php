@@ -1,7 +1,7 @@
 <div class="block">
 
 <?php 
-  $img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
+  $img =  fm_commerce_product_image_thumb($product, 'fm_product_grid_view', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
   $node = fm_commerce_get_display_node($product);  
   if(isset($node)) {
     $shop = fm_commerce_get_store($product);
