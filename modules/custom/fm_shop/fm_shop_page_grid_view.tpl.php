@@ -1,3 +1,5 @@
+
+<div id="grid_view">
 <div class="banner">
   <?php print $title; ?>
   <p class="description"><?php print $description; ?></p>
@@ -5,6 +7,7 @@
 </div>
 <div id="grid">
   <?php foreach($products as $product) {
-    print theme('fm_shop_page_grid_view_item', array('product' => $product));
+    print theme('fm_shop_page_grid_view_item', array('product' => $product, 'argument' => $argument));
   }?>
+</div>
 </div>

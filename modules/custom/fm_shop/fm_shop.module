@@ -53,7 +53,7 @@ function fm_shop_theme() {
     ),
     
     'fm_shop_page_grid_view_item' => array(
-	     'variables' => array('product' => $product),
+	     'variables' => array('product' => $product, 'argument' => array()),
        'template' => 'fm_shop_page_grid_view_item'
     ),
     
@@ -132,14 +132,14 @@ function fm_shop_page_ajax($type) {
 			$term = taxonomy_term_load($tid);
 			$values = fm_shop_products_by_taxonomy($term);
 			$products = $values['products'];
+			$content = '';
 			
 			$trend_image = field_get_items('taxonomy_term', $term, 'field_trend_image');
 			if($trend_image) {
 				//GRID VIEW
 	      $trend_image = $trend_image[0];
 	      $content = fm_shop_grid_view('term', $term, $products);
-			} else {
-			  //NO GRID VIEW
+			} 
 			  
 			  //Calculate oager
 			  if(!isset($_GET['page'])) {
@@ -154,8 +154,8 @@ function fm_shop_page_ajax($type) {
   				$pager = $page;
 			  }
 			
-   			$content =  fm_shop_collection_viewer('term', $term, $products, $pager) ;
-			}
+   			$content .=  fm_shop_collection_viewer('term', $term, $products, $pager) ;
+			
 	    break;
 			
 	}
@@ -183,19 +183,19 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 	switch($type) {
 		case 'store':
 			$shop = $var;
-			$content = '<div id = "collection_store_' . $shop->store_id . '">';
+			$content = '<div class="collection_viewer" id = "collection_store_' . $shop->store_id . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('store_id' => $shop->store_id)));
 			$content .= '</div>';
 			break;
 		case 'term':
 			$term = $var;
-			$content = '<div id = "collection_term_' . $term->name . '">';
+			$content = '<div class="collection_viewer" id = "collection_term_' . $term->name . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('term' => $term->tid)));
 			$content .= '</div>';
 			break;
 		case 'favorites':
 			$type = $var;
-			$content = '<div id = "collection_favorites_' . $type . '">';
+			$content = '<div class="collection_viewer" id = "collection_favorites_' . $type . '">';
 			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('favorites' => $type)));
 			$content .= '</div>';
 			break;

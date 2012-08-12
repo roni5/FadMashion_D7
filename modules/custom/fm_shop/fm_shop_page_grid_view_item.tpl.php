@@ -7,7 +7,6 @@
     $shop = fm_commerce_get_store($product);
     
     $query_array = array_merge($argument ,array('nid' => $node->nid));
-    var_dump($argument);
     $link = l($img, 'node/' . $node->nid, array('html' => true, 'attributes' => array('id' => $node->nid, 'class' => 'thumb_link'), 'query' => $query_array ));
     print $link;
   ?>       	  

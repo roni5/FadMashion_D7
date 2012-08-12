@@ -99,6 +99,20 @@ jQuery(document).ready(function() {
       	    dataPage.html(data);
           }
           
+
+
+
+          if(jQuery('#grid_view').length) {
+        	  if(nid == '') {
+        		  jQuery('#contentPanel #grid_view').show();
+        		  jQuery('#contentPanel .collection_viewer').hide();
+        		  jQuery('#contentPanel .product_content').hide();
+        	  } else {
+        		  jQuery('#contentPanel #grid_view').hide();
+        		  jQuery('#contentPanel .collection_viewer').show();
+        		  jQuery('#contentPanel .product_content').show();
+        	  }
+          }
           
           if(nid == '') {
         	  nid = jQuery('ul.ad-thumb-list li a').first().attr('id');
@@ -141,9 +155,8 @@ jQuery(document).ready(function() {
           }
         	
           var newClass;
-        	
           
-        	
+
           Drupal.attachBehaviors();
           jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
@@ -154,6 +167,7 @@ jQuery(document).ready(function() {
     		   } 
           });
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
+          jQuery('#grid h1 a, #grid a.thumb_link').address();
           
        };
          /*
