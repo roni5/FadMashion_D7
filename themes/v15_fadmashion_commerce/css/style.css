@@ -89,8 +89,9 @@ span {
 .banner .title{margin: 0 0 20px 0;}
 .banner p.description{ font-size: 19px;font-style: italic;font-family:"jubilat-1","jubilat-2", Georgia; font-weight:normal; line-height:24px;}
 
+#grid {padding-left: 20px;}
 #grid .row{float: left; clear: both; width: 100%; padding: 0 0 20px 28px}
-#grid .block{width: 174px; margin: 0 20px 0 0; float: left;}
+#grid .block{width: 174px; margin: 0 20px 0 0; float: left; padding-bottom: 28px;}
 #grid .block img{border: 1px solid #ccc;}
 #grid .block h1{margin: 5px 0; font-size: 12px;}
 #grid .block h2{font-size: 12px; color: #999; font-weight:normal;}
