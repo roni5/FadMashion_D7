@@ -31,6 +31,7 @@
       <?php echo $current_pass; ?>
       <?php echo $pass; ?>
        <?php echo $mail; ?>
+       <?php echo $roles; ?>
     </div>
   </div>
 </div>

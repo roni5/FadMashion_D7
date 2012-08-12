@@ -93,8 +93,11 @@ function fm_users_share_with_friends() {
 }
 
 function fm_users_preprocess_user_profile_form(&$variables) {
+	
+	
   $variables['first_name'] = drupal_render($variables['']['field_first_name']);
   $variables['last_name'] = drupal_render($variables['']['field_last_name']);
+  $variables['roles'] = drupal_render($variables['']['account']['roles']);
   $variables['current_pass'] = drupal_render($variables['']['account']['current_pass']);
   $variables['pass'] = drupal_render($variables['']['account']['pass']);
   $variables['mail'] = drupal_render($variables['']['account']['mail']);
