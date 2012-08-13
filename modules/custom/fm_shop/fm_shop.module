@@ -256,7 +256,7 @@ function fm_shop_page_filters() {
 	
 	
 //Get Featured List 
-	$filters['featured']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
+	/*$filters['featured']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
 	$filters['featured']['links'] = array();
 	$filters['featured']['arg'] = 'store_id';
 	
@@ -272,7 +272,7 @@ function fm_shop_page_filters() {
   foreach ($result['fm_commerce_store'] as $store_id => $store) {
     $shop = fm_commerce_store_load($store_id);
     $filters['featured']['links'][$shop->store_id] = check_plain($shop->name);
-  }
+  }*/
   
 	//Get Designer List
 	$filters['designers']['title'] = t('');
