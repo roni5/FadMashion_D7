@@ -174,7 +174,8 @@ span {
 .zoomedSlider .logo {bottom: 13px; right: 8px;}
 .zoomedSlider  .next:hover, .zoomedSlider  .prev:hover {background-position: bottom left; }
 .zoomedSlider  .slides_container img, .zoomedSlider   .panFullSize {border:1px solid #F0EEEA; cursor: crosshair}
-
+.zoomedSlider .logo .field-item{width: 200px}
+.zoomedSlider .logo img{float: right;}
 .productInfo{float: left; text-align: left; margin: 0 0 0 30px; width: 335px;}
 
 h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
