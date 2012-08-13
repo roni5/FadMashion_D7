@@ -128,8 +128,10 @@ function fm_shop_page_ajax($type) {
 	    break;
 	  case 'favorites':
 			$products = fm_shop_products_by_favorites($params);
-			$content =  fm_shop_collection_viewer('favorites', $params, $products);
+			$content = fm_shop_grid_view('favorites', $params, $products);
+			$content .=  fm_shop_collection_viewer('favorites', $params, $products);
 	    break;
+	    
 		case 'term':
 			$term = taxonomy_term_load($tid);
 			$values = fm_shop_products_by_taxonomy($term);
@@ -225,6 +227,9 @@ function fm_shop_grid_view($type, $var, $products, $pager = 0) {
 			
 			$content = theme('fm_shop_page_grid_view', array('title' => $title, 'description' => $term->description, 'products' => $products, 'argument' => array('term' => $term->tid) ));
 			break;
+		case 'favorites':
+			$type = $var;
+			$content = theme('fm_shop_page_grid_view', array('title' => 'Most Loved', 'description' => 'The Most Loved', 'products' => $products, 'argument' => array('favorites' => $type) ));
 	}
 	return $content;
 }

@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
            param = 'all-time';
            
            cacheType = 'favorites';
-  	     cacheId = param;
+  	       cacheId = param;
     	 }
     	 
 
