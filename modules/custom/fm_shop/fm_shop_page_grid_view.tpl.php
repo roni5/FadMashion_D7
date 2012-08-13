@@ -10,7 +10,7 @@
   <?php 
   $row_num = 4;
   $rows = array();
-  $i = 1; $j = 0;
+  $i = 0; $j = 0;
   foreach($products as $product) {
   	if(!($i % $row_num)) {
   		$j++;
