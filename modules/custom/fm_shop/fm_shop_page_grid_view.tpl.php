@@ -10,12 +10,13 @@
   <?php 
   $row_num = 4;
   $rows = array();
-  $i = 0; $j = 0;
+  $i = 1; $j = 0;
   foreach($products as $product) {
-  	if(!($i % 4)) {
+  	if(!($i % $row_num)) {
   		$j++;
   	}
     $rows[$j][] = $product;
+    $i++;
   }
   foreach($rows as $row) {
   	print '<div class="row">';
