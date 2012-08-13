@@ -10,6 +10,10 @@ function fm_home_menu() {
   return $items;
 }
 
+function fm_home_init() {
+	drupal_add_js(drupal_get_path('module', 'fm_home') . '/fm_home.js');
+}
+
 function fm_home_theme() {
 	return array(
     'fm_home_category_panel' => array(
@@ -33,8 +37,9 @@ function fm_home_page() {
 		$term = taxonomy_term_load($tid);
 		$content .= theme('fm_home_category_panel', array('term' => $term, 'image' => ''));
 	}
-	
 	$content .= '</div>';
 	
+	
+	return $content;
 	
 }
