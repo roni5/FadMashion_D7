@@ -49,7 +49,8 @@ span {
 .shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
 .nav{float: left; background: url(../images/sep_logo.png) center left no-repeat;height: 52px; margin: 20px 0 0 30px; padding-left: 30px;}
 .nav a.active{color: #fff; background: url(../images/arrow_nav.png) bottom center no-repeat;}
-.nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 34px; height: 74px;float: left;}
+.nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 34px; height: 69px;float: left;}
+.nav a:hover{color: #fff}
 .nav a.home{background: url(../images/b_home.png) top left no-repeat; height: 17px; width: 19px; text-indent: -9999px; float: left; margin-top: 16px;}
 .nav a.home:hover, .nav li.active a.home{background-position: bottom left;}
 
