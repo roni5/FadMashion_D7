@@ -65,10 +65,11 @@ jQuery(document).ready(function() {
     	 }
     	 
     	 
-    	 
+    	 //Default shows all-time favorites
     	 if((!event.parameters.nid  && !event.parameters.store_id && !event.parameters.term && !event.parameters.favorites) ) {
            type = 'favorites';
            id = 'all-time';
+           param = 'all-time';
     	 }
     	 
 
