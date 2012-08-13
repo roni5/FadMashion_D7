@@ -282,7 +282,7 @@ function fm_shop_page_filters() {
   }*/
   
 	//Get Designer List
-	$filters['designers']['title'] = t('');
+	$filters['designers']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
 	$filters['designers']['links'] = array();
 	$filters['designers']['arg'] = 'store_id';
 	
