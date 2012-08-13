@@ -12,7 +12,10 @@ $label = array(
 $title =  theme('image', $label);
 }
 
-$url = url('shop', array('absolute' => true, 'query' => array('term' => $term->tid) ))
+
+$url = url('shop', array('alias' => true, 'fragment' => '!'));
+$url2 = url($term->name, array('query' => array('term' => $term->tid)));
+$url = $url . $url2;
 ?>
 
 
