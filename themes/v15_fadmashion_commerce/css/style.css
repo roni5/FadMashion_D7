@@ -89,7 +89,7 @@ span {
 .banner .title{margin: 0 0 20px 0;}
 .banner p.description{ font-size: 19px;font-style: italic;font-family:"jubilat-1","jubilat-2", Georgia; font-weight:normal; line-height:24px;}
 
-#grid {padding-left: 20px;}
+#grid {}
 #grid .row{float: left; clear: both; width: 100%; padding: 0 0 20px 28px}
 #grid .block{width: 174px; margin: 0 20px 0 0; float: left; }
 #grid .block img{border: 1px solid #ccc;}
