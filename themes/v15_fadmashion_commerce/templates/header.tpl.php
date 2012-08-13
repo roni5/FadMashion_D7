@@ -22,9 +22,11 @@
         			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-    <?php print l('Home', 'home', array('attributes' => array('class' => array('home') )));?>
-     <?php print l('Shop', 'shop', array('attributes' => array('class' => array() )));?>
-      <a href="http://blog.fadmashion.com">Blog</a>              
+      <ul>
+        <li class="<?php $is_front ? print 'active' : ''?>"><?php print l('Home', 'home', array('attributes' => array('class' => array('home') )));?></li>
+        <li class="<?php arg(0) == 'shop' ? print 'active' : ''?>"><?php print l('Shop', 'shop', array('attributes' => array('class' => array() )));?></li>
+        <li><a href="http://blog.fadmashion.com">Blog</a> </li>             
+      </ul>
     </div>
 </div>
 

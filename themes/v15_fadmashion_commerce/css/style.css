@@ -47,12 +47,15 @@ span {
 #header .shipping p{ font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 400; color: #b7b7b7;font-style:italic;}
 #header .shipping span{font-size: 13px;color: #ccc;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
 .shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
+
+
 .nav{float: left; background: url(../images/sep_logo.png) center left no-repeat;height: 52px; margin: 20px 0 0 30px; padding-left: 30px;}
-.nav a.active{color: #fff; background: url(../images/arrow_nav.png) bottom center no-repeat;}
-.nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 34px; height: 69px;float: left;}
-.nav a:hover{color: #fff}
+.nav li{float: left;height: 69px; margin-right: 34px;}
+.nav li.active{color: #fff; background: url(../images/arrow_nav.png) bottom center no-repeat;}
+.nav li.active a, .nav a:hover{color: #fff; }
+.nav a{color: #ababab; line-height: 52px; font-size: 16px; height: 69px;}
 .nav a.home{background: url(../images/b_home.png) top left no-repeat; height: 17px; width: 19px; text-indent: -9999px; float: left; margin-top: 16px;}
-.nav a.home:hover, .nav a.home.active{background-position: bottom left;}
+.nav a.home:hover, .nav li.active a.home{background-position: bottom left;}
 
 #subHeader .press{float: right; padding: 12px 0 0 90px; background: url(../images/l_asseenin.jpg) 0px 27px no-repeat;}
 #subHeader .press a{height: 41px; width: 100px; float: left; background-position: top left; text-indent: -9999px; margin-left: 15px;}
@@ -134,7 +137,7 @@ div.home {margin-top: 0px; }
 #browse a.browseDesigners{background-image: url(../images/b_browse_designers.png);}
 #browse a.browseMostLoved{background-image: url(../images/b_most_loved.png);}
 
-.panel-block{position: relative;width: 332px;height: 433px;top:0px;left:0px;overflow: hidden;border: 3px solid #fff;-webkit-box-shadow: 0 4px 4px -4px #777;-moz-box-shadow: 0 4px 4px -4px #777;box-shadow: 0 4px 4px -4px #777;margin: 0 5px 6px 0;}
+.panel-block{line-height: 16px; position: relative;width: 332px;height: 433px;top:0px;left:0px;overflow: hidden;border: 3px solid #fff;-webkit-box-shadow: 0 4px 4px -4px #777;-moz-box-shadow: 0 4px 4px -4px #777;box-shadow: 0 4px 4px -4px #777;margin: 0 5px 6px 0;}
   
  .last .panel-block{margin-right: 0; }
  .smallPanels .panel-block{width: 191px; height: 236px; float: left; margin-right: 9px}
