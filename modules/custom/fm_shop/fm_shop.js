@@ -157,7 +157,7 @@ jQuery(document).ready(function() {
           });
           
 
-          if(jQuery('#grid_view').length) {
+          /*if(jQuery('#grid_view').length) {
         	  if(!event.parameters.nid) {
         		  jQuery('#contentPanel #grid_view').show();
         		  jQuery('#contentPanel .collection_viewer').hide();
@@ -170,7 +170,7 @@ jQuery(document).ready(function() {
         		  var position = jQuery('.collection_viewer').position();
                   jQuery("html, body").animate({ scrollTop: 250 }, 'slow', "easeOutCubic");
         	  }
-          }
+          }*/
           
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
           jQuery('#grid h1 a, #grid a.thumb_link').address();
