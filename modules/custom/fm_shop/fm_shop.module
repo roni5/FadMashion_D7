@@ -76,7 +76,9 @@ function fm_shop_page() {
 
 function fm_shop_page_ajax($type) {
 	
-	$type = 'all';
+	$type = 'favorites';
+	$params = 'all-time';
+	
 	if(isset($_GET['store_id']) && $_GET['store_id'] != '' ) {
 		$store_id = $_GET['store_id'];
 		$type = 'shop';
