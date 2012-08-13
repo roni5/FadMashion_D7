@@ -11,7 +11,7 @@ function fm_home_menu() {
 }
 
 function fm_home_init() {
-	drupal_add_js(drupal_get_path('module', 'fm_home') . '/fm_hone');
+	drupal_add_js(drupal_get_path('module', 'fm_home') . '/fm_home.js');
 }
 
 function fm_home_theme() {
