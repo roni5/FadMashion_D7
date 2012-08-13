@@ -118,7 +118,7 @@ span {
 /********* homepage panels **********/
 
 div.home {margin-top: 0px; }
-.home .column{float: left;}
+.page-home .column{float: left;}
 .smallPanels{float: left; clear: both; width: 1030px;}
 
 #invite{text-align: center; color: #fff;}

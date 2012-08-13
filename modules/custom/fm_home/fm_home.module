@@ -11,14 +11,26 @@ function fm_home_menu() {
 }
 
 function fm_home_init() {
-	drupal_add_js(drupal_get_path('module', 'fm_home') . '/fm_home.js');
+	drupal_add_js(drupal_get_path('module', 'fm_home') . '/fm_hone');
 }
 
 function fm_home_theme() {
 	return array(
     'fm_home_category_panel' => array(
-	     'variables' => array('term' => '', 'image' => ''),
+	     'variables' => array('term' => '', 'title' => '', 'image' => ''),
 	    'template' => 'fm_home_category_panel'
+    ),
+    
+    'fm_home_trend_panel' => array(
+	     'variables' => array('term' => '', 'title' => '', 'images' => array()),
+	    'template' => 'fm_home_trend_panel'
+    ),
+    
+    'fm_home_invite_panel' => array(
+	    'template' => 'fm_home_invite_panel'
+    ),
+    'fm_home_browse_panel' => array(
+	    'template' => 'fm_home_browse_panel'
     ),
     
   );
@@ -26,20 +38,75 @@ function fm_home_theme() {
 
 function fm_home_page() {
 	$content = '';
+	$tids = array();
+	
+	//First Column
+	$content .= '<div class="column">';
+	$content .= fm_home_page_panel('Chelsea Class');
+	$content .= fm_home_page_panel('Bold as BedStuy');
+	$content .= '</div>';
+	
+	$content .= '<div class="column">';
+	$content .= theme('fm_home_invite_panel');
+	$content .= fm_home_page_panel('Upper West Side Lux');
+	$content .= theme('fm_home_browse_panel');
+	$content .= '</div>';
+	
+	$content .= '<div class="column">';
+	$content .= fm_home_page_panel('Bedford Avenue Bedlam');
+	$content .= fm_home_page_panel('West Village Vibe');
+	$content .= '</div>';
 	
 	
 	/* Small Panels */
 	$content .= '<div class="smallPanels">';
 	
 	//Jewelry, Dresses, Tops, Bags, Shoes
-	$tids = array(2, 13, 11, 1, 4);
-	foreach($tids as $tid) {
-		$term = taxonomy_term_load($tid);
-		$content .= theme('fm_home_category_panel', array('term' => $term, 'image' => ''));
+	$terms = array('Jewelry', 'Dresses', 'Tops', 'Bags', 'Shoes');
+	foreach($terms as $name) {
+		$term = taxonomy_get_term_by_name($name);
+		if(!empty($term)) {
+			$term = array_shift($term);
+		  $title = fm_home_get_category_label($term);
+      $content .= theme('fm_home_category_panel', array('term' => $term, 'title' =>$title, 'image' => ''));
+		}  
+	
 	}
 	$content .= '</div>';
 	
 	
 	return $content;
 	
+}
+
+function fm_home_page_panel($term_name) {
+	
+	$term = taxonomy_get_term_by_name($term_name);
+	if(!empty($term)) {
+			$term = array_shift($term);
+		  $title = fm_home_get_category_label($term);
+      $content = theme('fm_home_trend_panel', array('term' => $term, 'title' =>$title, 'image' => array()));
+	} 
+	return $content;
+}
+
+
+function fm_home_get_category_label($term) {
+  $category_label = field_get_items('taxonomy_term', $term, 'field_category_home_label');
+  $title = '';
+  
+  if($category_label) {
+      $category_label = $category_label[0];
+			  
+      $label = array(
+       'path' => $category_label['uri'],
+       'alt' => $category_label['alt'],
+       'title' => $category_label['title'],
+       'attributes' => array('class' => 'title'),
+      );
+   
+      $title =  theme('image', $label);
+  }
+    
+  return $title;
 }
