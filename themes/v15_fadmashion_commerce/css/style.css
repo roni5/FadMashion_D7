@@ -91,7 +91,7 @@ span {
 
 #grid {padding-left: 20px;}
 #grid .row{float: left; clear: both; width: 100%; padding: 0 0 20px 28px}
-#grid .block{width: 174px; margin: 0 20px 0 0; float: left; padding-bottom: 28px;}
+#grid .block{width: 174px; margin: 0 20px 0 0; float: left; }
 #grid .block img{border: 1px solid #ccc;}
 #grid .block h1{margin: 5px 0; font-size: 12px;}
 #grid .block h1 a{color: #000;}
@@ -179,7 +179,7 @@ span {
 h1.itemName{font-weight: 100; font-size: 20px; margin: 0 0 5px 0;}
 h2.designer{margin: 0 0 8px 0; font-size: 12px;}
 p.description{margin: 0 0 16px 0; color: #666; font-size: 13px}
-.productInfo .highlights{height: 45px; background: url(../images/bg_highlights.jpg) center center no-repeat; text-align: center; color: #333; text-transform:uppercase;  font-weight: 700;letter-spacing: 1px; margin: 0 0 5px 0;}
+.productInfo .highlights{height: 45px; overflow:hidden; background: url(../images/bg_highlights.jpg) center center no-repeat; text-align: center; color: #333; text-transform:uppercase;  font-weight: 700;letter-spacing: 1px; margin: 0 0 5px 0;}
 .productInfo .highlights span{font-size: 11px; line-height: 45px;}
 .stylist{ float: left; width: 324px; padding: 20px 0;}
 .stylist img{float: left; margin: 0 0 0 38px;}
