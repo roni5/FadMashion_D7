@@ -102,20 +102,6 @@ jQuery(document).ready(function() {
 
 
 
-          if(jQuery('#grid_view').length) {
-        	  if(nid == '') {
-        		  jQuery('#contentPanel #grid_view').show();
-        		  jQuery('#contentPanel .collection_viewer').hide();
-        		  jQuery('#contentPanel .product_content').hide();
-        	  } else {
-        		  jQuery('#contentPanel #grid_view').hide();
-        		  jQuery('#contentPanel .collection_viewer').fadeIn();
-        		  jQuery('#contentPanel .product_content').fadeIn();
-        		  
-        		  var position = jQuery('.collection_viewer').position();
-                  jQuery("html, body").animate({ scrollTop: 250 }, 'slow', "easeOutCubic");
-        	  }
-          }
           
           if(nid == '') {
         	  nid = jQuery('ul.ad-thumb-list li a').first().attr('id');
@@ -161,7 +147,7 @@ jQuery(document).ready(function() {
           
 
           Drupal.attachBehaviors();
-          jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
+          //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
           jQuery('ul.ad-thumb-list li a').each(function() {
@@ -169,6 +155,23 @@ jQuery(document).ready(function() {
          	     //jQuery(this).trigger('click', [true]);
     		   } 
           });
+          
+
+          if(jQuery('#grid_view').length) {
+        	  if(!event.parameters.nid) {
+        		  jQuery('#contentPanel #grid_view').show();
+        		  jQuery('#contentPanel .collection_viewer').hide();
+        		  jQuery('#contentPanel .product_content').hide();
+        	  } else {
+        		  jQuery('#contentPanel #grid_view').hide();
+        		  jQuery('#contentPanel .collection_viewer').fadeIn();
+        		  jQuery('#contentPanel .product_content').fadeIn();
+        		  
+        		  var position = jQuery('.collection_viewer').position();
+                  jQuery("html, body").animate({ scrollTop: 250 }, 'slow', "easeOutCubic");
+        	  }
+          }
+          
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
           jQuery('#grid h1 a, #grid a.thumb_link').address();
           
