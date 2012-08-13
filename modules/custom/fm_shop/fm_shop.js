@@ -70,6 +70,9 @@ jQuery(document).ready(function() {
            type = 'favorites';
            id = 'all-time';
            param = 'all-time';
+           
+           cacheType = 'favorites';
+  	     cacheId = param;
     	 }
     	 
 
