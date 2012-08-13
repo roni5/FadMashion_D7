@@ -67,8 +67,8 @@ jQuery(document).ready(function() {
     	 
     	 
     	 if((!event.parameters.nid  && !event.parameters.store_id && !event.parameters.term && !event.parameters.favorites) ) {
-           type = 'all';
-           id = 'all';
+           type = 'favorites';
+           id = 'all-time';
     	 }
     	 
 
