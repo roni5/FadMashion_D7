@@ -534,6 +534,24 @@ function fm_commerce_cron() {
     	}
     }	
 	}
+	
+	//GET all inactive stores and make sure products are inactive too.
+  $query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'fm_commerce_store');
+	$query->propertyOrderBy('weight', 'asc');
+	$query->propertyCondition('status', 0);
+	$result = $query->execute();
+
+  $matches = array();
+  foreach ($result['fm_commerce_store'] as $store_id => $store) {
+    $shop = fm_commerce_store_load($store_id);
+    $products = fm_commerce_store_get_products($shop);
+    foreach($products as $product) {
+    	$product->status = 0;
+      commerce_product_save($product);
+    }
+  }
+  
 	 
 }
 
