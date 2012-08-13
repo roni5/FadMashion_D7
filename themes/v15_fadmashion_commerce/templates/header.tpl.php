@@ -22,8 +22,8 @@
         			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
-    <a class="home" href="#">Home</a>
-     <?php print l('Shop', 'shop', array('attributes' => array('class' => array($is_front ? 'active' : '') )));?>
+    <?php print l('Home', 'home', array('attributes' => array('class' => array('home') )));?>
+     <?php print l('Shop', 'shop', array('attributes' => array('class' => array() )));?>
       <a href="http://blog.fadmashion.com">Blog</a>              
     </div>
 </div>

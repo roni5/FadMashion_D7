@@ -1,0 +1,40 @@
+<?php
+function fm_home_menu() {
+	
+	$items['home'] = array(
+    'page callback' => 'fm_home_page',
+	  'access arguments' => array('view deals'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+
+function fm_home_theme() {
+	return array(
+    'fm_home_category_panel' => array(
+	     'variables' => array('term' => '', 'image' => ''),
+	    'template' => 'fm_home_category_panel'
+    ),
+    
+  );
+}
+
+function fm_home_page() {
+	$content = '';
+	
+	
+	/* Small Panels */
+	$content .= '<div class="smallPanels">';
+	
+	//Jewelry, Dresses, Tops, Bags, Shoes
+	$tids = array(2, 13, 11, 1, 4);
+	foreach($tids as $tid) {
+		$term = taxonomy_term_load($tid);
+		$content .= theme('fm_home_category_panel', array('term' => $term, 'image' => ''));
+	}
+	
+	$content .= '</div>';
+	
+	
+}

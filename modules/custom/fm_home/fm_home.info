@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Home
+description = Homepage for Fadmashion.com
+core = 7.x
+package = Fadmashion

@@ -52,7 +52,7 @@ span {
 .nav a{color: #ababab; font-weight: 500; text-shadow: 2px 2px 2px #000000; line-height: 52px; font-size: 16px;margin-right: 34px; height: 69px;float: left;}
 .nav a:hover{color: #fff}
 .nav a.home{background: url(../images/b_home.png) top left no-repeat; height: 17px; width: 19px; text-indent: -9999px; float: left; margin-top: 16px;}
-.nav a.home:hover, .nav li.active a.home{background-position: bottom left;}
+.nav a.home:hover, .nav a.home.active{background-position: bottom left;}
 
 #subHeader .press{float: right; padding: 12px 0 0 90px; background: url(../images/l_asseenin.jpg) 0px 27px no-repeat;}
 #subHeader .press a{height: 41px; width: 100px; float: left; background-position: top left; text-indent: -9999px; margin-left: 15px;}
@@ -114,6 +114,42 @@ span {
 .productInfo .most_loved_number {padding-right: 10px; margin-right: 10px; border-right: 1px solid #ddd;}
 #all-time {   float: left;font-size: 12px; font-weight: normal; width: }
 
+
+/********* homepage panels **********/
+
+div.home {margin-top: 0px; }
+.home .column{float: left;}
+.smallPanels{float: left; clear: both; width: 1030px;}
+
+#invite{text-align: center; color: #fff;}
+#invite h1{ font-size: 20px; font-weight:100; margin: 31px 0 12px 0;}
+#invite p{font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; margin: 6px 50px 16px 50px; line-height: 18px; font-size: 14px;}
+#invite .button{width: 104px; height: 37px; line-height: 37px; text-align:center; color: #fff; background: url(../images/b_join.png) top left no-repeat; display: block; margin: 10px auto 0; font-size: 14px;}
+#invite .button:hover{background-position: bottom left;}
+
+#browse .pad{padding: 20px; text-align:center;}
+
+#browse a{display: block; margin: 12px auto; height: 25px; width: 237px; background-position: top left; background-repeat: no-repeat; text-indent:-9999px;}
+#browse a:hover{background-position: bottom left;}
+#browse a.browseDesigners{background-image: url(../images/b_browse_designers.png);}
+#browse a.browseMostLoved{background-image: url(../images/b_most_loved.png);}
+
+.panel-block{position: relative;width: 332px;height: 433px;top:0px;left:0px;overflow: hidden;border: 3px solid #fff;-webkit-box-shadow: 0 4px 4px -4px #777;-moz-box-shadow: 0 4px 4px -4px #777;box-shadow: 0 4px 4px -4px #777;margin: 0 5px 6px 0;}
+  
+ .last .panel-block{margin-right: 0; }
+ .smallPanels .panel-block{width: 191px; height: 236px; float: left; margin-right: 9px}
+  
+a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
+.slides{z-index:0;visibility:hidden;}
+.slides.active{visibility:visible;}
+  
+.panel-block .overlay{position: absolute; z-index: 999; bottom: -258px; left: 20px;}
+  .smallPanels .panel-block .overlay{position: absolute; z-index: 999; bottom: -70px; left: 12px;}
+  .shopLink{display: none;}
+ #invite .panel-block{height: 267px;background: url(../images/bg_panel_invite.jpg);}
+#browse .panel-block{height: 154px;background: url(../images/bg_panel_browse.jpg);}
+  
+  
 /********* designer panel **********/
 
 .designerPanel{ width: 817px; margin: 0 0 28px 0; }
