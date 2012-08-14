@@ -47,10 +47,9 @@ function fm_home_page() {
 	$content .= '</div>';
 	
 	$content .= '<div class="column">';
-	$content .= theme('fm_home_browse_panel');
-	$content .= fm_home_page_panel('Upper West Side Lux');
-	
 	$content .= theme('fm_home_invite_panel');
+	$content .= fm_home_page_panel('Upper West Side Lux');
+	$content .= theme('fm_home_browse_panel');
 	$content .= '</div>';
 	
 	$content .= '<div class="column">';
