@@ -7,7 +7,7 @@ $url = $url . $url2;
 
 
 <div class="panel" id="">
-  <div style="" class="panel-block">
+  <div style="background: url(<?php print $image;?>)" class="panel-block">
     <a class="link" href="<?php print $url?>">
       <div class="overlay">
         <?php print $title?>

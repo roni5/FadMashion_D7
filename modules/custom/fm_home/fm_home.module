@@ -68,8 +68,8 @@ function fm_home_page() {
 		if(!empty($term)) {
 			$term = array_shift($term);
 		  $title = fm_home_get_category_label($term);
-		  $image = fm_home_get_image($term);
-      $content .= theme('fm_home_category_panel', array('term' => $term, 'title' =>$title, 'image' => ''));
+		  $image = fm_home_get_image($term, 'fm_home_small');
+      $content .= theme('fm_home_category_panel', array('term' => $term, 'title' =>$title, 'image' => $image));
 		}  
 	
 	}
@@ -80,14 +80,15 @@ function fm_home_page() {
 	
 }
 
-function fm_home_get_image($term) {
+function fm_home_get_image($term, $image_style) {
 	$category_image = field_get_items('taxonomy_term', $term, 'field_category_home_image');
 	if($category_image) {
       $category_image = $category_image[0];
       $image_node = node_load($category_image['nid']);
       $image = field_get_items('node', $image_node, 'field_product_image');
-      var_dump($image_node);
-      exit();
+      
+      $image_path = image_style_url($image_style, $image[0]['uri']);
+      return $image_path;
 	}
 }
 
@@ -98,7 +99,8 @@ function fm_home_page_panel($term_name) {
 	if(!empty($term)) {
 			$term = array_shift($term);
 		  $title = fm_home_get_category_label($term);
-      $content = theme('fm_home_trend_panel', array('term' => $term, 'title' =>$title, 'image' => array()));
+		  $image = fm_home_get_image($term, 'fm_home_big');
+      $content = theme('fm_home_trend_panel', array('term' => $term, 'title' =>$title, 'images' => array($image)));
 	} 
 	return $content;
 }
