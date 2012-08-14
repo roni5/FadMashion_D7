@@ -231,7 +231,7 @@ function fm_shop_grid_view($type, $var, $products, $pager = 0) {
 			$type = $var;
 			$title = '<img src="' . pp() . 'title_mostloved.jpg">';
 			$description = 'Favorites from our beloved commuity';
-			$content = theme('fm_shop_page_grid_view', array('title' => 'Most Loved', 'description' => $description, 'products' => $products, 'argument' => array('favorites' => $type) ));
+			$content = theme('fm_shop_page_grid_view', array('title' => $title, 'description' => $description, 'products' => $products, 'argument' => array('favorites' => $type) ));
 	}
 	return $content;
 }
@@ -261,6 +261,9 @@ function fm_shop_page_filters() {
   foreach ($terms as  $term) {
     $filters['product_type']['links']['term_' . $term->tid] = check_plain($term->name);
   }
+  
+  var_dump($filters['product_type']['links']);
+  exit();
 	
 	
 	
