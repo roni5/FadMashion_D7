@@ -229,7 +229,9 @@ function fm_shop_grid_view($type, $var, $products, $pager = 0) {
 			break;
 		case 'favorites':
 			$type = $var;
-			$content = theme('fm_shop_page_grid_view', array('title' => 'Most Loved', 'description' => 'The Most Loved', 'products' => $products, 'argument' => array('favorites' => $type) ));
+			$title = '<img src="' . pp() . 'title_mostloved.jpg">';
+			$description = 'Favorites from our beloved commuity';
+			$content = theme('fm_shop_page_grid_view', array('title' => 'Most Loved', 'description' => $description, 'products' => $products, 'argument' => array('favorites' => $type) ));
 	}
 	return $content;
 }
