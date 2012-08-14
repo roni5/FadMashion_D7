@@ -359,12 +359,13 @@ function fm_shop_page_all_panels($filters) {
 
 function fm_shop_products_by_taxonomy($term) {
 	
-	$tids = array($term->tid);
+	$tids = array();
+	$tids[] = $term->tid;
 	
 	$tree = taxonomy_get_tree($term->vid, $term->tid);
 	if(!empty($tree)) {
-		foreach($tree as $term) {
-			$tids[] = $term->tid;
+		foreach($tree as $child) {
+			$tids[] = $child->tid;
 		}
 	}
 	
