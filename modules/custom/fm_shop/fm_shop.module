@@ -359,10 +359,12 @@ function fm_shop_page_all_panels($filters) {
 
 function fm_shop_products_by_taxonomy($term) {
 	
-	$tree = taxonomy_get_tree($term->vid, $term->tid);
-	var_dump($tree);
-	exit();
+	$tids = array($term->tid);
 	
+	$tree = taxonomy_get_tree($term->vid, $term->tid);
+	if(!empty($tree)) {
+		
+	}
 	
 	if($term->vocabulary_machine_name == 'product_types') {
 		$field = 'field_product_type_top';
@@ -373,7 +375,7 @@ function fm_shop_products_by_taxonomy($term) {
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
-    ->fieldCondition($field, 'tid', $term->tid) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
+    ->fieldCondition($field, 'tid', $tids) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
     ->pager(COLLECTION_VIEWER_PAGER)
     ->propertyCondition('status', 1)
     ->propertyOrderBy('created', 'DESC');
