@@ -366,8 +366,6 @@ function fm_shop_products_by_taxonomy($term) {
 		foreach($tree as $term) {
 			$tids[] = $term->tid;
 		}
-		var_dump($tids);
-		exit();
 	}
 	
 	if($term->vocabulary_machine_name == 'product_types') {
