@@ -286,8 +286,10 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	  }
 
 	}
+	
+	var_dump($edit['name']);
+	exit();
 }
-
 
 //special validator to redirect on non-activated account
 function fm_users_login_name_validate($form, &$form_state)  {
