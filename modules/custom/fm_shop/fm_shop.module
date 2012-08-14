@@ -262,7 +262,7 @@ function fm_shop_page_filters() {
     $filters['product_type']['links']['term_' . $term->tid] = check_plain($term->name);
   }
   
-  var_dump($filters['product_type']['links']);
+  var_dump($terms);
   exit();
 	
 	
