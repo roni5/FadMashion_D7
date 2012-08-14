@@ -22,7 +22,7 @@
     	} else {
     		$arg = $arg_array[1];
     	}
-    	print '<li class="' . $link['depth'] ? 'child' : ''. '">' . l($link['title'], check_plain($link['title']), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $arg))) . '</li>';
+    	print '<li class="' . ($link['depth'] ? 'child' : '') . '">' . l($link['title'], check_plain($link['title']), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $arg))) . '</li>';
     	
     }
     print '</ul>';
