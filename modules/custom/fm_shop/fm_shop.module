@@ -248,7 +248,7 @@ function fm_shop_page_filters() {
 	$terms = taxonomy_get_tree($vocab->vid);
 	
   foreach ($terms as  $term) {
-    $filters['trends']['links']['term_' . $term->tid] = check_plain($term->name);
+    $filters['trends']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
   }
   
 	//Get Featured List 
@@ -259,11 +259,9 @@ function fm_shop_page_filters() {
 	$terms = taxonomy_get_tree($vocab->vid);
 	
   foreach ($terms as  $term) {
-    $filters['product_type']['links']['term_' . $term->tid] = check_plain($term->name);
+    $filters['product_type']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
+    $filters['product_type']['links']['term_' . $term->tid]['depth'] = $term->depth;
   }
-  
-  var_dump($terms);
-  exit();
 	
 	
 	
@@ -302,7 +300,7 @@ function fm_shop_page_filters() {
     $shop = fm_commerce_store_load($store_id);
     $shop_name = check_plain($shop->name);
     if(!in_array($shop_name, $filters['featured']['links'])) {
-      $filters['designers']['links'][$shop->store_id] = $shop_name;
+      $filters['designers']['links'][$shop->store_id]['title'] = $shop_name;
     }
   }
   

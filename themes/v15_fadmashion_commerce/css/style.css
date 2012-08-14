@@ -83,6 +83,7 @@ span {
 .col1 a.viewAll{font-family:"museo-sans-1","museo-sans-2", Helvetica; outline:none; font-size: 12px;color: #b63030; font-style:normal;}
 .col1 ul{margin: 0 ; } 
 .col1 li{padding: 3px 0;}
+.col1 li.child{padding-left: 8px;}
 
 
 /********* grid view **********/
