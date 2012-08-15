@@ -296,6 +296,10 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
     box-shadow: 0 -2px 2px #CCCCCC inset; margin-left: 25px}
 #gallery .social_favorites {position: absolute; top:3px; right: 3px;}
 #gallery .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
+
+#gallery .ad-thumb-list li:hover .social_favorites img{display: block;}
+
+
 #gallery  .ad-thumbs li {position: relative;}
 #collection_viewer_next, #collection_viewer_prev{ top: 0px; text-indent: -9999px; width: 30px; height: 87px;position: absolute; }
 #collection_viewer_next{right: 0;  background: url(../images/nav_thumb_next.png) top left no-repeat; }

@@ -322,14 +322,14 @@ jQuery(document).ready(function() {
        			jQuery(this).addClass('ad-active');
                 
        		});
-       		jQuery(this).hover(
+       		/*jQuery(this).hover(
        			function() {
        			  jQuery('.social_favorites img', jQuery(this)).fadeIn('normal'); 
        			},
        			function() {
        		      jQuery('.social_favorites img', jQuery(this)).hide();
        			}
-       		);
+       		);*/
        		
        	});
 	  }
