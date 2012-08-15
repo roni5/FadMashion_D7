@@ -53,7 +53,7 @@ function fm_shop_theme() {
     ),
     
     'fm_shop_page_grid_view_item' => array(
-	     'variables' => array('product' => $product, 'argument' => array()),
+	     'variables' => array('product' => $product,  'node' => $node,  'argument' => array()),
        'template' => 'fm_shop_page_grid_view_item'
     ),
     

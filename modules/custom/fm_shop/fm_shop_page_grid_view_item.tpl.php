@@ -1,7 +1,5 @@
 <?php 
-  $img =  fm_commerce_product_image_thumb($product, 'fm_product_grid_view', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
-  $node = fm_commerce_get_display_node($product);  
-  if(isset($node)) {
+  $img =  fm_commerce_product_image_thumb($product, 'fm_product_grid_view', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;')); 
 ?>
 <div class="block">
 <?php 
@@ -23,4 +21,3 @@
    <?php print ($obj->count ? '<h3>' . $obj->count . '</h3>': ''); ?>
    </div>
    
-<?php } ?>

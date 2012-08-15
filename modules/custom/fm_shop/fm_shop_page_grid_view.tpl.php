@@ -21,7 +21,10 @@
   foreach($rows as $row) {
   	print '<div class="row">';
   	foreach($row as $product) {
-  		print theme('fm_shop_page_grid_view_item', array('product' => $product, 'argument' => $argument));
+  		  $node = fm_commerce_get_display_node($product); 
+  		  if(isset($node)) {
+  		    print theme('fm_shop_page_grid_view_item', array('product' => $product, 'node' => $node,  'argument' => $argument));
+  		  }
   	}
   	print '</div>';
   }
