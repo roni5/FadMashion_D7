@@ -6,7 +6,14 @@
       </div>
       <div class="ad-nav">
         <div class="ad-thumbs">
-          <ul class="ad-thumb-list">
+          
+          
+          <?php 
+            	$more_query_array = array_merge($argument, array('page' => $pager));
+            	print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev'), 'query' => $more_query_array));
+           
+            ?>
+            <ul class="ad-thumb-list">
             <?php 
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));
@@ -23,11 +30,9 @@
              ?>     
            </ul>
             <?php 
-            if($pager) {
-            	
             	$more_query_array = array_merge($argument, array('page' => $pager));
-            	print  l(t('More'), 'more', array('attributes' => array('id' => 'collection_viewer_next'), 'query' => $more_query_array));
-            }
+            	print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next'), 'query' => $more_query_array));
+           
             ?>
             
      
