@@ -99,6 +99,7 @@ span {
 #grid .block h1{margin: 5px 0; font-size: 12px;}
 #grid .block h1 a{color: #000;}
 #grid .block h2{font-size: 12px; color: #999; font-weight:normal;}
+#grid h3 {font-size: 12px; font-weight: normal; background: url(../images/icon_star.png) 5px 0px no-repeat; padding: 0 0 0 21px; margin: 0 0 0 8px; float: left; border-left: 1px solid #ddd;color: #999;}
 
 
 
