@@ -6,7 +6,7 @@ $url = $url . $url2;
 
 $default_image = array_shift($images);
 ?>
-<div id="" class="panel">
+<div id="" class="panel big">
   <div style="background: url(<?php print $default_image;?>)" class="panel-block" >
     <a href="<?php print $url?>"class="link">
       <div class="overlay">

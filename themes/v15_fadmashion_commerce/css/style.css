@@ -142,6 +142,8 @@ div.home {margin-top: 0px; }
  .smallPanels .panel-block{width: 191px; height: 236px; float: left; margin-right: 9px}
   
 a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
+.panel.big a.link{height: 433;width: 332px;}
+
 .slides{z-index:0;visibility:hidden;}
 .slides.active{visibility:visible;}
   
