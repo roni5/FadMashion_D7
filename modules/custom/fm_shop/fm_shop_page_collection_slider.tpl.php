@@ -1,18 +1,18 @@
+
+<?php 
+  $more_query_array = array_merge($argument, array('page' => $pager));
+  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev'), 'query' => $more_query_array));
+ ?>
 <div id="gallery" class="ad-gallery">
+
+            
  <div class="ad-image-wrapper" style="display: none;">
 
-      </div>
-      <div class="ad-controls" style="display: none;">
       </div>
       <div class="ad-nav">
         <div class="ad-thumbs">
           
           
-          <?php 
-            	$more_query_array = array_merge($argument, array('page' => $pager));
-            	print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev'), 'query' => $more_query_array));
-           
-            ?>
             <ul class="ad-thumb-list">
             <?php 
             foreach($products as $product) {
@@ -29,14 +29,17 @@
             }
              ?>     
            </ul>
-            <?php 
-            	$more_query_array = array_merge($argument, array('page' => $pager));
-            	print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next'), 'query' => $more_query_array));
            
-            ?>
             
      
         </div>
       </div>
-    </div>
+
+</div>
+
+      
+<?php 
+ $more_query_array = array_merge($argument, array('page' => $pager));
+ print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next'), 'query' => $more_query_array));
+?>
 
