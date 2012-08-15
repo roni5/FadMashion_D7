@@ -324,7 +324,7 @@ jQuery(document).ready(function() {
        		});
        		jQuery(this).hover(
        			function() {
-       			  jQuery('.social_favorites img', jQuery(this)).fadeToggle('normal'); 
+       			  jQuery('.social_favorites img', jQuery(this)).fadeIn('normal'); 
        			},
        			function() {
        		      jQuery('.social_favorites img', jQuery(this)).hide();
