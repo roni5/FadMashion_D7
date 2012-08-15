@@ -116,6 +116,7 @@ position: relative; left: 4px;}
           }
             .ad-gallery .ad-thumbs li a img {
               border: 1px solid #bbb;
+              border-left: none; 
               display: block;
             }
             .ad-gallery .ad-thumbs li a.ad-active img {
