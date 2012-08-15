@@ -136,7 +136,7 @@ div.home {margin-top: 0px; }
 #browse a.browseDesigners{background-image: url(../images/b_browse_designers.png);}
 #browse a.browseMostLoved{background-image: url(../images/b_most_loved.png);}
 
-.panel-block{line-height: 16px; position: relative;width: 332px;height: 433px;top:0px;left:0px;overflow: hidden;border: 3px solid #fff;-webkit-box-shadow: 0 4px 4px -4px #777;-moz-box-shadow: 0 4px 4px -4px #777;box-shadow: 0 4px 4px -4px #777;margin: 0 5px 6px 0;}
+.panel-block{line-height: 6px; position: relative;width: 332px;height: 433px;top:0px;left:0px;overflow: hidden;border: 3px solid #fff;-webkit-box-shadow: 0 4px 4px -4px #777;-moz-box-shadow: 0 4px 4px -4px #777;box-shadow: 0 4px 4px -4px #777;margin: 0 5px 6px 0;}
   
  .last .panel-block{margin-right: 0; }
  .smallPanels .panel-block{width: 191px; height: 236px; float: left; margin-right: 9px}
