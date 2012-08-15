@@ -102,6 +102,9 @@ span {
 #grid .block h2 .field-item{float: left;}
 #grid h3 {font-size: 12px; font-weight: normal; background: url(../images/icon_star.png) 5px 0px no-repeat; padding: 0 0 0 21px; margin: 0 0 0 8px; float: left; border-left: 1px solid #ddd;color: #999;}
 
+#grid .social_favorites {position: absolute; top:3px; right: 3px;}
+#grid .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
+#grid .block img.thumb_link:hover .social_favorites img{display: block;}
 
 
 /* Most Loved theme*/
