@@ -297,7 +297,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 #gallery .social_favorites {position: absolute; top:3px; right: 3px;}
 #gallery .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
 #gallery  .ad-thumbs li {position: relative;}
-#collection_viewer_more{color: #fff; font-style: italic; font-size: 16px; width: 100px; text-align: center; line-height: 90px}
+#collection_viewer_next{color: #fff; background: url(../images/nav_thumb_next.png) top left no-repeat; font-style: italic; font-size: 16px; width: 100px; text-align: center; line-height: 90px}
 
 .product_content {}
 /* Sign Up Box */

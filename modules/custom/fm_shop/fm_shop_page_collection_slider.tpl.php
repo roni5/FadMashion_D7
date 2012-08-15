@@ -20,17 +20,17 @@
             	  print '<li id="collection_viewer_' . $node->nid .'">' . $link . '</li>';
             	}
             }
-            
-            
+             ?>     
+           </ul>
+            <?php 
             if($pager) {
             	
             	$more_query_array = array_merge($argument, array('page' => $pager));
-            	print '<li id="collection_viewer_more">' . l(t('More'), 'more', array('attributes' => array( 'class' => 'thumb_link'), 'query' => $more_query_array)) . '</li>';
+            	print '<div id="collection_viewer_next">' . l(t('More'), 'more', array('attributes' => array( 'class' => 'thumb_link'), 'query' => $more_query_array)) . '</li>';
             }
             ?>
             
-           
-          </ul>
+     
         </div>
       </div>
     </div>
