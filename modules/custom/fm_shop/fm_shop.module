@@ -1,5 +1,5 @@
 <?php
-define('COLLECTION_VIEWER_PAGER', 10);
+define('COLLECTION_VIEWER_PAGER', 11);
 /**
  * Implements hook_menu().
  */
