@@ -4,9 +4,7 @@
   print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev'), 'query' => $more_query_array));
  ?>
 <div id="gallery" class="ad-gallery">
-
-            
- <div class="ad-image-wrapper" style="display: none;">
+<div class="ad-image-wrapper" style="display: none;">
 
       </div>
       <div class="ad-nav">
@@ -30,8 +28,6 @@
              ?>     
            </ul>
            
-            
-     
         </div>
       </div>
 
