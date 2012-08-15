@@ -293,7 +293,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 .source a{font-size: 11px important!;}
 
 #gallery {background: -moz-linear-gradient(center top , #FFFFFF 0%, #F3F3F3 100%) repeat scroll 0 0 transparent;
-    box-shadow: 0 -2px 2px #CCCCCC inset; margin-left: 26px}
+    box-shadow: 0 -2px 2px #CCCCCC inset; margin-left: 25px}
 #gallery .social_favorites {position: absolute; top:3px; right: 3px;}
 #gallery .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
 #gallery  .ad-thumbs li {position: relative;}
