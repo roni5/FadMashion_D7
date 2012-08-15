@@ -104,8 +104,8 @@ span {
 
 #grid .social_favorites {position: absolute; top:3px; right: 3px;}
 #grid .social_favorites img {height: 20px; border: 0px solid #000; display:none;}
-#grid .block img.thumb_link:hover .social_favorites img{display: block;}
-
+#grid .block .thumb_link:hover .social_favorites img{display: block;}
+#grid .thumb_link{position: relative;}
 
 /* Most Loved theme*/
 .mostLoved h1{color: #b63030; font-size: 18px; font-weight: 100; margin: 0 0 12px 0;}
