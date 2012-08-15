@@ -26,7 +26,7 @@
             if($pager) {
             	
             	$more_query_array = array_merge($argument, array('page' => $pager));
-            	print '<div id="collection_viewer_next">' . l(t('More'), 'more', array('attributes' => array( 'class' => 'thumb_link'), 'query' => $more_query_array)) . '</li>';
+            	print  l(t('More'), 'more', array('attributes' => array('id' => 'collection_viewer_next'), 'query' => $more_query_array));
             }
             ?>
             
