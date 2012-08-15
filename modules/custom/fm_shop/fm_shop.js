@@ -177,7 +177,15 @@ jQuery(document).ready(function() {
           }
           
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
-          jQuery('#collection_viewer_next, #collection_viewer_prev').address();
+          jQuery('#collection_viewer_next, #collection_viewer_prev').each(function() {
+        	  if(jQuery(this).hasClass('disabled')) {
+        		jQuery(this).bind('click', function() {
+           			return false;
+           		});  
+        	  } else {
+        	    jQuery(this).address();
+        	  }
+          });
           jQuery('#grid h1 a, #grid a.thumb_link').address();
           
        };
