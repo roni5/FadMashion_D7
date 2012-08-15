@@ -188,6 +188,9 @@ jQuery(document).ready(function() {
           });
           jQuery('#grid h1 a, #grid a.thumb_link').address();
           
+          //Make all press links open in new window
+          jQuery('.press .source a').attr('target', '_blank');
+          
        };
          /*
     	 * End of Handler
