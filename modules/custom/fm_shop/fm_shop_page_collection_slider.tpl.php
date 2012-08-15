@@ -1,7 +1,7 @@
 
 <?php 
   $more_query_array = array_merge($argument, array('page' => $pager));
-  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev'), 'query' => $more_query_array));
+  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev', 'class' => array(($pager ? '' : 'disabled'))), 'query' => $more_query_array));
  ?>
 <div id="gallery" class="ad-gallery">
 <div class="ad-image-wrapper" style="display: none;">
@@ -36,6 +36,6 @@
       
 <?php 
  $more_query_array = array_merge($argument, array('page' => $pager));
- print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next'), 'query' => $more_query_array));
+ print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next', 'class' => array(($pager ? '' : 'disabled'))), 'query' => $more_query_array));
 ?>
 

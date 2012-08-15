@@ -308,6 +308,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 #collection_viewer_next{right: -1px;  background: url(../images/nav_thumb_next.png) top left no-repeat; }
 #collection_viewer_prev{left: 0;  background: url(../images/nav_thumb_prev.png) top left no-repeat;}
 #collection_viewer_next:hover, #collection_viewer_prev:hover{background-position: left -90px;}
+#collection_viewer_next.disabled, #collection_viewer_prev.disabled{background-position: left -90px;}
 
 .product_content {}
 /* Sign Up Box */
