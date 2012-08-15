@@ -103,7 +103,7 @@ span {
 #grid h3 {font-size: 12px; font-weight: normal; background: url(../images/icon_star.png) 5px 0px no-repeat; padding: 0 0 0 21px; margin: 0 0 0 8px; float: left; border-left: 1px solid #ddd;color: #999;}
 
 #grid .social_favorites {position: absolute; top:9px; right: 7px;}
-#grid .social_favorites img {height: 30px; border: 0px solid #000; display:none;}
+#grid .social_favorites img {height: 23px; border: 0px solid #000; display:none;}
 #grid .block .thumb_link:hover .social_favorites img{display: block;}
 #grid .thumb_link{position: relative;}
 
