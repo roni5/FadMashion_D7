@@ -796,7 +796,7 @@ top:14px;}
 
 
   /* My Favorites */
-.my_favorites {text-align: center; padding: 5px; display: inline;}
+.my_favorites {text-align: center; padding: 5px;}
 .my_favorites li.empty_thumb {display: inline-block; width: 40px; height: 51px; background-repeat:no-repeat;background-image: url(../images/black-bg-ajax-loader.gif) ;background-position:50% 50%;}
 .my_favorites li {display:inline; margin-left: 3px; }
 .my_favorites  li a img {border:1px solid #777777; width: 40px; height: 51px;}
@@ -809,8 +809,8 @@ top:14px;}
  
  .save_for_later {color: #fff;  font-weight: bold; font-size: 10px;}
  
-#favorites_save {margin-left: 20px; padding-left: 20px; display: inline;font-size: 12px; color: #DDDDDD;font-family: "jubilat-1","jubilat-2",Georgia; }
-
+#favorites_save {position: absolute; left: 50px;  text-align: center; top: 25px; color: #fff;  font-size: 12px; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
+#favorites_save span { }
  
  
  /* Floating footer tabs */
