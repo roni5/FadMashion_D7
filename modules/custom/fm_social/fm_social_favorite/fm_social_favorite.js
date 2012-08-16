@@ -44,6 +44,8 @@ jQuery(document).ready(function() {
 });
 
 
+var registration_form_shown_once = 0;
+
 (function ($) {
 	Drupal.behaviors.socialFavorites = {
 	  attach: function (context, settings) {
@@ -57,9 +59,11 @@ jQuery(document).ready(function() {
 		  jQuery(".favorite_button").once('init-social-favorites-processed').click(function (e){
 			  e.preventDefault();
 			  
-			  if(notify_show_register) {
+			  if(notify_show_register && !registration_form_shown_once) {
 				  jQuery("#sign_up").trigger('click');
-			  } else{
+				  registration_form_shown_once = 1;
+			  }
+			  
 				var href_val = jQuery(this).attr('href');
 				var product_id = jQuery(this).attr('id');
 				var imgObj = jQuery('img', jQuery(this));
@@ -115,7 +119,7 @@ jQuery(document).ready(function() {
 						
 					}  
 				});
-			  }
+			  
 			});
 
 		

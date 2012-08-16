@@ -236,6 +236,11 @@ function theme_fm_social_favorite_my_favorites($vars) {
   		$output .= fm_fm_social_favorite_my_favorites_thumb($product_id);
   	}
 	}
+	
+	if(!$user->uid) {
+		$output .= '<li id=""><div>' . t('Save your Favorites') . '</div><br clear="all"><a href="">Login</a></li>';
+	}
+	
 	$output .= '</ul>';
 	$output .= '</div>';
 	//$output .= '<div class="close">Close</div>';
