@@ -55,8 +55,11 @@ jQuery(document).ready(function() {
 		  });
 		  
 		  jQuery(".favorite_button").once('init-social-favorites-processed').click(function (e){
+			  e.preventDefault();
 			  
-				e.preventDefault();
+			  if(notify_show_register) {
+				  jQuery("#sign_up").trigger('click');
+			  } else{
 				var href_val = jQuery(this).attr('href');
 				var product_id = jQuery(this).attr('id');
 				var imgObj = jQuery('img', jQuery(this));
@@ -90,7 +93,7 @@ jQuery(document).ready(function() {
 								jQuery('#zero_favorites').hide();
 						 }
 					},
-					success: function(data){  
+					success: function(data){ 
 						if(data.deleteAction) {
 							jQuery('#my_favorites_product_id_' + data.product_id).fadeOut(function() {
 								jQuery(this).remove();
@@ -112,6 +115,7 @@ jQuery(document).ready(function() {
 						
 					}  
 				});
+			  }
 			});
 
 		

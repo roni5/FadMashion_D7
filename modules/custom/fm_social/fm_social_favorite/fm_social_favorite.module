@@ -15,6 +15,12 @@ function fm_social_favorite_init() {
 	      'cssClass' => 'save_for_later'
         );
   beautytips_add_beautytips($options);
+  
+  if($user->uid) {
+  	drupal_add_js('var notify_show_register = 0;', 'inline');
+  } else {
+  	drupal_add_js('var notify_show_register = 1;', 'inline');
+  }
 }
 
 function fm_social_favorite_menu() {
@@ -70,6 +76,8 @@ function fm_social_favorites_add($product_id) {
 	
 	//For Authenticated user
 	if(isset($mail)) {
+		$register = false;
+	 
 		$exists = fm_social_favorite_entry_exists($product_id, $mail);
 		
 	  if(!$exists) {
@@ -78,8 +86,12 @@ function fm_social_favorites_add($product_id) {
 	 else {
 		  $delete = TRUE;
 	 }
+	 
 	} else {
 		//Anonymous users, store session
+		
+		$register = true;
+		
 		$mail = session_id();
 		if(!isset($_SESSION['my_favorites'][$product_id])) {
 			 $_SESSION['my_favorites'][$product_id] = 'holder';
@@ -108,7 +120,7 @@ function fm_social_favorites_add($product_id) {
 	}
    
 	//Return message to
-  drupal_json_output(array('thumb' => $thumb_link, 'deleteAction' => $delete, 'product_id' => $product_id));
+  drupal_json_output(array('thumb' => $thumb_link, 'register' => $register, 'deleteAction' => $delete, 'product_id' => $product_id));
 	exit;
 }
 
@@ -126,15 +138,11 @@ function fm_social_favorite_get_button($product_id, $full = true) {
 		} else {
       $exists = FALSE;
 		}
-		//  ADD trigger for register form because this is person needs to register to get reminders
-		  //drupal_add_js('var notify_show_register = 1;', 'inline');
   } else {
  	  $exists = fm_social_favorite_entry_exists($product_id, $mail);
-		 // drupal_add_js('var notify_show_register = 0;', 'inline');
 	}
 
 	$output = theme('fm_social_favorite_button', array('exists' => $exists, 'full' => $full,  'product_id' => $product_id));
-	
 	
   
 	return $output;
