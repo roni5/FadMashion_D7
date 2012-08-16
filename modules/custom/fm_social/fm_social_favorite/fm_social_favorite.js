@@ -23,17 +23,21 @@ jQuery(document).ready(function() {
 
 		  if(jQuery('.my_favorites li').length) {
 				jQuery('#zero_favorites').hide();
+				jQuery('#favorites_save').show();
 		 } else {
 			 jQuery('#zero_favorites').show();
+			 jQuery('#favorites_save').hide();
 		 }
 	  });
 	  
 	
 	  if(jQuery('.my_favorites li').length) {
 		jQuery('#zero_favorites').hide();
+		jQuery('#favorites_save').show();
 		jQuery(".my_favorites_link").trigger('click');
 	 } else {
 		 jQuery('#zero_favorites').show();
+		 jQuery('#favorites_save').hide();
 	 }
 	  
 
@@ -95,6 +99,7 @@ var registration_form_shown_once = 0;
 		            	 
 		            	 if(jQuery('.my_favorites li').length) {
 								jQuery('#zero_favorites').hide();
+								jQuery('#favorites_save').show();
 						 }
 					},
 					success: function(data){ 
