@@ -220,6 +220,12 @@ function theme_fm_social_favorite_my_favorites($vars) {
   $output .= '<div id="tab-favorites" class="my_favorites_list">';
 	$output .= '<div style="display:none" id="zero_favorites">Look out for ' . '<img align="absmiddle"  src="' . pp() . 'b_love_off_small.png">' .  ' to bookmark your favorite designer items.</div>';
 	
+	
+	if(!$user->uid) {
+		$output .= '<div id="favorites_save">' . t('Save your Favorites') . '<br clear="all"><a href="">Login</a></div>';
+	}
+	
+	
   $output .= '<ul class="my_favorites">';
 	
 	if(isset($mail)) {
@@ -231,10 +237,6 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	  foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
   		$output .= fm_fm_social_favorite_my_favorites_thumb($product_id);
   	}
-	}
-	
-	if(!$user->uid) {
-		$output .= '<li id="favorites_save"><span>' . t('Save your Favorites') . '<br clear="all"><a href="">Login</a></span></li>';
 	}
 	
 	$output .= '</ul>';
