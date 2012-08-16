@@ -234,7 +234,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	}
 	
 	if(!$user->uid) {
-		$output .= '<li id="favorites_save"><span>' . t('Save your Favorites') . '</span><br clear="all"><a href="">Login</a></li>';
+		$output .= '<li id="favorites_save"><span>' . t('Save your Favorites') . '<br clear="all"><a href="">Login</a></span></li>';
 	}
 	
 	$output .= '</ul>';

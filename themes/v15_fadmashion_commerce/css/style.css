@@ -809,8 +809,8 @@ top:14px;}
  
  .save_for_later {color: #fff;  font-weight: bold; font-size: 10px;}
  
-#favorites_save {margin-left: 20px; padding-left: 20px; color: #fff; }
-#favorites_save span {position: absolute;}
+#favorites_save {margin-left: 20px; padding-left: 20px;color: #DDDDDD;font-family: "jubilat-1","jubilat-2",Georgia; }
+#favorites_save span {position: absolute; top: 20px;}
  
  
  /* Floating footer tabs */
