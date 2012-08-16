@@ -809,6 +809,10 @@ top:14px;}
  
  .save_for_later {color: #fff;  font-weight: bold; font-size: 10px;}
  
+#favorites_save {margin-left: 20px; padding-left: 20px; color: #fff; }
+#favorites_save span {position: absolute;}
+ 
+ 
  /* Floating footer tabs */
 .footer_tabs_container {position: fixed; bottom: 0px; left: 0px; width: 100%; z-index: 1001}
 .footer_tabs_content {  min-height: 13px; height: 61px;padding-top: 10px; background: url("../images/bg_favorites.png") repeat-x scroll left top transparent; }

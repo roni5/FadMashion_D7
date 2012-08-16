@@ -76,8 +76,6 @@ function fm_social_favorites_add($product_id) {
 	
 	//For Authenticated user
 	if(isset($mail)) {
-		$register = false;
-	 
 		$exists = fm_social_favorite_entry_exists($product_id, $mail);
 		
 	  if(!$exists) {
@@ -89,8 +87,6 @@ function fm_social_favorites_add($product_id) {
 	 
 	} else {
 		//Anonymous users, store session
-		
-		$register = true;
 		
 		$mail = session_id();
 		if(!isset($_SESSION['my_favorites'][$product_id])) {
@@ -120,7 +116,7 @@ function fm_social_favorites_add($product_id) {
 	}
    
 	//Return message to
-  drupal_json_output(array('thumb' => $thumb_link, 'register' => $register, 'deleteAction' => $delete, 'product_id' => $product_id));
+  drupal_json_output(array('thumb' => $thumb_link,  'deleteAction' => $delete, 'product_id' => $product_id));
 	exit;
 }
 
@@ -238,7 +234,7 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	}
 	
 	if(!$user->uid) {
-		$output .= '<li id=""><div>' . t('Save your Favorites') . '</div><br clear="all"><a href="">Login</a></li>';
+		$output .= '<li id="favorites_save"><span>' . t('Save your Favorites') . '</span><br clear="all"><a href="">Login</a></li>';
 	}
 	
 	$output .= '</ul>';
