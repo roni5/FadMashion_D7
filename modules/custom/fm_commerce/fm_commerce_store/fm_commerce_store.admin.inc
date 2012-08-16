@@ -198,9 +198,6 @@ function fm_commerce_store_rearrange_form_submit($form, &$form_state) {
       if (is_array($data) && isset($data['weight'])) {
       //   Only update if this is a form element with weight.
       $fields = array('weight' => intval($data['weight']));
-      if(isset($data['disabled'])) {
-      	 $fields['status'] =  0;
-      }
         $num_updated = db_update('fm_commerce_store')
           ->fields($fields)
           ->condition('store_id', $store_id)
