@@ -197,22 +197,17 @@ function fm_commerce_store_rearrange_form_submit($form, &$form_state) {
     foreach ($rows as $store_id => $data) {
       if (is_array($data) && isset($data['weight'])) {
       //   Only update if this is a form element with weight.
-      $fields = array('weight' => $data['weight']);
+      $fields = array('weight' => intval($data['weight']));
       if(isset($data['disabled'])) {
       	 $fields['status'] =  0;
       }
-        db_update('fm_commerce_store')
+        $num_updated = db_update('fm_commerce_store')
           ->fields($fields)
           ->condition('store_id', $store_id)
           ->execute();
+          
       }
       
-      if(isset($data['featured'])) {
-      	$store = fm_commerce_store_load($store_id);
-      	$store_wrapper = entity_metadata_wrapper('fm_commerce_store', $store);
-      	$store_wrapper->field_featured = $data['featured'];
-      	fm_commerce_store_save($store);
-      }
     }
   }
   drupal_set_message(t('The shops ordering has been saved.'));
