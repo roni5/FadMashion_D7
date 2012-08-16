@@ -240,7 +240,13 @@ function fm_shop_grid_view($type, $var, $products, $pager = 0) {
 function fm_shop_page_filters() {
 	$filters = array();
 	
-//Get Featured List 
+	  
+  $filters['favorites']['title'] = '';
+	$filters['favorites']['links'] = array('all-time' => array('title' => '<img style="margin: 0;" class="title" alt="Most Loved" src="' . pp() . 'title_small_mostloved.png">'));
+	$filters['favorites']['arg'] = 'favorites'; 
+	
+	
+	//Get Featured List 
 	$filters['trends']['title'] = '<img class="title" alt="Trends" src="' . pp() .'title_small_trends.png">';
 	$filters['trends']['links'] = array();
 	$filters['trends']['arg'] = 'term'; 
@@ -250,7 +256,7 @@ function fm_shop_page_filters() {
   foreach ($terms as  $term) {
     $filters['trends']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
   }
-  
+
 	//Get Featured List 
 	$filters['product_type']['title'] = '<img class="title" alt="New Arrivals" src="' . pp() .'title_small_newarrivals.png">';
 	$filters['product_type']['links'] = array();

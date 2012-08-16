@@ -2,11 +2,6 @@
 <div class="col1">
   <div class="pad">
   
-    <div class="sideNavBlock">
-    <?php $id = 'all-time'; $img = '<img style="margin: 0;" class="title" alt="Most Loved" src="' . pp() . 'title_small_mostloved.png">'; print l($img, 'shop/favorites', array('attributes' =>  array('id' => $id), 'html' => true, 'query' => array('favorites' => $id)) ) ?>
-
-    </div>
- 
   <?php 
   
    foreach($filters as  $filter_group) {
@@ -22,7 +17,7 @@
     	} else {
     		$arg = $arg_array[1];
     	}
-    	print '<li class="' . ($link['depth'] ? 'child' : '') . '">' . l($link['title'], check_plain($link['title']), array('attributes' => array('id' => $id), 'query' => array($filter_group['arg'] => $arg))) . '</li>';
+    	print '<li class="' . ($link['depth'] ? 'child' : '') . '">' . l($link['title'], check_plain($link['title']), array('attributes' => array('id' => $id), 'html' => true,  'query' => array($filter_group['arg'] => $arg))) . '</li>';
     	
     }
     print '</ul>';
