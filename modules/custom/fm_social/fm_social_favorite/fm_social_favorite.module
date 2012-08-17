@@ -274,19 +274,20 @@ function fm_social_favorite_authenticated_form_submit($form, &$form_state) {
 	 	if($user->uid) {
 	 		if(!empty($_SESSION['my_favorites'])) {
 	 		  foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
-  		    $id = db_insert('fm_social_favorite')
-             ->fields(array(
-                'mail' => $user->mail,
-                'product_id' => $product_id,
-                'uid' => $user->uid,
-                'created' => REQUEST_TIME,
-               ))
-             ->execute();
+	 		  	if(!fm_social_favorite_entry_exists($product_id, $user->mail)) {
+  		      $id = db_insert('fm_social_favorite')
+               ->fields(array(
+                  'mail' => $user->mail,
+                  'product_id' => $product_id,
+                  'uid' => $user->uid,
+                  'created' => REQUEST_TIME,
+                 ))
+               ->execute();
              
-	 		    //Remove Session Favorite
-	 		    $mail = session_id();
-	 		    $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
-	 		    
+	 		      //Remove Session Favorite
+	 		      $mail = session_id();
+	 		      $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
+	 		  	}	 		    
 	 		  }
 	 	 }
 	 }
