@@ -809,8 +809,9 @@ top:14px;}
  
  .save_for_later {color: #fff;  font-weight: bold; font-size: 10px;}
  
-#favorites_save {position: absolute; left: 50px;  text-align: center; top: 25px; color: #ddd;  font-size: 12px; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
-#favorites_save a {color: #fff; text-decoration: underline; font-style: normal}
+#favorites_save {position: absolute; left: 50px;  text-align: center; top: 25px; color: #fff;  font-size: 12px; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
+#favorites_save a {color: #2e92cc;}
+#favorites_save a:hover {color: #0f6da3;}
  
  
  /* Floating footer tabs */
