@@ -275,6 +275,7 @@ function fm_social_favorite_authenticated_form_submit($form, &$form_state) {
 	 	if($user->uid) {
 	 		var_dump($user->uid);
 	 		var_dump($_SESSION['my_favorites']);
+	 		exit();
 	 		if(!empty($_SESSION['my_favorites'])) {
 	 		  foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
   		    $id = db_insert('fm_social_favorite')
