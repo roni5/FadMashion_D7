@@ -22,7 +22,7 @@
 </div>
 
 <div class="invite_friends">
-  <div class="text">1 Friend's Purchase = $10 worth of credits
+  <div class="text">Invite 10 Friends = $30 worth of credits
   <div><?php print l('Recommend to Friends', 'user/share-with-friends'); ?></div>
   </div> 
   
