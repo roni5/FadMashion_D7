@@ -251,6 +251,43 @@ function theme_fm_social_favorite_my_favorites($vars) {
 	
 }
 
+/**
+ * Implements hook_form_alter().
+ * 
+ * changes the user login form to be something else
+ */
+function fm_social_favorite_form_alter(&$form, $form_state, $form_id) {
+	
+  switch ($form_id) {
+  	case 'user_login_block':  
+  		$form['#submit'][] = 'fm_social_favorite_authenticated_form_submit';
+  		break;
+  	case 'user_register_form':
+  		
+  		$form['#submit'][] = 'fm_social_favorite_authenticated_form_submit';
+  		break;
+  }
+}
+
+function fm_social_favorite_authenticated_form_submit($form, &$form_state) {
+	 	global $user;
+	 	
+	 	if($user->uid) {
+	 		if(!empty($_SESSION['my_favorites'])) {
+	 		  foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
+  		    $id = db_insert('fm_social_favorite')
+             ->fields(array(
+                'mail' => $user->mail,
+                'product_id' => $product_id,
+                'uid' => $user->uid,
+                'created' => REQUEST_TIME,
+               ))
+             ->execute();
+	 		  }
+	 		}
+	 	}
+}
+
 function fm_fm_social_favorite_my_favorites_thumb($product_id) {
 	
 	$product = commerce_product_load($product_id);
