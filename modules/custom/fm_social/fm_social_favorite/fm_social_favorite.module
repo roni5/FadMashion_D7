@@ -288,7 +288,8 @@ function fm_social_favorite_authenticated_form_submit($form, &$form_state) {
 	 		    $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
 	 		    
 	 		  }
-	 	}
+	 	 }
+	 }
 }
 
 function fm_fm_social_favorite_my_favorites_thumb($product_id) {
