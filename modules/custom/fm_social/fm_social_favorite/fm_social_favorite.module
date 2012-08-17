@@ -282,12 +282,12 @@ function fm_social_favorite_authenticated_form_submit($form, &$form_state) {
                 'created' => REQUEST_TIME,
                ))
              ->execute();
+             
+	 		    //Remove Session Favorite
+	 		    $mail = session_id();
+	 		    $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
+	 		    
 	 		  }
-	 		  
-	 		  //Remove Session Favorite
-	 		  $mail = session_id();
-	 		  $result = db_query('DELETE FROM {fm_social_favorite} WHERE product_id = :product_id AND mail = :mail', array(':product_id' => $product_id, 'mail' => $mail));
-	 		}
 	 	}
 }
 
