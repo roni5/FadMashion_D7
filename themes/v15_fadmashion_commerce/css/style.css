@@ -128,11 +128,12 @@ div.home {margin-top: 0px; }
 .page-home .column{float: left;}
 .smallPanels{float: left; clear: both; width: 1030px;}
 
-#invite{text-align: center; color: #fff;}
-#invite h1{ font-size: 20px; font-weight:100; margin: 31px 0 12px 0;}
-#invite p{font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; margin: 6px 50px 16px 50px; line-height: 18px; font-size: 14px;}
-#invite .button{width: 104px; height: 37px; line-height: 37px; text-align:center; color: #fff; background: url(../images/b_join.png) top left no-repeat; display: block; margin: 10px auto 0; font-size: 14px;}
-#invite .button:hover{background-position: bottom left;}
+#promoTop{text-align: center; color: #fff;}
+#promoTop .label{margin-top: 30px;}
+#promoTop h1{ font-size: 20px; font-weight:100; margin: 31px 0 12px 0;}
+#promoTop p{font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; margin: 6px 30px 16px 30px; line-height: 18px; font-size: 14px; color: #ccc; text-shadow: 2px 2px #555;}
+#promoTop .button{width: 146px; height: 26px; line-height: 37px; text-align:center; color: #fff; background: url(../images/b_getinspired.jpg) top left no-repeat; display: block; margin: 10px auto 0; font-size: 14px; text-indent:-9999px;}
+#promoTop .button:hover{background-position: bottom left;}
 
 #browse .pad{padding: 20px; text-align:center;}
 

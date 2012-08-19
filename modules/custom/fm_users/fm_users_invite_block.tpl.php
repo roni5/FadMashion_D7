@@ -10,16 +10,14 @@
 <div id="col2">
   <h2>Invite 10 More Friends</h2>
   <div class="column">
-  <h3>New York Insider</h3>
+  <h3>New York Local</h3>
   <p>10 friends have joined. $30 credit.</p>
   <h3>Front Row Seats</h3>
   <p>50 friends have joined. Free standard shipping for 2 months (U.S. addresses only).</p>
   </div>
   <div class="column">
-    <h3>blah blah</h3>
+    <h3>Fashion Insider</h3>
     <p>25 friends have joined. $30 more credit.</p>
-    <h3>Bonus</h3>
-    <p>$25 credit when friend makes first $25 purchase within 30 days of joining.</p>
   </div>
 </div>
 </div>
