@@ -11,7 +11,7 @@ $default_image = array_shift($images);
     <a href="<?php print $url?>"class="link">
       <div class="overlay">
         <?php print $title?>
-        <div class="shopLink"><img src="<?php print pp();?>b_shopTrend.jpg" /></div>
+        <div class="shopLink"><img src="<?php print pp();?>b_shopstyle.jpg" /></div>
       </div><!-- overlay-->		
     </a>
   </div>

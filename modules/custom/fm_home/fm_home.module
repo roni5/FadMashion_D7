@@ -21,13 +21,13 @@ function fm_home_theme() {
 	    'template' => 'fm_home_category_panel'
     ),
     
-    'fm_home_trend_panel' => array(
+    'fm_home_style_panel' => array(
 	     'variables' => array('term' => '', 'title' => '', 'images' => array()),
-	    'template' => 'fm_home_trend_panel'
+	    'template' => 'fm_home_style_panel'
     ),
     
-    'fm_home_invite_panel' => array(
-	    'template' => 'fm_home_invite_panel'
+    'fm_home_promo_panel' => array(
+	    'template' => 'fm_home_promo_panel'
     ),
     'fm_home_browse_panel' => array(
 	    'template' => 'fm_home_browse_panel'
@@ -47,7 +47,7 @@ function fm_home_page() {
 	$content .= '</div>';
 	
 	$content .= '<div class="column">';
-	$content .= theme('fm_home_invite_panel');
+	$content .= theme('fm_home_promo_panel');
 	$content .= fm_home_page_panel('Upper West Side Lux');
 	$content .= theme('fm_home_browse_panel');
 	$content .= '</div>';
@@ -100,7 +100,7 @@ function fm_home_page_panel($term_name) {
 			$term = array_shift($term);
 		  $title = fm_home_get_category_label($term);
 		  $image = fm_home_get_image($term, 'fm_home_big');
-      $content = theme('fm_home_trend_panel', array('term' => $term, 'title' =>$title, 'images' => array($image)));
+      $content = theme('fm_home_style_panel', array('term' => $term, 'title' =>$title, 'images' => array($image)));
 	} 
 	return $content;
 }

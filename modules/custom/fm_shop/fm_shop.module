@@ -247,7 +247,7 @@ function fm_shop_page_filters() {
 	
 	
 	//Get Featured List 
-	$filters['trends']['title'] = '<img class="title" alt="Trends" src="' . pp() .'title_small_trends.png">';
+	$filters['trends']['title'] = '<img class="title" alt="Styles" src="' . pp() .'title_small_styles.png">';
 	$filters['trends']['links'] = array();
 	$filters['trends']['arg'] = 'term'; 
 	$vocab = taxonomy_vocabulary_machine_name_load('trends');
