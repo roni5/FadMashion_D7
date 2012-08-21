@@ -37,6 +37,6 @@
         	<a target="_blank" href="http://www.thefashionspot.com/runway-news/news/110425-alex-a-eli-emerging-designer-spotlight"><img src="<?php print pp();?>logo_tfs.jpg"></a>
         	<a target="_blank" href="http://bit.ly/iQfNCD "><img src="<?php print pp();?>logo_prcouture.jpg"></a>
             </div>
-        <h1 class="slogan">A <span>New York</span> Fashion Collective & Boutique </h1>
+        <h1 class="slogan">A <span>New York</span> Style Collective & Boutique </h1>
         
         </div>
