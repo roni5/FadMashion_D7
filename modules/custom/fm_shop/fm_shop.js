@@ -7,6 +7,9 @@ var contentSelector;
 
 jQuery(document).ready(function() {
 	
+  jQuery('.browse_by.child').hide();
+  
+	
   if(jQuery('.page-shop').length) {
 	//ADD deep linking, 
 	 jQuery.address.crawlable(true).init(function(event) {
@@ -31,9 +34,12 @@ jQuery(document).ready(function() {
     		 
     		 cacheType = 'store';
     	     cacheId = store_id;
+    	     
+    	     jQuery('.browse_by.child').fadeIn();
     	      	
     	 } else {
     		 store_id = '';
+    		 jQuery('.browse_by.child').hide();
     	 }
     	 
     	 if(event.parameters.nid) {

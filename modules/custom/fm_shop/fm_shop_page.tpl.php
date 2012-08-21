@@ -4,7 +4,7 @@
   
   <?php 
   
-   foreach($filters as  $filter_group) {
+   foreach($filters as  $filter_id => $filter_group) {
    	print '<div class="sideNavBlock">';
   	if(!empty($filter_group['title'] )) {
       print  $filter_group['title'];
@@ -17,7 +17,7 @@
     	} else {
     		$arg = $arg_array[1];
     	}
-    	print '<li class="' . ($link['depth'] ? 'child' : '') . '">' . l($link['title'], check_plain($link['title']), array('attributes' => array('id' => $id), 'html' => true,  'query' => array($link['arg'] => $arg))) . '</li>';
+    	print '<li class="' . $filter_id . ' ' . ($link['depth'] ? 'child' : '') . '">' . l($link['title'], check_plain($link['title']), array('attributes' => array('id' => $id), 'html' => true,  'query' => array($link['arg'] => $arg))) . '</li>';
     	
     }
     print '</ul>';
