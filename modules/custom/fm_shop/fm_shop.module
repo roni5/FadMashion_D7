@@ -241,20 +241,17 @@ function fm_shop_page_filters() {
 	$filters = array();
 	
 	  
-  $filters['favorites']['title'] = '';
-	$filters['favorites']['links'] = array('all-time' => array('title' => '<img style="margin: 0;" class="title" alt="Most Loved" src="' . pp() . 'title_small_mostloved.png">'));
-	$filters['favorites']['arg'] = 'favorites'; 
-	
+
 	
 	//Get Featured List 
 	$filters['trends']['title'] = '<img class="title" alt="Styles" src="' . pp() .'title_small_styles.png">';
 	$filters['trends']['links'] = array();
-	$filters['trends']['arg'] = 'term'; 
 	$vocab = taxonomy_vocabulary_machine_name_load('trends');
 	$terms = taxonomy_get_tree($vocab->vid);
 	
   foreach ($terms as  $term) {
     $filters['trends']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
+    $filters['trends']['links']['term_' . $term->tid]['arg'] = 'term'; 
   }
 
 	//Get Featured List 
@@ -267,6 +264,7 @@ function fm_shop_page_filters() {
   foreach ($terms as  $term) {
     $filters['product_type']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
     $filters['product_type']['links']['term_' . $term->tid]['depth'] = $term->depth;
+    $filters['product_type']['links']['term_' . $term->tid]['arg'] = 'term'; 
   }
 	
 	
@@ -290,11 +288,18 @@ function fm_shop_page_filters() {
     $filters['featured']['links'][$shop->store_id] = check_plain($shop->name);
   }*/
   
-	//Get Designer List
+	/*Get Designer List
 	$filters['designers']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
 	$filters['designers']['links'] = array();
 	$filters['designers']['arg'] = 'store_id';
 	
+	*/
+  
+  $filters['browse_by']['title'] = '<img class="title" alt="Browse By" src="' . pp() .'title_small_browse.png">';
+	$filters['browse_by']['links'] = array('all-time' => array('title' => 'Most Loved', 'arg' => 'favorites'),
+	                                       'my-favorites' => array('title' => 'My Favorites', 'arg' => 'favorites'),
+	                                       'all' => array('title' => 'Designers', 'arg' => 'store_id') );
+  
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'fm_commerce_store');
 	$query->propertyOrderBy('weight', 'asc');
@@ -306,9 +311,12 @@ function fm_shop_page_filters() {
     $shop = fm_commerce_store_load($store_id);
     $shop_name = check_plain($shop->name);
     if(!in_array($shop_name, $filters['featured']['links'])) {
-      $filters['designers']['links'][$shop->store_id]['title'] = $shop_name;
+      $filters['browse_by']['links'][$shop->store_id]['title'] = $shop_name;
+      $filters['browse_by']['links'][$shop->store_id]['depth'] = 1;
+      $filters['browse_by']['links'][$shop->store_id]['arg'] = 'store_id';
     }
   }
+	
   
   return $filters;
 }
