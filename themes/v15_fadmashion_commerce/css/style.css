@@ -131,7 +131,7 @@ div.home {margin-top: 0px; }
 #promoTop{text-align: center; color: #fff;}
 #promoTop .label{margin-top: 30px;}
 #promoTop h1{ font-size: 20px; font-weight:100; margin: 31px 0 12px 0;}
-#promoTop p{font-family:"jubilat-1","jubilat-2", Georgia;font-style:italic; font-weight: 400; margin: 6px 30px 16px 30px; line-height: 18px; font-size: 14px; color: #ccc; text-shadow: 2px 2px #555;}
+#promoTop p{color: #DDDDDD;font-family: "jubilat-1","jubilat-2",Georgia;font-size: 17px;font-style: italic;font-weight: 400;line-height: 21px;margin: 6px 30px 16px;text-shadow: 2px 2px #555555;}
 #promoTop .button{width: 146px; height: 26px; line-height: 37px; text-align:center; color: #fff; background: url(../images/b_getinspired.jpg) top left no-repeat; display: block; margin: 10px auto 0; font-size: 14px; text-indent:-9999px;}
 #promoTop .button:hover{background-position: bottom left;}
 #promoTop .panel-block {background: url("../images/bg_panel_invite.jpg") repeat scroll 0 0 transparent;height: 267px;}
