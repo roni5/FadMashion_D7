@@ -54,7 +54,7 @@ function fm_home_page() {
 	
 	$content .= '<div class="column">';
 	$content .= fm_home_page_panel('Bedford Avenue Bedlam');
-	$content .= fm_home_page_panel('West Village Boho');
+	$content .= fm_home_page_panel('West Village Vibe');
 	$content .= '</div>';
 	
 	
