@@ -8,7 +8,7 @@
             if ($user->uid) { ?>
                 
                 <?php print l('Logout', 'user/logout');?>
-               <?php print l('+ Invite Friends, Earn Rewards', 'user/share-with-friends');?>
+               <?php print l('+ Invite Friends', 'user/share-with-friends');?>
              <?php } else{ ?>
                <a  id="sign_up" href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a id="login"  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
