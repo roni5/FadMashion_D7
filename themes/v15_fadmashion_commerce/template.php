@@ -79,7 +79,6 @@ function v15_fadmashion_commerce_preload() {
 	
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.autopager.js');
 	
-	
 	global $status;
 	$status = fm_users_register_sessions_status();
 	
@@ -89,6 +88,20 @@ function v15_fadmashion_commerce_preload() {
 	
 	drupal_add_library('system', 'effects');
 	drupal_add_library('system', 'ui.tabs');
+	
+	//ADD Subnavs to Header
+		/*$options['bt_header_subnav'] = array(
+        'cssSelect' => '.nav li',
+        'trigger' => array('hover'),
+	      'positions' => array('bottom'),
+	      'contentSelector' => "subNav($(this));",
+	      'fill' => "rgb(35, 35, 35)", 
+	      'spikeLength' => 6,
+	      'padding' => '5px',
+	      'shrinkToFit' => true,
+	      'cssClass' => 'tooltip'
+ );*/
+  beautytips_add_beautytips($options);
 	
 }
 

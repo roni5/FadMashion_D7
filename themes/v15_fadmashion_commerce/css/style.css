@@ -867,3 +867,17 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 #about table{width: 550px; height: 344px; font-size: 12px}
 #about .bottomText, #about .bottomText a{color: #ddd; font-size: 15px;font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia;}
 #about .bottomText a{ text-decoration: underline; color: #fff;  width:207px; text-align:center; float: right; }
+
+
+/******** tooltip *******/
+
+.tooltip { display:none; background:#fff; padding:0; border: 2px solid #444; width:410px; height: 280px; color:#000; position: absolute; margin-top: 9px;margin-left: 230px;-moz-box-shadow: 0 0 8px #333;-webkit-box-shadow: 0 0 8px#333; box-shadow: 0 0 8px #333; z-index: 999;}
+.tooltip .pad{padding: 12px;}
+.tooltip img{margin: 0; float: none; display: block; padding: 0;}
+.tooltip ul{margin: 5px 0 15px 0; padding: 0;  width: 160px; display: block; float: none;}
+.tooltip li{display: block; float: none; height: 17px; margin: 2px 0; padding: 0;}
+.tooltip li a{display: block; float: none; color: #222; height: 14px;font-size: 12px; width: 160px; padding: 0; line-height: 17px;}
+.tooltip li.child{padding-left: 10px;}
+.tooltip a:hover{color: #b63030;}
+.tooltip .column{float: left; width: 190px; }
+.tooltip .block{ width: 160px;}

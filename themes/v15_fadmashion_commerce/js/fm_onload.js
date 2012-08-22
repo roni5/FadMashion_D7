@@ -79,6 +79,11 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
+//Header Subnav Beautitp definition
+function subNav(varThis) {
+	return 'Save for Later';
+}
+
 function fmAdminBTPreShow() {
 	clearAllForms();
 	fmBTResizeColorbox();
