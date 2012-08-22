@@ -90,7 +90,7 @@ function v15_fadmashion_commerce_preload() {
 	drupal_add_library('system', 'ui.tabs');
 	
 	//ADD Subnavs to Header
-		/*$options['bt_header_subnav'] = array(
+		$options['bt_header_subnav'] = array(
         'cssSelect' => '.nav li',
         'trigger' => array('hover'),
 	      'positions' => array('bottom'),
@@ -100,7 +100,7 @@ function v15_fadmashion_commerce_preload() {
 	      'padding' => '5px',
 	      'shrinkToFit' => true,
 	      'cssClass' => 'tooltip'
- );*/
+ );
   beautytips_add_beautytips($options);
 	
 }
