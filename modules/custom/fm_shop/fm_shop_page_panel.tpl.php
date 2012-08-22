@@ -90,5 +90,5 @@ if(count($products) <= 2) {
   <!-- End of Table Content -->
                
  </div>    
-</div><img class="frameBottom" src="<?php print pp();?>frame_bottom.png">
+</div>
 </div>
