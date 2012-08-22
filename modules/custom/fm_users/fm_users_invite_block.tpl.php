@@ -8,16 +8,17 @@
   <p>Invite 10 friends to join, and we will give you $30 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for helping us grow.</p>
 </div>
 <div id="col2">
-  <h2>Invite <span>10</span> More Friends</h2>
+  <h2>Invite More Earn More</h2>
   <div class="column">
   <h3>New York Local</h3>
   <p>10 friends have joined. $30 credit.</p>
-  <h3>Front Row Seats</h3>
-  <p>50 friends have joined. $50 more credit.</p>
+  <h3>Fashion Insider</h3>
+    <p>25 friends have joined. $30 more credit.</p>
+
   </div>
   <div class="column">
-    <h3>Fashion Insider</h3>
-    <p>25 friends have joined. $30 more credit.</p>
+      <h3>Front Row Seats</h3>
+  <p>50 friends have joined. $50 more credit.</p>
   </div>
 </div>
 </div>
