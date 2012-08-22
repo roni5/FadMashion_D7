@@ -247,7 +247,6 @@ jQuery(document).ready(function() {
            jQuery.ajax({
              url:  fullPath + q + 'ajax/' + type + qParam + args ,
              beforeSend: function() {
-            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
                  if(dataPage.html()) {
                    dataPage.fadeTo('fast', .33);
@@ -256,12 +255,12 @@ jQuery(document).ready(function() {
                  }
                  
               },
-
              error: function(XMLHttpRequest, textStatus, errorThrown) {
                  handler(XMLHttpRequest.responseText);
              },
              success: function(data, textStatus, XMLHttpRequest) {
-            	 
+
+            	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
             	 //Add to Cache
                  if(!jQuery('#cache .' + cacheClass).length) {
                	   newClass =  '<div class="' + cacheClass + '"></div>';

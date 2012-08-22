@@ -412,10 +412,32 @@ function fm_shop_products_by_taxonomy($term) {
 
 
 function fm_shop_products_by_favorites($param) {
-   $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 10');
-    while($obj = $result->fetchObject()) {
-		  $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
-	  }
-	  
-	  return $products_ret;
+	$products_ret = array();
+	if($param == 'all-time') {
+     $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 10');
+      while($obj = $result->fetchObject()) {
+  		  $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
+	    }
+	} elseif($param == 'my-favorites') {
+		  global $user;
+      if($user->uid) {
+		    $mail = $user->mail;
+	    } else {
+		   $mail = fm_users_register_session_email();
+	    } 
+	    
+	    if(isset($mail)) {
+	      $result = db_query('SELECT * FROM {fm_social_favorite} WHERE   mail = :mail', array( 'mail' => $mail));
+	      while($obj = $result->fetchObject()) {
+  		   $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
+  	   }
+	    } else {
+	      foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
+  		    $products_ret[$product_id] = commerce_product_load($product_id);
+  	    }
+	   }
+	    
+	}
+	
+	return $products_ret;
 }
