@@ -165,7 +165,7 @@ a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
   
 /********* designer panel **********/
 
-.designerPanel{ width: 817px; margin: 0 0 28px 0; }
+.designerPanel{ width: 817px; margin: 0 0 28px 0; border-top: 1px solid #ddd;}
 .designerPanelTop{;padding-top: 14px; width: 817px;}
 .designerPanelTop.featured{background: url(../images/frame_top_featured.png) top left no-repeat;padding-top: 10px; width: 817px;}
 #content .col2 .designerPanel .pad{text-align: center; padding: 5px 5px 0px 5px;}
