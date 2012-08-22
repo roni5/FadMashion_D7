@@ -871,7 +871,7 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 
 /******** tooltip *******/
 
-.tooltip { display:none; background:#fff; padding:0; border: 2px solid #444; width:410px; height: 280px; color:#000; position: absolute; margin-top: 9px;margin-left: 230px;-moz-box-shadow: 0 0 8px #333;-webkit-box-shadow: 0 0 8px#333; box-shadow: 0 0 8px #333; z-index: 999;}
+.tooltip { color: #fff;  font-weight: bold; font-size: 10px;}
 .tooltip .pad{padding: 12px;}
 .tooltip img{margin: 0; float: none; display: block; padding: 0;}
 .tooltip ul{margin: 5px 0 15px 0; padding: 0;  width: 160px; display: block; float: none;}
