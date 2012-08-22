@@ -5,15 +5,15 @@
 <div id="explanation">
 <div id="col1">
   <h2>Friends with Benefits</h2>
-  <p>Invite 10 friends to join, and we will give you $10 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for helping us grow.</p>
+  <p>Invite 10 friends to join, and we will give you $30 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for helping us grow.</p>
 </div>
 <div id="col2">
-  <h2>Invite 10 More Friends</h2>
+  <h2>Invite <span>10</span> More Friends</h2>
   <div class="column">
   <h3>New York Local</h3>
   <p>10 friends have joined. $30 credit.</p>
   <h3>Front Row Seats</h3>
-  <p>50 friends have joined. Free standard shipping for 2 months (U.S. addresses only).</p>
+  <p>50 friends have joined. $50 more credit.</p>
   </div>
   <div class="column">
     <h3>Fashion Insider</h3>
