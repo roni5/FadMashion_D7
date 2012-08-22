@@ -121,15 +121,44 @@ function fm_shop_page_ajax($type) {
     	    
 	    break;
 		case 'shop':
-			$shop = fm_commerce_store_load($store_id);
-			$products = fm_commerce_store_get_products($shop);
-			$content =  fm_shop_collection_viewer('store', $shop, $products);
+			if($store_id == 'all') {
+			  $filters = fm_shop_page_filters();
+			  $content = '<div id="all">';
+	      $panels = fm_shop_page_all_panels($filters);
+	      
+	      foreach($panels as $panels_group) {
+	     	   foreach($panels_group as $panel) {
+	       	 	 $content .= $panel;
+	     	   }
+	       } 
+	      $content .= '</div>';
+	      //WE only want a 3 step loading process (for now)
+	      if($page < 2) {
+	      	$html = 'Loading More...';
+	      	$html .= '<br><img src="' . pp() .'confirm-ajax-loader.gif">';
+	      	$content .= '<div id="loading_more" style="display:none">';
+	        $content .= l($html, 'shop/ajax/all', array('html' => true, 'query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next',  ) ));
+	        $content .= '</div>';
+	         
+	    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: autoPagerLoad, start: autoPagerStart });});</script>';
+	      }
+			} else {
+				$shop = fm_commerce_store_load($store_id);
+			  $products = fm_commerce_store_get_products($shop);
+			  $content =  fm_shop_collection_viewer('store', $shop, $products);
+			}
 			
 	    break;
 	  case 'favorites':
 			$products = fm_shop_products_by_favorites($params);
-			$content = fm_shop_grid_view('favorites', $params, $products);
-			$content .=  fm_shop_collection_viewer('favorites', $params, $products);
+			
+			if($params == 'my-favorites' && empty($products)) {
+				$content .= 'Sorry no Favorites';
+			} else {
+				$content = fm_shop_grid_view('favorites', $params, $products);
+		    $content .=  fm_shop_collection_viewer('favorites', $params, $products);
+			}
+			
 	    break;
 	    
 		case 'term':
@@ -326,9 +355,13 @@ function fm_shop_page_all_panels($filters) {
 	$page = $_GET['page'];
   
 	$total = 0;
-	foreach($filters as $filter_group) {
-		if(($filter_group['title']) != t('New Arrivals')) {
-	    $total += count($filter_group['links']);
+	foreach($filters as $filter_id => $filter_group) {
+		if($filter_id == 'browse_by') {
+			foreach($filter_group['links'] as $link) {
+	      if($link['arg'] == 'store_id' && $link['depth'] == 1) {
+				  $total++;
+	      }
+			}
 		}
 	}
 	$half = ceil($total/2);
@@ -348,22 +381,22 @@ function fm_shop_page_all_panels($filters) {
 			break;
 	}
 	
-  foreach($filters as $filter_group) {
-  	$title = $filter_group['title'];
-  	if($title != t('New Arrivals')) {
-  	  $content[$title] = array();
-      foreach($filter_group['links'] as $id => $link) {
-      	if($i >= $start && $i < $end) {
-    	    $shop = fm_commerce_store_load($id);
-    	    $products = fm_commerce_store_get_products($shop, true);
-     
-      	  if(!empty($products)) {
-      	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $title));
-    	      $content[$title][] = $designerPanel;
-      	    
+  foreach($filters as $filter_id => $filter_group) {
+  	if($filter_id == 'browse_by') {
+  	  $content[$filter_id] = array();
+      foreach($filter_group['links'] as $store_id => $link) {
+      	if($link['arg'] == 'store_id' && $link['depth'] == 1) {
+      	  if($i >= $start && $i < $end) {
+    	      $shop = fm_commerce_store_load($store_id);
+    	      $products = fm_commerce_store_get_products($shop, true);
+       
+      	    if(!empty($products)) {
+        	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $filter_id));
+    	        $content[$filter_id][] = $designerPanel;      	    
+    	      }
     	    }
-    	  }
-    	  $i++;
+    	    $i++;
+      	}
       }
   	}
   } 

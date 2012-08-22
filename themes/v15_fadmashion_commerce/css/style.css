@@ -121,6 +121,7 @@ span {
 .productInfo .most_loved_number {padding-right: 10px; margin-right: 10px; border-right: 1px solid #ddd;}
 #all-time {  }
 
+.browse_by.child {display: none;}
 
 /********* homepage panels **********/
 
