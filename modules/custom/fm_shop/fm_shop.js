@@ -78,14 +78,6 @@ jQuery(document).ready(function() {
            
            cacheType = 'favorites';
   	       cacheId = param;
-  	       
-  	     store_id = event.parameters.store_id;
-		 type = 'shop';
-		 id = 'all';
-		 store_id = 'all';
-		 
-		 cacheType = 'store';
-	     cacheId = store_id;
     	 }
     	 
 
