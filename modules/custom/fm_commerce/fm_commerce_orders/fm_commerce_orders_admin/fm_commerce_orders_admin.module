@@ -124,9 +124,9 @@ function fm_commerce_orders_admin() {
 		                'class' => array($css_class)
 		);
 		
-		$hidden .= fm_commerce_orders_admin_user($order->uid);
-		$hidden .= fm_commerce_orders_admin_store($store);
-		$hidden .= fm_commerce_orders_admin_action($order);
+	//	$hidden .= fm_commerce_orders_admin_user($order->uid);
+	//	$hidden .= fm_commerce_orders_admin_store($store);
+	//	$hidden .= fm_commerce_orders_admin_action($order);
 	}
 	
 	$div = '<div class="orders-admin-table">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) . '</div>';

@@ -206,9 +206,6 @@ function fm_commerce_orders_list() {
 	//Second, load up previous orders and go through each one and update those 
  $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
- var_dump($orders);
-
- 
  
  if(count($orders) == 0) {
   return '<div class="customer no-orders">You currently don\'t have any purchases.  
