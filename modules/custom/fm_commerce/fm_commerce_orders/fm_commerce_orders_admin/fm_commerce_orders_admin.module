@@ -99,7 +99,7 @@ function fm_commerce_orders_admin() {
  
  $rows = array();
  $header = array('Invoice', 'Date', 'Customer', 'Designer Shop', 'Item', 'Actions' );
- $hidden = '';
+ /* = '';
  foreach($orders as $order) {
  	  $order_user = user_load($order->uid);
  	  
@@ -109,7 +109,7 @@ function fm_commerce_orders_admin() {
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
     	
     $product = fm_commerce_get_order_product($order);
-    /*
+    
     $store = fm_commerce_get_store($product);
   
     $row_info = fm_commerce_orders_row_info($order);
