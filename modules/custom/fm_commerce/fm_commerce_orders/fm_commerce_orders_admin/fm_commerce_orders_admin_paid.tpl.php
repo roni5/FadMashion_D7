@@ -1,5 +1,4 @@
 <?php 
-var_dump('before');
   $product = fm_commerce_get_order_product($order);
   $store = fm_commerce_get_store($product);
   
@@ -8,12 +7,8 @@ var_dump('before');
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
   $order_view = commerce_order_ui_order_view($order, 'customer');
   
-  var_dump('after2');
   $commission = fm_commerce_store_order_commission_value($order, $store) ;
-  
-  var_dump('after3');
   $payout = fm_commerce_store_order_payout_value($order, $store);
-  var_dump('after4');
   
   
   $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
