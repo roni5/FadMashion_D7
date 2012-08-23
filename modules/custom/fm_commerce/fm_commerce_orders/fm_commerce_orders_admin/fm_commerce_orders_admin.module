@@ -104,13 +104,13 @@ function fm_commerce_orders_admin() {
  	  $order_user = user_load($order->uid);
  	  
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
-		
+		/*
  	  $total = $order_wrapper->commerce_order_total->value();
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
     
     $product = fm_commerce_get_order_product($order);
     $store = fm_commerce_get_store($product);
-  /*
+  
     $row_info = fm_commerce_orders_row_info($order);
     $css_class = fm_commerce_orders_admin_status_grouping($order);
     
