@@ -81,7 +81,8 @@ jQuery(document).ready(function() {
 
 //Header Subnav Beautitp definition
 function subNav(varThis) {
-	return 'Save for Later';
+	var html = jQuery('.shop_subnav').html();
+	return html;
 }
 
 function fmAdminBTPreShow() {
