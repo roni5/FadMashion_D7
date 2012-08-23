@@ -201,13 +201,13 @@ function fm_commerce_orders_list() {
 	global $user;
 	
 	
- var_dump('list');
+ var_dump('list'); exit();
  
 	//Second, load up previous orders and go through each one and update those 
  $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'fm_orders_authorized'), 'uid' => $user->uid));
  
  var_dump($orders);
- exit();
+
  
  
  if(count($orders) == 0) {
