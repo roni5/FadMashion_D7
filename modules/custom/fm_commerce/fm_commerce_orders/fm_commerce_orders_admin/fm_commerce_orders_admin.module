@@ -108,7 +108,7 @@ function fm_commerce_orders_admin() {
  	  $total = $order_wrapper->commerce_order_total->value();
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
     $product = fm_commerce_get_order_product($order);
-    if(!empty($product)) {
+    if($product != '') {
       $store = fm_commerce_get_store($product);
       
     $row_info = fm_commerce_orders_row_info($order);
