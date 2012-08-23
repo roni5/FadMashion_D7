@@ -122,11 +122,13 @@ function fm_commerce_orders_admin() {
 		                           ),
 		                'class' => array($css_class)
 		);
-		
-	 /* $hidden .= fm_commerce_orders_admin_user($order->uid);
+		var_dump($order->order_id);
+	  $hidden .= fm_commerce_orders_admin_user($order->uid);
+	  var_dump('2');
 	  $hidden .= fm_commerce_orders_admin_store($store);
+	  var_dump('3';
 	  $hidden .= fm_commerce_orders_admin_action($order);
-	  */
+	  var_dump('4');
   }
 }
 	
