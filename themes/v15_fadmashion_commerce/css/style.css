@@ -879,7 +879,7 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 
 
 .tooltip { color: #000; margin-top: 15px; font-weight: bold; font-size: 10px; width: 410px}
-.tooltip .pad{padding: 12px;}
+.tooltip .pad{padding: 20px;}
 .tooltip img{margin: 0; float: none; display: block; padding: 0;}
 .tooltip ul{margin: 5px 0 15px 0; padding: 0;  width: 160px; display: block; float: none;}
 .tooltip li{display: block; float: none; height: 17px; margin: 2px 0; padding: 0;}

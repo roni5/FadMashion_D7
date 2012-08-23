@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
 
 		  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
 		  
-		    var $content = jQuery('.bt-content', box).show(); /* hide the content until after the animation */
+		    var $content = jQuery('.bt-content', box).hide(); /* hide the content until after the animation */
 		    var $canvas = jQuery('canvas', box).hide(); /* hide the canvas for a moment */
 		    var origWidth = $canvas[0].width; /* jQuery's .width() doesn't work on canvas element */
 		    var origHeight = $canvas[0].height;
