@@ -581,8 +581,6 @@ function fm_commerce_store_order_display_commission($order, $store) {
 
 function fm_commerce_store_order_payout_value($order, $store) {
   $values = _fm_commerce_store_order_commission_values($order, $store);
-  var_dump($values);
-  exit();
   $plus_after_commissions_val = $values['plus_after_commissions_val'];
   return $plus_after_commissions_val;
 }

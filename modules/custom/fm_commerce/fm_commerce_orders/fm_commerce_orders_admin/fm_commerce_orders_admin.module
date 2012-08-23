@@ -260,7 +260,7 @@ function fm_commerce_orders_admin_action($order) {
 			$output .= theme('fm_commerce_orders_admin_shipped', array('order' => $order));
 			break;
 	  case 'fm_orders_vendor_paid':
-			$output .= theme('fm_commerce_orders_admin_paid', array('order' => $order));
+			//$output .= theme('fm_commerce_orders_admin_paid', array('order' => $order));
 			break;
 		default:
 			$output .= theme('fm_commerce_orders_footer', array('no_margin' => true));
