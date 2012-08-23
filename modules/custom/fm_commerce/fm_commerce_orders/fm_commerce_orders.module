@@ -209,6 +209,9 @@ function fm_commerce_orders_list() {
   '<div style="display:none;" class="orders-demo">' . theme('fm_commerce_orders_demo') . '</div>'; 		
  }
  
+ var_dump($orders);
+ exit();
+ 
  rsort($orders);
  
  $rows = array();
@@ -226,7 +229,7 @@ function fm_commerce_orders_list() {
 		  '<div class="sale-price">' . $row_info['sale'] . '</div><div class="retail-price"> (orig. '  . $row_info['retail'] . ')</div>',
 		'<div class="order-link" >' . fm_commerce_orders_status($order) . '</div>',
 		);
-		//$hidden .= fm_commerce_orders_action($order);
+		$hidden .= fm_commerce_orders_action($order);
 	}
 	
 	$div = theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false));
