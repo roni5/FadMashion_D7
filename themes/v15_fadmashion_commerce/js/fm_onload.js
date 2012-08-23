@@ -72,15 +72,15 @@ jQuery(document).ready(function() {
 
 		  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
 		  
-		    var $content = jQuery('.bt-content', box).hide(); /* hide the content until after the animation */
+		    var $content = jQuery('.bt-content', box).show(); /* hide the content until after the animation */
 		    var $canvas = jQuery('canvas', box).hide(); /* hide the canvas for a moment */
 		    var origWidth = $canvas[0].width; /* jQuery's .width() doesn't work on canvas element */
 		    var origHeight = $canvas[0].height;
 		    jQuery(box).show(); /* show the wrapper, however elements inside (canvas, content) are now hidden */
 		    $canvas
-		      .css({opacity: .1, top: 25})
+		      .css({opacity: .1, 'margin-top': '25px'})
 		      .show()
-		      .animate({ top: 10, opacity: 1}, 'normal', 'easeOutCubic',
+		      .animate({ 'margin-top': '5px', opacity: 1}, 'normal', 'easeOutCubic',
 		        function(){$content.show()} /* show the content when animation is done */
 		    );
 
