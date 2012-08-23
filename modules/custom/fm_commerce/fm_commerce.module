@@ -1,7 +1,7 @@
 <?php
 
 define('FM_SUPPORT_MAIL', "support@fadmashion.com");
-define('FM_FREE_SHIPPING', 15000);
+define('FM_FREE_SHIPPING', 0);
 
 /**
  * Implements hook_form_alter().

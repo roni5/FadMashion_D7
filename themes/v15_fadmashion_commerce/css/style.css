@@ -538,7 +538,7 @@ top:14px;}
 .checkoutFooter .logo {display:block;float:none;margin-top:10px;}
 
 .completeOrder {float:right; font-size:12px; text-align:right;}
-.completeOrder .form-submit { background: url("../images/b_bg_red.jpg") repeat scroll left top transparent;
+.completeOrder .form-submit { color: #fff; background: url("../images/b_bg_red.jpg") repeat scroll left top transparent;
     border-radius: 4px 4px 4px 4px;width: auto; height: auto; display:block;float:right;font-size:16px;padding:10px 14px;text-align:center;}
 
 #billing .form {border-right:1px solid #E2D9D0; width: 315px; float: left;}
