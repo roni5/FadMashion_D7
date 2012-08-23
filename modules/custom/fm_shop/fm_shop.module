@@ -22,6 +22,7 @@ function fm_shop_menu() {
   return $items;
 }
 
+
 function fm_shop_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_shop') . '/fm_shop.js');
 }
@@ -55,6 +56,10 @@ function fm_shop_theme() {
     'fm_shop_page_grid_view_item' => array(
 	     'variables' => array('product' => $product,  'node' => $node,  'argument' => array()),
        'template' => 'fm_shop_page_grid_view_item'
+    ),
+    'fm_shop_subnav_items' => array(
+	     'variables' => array('filters' => array()),
+       'template' => 'fm_shop_subnav_items'
     ),
     
   );
@@ -477,4 +482,35 @@ function fm_shop_products_by_favorites($param) {
 	}
 	
 	return $products_ret;
+}
+
+
+
+function fm_shop_subnav_items() {
+	
+	$filters = fm_shop_page_filters();
+	return theme('fm_shop_subnav_items', array('filters' => $filters));
+	
+}
+
+function fm_shop_subnav_items_links($filter_group, $show_children = true) {
+
+	$content = '';
+    foreach($filter_group['links'] as $id => $link) {
+    	$arg_array = explode("_", $id);
+    	if($arg_array[0] != 'term') {
+    		$arg = $id;
+    	} else {
+    		$arg = $arg_array[1];
+    	}
+    	$url = url('shop', array('alias' => true, 'fragment' => '!'));
+      $url2 = url($link['title'], array('query' => array($link['arg'] => $arg)));
+      $url = $url . $url2;
+
+      if(!$link['depth'] || $show_children) {
+    	  $content .= '<li class=" ' . ($link['depth'] ? 'child' : '') . '"><a href="' . $url . '" id="' . $id . '">' . $link['title'] . '</a></li>';
+      }
+    	
+    }
+    return $content;
 }
