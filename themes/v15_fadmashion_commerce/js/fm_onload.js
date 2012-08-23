@@ -48,6 +48,31 @@ jQuery(document).ready(function() {
 	    cssStyles: { fontFamily: '"Lucida Grande",Helvetica,Arial,Verdana,sans-serif', fontSize: '12px', padding: '10px 14px' }, 
 	    shadow: true, shadowColor: 'rgba(0,0,0,.5)', shadowBlur: 8, shadowOffsetX: 4, shadowOffsetY: 4 
     });
+	
+	
+	//Header Beautytips
+	jQuery('.nav .tooltipBtn').bt({
+      contentSelector: "subNav($(this));",
+	  trigger: 'mouseover',
+	  positions: ['bottom'],
+	  fill: "rgb(255, 255, 255)", 
+      shadow: true,
+	  shadowOffsetX: 3,
+	  shadowOffsetY: 3,
+	  shadowBlur: 8,
+	  shadowColor: 'rgba(0,0,0,.9)',
+	  shadowOverlap: false,
+	  strokeWidth: 2,
+	  spikeLength: 6,
+      padding: '5px',
+	  shrinkToFit: true,
+	  width: '420px',
+	  cssClass: 'tooltip',
+	  showTip: function(box) {
+		  jQuery(box).fadeIn('fast');
+	  }
+	});
+	
 
 });
 
@@ -84,6 +109,8 @@ function subNav(varThis) {
 	var html = jQuery('.shop_subnav').html();
 	return html;
 }
+
+
 
 function fmAdminBTPreShow() {
 	clearAllForms();

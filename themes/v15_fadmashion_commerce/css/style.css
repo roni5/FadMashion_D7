@@ -872,6 +872,7 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 /******** tooltip *******/
 
 .shop_subnav {display: none;}
+.tooltipBtn{cursor: default}
 .tooltip .leftColumn, .tooltip  .rightColumn{float: left; }
 .tooltip .leftColumn{ width: 190px;}
 .tooltip  .rightColumn{width: 125px;}
@@ -882,7 +883,7 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 .tooltip img{margin: 0; float: none; display: block; padding: 0;}
 .tooltip ul{margin: 5px 0 15px 0; padding: 0;  width: 160px; display: block; float: none;}
 .tooltip li{display: block; float: none; height: 17px; margin: 2px 0; padding: 0;}
-.tooltip li a{display: block; float: none; color: #222; height: 14px;font-size: 12px; width: 160px; padding: 0; line-height: 17px;}
+.tooltip li a{display: block; font-weight: normal; float: none; color: #222; height: 14px;font-size: 12px; width: 160px; padding: 0; line-height: 17px;}
 .tooltip li.child{padding-left: 10px;}
 .tooltip a:hover{color: #b63030;}
 .tooltip .block{ width: 160px;}

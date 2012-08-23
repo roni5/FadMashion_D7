@@ -25,7 +25,7 @@
     <div class="nav">
       <ul>
         <li class="<?php $is_front ? print 'active' : ''?>"><?php print l('Home', 'home', array('attributes' => array('class' => array('home') )));?></li>
-        <li class="<?php arg(0) == 'shop' ? print 'active' : ''?>"><?php print l('Shop', 'shop', array('attributes' => array('class' => array('tooltipBtn', 'not-active') )));?></li>
+        <li class="<?php arg(0) == 'shop' ? print 'active' : ''?>"><a href="javascript: void(0)" class="tooltipBtn">Shop</a></li>
          <div class="shop_subnav">
             <div class="pad">
               <div class="leftColumn">

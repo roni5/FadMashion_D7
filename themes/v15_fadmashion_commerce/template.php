@@ -88,28 +88,7 @@ function v15_fadmashion_commerce_preload() {
 	
 	drupal_add_library('system', 'effects');
 	drupal_add_library('system', 'ui.tabs');
-	
-	//ADD Subnavs to Header
-		$options['bt_header_subnav'] = array(
-        'cssSelect' => '.nav .tooltipBtn',
-        'trigger' => array('focus mouseover', 'blur' ),
-	      'positions' => array('bottom'),
-	      'contentSelector' => "subNav($(this));",
-	      'fill' => "rgb(255, 255, 255)", 
-		    'shadow' => true,
-        'shadowOffsetX' => 3,
-        'shadowOffsetY' => 3,
-        'shadowBlur' => 8,
-        'shadowColor' =>  'rgba(0,0,0,.9)',
-        'shadowOverlap' => false,
-		    'strokeWidth' => 2,
-	      'spikeLength' => 6,
-	      'padding' => '5px',
-	      'shrinkToFit' => true,
-		    'width' => '420px',
-	      'cssClass' => 'tooltip'
- );
-  beautytips_add_beautytips($options);
+
 	
 }
 
