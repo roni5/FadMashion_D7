@@ -1,6 +1,8 @@
 <?php 
+var_dump('before');
   $product = fm_commerce_get_order_product($order);
   $store = fm_commerce_get_store($product);
+  var_dump('after');
 	$image = fm_commerce_product_image_thumb($product, 'fm_product_confirm', array('style' => "border: 1px solid #e2dcd6; width: 142px;"));
 	$row_info = fm_commerce_orders_row_info($order);
 	$order_details = theme('fm_commerce_orders_extra_info', array('color' => $row_info['color'], 'size' => $row_info['size']));
