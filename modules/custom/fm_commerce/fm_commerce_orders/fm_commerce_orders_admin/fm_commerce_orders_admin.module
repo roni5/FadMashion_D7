@@ -80,9 +80,6 @@ function fm_commerce_orders_admin() {
 	//Second, load up previous orders and go through each one and update those 
  $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_recieved','fm_orders_expired', 'fm_orders_returned', 'fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'canceled', 'fm_orders_authorized')));
  
- var_dump($orders);
- exit();
- 
  if(count($orders) == 0) {
   return '<div class="no-orders">This shop currently doesn\'t have purchases. </div>';
  }
@@ -103,7 +100,7 @@ function fm_commerce_orders_admin() {
  $rows = array();
  $header = array('Invoice', 'Date', 'Customer', 'Designer Shop', 'Item', 'Actions' );
  $hidden = '';
- foreach($orders as $order) {
+ foreach($orders as $order) {/*
  	  $order_user = user_load($order->uid);
  	  
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -125,7 +122,7 @@ function fm_commerce_orders_admin() {
 		                          '<div class="order-link" >' . fm_commerce_orders_admin_status($order) . '</div>',
 		                           ),
 		                'class' => array($css_class)
-		);
+		);*/
 		
 	//	$hidden .= fm_commerce_orders_admin_user($order->uid);
 	//	$hidden .= fm_commerce_orders_admin_store($store);
