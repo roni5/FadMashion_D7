@@ -19,7 +19,7 @@ var_dump('before');
   $tracking_company = $order_wrapper->field_tracking_company->value();
   var_dump('after3');
   $opts = fm_commerce_store_owners_shipping_company_opts();
-  ar_dump('after4');
+  var_dump('after4');
 ?>
 
 <div class="orders_admin_wrapper">
