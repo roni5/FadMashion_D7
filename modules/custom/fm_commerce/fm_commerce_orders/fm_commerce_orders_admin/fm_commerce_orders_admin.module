@@ -110,6 +110,10 @@ function fm_commerce_orders_admin() {
     	
     $product = fm_commerce_get_order_product($order);
     $store = fm_commerce_get_store($product);
+    
+    
+    var_dump($store);
+    
   
     /*
     $row_info = fm_commerce_orders_row_info($order);

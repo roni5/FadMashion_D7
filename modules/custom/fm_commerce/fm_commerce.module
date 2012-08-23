@@ -416,7 +416,7 @@ function fm_commerce_get_order_product($order) {
     switch ($line_item_wrapper->type->value()) {
   		case 'product':
   		 //$product = $line_item_wrapper->commerce_product->value();
-  		 $product = commerce_product_load(26);
+  		 $product = commerce_product_load(1);
        return $product;
        break;
     }
