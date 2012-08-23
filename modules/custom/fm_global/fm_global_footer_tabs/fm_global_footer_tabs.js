@@ -6,6 +6,7 @@
 jQuery(document).ready(function() {
 
 
+  if(jQuery('.footer_tabs_container').length) {
 	jQuery('.footer_tabs_container').tabs();
 	
 
@@ -41,5 +42,6 @@ jQuery(document).ready(function() {
 			jQuery('.footer_tabs_closes').trigger('click');
 		}
 	});
+  }
 	
 });
