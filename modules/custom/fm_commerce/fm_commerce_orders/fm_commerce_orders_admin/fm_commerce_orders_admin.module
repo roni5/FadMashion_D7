@@ -109,9 +109,9 @@ function fm_commerce_orders_admin() {
     $total = commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
     	
     $product = fm_commerce_get_order_product($order);
-    
     $store = fm_commerce_get_store($product);
   
+    /*
     $row_info = fm_commerce_orders_row_info($order);
     $css_class = fm_commerce_orders_admin_status_grouping($order);
     
@@ -127,7 +127,7 @@ function fm_commerce_orders_admin() {
 		
 	  $hidden .= fm_commerce_orders_admin_user($order->uid);
 	  $hidden .= fm_commerce_orders_admin_store($store);
-	  $hidden .= fm_commerce_orders_admin_action($order);
+	  $hidden .= fm_commerce_orders_admin_action($order);*/
 	 
 	}
 	
