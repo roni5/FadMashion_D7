@@ -127,15 +127,10 @@ function fm_commerce_orders_admin() {
 		                'class' => array($css_class)
 		);
 		
-	  $hidden .= fm_commerce_orders_admin_user($order->uid);
+	 /* $hidden .= fm_commerce_orders_admin_user($order->uid);
 	  $hidden .= fm_commerce_orders_admin_store($store);
 	  $hidden .= fm_commerce_orders_admin_action($order);
-	  
-		
-		
-       var_dump('after2');
-		
-		
+	  */
   }
 }
 	
