@@ -160,7 +160,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   $output .=  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
   $output .= '</div>';
   
-  $output .= render(drupal_get_form('fm_commerce_cart_promo_form'));
+ //$output .= render(drupal_get_form('fm_commerce_cart_promo_form'));
     
   $output .='</div>';  //end class="pad"
   $output .= '</div>'; //End class="summary"
