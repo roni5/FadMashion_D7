@@ -874,7 +874,7 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 .shop_subnav {display: none;}
 .tooltip .leftColumn, .tooltip  .rightColumn{float: left; }
 .tooltip .leftColumn{ width: 190px;}
-.tooltip  .rightColumn{width: 115px;}
+.tooltip  .rightColumn{width: 125px;}
 
 
 .tooltip { color: #000;  font-weight: bold; font-size: 10px; width: 410px}
