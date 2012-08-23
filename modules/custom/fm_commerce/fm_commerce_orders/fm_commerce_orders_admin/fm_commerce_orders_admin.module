@@ -80,6 +80,9 @@ function fm_commerce_orders_admin() {
 	//Second, load up previous orders and go through each one and update those 
  $orders = commerce_order_load_multiple(array(), array('status' => array('fm_orders_recieved','fm_orders_expired', 'fm_orders_returned', 'fm_orders_captured', 'fm_orders_vendor_paid', 'fm_orders_shipped', 'fm_orders_voided',  'cart', 'canceled', 'fm_orders_authorized')));
  
+ var_dump($orders);
+ exit();
+ 
  if(count($orders) == 0) {
   return '<div class="no-orders">This shop currently doesn\'t have purchases. </div>';
  }
