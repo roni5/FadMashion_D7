@@ -110,14 +110,9 @@ function fm_commerce_orders_admin() {
     	var_dump('before');
     	var_dump($order->order_id);
     $product = fm_commerce_get_order_product($order);
-    $store = fm_commerce_get_store($product);
-    
-    
-    
-    var_dump('after');
-    
-  
-    /*
+    if(!empty($product)) {
+      $store = fm_commerce_get_store($product);
+      
     $row_info = fm_commerce_orders_row_info($order);
     $css_class = fm_commerce_orders_admin_status_grouping($order);
     
@@ -133,7 +128,8 @@ function fm_commerce_orders_admin() {
 		
 	  $hidden .= fm_commerce_orders_admin_user($order->uid);
 	  $hidden .= fm_commerce_orders_admin_store($store);
-	  $hidden .= fm_commerce_orders_admin_action($order);*/
+	  $hidden .= fm_commerce_orders_admin_action($order);
+    }
 	 
 	}
 	
