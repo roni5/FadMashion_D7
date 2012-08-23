@@ -106,7 +106,7 @@ function v15_fadmashion_commerce_preload() {
 	      'spikeLength' => 6,
 	      'padding' => '5px',
 	      'shrinkToFit' => true,
-		    'width' => '620px',
+		    'width' => '420px',
 	      'cssClass' => 'tooltip'
  );
   beautytips_add_beautytips($options);
