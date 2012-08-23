@@ -20,6 +20,9 @@ jQuery(document).ready(function() {
      })
      .change(function(event) {
 
+    	 //turn off BT
+    	  jQuery('.nav .tooltipBtn').btOff();
+    			
          // Identifies the page selection
     	 var type, id, nid;
     	 var store_id, term, param;

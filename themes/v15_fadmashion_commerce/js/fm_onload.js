@@ -53,7 +53,7 @@ jQuery(document).ready(function() {
 	//Header Beautytips
 	jQuery('.nav .tooltipBtn').bt({
       contentSelector: "subNav($(this));",
-	  trigger: 'mouseover',
+	  trigger: 'none',
 	  positions: ['bottom'],
 	  fill: "rgb(255, 255, 255)", 
       shadow: true,
@@ -69,9 +69,32 @@ jQuery(document).ready(function() {
 	  width: '420px',
 	  cssClass: 'tooltip',
 	  showTip: function(box) {
-		  jQuery(box).fadeIn('fast');
+
+		  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
+		  
+		    var $content = jQuery('.bt-content', box).hide(); /* hide the content until after the animation */
+		    var $canvas = jQuery('canvas', box).hide(); /* hide the canvas for a moment */
+		    var origWidth = $canvas[0].width; /* jQuery's .width() doesn't work on canvas element */
+		    var origHeight = $canvas[0].height;
+		    jQuery(box).show(); /* show the wrapper, however elements inside (canvas, content) are now hidden */
+		    $canvas
+		      .css({opacity: .1, top: 25})
+		      .show()
+		      .animate({ top: 10, opacity: 1}, 'normal', 'easeOutCubic',
+		        function(){$content.show()} /* show the content when animation is done */
+		    );
+
 	  }
 	});
+	
+	jQuery('.nav .tooltipBtn').hover(function () {
+		jQuery(this).btOn();
+	  }, 
+	  function () {
+	    
+	  });
+	
+	jQuery(".tooltip").live("mouseleave", function(){jQuery('.nav .tooltipBtn').btOff(); }); 
 	
 
 });
