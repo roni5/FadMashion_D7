@@ -112,7 +112,7 @@ function fm_commerce_orders_admin() {
     $store = fm_commerce_get_store($product);
     
     
-    var_dump($store);
+    var_dump($order);
     
   
     /*
