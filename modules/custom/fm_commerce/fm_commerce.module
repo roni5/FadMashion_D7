@@ -420,6 +420,8 @@ function fm_commerce_get_order_product($order) {
        break;
     }
   } 
+  
+  return '';
 }
 
 function fm_commerce_get_order_node($order) {
