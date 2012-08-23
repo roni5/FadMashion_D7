@@ -112,11 +112,10 @@ function fm_commerce_orders_admin() {
     $product = fm_commerce_get_order_product($order);
     if($product != '') {
       $store = fm_commerce_get_store($product);
-      var_dump('after');
-    $row_info = fm_commerce_orders_row_info($order);
-    $css_class = fm_commerce_orders_admin_status_grouping($order);
+      $row_info = fm_commerce_orders_row_info($order);
+      $css_class = fm_commerce_orders_admin_status_grouping($order);
     
-		$rows[] = array('data' => array('<div class="order-number">#' . l($order->order_id, 'admin/commerce/orders/' . $order->order_id) . '</div>',
+		  $rows[] = array('data' => array('<div class="order-number">#' . l($order->order_id, 'admin/commerce/orders/' . $order->order_id) . '</div>',
 		                          '<div class="order-date">' . format_date($order->created, 'custom', 'M j Y, g:ia') . '</div>',
 		                          '<span ref="order-user-' . $order->uid. '" class="dotted-hover customer-name">' . fm_users_fullname($order->uid) . '</span>', 
 		                          '<span ref="order-store-' . $store->store_id. '" class="dotted-hover store-name">' . $store->name . '</span>',
@@ -126,12 +125,15 @@ function fm_commerce_orders_admin() {
 		                'class' => array($css_class)
 		);
 		
+		
+		
 	  $hidden .= fm_commerce_orders_admin_user($order->uid);
 	  $hidden .= fm_commerce_orders_admin_store($store);
 	  $hidden .= fm_commerce_orders_admin_action($order);
-    }
-	 
-	}
+	  
+      var_dump('after');
+  }
+}
 	
 	$div = '<div class="orders-admin-table">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) . '</div>';
 	$div .= '<div style="display:none">' . $hidden .'</div>';
