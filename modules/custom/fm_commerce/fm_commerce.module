@@ -415,8 +415,7 @@ function fm_commerce_get_order_product($order) {
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
     switch ($line_item_wrapper->type->value()) {
   		case 'product':
-  		 //$product = $line_item_wrapper->commerce_product->value();
-  		 $product = commerce_product_load(1);
+  		 $product = $line_item_wrapper->commerce_product->value();
        return $product;
        break;
     }
