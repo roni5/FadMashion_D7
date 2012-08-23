@@ -33,8 +33,10 @@
               </div><!-- column-->
               <div class="column"> 
                 <div class="block"><img class="title" alt="New Arrivals" src="<?php print pp();?>title_small_newarrivals.png"><ul><li class="product_type "><a href="/Jewelry?term=2" id="term_2">Jewelry</a></li><li class="product_type "><a href="/Apparel?term=3" id="term_3">Apparel</a></li><li class="product_type child"><a href="/Dresses?term=13" id="term_13">Dresses</a></li><li class="product_type child"><a href="/Tops?term=11" id="term_11">Tops</a></li><li class="product_type child"><a href="/Bottoms?term=12" id="term_12">Bottoms</a></li><li class="product_type "><a href="/Bags?term=1" id="term_1">Bags</a></li><li class="product_type "><a href="/Shoes?term=4" id="term_4">Shoes</a></li></ul></div>
-                <div class="block"><img class="title" alt="Browse By" src="<?php print pp();?>title_small_browse.png"><ul><li class="browse_by "><a href="/Most%20Loved?favorites=all-time" id="all-time">Most Loved</a></li><li class="browse_by "><a href="/My%20Favorites?favorites=my-favorites" id="my-favorites">My Favorites</a></li><li class="browse_by "><a href="/Designers?store_id=all" id="all">Designers</a></li></ul></div> 
               </div><!-- column-->
+              <div class="column">
+                <div class="block"><img class="title" alt="Browse By" src="<?php print pp();?>title_small_browse.png"><ul><li class="browse_by "><a href="/Most%20Loved?favorites=all-time" id="all-time">Most Loved</a></li><li class="browse_by "><a href="/My%20Favorites?favorites=my-favorites" id="my-favorites">My Favorites</a></li><li class="browse_by "><a href="/Designers?store_id=all" id="all">Designers</a></li></ul></div>
+              </div>
              </div><!-- pad-->
            </div><!-- tooltip balloon-->
                                                             
