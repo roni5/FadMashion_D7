@@ -154,7 +154,7 @@ jQuery(document).ready(function() {
             });
 
           } else {
-            dataPage.show();
+            dataPage.fadeIn();
           }
         	
           var newClass;
