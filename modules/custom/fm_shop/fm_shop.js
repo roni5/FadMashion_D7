@@ -447,7 +447,10 @@ function item_next() {
 }
 
 function item_prev() {
-	
+	var active_link = jQuery('.ad-active');
+	var active_item = active_link.parent();
+	var prev_item = active_item.prev();
+	jQuery('a', prev_item).trigger('click');
 }
 
 function autoPagerLoad() {

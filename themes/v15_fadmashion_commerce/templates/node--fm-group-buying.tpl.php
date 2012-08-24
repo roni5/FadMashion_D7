@@ -83,8 +83,8 @@
 <div class="collectionPanel" id="node_<?php print $node->nid?>">
 <div class="product ">
 <div id="itemNav">
-    <a href="javascript:void(0);" onClick="item_next();" class="prev">Previous</a>
-    <a href="javascript:void(0);" onClick="item_prev();" class="next">Next</a>
+    <a href="javascript:void(0);" onClick="item_prev();" class="prev">Previous</a>
+    <a href="javascript:void(0);" onClick="item_next();" class="next">Next</a>
 </div>
     
 <div id="photoBox">
