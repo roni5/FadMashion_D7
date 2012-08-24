@@ -439,7 +439,16 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
+function item_next() {
+	var active_link = jQuery('.ad-active');
+	var active_item = active_link.parent();
+	var next_item = active_item.next();
+	jQuery('a', next_item).trigger('click');
+}
 
+function item_prev() {
+	
+}
 
 function autoPagerLoad() {
 	Drupal.attachBehaviors();
