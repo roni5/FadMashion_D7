@@ -443,14 +443,14 @@ function item_next() {
 	var active_link = jQuery('.ad-active');
 	var active_item = active_link.parent();
 	var next_item = active_item.next();
-	jQuery('a', next_item).trigger('click');
+	jQuery('a.thumb_link', next_item).trigger('click');
 }
 
 function item_prev() {
 	var active_link = jQuery('.ad-active');
 	var active_item = active_link.parent();
 	var prev_item = active_item.prev();
-	jQuery('a', prev_item).trigger('click');
+	jQuery('a.thumb_link', prev_item).trigger('click');
 }
 
 function autoPagerLoad() {
