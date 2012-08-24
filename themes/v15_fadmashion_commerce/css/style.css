@@ -192,6 +192,12 @@ a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
 .designerPanel .social_favorites {position:absolute;right:10px;top:10px;z-index: 1000}
 
 
+#itemNav{position: relative;}
+#itemNav a{position: absolute; width: 29px; height: 29px; display: block; text-indent: -9999px; }
+#itemNav a.prev{background: url(../images/b_itemnav_prev.png) top left no-repeat; top: 200px; left: -45px;}
+#itemNav a.next{background: url(../images/b_itemnav_next.png) top left no-repeat; top: 200px; left: 772px;}
+#itemNav a:hover{background-position: bottom left;}
+
 
 /********* collection page  **********/
 
