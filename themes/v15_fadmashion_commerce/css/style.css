@@ -193,10 +193,10 @@ a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
 
 
 #item_nav{position: relative;}
-#item_nav span{position: absolute; width: 29px; height: 29px; display: block; text-indent: -9999px; }
-#item_nav span{background: url(../images/b_itemnav_prev.png) top left no-repeat; top: 200px; left: -45px;}
-#item_nav span{background: url(../images/b_itemnav_next.png) top left no-repeat; top: 200px; left: 772px;}
-#item_nav span{background-position: bottom left;}
+#item_nav a{position: absolute; width: 29px; height: 29px; display: block; text-indent: -9999px; }
+#item_nav a.prev{background: url(../images/b_itemnav_prev.png) top left no-repeat; top: 200px; left: -45px;}
+#item_nav a.next{background: url(../images/b_itemnav_next.png) top left no-repeat; top: 200px; left: 772px;}
+#item_nav a:hover{background-position: bottom left;}
 
 
 /********* collection page  **********/
