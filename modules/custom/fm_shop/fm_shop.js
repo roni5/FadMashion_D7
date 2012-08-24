@@ -447,7 +447,7 @@ jQuery(document).ready(function() {
 		//Header Beautytips
 		jQuery('#item_nav a').bt({
 	      contentSelector: "item_content(jQuery(this));",
-		  trigger: 'none',
+		  trigger: 'hover',
 		  positions: ['top'],
 		  fill: "rgb(34, 34, 34)", 
 	      shadow: true,
