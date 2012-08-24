@@ -84,7 +84,7 @@ function fm_home_page() {
 function fm_home_get_images($term, $image_style) {
 	$category_images = field_get_items('taxonomy_term', $term, 'field_category_home_image');
 	$images = array();
-	if($category_image) {
+	if($category_images) {
 		foreach($category_images as $category_image) {
       $image_node = node_load($category_image['nid']);
       $image = field_get_items('node', $image_node, 'field_product_image');

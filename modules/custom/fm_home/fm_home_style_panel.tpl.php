@@ -4,6 +4,7 @@ $url = url('shop', array('alias' => true, 'fragment' => '!'));
 $url2 = url($term->name, array('query' => array('term' => $term->tid)));
 $url = $url . $url2;
 
+shuffle($images);
 $default_image = array_shift($images);
 ?>
 <div id="" class="panel big">
