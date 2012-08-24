@@ -151,8 +151,6 @@ jQuery(document).ready(function() {
           	  jQuery(this).fadeIn('slow');
             });
             
-            //Add beautytips to nav
-            bt_item_nav();
           } else {
         	  
           }
@@ -445,6 +443,27 @@ jQuery(document).ready(function() {
 			jQuery('li:not(.selectBox-disabled)', parent).first().addClass('selectBox-selected');
 		  }
 		});
+		
+		//Header Beautytips
+		jQuery('#item_nav a').bt({
+	      contentSelector: "item_content(jQuery(this));",
+		  trigger: 'hover',
+		  positions: ['top'],
+		  fill: "rgb(34, 34, 34)", 
+	      shadow: true,
+		  shadowOffsetX: 3,
+		  shadowOffsetY: 3,
+		  shadowBlur: 8,
+		  shadowColor: 'rgba(0,0,0,.9)',
+		  shadowOverlap: false,
+		  strokeWidth: 2,
+		  spikeLength: 6,
+	      padding: '5px',
+		  shrinkToFit: true,
+		  width: '430px',
+		  cssClass: 'next_prev_tooltip',
+		});
+		
 	  }
 	};
 })(jQuery);
@@ -467,45 +486,6 @@ function item_next() {
 		
 	}
 	
-}
-
-function bt_item_nav() {
-	//Header Beautytips
-	jQuery('#item_nav a').bt({
-      contentSelector: "item_content(jQuery(this));",
-	  trigger: 'none',
-	  positions: ['top'],
-	  fill: "rgb(34, 34, 34)", 
-      shadow: true,
-	  shadowOffsetX: 3,
-	  shadowOffsetY: 3,
-	  shadowBlur: 8,
-	  shadowColor: 'rgba(0,0,0,.9)',
-	  shadowOverlap: false,
-	  strokeWidth: 2,
-	  spikeLength: 6,
-      padding: '5px',
-	  shrinkToFit: true,
-	  width: '430px',
-	  cssClass: 'next_prev_tooltip',
-	  showTip: function(box) {
-
-		  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
-		  
-		    var $content = jQuery('.bt-content', box).hide(); /* hide the content until after the animation */
-		    var $canvas = jQuery('canvas', box).hide(); /* hide the canvas for a moment */
-		    var origWidth = $canvas[0].width; /* jQuery's .width() doesn't work on canvas element */
-		    var origHeight = $canvas[0].height;
-		    jQuery(box).show(); /* show the wrapper, however elements inside (canvas, content) are now hidden */
-		    $canvas
-		      .css({opacity: .1, 'margin-top': '23px'})
-		      .show()
-		      .animate({ 'margin-top': '0px', opacity: 1}, 'normal', 'easeOutCubic',
-		        function(){$content.show()} /* show the content when animation is done */
-		    );
-
-	  }
-	});
 }
 
 function item_prev() {
