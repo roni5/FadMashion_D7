@@ -443,7 +443,13 @@ function item_next() {
 	var active_link = jQuery('.ad-active');
 	var active_item = active_link.parent();
 	var next_item = active_item.next();
-	jQuery('a.thumb_link', next_item).trigger('click');
+	if(next_item) {
+		jQuery('a.thumb_link', next_item).trigger('click');
+	}
+	else {
+		//Check to see if 
+	}
+	
 }
 
 function item_prev() {
