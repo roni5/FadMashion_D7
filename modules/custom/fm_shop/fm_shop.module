@@ -28,7 +28,7 @@ function fm_shop_init() {
 	
 	$options['bt_next_prev_tooltip'] = array(
         'cssSelect' => '#item_nav a',
-        'trigger' => array('hover'),
+        'trigger' => array('hover', 'click'),
 	      'positions' => array('top'),
 	      'contentSelector' => "item_content();",
 	      'fill' => "rgb(35, 35, 35)", 
