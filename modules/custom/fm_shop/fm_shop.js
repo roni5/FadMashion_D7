@@ -499,7 +499,7 @@ function item_content(thisNav) {
 	  nid = jQuery('a.thumb_link', item).attr('id');
 	
 	  var nodeContent = jQuery('.product_content #node_' + nid);
-	  var itemName = jQuery('.itemName', nodeContent);
+	  var itemName = jQuery('.itemName', nodeContent).html();
 	
 	  return '<span>' + title + '</span><div>' + itemName + '</div>';
 	} else {
