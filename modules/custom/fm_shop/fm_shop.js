@@ -471,7 +471,7 @@ function item_next() {
 
 function bt_item_nav() {
 	//Header Beautytips
-	jQuery('.nav .tooltipBtn').bt({
+	jQuery('#item_nav a').bt({
       contentSelector: "subNav($(this));",
 	  trigger: 'none',
 	  positions: ['bottom'],
@@ -487,7 +487,7 @@ function bt_item_nav() {
       padding: '5px',
 	  shrinkToFit: true,
 	  width: '430px',
-	  cssClass: 'tooltip',
+	  cssClass: 'next_prev_tooltip',
 	  showTip: function(box) {
 
 		  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');

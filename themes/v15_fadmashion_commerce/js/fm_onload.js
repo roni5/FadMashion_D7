@@ -51,11 +51,11 @@ jQuery(document).ready(function() {
 	
 	
 	//Header Beautytips
-	jQuery('#item_nav a').bt({
+	jQuery('.nav .tooltipBtn').bt({
       contentSelector: "item_content(jQuery(this));",
 	  trigger: 'none',
 	  positions: ['top'],
-	  fill: "rgb(255, 255, 255)", 
+	  fill: "rgb(35, 35, 35)", 
       shadow: true,
 	  shadowOffsetX: 3,
 	  shadowOffsetY: 3,
@@ -66,8 +66,8 @@ jQuery(document).ready(function() {
 	  spikeLength: 6,
       padding: '5px',
 	  shrinkToFit: true,
-	  width: '300px',
-	  cssClass: 'next_prev_tooltip',
+	  width: '420px',
+	  cssClass: 'tooltip',
 	  showTip: function(box) {
 
 		  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
