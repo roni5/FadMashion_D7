@@ -129,7 +129,7 @@ div.home {margin-top: 0px; }
 .page-home .column{float: left;}
 .smallPanels{float: left; clear: both; width: 1030px;}
 
-a.join{background: url(../images/b_join.jpg) top left no-repeat;  width: 121px; height: 26px; display: block; margin: 0 auto; font-size: 13px; text-indent:-9999px;}
+a.join{background: url(../images/b_join.jpg) top left no-repeat;  width: 121px; height: 26px; display: block; margin: 26px auto; font-size: 13px; text-indent:-9999px;}
 a.join:hover{background-position: bottom left;}
 
 #promoTop{text-align: center; color: #fff;}
