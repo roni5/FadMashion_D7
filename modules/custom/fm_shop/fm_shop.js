@@ -501,7 +501,7 @@ function item_content(thisNav) {
 	  var nodeContent = jQuery('.product_content #node_' + nid);
 	  var itemName = jQuery('.itemName', nodeContent);
 	
-	  return '<span>' + title '</span><div>' + itemName + '</div>';
+	  return '<span>' + title + '</span><div>' + itemName + '</div>';
 	} else {
 		return '';
 	}
