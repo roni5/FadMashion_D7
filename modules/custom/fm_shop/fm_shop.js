@@ -154,7 +154,7 @@ jQuery(document).ready(function() {
             });
 
           } else {
-            dataPage.fadeIn();
+        	  dataPage.fadeTo('slow', 1);
           }
         	
           var newClass;
@@ -290,6 +290,7 @@ jQuery(document).ready(function() {
         	 } else {
         		 data = '';
         	 }
+        	 dataPage.fadeTo('fast', .33);
         	 handler(data, false);
          }
      });
