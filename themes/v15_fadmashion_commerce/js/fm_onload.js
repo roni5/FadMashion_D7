@@ -52,10 +52,10 @@ jQuery(document).ready(function() {
 	
 	//Header Beautytips
 	jQuery('.nav .tooltipBtn').bt({
-      contentSelector: "item_content(jQuery(this));",
+      contentSelector: "subNav($(this));",
 	  trigger: 'none',
-	  positions: ['top'],
-	  fill: "rgb(35, 35, 35)", 
+	  positions: ['bottom'],
+	  fill: "rgb(255, 255, 255)", 
       shadow: true,
 	  shadowOffsetX: 3,
 	  shadowOffsetY: 3,

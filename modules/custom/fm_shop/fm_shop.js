@@ -472,10 +472,10 @@ function item_next() {
 function bt_item_nav() {
 	//Header Beautytips
 	jQuery('#item_nav a').bt({
-      contentSelector: "subNav($(this));",
+      contentSelector: "item_content(jQuery(this));",
 	  trigger: 'none',
-	  positions: ['bottom'],
-	  fill: "rgb(255, 255, 255)", 
+	  positions: ['top'],
+	  fill: "rgb(34, 34, 34)", 
       shadow: true,
 	  shadowOffsetX: 3,
 	  shadowOffsetY: 3,
