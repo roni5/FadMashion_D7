@@ -481,8 +481,26 @@ function item_prev() {
 	}
 }
 
-function item_content() {
-	return 'test';
+function item_content(thisNav) {
+	var active_link = jQuery('.ad-active');
+	var active_item = active_link.parent();
+	
+	var item;
+	var title;
+	if(thisNav.hasClass('prev')) {
+		item = active_item.prev();
+		title = "Previous"
+	} else {
+	    item = active_item.next();
+	    title = "Next";
+	}
+	nid = jQuery('a.thumb_link', item).attr(id);
+	
+	var nodeContent = jQuery('.product_content #node_' + nid);
+	var itemName = jQuery('.itemName', nodeContent);
+	
+	return '<span>' + title '</span>' + itemName;
+	
 }
 
 function autoPagerLoad() {

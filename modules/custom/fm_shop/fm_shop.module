@@ -30,7 +30,7 @@ function fm_shop_init() {
         'cssSelect' => '#item_nav a',
         'trigger' => array('hover', 'click'),
 	      'positions' => array('top'),
-	      'contentSelector' => "item_content();",
+	      'contentSelector' => "item_content(jQuery(this));",
 	      'fill' => "rgb(35, 35, 35)", 
 	      'spikeLength' => 6,
 	      'padding' => '5px',
