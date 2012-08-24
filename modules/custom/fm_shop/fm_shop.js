@@ -165,6 +165,8 @@ jQuery(document).ready(function() {
           //THIS SHOULDNT BE HERE BUT I NEED IT TO SHOW NEXT PREV ITEM 
           //TODO:  Find where it is being disabled.  Something to do with the fact there aren't more than one image
           jQuery('#item_nav a').show();
+          //Do nav items bt logic.
+          
           
           //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
@@ -452,7 +454,15 @@ function item_next() {
 		jQuery('a.thumb_link', next_item).trigger('click');
 	}
 	else {
-		//Check to see if 
+		//Check to see if next pager button is active. If it is, than click it.
+		if(false) {
+			
+        //Else Disable this button
+		} else {
+			
+		}
+		
+		
 	}
 	
 }
