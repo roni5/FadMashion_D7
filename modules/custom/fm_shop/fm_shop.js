@@ -494,12 +494,17 @@ function item_content(thisNav) {
 	    item = active_item.next();
 	    title = "Next";
 	}
-	nid = jQuery('a.thumb_link', item).attr(id);
 	
-	var nodeContent = jQuery('.product_content #node_' + nid);
-	var itemName = jQuery('.itemName', nodeContent);
+	if(item) {
+	  nid = jQuery('a.thumb_link', item).attr(id);
 	
-	return '<span>' + title '</span>' + itemName;
+	  var nodeContent = jQuery('.product_content #node_' + nid);
+	  var itemName = jQuery('.itemName', nodeContent);
+	
+	  return '<span>' + title '</span><div>' + itemName + '</div>';
+	} else {
+		return '';
+	}
 	
 }
 

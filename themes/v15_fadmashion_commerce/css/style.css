@@ -198,6 +198,8 @@ a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
 #item_nav a.next{background: url(../images/b_itemnav_next.png) top left no-repeat; top: 200px; left: 772px;}
 #item_nav a:hover{background-position: bottom left;}
 
+ .next_prev_tooltip {color: #fff;  font-weight: bold; font-size: 10px;}
+  .next_prev_tooltip span {font-style: italic}
 
 /********* collection page  **********/
 
