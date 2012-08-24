@@ -481,6 +481,10 @@ function item_prev() {
 	}
 }
 
+function item_content() {
+	return 'test';
+}
+
 function autoPagerLoad() {
 	Drupal.attachBehaviors();
 	jQuery('#loading_more').hide();
