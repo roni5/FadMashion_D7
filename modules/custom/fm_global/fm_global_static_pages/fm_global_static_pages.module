@@ -40,7 +40,7 @@ function fm_global_static_pages_page() {
 }
 
 function fm_global_static_pages() {
-	return array('about-us' => 'What is Fadmashion?', 'faq' => 'Frequently Asked Questions',  'contact-us' => 'Contact Us', );
+	return array('about-us' => 'New York Love', 'faq' => 'What is Fadmashion?',  'contact-us' => 'Contact Us', );
 }
 
 function fm_global_static_pages_content($pages) {

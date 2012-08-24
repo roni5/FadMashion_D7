@@ -440,16 +440,14 @@ margin-bottom:8px;
 }
 
 /* Global Static Pages */
-.page-static .col2 .pad {padding: 0px !important;  margin-top: 30px;}
+.page-static #contentPanel .pad {padding: 20px;}
 .page-static .pad h2 {display:none;}
-.static_panel {background-color: #fff; min-height: 500px; padding: 30px; }
 
-#faq ul, #faq li {}
-#faq li {line-height: 28px;}
-#faq li a{font-size: 20px;}
-#faq ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
-#faq p {margin: 15px 0}
-#faq h3 {margin-top: 15px;}
+.faq ul {padding-bottom: 15px;border-bottom: 1px solid #DDD;}
+.faq li {padding: 2px 0}
+.faq ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
+.faq p {font-size: 14px;color: #555;}
+.faq h3 {color: #B11C16;font-weight: 100;font-size: 18px;margin: 20px 0 9px 0;}
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
@@ -878,7 +876,7 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 .tooltip  .rightColumn{width: 125px;}
 
 
-.tooltip { color: #000; margin-top: 15px; font-weight: bold; font-size: 10px; width: 410px}
+.tooltip { color: #000; margin-top: 15px; font-weight: bold; font-size: 10px; width: 420px}
 .tooltip .pad{padding: 20px;}
 .tooltip img{margin: 0; float: none; display: block; padding: 0;}
 .tooltip ul{margin: 5px 0 15px 0; padding: 0;  width: 160px; display: block; float: none;}

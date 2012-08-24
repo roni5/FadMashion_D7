@@ -1,7 +1,7 @@
 
 <div class="col1">
   <div class="pad">
-  <h1 style="border: none; margin-top: 0; padding-top: 0px;">ABOUT</h1>
+  <img src="<?php print pp();?>title_small_about.jpg"></img>
   <ul>
   <?php foreach($pages as  $alias => $page) {
   	
