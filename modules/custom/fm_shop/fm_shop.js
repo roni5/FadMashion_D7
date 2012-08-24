@@ -447,7 +447,7 @@ jQuery(document).ready(function() {
 		//Header Beautytips
 		jQuery('#item_nav a').bt({
 	      contentSelector: "item_content(jQuery(this));",
-		  trigger: ['focus','blur']
+		  trigger: ['mouseover','blur'],
 		  positions: ['top'],
 		  fill: "rgb(34, 34, 34)", 
 	      shadow: true,
@@ -472,9 +472,9 @@ jQuery(document).ready(function() {
 			    var origHeight = $canvas[0].height;
 			    jQuery(box).show(); /* show the wrapper, however elements inside (canvas, content) are now hidden */
 			    $canvas
-			      .css({opacity: .1, 'margin-bottom': '23px'})
+			      .css({opacity: .1, 'margin-top': '0px'})
 			      .show()
-			      .animate({ 'margin-bottom': '0px', opacity: 1}, 'normal', 'easeOutCubic',
+			      .animate({ 'margin-top': '25px', opacity: 1}, 'normal', 'easeOutCubic',
 			        function(){$content.show()} /* show the content when animation is done */
 			    );
 
