@@ -452,11 +452,10 @@ function item_next() {
 	var next_item = active_item.next();
 	if(next_item) {
 		jQuery('a.thumb_link', next_item).trigger('click');
-	}
-	else {
+	} else {
 		//Check to see if next pager button is active. If it is, than click it.
-		if(false) {
-			
+		if(!jQuery('#collection_viewer_next').hasClass('disabled')) {
+			jQuery('#collection_viewer_next').trigger('click');
         //Else Disable this button
 		} else {
 			
@@ -471,7 +470,15 @@ function item_prev() {
 	var active_link = jQuery('.ad-active');
 	var active_item = active_link.parent();
 	var prev_item = active_item.prev();
-	jQuery('a.thumb_link', prev_item).trigger('click');
+	if(prev_item) {
+		jQuery('a.thumb_link', prev_item).trigger('click');
+	} else {
+		//Check to see if prev pager button is active. If it is, than click it.
+		if(!jQuery('#collection_viewer_prev').hasClass('disabled')) {
+			jQuery('#collection_viewer_prev').trigger('click');
+        //Else Disable this button
+		} 
+	}
 }
 
 function autoPagerLoad() {
