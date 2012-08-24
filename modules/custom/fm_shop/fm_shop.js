@@ -146,16 +146,15 @@ jQuery(document).ready(function() {
            }
           
           if(newContent) {
-        	dataPage.fadeTo('slow', 1);
-
             jQuery('.thumb_link img').hide()
             .load(function () {
           	  jQuery(this).fadeIn('slow');
             });
 
           } else {
-        	  dataPage.fadeTo('slow', 1);
+        	  
           }
+          dataPage.fadeTo('slow', 1);
         	
           var newClass;
           
@@ -291,6 +290,7 @@ jQuery(document).ready(function() {
         		 data = '';
         	 }
         	 dataPage.fadeTo('fast', .33);
+        	 jQuery('.shopAjaxLoader').show();
         	 handler(data, false);
          }
      });
