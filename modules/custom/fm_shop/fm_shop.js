@@ -173,7 +173,7 @@ jQuery(document).ready(function() {
           jQuery('.col2 .ad-active').each(function() {
  				jQuery(this).removeClass('ad-active');
  		  });
- 		  jQuery('#collection_viewer_' + nid + ' a').addClass('ad-active');
+ 		  jQuery('#collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
           
 
           if(jQuery('#grid_view').length) {
