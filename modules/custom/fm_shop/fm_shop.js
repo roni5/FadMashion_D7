@@ -158,10 +158,10 @@ jQuery(document).ready(function() {
         	
           var newClass;
           
-          jQuery('#contentPanel .ad-active').each(function() {
+          jQuery('.contentPanel .ad-active').each(function() {
 				jQuery(this).removeClass('ad-active');
 		  });
-		  jQuery('#contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
+		  jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
         
           
 
@@ -180,13 +180,13 @@ jQuery(document).ready(function() {
 
           if(jQuery('#grid_view').length) {
         	  if(!event.parameters.nid) {
-        		  jQuery('#contentPanel #grid_view').show();
-        		  jQuery('#contentPanel .collection_viewer').hide();
-        		  jQuery('#contentPanel .product_content').hide();
+        		  jQuery('.contentPanel #grid_view').show();
+        		  jQuery('.contentPanel .collection_viewer').hide();
+        		  jQuery('.contentPanel .product_content').hide();
         	  } else {
-        		  jQuery('#contentPanel #grid_view').hide();
-        		  jQuery('#contentPanel .collection_viewer').fadeIn();
-        		  jQuery('#contentPanel .product_content').fadeIn();
+        		  jQuery('.contentPanel #grid_view').hide();
+        		  jQuery('.contentPanel .collection_viewer').fadeIn();
+        		  jQuery('.contentPanel .product_content').fadeIn();
         		  
         		  var position = jQuery('.collection_viewer').position();
                   //jQuery("html, body").animate({ scrollTop: 220 }, 'slow', "easeOutCubic");
@@ -230,9 +230,9 @@ jQuery(document).ready(function() {
 
          var dataPage;
          if(page || (!jQuery('.col2 #collection_store_' + store_id).length && !jQuery('.col2 #collection_term_' + term).length && !jQuery('.col2 #collection_favorites_' + param).length)) {
-        	 dataPage = jQuery('.page-shop .col2 #contentPanel');
+        	 dataPage = jQuery('.page-shop .col2 .contentPanel');
          } else {
-        	 dataPage = jQuery('.page-shop .col2 #contentPanel .product_content');
+        	 dataPage = jQuery('.page-shop .col2 .contentPanel .product_content');
          }
          
          var fullPath = '';
@@ -491,7 +491,7 @@ function item_next() {
 }
 
 function item_prev() {
-	var active_link = jQuery('#contentPanel .ad-active');
+	var active_link = jQuery('.contentPanel .ad-active');
 	var active_item = active_link.parent();
 	var prev_item = active_item.prev();
 	if(prev_item.length) {
@@ -506,7 +506,7 @@ function item_prev() {
 }
 
 function item_content(thisNav) {
-	var active_link = jQuery('#contentPanel .ad-active');
+	var active_link = jQuery('.contentPanel .ad-active');
 	var active_item = active_link.parent();
 	
 	var item;

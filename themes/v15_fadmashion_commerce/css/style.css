@@ -72,7 +72,7 @@ span {
 #content .col1{width: 207px; float: left;}
 	#content .col1 .pad{padding: 0 20px 0 0;}
 #content .col2{width: 817px; float: left; position: relative}
-#content .col2 #contentPanel{    background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;border-radius: 5px 5px 5px 5px;float: left;width: 817px;}
+#content .col2 .contentPanel{    background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;border-radius: 5px 5px 5px 5px;float: left;width: 817px;}
 #content .sideNavBlock {border-top: 1px solid #CCCCCC;padding: 15px 0; overflow: hidden}
 	
 	
@@ -451,7 +451,7 @@ margin-bottom:8px;
 }
 
 /* Global Static Pages */
-.page-static #contentPanel .pad {padding: 20px;}
+.page-static .contentPanel .pad {padding: 20px;}
 .page-static .pad h2 {display:none;}
 
 .faq ul {padding-bottom: 15px;border-bottom: 1px solid #DDD;}
