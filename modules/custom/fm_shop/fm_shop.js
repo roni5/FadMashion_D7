@@ -447,7 +447,7 @@ jQuery(document).ready(function() {
 		//Header Beautytips
 		jQuery('#item_nav a').once('item_nav_bt_active').bt({
 	      contentSelector: "item_content(jQuery(this));",
-		  trigger: ['mouseover', 'blur'],
+		  trigger: 'hover',
 		  positions: ['top'],
 		  fill: "rgb(34, 34, 34)", 
 	      shadow: true,
@@ -460,7 +460,7 @@ jQuery(document).ready(function() {
 		  spikeLength: 6,
 	      padding: '5px',
 		  shrinkToFit: true,
-		  width: '230px',
+		  width: '150px',
 		  cssClass: 'next_prev_tooltip',
 		  showTip: function(box) {
 
