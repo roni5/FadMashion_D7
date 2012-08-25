@@ -287,7 +287,7 @@ function fm_shop_grid_view($type, $var, $products, $pager = 0) {
 function fm_shop_page_filters() {
 	$filters = array();
 	
-	$term_omit_list = array('Bottoms', 'Hamptons Resort', 'Working It @ Midtown');
+	$term_omit_list = array('Bottoms', 'Shoes','Hamptons Resort', 'Working It @ Midtown');
 	
 	//Get Featured List 
 	$filters['trends']['title'] = '<img class="title" alt="Styles" src="' . pp() .'title_small_styles.png">';
