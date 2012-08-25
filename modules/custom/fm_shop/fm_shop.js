@@ -489,7 +489,7 @@ function item_next() {
 	var active_link = jQuery('.ad-active');
 	var active_item = active_link.parent();
 	var next_item = active_item.next();
-	if(next_item) {
+	if(next_item.length) {
 		jQuery('a.thumb_link', next_item).trigger('click');
 	} else {
 		//Check to see if next pager button is active. If it is, than click it.
@@ -509,7 +509,7 @@ function item_prev() {
 	var active_link = jQuery('.ad-active');
 	var active_item = active_link.parent();
 	var prev_item = active_item.prev();
-	if(prev_item) {
+	if(prev_item.length) {
 		jQuery('a.thumb_link', prev_item).trigger('click');
 	} else {
 		//Check to see if prev pager button is active. If it is, than click it.
@@ -542,6 +542,19 @@ function item_content(thisNav) {
 	
 	  return '<div>' + itemName + '</div>';
 	} else {
+		if(thisNav.hasClass('prev')) {
+		  if(jQuery('#collection_viewer_prev').hasClass('disabled')) {
+		    return '<span>At the Beginning</span>';
+		  } else {
+			return '<span>Previous Page</span>';
+		  }
+		} else {
+			if(jQuery('#collection_viewer_next').hasClass('disabled')) {
+			    return '<span>The End!</span>';
+			  } else {
+				return '<span>Next Page</span>';
+			  }
+		}
 		return '';
 	}
 	
