@@ -459,7 +459,7 @@ jQuery(document).ready(function() {
 		  spikeLength: 6,
 	      padding: '8px',
 		  shrinkToFit: true,
-		  width: '150px',
+		  width: '180px',
 		  cssClass: 'next_prev_tooltip',
 		  /*showTip: function(box) {
 
