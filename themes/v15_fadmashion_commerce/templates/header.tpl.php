@@ -5,8 +5,8 @@
   <div class="right">
     <div class="links">
     <div class="static_links">
-        <a href="<?php print $url?>/about-us">FOR DESIGNERS</a>
-        <a href="<?php print $url?>/about-us">About</a>
+        <a style="border-left: 1px dotted #aaa" href="<?php print $url?>/about-us">FOR DESIGNERS</a>
+   
         </div>
         
         <?php global $user;
@@ -20,7 +20,7 @@
              <?php } ?>
              
         <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
-        
+             <a href="<?php print $url?>/about-us">About</a>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping & hassle-free returns</p></div></div>
         
