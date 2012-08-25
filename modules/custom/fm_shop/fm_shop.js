@@ -172,7 +172,7 @@ jQuery(document).ready(function() {
           //first, select the 
           var thisThumb = jQuery('#' + nid);
           jQuery('.col2 .ad-active').removeClass('ad-active');
- 		  jQuery(thisThumb).addClass('ad-active');
+          thisThumb.addClass('ad-active');
           
 
           if(jQuery('#grid_view').length) {
