@@ -170,7 +170,7 @@ jQuery(document).ready(function() {
           //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
-          var thisThumb = jQuery('#' + nid);
+          var thisThumb = jQuery('.ad-thumb-list #' + nid);
           jQuery('.col2 .ad-active').removeClass('ad-active');
           thisThumb.addClass('ad-active');
           
