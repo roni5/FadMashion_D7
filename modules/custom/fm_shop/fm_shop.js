@@ -170,10 +170,10 @@ jQuery(document).ready(function() {
           //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
-          jQuery('.col2 .ad-active').each(function() {
+          jQuery('#contentPanel .col2 .ad-active').each(function() {
  				jQuery(this).removeClass('ad-active');
  		  });
- 		  jQuery('#collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
+ 		  jQuery('#contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
           
 
           if(jQuery('#grid_view').length) {
@@ -505,7 +505,7 @@ function item_next() {
 }
 
 function item_prev() {
-	var active_link = jQuery('.ad-active');
+	var active_link = jQuery('#contentPanel .ad-active');
 	var active_item = active_link.parent();
 	var prev_item = active_item.prev();
 	if(prev_item.length) {
@@ -520,7 +520,7 @@ function item_prev() {
 }
 
 function item_content(thisNav) {
-	var active_link = jQuery('.ad-active');
+	var active_link = jQuery('#contentPanel .ad-active');
 	var active_item = active_link.parent();
 	
 	var item;
