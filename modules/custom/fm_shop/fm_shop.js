@@ -457,7 +457,7 @@ jQuery(document).ready(function() {
 		  shadowOverlap: false,
 		  strokeWidth: 2,
 		  spikeLength: 6,
-	      padding: '5px',
+	      padding: '8px',
 		  shrinkToFit: true,
 		  width: '150px',
 		  cssClass: 'next_prev_tooltip',
