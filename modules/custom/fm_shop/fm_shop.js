@@ -543,7 +543,7 @@ function item_content(thisNav) {
 	} else {
 		if(thisNav.hasClass('prev')) {
 		  if(jQuery('#collection_viewer_prev').hasClass('disabled')) {
-		    return '<span>At the Beginning</span>';
+		    return '<span>>The Start.</span>';
 		  } else {
 			return '<span>Previous Page</span>';
 		  }
