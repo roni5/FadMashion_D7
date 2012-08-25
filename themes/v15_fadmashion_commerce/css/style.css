@@ -35,7 +35,7 @@ span {
 #header{height: 89px;}
 #subHeader{ background: #fff;}
 
-#header .links {color: #fff; float: left; height: 30px; margin-top: 20px;width: 450px; }
+#header .links {color: #fff; float: left; height: 30px; margin-top: 15px;width: 450px; }
 #header .links a{color: #fff; float: right; margin-left: 20px;font-size: 11px;}
 #header .invite{ font-size: 11px;}
 #header .bag{background: url(../images/icon_bag.png) center left no-repeat; padding: 0 0 0 23px;font-size: 11px;}
