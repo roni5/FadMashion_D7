@@ -472,9 +472,9 @@ jQuery(document).ready(function() {
 			    var origHeight = $canvas[0].height;
 			    jQuery(box).show(); /* show the wrapper, however elements inside (canvas, content) are now hidden */
 			    $canvas
-			      .css({opacity: .1, 'margin-top': '15px'})
+			      .css({opacity: .1, 'margin-top': '8px'})
 			      .show()
-			      .animate({ 'margin-top': '0px', opacity: 1}, 'normal', 'easeOutCubic',
+			      .animate({ 'margin-top': '-5px', opacity: 1}, 'normal', 'easeOutCubic',
 			        function(){$content.show()} /* show the content when animation is done */
 			    );
 
