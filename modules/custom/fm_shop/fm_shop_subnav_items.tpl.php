@@ -10,6 +10,14 @@
     print '</ul>';
 ?>
    </div>
+    <div class="block">
+<?php
+     $filter_group = $filters['browse_by'];
+     print  $filter_group['title'];
+     print '<ul>';
+     print fm_shop_subnav_items_links($filter_group, false);
+    print '</ul>';
+?>
     </div>
     <div class="rightColumn"> 
        <div class="block">
@@ -21,14 +29,7 @@
     print '</ul>';
 ?>
  </div>
- <div class="block">
-<?php
-     $filter_group = $filters['browse_by'];
-     print  $filter_group['title'];
-     print '<ul>';
-     print fm_shop_subnav_items_links($filter_group, false);
-    print '</ul>';
-?>
+
  </div>
     </div>
 </div>
