@@ -443,6 +443,25 @@ jQuery(document).ready(function() {
 		  }
 		});
 		
+		//Header Beautytips
+		jQuery('#item_nav a').bt({
+	      contentSelector: "item_content(jQuery(this));",
+		  trigger: 'hover',
+		  positions: ['top'],
+		  fill: "rgb(34, 34, 34)", 
+	      shadow: true,
+		  shadowOffsetX: 3,
+		  shadowOffsetY: 3,
+		  shadowBlur: 8,
+		  shadowColor: 'rgba(0,0,0,.3)',
+		  shadowOverlap: false,
+		  strokeWidth: 2,
+		  spikeLength: 6,
+	      padding: '8px',
+		  shrinkToFit: true,
+		  width: '150px',
+		  cssClass: 'next_prev_tooltip',
+		});
 		
 	  }
 	};
