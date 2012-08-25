@@ -461,23 +461,23 @@ jQuery(document).ready(function() {
 		  shrinkToFit: true,
 		  width: '150px',
 		  cssClass: 'next_prev_tooltip',
-		  showTip: function(box) {
+		  /*showTip: function(box) {
 
 			  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
 			  
-			    var content = jQuery('.bt-content', box).hide(); /* hide the content until after the animation */
-			    var canvas = jQuery('canvas', box).hide(); /* hide the canvas for a moment */
-			    var origWidth = $canvas[0].width; /* jQuery's .width() doesn't work on canvas element */
+			    var content = jQuery('.bt-content', box).hide(); 
+			    var canvas = jQuery('canvas', box).hide();
+			    var origWidth = $canvas[0].width;
 			    var origHeight = $canvas[0].height;
-			    jQuery(box).show(); /* show the wrapper, however elements inside (canvas, content) are now hidden */
+			    jQuery(box).show();
 			    content
 			      .css({opacity: .1, 'margin-top': '0px'})
 			      .show()
 			      .animate({ 'margin-top': '-7px', opacity: 1}, 'fast', 'easeOutCubic',
-			        function(){$content.css({'margin-top': '-7px'}).show()} /* show the content when animation is done */
+			        function(){$content.css({'margin-top': '-7px'}).show()} 
 			    );
 
-		  }
+		  }*/
 		});
 		
 	  }
