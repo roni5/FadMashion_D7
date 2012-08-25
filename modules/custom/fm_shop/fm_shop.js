@@ -172,7 +172,7 @@ jQuery(document).ready(function() {
           //first, select the 
           jQuery('ul.ad-thumb-list li a').each(function() {
     		   if (jQuery(this).attr('id') == nid) {
-         	     jQuery(this).trigger('click', [true]);
+         	    // jQuery(this).trigger('click', [true]);
     		   } 
           });
           
