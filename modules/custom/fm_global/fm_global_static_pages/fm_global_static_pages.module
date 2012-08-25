@@ -40,7 +40,7 @@ function fm_global_static_pages_page() {
 }
 
 function fm_global_static_pages() {
-	return array('about-us' => 'We &hearts New York', 'faq' => 'What is Fadmashion?',   'designers' => 'FOR DESIGNERS', 'contact-us' => 'Contact Us');
+	return array('about-us' => 'We ♥  New York', 'faq' => 'What is Fadmashion?',   'designers' => 'FOR DESIGNERS', 'contact-us' => 'Contact Us');
 }
 
 function fm_global_static_pages_content($pages) {
