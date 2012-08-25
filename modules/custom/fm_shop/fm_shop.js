@@ -534,7 +534,7 @@ function item_content(thisNav) {
 	    title = "Next";
 	}
 	
-	if(item) {
+	if(item.length) {
 	  nid = jQuery('a.thumb_link', item).attr('id');
 	
 	  var nodeContent = jQuery('.product_content #node_' + nid);
