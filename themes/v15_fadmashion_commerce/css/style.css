@@ -35,8 +35,8 @@ span {
 #header{height: 89px;}
 #subHeader{ background: #fff;}
 
-#header .links {color: #fff; float: left; height: 30px; margin-top: 8px;width: 450px; }
-#header .links a{color: #fff; float: right; margin-left: 20px;line-height: 30px; font-size: 11px;}
+#header .links {color: #fff; float: left; height: 30px; margin-top: 20px;width: 450px; }
+#header .links a{color: #fff; float: right; margin-left: 20px;font-size: 11px;}
 #header .invite{ font-size: 11px;}
 #header .bag{background: url(../images/icon_bag.png) center left no-repeat; padding: 0 0 0 23px;font-size: 11px;}
 #header a.button{float: right; color: #fff; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
@@ -46,7 +46,7 @@ span {
 #header .shipping{color:#CCCCCC;font-family:"jubilat-1","jubilat-2",Georgia;font-style:italic;font-weight:400;font-size: 12px;}
 #header .shipping p{ font-family:"jubilat-1","jubilat-2", Georgia; font-weight: 400; color: #b7b7b7;font-style:italic;}
 #header .shipping span{font-size: 13px;color: #ccc;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
-.shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
+.shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 10px 0 0 0;}
 
 .static_links{border-left: 1px dotted #ddd;padding-left: 3px; margin-left: 3px;}
 

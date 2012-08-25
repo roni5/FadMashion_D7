@@ -5,7 +5,7 @@
   <div class="right">
     <div class="links">
     <div class="static_links">
-        <a style="border-left: 1px dotted #aaa; padding-left: 5px;" href="<?php print $url?>/about-us">FOR DESIGNERS</a>
+        <a style="border-left: 1px dotted #aaa; padding-left: 20px;" href="<?php print $url?>/about-us">For Designers</a>
    
         </div>
         
