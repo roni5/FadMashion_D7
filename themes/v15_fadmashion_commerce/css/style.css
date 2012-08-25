@@ -192,7 +192,7 @@ a.link{position:absolute;height: 150px;width: 200px;display: block;z-index: 10;}
 .designerPanel .social_favorites {position:absolute;right:10px;top:10px;z-index: 1000}
 
 
-#item_nav a.prev, #item_nav a.next {top: 280px; }
+#item_nav a.prev, #item_nav a.next {top: 320px; }
 #item_nav a{position: absolute; width: 29px; height: 29px; display: block; text-indent: -9999px; }
 #item_nav a.prev{background: url(../images/b_itemnav_prev.png) top left no-repeat;  left: -15px;}
 #item_nav a.next{background: url(../images/b_itemnav_next.png) top left no-repeat; left: 804px;}
