@@ -288,8 +288,8 @@ function fm_shop_grid_view($type, $var, $products, $pager = 0) {
 function fm_shop_page_filters() {
 	$filters = array();
 	
-	  
-
+	$term_omit_list = array('Bottoms', 'Hamptons Resort', 'Working It @ Midtown');
+	  \
 	
 	//Get Featured List 
 	$filters['trends']['title'] = '<img class="title" alt="Styles" src="' . pp() .'title_small_styles.png">';
@@ -298,8 +298,10 @@ function fm_shop_page_filters() {
 	$terms = taxonomy_get_tree($vocab->vid);
 	
   foreach ($terms as  $term) {
-    $filters['trends']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
-    $filters['trends']['links']['term_' . $term->tid]['arg'] = 'term'; 
+  	if(!in_array($term->name, $term_omit_list)) {
+      $filters['trends']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
+      $filters['trends']['links']['term_' . $term->tid]['arg'] = 'term';
+  	} 
   }
 
 	//Get Featured List 
@@ -310,9 +312,11 @@ function fm_shop_page_filters() {
 	$terms = taxonomy_get_tree($vocab->vid);
 	
   foreach ($terms as  $term) {
-    $filters['product_type']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
-    $filters['product_type']['links']['term_' . $term->tid]['depth'] = $term->depth;
-    $filters['product_type']['links']['term_' . $term->tid]['arg'] = 'term'; 
+  	if(!in_array($term->name, $term_omit_list)) {
+      $filters['product_type']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
+      $filters['product_type']['links']['term_' . $term->tid]['depth'] = $term->depth;
+      $filters['product_type']['links']['term_' . $term->tid]['arg'] = 'term';
+  	} 
   }
 	
 	
