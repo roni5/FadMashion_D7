@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 	  strokeWidth: 2,
 	  spikeLength: 6,
       padding: '5px',
-	  shrinkToFit: true,
+	  shrinkToFit: false,
 	  width: '430px',
 	  cssClass: 'tooltip',
 	  showTip: function(box) {
