@@ -199,11 +199,6 @@ function fm_shop_page_ajax($type) {
 			  } else {
   				$page = $_GET['page'] + 1;
 			  }
-			
-			  var_dump($page);
-			  var_dump($page * COLLECTION_VIEWER_PAGER);
-			  var_dump($values['total']);
-			  exit();
 			  if($page * COLLECTION_VIEWER_PAGER > $values['total']) {
   				$pager = 0;
 			  } else {
