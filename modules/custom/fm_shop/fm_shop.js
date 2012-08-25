@@ -170,9 +170,10 @@ jQuery(document).ready(function() {
           //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
-          var thisThumb = jQuery('.ad-thumbs #' + nid);
-          jQuery('.col2 .ad-active').removeClass('ad-active');
-          thisThumb.addClass('ad-active');
+          jQuery('.col2 .ad-active').each(function() {
+ 				jQuery(this).removeClass('ad-active');
+ 		  });
+ 		  jQuery('#collection_viewer_' + nid).addClass('ad-active');
           
 
           if(jQuery('#grid_view').length) {
