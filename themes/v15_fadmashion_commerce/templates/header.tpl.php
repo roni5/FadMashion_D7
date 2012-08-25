@@ -15,7 +15,7 @@
              <?php } ?>
              
         <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
-        <div class="static_links"></div>
+        <div class="static_links">
         <a href="<?php print $url?>/about-us">FOR DESIGNERS</a>
         <a href="<?php print $url?>/about-us">About</a>
         </div>
