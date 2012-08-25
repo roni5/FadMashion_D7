@@ -158,6 +158,12 @@ jQuery(document).ready(function() {
         	
           var newClass;
           
+          jQuery('#contentPanel .ad-active').each(function() {
+				jQuery(this).removeClass('ad-active');
+		  });
+		  jQuery('#contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
+        
+          
 
           Drupal.attachBehaviors();
           
@@ -170,11 +176,7 @@ jQuery(document).ready(function() {
           //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
-          jQuery('#contentPanel .ad-active').each(function() {
- 				jQuery(this).removeClass('ad-active');
- 		  });
- 		  jQuery('#contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
-          
+        
 
           if(jQuery('#grid_view').length) {
         	  if(!event.parameters.nid) {
