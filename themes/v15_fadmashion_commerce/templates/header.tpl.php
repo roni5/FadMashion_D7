@@ -15,7 +15,10 @@
              <?php } ?>
              
         <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
+        <div class="static_links"></div>
+        <a href="<?php print $url?>/about-us">FOR DESIGNERS</a>
         <a href="<?php print $url?>/about-us">About</a>
+        </div>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping & hassle-free returns</p></div></div>
         
