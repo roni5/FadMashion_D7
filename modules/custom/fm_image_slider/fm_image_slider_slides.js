@@ -52,7 +52,7 @@ jQuery(document).ready(function() {
 				
 				var full_url = zoomUrl + '_' + node_id;
 				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + full_url + '">Enlarge</a>');
-				 jQuery('.slides_control a').each(function (){ 
+				 jQuery('.slides_control a', this).each(function (){ 
 					 jQuery(this).attr('href', full_url);
 				 });
 		  });
