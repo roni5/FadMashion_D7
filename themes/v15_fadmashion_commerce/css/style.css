@@ -48,6 +48,7 @@ span {
 #header .shipping span{font-size: 13px;color: #ccc;font-family:"jubilat-1","jubilat-2", Georgia;  font-weight: 400; font-style:italic;}
 .shipping p{background: url(../images/icon_heart.png) center left no-repeat; padding-left: 25px;float: right;margin: 20px 0 0 0;}
 
+.static_links{border-left: 1px dotted #ddd;padding-left: 3px; margin-left: 3px;}
 
 .nav{float: left; background: url(../images/sep_logo.png) center left no-repeat;height: 52px; margin: 20px 0 0 30px; padding-left: 30px;}
 .nav li{float: left;height: 69px; margin-right: 34px;}
