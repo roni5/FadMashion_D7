@@ -170,7 +170,9 @@ jQuery(document).ready(function() {
           //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
           //add Address functionality to the collection viewer thumbnails
           //first, select the 
-    		jQuery('ul.ad-thumb-list li a#' + nid + ':visible').trigger('click');
+          var thisThumb = jQuery('ul.ad-thumb-list li a#' + nid);
+          jQuery('.col2 .ad-active').removeClass('ad-active');
+ 		  jQuery(thisThumb).addClass('ad-active');
           
 
           if(jQuery('#grid_view').length) {
@@ -324,7 +326,7 @@ jQuery(document).ready(function() {
        	links.each(function() {
        		jQuery(this).bind('click', function() {
        			jQuery('.col2 .ad-active').each(function() {
-       				jQuery(this).removeClass('ad-active');a
+       				jQuery(this).removeClass('ad-active');
        			});
        			jQuery(this).addClass('ad-active');
                 
@@ -342,13 +344,13 @@ jQuery(document).ready(function() {
 		 }
        	var links = jQuery('.col2 .ad-thumb-list li');
        	links.each(function() {
-       		jQuery('a.thumb_link', jQuery(this)).bind('click', function() {
+       		/*jQuery('a.thumb_link', jQuery(this)).bind('click', function() {
        			jQuery('.col2 .ad-active').each(function() {
        				jQuery(this).removeClass('ad-active');
        			});
        			jQuery(this).addClass('ad-active');
                 
-       		});
+       		});*/
        		/*jQuery(this).hover(
        			function() {
        			  jQuery('.social_favorites img', jQuery(this)).fadeIn('normal'); 
