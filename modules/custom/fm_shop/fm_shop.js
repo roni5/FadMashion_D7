@@ -475,7 +475,7 @@ jQuery(document).ready(function() {
 			      .css({opacity: .1, 'margin-top': '0px'})
 			      .show()
 			      .animate({ 'margin-top': '-15px', opacity: 1}, 'fast', 'easeOutCubic',
-			        function(){$content.show()} /* show the content when animation is done */
+			        function(){$content.css({'margin-top': '-15px'}).show()} /* show the content when animation is done */
 			    );
 
 		  }
