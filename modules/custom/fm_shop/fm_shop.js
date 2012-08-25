@@ -461,23 +461,7 @@ jQuery(document).ready(function() {
 		  shrinkToFit: true,
 		  width: '180px',
 		  cssClass: 'next_prev_tooltip',
-		  showTip: function(box) {
-
-			  //jQuery(box).animate({"margin-top": "4px", 'opacity': 1}, 'slow');
-			  
-			    var content = jQuery('.bt-content', box).hide(); 
-			    var canvas = jQuery('canvas', box).hide();
-			    var origWidth = $canvas[0].width;
-			    var origHeight = $canvas[0].height;
-			    jQuery(box).show();
-			    content
-			      .css({opacity: .1, 'margin-top': '0px'})
-			      .show()
-			      .animate({ 'margin-top': '-7px', opacity: 1}, 'fast', 'easeOutCubic',
-			        function(){$content.css({'margin-top': '-7px'}).show()} 
-			    );
-
-		  }
+		  
 		});
 		
 	  }
