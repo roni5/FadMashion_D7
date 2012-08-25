@@ -454,11 +454,11 @@ margin-bottom:8px;
 .page-static .contentPanel .pad {padding: 20px;}
 .page-static .pad h2 {display:none;}
 
-.page-static div:not(#about) ul {padding-bottom: 15px;border-bottom: 1px solid #DDD;}
-.page-static div:not(#about) li {padding: 2px 0}
-.page-static div:not(#about) ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
-.page-static div:not(#about)  p {font-size: 14px;color: #555;}
-.page-static div:not(#about) h3 {color: #B11C16;font-weight: 100;font-size: 18px;margin: 20px 0 9px 0;}
+.static_page ul {padding-bottom: 15px;border-bottom: 1px solid #DDD;}
+.static_page li {padding: 2px 0}
+.static_page ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
+.static_page p {font-size: 14px;color: #555;}
+.static_page h3 {color: #B11C16;font-weight: 100;font-size: 18px;margin: 20px 0 9px 0;}
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
