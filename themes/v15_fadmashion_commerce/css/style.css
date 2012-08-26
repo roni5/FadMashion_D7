@@ -436,11 +436,11 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #invite_block h3 {font-style: italic; font-size: 12px; font-weight: normal; color: #;}
 #invite_block #explanation {background-color: #fff;font-size: 12px;  text-align: left;  padding: 15px; border: 1px solid #444; overflow: hidden;}
 #invite_block #explanation #col1, #invite_block #explanation #col2 {float: left; width: 46%;}
-#invite_block #explanation #col2 {width: 50%; margin-left: 10px; padding-left: 10px; border-left: 1px dotted #aaa}
+#invite_block #explanation #col2 {width: 50%; margin-left: 10px; padding-left: 15px; border-left: 1px dotted #aaa}
 #invite_block #email {margin-top: 20px; }
 #invite_block #share_link {margin-top: 40px}
 #invite_block .form-text.urlCode{float: left}
-#invite_block #explanation #col2 .column {float: left; padding-left: 10px; width: 140px; }
+#invite_block #explanation #col2 .column {float: left; padding-right: 10px; width: 140px; }
 #invite_block #explanation #col2 .column p{margin-bottom: 10px; }
 #invite_block #explanation #col2 .column h3{font-weight: bold; font-style: normal; color: #111;}
 
@@ -453,7 +453,7 @@ margin-bottom:8px;
 
 /********* invite progress bar **********/
 
-.progressWrapper{ width: 300px; margin: 0 0 20px 0; }
+.progressWrapper{ width: 300px; margin: 20px 0 20px 0; }
 .count{float: right; font-weight:bold; font-size: 14px; line-height:27px;}
 .progressBarOuter{background: #fff; width: 90% ;float: left; border: 1px solid #777; height: 25px;
 -webkit-border-radius: 7px;
