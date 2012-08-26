@@ -144,17 +144,6 @@ jQuery(document).ready(function() {
           	   });  
         	 }
            }
-          
-          if(newContent) {
-            jQuery('.thumb_link img').hide()
-            .load(function () {
-          	  jQuery(this).fadeIn('slow');
-            });
-            
-          } else {
-        	  
-          }
-          dataPage.fadeTo('slow', 1);
         	
           var newClass;
           
@@ -180,6 +169,19 @@ jQuery(document).ready(function() {
           }
           
           Drupal.attachBehaviors();
+          
+
+          
+          if(newContent) {
+            jQuery('.thumb_link img').hide()
+            .load(function () {
+          	  jQuery(this).fadeIn('slow');
+            });
+            
+          } else {
+        	  
+          }
+          dataPage.fadeTo('slow', 1);
           
           //THIS SHOULDNT BE HERE BUT I NEED IT TO SHOW NEXT PREV ITEM 
           //TODO:  Find where it is being disabled.  Something to do with the fact there aren't more than one image
