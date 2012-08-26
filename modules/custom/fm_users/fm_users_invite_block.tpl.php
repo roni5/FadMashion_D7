@@ -9,6 +9,12 @@
 </div>
 <div id="col2">
   <h2>Invite More Earn More</h2>
+  <div class="count">37</div>
+  <div class="progressBarOuter">
+    <div class="progressBarInner">
+    </div>
+  </div>
+        
   <div class="column">
   <h3>New York Local</h3>
   <p>10 friends have joined. $30 credit.</p>
