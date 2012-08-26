@@ -462,8 +462,9 @@ margin-bottom:8px;
 
 .faq h3 {margin: 20px 0 9px 0;}
 
-#node_783 .field-name-body, #webform-client-form-783 {float: left}
-#nod_783 .field-name-field-body-2 {float: right; width: 300px; padding-left: 20px; margin-left: 20px; }
+#node_783 .content_col1 {border-right: 1px dotted #ddd;}
+#node_783 .content_col1, #node_783 .content_col2 {float: left}
+#node_783 .content_col2 { margin-left: 20px; padding-left: 20px }
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
