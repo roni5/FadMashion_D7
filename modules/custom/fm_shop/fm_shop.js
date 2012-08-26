@@ -163,20 +163,6 @@ jQuery(document).ready(function() {
 		  });
 		  jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
         
-          
-
-          Drupal.attachBehaviors();
-          
-          //THIS SHOULDNT BE HERE BUT I NEED IT TO SHOW NEXT PREV ITEM 
-          //TODO:  Find where it is being disabled.  Something to do with the fact there aren't more than one image
-          jQuery('#item_nav a').show();
-          //Do nav items bt logic.
-          
-          
-          //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
-          //add Address functionality to the collection viewer thumbnails
-          //first, select the 
-        
 
           if(jQuery('#grid_view').length) {
         	  if(!event.parameters.nid) {
@@ -192,6 +178,20 @@ jQuery(document).ready(function() {
                   //jQuery("html, body").animate({ scrollTop: 220 }, 'slow', "easeOutCubic");
         	  }
           }
+          
+          Drupal.attachBehaviors();
+          
+          //THIS SHOULDNT BE HERE BUT I NEED IT TO SHOW NEXT PREV ITEM 
+          //TODO:  Find where it is being disabled.  Something to do with the fact there aren't more than one image
+          jQuery('#item_nav a').show();
+          //Do nav items bt logic.
+          
+          
+          //jQuery('.quoteClose .field-items').textfill({ maxFontPixels: 22, innerTag: 'div' }); 
+          //add Address functionality to the collection viewer thumbnails
+          //first, select the 
+        
+
           
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
           jQuery('#collection_viewer_next, #collection_viewer_prev').address();
