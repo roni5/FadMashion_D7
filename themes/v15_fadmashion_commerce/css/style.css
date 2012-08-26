@@ -461,7 +461,7 @@ margin-bottom:8px;
 .page-static .contentPanel  h3 {color: #B11C16;font-weight: 100;font-size: 18px; margin-bottom: 9px;}
 .page-static .contentPanel {font-size: 11px; }
 
-.page-static   .form-text{ background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:24px;line-height:24px; margin:4px 0 0; padding-left:4px; width:230px; }
+.page-static   .form-text, .page-static  .form-file{ background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:24px;line-height:24px; margin:4px 0 0; padding-left:4px; width:230px; }
 
 .faq h3 {margin: 20px 0 9px 0;}
 
