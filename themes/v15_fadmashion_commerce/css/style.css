@@ -458,7 +458,7 @@ margin-bottom:8px;
 .page-static .contentPanel li {padding: 2px 0}
 .page-static .contentPanel ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
 .page-static .contentPanel  p {font-size: 14px;color: #555;}
-.page-static .contentPanel  h3 {color: #B11C16;font-weight: 100;font-size: 18px;}
+.page-static .contentPanel  h3 {color: #B11C16;font-weight: 100;font-size: 18px; margin-bottom: 9px;}
 .page-static .contentPanel {font-size: 11px; }
 
 .faq h3 {margin: 20px 0 9px 0;}
