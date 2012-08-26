@@ -21,6 +21,7 @@
         	<div class="step3">Front Row Seats</div>
         </div>
   </div>
+  <br>
         
   <div class="column">
   <h3>New York Local</h3>
