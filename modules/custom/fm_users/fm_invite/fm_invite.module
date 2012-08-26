@@ -322,7 +322,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	
 	$reg_code_url = fm_invite_get_invite_url($user);
   $params = array(
-    'subject' => 'A Friend has Sent You an Invitation + $10 Free Credits',
+    'subject' => 'Invite to New York Fashion Boutique + $10 Free Credits',
     'fromName' => fm_users_fullname($uid),
     'reg_url' => $reg_code_url,
     'message' => fm_invite_email_message()

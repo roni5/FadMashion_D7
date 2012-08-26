@@ -18,10 +18,6 @@
 <h1 style="font-size:18px;width:auto;margin:9px 0;">We ♥ New York</h1>
 <p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;"><?php print $message;?></p>
 
-<h1 style="font-size:18px;width:auto;margin:9px 0;">$10 Free Credits</h1>
-<p style="margin: 0 0 10px 0; font-size: 14px;color: #221e1b; font-family: Arial, Helvetica, sans-serif; text-align:left;"></p>
-
-
 <div class="signUp" style="float: left; display: block; margin: 20px 0;">
 <img src="<?php print pp(true);?>emails/b_left.jpg" class="buttonEdge" style="border:none;display:block;float:left;"><a href="<?php print $reg_code_url;?>" class="button" style="color:#fff;height:54px;font-size:19px;line-height:54px;padding:0 20px;background:#937c72;text-decoration:none;float:left;">Open Invitation</a><img src="<?php print pp(true)?>emails/b_right.jpg" class="buttonEdge" style="border:none;display:block;float:left;">
 </div>
