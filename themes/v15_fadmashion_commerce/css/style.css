@@ -458,7 +458,9 @@ margin-bottom:8px;
 .static_page li {padding: 2px 0}
 .static_page ul {margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #ddd}
 .static_page p {font-size: 14px;color: #555;}
-.static_page h3 {color: #B11C16;font-weight: 100;font-size: 18px;margin: 20px 0 9px 0;}
+.static_page h3 {color: #B11C16;font-weight: 100;font-size: 18px;}
+
+.faq h3 {margin: 20px 0 9px 0;}
 
 /* Global ACCORDIAN STYLING*/
 .ui-accordion { width: 100%; }
