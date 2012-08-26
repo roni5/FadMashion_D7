@@ -168,8 +168,6 @@ jQuery(document).ready(function() {
         	  }
           }
           
-          Drupal.attachBehaviors();
-          
 
           
           if(newContent) {
@@ -181,7 +179,12 @@ jQuery(document).ready(function() {
           } else {
         	  
           }
-          dataPage.fadeTo('slow', 1);
+          dataPage.fadeTo('fast', 1);
+          
+          
+          Drupal.attachBehaviors();
+          
+
           
           //THIS SHOULDNT BE HERE BUT I NEED IT TO SHOW NEXT PREV ITEM 
           //TODO:  Find where it is being disabled.  Something to do with the fact there aren't more than one image
