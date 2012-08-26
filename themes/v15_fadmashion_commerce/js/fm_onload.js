@@ -182,10 +182,10 @@ function fmValidateInviteForm() {
     	onkeyup: false,
     	wrapper: 'div id="message_box"',
     	submitHandler: function(form) {
-			/*jQuery(form).ajaxSubmit({
+			jQuery(form).ajaxSubmit({
 		        beforeSubmit:  fmInvitesBefore,  // pre-submit callback 
 		        success:       fmIvitesAfter  // post-submit callback 
-			});*/
+			});
 		},
 		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
 		showErrors: showErrorsColorbox
@@ -200,21 +200,18 @@ function fmValidateInviteForm() {
 }
 
 function fmInvitesBefore() {
-	jQuery('.skip-link').hide();
-	jQuery('.invite_state1').hide();
-	jQuery('.invite_state2').show();
+	jQuery('.inviting').fadeIn();
+	jQuery('.invites_sent').hide();
 }
 
 function fmIvitesAfter(responseText, statusText, xhr, $form) {
-		jQuery('.invite_state1').hide();
-		jQuery('.invite_state2').hide();
-		jQuery('.invite_state3').show();
+	jQuery('.inviting').hide();
+	jQuery('.invites_sent').fadeIn();
 }
 
 function fmInvitesRestoreForm() {
-	jQuery('.invite_state1').show();
-	jQuery('.invite_state2').hide();
-	jQuery('.invite_state3').hide();
+	jQuery('.inviting').hide();
+	jQuery('.invites_sent').hide();
 }
 
 

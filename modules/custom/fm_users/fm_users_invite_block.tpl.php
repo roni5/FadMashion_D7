@@ -42,6 +42,8 @@
 <h2>eMail</h2>
 <h3>Invite friends & family by sending them an invitation to their Inbox</h3>
 <?php print render($invite_form); ?>
+<div class="inviting" style="display: none;">Sending Invitations</div>
+<div class="invites_sent" style="display: none;">Invites Sent!</div>
 <script>fmValidateInviteForm();</script>
 </div>
 
