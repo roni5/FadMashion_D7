@@ -5,15 +5,15 @@
 <div id="explanation">
 <div id="col1">
 <h3 style="margin: 0px 0px 10px; font-size: 14px; border-bottom: 1px dotted rgb(221, 221, 221); padding-bottom: 10px;">You currently have <span style="font-size: 20px; color: #A6352F">$0</span> worth of credits</h3>
-   <h2>Friends with Benefits</h2>
-  <p>Invite 10 friends to join, and we will give you $30 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for helping us grow.</p>
+   <h2>Support Local Fashion</h2>
+  <p>Invite 10 friends to join, and we will give you $30 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for supporting local fashion.</p>
 	<br><br>
 	<div class="credits">
 </div>
 
 </div>
 <div id="col2">
-<h2>Invite More Earn More</h2>
+<h2>Invite More, Earn More</h2>
   <div class="progressWrapper">
   <div class="count"><?php $count = fm_invite_get_invite_count(); print $count; $percent = ($count/50) * 100;?></div>
   <div class="progressBarOuter">
