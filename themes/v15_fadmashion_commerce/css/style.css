@@ -464,6 +464,7 @@ margin-bottom:8px;
 .faq h3 {margin: 20px 0 9px 0;}
 
 #node_783 .content_col1 {border-right: 1px dotted #ddd; padding-right: 20px}
+#node_783 .content_col1  .field-name-body {border-bottom: 1px dotted #ddd; padding-bottom: 10px; margin-bottom: 10px}
 #node_783 .content_col1, #node_783 .content_col2 {float: left}
 #node_783 .content_col2 { margin-left: 20px; padding-left: 20px }
 
