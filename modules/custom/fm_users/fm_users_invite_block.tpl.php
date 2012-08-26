@@ -6,7 +6,7 @@
 <div id="col1">
    <h2>Friends with Benefits</h2>
   <p>Invite 10 friends to join, and we will give you $30 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for helping us grow.</p>
-  
+  </div>
 <div id="col2">
 <h2>Invite More Earn More</h2>
   <div class="progressWrapper">
@@ -37,7 +37,6 @@
   </div>
  </div>
 
-</div>
 </div>
 <div id="email">
 <h2>eMail</h2>
