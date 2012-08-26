@@ -71,7 +71,8 @@ function fm_invite_permission() {
 
 function fm_invite_get_invite_count() {
 	global $user;
-	return db_query("SELECT COUNT(*) FROM {fm_invite} where email = :mail", array(':mail' => $user->mail))->fetchField();
+	$id = db_query("SELECT id FROM {fm_invite} where email = :mail", array(':mail' => $user->mail))->fetchField();
+	return db_query("SELECT COUNT(*) FROM {fm_invite} where referred_by_id = :id", array(':id' => $id))->fetchField();
 }
 
 /**
