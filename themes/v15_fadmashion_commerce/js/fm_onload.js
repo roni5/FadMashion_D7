@@ -182,10 +182,10 @@ function fmValidateInviteForm() {
     	onkeyup: false,
     	wrapper: 'div id="message_box"',
     	submitHandler: function(form) {
-			jQuery(form).ajaxSubmit({
+			/*jQuery(form).ajaxSubmit({
 		        beforeSubmit:  fmInvitesBefore,  // pre-submit callback 
 		        success:       fmIvitesAfter  // post-submit callback 
-			});
+			});*/
 		},
 		//Copied from Source files defaultShowErrors function. Added Colorbox functionality --START
 		showErrors: showErrorsColorbox
