@@ -16,7 +16,7 @@
   $obj = $result->fetchObject();
   
   ?>     	  
-    <h1><?php print l($node->title, 'node/' . $node->nid, array('query' => $query_array ));?></h1>
+    <h1><?php print l($product->title, 'node/' . $node->nid, array('query' => $query_array ));?></h1>
    <h2><span><?php node_build_content($node); print render($node->content['field_sale_price']); ?></span></h2>
    <?php print ($obj->count ? '<h3>' . $obj->count . '</h3>': ''); ?>
    </div>
