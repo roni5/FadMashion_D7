@@ -69,6 +69,11 @@ function fm_invite_permission() {
   );
 }
 
+function fm_invite_get_invite_count() {
+	global $user;
+	return db_query("SELECT COUNT(*) FROM {fm_invite} where email = :mail", array(':mail' => $user->mail))->fetchField();
+}
+
 /**
  * Implements hook_mail().
  */

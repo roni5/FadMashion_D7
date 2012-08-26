@@ -10,7 +10,7 @@
 <div id="col2">
 <h2>Invite More Earn More</h2>
   <div class="progressWrapper">
-  <div class="count"><?php $count = 37; print $count; $percent = ($count/50) * 100;?></div>
+  <div class="count"><?php $count = fm_invite_get_invite_count(); print $count; $percent = ($count/50) * 100;?></div>
   <div class="progressBarOuter">
     <div class="progressBarInner" <?php print 'style="width:' . $percent . '%"'?>>
     </div>
