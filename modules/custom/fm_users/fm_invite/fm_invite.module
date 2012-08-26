@@ -156,10 +156,10 @@ function fm_invite_facebook_button($reg_code_url = '') {
   if(empty($reg_code_url)) {
 		$reg_code_url = fm_invite_get_invite_url();
 	}
-  $social_info = fm_social_icons_facebook_info(3);
+  $social_info = fm_social_icons_facebook_info(96);
   
-  $javascript = "javascript:fm_deals_facebookshare( '" . $reg_code_url . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
-	$output = '<a class="btnFacebook" onClick="javascript:void(0);" href="' . $javascript . '">Facebook</a>';
+  $javascript = "javascript:fm_deals_facebookshare( '" . $reg_code_url . "', '" .   $social_info['image_path'] . "', '" . t('Fadmashion is a Brooklyn-based boutique shop that brings the best and newest trends in New York fashion directly to your home. ') . "', '" . t('Invite to New York\'s First Online Fashion Boutique ' ) . "', '" . $social_info['message'] . "');"; 
+	$output = '<a class="btnFacebook" onClick="' . $javascript . '" href="javascript:void(0);">Facebook</a>';
 
 	return $output;
 }
