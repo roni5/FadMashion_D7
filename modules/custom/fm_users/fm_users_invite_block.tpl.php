@@ -42,7 +42,8 @@
 <h2>eMail</h2>
 <h3>Invite friends & family by sending them an invitation to their Inbox</h3>
 <?php print render($invite_form); ?>
-<div class="inviting" style="display: none;">Sending Invitations</div>
+<br>
+<div class="inviting" style="display: none;">Sending Invitations...</div>
 <div class="invites_sent" style="display: none;">Invites Sent!</div>
 <script>fmValidateInviteForm();</script>
 </div>
@@ -52,7 +53,7 @@
 <h3>Copy & Paste the link in an E-mail, IM Message, Facebook or Twitter to invite your friends</h3>
 <div style="margin-top: 10px;">
 <input onClick="this.select()" type="text" id="" name="" value="<?php print $invite_url;?>" class="form-text required urlCode">
-<a class="btnFacebook" href="javascript:void(0);" onClick="javascript:fm_invite_facebookshare( '<?php print fm_invite_get_invite_url();?>', '<?php print $social_info['image_path']; ?>');">Facebook</a>
+<?php print fm_invite_facebook_button();?>
 <a class="btnTwitter" target="_blank" href="http://twitter.com/intent/tweet?text=<?php print fm_invite_twitter_text()?>">Twitter</a>
 </div>
 </div>

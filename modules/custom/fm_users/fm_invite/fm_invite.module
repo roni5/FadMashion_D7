@@ -147,8 +147,21 @@ function fm_invite_twitter_text($reg_code_url = '') {
 	if(empty($reg_code_url)) {
 		$reg_code_url = fm_invite_get_invite_url();
 	}
-	$output = 'Exclusive insider access on the hottest new designers on the planet. Private Invite Right Here! ' . $reg_code_url;
+	$output = 'Exclusive insider access on the hottest new designers on the planet. Plus, $10 Instant Free Credits! ' . $reg_code_url;
 	print urlencode($output);
+}
+
+function fm_invite_facebook_button($reg_code_url = '') {
+	
+  if(empty($reg_code_url)) {
+		$reg_code_url = fm_invite_get_invite_url();
+	}
+  $social_info = fm_social_icons_facebook_info(3);
+  
+  $javascript = "javascript:fm_deals_facebookshare( '" . $reg_code_url . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
+	$output = '<a class="btnFacebook" onClick="javascript:void(0);" href="' . $javascript . '">Facebook</a>';
+
+	return $output;
 }
 
 /**
