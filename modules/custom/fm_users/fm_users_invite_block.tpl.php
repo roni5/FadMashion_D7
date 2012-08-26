@@ -15,6 +15,11 @@
     <div class="progressBarInner">
     </div>
   </div>
+  <div class="labels">
+        	<div class="step1">New York Local</div>
+        	<div class="step2">Fashion Insider</div>
+        	<div class="step3">Front Row Seats</div>
+        </div>
   </div>
         
   <div class="column">

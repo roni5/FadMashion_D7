@@ -453,7 +453,7 @@ margin-bottom:8px;
 
 /********* invite progress bar **********/
 
-.progressWrapper{ width: 300px; margin: 20px 0 20px 0; overflow: hidden }
+.progressWrapper{ width: 300px; margin: 10px 0 10px 0; overflow: hidden }
 .count{float: right; font-weight:bold; font-size: 14px; line-height:27px;}
 .progressBarOuter{background: #fff; width: 90% ;float: left; border: 1px solid #777; height: 25px;
 -webkit-border-radius: 7px;
