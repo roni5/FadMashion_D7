@@ -462,7 +462,7 @@ margin-bottom:8px;
 .page-static .contentPanel {font-size: 11px; }
 
 .page-static   .form-text, .page-static  .form-file{ background:url("../images/bg_field.jpg") repeat-x scroll left top transparent; border:1px solid #CBC1BE; height:24px;line-height:24px; margin:4px 0 0; padding-left:4px; width:230px; }
-.page-static textarea {1px solid #ddd}
+.page-static textarea {border: 1px solid #ddd}
 .faq h3 {margin: 20px 0 9px 0;}
 
 #node_783 .content_col1 {border-right: 1px dotted #ddd; padding-right: 20px; width: 420px;}
