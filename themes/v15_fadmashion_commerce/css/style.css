@@ -436,13 +436,14 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #invite_block h3 {font-style: italic; font-size: 12px; font-weight: normal; color: #;}
 #invite_block #explanation {background-color: #fff;font-size: 12px;  text-align: left;  padding: 15px; border: 1px solid #444; overflow: hidden;}
 #invite_block #explanation #col1, #invite_block #explanation #col2 {float: left; width: 46%;}
-#invite_block #explanation #col2 {width: 50%; position: relative; margin-left: 10px; padding-left: 15px; border-left: 1px dotted #aaa}
-#invite_block #email {margin-top: 20px; }
+#invite_block #explanation #col1 {width: 50%;position: relative; margin-right: 10px; padding-right: 15px; border-right: 1px dotted #aaa}
+
+invite_block #email {margin-top: 20px; }
 #invite_block #share_link {margin-top: 40px}
 #invite_block .form-text.urlCode{float: left}
-#invite_block #explanation #col2 .column {float: left; padding-right: 10px; width: 140px; margin-top: 10px }
-#invite_block #explanation #col2 .column p{margin-bottom: 10px; }
-#invite_block #explanation #col2 .column h3{font-weight: bold; font-style: normal; color: #111;}
+#invite_block #explanation #col1 .column {float: left; padding-right: 10px; width: 140px; margin-top: 10px }
+#invite_block #explanation #col1 .column p{margin-bottom: 10px; }
+#invite_block #explanation #col1 .column h3{font-weight: bold; font-style: normal; color: #111;}
 
 
 #block-views-nodequeue-1-block h2 {
