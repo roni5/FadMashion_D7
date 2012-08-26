@@ -1,7 +1,7 @@
 <div id="invite_block">
 <div class="box">
 
-<h1>Share with Friends, Get Rewarded</h1>
+<h1>Spread the word, Get Rewarded</h1>
 <div id="explanation">
 <div id="col1">
 <h3 style="margin: 0px 0px 10px; font-size: 14px; border-bottom: 1px dotted rgb(221, 221, 221); padding-bottom: 10px;">You currently have <span style="font-size: 20px; color: #A6352F">$0</span> worth of credits</h3>
