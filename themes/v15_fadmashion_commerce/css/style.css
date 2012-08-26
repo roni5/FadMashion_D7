@@ -440,7 +440,7 @@ a.btnFacebook:hover, a.btnTwitter:hover{background-position: bottom left;}
 #invite_block #email {margin-top: 20px; }
 #invite_block #share_link {margin-top: 40px}
 #invite_block .form-text.urlCode{float: left}
-#invite_block #explanation #col2 .column {float: left; padding-right: 10px; width: 140px; }
+#invite_block #explanation #col2 .column {float: left; padding-right: 10px; width: 140px; margin-top: 10px }
 #invite_block #explanation #col2 .column p{margin-bottom: 10px; }
 #invite_block #explanation #col2 .column h3{font-weight: bold; font-style: normal; color: #111;}
 
