@@ -7,17 +7,14 @@ jQuery(document).ready(function() {
 	// Cycle plugin
 	jQuery('.slides').cycle({
 	    fx:     'fade',
-	    speed:   800,
-	    timeout: 70
+	    speed:   750,
 	}).cycle("pause");
 	
 	jQuery('.panel-block').hover(function(){
 		jQuery(this).find('.overlay .shopLink').slideDown();
-		jQuery(this).find('.slides').fadeIn(800, function() {
-			jQuery(this).cycle('resume');
-		})
+		jQuery(this).find('.slides').cycle('resume')
 	}, function(){
-		jQuery(this).find('.slides').fadeOut(800).cycle('stop').cycle({
+		jQuery(this).find('.slides')).cycle('stop').cycle({
 			startingSlide: 1
 	    });
 		jQuery(this).find('.overlay .shopLink').slideUp();
