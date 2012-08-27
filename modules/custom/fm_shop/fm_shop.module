@@ -163,8 +163,12 @@ function fm_shop_page_ajax($type) {
 	      }
 			} else {
 				$shop = fm_commerce_store_load($store_id);
-			  $products = fm_commerce_store_get_products($shop);
-			  $content =  fm_shop_collection_viewer('store', $shop, $products);
+			  $products = fm_shop_products_by_store($shop);
+			  $products = $values['products'];
+			  
+			  //Calculate oager
+			  $pager = fm_shop_calculate_pager($values['total']);
+			  $content =  fm_shop_collection_viewer('store', $shop, $products, $pager);
 			}
 			
 	    break;
@@ -175,7 +179,9 @@ function fm_shop_page_ajax($type) {
 				$content .= 'Sorry no Favorites';
 			} else {
 				$content = fm_shop_grid_view('favorites', $params, $products);
-		    $content .=  fm_shop_collection_viewer('favorites', $params, $products);
+				
+				$pager = fm_shop_calculate_pager(count($products));
+		    $content .=  fm_shop_collection_viewer('favorites', $params, $products, $pager);
 			}
 			
 	    break;
@@ -193,17 +199,8 @@ function fm_shop_page_ajax($type) {
 	      $content = fm_shop_grid_view('term', $term, $products);
 			} 
 			  
-			  //Calculate oager
-			  if(!isset($_GET['page'])) {
-  				$page = 1;
-			  } else {
-  				$page = $_GET['page'] + 1;
-			  }
-			  if($page * COLLECTION_VIEWER_PAGER > $values['total']) {
-  				$pager = 0;
-			  } else {
-  				$pager = $page;
-			  }
+			  
+			  $pager = fm_shop_calculate_pager($values['total']);
 			
    			$content .=  fm_shop_collection_viewer('term', $term, $products, $pager) ;
 			
@@ -228,6 +225,22 @@ function fm_shop_page_ajax($type) {
 	exit();
 }
 
+function fm_shop_calculate_pager($total) {
+   //Calculate oager
+	 if(!isset($_GET['page'])) {
+    	$page = 1;
+	  } else {
+  	  $page = $_GET['page'] + 1;
+		}
+		if($page * COLLECTION_VIEWER_PAGER > $total) {
+  		$pager = 0;
+		} else {
+      $pager = $page;
+	  }
+	  
+	  return $pager;
+}
+
 function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 
 	$content = '';
@@ -235,7 +248,7 @@ function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
 		case 'store':
 			$shop = $var;
 			$content = '<div class="collection_viewer" id = "collection_store_' . $shop->store_id . '">';
-			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'argument' => array('store_id' => $shop->store_id)));
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager, 'argument' => array('store_id' => $shop->store_id)));
 			$content .= '</div>';
 			break;
 		case 'term':
@@ -467,12 +480,40 @@ function fm_shop_products_by_taxonomy($term) {
 	return array('products' => $products_ret, 'total' => $query->pager['total']);
 }
 
+/*
+ * TODO:  THIS IS A COPY OF fm_commerce_store_get_products(), but with different outputs
+ */
+function fm_shop_products_by_store($store) {
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	      ->propertyCondition('status', 1)
+	      ->pager(COLLECTION_VIEWER_PAGER)
+	      ->entityCondition('bundle', 'fm_fashion_product')
+	      ->propertyOrderBy('created', 'DESC');
+	      
+	      
+	      
+	$query->fieldCondition('field_store_reference', 'store_id', $store->store_id);
+	//$query->fieldOrderBy('field_product_weight', 'value', 'ASC');
+	      
+	$products = $query->execute();
+	
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+      $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	}
+	
+	return array('products' => $products_ret, 'total' => $query->pager['total']);
+}
+
 
 
 function fm_shop_products_by_favorites($param) {
 	$products_ret = array();
 	if($param == 'all-time') {
-     $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 10');
+     $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 20');
       while($obj = $result->fetchObject()) {
   		  $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
 	    }
