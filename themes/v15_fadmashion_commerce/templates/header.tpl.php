@@ -5,7 +5,11 @@
   <div class="right">
     <div class="links">
     <div class="static_links">
-        <a style="border-left: 1px dotted #aaa; padding-left: 20px;" href="<?php print $url?>/about-us">For Designers</a>
+    <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
+    <?php  $url2 =  url('for-designers', array('query' => array('page' => 'designers'))); 
+           $designers = $url . $url2
+     ?>
+        <a style="border-left: 1px dotted #aaa; padding-left: 20px;" href="<?php print $designers?>">For Designers</a>
    
         </div>
         
@@ -18,8 +22,6 @@
                <a  id="sign_up" href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a id="login"  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
              <?php } ?>
-             
-        <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
              <a href="<?php print $url?>/about-us">About</a>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping & hassle-free returns</p></div></div>
