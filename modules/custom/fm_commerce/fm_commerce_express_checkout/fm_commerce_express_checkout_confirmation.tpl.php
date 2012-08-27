@@ -26,4 +26,6 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
             <h1>Shipping</h1>
             <?php print render($order_view['commerce_order'][$order->order_id]['commerce_customer_shipping']); ?>
             </div>
+            
+            <div class="button"><?php print l('Back To Shop', 'shop', array('attributes' => array('class' => array('button'))));?></div>
 </div>
