@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
 		jQuery(this).find('.slides').show().cycle('resume');
 	}, function(){
 		jQuery(this).find('.slides').fadeOut(800).cycle('stop').cycle({
-			startingSlide: 1
+			startingSlide: 0
 	    });
 		jQuery(this).find('.overlay .shopLink').slideUp();
      });
