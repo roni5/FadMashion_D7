@@ -19,7 +19,7 @@ $default_image = array_shift($images);
       </div><!-- overlay-->		
       
       <ul class="slides">
-      <?php foreach ($slides as $slide) {
+      <?php foreach ($images as $slide) {
       	print '<li>';
       	print '<img src="' . $slide . '">';
         print '</li>';
