@@ -12,6 +12,7 @@ function fm_home_menu() {
 
 function fm_home_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_home') . '/fm_home.js');
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.cycle.all.js');
 }
 
 function fm_home_theme() {
