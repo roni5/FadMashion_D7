@@ -18,10 +18,12 @@ $default_image = array_shift($images);
       
       <ul class="slides">
       <?php 
-       print '<li><img src="' . $default_image . '"></li>';
       foreach ($images as $slide) {
       	print '<li><img src="' . $slide . '"></li>';
-       }?>
+       }
+        print '<li><img src="' . $default_image . '"></li>';
+        ?>
+       
      </ul>
                 
     </a>

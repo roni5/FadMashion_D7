@@ -13,10 +13,12 @@ jQuery(document).ready(function() {
 	
 	jQuery('.panel-block').hover(function(){
 		jQuery(this).find('.overlay .shopLink').slideDown();
-		jQuery(this).find('.slides').show().cycle('resume');
+		jQuery(this).find('.slides').fadeIn(800, function() {
+			jQuery(this).cycle('resume');
+		})
 	}, function(){
 		jQuery(this).find('.slides').fadeOut(800).cycle('stop').cycle({
-			startingSlide: 0
+			startingSlide: 1
 	    });
 		jQuery(this).find('.overlay .shopLink').slideUp();
      });
