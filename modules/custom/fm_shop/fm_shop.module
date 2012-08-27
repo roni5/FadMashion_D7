@@ -498,6 +498,9 @@ function fm_shop_products_by_store($store) {
 	      
 	$products = $query->execute();
 	
+	var_dump($products);
+	exit();
+	
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
     foreach($products['commerce_product'] as $product_id => $product) {
