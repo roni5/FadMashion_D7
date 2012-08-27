@@ -605,6 +605,8 @@ top:14px;}
 #checkoutSummary #shipping_info{margin-left: 20px;}
 #checkoutSummary #edit-edit {margin: -5px 0;}
 
+#authenticate{min-height: 250px;}
+
 /* Checkout Block */
 #block-fm-commerce-cart-fm-commerce-cart .summary { background:none repeat scroll 0 0 #fff; width: 267px; margin-bottom: 20px;}
 #block-fm-commerce-cart-fm-commerce-cart .summary .header {background: url("../images/bg_panelHeader.jpg") repeat-x scroll left top transparent; padding: 0 12px; height: 36px; line-height: 36px;border-top-left-radius:5px; -webkit-border-top-left-radius: 5px; -moz-border-top-left-radius: 5px;border-top-right-radius:5px; -webkit-border-top-right-radius: 5px; -moz-border-top-right-radius: 5px; color: #fff;}
@@ -688,10 +690,11 @@ top:14px;}
 .orderNumber, .orderNumber a{font-size: 13px;}
 .orderNumber span{padding-right: 15px; border-right: 1px solid #eceae8; margin-right: 15px; display: block; float: left; }
 
-.orderDetails{background: #f9f8f6;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; padding: 10px; float: left; width: 660px;/* border: 1px solid #ded9cf;*/}
+.orderDetails{background: #fff;border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; padding: 10px; float: left; width: 660px;/* border: 1px solid #ded9cf;*/}
 .orderDetails .thumb{width: 90px; border: 1px solid #ddd5ce;}
+.orderDetails .col1 {width: 120px !important;}
 .orderDetails .col1, .orderDetails .col2{float: left;}
-.orderDetails .col2{padding-left: 16px; width: 550px;}
+.orderDetails .col2{padding-left: 16px; width: 480px;}
 .orderDetails .price{float: right; text-align:right; width: 200px;}
 .orderDetails .itemName{border-bottom: 1px solid #ded9cf; margin-bottom: 10px; padding-bottom: 6px;}
 .orderDetails .option{font-size: 12px; margin-bottom: 5px;}
@@ -699,8 +702,8 @@ top:14px;}
 
 .totals{   font-size: 13px;}
 .totals .discount, .totals .tax, .totals .shipping, .totals .total{padding: 3px 0;float: left;}
-.totals .col1{text-align: right; width: 574px; }
-.totals .col2{text-align: right; width: 70px; }
+.totals .col1{text-align: right; width: 574px; float: none !important;}
+.totals .col2{text-align: right; width: 70px; float: none !important;}
 .totals .discount{color: #be4038;}
 .totals .total{font-size: 16px;border-top: 1px solid #ded9cf; margin-top: 5px; padding-top: 8px;}
 
@@ -723,7 +726,7 @@ top:14px;}
 .assistance h1{font-size: 20px; text-align:left;}
 .assistance .form-textarea{padding: 10px; border: 1px solid #ded9cf; resize: none; width: 230px; height: 150px; font-size: 13px;}
 
-.addresses{background: #fff; float: left; font-size: 12px; margin: 15px 0 0 0; line-height: 16px; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+.addresses{ float: left; font-size: 12px; margin: 15px 0 0 0; line-height: 16px; border-radius:5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
 .addresses div{float: left; width: 200px; padding: 0 15px 0 0;}
 .addresses h1{color: #938070; text-transform:uppercase; font-size: 11px; font-weight:700; letter-spacing:1px; margin-bottom: 6px;}
 
