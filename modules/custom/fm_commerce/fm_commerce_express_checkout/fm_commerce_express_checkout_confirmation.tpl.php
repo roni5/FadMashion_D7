@@ -5,7 +5,12 @@
    <h1>Thank You!</h1>
    <h2>Your order has been successfully placed.</h2>
 </div>
-<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'user/orders');?>, or contact us anytime.</div>
+
+<?php $url = url('shop', array('alias' => true, 'fragment' => '!'));
+$url2 = url('static', array('query' => array('page' => 'contact-us')));
+$url = $url . $url2;
+?>
+<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'user/orders');?>, or <a href="<?php print $url; ?>">contact us</a> anytime.</div>
 
 <div class="orderDetails">
      <?php foreach($product_line_items as $product_line_item) {print $product_line_item; print '<br clear="all">'; } ?>
