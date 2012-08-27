@@ -13,9 +13,9 @@ jQuery(document).ready(function() {
 	
 	jQuery('.panel-block').hover(function(){
 		jQuery(this).find('.overlay .shopLink').slideDown();
-		jQuery(this).find('.slides').addClass('active').cycle('resume');
+		jQuery(this).find('.slides').show().cycle('resume');
 	}, function(){
-		jQuery(this).find('.slides').removeClass('active').cycle('stop').cycle({
+		jQuery(this).find('.slides').fadeOut(800).cycle('stop').cycle({
 			startingSlide: 1
 	    });
 		jQuery(this).find('.overlay .shopLink').slideUp();
