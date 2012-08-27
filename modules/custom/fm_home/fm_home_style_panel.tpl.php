@@ -4,8 +4,6 @@ $url = url('shop', array('alias' => true, 'fragment' => '!'));
 $url2 = url($term->name, array('query' => array('term' => $term->tid)));
 $url = $url . $url2;
 
-$slides = $images; 
-
 shuffle($images);
 $default_image = array_shift($images);
 
@@ -19,7 +17,9 @@ $default_image = array_shift($images);
       </div><!-- overlay-->		
       
       <ul class="slides">
-      <?php foreach ($slides as $slide) {
+      <?php 
+       print '<li><img src="' . $default_image . '"></li>';
+      foreach ($images as $slide) {
       	print '<li><img src="' . $slide . '"></li>';
        }?>
      </ul>
