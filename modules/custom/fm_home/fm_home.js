@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
 		jQuery(this).find('.overlay .shopLink').slideDown();
 		jQuery(this).find('.slides').cycle('resume')
 	}, function(){
-		jQuery(this).find('.slides')).cycle('stop').cycle({
+		jQuery(this).find('.slides').cycle('stop').cycle({
 			startingSlide: 1
 	    });
 		jQuery(this).find('.overlay .shopLink').slideUp();
