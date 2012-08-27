@@ -59,7 +59,7 @@ function fm_shop_theme() {
        'template' => 'fm_shop_page_panel_thumb'
     ),
     'fm_shop_page_collection_slider' => array(
-	     'variables' => array('products' => NULL, 'argument' => array(), 'pager' => 0),
+	     'variables' => array('products' => NULL, 'argument' => array(), 'pager' => array()),
        'template' => 'fm_shop_page_collection_slider'
     ),
     'fm_shop_page_grid_view' => array(
@@ -233,15 +233,27 @@ function fm_shop_calculate_pager($total) {
   	  $page = $_GET['page'] + 1;
 		}
 		if($page * COLLECTION_VIEWER_PAGER > $total) {
-  		$pager = 0;
+  		$next = 0;
 		} else {
-      $pager = $page;
+      $next = $page;
 	  }
 	  
-	  return $pager;
+    if(!isset($_GET['page'])) {
+    	$page = 0;
+	  } else {
+  	  $page = $_GET['page'];
+		}
+	  
+    if($page == 0) {
+  		$prev = -1;
+		} else {
+      $prev = $page - 1;
+	  }
+	  
+	  return array('next' => $next, 'prev' => $prev);
 }
 
-function fm_shop_collection_viewer($type, $var, $products, $pager = 0) {
+function fm_shop_collection_viewer($type, $var, $products, $pager = array('next' => 0, 'prev' => -1)) {
 
 	$content = '';
 	switch($type) {
