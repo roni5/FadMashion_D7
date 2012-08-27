@@ -7,7 +7,7 @@ jQuery(document).ready(function() {
 	// Cycle plugin
 	jQuery('.slides').cycle({
 	    fx:     'fade',
-	    speed:   700,
+	    speed:   800,
 	    timeout: 70
 	}).cycle("pause");
 	
