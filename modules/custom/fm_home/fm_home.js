@@ -12,11 +12,9 @@ jQuery(document).ready(function() {
 	
 	jQuery('.panel-block').hover(function(){
 		jQuery(this).find('.overlay .shopLink').slideDown();
-		jQuery('.slides', jQuery(this)).cycle('resume')
+		jQuery('.slides', jQuery(this)).cycle('resume');
 	}, function(){
-		jQuery('.slides', jQuery(this)).cycle('pause').cycle({
-			startingSlide: 1
-	    });
+		jQuery('.slides', jQuery(this)).cycle('pause');
 		jQuery(this).find('.overlay .shopLink').slideUp();
      });
 	
