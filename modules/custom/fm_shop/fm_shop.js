@@ -4,6 +4,8 @@
 
 //global variables for Drupal.behaviors functions
 var contentSelector;
+var request;
+var requestCounter;
 
 jQuery(document).ready(function() {
 	
@@ -260,7 +262,8 @@ jQuery(document).ready(function() {
         	 
          // Loads the page content and inserts it into the content area
          if(page || !jQuery('#cache .' + cacheClass).length) { 
-           jQuery.ajax({
+           if(request) {request.abort();}
+           request = jQuery.ajax({
              url:  fullPath + q + 'ajax/' + type + qParam + args ,
              beforeSend: function() {
 
