@@ -163,7 +163,7 @@ function fm_shop_page_ajax($type) {
 	      }
 			} else {
 				$shop = fm_commerce_store_load($store_id);
-			  $products = fm_shop_products_by_store($shop);
+			  $values = fm_shop_products_by_store($shop);
 			  $products = $values['products'];
 			  
 			  //Calculate oager
@@ -498,8 +498,6 @@ function fm_shop_products_by_store($store) {
 	      
 	$products = $query->execute();
 	
-	var_dump($products);
-	exit();
 	
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
