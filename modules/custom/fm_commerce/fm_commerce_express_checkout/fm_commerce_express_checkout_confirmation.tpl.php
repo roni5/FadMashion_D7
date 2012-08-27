@@ -6,8 +6,8 @@
    <h2>Your order has been successfully placed.</h2>
 </div>
 
-<?php $url = url('shop', array('alias' => true, 'fragment' => '!'));
-$url2 = url('static', array('query' => array('page' => 'contact-us')));
+<?php $url = url('static', array('alias' => true, 'fragment' => '!'));
+$url2 = url('contact-us', array('query' => array('page' => 'contact-us')));
 $url = $url . $url2;
 ?>
 <div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'user/orders');?>, or <a href="<?php print $url; ?>">contact us</a> anytime.</div>
