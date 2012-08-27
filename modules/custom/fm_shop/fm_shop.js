@@ -5,7 +5,7 @@
 //global variables for Drupal.behaviors functions
 var contentSelector;
 var request;
-var requestCounter;
+var requestCounter=0;
 
 jQuery(document).ready(function() {
 	
@@ -263,10 +263,12 @@ jQuery(document).ready(function() {
          // Loads the page content and inserts it into the content area
          if(page || !jQuery('#cache .' + cacheClass).length) { 
            if(request) {request.abort();}
+           var token = ++requestCounter;
+           
            request = jQuery.ajax({
              url:  fullPath + q + 'ajax/' + type + qParam + args ,
              beforeSend: function() {
-
+ 
             	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
                  jQuery('.shopAjaxLoader').show();
                  if(dataPage.html()) {
@@ -280,7 +282,7 @@ jQuery(document).ready(function() {
                  handler(XMLHttpRequest.responseText);
              },
              success: function(data, textStatus, XMLHttpRequest) {
-
+            	 if (token != requestCounter) return;
             	 //Add to Cache
                  if(!jQuery('#cache .' + cacheClass).length) {
                	   newClass =  '<div class="' + cacheClass + '"></div>';
