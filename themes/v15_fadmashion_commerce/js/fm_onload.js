@@ -80,7 +80,7 @@ jQuery(document).ready(function() {
 		    $canvas
 		      .css({opacity: .1, 'margin-top': '23px'})
 		      .show()
-		      .animate({ 'margin-top': '0px', opacity: 1}, 'normal', 'easeOutCubic',
+		      .animate({ 'margin-top': '0px', opacity: 1}, 'fast', 'easeOutCubic',
 		        function(){$content.show()} /* show the content when animation is done */
 		    );
 
