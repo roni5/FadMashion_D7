@@ -506,6 +506,9 @@ function fm_shop_products_by_store($store) {
 	  }
 	}
 	
+	var_dump($products_ret);
+	exit();
+	
 	return array('products' => $products_ret, 'total' => $query->pager['total']);
 }
 
