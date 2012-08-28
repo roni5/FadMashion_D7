@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Template when sending a message to friends.

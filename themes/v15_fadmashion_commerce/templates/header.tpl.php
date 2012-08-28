@@ -17,11 +17,12 @@
             if ($user->uid) { ?>
                 
                 <?php print l('Logout', 'user/logout');?>
-               <?php print l('+ Invite Friends', 'user/share-with-friends');?>
+               <?php //print l('+ Invite Friends', 'user/share-with-friends');?>
              <?php } else{ ?>
                <a  id="sign_up" href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
                <a id="login"  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
              <?php } ?>
+             <a href="http://blog.fadmashion.com">Blog</a>
              <a href="<?php print $url?>/about-us">About</a>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping & hassle-free returns</p></div></div>
@@ -34,8 +35,8 @@
         <li class="<?php $is_front ? print 'active' : ''?>"><?php print l('Home', 'home', array('attributes' => array('class' => array('home') )));?></li>
         <li class="<?php arg(0) == 'shop' ? print 'active' : ''?>"><a href="javascript: void(0)" class="tooltipBtn">Shop</a></li>
          <?php print fm_shop_subnav_items();?>
-                                                            
-        <li><a href="http://blog.fadmashion.com">Blog</a> </li>             
+         <li><?php print l('Share', 'user/share-with-friends')?></li>                                                  
+        <li> </li>             
       </ul>
     </div>
 </div>
