@@ -186,7 +186,7 @@ jQuery(document).ready(function() {
           try {
             Drupal.attachBehaviors();
           } catch(err) {
-        	 alert('error');
+        	 //alert('error');
           }
           
           
