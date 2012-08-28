@@ -29,16 +29,9 @@ jQuery(document).ready(function() {
            }
          });
     	 
-    	 if(event.parameters.jump) {
-        	 jump = event.parameters.jump;
-        	 jQuery.scrollTo('#' + jump);
-         } else {
-        	 jump = '';
-         }
-    	 
     	 data = jQuery('#cache .' + static_id).html();
      	
-    	 if(!jump) {
+    	 if(!event.parameters.jump) {
     	   jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
     	 }
       	
@@ -46,6 +39,15 @@ jQuery(document).ready(function() {
       	dataPage.hide();
      	dataPage.html(data);
      	dataPage.fadeTo('fast', 1);
+     	
+
+   	 
+   	    if(event.parameters.jump) {
+       	 jump = event.parameters.jump;
+       	 jQuery.scrollTo('#' + jump);
+        } else {
+       	 jump = '';
+        }
     	 
      	
      });
