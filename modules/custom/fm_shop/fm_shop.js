@@ -183,8 +183,12 @@ jQuery(document).ready(function() {
           }
           dataPage.fadeTo('fast', 1);
           
+          try {
+            Drupal.attachBehaviors();
+          } catch {
+        	 alert('error');
+          }
           
-          Drupal.attachBehaviors();
           
 
           
