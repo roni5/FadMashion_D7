@@ -13,7 +13,7 @@
         <div class="ad-thumbs">
           
           
-            <ul class="ad-thumb-list">
+            <ul class="ad-thumb-list jcarousel-skin-tango">
             <?php 
             foreach($products as $product) {
             	$img =  fm_commerce_product_image_thumb($product, 'fm_thumb_product_image', array('style' => 'height: '. $height . 'px; width: ' . $width . 'px;'));

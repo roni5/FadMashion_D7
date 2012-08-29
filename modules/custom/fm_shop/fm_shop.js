@@ -331,24 +331,8 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 
-          var slider = jQuery('.ad-thumb-list').once('slider_proccessed').bxSlider({
-              displaySlideQty: 11,
-              moveSlideQty: 3,
-              infiniteLoop: false, 
-              controls: false
-           });
+          var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel();
           
-          jQuery('.ad-thumb-list').css('left', '-425px');
-          
-
-          jQuery('#collection_viewer_prev').click(function(){
-        	    slider.goToPreviousSlide();
-        	    return false;
-        	  });
-          jQuery('#collection_viewer_next').click(function(){
-      	    slider.goToNextSlide();
-      	    return false;
-      	  });
           
           /*jQuery('#collection_viewer_next, #collection_viewer_prev').address();
           jQuery('#collection_viewer_next, #collection_viewer_prev').each(function() {

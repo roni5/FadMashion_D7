@@ -27,8 +27,8 @@ function fm_shop_menu() {
 
 function fm_shop_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_shop') . '/fm_shop.js');
-	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.bxSlider.min.js');
-	
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.jcarousel.min.js');
+	drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/tango/skin.css');
 	/*$options['bt_next_prev_tooltip'] = array(
         'cssSelect' => '#item_nav a',
         'trigger' => array('mouseover', 'blur'),
