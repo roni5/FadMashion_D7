@@ -2,7 +2,7 @@
 <?php 
   $more_query_array = array_merge($argument, array('page' => $pager['next']));
   $prev_query_array = array_merge($argument, array('page' => $pager['prev']));
-  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev', 'class' => array( ($pager['prev'] != -1 ? '' : 'disabled') )), 'query' => $prev_query_array));
+  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev', 'class' => array(), 'query' => $prev_query_array));
 ?>
 
 <div id="gallery" class="ad-gallery">
@@ -37,6 +37,6 @@
 
       
 <?php 
- print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next', 'class' => array(($pager['next'] ? '' : 'disabled'))), 'query' => $more_query_array));
+ print  l(t('Next'), 'more', array('attributes' => array('id' => 'collection_viewer_next', 'class' => array()), 'query' => $more_query_array));
 ?>
 
