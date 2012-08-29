@@ -178,6 +178,11 @@ jQuery(document).ready(function() {
           	  jQuery(this).fadeIn('slow');
             });
             
+            jQuery('.ad-thumb-list').bxSlider({
+                displaySlideQty: 6,
+                moveSlideQty: 2
+             });
+            
           } else {
         	  
           }
