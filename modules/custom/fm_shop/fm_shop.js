@@ -333,21 +333,8 @@ jQuery(document).ready(function() {
 
           var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
+        	  scroll: 5,
           });
-          
-          
-          /*jQuery('#collection_viewer_next, #collection_viewer_prev').address();
-          jQuery('#collection_viewer_next, #collection_viewer_prev').each(function() {
-        	  if(jQuery(this).hasClass('disabled')) {
-        		jQuery(this).bind('click', function() {
-           			return false;
-           		});  
-        	  } else {
-        	    jQuery(this).address();
-        	  }
-        	
-          });
-          */
           
 		  
        	
