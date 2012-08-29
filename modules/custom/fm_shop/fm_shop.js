@@ -334,6 +334,7 @@ jQuery(document).ready(function() {
           var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
         	  itemLoadCallback: mycarousel_itemLoadCallback,
+        	  size: 40,
         	  scroll: 6,
         	  easing: 'easeOutCubic'
           });

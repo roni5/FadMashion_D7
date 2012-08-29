@@ -266,7 +266,7 @@ function fm_shop_page_content($params, $type) {
 	 }
 	}
 	
-	return array('view' => $content, 'node_content' => $node_content);
+	return array('view' => $content, 'node_content' => $node_content, 'total_size' => $values['total']);
 }
 
 function fm_shop_calculate_pager($total) {
