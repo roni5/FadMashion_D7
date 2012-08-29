@@ -2,7 +2,7 @@
 <?php 
   $more_query_array = array_merge($argument, array('page' => $pager['next']));
   $prev_query_array = array_merge($argument, array('page' => $pager['prev']));
-  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev', 'class' => array(), 'query' => $prev_query_array));
+  print  l(t('Prev'), 'more', array('attributes' => array('id' => 'collection_viewer_prev', 'class' => array(), 'query' => $prev_query_array)));
 ?>
 
 <div id="gallery" class="ad-gallery">
