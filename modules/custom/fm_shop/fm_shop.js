@@ -331,7 +331,9 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 
-          var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel();
+          var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
+        	  initCallback: mycarousel_initCallback,
+          });
           
           
           /*jQuery('#collection_viewer_next, #collection_viewer_prev').address();
@@ -352,6 +354,18 @@ jQuery(document).ready(function() {
 	  }
 	};
 })(jQuery);
+
+function mycarousel_initCallback(carousel) {
+	 jQuery('#collection_viewer_next').bind('click', function() {
+	        carousel.next();
+	        return false;
+	    });
+
+	    jQuery('#collection_viewer_prev').bind('click', function() {
+	        carousel.prev();
+	        return false;
+	    });
+}
 
 (function ($) {
 	Drupal.behaviors.collectionViewer = {
