@@ -335,7 +335,7 @@ jQuery(document).ready(function() {
               displaySlideQty: 11,
               moveSlideQty: 3,
               infiniteLoop: false, 
-              controls: false
+              controls: true
            });
           
 
