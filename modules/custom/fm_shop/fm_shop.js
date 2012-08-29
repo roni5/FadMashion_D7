@@ -178,10 +178,6 @@ jQuery(document).ready(function() {
           	  jQuery(this).fadeIn('slow');
             });
             
-            jQuery('.ad-thumb-list').bxSlider({
-                displaySlideQty: 6,
-                moveSlideQty: 2
-             });
             
           } else {
         	  
@@ -210,15 +206,6 @@ jQuery(document).ready(function() {
 
           
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
-          jQuery('#collection_viewer_next, #collection_viewer_prev').address();
-          jQuery('#collection_viewer_next, #collection_viewer_prev').each(function() {
-        	  if(jQuery(this).hasClass('disabled')) {
-        		jQuery(this).bind('click', function() {
-           			return false;
-           		});  
-        	  } else {
-        	    jQuery(this).address();
-        	  }
           });
           jQuery('#grid h1 a, #grid a.thumb_link').address();
           
@@ -333,6 +320,44 @@ jQuery(document).ready(function() {
             });
        	
        	
+       	
+	  }
+	};
+})(jQuery);
+
+(function ($) {
+	Drupal.behaviors.sliderFunctionality = {
+	  attach: function (context, settings) {
+		  if(!jQuery(".ad-thumb-list").length) {
+		    	return;
+		  }
+
+          var slider = jQuery('.ad-thumb-list').once('slider').bxSlider({
+              displaySlideQty: 6,
+              moveSlideQty: 2,
+              controls: false
+           });
+          
+
+          jQuery('#collection_viewer_prev').click(function(){
+        	    slider.goToPreviousSlide();
+        	    return false;
+        	  });
+          jQuery('#collection_viewer_next').click(function(){
+      	    slider.goToNextSlide();
+      	    return false;
+      	  });
+          
+          /*jQuery('#collection_viewer_next, #collection_viewer_prev').address();
+          jQuery('#collection_viewer_next, #collection_viewer_prev').each(function() {
+        	  if(jQuery(this).hasClass('disabled')) {
+        		jQuery(this).bind('click', function() {
+           			return false;
+           		});  
+        	  } else {
+        	    jQuery(this).address();
+        	  }*/
+		  
        	
 	  }
 	};
