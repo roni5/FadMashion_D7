@@ -332,8 +332,8 @@ jQuery(document).ready(function() {
 		  }
 
           var slider = jQuery('.ad-thumb-list').once('slider').bxSlider({
-              displaySlideQty: 6,
-              moveSlideQty: 2,
+              displaySlideQty: 11,
+              moveSlideQty: 3,
               controls: false
            });
           
