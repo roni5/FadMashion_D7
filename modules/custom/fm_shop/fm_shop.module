@@ -97,6 +97,25 @@ function fm_shop_page() {
 
 function fm_shop_page_ajax($type) {
 	
+	$cache_key = 'test_shop';
+	if ($cached_data = cache_get($cache_key)) {
+    //Return from cache.
+    $content = $cached_data->data;
+    print $content;
+	  exit();
+	  
+  } else {
+  	$content = fm_shop_page_content($type);
+  }
+
+	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
+	
+	print $content;
+	exit();
+}
+
+function fm_shop_page_content($type) {
+	
 	$type = 'favorites';
 	$params = 'all-time';
 	
@@ -195,7 +214,7 @@ function fm_shop_page_ajax($type) {
 			$content = '';
 			
 			$trend_image = field_get_items('taxonomy_term', $term, 'field_trend_image');
-			if($trend_image) {
+			if($trend_image && !isset($page)) {
 				//GRID VIEW
 	      $trend_image = $trend_image[0];
 	      $content = fm_shop_grid_view('term', $term, $products);
@@ -223,8 +242,7 @@ function fm_shop_page_ajax($type) {
 	$content .= $node_content;
 	$content .= '</div>';
 	
-	print $content;
-	exit();
+	return $content;
 }
 
 function fm_shop_calculate_pager($total) {
