@@ -333,7 +333,7 @@ jQuery(document).ready(function() {
 
           var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
-        	  scroll: 5,
+        	  scroll: 6,
           });
           
 		  
