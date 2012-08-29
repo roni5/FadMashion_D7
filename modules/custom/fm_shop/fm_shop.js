@@ -206,7 +206,6 @@ jQuery(document).ready(function() {
 
           
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
-          });
           jQuery('#grid h1 a, #grid a.thumb_link').address();
           
           //Make all press links open in new window
@@ -356,7 +355,11 @@ jQuery(document).ready(function() {
            		});  
         	  } else {
         	    jQuery(this).address();
-        	  }*/
+        	  }
+        	
+          });
+          */
+          
 		  
        	
 	  }
