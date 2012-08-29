@@ -335,7 +335,7 @@ jQuery(document).ready(function() {
               displaySlideQty: 11,
               moveSlideQty: 3,
               infiniteLoop: false, 
-              controls: true
+              controls: false
            });
           
           jQuery('.ad-thumb-list').css('left', '-425px');
