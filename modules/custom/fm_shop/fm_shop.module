@@ -478,7 +478,7 @@ function fm_shop_products_by_taxonomy($term) {
 	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
     ->fieldCondition($field, 'tid', $tids) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
-    ->pager(COLLECTION_VIEWER_PAGER)
+    ->pager(GRID_VIEWER_PAGER)
     ->propertyCondition('status', 1)
     ->propertyOrderBy('created', 'DESC');
     
@@ -501,7 +501,7 @@ function fm_shop_products_by_store($store) {
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	      ->propertyCondition('status', 1)
-	      ->pager(GRID_VIEWER_PAGER)
+	      ->pager(COLLECTION_VIEWER_PAGER)
 	      ->entityCondition('bundle', 'fm_fashion_product')
 	      ->propertyOrderBy('created', 'DESC');
 	      
