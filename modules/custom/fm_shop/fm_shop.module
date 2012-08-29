@@ -97,35 +97,17 @@ function fm_shop_page() {
 
 function fm_shop_page_ajax($type) {
 	
-	$cache_key = 'test_shop';
-	if ($cached_data = cache_get($cache_key)) {
-    //Return from cache.
-    $content = $cached_data->data;
-    print $content;
-	  exit();
-	  
-  } else {
-  	$content = fm_shop_page_content($type);
-  }
-
-	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
-	
-	print $content;
-	exit();
-}
-
-function fm_shop_page_content($type) {
-	
+		
 	$type = 'favorites';
 	$params = 'all-time';
 	
 	if(isset($_GET['store_id']) && $_GET['store_id'] != '' ) {
-		$store_id = $_GET['store_id'];
+		$params = $_GET['store_id'];
 		$type = 'shop';
 	} 
 	
    if(isset($_GET['term']) && $_GET['term'] != '' ) {
-		$tid = $_GET['term'];
+		$params = $_GET['term'];
 		$type = 'term';
    }
    
@@ -135,6 +117,28 @@ function fm_shop_page_content($type) {
    }
 	
 	$page = $_GET['page'];
+	
+	if($page == 0) { $page = '';}
+	
+	$cache_key =  $type . '_' . $params . '_page' . $page;
+	if ($cached_data = cache_get($cache_key)) {
+    //Return from cache.
+    $content = $cached_data->data;
+    print $content;
+	  exit();
+	  
+  } else {
+  	$content = fm_shop_page_content($params, $type);
+  }
+
+	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
+	
+	print $content;
+	exit();
+}
+
+function fm_shop_page_content($params, $type) {
+
 	
 	switch($type) {
 		case 'all':
@@ -161,7 +165,7 @@ function fm_shop_page_content($type) {
     	    
 	    break;
 		case 'shop':
-			if($store_id == 'all') {
+			if($params == 'all') {
 			  $filters = fm_shop_page_filters();
 			  $content = '<div id="all">';
 	      $panels = fm_shop_page_all_panels($filters);
@@ -183,7 +187,7 @@ function fm_shop_page_content($type) {
 	    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: autoPagerLoad, start: autoPagerStart });});</script>';
 	      }
 			} else {
-				$shop = fm_commerce_store_load($store_id);
+				$shop = fm_commerce_store_load($params);
 			  $values = fm_shop_products_by_store($shop);
 			  $products = $values['products'];
 			  
@@ -208,7 +212,7 @@ function fm_shop_page_content($type) {
 	    break;
 	    
 		case 'term':
-			$term = taxonomy_term_load($tid);
+			$term = taxonomy_term_load($params);
 			$values = fm_shop_products_by_taxonomy($term);
 			$products = $values['products'];
 			$content = '';
