@@ -366,9 +366,14 @@ function mycarousel_itemLoadCallback(carousel, state)
         return;
     }
 
-    jQuery.get(ajaxPath,
+    jQuery.get(
+    		ajaxPath,
+        {
+            first: carousel.first,
+            last: carousel.last
+        },
         function(xml) {
-            //mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
+            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
         },
         'xml'
     );
