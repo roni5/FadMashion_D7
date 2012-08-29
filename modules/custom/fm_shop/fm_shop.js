@@ -6,6 +6,7 @@
 var contentSelector;
 var request;
 var requestCounter=0;
+var ajaxPath;
 
 jQuery(document).ready(function() {
 	
@@ -259,9 +260,10 @@ jQuery(document).ready(function() {
          if(page || !jQuery('#cache .' + cacheClass).length) { 
            if(request) {request.abort();}
            var token = ++requestCounter;
-           
+           ajaxPath = fullPath + q + 'ajax/' + type + qParam + args;
+        	   
            request = jQuery.ajax({
-             url:  fullPath + q + 'ajax/' + type + qParam + args ,
+             url:  ajaxPath,
              beforeSend: function() {
  
             	 jQuery("html, body").animate({ scrollTop: 0 }, 'slow', "easeOutCubic");
@@ -363,28 +365,10 @@ function mycarousel_itemLoadCallback(carousel, state)
     if (carousel.has(carousel.first, carousel.last)) {
         return;
     }
-    
-    var q = '/';
-    var qParam = '?';
-    if(event.parameters.q) {
-   	  q = '?q=shop/';
-   	  qParam = '&';
-    }
-    
-    if(location.pathname == '/') {
-   	 fullPath = 'http://' + location.host + location.pathname + '/shop';
-    } else {
-   	 fullPath =  location.pathname ;
-    }
 
-    jQuery.get(
-    		fullPath + q + 'ajax/' + type + qParam + args,
-        {
-            first: carousel.first,
-            last: carousel.last
-        },
+    jQuery.get(ajaxPath,
         function(xml) {
-            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
+            //mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
         },
         'xml'
     );
