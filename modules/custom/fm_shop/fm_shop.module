@@ -16,7 +16,14 @@ function fm_shop_menu() {
   $items['shop/ajax/%'] = array(
     'page callback' => 'fm_shop_page_ajax',
 	  'access arguments' => array('view deals'), 
-    'page arguments' => array(2, 3),
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['shop/carousel/%'] = array(
+    'page callback' => 'fm_shop_carousel_ajax',
+	  'access arguments' => array('view deals'), 
+    'page arguments' => array(2),
     'type' => MENU_CALLBACK,
   );
   
@@ -98,7 +105,37 @@ function fm_shop_page() {
 
 function fm_shop_page_ajax($type) {
 	
-		
+	$args = fm_shop_page_args();
+	$params = $args['params'];
+	$page = $args['page'];
+	$type = $args['type'];
+	
+	$cache_key =  $type . '_' . $params . '_page' . $page;
+	if ($cached_data = cache_get($cache_key)) {
+    //Return from cache.
+    $content = $cached_data->data;
+    print $content;
+	  exit();
+	  
+  } else {
+  	$contents = fm_shop_page_content($params, $type);
+  	
+  	$content = $contents['view'];
+	
+	  $content .= '<div class="product_content">';
+	  $content .= $contents['node_content'];
+	  $content .= '</div>';
+  }
+
+	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
+	
+	
+	print $content;
+	exit();
+}
+
+function fm_shop_page_args() {
+
 	$type = 'favorites';
 	$params = 'all-time';
 	
@@ -121,21 +158,7 @@ function fm_shop_page_ajax($type) {
 	
 	if($page == 0) { $page = '';}
 	
-	$cache_key =  $type . '_' . $params . '_page' . $page;
-	if ($cached_data = cache_get($cache_key)) {
-    //Return from cache.
-    $content = $cached_data->data;
-    print $content;
-	  exit();
-	  
-  } else {
-  	$content = fm_shop_page_content($params, $type);
-  }
-
-	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
-	
-	print $content;
-	exit();
+	return array('type' => $type, 'params' => $params, 'page' => $page);
 }
 
 function fm_shop_page_content($params, $type) {
@@ -243,11 +266,7 @@ function fm_shop_page_content($params, $type) {
 	 }
 	}
 	
-	$content .= '<div class="product_content">';
-	$content .= $node_content;
-	$content .= '</div>';
-	
-	return $content;
+	return array('view' => $content, 'node_content' => $node_content);
 }
 
 function fm_shop_calculate_pager($total) {

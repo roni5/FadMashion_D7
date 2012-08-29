@@ -333,6 +333,7 @@ jQuery(document).ready(function() {
 
           var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
+        	  itemLoadCallback: mycarousel_itemLoadCallback,
         	  scroll: 6,
         	  easing: 'easeOutCubic'
           });
@@ -354,6 +355,40 @@ function mycarousel_initCallback(carousel) {
 	        return false;
 	    });
 }
+
+function mycarousel_itemLoadCallback(carousel, state)
+{
+    // Check if the requested items already exist
+    if (carousel.has(carousel.first, carousel.last)) {
+        return;
+    }
+    
+    var q = '/';
+    var qParam = '?';
+    if(event.parameters.q) {
+   	  q = '?q=shop/';
+   	  qParam = '&';
+    }
+    
+    if(location.pathname == '/') {
+   	 fullPath = 'http://' + location.host + location.pathname + '/shop';
+    } else {
+   	 fullPath =  location.pathname ;
+    }
+
+    jQuery.get(
+    		fullPath + q + 'ajax/' + type + qParam + args,
+        {
+            first: carousel.first,
+            last: carousel.last
+        },
+        function(xml) {
+            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
+        },
+        'xml'
+    );
+};
+
 
 (function ($) {
 	Drupal.behaviors.collectionViewer = {
