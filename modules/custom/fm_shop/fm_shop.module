@@ -1,5 +1,7 @@
 <?php
 define('COLLECTION_VIEWER_PAGER', 11);
+define('GRID_VIEWER_PAGER',20);
+
 /**
  * Implements hook_menu().
  */
@@ -499,7 +501,7 @@ function fm_shop_products_by_store($store) {
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	      ->propertyCondition('status', 1)
-	      ->pager(COLLECTION_VIEWER_PAGER)
+	      ->pager(GRID_VIEWER_PAGER)
 	      ->entityCondition('bundle', 'fm_fashion_product')
 	      ->propertyOrderBy('created', 'DESC');
 	      
@@ -526,7 +528,7 @@ function fm_shop_products_by_store($store) {
 function fm_shop_products_by_favorites($param) {
 	$products_ret = array();
 	if($param == 'all-time') {
-     $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, 20');
+     $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, ' . GRID_VIEWER_PAGER);
       while($obj = $result->fetchObject()) {
   		  $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
 	    }
