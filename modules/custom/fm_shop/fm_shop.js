@@ -335,18 +335,12 @@ jQuery(document).ready(function() {
               displaySlideQty: 11,
               moveSlideQty: 3,
               infiniteLoop: false, 
+              prevSelector: '#collection_viewer_prev',
+              nextSelector: '#collection_viewer_next',
               controls: true
            });
           
 
-          jQuery('#collection_viewer_prev').click(function(){
-        	    slider.goToPreviousSlide();
-        	    return false;
-        	  });
-          jQuery('#collection_viewer_next').click(function(){
-      	    slider.goToNextSlide();
-      	    return false;
-      	  });
           
           /*jQuery('#collection_viewer_next, #collection_viewer_prev').address();
           jQuery('#collection_viewer_next, #collection_viewer_prev').each(function() {
