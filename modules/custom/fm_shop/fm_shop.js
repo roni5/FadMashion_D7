@@ -372,7 +372,7 @@ function mycarousel_initCallback(carousel) {
 	        
 	        var parent = jQuery(this).parent();
 	        var jCarouselIndex = parent.attr('jcarouselindex');
-	        carousel.scroll(jQuery.jcarousel.intval(jCarouselIndex - 4)); 
+	        carousel.scroll(jQuery.jcarousel.intval(jCarouselIndex - 5)); 
 	    });
 	    
 	    pagerCount = 1;
@@ -556,7 +556,7 @@ function item_next() {
 	} else {
 		//Check to see if next pager button is active. If it is, than click it.
 		if(!jQuery('#collection_viewer_next').hasClass('disabled')) {
-			jQuery('#collection_viewer_next').trigger('click');
+			//jQuery('#collection_viewer_next').trigger('click');
         //Else Disable this button
 		} else {
 			
@@ -576,7 +576,7 @@ function item_prev() {
 	} else {
 		//Check to see if prev pager button is active. If it is, than click it.
 		if(!jQuery('#collection_viewer_prev').hasClass('disabled')) {
-			jQuery('#collection_viewer_prev').trigger('click');
+			//jQuery('#collection_viewer_prev').trigger('click');
         //Else Disable this button
 		} 
 	}
