@@ -347,7 +347,6 @@ jQuery(document).ready(function() {
         	  size: carouselSize,
         	  scroll: 8,
         	  animation: 'normal',
-        	  easing: 'easeInOutCubic'
           });
           
 		  
