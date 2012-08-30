@@ -344,7 +344,7 @@ jQuery(document).ready(function() {
         	  itemLoadCallback: mycarousel_itemLoadCallback,
         	  size: carouselSize,
         	  scroll: 7,
-        	  easing: 'easeOutCubic'
+        	  easing: 'easeInOutCubic'
           });
           
 		  
