@@ -628,17 +628,10 @@ function item_content(thisNav) {
 	  return '<div>' + itemName + '</div>';
 	} else {
 		if(thisNav.hasClass('prev')) {
-		  if(jQuery('#collection_viewer_prev').hasClass('disabled')) {
-		    return '<span>>The Start.</span>';
-		  } else {
-			return '<span>Previous Page</span>';
-		  }
+			return '<span>The Start.</span>';
 		} else {
 			if(jQuery('#collection_viewer_next').hasClass('disabled')) {
-			    return '<span>The End!</span>';
-			  } else {
-				return '<span>Next Page</span>';
-			  }
+				return '<span>The End!</span>';
 		}
 		return '';
 	}
