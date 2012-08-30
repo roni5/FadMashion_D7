@@ -630,8 +630,7 @@ function item_content(thisNav) {
 		if(thisNav.hasClass('prev')) {
 			return '<span>The Start.</span>';
 		} else {
-			if(jQuery('#collection_viewer_next').hasClass('disabled')) {
-				return '<span>The End!</span>';
+		    return '<span>The End!</span>';
 		}
 		return '';
 	}
