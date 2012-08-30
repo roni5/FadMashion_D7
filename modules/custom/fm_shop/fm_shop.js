@@ -385,9 +385,17 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 {
     // Set the size of the carousel
     //carousel.size(parseInt(jQuery('total', xml).text()));
-
+	
+	//Find the last number
+	var count = 0;
+	jQuery('.ad-thumb-list li').each(function(i) {
+        if(jQuery(this).html()) {
+           count++;	
+        }
+    });
+	
     jQuery('li', json.collection_viewer).each(function(i) {
-        carousel.add(first + i, jQuery(this).html());
+        carousel.add(count + i, jQuery(this).html());
     });
 };
 
