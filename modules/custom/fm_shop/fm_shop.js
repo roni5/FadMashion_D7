@@ -155,10 +155,6 @@ jQuery(document).ready(function() {
         	
           var newClass;
           
-          jQuery('.contentPanel .ad-active').each(function() {
-				jQuery(this).removeClass('ad-active');
-		  });
-		  jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
         
           
           if(newContent) {
@@ -440,6 +436,16 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
+		 
+
+         jQuery('.contentPanel .ad-active').each(function() {
+				jQuery(this).removeClass('ad-active');
+		  });
+         
+         jQuery('ul.ad-thumb-list li a').bind('click', function() {
+        	 jQuery(this).addClass('ad-active');
+         });
+		  
 	  }
 	};
 })(jQuery);
