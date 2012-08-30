@@ -445,34 +445,6 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 	};
 })(jQuery);
 
-(function ($) {
-	Drupal.behaviors.collectionViewer = {
-	  attach: function (context, settings) {
-		 if(!jQuery("#gallery").length) {
-		   return;
-		 }
-       	var links = jQuery('.col2 .ad-thumb-list li');
-       	links.each(function() {
-       		/*jQuery('a.thumb_link', jQuery(this)).bind('click', function() {
-       			jQuery('.col2 .ad-active').each(function() {
-       				jQuery(this).removeClass('ad-active');
-       			});
-       			jQuery(this).addClass('ad-active');
-                
-       		});*/
-       		/*jQuery(this).hover(
-       			function() {
-       			  jQuery('.social_favorites img', jQuery(this)).fadeIn('normal'); 
-       			},
-       			function() {
-       		      jQuery('.social_favorites img', jQuery(this)).hide();
-       			}
-       		);*/
-       		
-       	});
-	  }
-	};
-})(jQuery);
 
 (function ($) {
 	Drupal.behaviors.productOptions = {
