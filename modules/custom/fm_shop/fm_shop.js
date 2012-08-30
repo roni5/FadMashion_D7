@@ -368,7 +368,7 @@ function mycarousel_itemLoadCallback(carousel, state)
     }
 
     request = jQuery.ajax({
-        url:  carouselPath + '&page=1'
+        url:  carouselPath + '&page=1',
         beforeSend: function() {
 
          },
