@@ -116,7 +116,7 @@ function fm_shop_page_ajax($type) {
     //Return from cache.
     $content = $cached_data->data;
     $count = $cached_data_totalCount;
-    print drupal_json_output(array('content' => $content, $count));
+    print drupal_json_output(array('content' => $content, 'totalCount' => $count));
 	  exit();
 	  
   } else {
