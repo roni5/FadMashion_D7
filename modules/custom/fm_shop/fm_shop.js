@@ -367,17 +367,18 @@ function mycarousel_itemLoadCallback(carousel, state)
         return;
     }
 
-    jQuery.get(
-    		carouselPath,
-        {
-            first: carousel.first,
-            last: carousel.last
+    request = jQuery.ajax({
+        url:  carouselPath + '&first=' + carousel.first + '&last=' + carousel.last,
+        beforeSend: function() {
+
+         },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            
         },
-        function(json){
-            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, json);
-        },
-        'xml'
-    );
+        success: function(data, textStatus, XMLHttpRequest) {
+        	var blah = data;
+        }
+      });
 };
 
 function mycarousel_itemAddCallback(carousel, first, last, json)
