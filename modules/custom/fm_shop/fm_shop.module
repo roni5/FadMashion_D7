@@ -112,8 +112,9 @@ function fm_shop_page_ajax($type) {
 	$type = $args['type'];
 	
 	$cache_key =  $type . '_' . $params;
-	if ($cached_data = cache_get($cache_key) && $cached_data_totalCount = cache_get($cache_key . '_totalCount')) {
-    //Return from cache.
+	//if ($cached_data = cache_get($cache_key) && $cached_data_totalCount = cache_get($cache_key . '_totalCount')) {
+if(false){
+	//Return from cache.
     $content = $cached_data->data;
     $count = $cached_data_totalCount->data;
     print drupal_json_output(array('content' => $content, 'totalCount' => $count));
