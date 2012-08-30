@@ -6,6 +6,8 @@
 var contentSelector;
 var request;
 var requestCounter=0;
+var carouselRequest;
+
 var ajaxPath, carouselPath;
 var carouselSize;
 
@@ -374,7 +376,9 @@ function mycarousel_itemLoadCallback(carousel, state)
         return;
     }
 
-    request = jQuery.ajax({
+    if(carouselRequest) {return;}
+    
+    carouselRequest = jQuery.ajax({
         url:  carouselPath + '&page=' + pagerCount,
         beforeSend: function() {
 
