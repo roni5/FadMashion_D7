@@ -131,7 +131,7 @@ function fm_shop_page_ajax($type) {
 	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
 	
 	
-	print $content;
+	print drupal_json_output(array('content' => $content, 'totalCount' => $contents['total_size']));
 	exit();
 }
 
@@ -278,7 +278,12 @@ function fm_shop_page_content($params, $type, $page = 0) {
 	 }
 	}
 	
-	return array('view' => $content, 'node_content' => $node_content, 'total_size' => $values['total']);
+	$total = COLLECTION_VIEWER_PAGER;
+	if(isset($values['total'])) {
+		$total = $values['total'];
+	}
+	
+	return array('view' => $content, 'node_content' => $node_content, 'total_size' => $total);
 }
 
 function fm_shop_calculate_pager($total) {

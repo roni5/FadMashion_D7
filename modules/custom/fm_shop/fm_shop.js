@@ -7,6 +7,7 @@ var contentSelector;
 var request;
 var requestCounter=0;
 var ajaxPath, carouselPath;
+var carouselSize;
 
 jQuery(document).ready(function() {
 	
@@ -285,10 +286,12 @@ jQuery(document).ready(function() {
                  if(!jQuery('#cache .' + cacheClass).length) {
                	   newClass =  '<div class="' + cacheClass + '"></div>';
                    jQuery('#cache').html(newClass);
-                   jQuery('#cache .' + cacheClass).html(data);
+                   jQuery('#cache .' + cacheClass).html(data.content);
                  }
                  
-                 handler(data, true);
+                 carouselSize = data.totalCount;
+                 
+                 handler(data.content, true);
              }
            });
          } else {
@@ -337,7 +340,7 @@ jQuery(document).ready(function() {
           var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
         	  itemLoadCallback: mycarousel_itemLoadCallback,
-        	  size: 40,
+        	  size: carouselSize,
         	  scroll: 7,
         	  easing: 'easeOutCubic'
           });
