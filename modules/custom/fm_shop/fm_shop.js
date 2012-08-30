@@ -9,7 +9,7 @@ var requestCounter=0;
 var carouselRequest;
 
 var ajaxPath, carouselPath;
-var carousel;
+var carouselGlobal;
 var carouselSize;
 var carouselLoader = '';
 jQuery(document).ready(function() {
@@ -160,12 +160,6 @@ jQuery(document).ready(function() {
 		  });
 		  jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
         
-		  if(carousel){
-		    carousel.scroll(3);
-		  }
-
-          
-
           
           if(newContent) {
             jQuery('.thumb_link img').hide()
@@ -344,7 +338,7 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 
-          carousel = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
+		  carouselGlobal = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
         	  itemLoadCallback: mycarousel_itemLoadCallback,
         	  size: carouselSize,
@@ -369,6 +363,10 @@ function mycarousel_initCallback(carousel) {
 	    jQuery('#collection_viewer_prev').bind('click', function() {
 	        carousel.prev();
 	        return false;
+	    });
+	    
+	    jQuery('.ad-thumb-list li a').bind('click', function() {
+	        carousel.scroll(jQuery.jcarousel.intval("2"));
 	    });
 	    
 	    pagerCount = 1;
@@ -419,6 +417,14 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     });
     jQuery('.contentPanel .product_content').append(json.node_content);
     
+
+	  if(carousel){
+	    carousel.scroll(3);
+	  }
+
+    
+
+	  
     try {
         Drupal.attachBehaviors();
       } catch(err) {
