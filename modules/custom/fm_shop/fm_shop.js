@@ -169,6 +169,11 @@ jQuery(document).ready(function() {
           }
           dataPage.fadeTo('fast', 1);
           
+          jQuery('.contentPanel .ad-active').each(function() {
+ 				jQuery(this).removeClass('ad-active');
+ 		  });
+          
+          
           try {
             Drupal.attachBehaviors();
           } catch(err) {
@@ -436,12 +441,6 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
-		 
-
-         jQuery('.contentPanel .ad-active').each(function() {
-				jQuery(this).removeClass('ad-active');
-		  });
-         
          jQuery('ul.ad-thumb-list li a').bind('click', function() {
         	 jQuery(this).addClass('ad-active');
          });
