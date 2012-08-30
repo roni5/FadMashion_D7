@@ -173,6 +173,8 @@ jQuery(document).ready(function() {
  				jQuery(this).removeClass('ad-active');
  		  });
           
+          jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
+          
           
           try {
             Drupal.attachBehaviors();
