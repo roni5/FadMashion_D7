@@ -363,7 +363,7 @@ function mycarousel_initCallback(carousel) {
 function mycarousel_itemLoadCallback(carousel, state)
 {
     // Check if the requested items already exist
-    if (carousel.has(carousel.first, carousel.last) || carousel.fist == carousel.last) {
+    if (carousel.has(carousel.first, carousel.last) || carousel.first == carousel.last) {
         return;
     }
 
