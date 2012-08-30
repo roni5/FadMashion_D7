@@ -36,7 +36,6 @@ function fm_shop_init() {
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.jcarousel.min.js');
 	
 	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
-  drupal_add_css(path_to_theme() . '/css/captions.css');
   drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
   drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
   drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
