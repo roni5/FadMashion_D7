@@ -11,8 +11,10 @@ var carouselRequest;
 var ajaxPath, carouselPath;
 var carouselSize;
 
+var carouselLoader = '';
 jQuery(document).ready(function() {
 	
+	carouselLoader = jQuery('carouselLoader').html();
   
 	
   if(jQuery('.page-shop').length) {
@@ -369,6 +371,8 @@ function mycarousel_initCallback(carousel) {
 	    pagerCount = 1;
 }
 
+var loaderCount;
+
 function mycarousel_itemLoadCallback(carousel, state)
 {
     // Check if the requested items already exist
@@ -383,12 +387,13 @@ function mycarousel_itemLoadCallback(carousel, state)
     carouselRequest = jQuery.ajax({
         url:  carouselPath + '&page=' + pagerCount,
         beforeSend: function() {
-
+        	jQuery("#slider_loader").show();
          },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             
         },
         success: function(data, textStatus, XMLHttpRequest) {
+        	jQuery("#slider_loader").fadeOut();
         	mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, data);
         	pagerCount++;
         }

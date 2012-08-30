@@ -32,6 +32,7 @@
   <div style="display:none" class="contentPanel"><?php print $content;?></div>
 </div>
 
+
 <div id="cache"  style="display:none;">
   
 </div>

@@ -35,12 +35,6 @@ function fm_shop_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_shop') . '/fm_shop.js');
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.jcarousel.min.js');
 	
-	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
-  drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
-  drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
-  drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
-  
-    
 	//drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/tango/skin.css');
 	/*$options['bt_next_prev_tooltip'] = array(
         'cssSelect' => '#item_nav a',
@@ -97,6 +91,14 @@ function fm_shop_theme() {
 
 function fm_shop_page() {
 
+	
+	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
+	al_add_css(path_to_theme() . '/css/captions.css');
+  drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
+  drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
+  drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
+  
+    
 
   $filters = fm_shop_page_filters();
   //$content = fm_shop_page_all_panels($filters);
