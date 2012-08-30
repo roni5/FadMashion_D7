@@ -363,7 +363,7 @@ function mycarousel_initCallback(carousel) {
 function mycarousel_itemLoadCallback(carousel, state)
 {
     // Check if the requested items already exist
-    if (carousel.has(carousel.first, carousel.last)) {
+    if (carousel.has(carousel.first, carousel.last) || carousel.fist == carousel.last) {
         return;
     }
 
@@ -388,11 +388,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 	
 	//Find the last number
 	var count = 0;
-	jQuery('.ad-thumb-list li').each(function(i) {
-        if(jQuery(this).html()) {
-           count++;	
-        }
-    });
+	count = jQuery('.ad-thumb-list li .thumb_link').length;
 	
     jQuery('li', json.collection_viewer).each(function(i) {
         carousel.add(count + i, jQuery(this).html());
