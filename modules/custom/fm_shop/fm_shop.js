@@ -6,7 +6,7 @@
 var contentSelector;
 var request;
 var requestCounter=0;
-var ajaxPath;
+var ajaxPath, carouselPath;
 
 jQuery(document).ready(function() {
 	
@@ -260,7 +260,8 @@ jQuery(document).ready(function() {
          if(page || !jQuery('#cache .' + cacheClass).length) { 
            if(request) {request.abort();}
            var token = ++requestCounter;
-           ajaxPath = fullPath + q + 'ajax/' + type + qParam + args;
+           ajaxPath = fullPath + q + 'ajax/' + qParam + args;
+           carouselPath = fullPath + q + 'ajax/carousel' + qParam + args;
         	   
            request = jQuery.ajax({
              url:  ajaxPath,
@@ -367,7 +368,7 @@ function mycarousel_itemLoadCallback(carousel, state)
     }
 
     jQuery.get(
-    		ajaxPath,
+    		carouselPath,
         {
             first: carousel.first,
             last: carousel.last

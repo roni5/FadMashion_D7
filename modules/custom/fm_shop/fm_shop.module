@@ -20,7 +20,7 @@ function fm_shop_menu() {
     'type' => MENU_CALLBACK,
   );
   
-  $items['shop/carousel/%'] = array(
+  $items['shop/ajax/carousel'] = array(
     'page callback' => 'fm_shop_carousel_ajax',
 	  'access arguments' => array('view deals'), 
     'page arguments' => array(2),
@@ -35,6 +35,13 @@ function fm_shop_menu() {
 function fm_shop_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_shop') . '/fm_shop.js');
 	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.jcarousel.min.js');
+	
+	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
+  drupal_add_css(path_to_theme() . '/css/captions.css');
+  drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
+  drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
+  drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
+    
 	//drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/tango/skin.css');
 	/*$options['bt_next_prev_tooltip'] = array(
         'cssSelect' => '#item_nav a',
@@ -91,12 +98,7 @@ function fm_shop_theme() {
 
 function fm_shop_page() {
 
-	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
-  drupal_add_css(path_to_theme() . '/css/captions.css');
-  drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
-  drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
-  drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
-    
+
   $filters = fm_shop_page_filters();
   //$content = fm_shop_page_all_panels($filters);
   
@@ -118,7 +120,7 @@ function fm_shop_page_ajax($type) {
 	  exit();
 	  
   } else {
-  	$contents = fm_shop_page_content($params, $type);
+  	$contents = fm_shop_page_content($params, $type, $page);
   	
   	$content = $contents['view'];
 	
@@ -133,6 +135,21 @@ function fm_shop_page_ajax($type) {
 	print $content;
 	exit();
 }
+
+
+
+function fm_shop_carousel_ajax() {
+	$args = fm_shop_page_args();
+	$params = $args['params'];
+	$type = $args['type'];
+	$page = 2;
+  $contents = fm_shop_page_content($params, $type);
+  	
+  $content = $contents['view'];
+  
+	return array('');
+}
+
 
 function fm_shop_page_args() {
 
@@ -161,7 +178,7 @@ function fm_shop_page_args() {
 	return array('type' => $type, 'params' => $params, 'page' => $page);
 }
 
-function fm_shop_page_content($params, $type) {
+function fm_shop_page_content($params, $type, $page = 0) {
 
 	
 	switch($type) {
@@ -216,8 +233,7 @@ function fm_shop_page_content($params, $type) {
 			  $products = $values['products'];
 			  
 			  //Calculate oager
-			  $pager = fm_shop_calculate_pager($values['total']);
-			  $content =  fm_shop_collection_viewer('store', $shop, $products, $pager);
+			  $content =  fm_shop_collection_viewer('store', $shop, $products);
 			}
 			
 	    break;
@@ -228,9 +244,8 @@ function fm_shop_page_content($params, $type) {
 				$content .= 'Sorry no Favorites';
 			} else {
 				$content = fm_shop_grid_view('favorites', $params, $products);
-				
-				$pager = fm_shop_calculate_pager(count($products));
-		    $content .=  fm_shop_collection_viewer('favorites', $params, $products, $pager);
+			
+		    $content .=  fm_shop_collection_viewer('favorites', $params, $products);
 			}
 			
 	    break;
@@ -247,11 +262,8 @@ function fm_shop_page_content($params, $type) {
 	      $trend_image = $trend_image[0];
 	      $content = fm_shop_grid_view('term', $term, $products);
 			} 
-			  
-			  
-			  $pager = fm_shop_calculate_pager($values['total']);
-			
-   			$content .=  fm_shop_collection_viewer('term', $term, $products, $pager) ;
+   		
+			$content .=  fm_shop_collection_viewer('term', $term, $products) ;
 			
 	    break;
 			
@@ -297,7 +309,7 @@ function fm_shop_calculate_pager($total) {
 	  return array('next' => $next, 'prev' => $prev);
 }
 
-function fm_shop_collection_viewer($type, $var, $products, $pager = array('next' => 0, 'prev' => -1)) {
+function fm_shop_collection_viewer($type, $var, $products) {
 
 	$content = '';
 	switch($type) {
