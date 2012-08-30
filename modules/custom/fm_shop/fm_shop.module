@@ -146,7 +146,7 @@ function fm_shop_carousel_ajax() {
   	
   $content = $contents['view'];
   
-	print array('collection_viewer' => $contents, 'node_content' => $node_content);
+	print drupal_json_output(array('collection_viewer' => $contents, 'node_content' => $node_content));
 	exit();
 }
 
