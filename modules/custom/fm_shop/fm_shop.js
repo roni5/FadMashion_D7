@@ -410,6 +410,15 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
         carousel.add(count + i, jQuery(this).html());
     });
     jQuery('.contentPanel .product_content').append(json.node_content);
+    
+    jQuery('.col2 .ad-thumb-list li a').live('click', function() {
+			jQuery('.col2 .ad-active').each(function() {
+				jQuery(this).removeClass('ad-active');
+			});
+			jQuery(this).addClass('ad-active');
+        
+		});
+    
 };
 
 
