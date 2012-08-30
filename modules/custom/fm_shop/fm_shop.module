@@ -39,6 +39,7 @@ function fm_shop_init() {
   drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
   drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
   drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
+  
     
 	//drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/tango/skin.css');
 	/*$options['bt_next_prev_tooltip'] = array(
@@ -143,10 +144,22 @@ function fm_shop_carousel_ajax() {
 	$params = $args['params'];
 	$type = $args['type'];
 	$page = $args['page'];
-  $contents = fm_shop_page_content($params, $type, $page);
+	
+	if(!isset($page)) {$page = 0;}
+	
+	$cache_key =  $type . '_' . $params . '_page' . $page;
+	if ($cached_data = cache_get($cache_key)) {
+	//Return from cache.
+    $contents = $cached_data->data;
+    print drupal_json_output(array('collection_viewer' => $contents['view'], 'node_content' => $contents['node_content']));
+	  exit();
+	  
+  } else {
+  	$contents = fm_shop_page_content($params, $type, $page);
   	
-  $content = $contents['view'];
+  }
   
+  cache_set($cache_key, $contents, 'cache',  CACHE_TEMPORARY);
 	print drupal_json_output(array('collection_viewer' => $contents['view'], 'node_content' => $contents['node_content']));
 	exit();
 }
