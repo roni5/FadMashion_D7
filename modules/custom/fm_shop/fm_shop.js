@@ -388,10 +388,12 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 	
 	//Find the last number
 	var count = 0;
-	count = jQuery('.ad-thumb-list li .thumb_link').length;
+	while(carousel.has(count)) {
+		count++;
+	}
 	
     jQuery('li', json.collection_viewer).each(function(i) {
-        carousel.add(jQuery(this).html());
+        carousel.add(count + i, jQuery(this).html());
     });
 };
 
