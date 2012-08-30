@@ -372,7 +372,7 @@ function mycarousel_initCallback(carousel) {
 	        
 	        var parent = jQuery(this).parent();
 	        var jCarouselIndex = parent.attr('jcarouselindex');
-	        carousel.scroll(jQuery.jcarousel.intval(parent - 4)); 
+	        carousel.scroll(jQuery.jcarousel.intval(jCarouselIndex - 4)); 
 	    });
 	    
 	    pagerCount = 1;
