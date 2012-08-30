@@ -259,7 +259,7 @@ function fm_shop_page_content($params, $type, $page = 0) {
 			$content = '';
 			
 			$trend_image = field_get_items('taxonomy_term', $term, 'field_trend_image');
-			if($trend_image && !isset($page)) {
+			if($trend_image ) {
 				//GRID VIEW
 	      $trend_image = $trend_image[0];
 	      $content = fm_shop_grid_view('term', $term, $products);
