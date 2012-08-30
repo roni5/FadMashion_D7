@@ -369,7 +369,10 @@ function mycarousel_initCallback(carousel) {
 	    });
 	    
 	    jQuery('.ad-thumb-list li a').bind('click', function() {
-	        carousel.scroll(jQuery.jcarousel.intval("2"));
+	        
+	        var parent = jQuery(this).parent();
+	        var jCarouselIndex = parent.attr('jcarouselindex');
+	        carousel.scroll(jQuery.jcarousel.intval(parent - 4)); 
 	    });
 	    
 	    pagerCount = 1;
@@ -420,13 +423,6 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     });
     jQuery('.contentPanel .product_content').append(json.node_content);
     
-
-	  if(carousel){
-	    carousel.scroll(3);
-	  }
-
-    
-
 	  
     try {
         Drupal.attachBehaviors();
