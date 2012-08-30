@@ -386,7 +386,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     // Set the size of the carousel
     //carousel.size(parseInt(jQuery('total', xml).text()));
 
-    jQuery('li', json).each(function(i) {
+    jQuery('li', json.collection_viewer).each(function(i) {
         carousel.add(first + i, jQuery(this).html());
     });
 };
