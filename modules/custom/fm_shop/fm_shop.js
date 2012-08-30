@@ -159,20 +159,6 @@ jQuery(document).ready(function() {
 		  jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
         
 
-          if(jQuery('#grid_view').length) {
-        	  if(!event.parameters.nid) {
-        		  jQuery('.contentPanel #grid_view').show();
-        		  jQuery('.contentPanel .collection_viewer').hide();
-        		  jQuery('.contentPanel .product_content').hide();
-        	  } else {
-        		  jQuery('.contentPanel #grid_view').hide();
-        		  jQuery('.contentPanel .collection_viewer').fadeIn();
-        		  jQuery('.contentPanel .product_content').fadeIn();
-        		  
-        		  var position = jQuery('.collection_viewer').position();
-                  //jQuery("html, body").animate({ scrollTop: 220 }, 'slow', "easeOutCubic");
-        	  }
-          }
           
 
           
@@ -194,7 +180,21 @@ jQuery(document).ready(function() {
         	 //alert('error');
           }
           
-          
+
+          if(jQuery('#grid_view').length) {
+        	  if(!event.parameters.nid) {
+        		  jQuery('.contentPanel #grid_view').show();
+        		  jQuery('.contentPanel .collection_viewer').hide();
+        		  jQuery('.contentPanel .product_content').hide();
+        	  } else {
+        		  jQuery('.contentPanel #grid_view').hide();
+        		  jQuery('.contentPanel .collection_viewer').fadeIn();
+        		  jQuery('.contentPanel .product_content').fadeIn();
+        		  
+        		  var position = jQuery('.collection_viewer').position();
+                  //jQuery("html, body").animate({ scrollTop: 220 }, 'slow', "easeOutCubic");
+        	  }
+          }
 
           
           //THIS SHOULDNT BE HERE BUT I NEED IT TO SHOW NEXT PREV ITEM 
