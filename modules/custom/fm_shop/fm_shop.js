@@ -9,8 +9,8 @@ var requestCounter=0;
 var carouselRequest;
 
 var ajaxPath, carouselPath;
+var carousel;
 var carouselSize;
-
 var carouselLoader = '';
 jQuery(document).ready(function() {
 	
@@ -337,8 +337,6 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
-var carousel;
-
 (function ($) {
 	Drupal.behaviors.sliderFunctionality = {
 	  attach: function (context, settings) {
@@ -346,7 +344,7 @@ var carousel;
 		    	return;
 		  }
 
-          var carousel = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
+          carousel = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
         	  itemLoadCallback: mycarousel_itemLoadCallback,
         	  size: carouselSize,
