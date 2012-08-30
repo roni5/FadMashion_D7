@@ -6,7 +6,7 @@
 ?>
 
 <div id="gallery" class="ad-gallery">
-<div id="slider_loader" style="display: none;"><img src="<?php print pp()?>confirm-ajax-loader.gif"></div>
+<div id="slider_loader" style="display: none;"><img src="<?php print pp()?>loader-red.gif"></div>
 <div class="ad-image-wrapper" style="display: none;">
 
       </div>
