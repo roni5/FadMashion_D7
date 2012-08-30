@@ -562,7 +562,7 @@ function fm_shop_products_by_store($store) {
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	      ->propertyCondition('status', 1)
-	      ->pager(COLLECTION_VIEWER_PAGER)
+	      ->pager(GRID_VIEWER_PAGER)
 	      ->entityCondition('bundle', 'fm_fashion_product')
 	      ->propertyOrderBy('created', 'DESC');
 	      
