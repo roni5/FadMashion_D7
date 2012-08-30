@@ -425,7 +425,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     
 	  
     try {
-        Drupal.attachBehaviors();
+        //Drupal.attachBehaviors();
       } catch(err) {
     	 //alert('error');
       }
