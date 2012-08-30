@@ -376,7 +376,7 @@ function mycarousel_itemLoadCallback(carousel, state)
         return;
     }
 
-    if(carouselRequest) {return;}
+    if(carouselRequest.readyState != carouseRequest.DONE) {return;}
     
     carouselRequest = jQuery.ajax({
         url:  carouselPath + '&page=' + pagerCount,
