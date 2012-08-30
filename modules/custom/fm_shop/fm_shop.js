@@ -387,7 +387,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     //carousel.size(parseInt(jQuery('total', xml).text()));
 	
 	//Find the last number
-	var count = 0;
+	var count = 1;
 	while(carousel.has(count)) {
 		count++;
 	}
