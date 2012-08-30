@@ -443,9 +443,6 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 		 if(!jQuery("#gallery").length) {
 		   return;
 		 }
-         jQuery('ul.ad-thumb-list li a').bind('click', function() {
-        	 jQuery(this).addClass('ad-active');
-         });
 		  
 	  }
 	};
