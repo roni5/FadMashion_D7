@@ -377,7 +377,7 @@ function mycarousel_itemLoadCallback(carousel, state)
     }
 
     if(carouselRequest) {
-      if(carouselRequest.readyState != carouseRequest.DONE) {return;}
+      if(carouselRequest.readyState != carouselRequest.DONE) {return;}
     }
     
     carouselRequest = jQuery.ajax({
