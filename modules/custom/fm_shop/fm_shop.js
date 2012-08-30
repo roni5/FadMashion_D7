@@ -160,7 +160,9 @@ jQuery(document).ready(function() {
 		  });
 		  jQuery('.contentPanel #collection_viewer_' + nid + ' a.thumb_link').addClass('ad-active');
         
-		  carousel.scroll(3);
+		  if(carousel){
+		    carousel.scroll(3);
+		  }
 
           
 
