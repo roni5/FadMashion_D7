@@ -334,6 +334,8 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
+var carousel;
+
 (function ($) {
 	Drupal.behaviors.sliderFunctionality = {
 	  attach: function (context, settings) {
@@ -341,7 +343,7 @@ jQuery(document).ready(function() {
 		    	return;
 		  }
 
-          var slider = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
+          var carousel = jQuery('.ad-thumb-list').once('slider_proccessed').jcarousel({
         	  initCallback: mycarousel_initCallback,
         	  itemLoadCallback: mycarousel_itemLoadCallback,
         	  size: carouselSize,
@@ -437,6 +439,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
        			});
        			jQuery(this).addClass('ad-active');
                 
+       			carousel.scroll(3);
        		});
 	  }
 	};
