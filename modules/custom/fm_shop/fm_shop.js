@@ -351,6 +351,8 @@ jQuery(document).ready(function() {
 	};
 })(jQuery);
 
+var pagerCount = 0;
+
 function mycarousel_initCallback(carousel) {
 	 jQuery('#collection_viewer_next').bind('click', function() {
 	        carousel.next();
@@ -361,6 +363,8 @@ function mycarousel_initCallback(carousel) {
 	        carousel.prev();
 	        return false;
 	    });
+	    
+	    pagerCount = 1;
 }
 
 function mycarousel_itemLoadCallback(carousel, state)
@@ -371,7 +375,7 @@ function mycarousel_itemLoadCallback(carousel, state)
     }
 
     request = jQuery.ajax({
-        url:  carouselPath + '&page=1',
+        url:  carouselPath + '&page=' + pagerCount,
         beforeSend: function() {
 
          },
@@ -380,6 +384,7 @@ function mycarousel_itemLoadCallback(carousel, state)
         },
         success: function(data, textStatus, XMLHttpRequest) {
         	mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, data);
+        	pagerCount++;
         }
       });
 };
