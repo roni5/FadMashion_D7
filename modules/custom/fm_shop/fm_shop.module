@@ -13,10 +13,9 @@ function fm_shop_menu() {
     'type' => MENU_CALLBACK,
   );
   
-  $items['shop/ajax/%'] = array(
+  $items['shop/ajax'] = array(
     'page callback' => 'fm_shop_page_ajax',
 	  'access arguments' => array('view deals'), 
-    'page arguments' => array(2),
     'type' => MENU_CALLBACK,
   );
   
