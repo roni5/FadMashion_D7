@@ -391,7 +391,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 	count = jQuery('.ad-thumb-list li .thumb_link').length;
 	
     jQuery('li', json.collection_viewer).each(function(i) {
-        carousel.add(count + i, jQuery(this).html());
+        carousel.add(jQuery(this).html());
     });
 };
 
