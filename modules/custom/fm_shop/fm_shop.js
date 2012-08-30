@@ -376,7 +376,7 @@ function mycarousel_itemLoadCallback(carousel, state)
             
         },
         success: function(data, textStatus, XMLHttpRequest) {
-        	var blah = data;
+        	mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, json);
         }
       });
 };
