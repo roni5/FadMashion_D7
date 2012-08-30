@@ -373,11 +373,21 @@ function mycarousel_itemLoadCallback(carousel, state)
             first: carousel.first,
             last: carousel.last
         },
-        function(xml) {
-            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
+        function(json
+            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, json);
         },
         'xml'
     );
+};
+
+function mycarousel_itemAddCallback(carousel, first, last, json)
+{
+    // Set the size of the carousel
+    //carousel.size(parseInt(jQuery('total', xml).text()));
+
+    jQuery('li', json).each(function(i) {
+        carousel.add(first + i, jQuery(this).html());
+    });
 };
 
 
