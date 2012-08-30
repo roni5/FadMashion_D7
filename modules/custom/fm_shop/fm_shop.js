@@ -173,7 +173,8 @@ jQuery(document).ready(function() {
  				jQuery(this).removeClass('ad-active');
  		  });
           
-          jQuery('.contentPanel  #' + nid + '.thumb_link').addClass('ad-active');
+          //FIX show
+          jQuery('.contentPanel  #collection_viewer_' + nid + ' a').addClass('ad-active');
           
           
           try {
