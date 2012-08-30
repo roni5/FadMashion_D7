@@ -409,9 +409,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     jQuery('li', json.collection_viewer).each(function(i) {
         carousel.add(count + i, jQuery(this).html());
     });
-    jQuery('.collectionPanel', json.node_content).each(function(i) {
-        jQuery('#cache .product_content').append(jQuery(this).html() );
-    });
+    jQuery('#cache .product_content').append(json.node_content) );
 };
 
 
