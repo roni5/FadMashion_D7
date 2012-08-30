@@ -430,6 +430,13 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     	 //alert('error');
       }
     
+      jQuery('.ad-thumb-list li a').bind('click', function() {
+	        
+	        var parent = jQuery(this).parent();
+	        var jCarouselIndex = parent.attr('jcarouselindex');
+	        carousel.scroll(jQuery.jcarousel.intval(jCarouselIndex - 5)); 
+	    });
+    
 };
 
 
