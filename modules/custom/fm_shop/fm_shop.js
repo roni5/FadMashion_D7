@@ -373,7 +373,7 @@ function mycarousel_itemLoadCallback(carousel, state)
             first: carousel.first,
             last: carousel.last
         },
-        function(json
+        function(json){
             mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, json);
         },
         'xml'
