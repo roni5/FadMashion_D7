@@ -146,7 +146,8 @@ function fm_shop_carousel_ajax() {
   	
   $content = $contents['view'];
   
-	return array('');
+	print array('collection_viewer' => $contents, 'node_content' => $node_content);
+	exit();
 }
 
 
