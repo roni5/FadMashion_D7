@@ -141,8 +141,8 @@ function fm_shop_carousel_ajax() {
 	$args = fm_shop_page_args();
 	$params = $args['params'];
 	$type = $args['type'];
-	$page = 2;
-  $contents = fm_shop_page_content($params, $type);
+	$page = $args['page'];
+  $contents = fm_shop_page_content($params, $type, $page);
   	
   $content = $contents['view'];
   
