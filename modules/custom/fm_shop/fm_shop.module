@@ -112,10 +112,11 @@ function fm_shop_page_ajax($type) {
 	$type = $args['type'];
 	
 	$cache_key =  $type . '_' . $params . '_page' . $page;
-	if ($cached_data = cache_get($cache_key)) {
+	if ($cached_data = cache_get($cache_key) && $cached_data_totalCount = cache_get($cache_key . '_totalCount')) {
     //Return from cache.
     $content = $cached_data->data;
-    print $content;
+    $count = $cached_data_totalCount;
+    print drupal_json_output(array('content' => $content, $count));
 	  exit();
 	  
   } else {
@@ -129,7 +130,7 @@ function fm_shop_page_ajax($type) {
   }
 
 	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
-	
+	cache_set($cache_key . '_totalCount', $contents['total_size'], 'cache',  CACHE_TEMPORARY);
 	
 	print drupal_json_output(array('content' => $content, 'totalCount' => $contents['total_size']));
 	exit();
