@@ -2,32 +2,17 @@
  * 
  */
 
-var appId = '213872101957329';
-
 jQuery(document).ready(function() {
+	window.fbAsyncInit = function() {
+	    FB.init(Drupal.settings.fb.fb_init_settings);
+		
+	   showLoader(true);
+	   
+	   // run once with current status and whenever the status changes
+	   FB.getLoginStatus(updateButton);
+	   FB.Event.subscribe('auth.statusChange', updateButton);	
+	};
 	
-	
-});
-
-(function ($) {
-	Drupal.behaviors.facebookInit = {
-	  attach: function (context, settings) {
-		  
-		  window.fbAsyncInit = function() {
-			   /* FB.init({ appId: appId, 
-			        status: true, 
-			        cookie: true,
-			        xfbml: true,
-			        oauth: true});*/
-				
-			   showLoader(true);
-			   
-			   // run once with current status and whenever the status changes
-			   FB.getLoginStatus(updateButton);
-			   FB.Event.subscribe('auth.statusChange', updateButton);	
-			};
-	  }
-	}
 });
 
 
