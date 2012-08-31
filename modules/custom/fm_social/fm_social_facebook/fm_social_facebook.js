@@ -6,12 +6,12 @@ var appId = '213872101957329';
 
 jQuery(document).ready(function() {
 	window.fbAsyncInit = function() {
-	    FB.init({ appId: appId, 
+	   /* FB.init({ appId: appId, 
 	        status: true, 
 	        cookie: true,
 	        xfbml: true,
-	        oauth: true});
-
+	        oauth: true});*/
+		
 	   showLoader(true);
 	   
 	   // run once with current status and whenever the status changes
@@ -55,13 +55,6 @@ function updateButton(response) {
             }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
         }
     }
-    
-    (function() {
-        var e = document.createElement('script'); e.async = true;
-        e.src = document.location.protocol 
-            + '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e);
-    }());
 }
 
 function login(response, info){
