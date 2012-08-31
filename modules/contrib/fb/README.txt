@@ -15,7 +15,7 @@ trust this file.  Online documentation: http://drupal.org/node/195035,
 has more detail and you should read it next..
 
 To upgrade from Drupal 6 to Drupal 7:
-- Upgrade your D6 version to RC7 or later.  Run update.php and make sure everything seems to work.  Then upgrade drupal and all modules to D7 branch.
+- Upgrade your D6 version to 3.3 or later.  Run update.php and make sure everything seems to work.  Then upgrade drupal and all modules to D7 branch.
 
 
 To upgrade from on D7 version to the next:
@@ -23,18 +23,19 @@ To upgrade from on D7 version to the next:
 
 To install:
 
-- Make sure you have an up-to-date PHP client from facebook.
-  Download from http://github.com/facebook/php-sdk.
+- Make sure you have a PHP client from facebook (version >= 3.1.1).
+  The 2.x.y versions are not supported by this version of Drupal for Facebook.
+  Download from https://github.com/facebook/facebook-php-sdk/downloads.
   Extract the files, and place them in sites/all/libraries/facebook-php-sdk.
 
   If you have the Libraries API module installed, you may place the files in
   another recognised location (such as sites/all/libraries), providing that the
   directory is named 'facebook-php-sdk'.
-  
-  Or, to manually set the location of the php-sdk in any other directory, edit
-  your settings.php to include a line similar to this (add to the section where
-  the $conf variable is defined, or the very end of settings.php. And
-  customize the path as needed.):
+
+  Or, to manually set the location of the php-sdk in any other
+  directory, edit your settings.php to include a line similar to the
+  one below. Add to the section where the $conf variable is defined,
+  or the very end of settings.php. And customize the path as needed.
 
   $conf['fb_api_file'] = 'sites/all/libraries/facebook-php-sdk/src/facebook.php';
 
@@ -44,11 +45,15 @@ To install:
 
   xmlns:fb="http://www.facebook.com/2008/fbml"
 
-  Typically, this means copying the html.tpl.php file from /modules/system into the
-  templates folder of your theme and modifying it. More detail can be found at
-  http://www.drupalforfacebook.org/node/1106. Note this
-  applies to themes used for Facebook Connect, iframe Canvas Pages, and Social
-  Plugins (i.e. like buttons). Without this attribute, IE will fail.
+  Typically, this means editing your theme's page.tpl.php file.  See
+  http://www.drupalforfacebook.org/node/1106.  Note this applies to
+  themes used for Facebook Connect, iframe Canvas Pages, and Social
+  Plugins (i.e. like buttons).  Without this attribute, IE will fail.
+
+  Note that some documention on facebook.com suggests
+  xmlns:fb="http://ogp.me/ns/fb#" instead of the URL above.  Try that
+  if the above is not working for you.
+
 
 - To support canvas pages and/or page tabs, url rewriting and other
   settings must be initialized before modules are loaded, so you must
@@ -61,8 +66,13 @@ To install:
 
   (Change include paths if modules/fb is not in sites/all.)
 
-- Also for canvas pages, see http://drupal.org/node/933994 and search
-  for "P3P" to avoid a common problem on IE.
+- For canvas pages, add something like this to your settings.php:
+
+  if (!headers_sent()) {
+    header('P3P: CP="We do not have a P3P policy."');
+  }
+
+  See http://drupal.org/node/933994 and search for "P3P" for details.
 
 - Go to Administer >> Site Building >> Modules and enable the Facebook
   modules that you need.
@@ -122,10 +132,23 @@ Enable the fb_devel.module and add the block it provides (called
 fb_devel.module will catch some errors and write useful information to
 Drupal's log and status page.
 
-Disable Global Redirect, if you have that module installed. Users
+Use your browser's view source feature, and search page source for any
+<script> tag which includes facebook's javascript,
+"http://connect.facebook.net/en_US/all.js".  fb.js will include this
+for you.  Including it too soon will break many features.  So remove
+it from any block, node, template or whatever that adds it to the
+page.  Similarly, do not include any <div id="fb-root">.
+
+Disable Global Redirect, if you have that module installed.  Users
 have reported problems with it and Drupal for Facebook.  Any module
 which implements custom url rewrites could interfere with canvas page
 and profile tab support.
+
+On the facebook side, make sure your application is not in "sandbox
+mode".  This is known to have unwanted side effects.  Also, don't use
+a test account. If you've used a test account, ever, even for another
+application, clear all your browser's cookies.  Try to reproduce the
+problem not in sandbox mode, and not using a test account.
 
 Bug reports and feature requests may be submitted.
 Here's an idea: check the issue queue before you submit
@@ -158,10 +181,15 @@ $conf['fb_verbose'] = TRUE; // debug output
 
 // More efficient connect session discovery.
 // Required if supporting one connect app and different canvas apps.
-//$conf['fb_apikey'] = '123.....XYZ'; // Your connect app's apikey goes here.
+//$conf['fb_id'] = '123.....XYZ'; // Your connect app's ID goes here.
 
 // Enable URL rewriting (for canvas page apps).
 include "sites/all/modules/fb/fb_url_rewrite.inc";
 include "sites/all/modules/fb/fb_settings.inc";
+
+// Header so that IE will accept cookies on canvas pages.
+if (!headers_sent()) {
+  header('P3P: CP="We do not have a P3P policy."');
+}
 
 // end of settings.php

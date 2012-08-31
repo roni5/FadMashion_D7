@@ -8,12 +8,62 @@
 /**
  * Implements hook_permission().
  */
-function fb_permission_permision() {
+function fb_permission_permission() {
   return array(
     'edit own extended permissions' => array(
       'title' => t('Edit own extended Facebook permissions'),
     ),
   );
+}
+
+function fb_permission_access_perms($perms) {
+  if (is_string($perms)) {
+    $perms = explode(',', $perms);
+  }
+  $count = 0;
+  extract(fb_vars());
+
+  if ($fbu) {
+    try {
+      $api_data = fb_api('me/permissions');
+      $granted = $api_data['data'][0];
+      foreach ($perms as $perm) {
+        if (empty($granted[$perm]) || !$granted[$perm]) {
+          $auth_url = url('http://www.facebook.com/dialog/oauth/', array(
+                            'query' => array(
+                              'scope' => implode(',', $perms),
+                              'client_id' => $fb_app->id,
+                              'redirect_uri' => url(request_path(), array('absolute' => TRUE)),
+                              'response_type' => 'token',
+                            ),
+                            'absolute' => TRUE,
+                          ));
+          drupal_set_message(t('Additional permissions are required. <a href="!url">Grant permissions to continue</a>.', array(
+                                 '!url' => $auth_url,
+                               )), 'error');
+          $GLOBALS['_fb_permission_extra_perms'] = $perms;
+          return FALSE;
+        }
+        else {
+          $count++;
+        }
+      }
+    }
+    catch (Exception $e) {
+      fb_log_exception($e, __FUNCTION__);
+    }
+  }
+  else {
+    // User not connected.
+    // Ensure all connect buttons on this page include these perms.
+    $GLOBALS['_fb_permission_extra_perms'] = $perms;
+    drupal_set_message(t('Facebook Connect is required. !login_button', array(
+                           '!login_button' => theme('fb_login_button', array(
+                                                      'text' => t('Connect to continue'),
+                                                    )),
+                         )),'error');
+  }
+  return ($count == count($perms));
 }
 
 /**
@@ -22,6 +72,26 @@ function fb_permission_permision() {
 function fb_permission_access_own($account, $perm) {
   if (fb_facebook_user()) {
     return ($GLOBALS['user']->uid == $account->uid && user_access($perm));
+  }
+}
+
+// TODO: make this work.
+function fb_permission_fb($op, $data, &$return) {
+  if ($op == FB_OP_JS && FALSE) { // Disabled because the login popup not really working.
+    // fb.module is adding javascript to the page footer.
+    if (!empty($GLOBALS['_fb_permission_extra_perms'])) {
+      // We know from access hook that additional perms are required.
+      // Use javascript to ask for them.
+      $perms = array();
+      drupal_alter('fb_required_perms', $perms);
+      $perm_string = json_encode(implode(',', $perms));
+      $return['fb_permission_0'] = "debugger;";
+      $return['fb_permission'] = "FB.login(function(response){}, {scope:$perm_string});";
+
+      // Haven't figured out how to make this work.
+      //$return['fb_permission'] = "FB.ui({method:'oauth',scope:$perm_string}, function(response){debugger;});";
+      dpm($return);
+    }
   }
 }
 
@@ -60,6 +130,13 @@ function fb_permission_fb_required_perms_alter(&$perms) {
       if ($value) {
         $perms[$key] = $key;
       }
+    }
+  }
+
+  if (!empty($GLOBALS['_fb_permission_extra_perms'])) {
+    // Some page require additional perms, and it makes sense to include those on all connect buttons and links.
+    foreach ($GLOBALS['_fb_permission_extra_perms'] as $key) {
+      $perms[$key] = $key;
     }
   }
 }
@@ -192,54 +269,62 @@ function fb_permission_form_alter(&$form, $state, $id) {
       '#tree' => TRUE,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-      '#description' => t('This list is generated automatically, by querying facebook for all known extended permissions.  Many of these will not actually work!  (When you have 500 million users, your code can suck.)<br/>  Choose only from <a target=_blank href=http://developers.facebook.com/docs/authentication/permissions/>the permissions your application is actually allowed to use</a>.  If you see an "invalid permission" error, return here and un-select that permission.'),
+      '#description' => t('Many permissions on the lists below <em>will not actually work!</em> This list is generated automatically, by querying facebook for all known extended permissions.  Some of these are not supported or available only to privileged developers.<br/>  <strong>Choose only <a target=_blank href=http://developers.facebook.com/docs/authentication/permissions/>permissions your application is actually allowed to use</a>.  If you see an "invalid permission" error, return here and un-select that permission.</strong>'),
     );
 
-    try {
-      // http://developers.facebook.com/docs/reference/fql/permissions_info
-      // Apparently, this query required an access token, so this won't work when creating an app, only when editing one.
-      $result = fb_fql_query($fb,
-                             "SELECT permission_name, header, summary FROM permissions_info WHERE 1",  // FQL, no {curly_brackets}
-                             array('access_token' => fb_get_token($fb)));
+    if ($fb_app && $fb_app->id) {
+      try {
+        // http://developers.facebook.com/docs/reference/fql/permissions_info
+        // Apparently, this query required an access token, so this won't work when creating an app, only when editing one.
+        $result = fb_fql_query($fb,
+                               "SELECT permission_name, header, summary FROM permissions_info WHERE 1",  // FQL, no {curly_brackets}
+                               array('access_token' => fb_get_token($fb)));
 
-      foreach ($result as $data) {
-        $options[$data['permission_name']] = $data['header'] . ' - ' . $data['summary'] . " ($data[permission_name])";
-      }
+        foreach ($result as $data) {
+          $options[$data['permission_name']] = $data['header'] . ' - ' . $data['summary'] . " ($data[permission_name])";
+        }
 
-      // First the perms that will be required.
-      if (!isset($fb_permission_data['prompt'])) {
-        $fb_permission_data['prompt'] = array();
-      }
-      $form['fb_app_data']['fb_permission']['prompt'] = array(
-        '#type' => 'checkboxes',
-        '#title' => t('Required extended permissions'),
-        '#options' => $options,
-        '#default_value' => $fb_permission_data['prompt'],
-        '#description' => t('Prompt users when they first authorize the application.  Select only the most important features.'),
-      );
-      // Next the optional perms.
-      if (!isset($fb_permission_data['map'])) {
-        $fb_permission_data['map'] = array();
-      }
-      $form['fb_app_data']['fb_permission']['map'] = array(
-        '#type' => 'checkboxes',
-        '#title' => t('Optional extended permissions'),
-        '#options' => $options,
-        '#default_value' => $fb_permission_data['map'],
-        '#description' => t('Which extended permissions does this application use?  Users will be able to grant these permissions on their user edit pages.'),
-      );
+        // First the perms that will be required.
+        if (!isset($fb_permission_data['prompt'])) {
+          $fb_permission_data['prompt'] = array();
+        }
+        $form['fb_app_data']['fb_permission']['prompt'] = array(
+          '#type' => 'checkboxes',
+          '#title' => t('Required extended permissions'),
+          '#options' => $options,
+          '#default_value' => $fb_permission_data['prompt'],
+          '#description' => t('Prompt users when they first authorize the application.  Select only the most important features.'),
+        );
+        // Next the optional perms.
+        if (!isset($fb_permission_data['map'])) {
+          $fb_permission_data['map'] = array();
+        }
+        $form['fb_app_data']['fb_permission']['map'] = array(
+          '#type' => 'checkboxes',
+          '#title' => t('Optional extended permissions'),
+          '#options' => $options,
+          '#default_value' => $fb_permission_data['map'],
+          '#description' => t('Which extended permissions does this application use?  Users will be able to grant these permissions on their user edit pages.'),
+        );
 
+      }
+      catch (Exception $e) {
+        if ($fb_app->apikey) {
+          // If there's an apikey, this is an unexpected error.
+          drupal_set_message(t('Failed to get extended permissions.  %msg', array('%msg' => $e->getMessage())), 'warning');
+        }
+        // Drupal will not display this properly in the collapsed fieldset.  Not sure how to fix!
+        $form['fb_app_data']['fb_permission']['msg'] = array(
+          '#type' => 'markup',
+          '#value' => t('Failed to get extended permissions from facebook.   Submit this form, then click "edit" to see extended permission options.'),
+        );
+      }
     }
-    catch (Exception $e) {
-      if ($fb_app->apikey) {
-        // If there's an apikey, this is an unexpected error.
-        drupal_set_message(t('Failed to get extended permissions.  %msg', array('%msg' => $e->getMessage())), 'warning');
-      }
-      // Drupal will not display this properly in the collapsed fieldset.  Not sure how to fix!
-      $form['fb_app_data']['fb_permission']['msg'] = array(
-        '#type' => 'markup',
-        '#value' => t('Failed to get extended permissions from facebook.   Submit this form, then click "edit" to see extended permission options.'),
-      );
+    else {
+      // App not yet configured.
+      $form['fb_app_data']['fb_permission']['#description'] =
+        t('First save this form, then click "edit" to return here and see extended permission options.');
+      $form['fb_app_data']['fb_permission']['#collapsed'] = FALSE;
     }
   }
 }

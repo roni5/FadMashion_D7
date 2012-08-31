@@ -5,6 +5,9 @@
  * http://developers.facebook.com/docs/test_users
  */
 
+/**
+ * Implements hook_menu().
+ */
 function fb_test_menu() {
 
   // Admin pages
@@ -26,7 +29,7 @@ function fb_test_detail_page($fb_app) {
   return $output;
 }
 
-function fb_test_create_form(&$form, &$form_state, $fb_app) {
+function fb_test_create_form($form, &$form_state, $fb_app) {
   $form['#fb_app'] = $fb_app;
 
   // @TODO make this a dropdown, limit to 50 total test accounts.
@@ -44,9 +47,7 @@ function fb_test_create_form(&$form, &$form_state, $fb_app) {
   // Which permissions?
   $perms = array();
   drupal_alter('fb_required_perms', $perms); // @TODO pass fb_app to this function.
-  if (count($perms)) {
-    $default_perms = implode(',', $perms);
-  }
+  $default_perms = count($perms) ? implode(',', $perms) : '';
 
   $form['perms'] = array(
     '#type' => 'textfield',
@@ -73,8 +74,16 @@ function fb_test_create_form_submit($form, &$form_state) {
                            'permissions' => $values['perms'],
                            'access_token' => fb_get_token($fb),
                          ));
+
+      if (isset($result['id'])) {
+        drupal_set_message(t("Created user !name. Email: %email | Password: %password", array(
+                               '!name' => "<fb:name uid=" . $result['id'] . "></fb:name>",
+                               '%email' => $result['email'],
+                               '%password' => $result['password'],
+                             )));
+      }
     }
-    drupal_set_message(t('Created %num test accounts.', array('%num' => $values['how_many'])));
+    drupal_set_message(t('Created %num test accounts.  Please make note of passwords (they will not be available again).', array('%num' => $values['how_many'])));
   }
   catch (Exception $e) {
     fb_log_exception($e, t('Failed to create test accounts.'));
@@ -99,7 +108,7 @@ function fb_test_accounts_form($form, &$form_state, $fb_app) {
                            'access_token' => $test_account['access_token'], // Only when account is authorized
                          ));
         if ($data['name']) {
-          $markup .= " $data[name] <a href=$data[link]>(profile)</a> ";
+          $markup .= " $data[name] (<a href=$data[link]>profile</a> | <a href=https://graph.facebook.com/{$test_account['id']}?access_token={$test_account['access_token']}>graph (user token)</a> | <a href=https://graph.facebook.com/{$test_account['id']}?access_token=" . fb_get_token($fb) . ">graph (app token)</a>) ";
         }
       }
 
@@ -187,7 +196,9 @@ function fb_test_accounts_form_submit($form, &$form_state) {
       }
     }
     else {
-      dpm("Operation $values[operation] not implemented.", __FUNCTION__); // debug
+      if (function_exists('dpm')) {
+        dpm("Operation $values[operation] not implemented.", __FUNCTION__);
+      }
     }
   }
   catch (Exception $e) {
