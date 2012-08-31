@@ -15,22 +15,7 @@ jQuery(document).ready(function() {
 	   showLoader(true);
 	   
 	   // run once with current status and whenever the status changes
-	   FB.getLoginStatus(function(response) {
-		   if (response.status === 'connected') {
-		     // the user is logged in and has authenticated your
-		     // app, and response.authResponse supplies
-		     // the user's ID, a valid access token, a signed
-		     // request, and the time the access token 
-		     // and signed request each expire
-		     var uid = response.authResponse.userID;
-		     var accessToken = response.authResponse.accessToken;
-		   } else if (response.status === 'not_authorized') {
-		     // the user is logged in to Facebook, 
-		     // but has not authenticated your app
-		   } else {
-		     // the user isn't logged in to Facebook.
-		   }
-		  });
+	   FB.getLoginStatus(updateButton);
 	   FB.Event.subscribe('auth.statusChange', updateButton);	
 	};
 	
@@ -79,6 +64,24 @@ function updateButton(response) {
     }());
 }
 
+function login(response, info){
+    if (response.authResponse) {
+        var accessToken                                 =   response.authResponse.accessToken;
+        
+        userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
+                                                         + "<br /> Your Access Token: " + accessToken;
+        button.innerHTML                               = 'Logout';
+        showLoader(false);
+        document.getElementById('other').style.display = "block";
+    }
+}
+
+function logout(response){
+    userInfo.innerHTML                             =   "";
+    document.getElementById('debug').innerHTML     =   "";
+    document.getElementById('other').style.display =   "none";
+    showLoader(false);
+}
 
 
 function showLoader(status){
