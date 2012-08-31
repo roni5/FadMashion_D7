@@ -1,56 +1,13 @@
 <?php
 
-require 'facebook-php-sdk/src/facebook.php';
+//require 'facebook-php-sdk/src/facebook.php';
 
 define('FB_API_KEY', '213872101957329');
 define('FB_SECRET_KEY', 'defeeada5d63c8baf42374ecd5e30776');
 
 function fm_social_facebook_init() {
-	global $fb;
-	
 	drupal_add_js(drupal_get_path('module', 'fm_social_facebook') . '/fm_social_facebook.js');
 	
-  // This helps with uncaught exceptions. However, it should be configurable
-  // or at least not overwrite previously declared handler.
-  set_exception_handler('fb_handle_exception');
-
-
-  // Find Facebook's PHP SDK.  Use libraries API if enabled.
-  $fb_lib_path = function_exists('libraries_get_path') ? libraries_get_path('facebook-php-sdk') : 'sites/all/libraries/facebook-php-sdk';
-  $fb_platform = variable_get(FB_VAR_API_FILE, $fb_lib_path . '/src/facebook.php');
-
-  try {
-    if (!class_exists('Facebook') && !include($fb_platform)) {
-      $message = t('Failed to find the Facebook client libraries at %filename.  Read the !readme and follow the instructions carefully.', array(
-                     '!drupal_for_facebook' => l(t('Drupal for Facebook'), 'http://drupal.org/project/fb'),
-                     // This link should work with clean URLs disabled.
-                     '!readme' => '<a href='. base_path() . '/' . drupal_get_path('module', 'fb') . '/README.txt>README.txt</a>',
-                     '%filename' => $filename,
-                   ));
-      drupal_set_message($message, 'error');
-      watchdog('fb', $message);
-      return NULL;
-    }
-
-    // We don't have a cached resource for this app, so we're going to create one.
-    $fb = new Facebook(array(
-                         'appId' => FB_API_KEY,
-                         'secret' => FB_SECRET_KEY,
-                         'cookie' => TRUE,
-                       ));
-
-    // Some servers need these settings.
-    if (variable_get(FB_VAR_CURL_NOVERIFY, TRUE)) {
-      Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYPEER] = FALSE;
-      Facebook::$CURL_OPTS[CURLOPT_SSL_VERIFYHOST] = FALSE;
-      //Facebook::$CURL_OPTS[CURLOPT_VERBOSE] = 1; // debug
-    }
-
-
-    return $fb;
-  }
-  catch (Exception $e) {
-    fb_log_exception($e, t('Failed to construct Facebook client API.'));
-  }
+ 
 }
 
