@@ -1,5 +1,5 @@
 ; $Id: $
-name = FM User Facebook
+name = FM Social Facebook
 description = Enables using Facebook on Fadmashion 
 core = 7.x
 package = Fadmashion
