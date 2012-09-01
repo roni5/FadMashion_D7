@@ -20,7 +20,6 @@ function updateButton(response) {
    FB_JS.initFinal(response);
    FB_JS.authResponseChange(response);
      
-   var test;
     button       =   document.getElementById('fb-auth');
     userInfo     =   document.getElementById('user-info');
     
