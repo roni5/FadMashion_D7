@@ -17,7 +17,7 @@
    <?php //<h1>print $node->title;</h1>?>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
            <br>
-           <div  class="fb-auth">Login With Facebook</div>
+           <div  class="register_button fb-auth">Login With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
 <div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
 <div style="margin-top: 10px;" >Connecting with Facebook</div>

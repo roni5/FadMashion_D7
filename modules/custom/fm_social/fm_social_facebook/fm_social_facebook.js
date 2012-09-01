@@ -73,3 +73,7 @@ function showLoader(status){
    }
 }
 
+function showLogoutLoader() {
+
+}
+
