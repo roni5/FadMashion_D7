@@ -1015,7 +1015,6 @@ function fb_user_create_local_user($fb, $fb_app, $fbu,
 
       // Merge defaults
       $edit = array_merge($defaults, $edit);
-      $edit['status'] = 1;
 
       // Confirm username is not taken. FB_USER_OP_PRE_USER may have changed it.
     if ($uid = db_query("SELECT uid FROM {users} WHERE name = :name", array(':name' => $edit['name']))->fetchField(0)) {
