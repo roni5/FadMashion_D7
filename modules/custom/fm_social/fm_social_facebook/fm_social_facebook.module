@@ -11,6 +11,8 @@ function fm_social_facebook_fb($op, $data, &$return) {
   
 	if($op == FB_USER_OP_POST_USER) {
 		$account = $data['account'];
+		var_dump($account);
+		var_dump($account->uid);
 		db_query("UPDATE {users} SET status=1 WHERE uid = :uid", array(':uid' => $account->uid));
 	}
 }
