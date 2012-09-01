@@ -61,7 +61,7 @@ OR
         <div class="facebook_connecting" style="display: none;">
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
-<div id="facebook_loader" ></div>
+<div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
 <div style="margin-top: 10px;" >Connecting with Facebook</div>
 </div>  
          
