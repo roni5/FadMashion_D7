@@ -11,6 +11,7 @@ function fm_social_facebook_fb_user($op, $data, &$return) {
 	if($op == FB_USER_OP_POST_USER) {
 		$account = $data['account'];
 		db_query("UPDATE {users} SET status=1 WHERE uid = :uid", array(':uid' => $account->uid));
+		_user_mail_notify('register_no_approval_required', $account);
 	}
 }
 
