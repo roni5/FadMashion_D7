@@ -5,26 +5,4 @@
 define('FB_API_KEY', '213872101957329');
 define('FB_SECRET_KEY', 'defeeada5d63c8baf42374ecd5e30776');
 
-function fm_social_facebook_init() {
-	drupal_add_js(drupal_get_path('module', 'fm_social_facebook') . '/fm_social_facebook.js');
-	
-}
-
-function fm_social_facebook_fb($op, $data, &$return) {
-  $fb_app = isset($data['fb_app']) ? $data['fb_app'] : NULL;
-  $fb = isset($data['fb']) ? $data['fb'] : NULL;
-
-  global $user;
-
-  if ($fb_app) {
-    $fb_user_data = _fb_user_get_config($fb_app);
-  }
-
-  if ($op == FB_OP_APP_IS_AUTHORIZED) {
-    // There is an app, and the current user has authorized (is connected).
-
-  }
-	
-	
-}
 
