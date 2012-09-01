@@ -56,7 +56,7 @@
         </div>
         
 </div>  
-<div class="login">
+<div class="login" style="display: none;">
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
 <div class="loginErrorText">Wrong Username or Password</div>
