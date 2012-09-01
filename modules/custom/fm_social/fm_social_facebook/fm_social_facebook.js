@@ -37,7 +37,6 @@ function updateButton(response) {
         button.innerHTML = 'Login';
         button.onclick = function() {
             showLoader(true);
-            FB_JS.ajaxEvent('test', data);
             FB.login(function(response) {
                 if (response.authResponse) {
                     FB.api('/me', function(info) {
