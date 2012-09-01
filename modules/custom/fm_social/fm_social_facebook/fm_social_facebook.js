@@ -31,11 +31,13 @@ function updateButton(response) {
                 logout(response);
             });
         };
+        
     } else {
         //user is not connected to your app or logged out
         button.innerHTML = 'Login';
         button.onclick = function() {
             showLoader(true);
+            FB_JS.ajaxEvent('test', data);
             FB.login(function(response) {
                 if (response.authResponse) {
                     FB.api('/me', function(info) {
@@ -60,6 +62,15 @@ function login(response, info){
         showLoader(false);
         document.getElementById('other').style.display = "block";
     }
+    
+    var data = {
+    	    'event_type': 'session_change',
+    	    'is_anonymous': Drupal.settings.fb.is_anonymous
+    	  };
+
+    	  data.fbu = FB.getUserID();
+
+    	  FB_JS.ajaxEvent(data.event_type, data);
 }
 
 function logout(response){
