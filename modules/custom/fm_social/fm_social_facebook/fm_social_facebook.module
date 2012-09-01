@@ -2,9 +2,6 @@
 
 //require 'facebook-php-sdk/src/facebook.php';
 
-define('FB_API_KEY', '213872101957329');
-define('FB_SECRET_KEY', 'defeeada5d63c8baf42374ecd5e30776');
-
 function fm_social_facebook_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_social_facebook') . '/fm_social_facebook.js');
 	
