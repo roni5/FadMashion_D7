@@ -196,6 +196,8 @@ FB_JS.reload = function(destination) {
   if (typeof(fbhash) != 'undefined' && vars.fbhash == fbhash) {
     return; // Do not reload (again)
   }
+  
+  return;
 
   // Determine where to send user.
   if (typeof(destination) != 'undefined' && destination) {
