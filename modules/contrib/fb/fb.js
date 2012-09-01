@@ -244,7 +244,7 @@ FB_JS.reload = function(destination) {
   }
 
   window.top.location = destination;
-  //alert(destination); // debugging.
+  alert(destination); // debugging.
 };
 
 
