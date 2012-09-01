@@ -124,9 +124,6 @@ function fb_user_fb($op, $data, &$return) {
   if ($fb_app) {
     $fb_user_data = _fb_user_get_config($fb_app);
   }
-  
-  var_dump($op);
-  exit();
 
   if ($op == FB_OP_APP_IS_AUTHORIZED) {
     // There is an app, and the current user has authorized (is connected).
