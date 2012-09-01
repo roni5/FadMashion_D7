@@ -529,7 +529,7 @@ border-bottom-left-radius: 7px;}
 
 
 #authenticate .login-form, #authenticate .new-form {float: left}
-#authenticate .login-form {width: 320px;border-right: 1px dotted #888}
+#authenticate .login-form {width: 320px;border-right: 1px dotted #888; color: #000;}
 #authenticate .new-form {width: 300px; margin: auto; text-align: center; }
 #authenticate .form-item {float: none !important; padding-bottom: 5px !important;}
 #authenticate label {display: none}
