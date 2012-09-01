@@ -8,3 +8,20 @@ function fm_social_facebook_init() {
       
 }
 
+function fm_social_fb($op, $data, &$return) {
+  $fb_app = isset($data['fb_app']) ? $data['fb_app'] : NULL;
+  $fb = isset($data['fb']) ? $data['fb'] : NULL;
+
+  global $user;
+
+  if ($fb_app) {
+    $fb_user_data = _fb_user_get_config($fb_app);
+  }
+
+  if ($op == FB_OP_APP_IS_AUTHORIZED) {
+    // There is an app, and the current user has authorized (is connected).
+    var_dump('is_Authorized');
+    exit();
+  }
+}
+
