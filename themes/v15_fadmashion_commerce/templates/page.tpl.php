@@ -1,7 +1,7 @@
 <div id="wrapper">
 	<div id="container">
 <?php include('header.tpl.php');?>
-            <div class="fb_connected"></div>
+            <div style="width: 400px; margin: 20px;" class="fb_connected"></div>
     <?php if(!empty($page['featured'])): ?>
       <div id="sectionHeader">
       <div class="pad">
