@@ -23,8 +23,6 @@ function fm_social_facebook_fb($op, $data, &$return) {
   if ($op == FB_OP_APP_IS_AUTHORIZED) {
     // There is an app, and the current user has authorized (is connected).
 
-    var_dump($data);
-    exit();
   }
 	
 	
