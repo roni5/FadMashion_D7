@@ -32,6 +32,7 @@
       <?php echo $pass; ?>
        <?php echo $mail; ?>
        <?php echo $roles; ?>
+       <?php echo $therest; ?>
     </div>
   </div>
 </div>

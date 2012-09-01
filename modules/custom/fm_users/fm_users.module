@@ -109,6 +109,10 @@ function fm_users_preprocess_user_profile_form(&$variables) {
   
   $variables['form_processing'] = render($variables['']['form_id']) . render($variables['']['form_build_id']) . render($variables['']['form_token']);
   
+  global $user;
+  if($user->uid == 1) {
+  	$variables['therest'] = drupal_render($variables['']); 
+  }
  // $variables['rendered'] = drupal_render($variables['']['picture']);
 }
 
