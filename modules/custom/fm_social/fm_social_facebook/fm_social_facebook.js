@@ -29,13 +29,6 @@ function updateButton(response) {
             login(response, info);
         });
         
-        button.onclick = function() {
-            FB.logout(function(response) {
-                logout(response);
-            });
-            
-        };
-        
     } else {
         //user is not connected to your app or logged out
         button.onclick = function() {
@@ -57,7 +50,7 @@ function updateButton(response) {
 
 function login(response, info){
     if (response.authResponse) {
-        showLoader(false);
+        //showLoader(false);
     }
     
 }
@@ -68,9 +61,14 @@ function logout(response){
 
 
 function showLoader(status){
-    if (status)
-        document.getElementById('facebook_loader').style.display = 'block';
-    else
-        document.getElementById('facebook_loader').style.display = 'none';
+   if(status) {
+	   jQuery('.forgot_password').hide();
+		jQuery('.login').hide();
+		jQuery('.facebook_connecting').show();
+   } else {
+	   jQuery('.forgot_password').hide();
+		jQuery('.login').show();
+		jQuery('.facebook_connecting').hide(); 
+   }
 }
 

@@ -51,13 +51,20 @@
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
 <div id="fb-auth">Login With Facebook</div>
-<div id="facebook_loader" style="display:none"></div>
 <br>
 OR
 <br>
 <div class="loginErrorText">Wrong Username or Password</div>
 <?php print render($login_form);?>
-</div>           
+</div>  
+        
+        <div class="facebook_connecting" style="display: none;">
+<h2>MEMBER LOGIN</h2>
+<h1>Welcome Back!</h1>
+<div id="facebook_loader" ></div>
+<div style="margin-top: 10px;" >Connecting with Facebook</div>
+</div>  
+         
 <div style="display: none;" class="forgot_password">
 <h2>MEMBER LOGIN</h2>
 <h1>Forgot your Password?</h1>
