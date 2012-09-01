@@ -45,15 +45,6 @@ function updateButton(response) {
                     FB.api('/me', function(info) {
                         login(response, info);
                     });	   
-
-                    var data = {
-                    	    'event_type': 'session_change',
-                    	    'is_anonymous': Drupal.settings.fb.is_anonymous
-                    	  };
-
-                    	  data.fbu = FB.getUserID();
-
-                    	  //FB_JS.ajaxEvent(data.event_type, data);
                     	  
                 } else {
                     //user cancelled login or did not grant authorization
@@ -65,44 +56,11 @@ function updateButton(response) {
 }
 
 function login(response, info){
-    if (response.authResponse) {
-        var accessToken                                 =   response.authResponse.accessToken;
-        
-        userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name
-                                                         + "<br /> Your Access Token: " + accessToken;
-        button.innerHTML                               = 'Logout';
-        showLoader(false);
-        document.getElementById('other').style.display = "block";
-
-    }
     
 }
 
 function logout(response){
-    userInfo.innerHTML                             =   "";
-    document.getElementById('debug').innerHTML     =   "";
-    document.getElementById('other').style.display =   "none";
-    showLoader(false);
-    
-    if (typeof(FB) != 'undefined') {
-        try {
-          FB.logout(function () {
-            // Logged out of facebook.  Session change event will log us out of drupal and
-          });
-          // Facebook's invalid cookies persist if third-party cookies disabled.
-          // Let's try to clean up the mess.
-          // @TODO: is this still needed with newer oauth SDK???
-          //FB_JS.deleteCookie('fbs_' + Drupal.settings.fb.apikey, '/', ''); // apikey
 
-          if (FB.getUserID()) { // @TODO: still needed with newer oauth SDK???
-            // Facebook needs more time to log us out. (http://drupal.org/node/1164048)
-            return false;
-          }
-        }
-        catch (e) {
-          return false;
-        }
-      }
 }
 
 
