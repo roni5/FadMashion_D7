@@ -8,7 +8,6 @@ define('FB_SECRET_KEY', 'defeeada5d63c8baf42374ecd5e30776');
 function fm_social_facebook_init() {
 	drupal_add_js(drupal_get_path('module', 'fm_social_facebook') . '/fm_social_facebook.js');
 	
-	var_dump($GLOBALS['_fb_app']);
 	      $fb = fb_api_init($GLOBALS['_fb_app']);
       $fbu = fb_facebook_user($fb);
   var_dump($fbu);    
