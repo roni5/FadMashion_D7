@@ -17,6 +17,9 @@ jQuery(document).ready(function() {
 
 
 function updateButton(response) {
+   FB_JS.initFinal(response);
+   FB_JS.authResponseChange(response);
+     
     button       =   document.getElementById('fb-auth');
     userInfo     =   document.getElementById('user-info');
     
@@ -80,6 +83,26 @@ function logout(response){
     document.getElementById('debug').innerHTML     =   "";
     document.getElementById('other').style.display =   "none";
     showLoader(false);
+    
+    if (typeof(FB) != 'undefined') {
+        try {
+          FB.logout(function () {
+            // Logged out of facebook.  Session change event will log us out of drupal and
+          });
+          // Facebook's invalid cookies persist if third-party cookies disabled.
+          // Let's try to clean up the mess.
+          // @TODO: is this still needed with newer oauth SDK???
+          //FB_JS.deleteCookie('fbs_' + Drupal.settings.fb.apikey, '/', ''); // apikey
+
+          if (FB.getUserID()) { // @TODO: still needed with newer oauth SDK???
+            // Facebook needs more time to log us out. (http://drupal.org/node/1164048)
+            return false;
+          }
+        }
+        catch (e) {
+          return false;
+        }
+      }
 }
 
 
