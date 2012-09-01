@@ -31,7 +31,7 @@ function updateButton(response) {
         
     } else {
         //user is not connected to your app or logged out
-        button.onclick = function() {
+        jQuery('fb-auth').click(function() {
             showLoader(true);
             FB.login(function(response) {
                 if (response.authResponse) {
@@ -44,7 +44,8 @@ function updateButton(response) {
                     showLoader(false);
                 }
             }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
-        }
+         }
+       );
     }
 }
 

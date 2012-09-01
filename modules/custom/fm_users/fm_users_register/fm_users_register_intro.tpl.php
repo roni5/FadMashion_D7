@@ -17,7 +17,7 @@
    <?php //<h1>print $node->title;</h1>?>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
            <br>
-           <div div class="register_button" id="fb-auth">Login With Facebook</div>
+           <div div class="register_button" class="fb-auth">Login With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
 <div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
 <div style="margin-top: 10px;" >Connecting with Facebook</div>
@@ -56,7 +56,7 @@
 <div class="login" style="display: none;">
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
-<div id="fb-auth">Login With Facebook</div>
+<div class="fb-auth">Login With Facebook</div>
 <br>
 OR
 <br>
