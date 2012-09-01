@@ -8,7 +8,6 @@ function fm_social_facebook_init() {
 }
 
 function fm_social_facebook_fb($op, $data, &$return) {
-  var_dump(FB_USER_OP_POST_USER);
 	if($op == FB_USER_OP_POST_USER) {
 		$account = $data['account'];
 		var_dump($account);
