@@ -63,11 +63,11 @@ function logout(response){
 function showLoader(status){
    if(status) {
 	   jQuery('.forgot_password').hide();
-		jQuery('.login').hide();
-		jQuery('.facebook_connecting').show();
+		jQuery('.login, .register_button').hide();
+		jQuery('.facebook_connecting').fadeIn();
    } else {
 	   jQuery('.forgot_password').hide();
-		jQuery('.login').show();
+		jQuery('.login,  .register_button').fadeIn();
 		jQuery('.facebook_connecting').hide(); 
    }
 }
