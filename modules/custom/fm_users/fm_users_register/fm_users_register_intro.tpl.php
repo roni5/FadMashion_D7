@@ -46,6 +46,16 @@
 <div style="display: none;"  class="state3">
 <div class="box"><div class="pad">
 
+
+<div class="login_with_facebook">
+<h2>MEMBER LOGIN</h2>
+<h1>Welcome Back!</h1>
+<div id="fb-auth">Login With Facebook</div>
+<div id="facebook_loader" style="display:none">
+            <img src="<?php print pp()?>loader-red.gif" alt="loading" />
+        </div>
+        
+</div>  
 <div class="login">
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>

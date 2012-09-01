@@ -1,10 +1,5 @@
-<?php print pp()?>
-
 <div id="fb-root"></div>
-<button id="fb-auth">Login</button>
-        <div id="loader" style="display:none">
-            <img src="<?php print pp()?>loader-red.gif" alt="loading" />
-        </div>
+        
         <br />
         <div id="user-info"></div>
         <br />
