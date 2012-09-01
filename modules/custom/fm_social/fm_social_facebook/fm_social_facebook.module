@@ -8,7 +8,7 @@ function fm_social_facebook_init() {
       
 }
 
-function fm_social_fb($op, $data, &$return) {
+function fm_social_facebook_fb($op, $data, &$return) {
   $fb_app = isset($data['fb_app']) ? $data['fb_app'] : NULL;
   $fb = isset($data['fb']) ? $data['fb'] : NULL;
 
