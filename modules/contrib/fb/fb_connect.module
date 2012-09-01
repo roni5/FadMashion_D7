@@ -142,6 +142,9 @@ function _fb_connect_add_js($fb_app, $fb) {
     $just_once = TRUE;
   }
 
+  var_dump($fb_app);
+  exit();
+  
   // If we are not the global $_fb_app
   if ($fb_app) {
     $settings = fb_js_settings();

@@ -1,3 +1,5 @@
+<?php print pp()?>
+
 <div id="fb-root"></div>
 <button id="fb-auth">Login</button>
         <div id="loader" style="display:none">
