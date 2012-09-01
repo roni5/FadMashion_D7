@@ -53,7 +53,7 @@ function updateButton(response) {
 
                     	  data.fbu = FB.getUserID();
 
-                    	  FB_JS.ajaxEvent(data.event_type, data);
+                    	  //FB_JS.ajaxEvent(data.event_type, data);
                     	  
                 } else {
                     //user cancelled login or did not grant authorization
