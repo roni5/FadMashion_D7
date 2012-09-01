@@ -38,7 +38,6 @@ function updateButton(response) {
         
     } else {
         //user is not connected to your app or logged out
-        button.innerHTML = 'Login';
         button.onclick = function() {
             showLoader(true);
             FB.login(function(response) {
@@ -58,10 +57,7 @@ function updateButton(response) {
 
 function login(response, info){
     if (response.authResponse) {
-        var accessToken                                 =   response.authResponse.accessToken;
-        button.innerHTML                               = 'Logout';
         showLoader(false);
-
     }
     
 }
