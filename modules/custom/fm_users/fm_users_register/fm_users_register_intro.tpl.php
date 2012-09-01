@@ -51,7 +51,7 @@
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
 <div id="fb-auth">Login With Facebook</div>
-<div id="facebook_loader" style="display:none">
+<div id="facebook_loader" style="display:none"></div>
 <br>
 OR
 <br>
