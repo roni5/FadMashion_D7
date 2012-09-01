@@ -7,7 +7,7 @@
     <div class="form">
     <div class="login-form">
     
-    <div class="login">
+    <div class="login_col">
      <h3>Existing Customers</h3>
                 <div  class="fb-auth">Login With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
