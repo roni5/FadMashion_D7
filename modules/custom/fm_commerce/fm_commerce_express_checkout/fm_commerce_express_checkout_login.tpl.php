@@ -9,6 +9,13 @@
     
     <div class="login">
      <h3>Existing Customers</h3>
+                <div  class="fb-auth">Login With Facebook</div>
+        <div class="facebook_connecting" style="display: none;">
+<div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
+<div style="margin-top: 10px;" >Connecting with Facebook</div>
+</div>  
+     
+     <br> OR <br>
     <div style="margin-top: 10px;"><?php print render(drupal_get_form('user_login_block'));?></div>
     </div>
     <div style="display: none;" class="forgot_password">
