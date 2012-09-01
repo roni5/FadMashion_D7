@@ -60,16 +60,17 @@ function login(response, info){
         button.innerHTML                               = 'Logout';
         showLoader(false);
         document.getElementById('other').style.display = "block";
+
+        var data = {
+        	    'event_type': 'session_change',
+        	    'is_anonymous': Drupal.settings.fb.is_anonymous
+        	  };
+
+        	  data.fbu = FB.getUserID();
+
+        	  FB_JS.ajaxEvent(data.event_type, data);
     }
     
-    var data = {
-    	    'event_type': 'session_change',
-    	    'is_anonymous': Drupal.settings.fb.is_anonymous
-    	  };
-
-    	  data.fbu = FB.getUserID();
-
-    	  FB_JS.ajaxEvent(data.event_type, data);
 }
 
 function logout(response){
