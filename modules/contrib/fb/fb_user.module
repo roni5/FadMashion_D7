@@ -1028,6 +1028,13 @@ function fb_user_create_local_user($fb, $fb_app, $fbu,
 
         _fb_user_set_map($account, $fbu);
 
+            // Allow third-party modules to act after account creation.
+        fb_invoke(FB_USER_OP_POST_USER, array(
+                    'account' => $account,
+                    'fb_app' => $fb_app,
+                    'fb' => $fb,
+                  ), NULL, 'fb_user');
+                  
         db_query("UPDATE {users} SET status=1 WHERE uid = :uid", array(':uid' => $account->uid));
         
         
@@ -1035,12 +1042,7 @@ function fb_user_create_local_user($fb, $fb_app, $fbu,
                  array('%name' => $account->name, '%email' => '<' . $account->mail . '>'),
                  WATCHDOG_NOTICE, l(t('edit'), 'user/' . $account->uid . '/edit'));
 
-        // Allow third-party modules to act after account creation.
-        fb_invoke(FB_USER_OP_POST_USER, array(
-                    'account' => $account,
-                    'fb_app' => $fb_app,
-                    'fb' => $fb,
-                  ), NULL, 'fb_user');
+    
       }
     }
   }
