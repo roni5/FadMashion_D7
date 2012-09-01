@@ -33,6 +33,7 @@ function updateButton(response) {
             FB.logout(function(response) {
                 logout(response);
             });
+            
         };
         
     } else {
@@ -56,11 +57,17 @@ function updateButton(response) {
 }
 
 function login(response, info){
+    if (response.authResponse) {
+        var accessToken                                 =   response.authResponse.accessToken;
+        button.innerHTML                               = 'Logout';
+        showLoader(false);
+
+    }
     
 }
 
 function logout(response){
-
+    
 }
 
 
