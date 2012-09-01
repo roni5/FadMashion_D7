@@ -4,7 +4,7 @@
 
 jQuery(document).ready(function() {
 	window.fbAsyncInit = function() {
-	    FB.init(Drupal.settings.fb.fb_init_settings);
+	 //   FB.init(Drupal.settings.fb.fb_init_settings);
 		
 	   showLoader(true);
 	   
