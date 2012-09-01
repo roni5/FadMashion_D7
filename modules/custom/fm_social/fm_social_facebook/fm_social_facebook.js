@@ -31,7 +31,7 @@ function updateButton(response) {
         
     } else {
         //user is not connected to your app or logged out
-        jQuery('fb-auth').click(function() {
+        jQuery('.fb-auth').click(function() {
             showLoader(true);
             FB.login(function(response) {
                 if (response.authResponse) {
