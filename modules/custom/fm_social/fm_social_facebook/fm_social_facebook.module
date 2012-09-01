@@ -10,8 +10,7 @@ function fm_social_facebook_init() {
 	
 	      $fb = fb_api_init($GLOBALS['_fb_app']);
       $fbu = fb_facebook_user($fb);
-  var_dump($fbu);    
-  exit();
+  var_dump($fbu); 
       
 }
 
