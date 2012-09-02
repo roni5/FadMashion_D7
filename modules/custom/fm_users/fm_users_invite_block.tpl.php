@@ -1,6 +1,12 @@
 <div id="invite_block">
 <div class="box">
 
+<div  class="register_button fb-auth">Login With Facebook</div>
+        <div class="facebook_connecting" style="display: none;">
+<div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
+<div style="margin-top: 10px;" >Connecting with Facebook</div>
+</div>  
+
 <h1>Share with Friends, Get Rewarded</h1>
 <div id="explanation">
 <div id="col1">
