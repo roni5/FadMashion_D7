@@ -174,7 +174,7 @@ jQuery(document).ready(function() {
  		  });
           
           //FIX show
-          jQuery('.contentPanel  .jcarousel-item #' + nid).addClass('ad-active');
+          jQuery('.contentPanel .jcarousel-container #' + nid).addClass('ad-active');
           
           
           try {
