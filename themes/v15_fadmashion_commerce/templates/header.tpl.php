@@ -33,7 +33,7 @@
     <div class="nav">
       <ul>
         <li class="<?php $is_front ? print 'active' : ''?>"><?php print l('Home', 'home', array('attributes' => array('class' => array('home') )));?></li>
-        <li class="<?php arg(0) == 'shop' ? print 'active' : ''?>"><a href="javascript: void(0)" class="tooltipBtn">Shop</a></li>
+        <li class="<?php arg(0) == 'shop' ? print 'active' : ''?>"><a href="/shop" class="tooltipBtn">Shop</a></li>
          <?php print fm_shop_subnav_items();?>
          <li class="<?php (arg(0) == 'user' && arg(1) == 'share-with-friends') ? print 'active' : ''?>"><?php print l('Share', 'user/share-with-friends')?></li>                                                  
         <li> </li>             
