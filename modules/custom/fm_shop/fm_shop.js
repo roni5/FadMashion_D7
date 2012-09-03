@@ -213,7 +213,7 @@ jQuery(document).ready(function() {
 
           
           jQuery('.ad-nav .ad-thumbs li a.thumb_link').address();
-          jQuery('#grid h1 a, #grid a.thumb_link').address();
+          jQuery('#grid h1 a, #grid a.grid_thumb_link').address();
           
           //Make all press links open in new window
           jQuery('.press .source a').attr('target', '_blank');

@@ -114,7 +114,13 @@ function fm_shop_page_ajax($type) {
 	$type = $args['type'];
 	
 	$cache_key =  $type . '_' . $params;
-	if ($cached_data = cache_get($cache_key)) {
+	
+	$cache = true;
+	if($type == 'favorites') {
+		$cache = false;
+	}
+	
+	if ($cache && $cached_data = cache_get($cache_key)) {
     $cached_data_totalCount = cache_get($cache_key . '_totalCount');
 	//Return from cache.
     $content = $cached_data->data;
