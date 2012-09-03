@@ -197,6 +197,9 @@ jQuery(document).ready(function() {
         		  var position = jQuery('.collection_viewer').position();
                   //jQuery("html, body").animate({ scrollTop: 220 }, 'slow', "easeOutCubic");
         	  }
+        	  
+        	  //Always on Beautytip
+        	  jQuery('.favorite_button').btOn();
           }
 
           
