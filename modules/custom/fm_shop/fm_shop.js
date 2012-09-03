@@ -199,7 +199,11 @@ jQuery(document).ready(function() {
         	  }
         	  
         	  //Always on Beautytip
-        	  jQuery('.favorite_button').btOn();
+        	  jQuery('#grid_view .thumb_img').hover(function () {
+        		  jQuery('.favorite_button', jQuery(this)).btOn();
+        	  }, function() {
+        		  jQuery('.favorite_button', jQuery(this)).btOff();
+        	  });
           }
 
           
