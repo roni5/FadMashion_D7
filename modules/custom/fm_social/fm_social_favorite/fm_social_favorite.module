@@ -10,6 +10,12 @@ function fm_social_favorite_init() {
 	      'contentSelector' => "save_for_later($(this));",
 	      'fill' => "rgb(35, 35, 35)", 
 	      'spikeLength' => 6,
+	      'shadow' => true,
+		    'shadowOffsetX' => 3,
+		    'shadowOffsetY' => 3,
+		    'shadowBlur' => 8,
+		    'shadowColor' => 'rgba(0,0,0,.3)',
+		    'shadowOverlap' => false,
 	      'padding' => '5px',
 	      'shrinkToFit' => true,
 	      'cssClass' => 'save_for_later'
