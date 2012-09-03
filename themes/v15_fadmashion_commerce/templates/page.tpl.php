@@ -1,7 +1,7 @@
 <div id="wrapper">
 	<div id="container">
 <?php include('header.tpl.php');?>
-            <div style="width: 400px; margin: 20px;" class="fb_connected"></div>
+      
     <?php if(!empty($page['featured'])): ?>
       <div id="sectionHeader">
       <div class="pad">
@@ -20,7 +20,7 @@
        <?php print render($page['content']); ?>
 	   
 	 </div>
-
+<div style="display: none"><div style="width: 400px; margin: 20px;" class="fb_connected"></div></div>
 <?php include('footer.tpl.php');?>
 </div><!--wrapper-->
 </div><!--container-->
