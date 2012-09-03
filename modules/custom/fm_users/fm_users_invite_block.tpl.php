@@ -3,7 +3,7 @@
 
 <?php 
 global $user;
-if(fb_get_fbu($user->uid)) {?>
+if(!fb_get_fbu($user->uid)) {?>
 <div  class="register_button fb-auth">Login With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
 <div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
