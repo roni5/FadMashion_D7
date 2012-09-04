@@ -22,6 +22,7 @@ function fm_social_favorite_init() {
         );
   beautytips_add_beautytips($options);
   
+  global $user;
   if($user->uid) {
   	drupal_add_js('var notify_show_register = 0;', 'inline');
   } else {
