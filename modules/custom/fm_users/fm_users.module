@@ -111,7 +111,7 @@ function fm_users_preprocess_user_profile_form(&$variables) {
   
   global $user;
   if($user->uid == 1) {
-  	$variables['therest'] = drupal_render($variables['']['account']); 
+  	//$variables['therest'] = drupal_render($variables['']['account']); 
   }
  // $variables['rendered'] = drupal_render($variables['']['picture']);
 }
