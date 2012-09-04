@@ -66,6 +66,7 @@ span {
 #subHeader .slogan{font-style: italic;  font-family:"jubilat-1","jubilat-2", Georgia; font-size: 16px; line-height: 48px; font-weight: 400}
 #subHeader .slogan span{color: #b63030; font-size: 16px;font-style: italic;font-family:"jubilat-1","jubilat-2", Georgia;font-weight: 400}
 
+#designer_header {border-left: 1px dotted #aaa; padding-left: 20px;}
 
 /********* content **********/
 #content {  clear: both;float: left;padding: 20px 0 30px;;}

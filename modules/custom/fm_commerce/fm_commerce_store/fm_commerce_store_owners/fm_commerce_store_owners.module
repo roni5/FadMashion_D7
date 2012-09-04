@@ -20,6 +20,7 @@ function fm_commerce_store_owners_menu() {
  * hook_footer_tab_active()
  */
 function fm_commerce_store_owners_footer_tab_active() {
+	return false;
 	return fm_commerce_store_owners_is_admin();
 }
 

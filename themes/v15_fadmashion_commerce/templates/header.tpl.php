@@ -7,9 +7,16 @@
     <div class="static_links">
     <?php  $url = url('static', array('alias' => true, 'fragment' => '!')); ?>
     <?php  $url2 =  url('for-designers', array('query' => array('page' => 'designers'))); 
-           $designers = $url . $url2
+           $designers = $url . $url2;
+           
+           if(!fm_commerce_store_owners_is_admin() ) {
+           	print '<a id="designer_header" href="' . $designers . '">For Designers</a>';
+           } else {
+           	$store = fm_commerce_store_owners_get_store();
+           	print  l($store->name, 'user/', array('attributes' => array('id' => 'designer_header')));
+           }
      ?>
-        <a style="border-left: 1px dotted #aaa; padding-left: 20px;" href="<?php print $designers?>">For Designers</a>
+        
    
         </div>
         
