@@ -1236,9 +1236,6 @@ abstract class BaseFacebook
    */
   protected function throwAPIException($result) {
     $e = new FacebookApiException($result);
-    
-    print_r($e);
-  	exit();
     switch ($e->getType()) {
       // OAuth 2.0 Draft 00 style
       case 'OAuthException':
