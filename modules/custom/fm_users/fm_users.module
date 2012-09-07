@@ -281,12 +281,9 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	  $fbu = fb_facebook_user();
 	  if(isset($fbu)) {
 	     //var_dump($edit);
-	     $info = $GLOBALS['_fb']->api($fbu);
-		   $edit['field_first_name']['und'][0]['value'] = $info['first_name'];
-		   $edit['field_last_name']['und'][0]['value'] = $info['last_name'];
-		   if(!fm_users_check_activate($info['email'])) {
-		     $edit['status'] = 0;
-		   }
+	     //$info = $GLOBALS['_fb']->api($fbu);
+		   //$edit['field_first_name']['und'][0]['value'] = $info['first_name'];
+		   //$edit['field_last_name']['und'][0]['value'] = $info['last_name'];
 	  }
 
 	}
