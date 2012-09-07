@@ -57,9 +57,8 @@
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
 <div class="fb-auth facebookBtn">Login With Facebook</div>
-<br>
-OR
-<br>
+
+<img src="<?php print pp();?>divider_or.png">
 <div class="loginErrorText">Wrong Username or Password</div>
 <?php print render($login_form);?>
 </div>  
