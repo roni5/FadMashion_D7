@@ -7,21 +7,21 @@
 
 <div class="fieldsRequired">all fields required</div>
 <?php print render($register_form);?>
-<p class="loginHere rounded-top rounded-bottom">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Log In Here</a></p>
 </div><!-- form-->
-
 
 
 <div id="intro" class="pad">
 	<div class="text">
    <?php //<h1>print $node->title;</h1>?>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
-           <br>
+           
            <div  class="register_button fb-auth facebookBtn">Login With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
 <div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
 <div style="margin-top: 10px;" >Connecting with Facebook</div>
 </div>  
+
+<p class="loginHere rounded-top rounded-bottom">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Log In Here</a></p>
 
 
 </div>
