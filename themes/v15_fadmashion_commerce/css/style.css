@@ -370,7 +370,7 @@ background: #fff;border:1px solid #cac9c6;cursor:pointer;float:left;height:20px;
 #signup p.loginHere{background:none repeat scroll 0 0 #ECE9E6;font-size:12px;margin:30px 60px;padding:5px;}
 #signup .pad, #invite_block pad{padding: 0px 0 0 36px;}
 #signup .text{width: 360px; text-align:center; padding-top: 75px; }
-#signup .login, #signup .forgot_password, .state3 .facebook_connecting{width: 430px; text-align:center; padding-top: 70px; }
+#signup .login, #signup .forgot_password, .state3 .facebook_connecting{width: 430px; text-align:center; padding-top: 55px; }
 #signup ul {border-bottom:1px solid #E4DBD3;list-style-type: none; border-top:1px solid #E4DBD3;margin:20px 40px;padding:20px 0;}
 #signup li {color:#6F5F55;font-size:15px;margin:0 0 5px;}
 
