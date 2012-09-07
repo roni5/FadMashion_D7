@@ -1265,8 +1265,6 @@ abstract class BaseFacebook
   protected static function errorLog($msg) {
     // disable error log if we are running in a CLI environment
     // @codeCoverageIgnoreStart
-    var_dump(errorLog);
-    exit();
     if (php_sapi_name() != 'cli') {
       error_log($msg);
     }
