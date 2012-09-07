@@ -713,8 +713,6 @@ function fb_user_user_view($account, $view_mode, $langcode) {
  * User is about to be updated.
  */
 function fb_user_user_update(&$edit, $account, $category) {
-	var_dump($edit);
-	exit();
   if (isset($edit['fb_user_map'])) { // Only set on account form submit.
     if ($edit['fb_user_map']) {
       _fb_user_set_map($account, $edit['fb_user_map']);
