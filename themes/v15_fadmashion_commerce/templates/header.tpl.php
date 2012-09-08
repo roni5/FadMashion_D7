@@ -13,7 +13,7 @@
            	print '<a id="designer_header" href="' . $designers . '">For Designers</a>';
            } else {
            	$store = fm_commerce_store_owners_get_store();
-           	print  l($store->name, 'user/', array('attributes' => array('id' => 'designer_header')));
+           	print  l($store->name, 'user/store_owners/orders', array('attributes' => array('id' => 'designer_header')));
            }
      ?>
         
