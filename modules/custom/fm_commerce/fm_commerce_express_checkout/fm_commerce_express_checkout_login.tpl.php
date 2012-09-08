@@ -9,7 +9,7 @@
     
     <div class="login_col">
      <h3>Existing Customers</h3>
-              <div style="width: auto;" class="register_button fb-auth">Login With Facebook</div>
+              <div style="width: auto; text-indent: 46px; margin-top: 15px" class="register_button fb-auth">Login With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
 <div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
 <div style="margin-top: 10px;" >Connecting with Facebook</div>
