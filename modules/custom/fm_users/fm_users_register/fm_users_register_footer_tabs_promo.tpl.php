@@ -4,7 +4,7 @@
 <h2>Get $10 instant credits + an additional $30 for inviting 10 of your friends.</h2>
 </div>
 <div class="register">
-  <a class="button" href="javascript:void(0);" onClick="jQuery('#sign_up').trigger('click')">Join Free</a>
+  <div  class="register_button facebookBtn fb-auth">Login With Facebook</div>
   <div class="login">Already a Member? <br clear="all"><a href="javascript:void(0);" onClick="jQuery('#login').trigger('click')">Login</a></div> 
   
   
