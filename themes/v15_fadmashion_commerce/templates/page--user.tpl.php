@@ -56,7 +56,7 @@
 			  </div>
 			  <div id="quicklinks_info">
 			    <div class="form">
-			      <div><?php print l('Order History', 'user/orders');?></div>
+			      <div><?php print l('My Order History', 'user/orders');?></div>
 			      <div><?php global $user; print l('Settings', 'user/'  . $user->uid . '/edit');?></div>
 			      <div><?php print l('Recommend to Friends', 'user/share-with-friends');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
 			      <div><?php print l('Logout', 'user/logout');?></div>
