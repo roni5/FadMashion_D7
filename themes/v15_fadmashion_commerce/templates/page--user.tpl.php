@@ -35,10 +35,14 @@
 			  </div>
 			  <div id="quicklinks_info">
 			    <div class="form">
-			      <div><?php print l('Promote Store', 'user/promote-shop');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
+			      <div><?php // print l('Promote Store', 'user/promote-shop');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
 			      <div><?php print l('Store Orders', 'user/store_owners/orders');?></div>
-			      <div><?php print l('Store Settings', 'user/store_owners/settings');?></div>
-			      <div><?php global $user; print l('Visit shop', 'user/'  . $user->uid . '/edit');?></div>
+			      <div><?php //print l('Store Settings', 'user/store_owners/settings');?></div>
+			      <div><?php 
+			      $url = url('shop', array('alias' => true, 'fragment' => '!'));
+           $url2 = url($store->name, array('query' => array('store_id' => $store->store_id)));
+             $url = $url . $url2;
+			      ?><a href="<?php print $url?>">Visit Storefront</a></div>
 			      
 			    </div>
 			  </div>
