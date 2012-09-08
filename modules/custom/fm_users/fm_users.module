@@ -102,7 +102,7 @@ function fm_users_store_orders_page() {
 	return $output;
 }
 function fm_users_store_settings_page() {
-	
+	$store = fm_commerce_store_owners_get_store();
 	$content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
 	
 	$output = '<div id="order-history" class="checkoutPanel">';
