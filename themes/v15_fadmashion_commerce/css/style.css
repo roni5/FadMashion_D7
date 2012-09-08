@@ -805,7 +805,7 @@ top:14px;}
 #fm_user_edit_form .column1{width: 682px; min-height: 700px; float: left; border-right: 1px solid #ddd; padding-right: 25px; padding-bottom: 30px;}
 #fm_user_edit_form   .column2{position: absolute;padding-left: 25px;  width:292px; display:inline;float:left; }
 #fm_user_edit_form {margin-top: 25px;}
-#profile_information.checkoutPanel, #quicklinks_information.checkoutPanel{ margin-bottom: 25px;}
+#profile_information.checkoutPanel, .quicklinks_information.checkoutPanel{ margin-bottom: 25px;}
 #quicklinks_information .a{font-size: 14px;}
 
 

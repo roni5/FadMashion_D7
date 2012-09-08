@@ -23,7 +23,27 @@
        </div>
        
 			<div class="column2">
-			<div class="checkoutPanel" id="quicklinks_information">
+			
+			<?php if (fm_commerce_store_owners_is_admin()) {
+			        $store = fm_commerce_store_owners_get_store();
+				?>
+			<div class="checkoutPanel quicklinks_information" id="">
+			  <div class="header rounded-top">
+			    <div class="pad">
+			       <?php print $store->name; ?>
+			    </div>
+			  </div>
+			  <div id="quicklinks_info">
+			    <div class="form">
+			      <div><?php print l('Promote Store', 'user/promote-shop');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
+			      <div><?php print l('Store Orders', 'user/store_owners/orders');?></div>
+			      <div><?php global $user; print l('My Shop', 'user/'  . $user->uid . '/edit');?></div>
+			      
+			    </div>
+			  </div>
+			</div>
+			<?php } ?>
+			<div class="checkoutPanel quicklinks_information" id="">
 			  <div class="header rounded-top">
 			    <div class="pad">
 			       Quick Links
@@ -41,7 +61,7 @@
 			    </div>
 			  </div>
 			</div>
-			<div class="checkoutPanel" id="quicklinks_information">
+			<div class="checkoutPanel quicklinks_information" id="">
 			  <div class="header rounded-top">
 			    <div class="pad">
 			       Follow Fadmashion

@@ -83,7 +83,7 @@
 </div>
 
       
-<div class="backSignup">Not a Member? <a  href="javascript:void(0);" onClick="fmShowSignup();">Sign Up</a></div>   
+<div class="backSignup">Not a Member? <a  href="javascript:void(0);" onClick="fmShowSignup();">Join Free</a></div>   
      
 </div><!-- pad-->
 </div><!-- box-->

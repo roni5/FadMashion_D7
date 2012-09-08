@@ -12,6 +12,12 @@ function fm_commerce_store_owners_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  $items['user/store_owners/orders'] = array(
+    'page callback' => 'fm_commerce_store_owners_orders_list',
+	  'access arguments' => array('administer own stores'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   return $items;
 }
 
@@ -297,8 +303,16 @@ function fm_commerce_store_owners_is_admin($user = NULL) {
 /*
  * Get the Order list for the shop owners
  */
-function fm_commerce_store_owners_orders_list($store = nulll) {
+function fm_commerce_store_owners_orders_list($store = null) {
 	global $user;
+	
+	if($store == null) {
+		$store = fm_commerce_store_owners_get_store();
+	}
+	
+	if(!isset($store)) {
+    return;
+	}
 	
 	//Second, load up previous orders and go through each one and update those 
  $orders = fm_commerce_store_query_orders($store);
