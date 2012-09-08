@@ -37,8 +37,8 @@
 			    <div class="form">
 			      <div><?php print l('Promote Store', 'user/promote-shop');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
 			      <div><?php print l('Store Orders', 'user/store_owners/orders');?></div>
-			      <div><?php print l('Store Settings', 'user/store_owners/orders');?></div>
-			      <div><?php global $user; print l('View Shop', 'user/'  . $user->uid . '/edit');?></div>
+			      <div><?php print l('Store Settings', 'user/store_owners/settings');?></div>
+			      <div><?php global $user; print l('Visit shop', 'user/'  . $user->uid . '/edit');?></div>
 			      
 			    </div>
 			  </div>

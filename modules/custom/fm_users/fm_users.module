@@ -41,6 +41,11 @@ function fm_users_menu() {
 	  'access arguments' => array('administer own stores'),
     'type' => MENU_NORMAL_ITEM,
   );
+  $items['user/store_owners/settings'] = array(
+    'page callback' => 'fm_users_store_settings_page',
+	  'access arguments' => array('administer own stores'),
+    'type' => MENU_NORMAL_ITEM,
+  );
   
   return $items;	
 }
@@ -96,6 +101,18 @@ function fm_users_store_orders_page() {
 	$output .= '</div>';
 	return $output;
 }
+function fm_users_store_settings_page() {
+	
+	$store = fm_commerce_store_owners_get_store();
+	$content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
+	
+	$output = '<div id="order-history" class="checkoutPanel">';
+	$output .= '<div class="header rounded-top"><div class="pad">Store Settings</div></div>';
+	$output .= '<div id="orders"><div class="form">' . $content . '</div></div>';
+	$output .= '</div>';
+	return $output;
+}
+
 
 function fm_users_share_with_friends() {
 	global $user;
