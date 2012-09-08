@@ -35,7 +35,7 @@
 			  </div>
 			  <div id="quicklinks_info">
 			    <div class="form">
-			      <?php // print l('Promote Store', 'user/promote-shop');?></div>
+			      <?php // print l('Promote Store', 'user/promote-shop');?>
 			      <div><?php print l('Store Orders', 'user/store_owners/orders');?></div>
 			      <?php //print l('Store Settings', 'user/store_owners/settings');?>
 			      <div><?php 
