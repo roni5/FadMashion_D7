@@ -35,9 +35,9 @@
 			  </div>
 			  <div id="quicklinks_info">
 			    <div class="form">
-			      <div><?php // print l('Promote Store', 'user/promote-shop');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span></div>
+			      <?php // print l('Promote Store', 'user/promote-shop');?><span style ="color: #777777;font-size: 11px;font-style: italic;padding-left: 10px;"></span>
 			      <div><?php print l('Store Orders', 'user/store_owners/orders');?></div>
-			      <div><?php //print l('Store Settings', 'user/store_owners/settings');?></div>
+			      <?php //print l('Store Settings', 'user/store_owners/settings');?>
 			      <div><?php 
 			      $url = url('shop', array('alias' => true, 'fragment' => '!'));
            $url2 = url($store->name, array('query' => array('store_id' => $store->store_id)));
