@@ -5,12 +5,6 @@
  */
 function fm_commerce_store_owners_menu() {
 	
-	$items['store_owners/admin'] = array(
-    'page callback' => 'fm_commerce_store_owners_admin',
-	  'access arguments' => array('administer own stores'),
-	  'file' => 'fm_commerce_store_owners.admin.inc',
-    'type' => MENU_NORMAL_ITEM,
-  );
   
   $items['user/store_owners/orders'] = array(
     'page callback' => 'fm_commerce_store_owners_orders_list',
