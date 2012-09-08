@@ -8,9 +8,14 @@
 
 Drupal.behaviors.addFMPaymentEmailForm= {
   attach: function (context, settings) {
-    if (!$.isFunction($.colorbox)) {
-      return;
-    }
+
+	    var needsAction = jQuery('#orders-list .needs-action').length;
+	    if(needsAction && !jQuery('.action-alert').length) {
+	    	jQuery('#orders-list').prepend('<div class="action-alert needs-action">' + needsAction + ' Orders Require your Immediate Attention.</div>');
+	    	jQuery.colorbox.resize();
+	    }
+	    
+	    
     if(!jQuery('#fm-commerce-store-owners-admin-form').length) {
     	return;
     }
@@ -37,12 +42,6 @@ Drupal.behaviors.addFMPaymentEmailForm= {
     	 required: true, 
          //email: true
     });*/
-    
-    var needsAction = jQuery('#orders-list .needs-action').length;
-    if(needsAction && !jQuery('.action-alert').length) {
-    	jQuery('#orders-list').prepend('<div class="action-alert needs-action">' + needsAction + ' Orders Require your Immediate Attention.</div>');
-    	jQuery.colorbox.resize();
-    }
     
   } 
 };
