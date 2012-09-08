@@ -32,7 +32,7 @@ span {
     font-weight: inherit;}
     
     
-.fb-auth{width: 238px; cursor: pointer; height: 36px; line-height: 36px; text-indent: 25px; color: #fff; font-size: 16px;background: url(../images/b_facebook.png) top left no-repeat; display: block; margin: 0 auto; text-decoration: none; }
+.fb-auth{width: 238px; text-align: center; cursor: pointer; height: 36px; line-height: 36px; text-indent: 25px; color: #fff; font-size: 16px;background: url(../images/b_facebook.png) top left no-repeat; display: block; margin: 0 auto; text-decoration: none; }
 .fb-auth:hover{background-position: bottom left;}
 
 /********* header **********/
