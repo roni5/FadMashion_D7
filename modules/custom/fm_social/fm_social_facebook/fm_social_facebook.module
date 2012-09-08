@@ -16,7 +16,8 @@ function fm_social_facebook_fb_user($op, $data, &$return) {
 		fm_social_favorite_authenticated_form_submit(null, null);
 		//rules_invoke_all('user_insert', $account);
 	} else if($op == FB_USER_OP_POST_EXTERNAL_LOGIN) {
-		fm_social_favorite_authenticated_form_submit(null, null);
+		$form_state = null;
+		fm_social_favorite_authenticated_form_submit(null, $form_state);
 	}
 }
 
