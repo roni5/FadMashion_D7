@@ -34,6 +34,14 @@ function fm_users_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   
+  
+  
+  $items['user/store_owners/orders'] = array(
+    'page callback' => 'fm_users_store_orders_page',
+	  'access arguments' => array('administer own stores'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   return $items;	
 }
 
@@ -77,6 +85,14 @@ function fm_users_orders_page() {
 	$output = '<div id="order-history" class="checkoutPanel">';
 	$output .= '<div class="header rounded-top"><div class="pad">Order History</div></div>';
 	$output .= '<div id="orders"><div class="form">' . fm_commerce_orders_full_list() . '</div></div>';
+	$output .= '</div>';
+	return $output;
+}
+
+function fm_users_store_orders_page() {
+	$output = '<div id="order-history" class="checkoutPanel">';
+	$output .= '<div class="header rounded-top"><div class="pad">Store Orders</div></div>';
+	$output .= '<div id="orders"><div class="form">' . fm_commerce_store_owners_orders_list() . '</div></div>';
 	$output .= '</div>';
 	return $output;
 }
