@@ -46,7 +46,7 @@
             if ($user->uid) { ?>
          <li ><?php print l('Share', 'user/share-with-friends')?></li>
           <?php } else {?>        
-          <li class=""><a onClick="jQuery('#sign_up').trigger('click');" href="javascript: void(0)">Join</a></li>
+          <li class=""><a href="/shop" target="_parent">Join</a></li>
           <?php }?>                                             
         <li> </li>             
       </ul>
