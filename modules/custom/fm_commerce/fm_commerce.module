@@ -24,6 +24,7 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  $form['#action'] = url('node/' . $node->nid);
 	   $form['#token'] = FALSE;
 	   
+	   
 	  //ADD color options to cart form
 	  if (count($colors) > 1) {
 	  	
