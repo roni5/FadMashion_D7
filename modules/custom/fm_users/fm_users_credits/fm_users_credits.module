@@ -54,7 +54,5 @@ function fm_users_credits_get($uid = NULL) {
      $total_credits += $record['credits'];
    }
       
-   var_dump();
-   exit();
   return $total_credits;
 }
