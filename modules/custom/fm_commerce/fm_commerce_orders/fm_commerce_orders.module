@@ -282,12 +282,8 @@ function fm_commerce_orders_row_info($order) {
          $ref = field_get_items('commerce_line_item', $line_item, 'field_node_reference');
          $nid = $ref[0]['nid'];
          $node = node_load($nid);
-         if(isset($node) && !empty($node)) {
-           $sale_price = commerce_currency_format($node->field_sale_price['und'][0]['amount'], $node->field_sale_price['und'][0]['currency_code']);
-           $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
-         } else {
-           $sale_price = commerce_currency_format(0, 'USD');
-           $diff = commerce_currency_format(0, 'USD');
+         if(isset($node) && !empty($node)) { $diff = commerce_currency_format(($retail_price['amount'] - $node->field_sale_price['und'][0]['amount']), $node->field_sale_price['und'][0]['currency_code']);
+         } else { $diff = commerce_currency_format(0, 'USD');
          	
          }
          
@@ -295,6 +291,9 @@ function fm_commerce_orders_row_info($order) {
          $size = $line_item_wrapper->field_order_size->value();
      }
   }
+  
+  $total = $order_wrapper->commerce_order_total->value();
+  $sale_price = commerce_currency_format($total['amount'], $total['currency_code']);
   
   return array('title' => $title, 'retail' => $retail_price, 'sale' => $sale_price, 'diff' => $diff, 'color' => $color, 'size' => $size);  
 }
