@@ -35,6 +35,8 @@ span {
 .fb-auth{width: 238px; text-align: center; cursor: pointer; height: 36px; line-height: 36px; text-indent: 25px; color: #fff; font-size: 16px;background: url(../images/b_facebook.png) top left no-repeat; display: block; margin: 0 auto; text-decoration: none; }
 .fb-auth:hover{background-position: bottom left;}
 
+.facebookBtnSmall {width: 108px;height: 28px;line-height: 28px;color: white;font-size: 14px;background: url(../images/b_facebook_small.png) top left no-repeat;display: block;margin: 0 auto;text-decoration: none;}
+
 /********* header **********/
 
 #header{height: 89px;}
@@ -812,7 +814,7 @@ top:14px;}
 
 /* Footer User Register Style*/
 
-#register_footer_promo {margin: auto; width: 850px; margin-top: 13px; }
+#register_footer_promo {margin: auto; width: 727px; margin-top: 13px; }
 #register_footer_promo .text {padding-right: 20px; border-right: 1px dotted #888; float: left}
 #register_footer_promo .text h1 {text-shadow: 2px 2px 2px #000000; font-weight: normal; color: #fff; font-size: 17px; font-family: "jubilat-1","jubilat-2",Georgia; font-style:italic;}
 #register_footer_promo .text h1 span {color: #B63030; font-family: "jubilat-1","jubilat-2",Georgia;}
