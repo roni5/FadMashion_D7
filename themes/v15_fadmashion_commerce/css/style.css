@@ -270,7 +270,7 @@ p.description{margin: 0 0 16px 0; color: #666; font-size: 13px}
 .pricing{margin: 2px 0 10px 0; width: 332px;  font-size: 12px; float: left; display: block; clear: both;}
 .pricing div{float: left; width: 110px; text-align:center; display: inline; font-size: 19px; font-weight: 500; height: 45px; line-height:45px;}
 .pricing .original{color: #aaa;background: url(../images/dotted_vertical.png) top right repeat-y;}
-.pricing .original  span .field-item { width: 80px; background: url(../images/strikethrough.jpg) left center repeat-x;font-size: 19px; font-weight: 500; height: 45px; line-height:45px; padding: 0 4px; }
+.pricing .original  span .field-item { width: 69px; margin-left: 9px; background: url(../images/strikethrough.jpg) left center repeat-x;font-size: 19px; font-weight: 500; height: 45px; line-height:45px; padding: 0 10px; }
 .pricing .exclusive{}
 .pricing .savings{ color: #b83838;background: url(../images/dotted_vertical.png) top right repeat-y;}
 
