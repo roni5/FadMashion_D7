@@ -935,7 +935,6 @@ table.timeline td{ padding-right: 30px; vertical-align:top;}
 /******** tooltip *******/
 
 .shop_subnav {display: none;}
-.tooltipBtn{cursor: default}
 .tooltip .leftColumn, .tooltip  .rightColumn{float: left; }
 .tooltip .leftColumn{ width: 190px;}
 .tooltip  .rightColumn{width: 125px;}
