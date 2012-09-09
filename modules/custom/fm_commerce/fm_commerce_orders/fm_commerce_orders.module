@@ -396,7 +396,7 @@ function fm_commerce_orders_totals_summary($line_item_wrapper) {
 			break;
 		case 'shipping':
 			$title = t('Shipping');
-			$classes = array('shipping');
+			$classes = array('shipping', 'discount');
 			$price = 'FREE';
 			break;
 		case 'deals_discount':
