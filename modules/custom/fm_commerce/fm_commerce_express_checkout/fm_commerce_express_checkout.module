@@ -493,7 +493,7 @@ function theme_fm_commerce_express_checkout_form($variables)
     	  $output .= ' <div style="" class="register_button fb-auth">Connect With Facebook</div>
         <div class="facebook_connecting" style="display: none;">
 <div id="facebook_loader"><img src="' . pp() . 'loader-red.gif"></div>
-<div style="dispaly: block; margin: 0 auto;" >Connecting with Facebook</div>
+<div style="dispaly: block; text-align: center;" >Connecting with Facebook</div>
 </div> <img style="display: block; margin: 19px auto 0;" src="' . pp() . 'divider_or.png"><br clear="all"> ';
     	  $output .= drupal_render($form[$field_name]);
     	  $output .= '</div>';
