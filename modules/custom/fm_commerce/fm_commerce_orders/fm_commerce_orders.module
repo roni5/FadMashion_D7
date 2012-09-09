@@ -402,6 +402,10 @@ function fm_commerce_orders_totals_summary($line_item_wrapper) {
 			$title = t('Exclusive Discount');
 			$classes = array('discount');
 			break;
+	 case 'credits_amount':
+			$title = t('FREE Credits');
+			$classes = array('discount');
+			break;
 	  case 'tax':
 			$title = t('Tax');
 			break;
