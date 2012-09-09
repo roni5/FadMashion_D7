@@ -15,10 +15,16 @@ function fm_social_facebook_fb_user($op, $data, &$return) {
 		
 		$form_state = null;
 		fm_social_favorite_authenticated_form_submit(null, $form_state);
+		
+		
+		//fm_commerce_cart_add_credits_to_cart(); 
+		
 		//rules_invoke_all('user_insert', $account);
 	} else if($op == FB_USER_OP_POST_EXTERNAL_LOGIN) {
 		$form_state = null;
 		fm_social_favorite_authenticated_form_submit(null, $form_state);
+		
+		//fm_commerce_cart_add_credits_to_cart(); 
 	}
 }
 

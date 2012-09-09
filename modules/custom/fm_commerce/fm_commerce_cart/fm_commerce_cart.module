@@ -56,13 +56,17 @@ function fm_commerce_cart_block_view($block_name = '') {
   if($block_name == 'fm_commerce_cart') {
   	
   	
+  	
+  	
   	global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
   
+  //fm_commerce_cart_add_credits_to_cart();  ADD CREDITS TO CART, FOR REGISTERED USERS.
   
-  	$output = '<div class="summary">';
-  	$output .= '<div class="header rounded-top">Order Summary #' . $order->order_id. '</div>';
+  
+  $output = '<div class="summary">';
+  $output .= '<div class="header rounded-top">Order Summary #' . $order->order_id. '</div>';
   	
   	
   
