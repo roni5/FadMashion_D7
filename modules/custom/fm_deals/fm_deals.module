@@ -147,6 +147,7 @@ function fm_deals_preprocess_node(&$vars) {
 	  $product = fm_commerce_get_product($vars['node']);
 		$store = fm_commerce_get_store($product);  
 		
+		$vars['product'] = $product;
 		$vars['store'] = $store;
 		
 		$admin_links = array();
@@ -160,7 +161,11 @@ function fm_deals_preprocess_node(&$vars) {
 			$i++;
 		}
 		
-		$vars['admin_links'] = $admin_links;
+		if(user_access('administer deals list')) {
+		  $vars['admin_links'] = '<div class="admin_links">' . theme('item_list', array('items' => $admin_links)) . '</div>';
+		} else {
+			$vars['admin_links'] = '';
+		}
 		
 		//Set Time Until for Countdown
 		$details= fm_deals_group_details($vars);
@@ -197,44 +202,45 @@ function fm_deals_preprocess_node(&$vars) {
 	  
 	  $details = field_get_items('commerce_product', $product, 'field_details');
     
-	  $default_tab = 'product_shipping';
-	 if(!empty($details)) {
+	  $vars['tab_details'] = '';
+	  if(!empty($details)) {
 	 	  $details_text = '<ul class="details-list">';
 	 	  foreach($details as $detail) {
 	 	  	$details_text .= '<li>' . $detail['value'] . '</li>';
 	 	  }
 	 	  $details_text .= '</ul>';
-      $tabs['product_details'] = array(
-              'title' => t('Details'),
-              'type' => 'freetext',
-              'text' => $details_text
-      );
-      $default_tab = 'product_details';
-	  }  
-	 
-	 $tabs['product_shipping'] = array(
-            'title' => t('Shipping'),
-            'type' => 'freetext',
-            'text' => theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) ),
-    );
-   $tabs['product_returns'] = array(
-            'title' => t('Returns'),
-            'type' => 'freetext',
-            'text' => theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) ),
-    );
+      $vars['tab_details'] = $details_text;
+	   }  
 	  
-    $quicktabs->tabs = $tabs;
-    $quicktabs->table = 'quicktabs';
-    $quicktabs->ajax= '0';
-    $quicktabs->style = 'default';
-    $quicktabs->type = 'Normal';
-    $quicktabs->default_tab = $default_tab;
-    $quicktabs->hide_empty_tabs = '0';
-    $quicktabs->machine_name = 'fm_product_details';
-    
-    $qt = quicktabs_render($quicktabs);
-    $vars['detail_tabs'] = $qt;
+	   $vars['tab_shipping'] = theme('fm_deals_shipping_returns', array('isShipping' => true, 'product' => $product, 'store' => $store) );
+	   $vars['tab_returns'] = theme('fm_deals_shipping_returns', array('isShipping' => false, 'product' => $product, 'store' => $store) );
+
+	
+	
+	// Stylist Info
+	$stylist_info = field_get_items('commerce_product', $product, 'field_product_stylist');
+	
+  $stylist = '';
+	if(!empty($stylist_info)) {
+		$stylist_uid = $stylist_info[0]['uid'];
+	} else {
+		//Default NID for chief Stylist
+		$stylist_uid = 8;
 	}
+		$stylist_user = user_load($stylist_uid);
+		$picture = theme('user_picture', array('account' => $stylist_user)) ;
+		
+    $stylist .= '<div class="stylist">';
+    //$stylist .= $picture; 
+    $stylist .= '<h1>' . t('Curated for you by') . '</h1>';
+    $stylist .= '<h2>' . fm_users_fullname($stylist_uid) . ' / ';
+    $stylist .= '<span>Chief Stylist</span></h2>';
+    $stylist .= '</div>';
+   
+  $vars['stylist'] = $stylist;
+  
+	}
+  
 }
 
 
@@ -245,11 +251,43 @@ function theme_fm_deals_product_details($vars) {
   $product = $vars['product'];
   $store = $vars['store'];
   
-  $output = '<h1 class="itemName">' . $title . '</h1>';
+ 
+  $product_id = $product->product_id;
+  $output = '<div class="socialButtons">';
+  $output .= theme('fm_social_icons_pinterest_button', array('product_id' => $product_id));
+  $output .= theme('fm_social_icons_facebook_button', array('product_id' => $product_id));
+  $output .= '</div>';
+  $output .= '<h1 class="itemName">' . $title . '</h1>';
   
-  $output .= '<h2 class="details-store" style="color: #aaa">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</h2>';
-  $output .= '<p id="description">' . $description . '</p>';
-  $output .= '<script>jQuery(".details-store .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
+  $result = db_query('SELECT count(*) as count FROM fm_social_favorite WHERE product_id = :product_id', array(':product_id' => $product_id));
+  $obj = $result->fetchObject();
+  
+    
+  $output .= '<div  style="margin-bottom: 8px">';
+  if($obj->count > 0) {
+    $output .= '<span class="most_loved_number">' . $obj->count . '</span>';
+  }
+  
+  $output .= '<span class="designer"><a href="javascript:void();">' .  theme('fm_commerce_store_name', array('store' => $store, 'beauty_tips' => false)) . '</a></span>'; 
+  $output .= '</div>';
+ 
+  
+  $product_highlights = field_get_items('commerce_product', $product, 'field_product_materials');
+  $highlights = array();
+  foreach($product_highlights as $term) {
+  	$term = $term['taxonomy_term'];
+  	$highlights[] = '<span>' . $term->name . '</span>';
+  }
+  if(count($highlights) > 0){
+    //$highlights = array('<span>test</span>', '<span>test2</span>');
+    $highlights = implode('<img align="absmiddle" src="' . pp() . 'spacer_highlights.png">', $highlights);
+    $output .= '<div class="highlights">' . $highlights . '</div>';
+  }
+  
+  $output .= '<p class="description">' . $description . '</p>';
+  
+  
+  $output .= '<script>jQuery(".designer .store-name").click(function (e){jQuery.scrollTo(".designerInfo", 800);});</script>';
   
   
   return $output;
@@ -388,8 +426,6 @@ function fm_deals_time($nid) {
 
 function fm_deals_group_details(&$vars) {
 	$node = $vars['node'];
-	$status = fm_deals_states_get_status($node);
-	
 	$time = fm_deals_time($node->nid);
 	$unixStartTime = $time['start'];
 	$unixEndTime = $time['end'];
@@ -398,72 +434,14 @@ function fm_deals_group_details(&$vars) {
 	//$color_options = fm_commerce_color_options($node);
 	//
 	//If start time is GREATER THAN NOW than disabled.
-	if($status == 'upcoming') {  
-		if(isset($unixStartTime)) {
-		  $timerDetails = '<div class="timer rounded-top rounded-bottom">';
-		  if($unixStartTime > strtotime('+15 minutes', REQUEST_TIME)) {
-		  	$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts @<span>' . date("g:ia", $unixStartTime) . ' <span class="timezone">EST</span></span></div>';
-		  } else {
-		  	$timerDetails .= '<div style="text-align: center; padding-top: 8px;">Sale Starts in <span class="countdownToStart">--:--</span> mins</div>';;//If start time is LESS THAN NOW this is ACTIVE
-	      jquery_countdown_add(".countdownToStart", array("until" =>  date("F d, Y g:i a", $unixStartTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
-	
-		  }
-		  $timerDetails .= '</div><br clear="all">';
-		}
+
 		
-		//$purchaseDetails = '<div class="colors">Colors: ' . implode('', $color_options) . '</div>';
-		$purchaseDetails .= '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>'; 
-		$purchaseDetails .= '<p style="font-size: 11px;" class="product_button_text">We\'ll send you an e-mail ' . FM_NOTIFY_MINUTES . ' minutes before a sale starts</p>';
-		$purchaseDetails .= '</div>';
-		
-		
-	
-	}
-	elseif ($status == 'active') {
-		$qty_purchased = fm_deals_qty_purchased($node->nid);
-		$deal_state_msg = fm_deals_states_status_msg($node, $qty_purchased);
-		$product = fm_commerce_get_product($node);
-		
-		$timerDetails = '<h1 class="pageTitle">ON SALE  <span>NOW</span></h1>';
-		$timerDetails .= '<div class="timer rounded-top rounded-bottom">';
-		$timerDetails .= '<table cellspacing="0" cellpadding="0" class="timerTbl"><tbody><tr>
-                        <td width="110" align="right">Items Left:</td>
-                        <td width="56" align="left" class="sep1"><span>' . fm_commerce_stock_total($product) . '</span></td>
-                        <td width="75" align="right" class="sep2">Time  Left:</td>
-                        <td width="70" align="left"><span class="countdown">--:--</span></td>
-                        </tr>
-                        </tbody></table>';
-		//$timerDetails .= '<div class="dealNeeded rounded-bottom"> ' . $deal_state_msg . ' </div>';
-		$timerDetails .= '</div><br clear="all">';
-		
-		$untilTime = $unixEndTime;
-		
-		$purchaseDetails = '<img class="frame" src="' . pp(). 'bg_itemOptions_top.jpg">';
-		$purchaseDetails .= '<div class="box">';
-    if(true) {
-		//if(!($order_id = fm_deals_states_purchased_deal($node))) { 
-		  $purchaseDetails .= render($vars['content']['field_product_reference']);
-		} else {
-			$purchaseDetails .= '<div>Thank you for your ';
-			$purchaseDetails .= l('purchase', 'my-orders/' . $order_id, array( 'query' => array('width' => '800px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', )));
-			$purchaseDetails .= '!</div>';
-		}
-		$purchaseDetails .=  '</div>';
-	  $purchaseDetails .= '<img class="frame" src="' . pp() . 'bg_itemOptions_bottom.jpg">';
-	  
-		//If start time is LESS THAN NOW this is ACTIVE
-	  jquery_countdown_add(".countdown", array("until" =>  date("F d, Y g:i a", $untilTime), 'onExpiry' => 'dealExpired', 'format' => 'DHMS', 'serverSync' => 'serverSync',  "layout" => '{mnn}:{snn}'));
-	
-	} 
-	else {
-		$timerDetails = '';
-		
-		$purchaseDetails = '<div class="notify"><div class="button">' . fm_deals_notify_get_button($node) . '</div>';
-		$purchaseDetails .= '<p class="product_button_text">(We\'ll send you an e-mail when this deal is active again)</p></div>';
-	}
-	
-	  $title = $node->title;
-	  drupal_add_js('var newTitle = "' . $title . '";', 'inline');
+	$purchaseDetails .= '<div class="box">';
+  $purchaseDetails .= render($vars['content']['field_product_reference']);
+	$purchaseDetails .=  '</div>';
+	 
+	$title = $node->title;
+	drupal_add_js('var newTitle = "' . $title . '";', 'inline');
 	
 	$vars['groupDetails'] = $timerDetails;
 	$vars['purchaseDetails'] = $purchaseDetails;

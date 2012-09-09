@@ -7,17 +7,23 @@
 
 <div class="fieldsRequired">all fields required</div>
 <?php print render($register_form);?>
-
 </div><!-- form-->
-
 
 
 <div id="intro" class="pad">
 	<div class="text">
    <?php //<h1>print $node->title;</h1>?>
    <p><?php $nodeView = node_view($node, 'full'); print render($nodeView['body']); ?></p>
+           
+           <div  class="register_button fb-auth facebookBtn">Connect With Facebook</div>
+        <div class="facebook_connecting" style="display: none;">
+<div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
+<div style="margin-top: 10px;" >Connecting with Facebook</div>
+</div>  
 
 <p class="loginHere rounded-top rounded-bottom">Already a member? <a href="javascript:void(0);" onClick="fmShowLogin();">Log In Here</a></p>
+
+
 </div>
 
 
@@ -46,12 +52,24 @@
 <div style="display: none;"  class="state3">
 <div class="box"><div class="pad">
 
-<div class="login">
+
+<div class="login" style="display: none;">
 <h2>MEMBER LOGIN</h2>
 <h1>Welcome Back!</h1>
+<div class="fb-auth facebookBtn">Login With Facebook</div>
+
+<img style="margin: 10px 0" src="<?php print pp();?>divider_or.png">
 <div class="loginErrorText">Wrong Username or Password</div>
 <?php print render($login_form);?>
-</div>           
+</div>  
+        
+        <div class="facebook_connecting" style="display: none;">
+<h2>MEMBER LOGIN</h2>
+<h1>Welcome Back!</h1>
+<div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
+<div style="margin-top: 10px;" >Connecting with Facebook</div>
+</div>  
+         
 <div style="display: none;" class="forgot_password">
 <h2>MEMBER LOGIN</h2>
 <h1>Forgot your Password?</h1>
@@ -65,7 +83,7 @@
 </div>
 
       
-<div class="backSignup">Not a Member? <a  href="javascript:void(0);" onClick="fmShowSignup();">Sign Up</a></div>   
+<div class="backSignup">Not a Member? <a  href="javascript:void(0);" onClick="fmShowSignup();">Join Free</a></div>   
      
 </div><!-- pad-->
 </div><!-- box-->

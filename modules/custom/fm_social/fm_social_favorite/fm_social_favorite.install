@@ -1,0 +1,40 @@
+<?php 
+/**
+ * Implements hook_schema().
+ */
+function fm_social_favorite_schema() {
+  $schema = array();
+
+  $schema['fm_social_favorite'] = array(
+    'description' => "Base table for the fm_social_favorite tracking.",
+    'fields' => array(
+      'mail' => array(
+        'description' => 'The primary identifier for favorites table.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that created that favorited this product.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'product_id' => array(
+        'description' => 'The product_id that is favorited.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the favorite was made.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('mail', 'product_id'),
+   
+  );
+  return $schema;
+}

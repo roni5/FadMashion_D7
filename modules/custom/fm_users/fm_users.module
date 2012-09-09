@@ -21,8 +21,35 @@ function fm_users_menu() {
     'page arguments' => array(2),
     'type' => MENU_NORMAL_ITEM,
   );
+  
+  $items['user/orders'] = array(
+    'page callback' => 'fm_users_orders_page',
+    'access arguments' => array('view user settings'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['user/share-with-friends'] = array(
+    'page callback' => 'fm_users_share_with_friends',
+    'access arguments' => array('view user settings'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+  
+  
+  $items['user/store_owners/orders'] = array(
+    'page callback' => 'fm_users_store_orders_page',
+	  'access arguments' => array('administer own stores'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['user/store_owners/settings'] = array(
+    'page callback' => 'fm_users_store_settings_page',
+	  'access arguments' => array('administer own stores'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
   return $items;	
 }
+
 
 /**
  * Implements hook_permission().
@@ -31,6 +58,9 @@ function fm_users_permission() {
   return array(
     'login as user' => array(
       'title' => t('Login as User'),
+    ),
+    'view user settings' => array(
+      'title' => t('View user settings'),
     ),
   );
 }
@@ -47,8 +77,78 @@ function fm_users_theme(){
 	       'social_info' => NULL
        ) 
     ),
+    'user_profile_form' => array( 
+      'render_element' => 'form',
+      'template' => 'user-profile-form',
+      //add '/templates' only if you store template files in an additional folder
+    ),
+
   );
 }
+
+function fm_users_orders_page() {
+	$output = '<div id="order-history" class="checkoutPanel">';
+	$output .= '<div class="header rounded-top"><div class="pad">Order History</div></div>';
+	$output .= '<div id="orders"><div class="form">' . fm_commerce_orders_full_list() . '</div></div>';
+	$output .= '</div>';
+	return $output;
+}
+
+function fm_users_store_orders_page() {
+	$output = '<div id="order-history" class="checkoutPanel">';
+	$output .= '<div class="header rounded-top"><div class="pad">Store Orders</div></div>';
+	$output .= '<div id="orders"><div class="form">' . fm_commerce_store_owners_orders_list() . '</div></div>';
+	$output .= '</div>';
+	return $output;
+}
+function fm_users_store_settings_page() {
+	$store = fm_commerce_store_owners_get_store();
+	$content = theme('fm_commerce_store_owners_settings_admin', array('store' => $store));
+	
+	$output = '<div id="order-history" class="checkoutPanel">';
+	$output .= '<div class="header rounded-top"><div class="pad">Store Settings</div></div>';
+	$output .= '<div id="orders"><div class="form">' . $content . '</div></div>';
+	$output .= '</div>';
+	return $output;
+}
+
+
+function fm_users_share_with_friends() {
+	global $user;
+	
+	$invite_form = drupal_get_form('fm_invite_send_email_form', $user);
+	$invite_url = fm_invite_get_invite_url($user);
+	$social_info = fm_deals_fb_social_info();
+	$content = theme('fm_users_invite_block',  array('user' => $user, 'social_info' => $social_info,  'invite_form' => $invite_form, 'invite_url' => $invite_url));
+	
+	return $content;
+}
+
+function fm_users_preprocess_user_profile_form(&$variables) {
+	
+	
+  $variables['first_name'] = drupal_render($variables['']['field_first_name']);
+  $variables['last_name'] = drupal_render($variables['']['field_last_name']);
+  $variables['roles'] = drupal_render($variables['']['account']['roles']);
+  $variables['current_pass'] = drupal_render($variables['']['account']['current_pass']);
+  $variables['pass'] = drupal_render($variables['']['account']['pass']);
+  $variables['mail'] = drupal_render($variables['']['account']['mail']);
+  $variables['picture'] = drupal_render($variables['']['picture']['picture']);
+  $variables['picture_current'] = drupal_render($variables['']['picture']['picture_current']);
+  $variables['picture_delete'] = drupal_render($variables['']['picture']['picture_delete']);
+  $variables['picture_upload'] = drupal_render($variables['']['picture']['picture_upload']);
+  $variables['actions'] = drupal_render($variables['']['actions']);
+  
+  $variables['form_processing'] = render($variables['']['form_id']) . render($variables['']['form_build_id']) . render($variables['']['form_token']);
+  
+  global $user;
+  if($user->uid == 1) {
+  	$variables['therest'] = drupal_render($variables['']['account']); 
+  }
+ // $variables['rendered'] = drupal_render($variables['']['picture']);
+}
+
+
 
 function fm_users_init() {
 	
@@ -211,19 +311,15 @@ function fm_users_user_presave (&$edit, $account, $category) {
 	}
 	else { 
 	  $fbu = fb_facebook_user();
-	  if(isset($fbu)) {
-	     //var_dump($edit);
-	     $info = $GLOBALS['_fb']->api($fbu);
+	  global $_fb;
+	  if(isset($fbu) && isset($_fb)) {
+	     $info = $_fb->api($fbu);
 		   $edit['field_first_name']['und'][0]['value'] = $info['first_name'];
 		   $edit['field_last_name']['und'][0]['value'] = $info['last_name'];
-		   if(!fm_users_check_activate($info['email'])) {
-		     $edit['status'] = 0;
-		   }
 	  }
 
 	}
 }
-
 
 //special validator to redirect on non-activated account
 function fm_users_login_name_validate($form, &$form_state)  {

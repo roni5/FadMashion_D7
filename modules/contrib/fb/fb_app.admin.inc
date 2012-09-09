@@ -16,10 +16,14 @@ function fb_app_fb_admin($op, $data, &$return) {
 
   if ($op == FB_ADMIN_OP_SET_PROPERTIES) {
     // URLs for Facebook events we support.
-    $return['uninstall_url'] = url(FB_APP_PATH_EVENT . '/' . $fb_app->label . "/" . FB_APP_EVENT_POST_REMOVE . '/',
-                                   array('absolute' => TRUE));
-    $return['authorize_url'] = url(FB_APP_PATH_EVENT . '/' . $fb_app->label . "/" . FB_APP_EVENT_POST_AUTHORIZE . '/',
-                                   array('absolute' => TRUE));
+    $return['uninstall_url'] = url(FB_APP_PATH_EVENT . '/' . $fb_app->label . "/" . FB_APP_EVENT_POST_REMOVE . '/', array(
+                                     'absolute' => TRUE,
+                                     'language' => FALSE,
+                                   ));
+    $return['authorize_url'] = url(FB_APP_PATH_EVENT . '/' . $fb_app->label . "/" . FB_APP_EVENT_POST_AUTHORIZE . '/', array(
+                                     'absolute' => TRUE,
+                                     'language' => FALSE,
+                                   ));
   }
   elseif ($op == FB_ADMIN_OP_LIST_PROPERTIES) {
     $return[t('Application Name')] = 'application_name';
@@ -54,7 +58,7 @@ function fb_app_edit_form($form, $form_state, $fb_app = NULL) {
     // Defaults for new app.
     $fb_app = (object) array(
       'label' => NULL,
-      'apikey' => NULL,
+      'apikey' => NULL, // deprecated.
       'canvas' => NULL,
       'fba_id' => NULL,
       'id' => NULL,
@@ -81,7 +85,7 @@ function fb_app_edit_form($form, $form_state, $fb_app = NULL) {
 <li>If building a Canvas Page App, specify a Canvas Path.</li>
 <li>Upload icon and logo images. The icon appears in News Feed stories and the logo appears in the Connect dialog when the user connects with your site.</li>
 <li>Click Submit.</li>
-<li>Copy the displayed API Key, Application Secret and App ID into this form.</li>
+<li>Copy the displayed App ID and Application Secret into this form.</li>
 </ol>';
 
     $form['helptext'] = array(
@@ -115,13 +119,6 @@ function fb_app_edit_form($form, $form_state, $fb_app = NULL) {
     '#title' => t('Facebook App ID'),
     '#required' => TRUE,
     '#default_value' => $fb_app->id,
-    '#description' => t('Facebook will generate this value when you create the application.'),
-  );
-  $form['apikey'] = array(
-    '#type' => 'textfield',
-    '#title' => t('API Key'),
-    '#required' => TRUE,
-    '#default_value' => $fb_app->apikey,
     '#description' => t('Facebook will generate this value when you create the application.'),
   );
   $form['secret'] = array(
@@ -192,7 +189,7 @@ function fb_app_edit_form_validate($form, &$form_state) {
     fb_admin_get_app_properties($fb_app);
     if (!$fb_app->application_name) {
       // Don't use form_set_error(), as that will prevent the user from saving any data.
-      drupal_set_message(t("Unable to get application properties.  Possibly, you've given the wrong apikey or secret.  Possibly, this server is unable to reach facebook's servers.  Your application will not work properly!"), 'error');
+      drupal_set_message(t("Unable to get application properties.  Possibly, you've given the wrong id or secret.  Possibly, this server is unable to reach facebook's servers.  Your application will not work properly!"), 'error');
       $fb_app->application_name = 'UNKOWN';
     }
   }
@@ -214,7 +211,7 @@ function fb_app_admin_form_submit($form, &$form_state) {
         ->fields(array(
           'label' => $fb_app->label,
           'status' => $fb_app->status,
-          'apikey' => $fb_app->apikey,
+          'apikey' => $fb_app->id, // Note, apikey deprecated.  Using ID.
           'secret' => $fb_app->secret,
           'id' => $fb_app->id,
           // Canvas and title are learned from facebook, not the form.
@@ -243,6 +240,14 @@ function fb_app_admin_form_submit($form, &$form_state) {
                            array('%label' => $fb_app->label,
                                  '%title' => $fb_app->application_name)));
     }
+    drupal_set_message(t('Saved changes to Facebook application %title (%label).',
+                         array('%title' => $fb_app->application_name,
+                               '%label' => $fb_app->label)));
+
+    // Should we just go ahead and flush the cache here automatically?
+    drupal_set_message(t('Recommended: <a href=!cache_url>clear cached data</a> after changing Facebook app settings.', array(
+                           '!cache_url'=> url('admin/settings/performance'),
+                         )), 'warning');
   }
   else {
     // Inserting.
@@ -251,7 +256,7 @@ function fb_app_admin_form_submit($form, &$form_state) {
         ->fields(array(
                    'label' => $fb_app->label,
                    'status' => $fb_app->status,
-                   'apikey' => $fb_app->apikey,
+                   'apikey' => $fb_app->id, // Note, apikey deprecated.  Using ID.
                    'secret' => $fb_app->secret,
                    'id' => $fb_app->id,
                    // Canvas and title are learned from facebook, not the form.
@@ -261,15 +266,16 @@ function fb_app_admin_form_submit($form, &$form_state) {
                  ))
         ->execute();
 
-      watchdog('fb_app', 'Created Facebook Application %label.',
-               array('%label' => $fb_app->label,
+      watchdog('fb_app', 'Created Facebook Application %label.', array(
+                 '%label' => $fb_app->label,
                ),
                WATCHDOG_NOTICE,
                l(t('view apps'), FB_PATH_ADMIN_APPS));
 
-      drupal_set_message(t('Created facebook application %title (%label).',
-                           array('%label' => $fb_app->label,
-                                 '%title' => $fb_app->application_name)));
+      drupal_set_message(t('Created facebook application %title (%label).', array(
+                             '%label' => $fb_app->label,
+                             '%title' => $fb_app->application_name,
+                           )));
     }
     catch (Exception $e) {
       // Log the exception to watchdog.
@@ -286,6 +292,7 @@ function fb_app_admin_form_submit($form, &$form_state) {
   }
 
   $form_state['redirect'] = FB_PATH_ADMIN;
+
 }
 
 /**
@@ -345,6 +352,7 @@ function fb_app_admin_delete_confirm_form_submit($form, &$form_state) {
 function fb_app_set_app_properties($fb_app) {
   $data = fb_get_app_data($fb_app);
   $fb_app_data = $data['fb_app'];
+  // Collect properties from all modules.
   $props = fb_invoke(FB_ADMIN_OP_SET_PROPERTIES, array('fb_app' => $fb_app), array(), FB_ADMIN_HOOK);
   if (count($props)) {
     if ($fb_app_data['set_app_props']) {
@@ -362,9 +370,16 @@ function fb_app_set_app_properties($fb_app) {
                      WATCHDOG_NOTICE,
                      l(t('view apps'), FB_PATH_ADMIN));
           }
+
+          // Allow third-parties to set additional "properties" such as restrictions.
+          fb_invoke(FB_ADMIN_OP_POST_SET_PROPERTIES, array(
+                      'fb_app' => $fb_app,
+                      'fb' => $fb,
+                      'properties' => $props,
+                    ), array(), FB_ADMIN_HOOK);
         } catch (Exception $e) {
           drupal_set_message(t('Failed to set the following properties for %label application.  You may need to manually editing remote settings!<br/><pre>!props</pre>', array('%label' => $fb_app->label, '!props' => print_r($props, 1))), 'error');
-          fb_log_exception($e, t('Failed to set application properties on Facebook'));
+          fb_log_exception($e, t('Failed to set application properties on Facebook. %props', array('%props' => json_encode($props))));
         }
       }
     }

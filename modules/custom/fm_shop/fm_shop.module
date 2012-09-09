@@ -1,0 +1,669 @@
+<?php
+define('COLLECTION_VIEWER_PAGER', 11);
+define('GRID_VIEWER_PAGER',20);
+
+/**
+ * Implements hook_menu().
+ */
+function fm_shop_menu() {
+	
+	$items['shop'] = array(
+    'page callback' => 'fm_shop_page',
+	  'access arguments' => array('view deals'),
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['shop/ajax'] = array(
+    'page callback' => 'fm_shop_page_ajax',
+	  'access arguments' => array('view deals'), 
+    'type' => MENU_CALLBACK,
+  );
+  
+  $items['shop/ajax/carousel'] = array(
+    'page callback' => 'fm_shop_carousel_ajax',
+	  'access arguments' => array('view deals'), 
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+  );
+  
+  
+  return $items;
+}
+
+
+function fm_shop_init() {
+	drupal_add_js(drupal_get_path('module', 'fm_shop') . '/fm_shop.js');
+	drupal_add_js(drupal_get_path('theme', 'v15_fadmashion_commerce').'/js/jquery.jcarousel.min.js');
+	
+	//drupal_add_css(drupal_get_path('theme', 'v15_fadmashion_commerce').'/css/tango/skin.css');
+	/*$options['bt_next_prev_tooltip'] = array(
+        'cssSelect' => '#item_nav a',
+        'trigger' => array('mouseover', 'blur'),
+	      'positions' => array('top'),
+	      'contentSelector' => "item_content(jQuery(this));",
+	      'fill' => "rgb(35, 35, 35)", 
+	      'padding' => '5px',
+	      'spikeLength' => 6,
+	      'padding' => '5px',
+	      'shrinkToFit' => true,
+	      'cssClass' => 'next_prev_tooltip'
+   );
+  beautytips_add_beautytips($options);*/
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fm_shop_theme() {
+  return array(
+    'fm_shop_page' => array(
+	     'variables' => array('filters' => '', 'content' => ''),
+	    'template' => 'fm_shop_page'
+    ),
+    'fm_shop_page_panel' => array(
+	     'variables' => array('shop' => NULL, 'products' => NULL, 'filter_group' => ''),
+       'template' => 'fm_shop_page_panel'
+    ),
+    'fm_shop_page_panel_thumb' => array(
+	     'variables' => array('product' => NULL, 'shop' => NULL,  'height' => 446, 'width' => 315),
+       'template' => 'fm_shop_page_panel_thumb'
+    ),
+    'fm_shop_page_collection_slider' => array(
+	     'variables' => array('products' => NULL, 'argument' => array(), 'pager' => array()),
+       'template' => 'fm_shop_page_collection_slider'
+    ),
+    'fm_shop_page_grid_view' => array(
+	     'variables' => array('title' => '', 'description' => '', 'products' => NULL, 'argument' => array(), 'pager' => 0),
+       'template' => 'fm_shop_page_grid_view'
+    ),
+    
+    'fm_shop_page_grid_view_item' => array(
+	     'variables' => array('product' => $product,  'node' => $node,  'argument' => array()),
+       'template' => 'fm_shop_page_grid_view_item'
+    ),
+    'fm_shop_subnav_items' => array(
+	     'variables' => array('filters' => array()),
+       'template' => 'fm_shop_subnav_items'
+    ),
+    
+  );
+}
+
+function fm_shop_page() {
+
+	
+	drupal_add_js(path_to_theme() . '/js/jquery.capSlide.js');
+	drupal_add_css(path_to_theme() . '/css/captions.css');
+  drupal_add_js(path_to_theme() . '/js/jquery.ad-gallery.js');
+  drupal_add_css(path_to_theme() . '/css/jquery.ad-gallery.css');
+  drupal_add_js(path_to_theme() . '/js/jquery-textFill.js');
+  
+    
+
+  $filters = fm_shop_page_filters();
+  //$content = fm_shop_page_all_panels($filters);
+  
+  return theme('fm_shop_page', array('filters' => $filters, 'content' => $content));
+}
+
+function fm_shop_page_ajax($type) {
+	
+	$args = fm_shop_page_args();
+	$params = $args['params'];
+	$page = $args['page'];
+	$type = $args['type'];
+	
+	$cache_key =  $type . '_' . $params;
+	
+	$cache = true;
+	if($type == 'favorites') {
+		$cache = false;
+	}
+	
+	if ($cache && $cached_data = cache_get($cache_key)) {
+    $cached_data_totalCount = cache_get($cache_key . '_totalCount');
+	//Return from cache.
+    $content = $cached_data->data;
+    $count = $cached_data_totalCount->data;
+    print drupal_json_output(array('content' => $content, 'totalCount' => $count));
+	  exit();
+	  
+  } else {
+  	$contents = fm_shop_page_content($params, $type, $page);
+  	
+  	$content = $contents['view'];
+	
+	  $content .= '<div class="product_content">';
+	  $content .= $contents['node_content'];
+	  $content .= '</div>';
+  }
+
+	cache_set($cache_key, $content, 'cache',  CACHE_TEMPORARY);
+	cache_set($cache_key . '_totalCount', $contents['total_size'], 'cache',  CACHE_TEMPORARY);
+	
+	print drupal_json_output(array('content' => $content, 'totalCount' => $contents['total_size']));
+	exit();
+}
+
+
+
+function fm_shop_carousel_ajax() {
+	$args = fm_shop_page_args();
+	$params = $args['params'];
+	$type = $args['type'];
+	$page = $args['page'];
+	
+	if(!isset($page)) {$page = 0;}
+	
+	$cache_key =  $type . '_' . $params . '_page' . $page;
+	if ($cached_data = cache_get($cache_key)) {
+	//Return from cache.
+    $contents = $cached_data->data;
+    print drupal_json_output(array('collection_viewer' => $contents['view'], 'node_content' => $contents['node_content']));
+	  exit();
+	  
+  } else {
+  	$contents = fm_shop_page_content($params, $type, $page);
+  	
+  }
+  
+  cache_set($cache_key, $contents, 'cache',  CACHE_TEMPORARY);
+	print drupal_json_output(array('collection_viewer' => $contents['view'], 'node_content' => $contents['node_content']));
+	exit();
+}
+
+
+function fm_shop_page_args() {
+
+	$type = 'favorites';
+	$params = 'all-time';
+	
+	if(isset($_GET['store_id']) && $_GET['store_id'] != '' ) {
+		$params = $_GET['store_id'];
+		$type = 'shop';
+	} 
+	
+   if(isset($_GET['term']) && $_GET['term'] != '' ) {
+		$params = $_GET['term'];
+		$type = 'term';
+   }
+   
+  if(isset($_GET['favorites']) && $_GET['favorites'] != '' ) {
+		$params = $_GET['favorites'];
+		$type = 'favorites';
+   }
+	
+	$page = $_GET['page'];
+	
+	if($page == 0) { $page = '';}
+	
+	return array('type' => $type, 'params' => $params, 'page' => $page);
+}
+
+function fm_shop_page_content($params, $type, $page = 0) {
+
+	
+	switch($type) {
+		case 'all':
+		  $filters = fm_shop_page_filters();
+		  $content = '<div id="all">';
+      $panels = fm_shop_page_all_panels($filters);
+      
+      foreach($panels as $panels_group) {
+     	   foreach($panels_group as $panel) {
+       	 	 $content .= $panel;
+     	   }
+       } 
+      $content .= '</div>';
+      //WE only want a 3 step loading process (for now)
+      if($page < 2) {
+      	$html = 'Loading More...';
+      	$html .= '<br><img src="' . pp() .'confirm-ajax-loader.gif">';
+      	$content .= '<div id="loading_more" style="display:none">';
+        $content .= l($html, 'shop/ajax/all', array('html' => true, 'query' => array('page' => ($page + 1)), 'attributes' => array('rel' => 'next',  ) ));
+        $content .= '</div>';
+         
+    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: autoPagerLoad, start: autoPagerStart });});</script>';
+      }
+    	    
+	    break;
+		case 'shop':
+			if($params == 'all') {
+			  $filters = fm_shop_page_filters();
+			  $content = '<div id="all">';
+	      $panels = fm_shop_page_all_panels($filters);
+	      
+	      foreach($panels as $panels_group) {
+	     	   foreach($panels_group as $panel) {
+	       	 	 $content .= $panel;
+	     	   }
+	       } 
+	      $content .= '</div>';
+	      //WE only want a 3 step loading process (for now)
+	     if($page < 2) {
+	      	$html = 'Loading More...';
+	      	$html .= '<br><img src="' . pp() .'confirm-ajax-loader.gif">';
+	      	$content .= '<div id="loading_more" style="display:none">';
+	        $content .= l($html, 'shop/ajax/shop', array('html' => true, 'query' => array('page' => ($page + 1), 'store_id' => 'all'), 'attributes' => array('rel' => 'next',  ) ));
+	        $content .= '</div>';
+	         
+	    	  $content .= '<script type="text/javascript">jQuery(function() {jQuery.autopager({content: ".designerPanel", appendTo: ".col2 #all", load: autoPagerLoad, start: autoPagerStart });});</script>';
+	      }
+			} else {
+				$shop = fm_commerce_store_load($params);
+			  $values = fm_shop_products_by_store($shop);
+			  $products = $values['products'];
+			  
+			  //Calculate oager
+			  $content =  fm_shop_collection_viewer('store', $shop, $products);
+			}
+			
+	    break;
+	  case 'favorites':
+			$products = fm_shop_products_by_favorites($params);
+			
+			if($params == 'my-favorites' && empty($products)) {
+				$content .= 'Sorry no Favorites';
+			} else {
+				$content = fm_shop_grid_view('favorites', $params, $products);
+			
+		    $content .=  fm_shop_collection_viewer('favorites', $params, $products);
+			}
+			
+	    break;
+	    
+		case 'term':
+			$term = taxonomy_term_load($params);
+			$values = fm_shop_products_by_taxonomy($term);
+			$products = $values['products'];
+			$content = '';
+			
+			$trend_image = field_get_items('taxonomy_term', $term, 'field_trend_image');
+			if($trend_image ) {
+				//GRID VIEW
+	      $trend_image = $trend_image[0];
+	      $content = fm_shop_grid_view('term', $term, $products);
+			} 
+   		
+			$content .=  fm_shop_collection_viewer('term', $term, $products) ;
+			
+	    break;
+			
+	}
+	
+	
+	$node_content = '';
+	foreach($products as $product) {
+	 $node = fm_commerce_get_display_node($product);
+	 if(isset($node)) {
+	   $node_content .= render(node_view($node));
+	 }
+	}
+	
+	$total = COLLECTION_VIEWER_PAGER;
+	if(isset($values['total'])) {
+		$total = $values['total'];
+	}
+	
+	return array('view' => $content, 'node_content' => $node_content, 'total_size' => $total);
+}
+
+function fm_shop_calculate_pager($total) {
+   //Calculate oager
+	 if(!isset($_GET['page'])) {
+    	$page = 1;
+	  } else {
+  	  $page = $_GET['page'] + 1;
+		}
+		if($page * COLLECTION_VIEWER_PAGER > $total) {
+  		$next = 0;
+		} else {
+      $next = $page;
+	  }
+	  
+    if(!isset($_GET['page'])) {
+    	$page = 0;
+	  } else {
+  	  $page = $_GET['page'];
+		}
+	  
+    if($page == 0) {
+  		$prev = -1;
+		} else {
+      $prev = $page - 1;
+	  }
+	  
+	  return array('next' => $next, 'prev' => $prev);
+}
+
+function fm_shop_collection_viewer($type, $var, $products) {
+
+	$content = '';
+	switch($type) {
+		case 'store':
+			$shop = $var;
+			$content = '<div class="collection_viewer" id = "collection_store_' . $shop->store_id . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager, 'argument' => array('store_id' => $shop->store_id)));
+			$content .= '</div>';
+			break;
+		case 'term':
+			$term = $var;
+			$content = '<div class="collection_viewer" id = "collection_term_' . $term->tid . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('term' => $term->tid)));
+			$content .= '</div>';
+			break;
+		case 'favorites':
+			$type = $var;
+			$content = '<div class="collection_viewer" id = "collection_favorites_' . $type . '">';
+			$content .= theme('fm_shop_page_collection_slider', array('products' => $products, 'pager' => $pager,  'argument' => array('favorites' => $type)));
+			$content .= '</div>';
+			break;
+	}
+	
+	return $content;
+}
+
+function fm_shop_grid_view($type, $var, $products, $pager = 0) {
+	$content = '';
+	switch($type) {
+		case 'term':
+			$term = $var;
+			$trend_image = field_get_items('taxonomy_term', $term, 'field_trend_image');
+			$trend_image = $trend_image[0];
+			
+			$image = array(
+        'path' => $trend_image['uri'],
+        'alt' => $trend_image['alt'],
+        'title' => $trend_image['title'],
+        'attributes' => array('class' => 'title'),
+      );
+  
+      $title =  theme('image', $image);
+			
+			$content = theme('fm_shop_page_grid_view', array('title' => $title, 'description' => $term->description, 'products' => $products, 'argument' => array('term' => $term->tid) ));
+			break;
+		case 'favorites':
+			$type = $var;
+			$title = '<img src="' . pp() . 'title_mostloved.jpg">';
+			$description = 'Favorites from our beloved commuity';
+			$content = theme('fm_shop_page_grid_view', array('title' => $title, 'description' => $description, 'products' => $products, 'argument' => array('favorites' => $type) ));
+	}
+	return $content;
+}
+
+
+function fm_shop_page_filters() {
+	$filters = array();
+	
+	$term_omit_list = array('Bottoms', 'Clutch', 'Hobo', 'Tote', 'Wallets', 'Boots', 'Flats', 'Heels',  'Hamptons Resort', 'Working It @ Midtown');
+	
+	//Get Featured List 
+	$filters['trends']['title'] = '<img class="title" alt="Styles" src="' . pp() .'title_small_styles.png">';
+	$filters['trends']['links'] = array();
+	$vocab = taxonomy_vocabulary_machine_name_load('trends');
+	$terms = taxonomy_get_tree($vocab->vid);
+	
+  foreach ($terms as  $term) {
+  	if(!in_array($term->name, $term_omit_list)) {
+      $filters['trends']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
+      $filters['trends']['links']['term_' . $term->tid]['arg'] = 'term';
+  	} 
+  }
+
+	//Get Featured List 
+	$filters['product_type']['title'] = '<img class="title" alt="New Arrivals" src="' . pp() .'title_small_newarrivals.png">';
+	$filters['product_type']['links'] = array();
+	$filters['product_type']['arg'] = 'term'; 
+	$vocab = taxonomy_vocabulary_machine_name_load('product_types');
+	$terms = taxonomy_get_tree($vocab->vid);
+	
+  foreach ($terms as  $term) {
+  	if(!in_array($term->name, $term_omit_list)) {
+      $filters['product_type']['links']['term_' . $term->tid]['title'] = check_plain($term->name);
+      $filters['product_type']['links']['term_' . $term->tid]['depth'] = $term->depth;
+      $filters['product_type']['links']['term_' . $term->tid]['arg'] = 'term';
+  	} 
+  }
+	
+	
+	
+//Get Featured List 
+	/*$filters['featured']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
+	$filters['featured']['links'] = array();
+	$filters['featured']['arg'] = 'store_id';
+	
+	
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'fm_commerce_store');
+	$query->propertyOrderBy('weight', 'asc');
+	$query->propertyCondition('status', 1);
+	$query->fieldCondition('field_featured', 'value', 1);
+	$result = $query->execute();
+	
+  $matches = array();
+  foreach ($result['fm_commerce_store'] as $store_id => $store) {
+    $shop = fm_commerce_store_load($store_id);
+    $filters['featured']['links'][$shop->store_id] = check_plain($shop->name);
+  }*/
+  
+	/*Get Designer List
+	$filters['designers']['title'] = '<img class="title" alt="Designers" src="' . pp() .'title_small_designers.png">';
+	$filters['designers']['links'] = array();
+	$filters['designers']['arg'] = 'store_id';
+	
+	*/
+  
+  $filters['browse_by']['title'] = '<img class="title" alt="Browse By" src="' . pp() .'title_small_browse.png">';
+	$filters['browse_by']['links'] = array('all-time' => array('title' => 'Most Loved', 'arg' => 'favorites'),
+	                                       'my-favorites' => array('title' => 'My Favorites', 'arg' => 'favorites'),
+	                                       'all' => array('title' => 'Designers', 'arg' => 'store_id') );
+  
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'fm_commerce_store');
+	$query->propertyOrderBy('weight', 'asc');
+	$query->propertyCondition('status', 1);
+	$result = $query->execute();
+
+  $matches = array();
+  foreach ($result['fm_commerce_store'] as $store_id => $store) {
+    $shop = fm_commerce_store_load($store_id);
+    $shop_name = check_plain($shop->name);
+    if(!in_array($shop_name, $filters['featured']['links'])) {
+      $filters['browse_by']['links'][$shop->store_id]['title'] = $shop_name;
+      $filters['browse_by']['links'][$shop->store_id]['depth'] = 1;
+      $filters['browse_by']['links'][$shop->store_id]['arg'] = 'store_id';
+    }
+  }
+	
+  
+  return $filters;
+}
+
+function fm_shop_page_all_panels($filters) {
+	$content = array();
+	$page = $_GET['page'];
+  
+	$total = 0;
+	foreach($filters as $filter_id => $filter_group) {
+		if($filter_id == 'browse_by') {
+			foreach($filter_group['links'] as $link) {
+	      if($link['arg'] == 'store_id' && $link['depth'] == 1) {
+				  $total++;
+	      }
+			}
+		}
+	}
+	$half = ceil($total/2);
+	
+	switch($page) {
+		case 0:
+			$start = 0;
+			$end = 3;
+			break;
+		case 1:
+			$start = 3;
+			$end = $half+2;
+			break;
+		case 2:
+			$start = $half+2;
+			$end = $total;
+			break;
+	}
+	
+	//override to show everything
+	//$start = 0;
+	//$end = $total;
+	
+  foreach($filters as $filter_id => $filter_group) {
+  	if($filter_id == 'browse_by') {
+  	  $content[$filter_id] = array();
+      foreach($filter_group['links'] as $store_id => $link) {
+      	if($link['arg'] == 'store_id' && $link['depth'] == 1) {
+      	  if($i >= $start && $i < $end) {
+    	      $shop = fm_commerce_store_load($store_id);
+    	      $products = fm_commerce_store_get_products($shop, true);
+       
+      	    if(!empty($products)) {
+        	    $designerPanel = theme('fm_shop_page_panel', array('shop' => $shop, 'products' => $products, 'filter_group' => $filter_id));
+    	        $content[$filter_id][] = $designerPanel;      	    
+    	      }
+    	    }
+    	    $i++;
+      	}
+      }
+  	}
+  } 
+  
+  return $content;
+}
+
+function fm_shop_products_by_taxonomy($term) {
+	
+	$tids = array();
+	$tids[] = $term->tid;
+	
+	$tree = taxonomy_get_tree($term->vid, $term->tid);
+	if(!empty($tree)) {
+		foreach($tree as $child) {
+			$tids[] = $child->tid;
+		}
+	}
+	
+	if($term->vocabulary_machine_name == 'product_types') {
+		$field = 'field_product_type_top';
+	} else {
+		$field = 'field_product_trend';
+	}
+	
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	   ->entityCondition('bundle', 'fm_fashion_product')
+    ->fieldCondition($field, 'tid', $tids) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
+    ->pager(GRID_VIEWER_PAGER)
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC');
+    
+  $products = $query->execute();
+  
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+      $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	}
+	
+	return array('products' => $products_ret, 'total' => $query->pager['total']);
+}
+
+/*
+ * TODO:  THIS IS A COPY OF fm_commerce_store_get_products(), but with different outputs
+ */
+function fm_shop_products_by_store($store) {
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	      ->propertyCondition('status', 1)
+	      ->pager(GRID_VIEWER_PAGER)
+	      ->entityCondition('bundle', 'fm_fashion_product')
+	      ->propertyOrderBy('created', 'DESC');
+	      
+	      
+	      
+	$query->fieldCondition('field_store_reference', 'store_id', $store->store_id);
+	//$query->fieldOrderBy('field_product_weight', 'value', 'ASC');
+	      
+	$products = $query->execute();
+	
+	
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+      $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	}
+	
+	return array('products' => $products_ret, 'total' => $query->pager['total']);
+}
+
+
+
+function fm_shop_products_by_favorites($param) {
+	$products_ret = array();
+	if($param == 'all-time') {
+     $result = db_query('SELECT product_id, count(*) as count FROM fm_social_favorite GROUP BY product_id ORDER BY count DESC, product_id DESC LIMIT 0, ' . GRID_VIEWER_PAGER);
+      while($obj = $result->fetchObject()) {
+  		  $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
+	    }
+	} elseif($param == 'my-favorites') {
+		  global $user;
+      if($user->uid) {
+		    $mail = $user->mail;
+	    } else {
+		   $mail = fm_users_register_session_email();
+	    } 
+	    
+	    if(isset($mail)) {
+	      $result = db_query('SELECT * FROM {fm_social_favorite} WHERE   mail = :mail', array( 'mail' => $mail));
+	      while($obj = $result->fetchObject()) {
+  		   $products_ret[$obj->product_id] = commerce_product_load($obj->product_id);
+  	   }
+	    } else {
+	      foreach($_SESSION['my_favorites'] as $product_id => $thumb) {
+  		    $products_ret[$product_id] = commerce_product_load($product_id);
+  	    }
+	   }
+	    
+	}
+	
+	return $products_ret;
+}
+
+
+
+function fm_shop_subnav_items() {
+	
+	$filters = fm_shop_page_filters();
+	return theme('fm_shop_subnav_items', array('filters' => $filters));
+	
+}
+
+function fm_shop_subnav_items_links($filter_group, $show_children = true) {
+
+	$content = '';
+    foreach($filter_group['links'] as $id => $link) {
+    	$arg_array = explode("_", $id);
+    	if($arg_array[0] != 'term') {
+    		$arg = $id;
+    	} else {
+    		$arg = $arg_array[1];
+    	}
+    	$url = url('shop', array('alias' => true, 'fragment' => '!'));
+      $url2 = url($link['title'], array('query' => array($link['arg'] => $arg)));
+      $url = $url . $url2;
+
+      if(!$link['depth'] || $show_children) {
+    	  $content .= '<li class=" ' . ($link['depth'] ? 'child' : '') . '"><a href="' . $url . '" id="' . $id . '">' . $link['title'] . '</a></li>';
+      }
+    	
+    }
+    return $content;
+}

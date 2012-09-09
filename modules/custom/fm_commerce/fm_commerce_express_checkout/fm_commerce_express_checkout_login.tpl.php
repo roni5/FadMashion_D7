@@ -7,8 +7,15 @@
     <div class="form">
     <div class="login-form">
     
-    <div class="login">
+    <div class="login_col">
      <h3>Existing Customers</h3>
+              <div style="width: auto; text-indent: -54px; margin-top: 15px" class="register_button fb-auth">Login With Facebook</div>
+        <div class="facebook_connecting" style="display: none;">
+<div id="facebook_loader"><img src="<?php print pp()?>loader-red.gif"></div>
+<div style="margin-top: 10px;" >Connecting with Facebook</div>
+</div>  
+     
+     <img style="margin: 10px 0" src="<?php print pp();?>divider_or.png">
     <div style="margin-top: 10px;"><?php print render(drupal_get_form('user_login_block'));?></div>
     </div>
     <div style="display: none;" class="forgot_password">

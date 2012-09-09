@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Social - Favorites
+description = Defines the functionality of the Favorites on the site
+core = 7.x
+package = Fadmashion

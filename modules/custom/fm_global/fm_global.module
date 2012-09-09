@@ -1,0 +1,15 @@
+<?php
+function fm_global_menu() {
+	
+  $items['blog-header'] = array(
+    'title' => t('IFrame header for Tumblr Blog'),
+    'page callback' => 'fm_global_blog_header',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;	
+}
+
+function fm_global_blog_header() {
+	return 'test';
+}

@@ -1,0 +1,91 @@
+<?php
+
+
+function fm_social_icons_theme() {
+	 return array(
+	   'fm_social_icons_twitter_button' => array(
+	     'variables' => array('type' => '',  'product_id' => 0),
+     ), 
+     'fm_social_icons_facebook_button' => array(
+	     'variables' => array('type' => '', 'product_id' => 0),
+     ), 
+     'fm_social_icons_pinterest_button' => array(
+	     'variables' => array('type' => '','product_id' => 0),
+     ), 
+     'fm_social_icons_email_button' => array(
+	     'variables' => array('type' => '', 'product_id' => 0),
+     ), 
+   );
+}
+
+function fm_social_icons_init() {
+	drupal_add_js();
+}
+
+function theme_fm_social_icons_pinterest_button($vars) {
+	
+	$product_id = $vars['product_id'];
+	$product = commerce_product_load($product_id);
+  $node = fm_commerce_get_display_node($product);
+  $shop = fm_commerce_get_store($product);
+  $url = url('shop', array('alias' => true, 'fragment' => '!', 'absolute' => true));
+  $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
+  $url = $url . $url2;
+  
+  $images = field_get_items('commerce_product', $product, 'field_product_images');
+	
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+	$first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
+  
+  $title = $product->title;
+  $title = $title;
+  
+  $output = '<a href="http://pinterest.com/pin/create/button/?url=' . $url . '&media=' 
+            . render(file_create_url($image_path)) . '&description=' . render($title) . '" class="pin-it-button" count-layout="horizontal" target="_blank">
+            <img title="Pin it" src="' . pp() . 'b_pinterest.jpg"></a>';
+  
+	return $output;
+}
+
+function theme_fm_social_icons_facebook_button($vars) {
+	
+	$product_id = $vars['product_id'];
+  $social_info = fm_social_icons_facebook_info($product_id);
+  
+  $javascript = "javascript:fm_deals_facebookshare( '" . $social_info['url'] . "', '" .   $social_info['image_path'] . "', '" . $social_info['description'] . "', '" . $social_info['name']  . "', '" . $social_info['message'] . "');"; 
+	$output = '<a onClick="javascript:void(0);" href="' . $javascript . '"><img title="Send to Friends" src="' . pp() . 'b_facebook.jpg"></a>';
+
+	return $output;
+}
+
+function fm_social_icons_facebook_info($product_id, $type = '') {
+	
+	$product = commerce_product_load($product_id);
+  $node = fm_commerce_get_display_node($product);
+  $shop = fm_commerce_get_store($product);
+  $url = url('shop', array('alias' => true, 'fragment' => '!', 'absolute' => true));
+  $url2 = url('node/' . $node->nid, array('query' => array('store_id' => $shop->store_id, 'nid' => $node->nid)));
+  $url = $url . $url2;
+
+  $images = field_get_items('commerce_product', $product, 'field_product_images');
+	
+	//Get First Image
+  $first_image = node_load($images[0]['nid']);
+	$first_image = field_get_items('node', $first_image, 'field_product_image');
+  $first_image = $first_image[0];
+  
+  $image_path = image_style_url('fm_preview_block_thumb', $first_image['uri']);
+  
+  //$percent = fm_deals_percentage($node, $product);
+  $title = $product->title;
+  $title = $title;
+  	$description = field_get_items('commerce_product', $product, 'field_description');
+	    $description = $description[0]['value'];
+  
+
+  
+  return array('image_path' => $image_path, 'description' => $description, 'name' => $title, 'message' => $message, 'url' => $url);
+}

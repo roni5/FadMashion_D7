@@ -5,14 +5,41 @@
  */
 function fm_commerce_store_owners_menu() {
 	
-	$items['store_owners/admin'] = array(
-    'page callback' => 'fm_commerce_store_owners_admin',
-	  'access arguments' => array('administer own stores'),
-	  'file' => 'fm_commerce_store_owners.admin.inc',
-    'type' => MENU_NORMAL_ITEM,
-  );
   
   return $items;
+}
+
+/*
+ * Fadmashion Footer Tabs implementation
+ * hook_footer_tab_active()
+ */
+function fm_commerce_store_owners_footer_tab_active() {
+	return false;
+	return fm_commerce_store_owners_is_admin();
+}
+
+/*
+ * Fadmashion Footer Tabs implementation
+ * hook_footer_tab_vars()
+ */
+function fm_commerce_store_owners_footer_tab_vars() {
+	$output = array();
+	
+	$store = fm_commerce_store_owners_get_store();
+	
+	$output['link'] = '<a  href="#tab-store-owners">' . $store->name. '</a>';
+	
+	$vars = fm_commerce_store_owners_footer_admin($store);
+	$output['content'] =  '<div id="tab-store-owners">' . theme('fm_commerce_store_owners_footer_admin', array('store' => $store)) . '</div>';
+	
+	return $output;
+}
+
+/*
+ * Fadmashion Footer Store owner admin
+ */
+function fm_commerce_store_owners_footer_admin($store) {
+	
 }
 
 /*
@@ -95,6 +122,10 @@ function fm_commerce_store_owners_theme() {
     'fm_commerce_store_owners_promotion_admin' => array(
        'template' => 'fm_commerce_store_owners_promotion_admin',
        'variables' => array('store' => NULL)
+    ),
+    'fm_commerce_store_owners_footer_admin' => array(
+      'template' => 'fm_commerce_store_owners_footer_admin',
+      'variables' => array('store' => NULL)
     ),
     
     
@@ -260,8 +291,16 @@ function fm_commerce_store_owners_is_admin($user = NULL) {
 /*
  * Get the Order list for the shop owners
  */
-function fm_commerce_store_owners_orders_list($store = nulll) {
+function fm_commerce_store_owners_orders_list($store = null) {
 	global $user;
+	
+	if($store == null) {
+		$store = fm_commerce_store_owners_get_store();
+	}
+	
+	if(!isset($store)) {
+    return;
+	}
 	
 	//Second, load up previous orders and go through each one and update those 
  $orders = fm_commerce_store_query_orders($store);

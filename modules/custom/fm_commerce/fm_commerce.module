@@ -1,6 +1,7 @@
 <?php
 
 define('FM_SUPPORT_MAIL', "support@fadmashion.com");
+define('FM_FREE_SHIPPING', 0);
 
 /**
  * Implements hook_form_alter().
@@ -20,7 +21,9 @@ function fm_commerce_form_alter(&$form, $form_state, $form_id) {
 	  $colors = fm_commerce_color_options($product);
 	  $sizes = fm_commerce_size_options($product);
 	  
-	  
+	  $form['#action'] = url('node/' . $node->nid);
+    unset($form['#token']);
+     
 	  //ADD color options to cart form
 	  if (count($colors) > 1) {
 	  	
@@ -153,6 +156,8 @@ function fm_commerce_cart_submit($form, &$form_state) {
   $discount_line_item = NULL;
   $shipping_line_item = NULL;
   $coupon_line_item = NULL;
+  $credits_line_item = NULL;
+  
   // Loop through the line items looking for discounts.
   foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
   	
@@ -182,7 +187,12 @@ function fm_commerce_cart_submit($form, &$form_state) {
      
     // Find line item associated with this coupon:
      if ($line_item_wrapper->type->value() == 'coupon' ) {
-        $coupon_line_item = $line_item_wrapper->value();
+        $line_item_wrapper->delete();
+    }
+  
+    if (empty($credits_line_item) &&
+        $line_item_wrapper->type->value() == 'credits_amount' ) {
+        $credits_line_item = $line_item_wrapper->value();
     }
   }
   
@@ -198,7 +208,6 @@ function fm_commerce_cart_submit($form, &$form_state) {
       $discount_line_item_wrapper->commerce_unit_price->value(),
       TRUE
     );
-    
     $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
     
     // Save the line item now so we get its ID.
@@ -220,12 +229,58 @@ function fm_commerce_cart_submit($form, &$form_state) {
   }
   
   
+  if (empty($credits_line_item)) { 
+  	$credits_ammount = fm_users_credits_get();
+  	
+  	if($credits_ammount > 0) {
+	    $credits_line_item = fm_commerce_credits_line_item_new($order->order_id);
+	    $credits_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $credits_line_item);
+		  $credits_line_item_wrapper->commerce_unit_price->amount = -1 * $credits_ammount * 100;
+	    $credits_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+	    $credits_line_item_wrapper->commerce_unit_price->data = commerce_price_component_add(
+	    $credits_line_item_wrapper->commerce_unit_price->value(),
+	      'base_price',
+	      $credits_line_item_wrapper->commerce_unit_price->value(),
+	      TRUE
+	    );
+	    
+	    // Save the line item now so we get its ID.
+	    commerce_line_item_save($credits_line_item);
+	     
+	    //Add it to the order's line item reference value.
+	    $order_wrapper->commerce_line_items[] = $credits_line_item;
+  	}
+  } else {
+  }
+  
+  
+  //remove coupon line item from order
+/* if(!empty($coupon_line_item)) {
+ 	  // Remove the line item from the line item reference field.
+    commerce_entity_reference_delete($order, 'commerce_line_items', 'line_item_id', $coupon_line_item->line_item_id);
+ 	  $ret = commerce_line_item_delete($coupon_line_item->line_item_id);
+ 	  entity_get_controller('commerce_line_item')->resetCache(array($coupon_line_item->line_item_id));
+ 	  //db_query('DELETE FROM {commerce_coupon_log} WHERE order_id = :order_id', array(':order_id' => $order->order_id));
+ 	  commerce_order_save($order);
+  }*/
+  
+  
+  
+   
+  commerce_order_calculate_total($order);
+  $order_total = $order_wrapper->commerce_order_total->value();
+  $order_total = $order_total['amount'];
   //SHIPPING LINE ITEM
   if (empty($shipping_line_item)) { 
   	
   	if(isset($store->field_shipping_rate) && !empty( $store->field_shipping_rate['und'][0]['amount'])) {
   	
-  	  $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  		if($order_total < FM_FREE_SHIPPING) {
+  	    $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  		}
+  		else {
+  			$shipping_rate = 0;
+  		}
   	
   	  $shipping_method = shipping_plugin_get_plugin('quotes', 'flat_rate');
       $shipping_line_item = commerce_line_item_new('shipping');
@@ -250,21 +305,27 @@ function fm_commerce_cart_submit($form, &$form_state) {
   	}
   } else {
   	
+  	$shipping_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $shipping_line_item);
+  	if($order_total < FM_FREE_SHIPPING) {
+  		if(isset($store->field_shipping_rate) && !empty( $store->field_shipping_rate['und'][0]['amount'])) {
+  	    $shipping_rate = $store->field_shipping_rate['und'][0]['amount'];
+  	    $shipping_line_item_wrapper->commerce_unit_price->amount = $shipping_rate;
+  	    var_dump($shipping_rate);
+  		}
+  	} else {
+  		$shipping_line_item_wrapper->commerce_unit_price->amount = 0;
+  	}
+    $shipping_line_item_wrapper->commerce_unit_price->currency_code = 'USD';
+    
+    commerce_line_item_rebase_unit_price($shipping_line_item);
+  	commerce_line_item_save($shipping_line_item);
   }
   
-  
-  //remove coupon line item from order
- if(!empty($coupon_line_item)) {
- 	  // Remove the line item from the line item reference field.
-    commerce_entity_reference_delete($order, 'commerce_line_items', 'line_item_id', $coupon_line_item->line_item_id);
- 	  $ret = commerce_line_item_delete($coupon_line_item->line_item_id);
- 	  entity_get_controller('commerce_line_item')->resetCache(array($coupon_line_item->line_item_id));
- 	  //db_query('DELETE FROM {commerce_coupon_log} WHERE order_id = :order_id', array(':order_id' => $order->order_id));
- 	  commerce_order_save($order);
-  }
   
   // Save the updated order.
   commerce_order_save($order);
+  
+  
   
    //Redirect here
  $form_state['redirect'] = 'express-checkout'; 
@@ -323,6 +384,32 @@ function fm_commerce_get_product($node) {
     return $product;
 }
 
+
+function fm_commerce_get_display_node($product, $type = 'fm_group_buying') {
+
+	  $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', $type);
+	  $query->propertyCondition('status', 1);
+	  $query->fieldCondition('field_product_reference', 'product_id', $product->product_id);
+    $result = $query->execute();
+	  
+    foreach($result['node'] as $nid => $row) {
+	    	if ($row->type == $type) {
+	    		$node = node_load($nid);
+	    		return $node;
+	    	}
+	  }
+	  
+	 
+    
+	
+	//$node = node_load(502);
+	//return $node;
+	  
+	  return null;
+}
+
 function fm_commerce_get_order_product($order) {
 	
 	$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -335,6 +422,8 @@ function fm_commerce_get_order_product($order) {
        break;
     }
   } 
+  
+  return '';
 }
 
 function fm_commerce_get_order_node($order) {
@@ -424,6 +513,50 @@ function ago($timestamp, $pre_text = '') {
     }
     return $time_ago;
 	
+}
+
+
+
+/*
+ * implements hook_cron()
+ * Sets product status to 0 if there is no display node
+ * */
+function fm_commerce_cron() {
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	      ->entityCondition('bundle', 'fm_fashion_product');
+	      
+	$products = $query->execute();
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+        $product = commerce_product_load($product_id);
+      	$node = fm_commerce_get_display_node($product);
+    	  if(!isset($node)) {
+    		   $product->status = 0;
+    		   commerce_product_save($product);
+    	}
+    }	
+	}
+	
+	//GET all inactive stores and make sure products are inactive too.
+  $query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'fm_commerce_store');
+	$query->propertyOrderBy('weight', 'asc');
+	$query->propertyCondition('status', 0);
+	$result = $query->execute();
+
+  $matches = array();
+  foreach ($result['fm_commerce_store'] as $store_id => $store) {
+    $shop = fm_commerce_store_load($store_id);
+    $products = fm_commerce_store_get_products($shop);
+    foreach($products as $product) {
+    	$product->status = 0;
+      commerce_product_save($product);
+    }
+  }
+  
+	 
 }
 
 

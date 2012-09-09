@@ -1,0 +1,5 @@
+; $Id: $
+name = FM Global - Static Pages
+description = Defines Global Static Pages functionality
+core = 7.x
+package = Fadmashion

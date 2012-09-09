@@ -69,6 +69,12 @@ function fm_invite_permission() {
   );
 }
 
+function fm_invite_get_invite_count() {
+	global $user;
+	$id = db_query("SELECT id FROM {fm_invite} where email = :mail", array(':mail' => $user->mail))->fetchField();
+	return db_query("SELECT COUNT(*) FROM {fm_invite} where referred_by_id = :id", array(':id' => $id))->fetchField();
+}
+
 /**
  * Implements hook_mail().
  */
@@ -147,8 +153,21 @@ function fm_invite_twitter_text($reg_code_url = '') {
 	if(empty($reg_code_url)) {
 		$reg_code_url = fm_invite_get_invite_url();
 	}
-	$output = 'Exclusive insider access on the hottest new designers on the planet. Private Invite Right Here! ' . $reg_code_url;
+	$output = 'Exclusive insider access on the hottest new designers on the planet. Plus, $10 Instant Free Credits! ' . $reg_code_url;
 	print urlencode($output);
+}
+
+function fm_invite_facebook_button($reg_code_url = '') {
+	
+  if(empty($reg_code_url)) {
+		$reg_code_url = fm_invite_get_invite_url();
+	}
+  $social_info = fm_social_icons_facebook_info(96);
+  
+  $javascript = "javascript:fm_deals_facebookshare( '" . $reg_code_url . "', '" .   $social_info['image_path'] . "', '" . t('Fadmashion is a Brooklyn-based boutique shop that brings the best and newest trends in New York fashion directly to your home. Also, as a bonus they are offering $10 free credits the instant you sign up.') . "', '" . t('Invite to Boutique + $10 Free Credits' ) . "', '" . $social_info['message'] . "');"; 
+	$output = '<a class="btnFacebook" onClick="javascript:void(0);" href="' . $javascript . '">Facebook</a>';
+
+	return $output;
 }
 
 /**
@@ -322,7 +341,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 	
 	$reg_code_url = fm_invite_get_invite_url($user);
   $params = array(
-    'subject' => 'Invitation to Independence',
+    'subject' => 'Invite to New York Fashion Boutique + $10 Free Credits',
     'fromName' => fm_users_fullname($uid),
     'reg_url' => $reg_code_url,
     'message' => fm_invite_email_message()
@@ -355,7 +374,7 @@ function fm_invite_send_email_form_submit($form, &$form_state) {
 }
 
 function fm_invite_email_message() {
-	$message = t('I just signed up for a different kind of fashion site called Fadmashion and thought you\'d be interested! Fadmashion is a Brooklyn-based retail site that helps shoppers discover some of the best and newest trends in local and global fashion. Check it out!');
+  $message = t('I just signed up for a different kind of fashion site called Fadmashion and thought you\'d be interested! Fadmashion is a Brooklyn-based boutique shop that brings the best and newest trends in New York fashion directly to your home.  Also, as a bonus they are offering $10 free credits the instant you sign up.  ');
 	return $message;
 }
 

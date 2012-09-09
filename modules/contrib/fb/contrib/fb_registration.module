@@ -46,7 +46,7 @@ function fb_registration_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
-  if ($form_id == 'user_register') {
+  if ($form_id == 'user_register_form') {
     // Replace regular form with fb_registration.
     $form['#fb_registration'] = TRUE;
 

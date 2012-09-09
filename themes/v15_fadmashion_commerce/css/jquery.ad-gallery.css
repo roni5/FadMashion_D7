@@ -1,0 +1,133 @@
+#gallery{background: rgb(255,255,255); /* Old browsers */
+
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(243,243,243,1) 100%); /* FF3.6+ */
+
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(243,243,243,1))); /* Chrome,Safari4+ */
+
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%); /* Chrome10+,Safari5.1+ */
+
+background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%); /* Opera 11.10+ */
+
+background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%); /* IE10+ */
+
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(243,243,243,1) 100%); /* W3C */
+
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0 ); /* IE6-9 */
+
+ -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 -2px 2px #ccc;
+
+}
+
+
+.ad-gallery {
+  width: 759px;
+position: relative; left: 4px;}
+
+
+.ad-gallery, .ad-gallery * {
+  margin: 0;
+  padding: 0;
+}
+  .ad-gallery .ad-image-wrapper {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+    .ad-gallery .ad-image-wrapper .ad-loader {
+      position: absolute;
+      z-index: 10;
+      top: 48%;
+      left: 48%;
+      border: 1px solid #CCC;
+    }
+    .ad-gallery .ad-image-wrapper .ad-next {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 25%;
+      height: 100%;
+      cursor: pointer;
+      display: block;
+      z-index: 100;
+    }
+    .ad-gallery .ad-image-wrapper .ad-prev {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 25%;
+      height: 100%;
+      cursor: pointer;
+      display: block;
+      z-index: 100;
+    }
+    .ad-gallery .ad-image-wrapper .ad-prev, .ad-gallery .ad-image-wrapper .ad-next {
+      /* Or else IE will hide it */
+      background: url(non-existing.jpg)\9
+    }
+      .ad-gallery .ad-image-wrapper .ad-prev .ad-prev-image, .ad-gallery .ad-image-wrapper .ad-next .ad-next-image {
+        background: url(ad_prev.png);
+        width: 30px;
+        height: 30px;
+        display: none;
+        position: absolute;
+        top: 47%;
+        left: 0;
+        z-index: 101;
+      }
+      .ad-gallery .ad-image-wrapper .ad-next .ad-next-image {
+        background: url(ad_next.png);
+        width: 30px;
+        height: 30px;
+        right: 0;
+        left: auto;
+      }
+    .ad-gallery .ad-image-wrapper .ad-image {
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 9;
+    }
+      .ad-gallery .ad-image-wrapper .ad-image a img {
+        border: 0;
+      }
+     
+    .ad-gallery .ad-nav .ad-thumbs {
+      overflow: hidden;
+      width: 100%;
+    }
+      .ad-gallery .ad-thumbs .ad-thumb-list {
+        float: left;
+        list-style: none;
+      }
+        .ad-gallery .ad-thumbs li {
+          float: left;
+          padding-right: 0px;
+          height: 90px;
+         width: 71px;
+          
+        }
+          .ad-gallery .ad-thumbs li a {
+            display: block;
+          }
+            .ad-gallery .ad-thumbs li a img {
+              border: 1px solid #bbb;
+              display: block;
+            }
+            .ad-gallery .ad-thumbs li a.ad-active img {
+              border: 1px solid red;
+            }
+            
+            
+.ad-hovered {opacity: .65}
+
+/* Can't do display none, since Opera won't load the images then */
+.ad-preloads {
+  position: absolute;
+  left: -9000px;
+  top: -9000px;
+}

@@ -47,6 +47,8 @@ define('FB_USER_CONTROL_NO_REDIRECT', 'fb_user_no_redirect');
 define('FB_USER_OP_PRE_USER', 'pre_user'); // Before account creation, fb_user.module
 define('FB_USER_OP_POST_USER', 'post_user'); // After account creation, fb_user.module
 define('FB_USER_OP_POST_EXTERNAL_LOGIN', 'post_external_login'); // user map has changed global user.
+define('FB_USER_OP_POST_USER_CONNECT', 'post_user_connect'); // Connected local account to FB account, fb_user.module
+define('FB_USER_OP_POST_USER_DISCONNECT', 'post_user_disconnect'); // Disconnected local account from FB account, fb_user.module
 
 
 /**
@@ -62,7 +64,7 @@ function fb_user_permission() {
 }
 
 /**
- * Implements of hook_menu().
+ * Implements hook_menu().
  */
 function fb_user_menu() {
   $items = array();
@@ -123,7 +125,29 @@ function fb_user_fb($op, $data, &$return) {
     $fb_user_data = _fb_user_get_config($fb_app);
   }
 
+  if ($op == FB_OP_APP_IS_AUTHORIZED) {
+    // There is an app, and the current user has authorized (is connected).
+
+    if ($rid = $fb_user_data['connected_user_rid']) {
+      // User is connected to facebook.
+      if (!isset($user->roles[$rid])) {
+        $user->roles[$rid] = $rid; // Should be role name, but that requires db query.
+        // Reload user permissions.
+        drupal_static_reset('user_access');
+        drupal_static_reset('menu_get_item');
+      }
+    }
+  }
+
   if ($op == FB_OP_POST_INIT && $fb) {
+    // Drupal gives access denied on /user/login page, so we want to avoid redirecting there.
+    if (arg(0) == 'user' && !isset($_REQUEST['destination'])) {
+      fb_js_settings('reload_url', url('user', array(
+                                         'absolute' => TRUE,
+                                         'fb_canvas' => fb_is_canvas(),
+                                       )));
+    }
+
     $fbu = fb_facebook_user();
     if (isset($_SESSION['fb_user_fbu']) &&
         $_SESSION['fb_user_fbu'] != $fbu &&
@@ -152,16 +176,7 @@ function fb_user_fb($op, $data, &$return) {
     }
 
     if ($rid = $fb_user_data['connected_user_rid']) {
-      if ($fbu) {
-        // User is connected to facebook.
-        if (!isset($user->roles[$rid])) {
-          $user->roles[$rid] = $rid; // Should be role name, but that requires db query.
-          // Reload user permissions.
-          drupal_static_reset('user_access');
-          drupal_static_reset('menu_get_item');
-        }
-      }
-      else {
+      if (!$fbu) {
         // User is not connected to facebook.
         if ($rid != DRUPAL_AUTHENTICATED_RID && isset($user->roles[$rid])) {
           // Out of paranoia, unset role.  This will be reached only if the
@@ -173,6 +188,9 @@ function fb_user_fb($op, $data, &$return) {
         }
       }
     }
+
+    // During ajax, we need to check for a change in user.
+
   }
   elseif ($op == FB_OP_GET_FBU) {
     // This is a request to learn the user's FB id.
@@ -180,24 +198,40 @@ function fb_user_fb($op, $data, &$return) {
   }
   elseif ($op == FB_OP_GET_UID) {
     // This is a request to learn the facebook user's local id.
-    $return = fb_user_get_local_user($data['fbu'], $data['fb_app']);
+    $return = _fb_user_get_uid($data['fbu'], $data['fb_app']);
   }
   elseif ($op == FB_OP_AJAX_EVENT) {
     // fb.js has notified us of an event via AJAX. Not the same as facebook event callback above.
-    if ($data['event_type'] == 'session_change' && isset($data['event_data']['fbu'])) {
-    	watchdog('fb', "FAcebook Login event called");
+    extract($data); // $event_type, $event_data.
+    if ($event_type == 'session_change' && isset($event_data['fbu'])) {
       // A user has logged in.
+
       // Don't trust fbu from $data['event_data'], too easy to spoof.
-      // Don't set fb_user if SESSION[fb_user_fbu], could be an old session not properly cleaned up.
+      // Instead call fb_facebook_user().  It will only work if the facebook php sdk is properly initialized.  Since this is an ajax event, probably the signed_request was passed to us.
+
       if (($fbu = fb_facebook_user($data['fb'])) &&
           $fbu != fb_get_fbu($GLOBALS['user'])) {
-        watchdog('fb', "call authorize user");
+
         // In ajax callback, there's no reason to redirect even if user
         // changes. But we should honor session, as even ajax can set a new
         // cookie.
         fb_controls(FB_USER_CONTROL_NO_REDIRECT, TRUE);
 
         _fb_user_process_authorized_user();
+      }
+    }
+
+    // fb.js no longer reloads after all session changes.  We need to explicitly reload when we know the user changed.
+    if ($event_type == 'session_change') {
+      if (isset($event_data['fbu']) && $event_data['fbu']) {
+        $uid = _fb_user_get_uid($event_data['fbu'], $data['fb_app']);
+      }
+      else {
+        $uid = 0;
+      }
+      if ($uid || $event_data['is_anonymous'] != 'true') {
+        // The Drupal user has changed, we should reload after ajax returns to fb.js.
+        $return['fb_user'] = 'FB_JS.reload()';
       }
     }
   }
@@ -220,9 +254,7 @@ function fb_user_page_alter(&$page) {
 function _fb_user_check_and_goto() {
   if (($fbu = fb_facebook_user()) &&
       !fb_is_tab() && // $fbu is page id, not visitor id, on tabs.
-      $fbu != fb_get_fbu($GLOBALS['user']) &&
-      current_path() !== variable_get('site_403', FALSE) &&
-      current_path() !== variable_get('site_404', FALSE)) {
+      $fbu != fb_get_fbu($GLOBALS['user'])) {
     $uid = $GLOBALS['user']->uid; // Remember original uid.
     _fb_user_process_authorized_user();
     if ($uid != $GLOBALS['user']->uid) {
@@ -321,7 +353,10 @@ function _fb_user_create_map() {
         !$account &&
         !fb_controls(FB_USER_CONTROL_NO_CREATE_MAP)) {
       _fb_user_set_map($GLOBALS['user'], $fbu);
-      fb_invoke(FB_OP_POST_USER_CONNECT, array('account' => $GLOBALS['user']), NULL, 'fb_user');
+      fb_invoke(FB_USER_OP_POST_USER_CONNECT, array(
+                  'account' => $GLOBALS['user'],
+                  'fbu' => $fbu,
+                ), NULL, 'fb_user');
       return TRUE;
     }
   }
@@ -336,7 +371,10 @@ function _fb_user_create_map_by_email() {
       ($email_account = fb_user_get_local_user_by_email($fbu)) &&
       !fb_controls(FB_USER_CONTROL_NO_CREATE_MAP)) {
     _fb_user_set_map($email_account, $fbu);
-    fb_invoke(FB_OP_POST_USER_CONNECT, array('account' => $GLOBALS['user']), NULL, 'fb_user');
+    fb_invoke(FB_USER_OP_POST_USER_CONNECT, array(
+                'account' => $GLOBALS['user'],
+                'fbu' => $fbu,
+              ), NULL, 'fb_user');
     return TRUE;
   }
   return FALSE;
@@ -407,6 +445,7 @@ function _fb_user_process_authorized_user() {
     // First check if map already exists.
     $account = fb_user_get_local_user($fbu, $fb_app);
     $config = _fb_user_get_config($fb_app);
+
     if (!$account) {
       if ($GLOBALS['user']->uid > 0 &&
           $config['map_account'][FB_USER_OPTION_MAP_ALWAYS]) {
@@ -416,7 +455,6 @@ function _fb_user_process_authorized_user() {
       if (!$mapped &&
           $config['map_account'][FB_USER_OPTION_MAP_EMAIL]) {
         // Create map if email matches.
-        watchdog('fb_fm', 'Presave FAcebook email');
         $mapped = _fb_user_create_map_by_email();
       }
 
@@ -454,7 +492,7 @@ function _fb_user_process_authorized_user() {
   }
 }
 
-
+// TODO make a public function that caches this data.
 function _fb_user_facebook_data($fb) {
   if ($fbu = fb_facebook_user($fb)) {
     try {
@@ -475,7 +513,7 @@ function _fb_user_button_text($form_id) {
 
   if (!isset($button_text)) {
     $button_text = array(
-      'user_register'     => variable_get(FB_USER_VAR_TEXT_REGISTER, NULL),
+      'user_register_form'     => variable_get(FB_USER_VAR_TEXT_REGISTER, NULL),
       'user_login'        => variable_get(FB_USER_VAR_TEXT_LOGIN, NULL),
       'user_login_block'  => variable_get(FB_USER_VAR_TEXT_LOGIN_BLOCK, NULL),
     );
@@ -498,7 +536,7 @@ function fb_user_form_alter(&$form, &$form_state, $form_id) {
     unset($form['submit']);
     unset($form['delete']);
   }
-	
+
   // Add name and email to some forms.
   if (isset($GLOBALS['_fb'])) {
     $fb = $GLOBALS['_fb'];
@@ -506,31 +544,47 @@ function fb_user_form_alter(&$form, &$form_state, $form_id) {
         (($form_id == 'user_register_form' && variable_get(FB_USER_VAR_ALTER_REGISTER, TRUE)) ||
          ($form_id == 'user_login' && variable_get(FB_USER_VAR_ALTER_LOGIN, TRUE)) ||
          ($form_id == 'user_login_block' && variable_get(FB_USER_VAR_ALTER_LOGIN_BLOCK, TRUE)))) {
-         
-      if ($fbu = fb_facebook_user()) {
-        // Facebook user has authorized app.
-         
-      	
-        // Show user name and picture.
-        $form['fb_user'] = array(
-          'name' => array(
-            '#markup' => '<fb:name uid="' . $fbu . '" useyou="false" linked="false"></fb:name>',
-            '#prefix' => '<div class="fb_user_name">',
-            '#suffix' => '</div>',
-          ),
+
+      // Add a facebook connect button or profile pic to the form.
+      $fb_button = theme('fb_login_button', t(_fb_user_button_text($form_id)), array('form_id' => $form_id));
+      $form['fb_user'] = array(
+        '#fb_user' => NULL,
+        'connected' => array(
+          '#prefix' => '<div class=fb_connected>', '#suffix' => '</div>',
           'picture' => array(
-            '#markup' => '<fb:profile-pic uid="' . $fbu . '" linked="false"></fb:profile-pic>',
+            '#markup' => '<fb:profile-pic uid="loggedinuser" linked="false" facebook-logo="true"></fb:profile-pic>',
+            '#type' => 'markup',
             '#prefix' => '<div class="fb_user_picture">',
             '#suffix' => '</div>',
           ),
-          '#weight' => -1,
-        );
+          'text' => array(
+            '#type' => 'markup',
+            '#markup' => t('!name, after <a href="!login_url">login</a> or <a href="!register_url">registration</a> your account will be connected.', array(
+                            '!name' => '<fb:name uid=loggedinuser useyou=false linked=false></fb:name>',
+                            '!login_url' => url('user/login'),
+                            '!register_url' => url('user/register'),
+                          )),
+          ),
+        ),
+        'loginbutton' => array(
+          '#markup' => $fb_button,
+          '#type' => 'markup',
+          '#prefix' => '<div class="fb_user-login-button-wrapper fb_not_connected">',
+          '#suffix' => '</div>',
+        ),
+        '#weight' => -1,
+      );
 
-        if ($form_id == 'user_register') {
-          // Provide defaults for name and email.
-          if ($data = _fb_user_facebook_data($fb)) {
-            $form['fb_user']['#fb_user'] = $data;
+      // @TODO confirm fb session before sharing sensitive data!
 
+      if ($fbu = fb_facebook_user($fb)) {
+        // Include $fb_user in form, so other modules can custom form_alter.
+        $data = _fb_user_facebook_data($fb);
+
+        $form['fb_user']['#fb_user'] = $data;
+        if ($form_id == 'user_register_form') {
+          if ($data) {
+            // Provide defaults for name and email.
             if (isset($form['name']) && !$form['name']['#default_value']) {
               // @TODO - ensure name is unique to Drupal.
               $form['name']['#default_value'] = $data['name'];
@@ -551,17 +605,6 @@ function fb_user_form_alter(&$form, &$form_state, $form_id) {
         }
       }
 
-      else {
-        // facebook user has not authorized app.
-        $fb_button = theme('fb_login_button', array('text' => t(_fb_user_button_text($form_id))));
-        $form['fb_user'] = array(
-          '#type' => 'markup',
-          '#markup' => $fb_button,
-          '#weight' => -1,  // Ideally, we'd put ourself next to openid login, but doesn't look right when next to form buttons.
-          '#prefix' => '<div class="fb-login-button">',
-          '#suffix' => '</div>',
-        );
-      }
     }
     elseif ($form_id == 'contact_site_form' && variable_get(FB_USER_VAR_ALTER_CONTACT, TRUE)) {
       if ($data = _fb_user_facebook_data($fb)) {
@@ -574,7 +617,6 @@ function fb_user_form_alter(&$form, &$form_state, $form_id) {
       }
     }
   }
-
 }
 
 /**
@@ -621,7 +663,7 @@ function fb_user_user_login(&$edit, $account) {
   // A facebook user has logged in. We can map the two accounts together.
   $fb_user_data = _fb_user_get_config($_fb_app);
   if (($fbu = fb_facebook_user()) &&
-      $fb_user_data['map_account'] == FB_USER_OPTION_MAP_ALWAYS &&
+      $fb_user_data['map_account'][FB_USER_OPTION_MAP_ALWAYS] &&
       !fb_controls(FB_USER_CONTROL_NO_CREATE_MAP)) {
 
     // Create fb_user record if it doesn't exist or update existing one
@@ -644,11 +686,13 @@ function fb_user_user_insert(&$edit, $account, $category) {
     // Map the two accounts together.
     $fb_user_data = _fb_user_get_config($_fb_app);
     if (($fbu = fb_facebook_user()) &&
-        array_key_exists(FB_USER_OPTION_MAP_ALWAYS, $fb_user_data['map_account']) &&
+        $fb_user_data['map_account'][FB_USER_OPTION_MAP_ALWAYS] &&
         !fb_controls(FB_USER_CONTROL_NO_CREATE_MAP)) {
 
-      // Create fb_user record if it doesn't exist or update existing one
-      _fb_user_set_map($account, $fbu);
+      // Create fb_user record if it doesn't exist or update existing one.
+      if ($account->uid == $user->uid) {
+        _fb_user_set_map($account, $fbu);
+      }
 
       // @TODO - if the app has a role, make sure the user gets that role. (presently, that will not happen until their next request)
     }
@@ -664,21 +708,23 @@ function fb_user_user_view($account, $view_mode, $langcode) {
 }
 
 /**
- * Implements hook_user_update.
+ * Implements hook_user_update().
  *
  * User is about to be updated.
  */
 function fb_user_user_update(&$edit, $account, $category) {
-  if ($edit['map']) {
-    _fb_user_set_map($account, $edit['map']);
-  }
-  else {
-    // Delete account mapping, because administrator has unchecked the connect option.
-    $num_deleted = db_delete('fb_user')
-      ->condition('uid', $account->uid)
-      ->execute();
+  if (isset($edit['fb_user_map'])) { // Only set on account form submit.
+    if ($edit['fb_user_map']) {
+      _fb_user_set_map($account, $edit['fb_user_map']);
+    }
+    else {
+      // Delete account mapping, because administrator has unchecked the connect option.
+      $num_deleted = db_delete('fb_user')
+        ->condition('uid', $account->uid)
+        ->execute();
 
-    fb_invoke(FB_OP_POST_USER_DISCONNECT, array('account' => $account), NULL, 'fb_user');
+      fb_invoke(FB_USER_OP_POST_USER_DISCONNECT, array('account' => $account), NULL, 'fb_user');
+    }
   }
 }
 
@@ -737,6 +783,10 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
         $user->uid == $form['#user']->uid))
     return; // hide from this user
 
+  if (empty($form['#user_category']) || $form['#user_category'] != 'account') {
+    return; // Alter only the primary user account form.
+  }
+
   $fb_user_data = _fb_user_get_config($_fb_app);
   $account = $form['#user'];
   $fbu = _fb_user_get_fbu($account->uid);
@@ -749,7 +799,7 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
       '#collapsed' => false,
       '#collapsible' => false,
     );
-    $form['fb_user']['map'] = array(
+    $form['fb_user']['fb_user_map'] = array(
       '#type' => 'checkbox',
       '#title' => t('Connect to facebook.com'),
       '#default_value' => $fbu,
@@ -760,7 +810,7 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     try {
       $data = fb_api($fbu, array('access_token' => fb_get_token()));
       if (count($data)) {
-        $form['fb_user']['map']['#description'] .=
+        $form['fb_user']['fb_user_map']['#description'] .=
           t('Local account !username corresponds to !profile_page on Facebook.com.',
             array(
               '!username' => l($account->name, 'user/' . $account->uid),
@@ -774,11 +824,11 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     if (fb_facebook_user() == $fbu) {
       // The user is currently connected to facebook.  Depending on
       // config, they may not be able to break the connection.
-      $form['fb_user']['map']['#disabled'] = TRUE;
-      $form['fb_user']['map']['#description'] .= '<br/>' . t('(Checkbox disabled because you are currently connected to facebook.)');
+      $form['fb_user']['fb_user_map']['#disabled'] = TRUE;
+      $form['fb_user']['fb_user_map']['#description'] .= '<br/>' . t('(Checkbox disabled because you are currently connected to facebook.)');
     }
     else {
-      $form['fb_user']['map']['#description'] .= '<br/>' . t('Uncheck then click save to delete this connection.');
+      $form['fb_user']['fb_user_map']['#description'] .= '<br/>' . t('Uncheck then click save to delete this connection.');
     }
   }
 
@@ -796,7 +846,7 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
           '#collapsible' => false,
         );
 
-        $form['fb_user']['map'] = array(
+        $form['fb_user']['fb_user_map'] = array(
           '#type' => 'checkbox',
           '#title' => t('Connect account to facebook.com'),
           '#default_value' => 0,
@@ -849,21 +899,10 @@ function fb_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     }
   }
 
-  if (isset($form)) {
-    $form['fb_user']['map']['#tree'] = TRUE;
-  }
-  else {
-    // Could add a facebook connect button or canvas page authorization link.
-    $form['description'] = array(
-      '#markup' => t('This account is not associated with a Facebook Application.'),
-      '#prefix' => '<p>',
-      '#suffix' => '</p>',
-    );
-  }
-
   // On user/edit, hide proxied email
   if (isset($form['account']) && isset($form['account']['mail'])) {
     $account = $form['#user'];
+    // Proxied email obsolete.  Deprecated.
     if (isset($account->fb_user_proxied_mail) &&
         ($form['account']['mail']['#default_value'] == $account->fb_user_proxied_mail)) {
       unset($form['account']['mail']['#default_value']);
@@ -968,8 +1007,9 @@ function fb_user_create_local_user($fb, $fb_app, $fbu,
         'init' => $fbu . '@facebook', // Supposed to be email, but we may not know it.
         'status' => 1,
       );
-      // Mail available only if user has granted extended permission.
-      if (isset($info['email']) && ($info['email'] != $info['proxied_email'])) {
+
+      // Mail available only if user has granted email extended permission.
+      if (isset($info['email'])) {
         $defaults['mail'] = $info['email'];
       }
 
@@ -1043,7 +1083,7 @@ function fb_user_get_local_user_by_email($fbu) {
       $info = $_fb->api($fbu);
       if (isset($info['email']) &&
           ($email = $info['email'])) {
-        return user_load(array('mail' => $email));
+        return user_load_by_mail($email);
       }
     }
     catch (Exception $e) {
@@ -1126,8 +1166,8 @@ function fb_user_token_list($type = 'all') {
     $tokens['fb_app']['fb-app-user-name'] = t('Current user\'s name on Facebook (TODO)');
     $tokens['fb_app']['fb-app-user-name-fbml'] = t('Current user\'s name for display on Facebook profile and canvas pages.');
     $tokens['fb_app']['fb-app-profile-url'] = t('Current user\'s Facebook profile URL');
+    return $tokens;
   }
-  return $tokens;
 }
 
 function fb_user_token_values($type = 'all', $object = NULL) {
@@ -1148,9 +1188,11 @@ function fb_user_token_values($type = 'all', $object = NULL) {
 }
 
 /**
- * Learn the user's proxied email address.
- * If fb_user_app.module is enabled, it will defer to that module, which queries a local database.
- * If not, ask facebook for the data.
+ * Learn the user's proxied email address.  If fb_user_app.module is enabled,
+ * it will defer to that module, which queries a local database.  If not, ask
+ * facebook for the data.
+ *
+ * @TODO: Facebook may no longer provide proxied_email. Does this work?
  */
 function fb_user_get_proxied_email($fbu, $fb_app) {
   $mail = "";
@@ -1164,8 +1206,13 @@ function fb_user_get_proxied_email($fbu, $fb_app) {
     // Ask facebook for info.
     $fb = fb_api_init($fb_app);
     $info = fb_users_getInfo(array($fbu), $fb); // TODO deprecated
-    $data = $info;
-    $mail = $data['proxied_email'];
+    $data = $info[0];
+    if (isset($data['email'])) {
+      $mail = $data['email'];
+    }
+    elseif (isset($data['proxied_email'])) {
+      $mail = $data['proxied_email'];
+    }
   }
 
   return $mail;

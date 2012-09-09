@@ -1,46 +1,74 @@
-<div style="width: 930px; height: 529px;" id="signup">
-<div class="state2">
+<div id="invite_block">
 <div class="box">
 
-<div class="old_signup">
-<h1>Invite Friends</h1>
-<p style="width: 460px; margin: 0 auto; font-weight: 500">We have provided you with a private invite code that gives insider access for your <b>friends, family and biggest fans</b>.  </p>
+<?php 
+global $user;
+if(!fb_get_fbu($user->uid)) {?>
+<?php } ?>
+
+<h1>Share with Friends, Get Rewarded</h1>
+<div id="explanation">
+<div id="col1">
+<h3 style="margin: 0px 0px 10px; font-size: 14px; border-bottom: 1px dotted rgb(221, 221, 221); padding-bottom: 10px;">You currently have <span style="font-size: 20px; color: #A6352F">$0</span> worth of credits</h3>
+   <h2>Friends with Benefits</h2>
+  <p>Invite 10 friends to join, and we will give you $30 worth of free credits for any purchases in our boutique.  As more of your friends join, we will give you more credits as a thank you for supporting local fashion.</p>
+	<br><br>
+	<div class="credits">
 </div>
 
+</div>
+<div id="col2">
+<h2>Invite More, Earn More</h2>
+  <div class="progressWrapper">
+  <div class="count"><?php $count = fm_invite_get_invite_count(); print $count; $percent = ($count/50) * 100;?></div>
+  <div class="progressBarOuter">
+    <div class="progressBarInner" <?php print 'style="width:' . $percent . '%"'?>>
+    </div>
+  </div>
+  <div class="labels">
+        	<div class="step1">New York Local</div>
+        	<div class="step2">Fashion Insider</div>
+        	<div class="step3">Front Row Seats</div>
+        </div>
+  </div>
+  <br>
+  <br>
+        
+  <div class="column">
+  <h3>New York Local</h3>
+  <p>10 friends have joined. $30 credit.</p>
+  <h3>Fashion Insider</h3>
+    <p>25 friends have joined. $30 more credit.</p>
 
-<div class="new_signup" style="display:none;">
-<h1>Welcome to Fadmashion!</h1>
-<p style="width: 500px; margin: -15px auto 0; font-weight: 500">  We are growing community of trendsetters with a common passion that celebrates individuality and origniality. Follow us on Facebook to get coverage on the hottest designer collections, fashion shows, and special sale annoucements.</p>
-<fb:like style="margin-top: 10px;" href="http://www.facebook.com/Fadmashion" send="true" width="300" show_faces="false"></fb:like>
+  </div>
+  <div class="column">
+      <h3>Front Row Seats</h3>
+  <p>50 friends have joined. $50 more credit.</p>
+  </div>
+ </div>
 
 </div>
-
-<table cellspacing="0" cellpadding="0" class="rounded-top" id="inviteCode">
-<tbody><tr>
-<th>Your Invite Code:</th>
-<td><input onClick="this.select()" type="text" id="" name="" value="<?php print $invite_url;?>" class="form-text required urlCode"></td>
-<td><a class="btnFacebook" href="javascript:void(0);" onClick="javascript:fm_invite_facebookshare( '<?php print fm_invite_get_invite_url();?>', '<?php print $social_info['image_path']; ?>');">Facebook</a></td>
-<td><a class="btnTwitter" target="_blank" href="http://twitter.com/intent/tweet?text=<?php print fm_invite_twitter_text()?>">Twitter</a></td>
-</tr></tbody></table>
-
-<div class="sendFields rounded-bottom">
-<div class="invite_state2"><?php print theme('fm_invite_ajax_sending_email'); ?></div>
-<div class="invite_state3"><p>Invitations Sent!</p><a href="javascript:void(0);" onClick="jQuery.colorbox.close(); ">Close</a></div>
-<div class="invite_state1">
-<p>Send Directly to Friend's Inbox.</p>
+<div id="email">
+<h2>eMail</h2>
+<h3>Invite friends & family by sending them an invitation to their Inbox</h3>
 <?php print render($invite_form); ?>
+<br>
+<div class="inviting" style="display: none;">Sending Invitations...</div>
+<div class="invites_sent" style="display: none;">Invites Sent!</div>
 <script>fmValidateInviteForm();</script>
 </div>
 
+<div id="share_link">
+<h2>Invite Using Your Personal Invite Link</h2>
+<h3>Copy & Paste the link in an E-mail, IM Message, Facebook or Twitter to invite your friends</h3>
+<div style="margin-top: 10px;">
+<input onClick="this.select()" type="text" id="" name="" value="<?php print $invite_url;?>" class="form-text required urlCode">
+<?php print fm_invite_facebook_button();?>
+<a class="btnTwitter" target="_blank" href="http://twitter.com/intent/tweet?text=<?php print fm_invite_twitter_text()?>">Twitter</a>
 </div>
-
-<div class="old_signup">
-<fb:like style="margin-top: 10px;" href="http://www.facebook.com/Fadmashion" send="true" width="400" show_faces="false"></fb:like>
 </div>
-
 
 
 
 </div> <!-- box -->
-</div> <!-- state2 -->
 </div> <!-- signup -->

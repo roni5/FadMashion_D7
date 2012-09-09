@@ -8,9 +8,9 @@
 
 define('FB_ADMIN_HOOK', 'fb_admin');
 
-define('FB_ADMIN_OP_SET_PROPERTIES', 'set_props'); // build props for admin.setAppProperties
 define('FB_ADMIN_OP_LIST_PROPERTIES', 'list_props'); // list of known properties for admin.getAppProperties
-
+define('FB_ADMIN_OP_SET_PROPERTIES', 'set_props'); // build props for admin.setAppProperties
+define('FB_ADMIN_OP_POST_SET_PROPERTIES', 'post_set_props'); // after props have been set (third party module may set addition values, i.e. restrictions).
 
 // Pages which may or may not be supported by the app implementation.
 define('FB_ADMIN_OP_LOCAL_LINKS', 'fb_admin_links');
@@ -26,11 +26,12 @@ function fb_admin_page() {
   if (count($apps)) {
     $header = array(
       t('Label'),
-      t('About'),
+      t('Name'),
       t('Canvas'),
       t('Local Operations'),
       t('Remote Settings'),
     );
+    $protocol = fb_protocol();
 
     foreach ($apps as $fb_app) {
       // Get properties from facebook.
@@ -40,8 +41,14 @@ function fb_admin_page() {
       // Title.
       $row[] = $fb_app->label . ($fb_app->status ? '' : ' ' . t('(<em>not enabled</em>)'));
 
-      // About.
-      $row[] = l(isset($fb_app->application_name) ? $fb_app->application_name : $fb_app->label, 'http://www.facebook.com/apps/application.php?id=' . $fb_app->id);
+      // New apps no longer have about pages.
+      $name = isset($fb_app->application_name) ? $fb_app->application_name : $fb_app->label;
+      if ($fb_app->about_url) {
+        $row[] = l($name, $fb_app->about_url);
+      }
+      else {
+        $row[] = $name;
+      }
 
       // Canvas Page.
       if (isset($fb_app->canvas_name) &&
@@ -49,7 +56,7 @@ function fb_admin_page() {
         drupal_set_message(t('Canvas page for %label is out of sync!  Facebook believes it is %fbcanvas, while our database believes %canvas.  Edit and save the application to remedy this.', array('%label' => $fb_app->label, '%fbcanvas' => $fb_app->canvas_name, '%canvas' => $fb_app->canvas)), 'error');
       }
       if ($fb_app->canvas) {
-        $row[] = l($fb_app->canvas, 'http://apps.facebook.com/' . $fb_app->canvas);
+        $row[] = l($fb_app->canvas, $protocol . '://apps.facebook.com/' . $fb_app->canvas);
       }
       else {
         $row[] = t('n/a');
@@ -73,7 +80,7 @@ function fb_admin_page() {
       $row[] = theme('links', array('links' => $links));
 
       // Remote Settings
-      $row[] = l($fb_app->id, 'http://www.facebook.com/developers/editapp.php?app_id=' . $fb_app->id);
+      $row[] = l($fb_app->id, 'https://www.facebook.com/developers/editapp.php?app_id=' . $fb_app->id);
 
       $rows[] = $row;
     }
@@ -88,11 +95,11 @@ function fb_admin_page() {
   else {
     $output['intro'] = array('#markup' => t('Start by creating an application.'));
     if (!module_exists('fb_app')) {
-      $output['module_enabled'] = array('#markup' => t('Ensure the Facebook Application module is enabled.'));
+      $output['module_enabled'] = array('#markup' => t('Enable the <em>Facebook Apps</em> module (fb_app.module) to manage an application.'));
     }
     else {
       $output['add_app'] = array(
-        '#markup' => t('Click <a href="!url">Add Application</a> to continue.',
+        '#markup' => t('Click <a href="!url">Add Application</a> to get started.',
                        array('!url' => url(FB_PATH_ADMIN . '/fb_app_create'))),
         '#prefix' => '<p>', '#suffix' => '</p>',
       );
@@ -122,14 +129,38 @@ function fb_admin_app_page($fb_app = NULL) {
   $props_map = array(
     t('Name') => 'name',
     t('Label') => 'label',
-    t('API Key') => 'apikey',
     t('ID') => 'id',
+    t('Secret') => 'secret',
   );
   $output = "<dl>\n";
+
+  // Render props learned from facebook and stored in $fb_app object.
   $props_map = fb_invoke(FB_ADMIN_OP_LIST_PROPERTIES, array('fb_app' => $fb_app), $props_map, FB_ADMIN_HOOK);
   foreach ($props_map as $name => $key) {
     if (isset($fb_app->$key)) {
       $output .= "<dt>$name</dt><dd>{$fb_app->$key}</dd>\n";
+    }
+  }
+
+  // This clause belongs in fb_tab.module.  But currently no hook for that tab to add a "property" that is not a true facebook property.
+  if ($fb_app->installable && $fb_app->profile_tab_url && module_exists('fb_tab')) {
+    // This app can be added to a page.  Provide a link to do so.
+    $add_url = "http://www.facebook.com/dialog/pagetab?app_id=$fb_app->id&next=" . url(FB_TAB_PATH_ADDED . '/' . $fb_app->label, array('absolute' => TRUE, 'language' => FALSE));
+    $output .= '<dt>' . t('Add to page link') . '</dt><dd>' . l($add_url, $add_url) . '</dd>';
+  }
+
+  // Render additional properties
+  $token = fb_get_token($fb);
+  $output .= '<dt>' . t('Access Token') . '</dt><dd>' . $token . "</dd>\n";
+  // Still more properties, i.e. restrictions.
+  $result = fb_graph($fb_app->id, array(
+                       'fields' => 'restrictions,migrations',
+                       'access_token' => fb_get_token($fb),
+                     ), 'GET', $fb);
+  unset($result['id']); // redundant.
+  foreach ($result as $key => $value) {
+    if (!empty($value)) {
+      $output .= '<dt>' . t($key) . '</dt><dd><pre>' . print_r($value, 1) . "</pre></dd>\n";
     }
   }
   $output .= "</dl>\n";
@@ -143,8 +174,11 @@ function fb_admin_page_title($fb_app) {
 }
 
 /**
- * Get properties from Facebook.  Fills in the data that we need to
- * know by querying facebook.
+ * Get properties from Facebook.  Fills in the data that we need to know by
+ * querying facebook.  Uses admin.getAppProperties, an older API which may be
+ * replaced by the newer graph api.  Certainly additional "properties" may be
+ * learned via the graph.  In other words, this function works as it does for
+ * historical reasons.
  */
 function fb_admin_get_app_properties(&$fb_app) {
   $cache = &drupal_static('fb_admin:cache');
@@ -160,20 +194,20 @@ function fb_admin_get_app_properties(&$fb_app) {
     $props_map = fb_invoke(FB_ADMIN_OP_LIST_PROPERTIES, array('fb_app' => $fb_app), $props_map, FB_ADMIN_HOOK);
   }
 
-  if (!isset($cache[$fb_app->apikey])) {
+  if (!isset($cache[$fb_app->id])) {
     if ($fb = fb_api_init($fb_app)) {
       try {
         $props = fb_call_method($fb, 'admin.getAppProperties', array(
                                   'properties' => implode(',', array_values($props_map)),
                                 ));
-        $cache[$fb_app->apikey] = $props;
+        $cache[$fb_app->id] = $props;
       } catch (Exception $e) {
         fb_log_exception($e, t('Failed to get application properties (%label) from Facebook', array('%label' => $fb_app->label)));
       }
     }
   }
   else {
-    $props = $cache[$fb_app->apikey];
+    $props = $cache[$fb_app->id];
   }
 
   // Update $fb_app with the values we got from facebook api.
@@ -196,11 +230,12 @@ function fb_admin_get_app_options($include_current = FALSE, $key = 'label') {
   if ($include_current)
     $options[FB_APP_CURRENT] = t('<current>');
   foreach ($apps as $app) {
-    if ($key == 'apikey') {
-      $options[$app->apikey] = $app->label;
+    $title = !empty($app->title) ? $app->title : $app->label;
+    if ($key == 'id') { // Still needed?
+      $options[$app->id] = $title;
     }
     else {
-      $options[$app->label] = $app->label;
+      $options[$app->label] = $title;
     }
   }
   return $options;
@@ -225,14 +260,14 @@ function fb_admin_set_properties_form($form, &$form_state, $fb_app) {
   // @TODO - beautify display of properties.
   $form['props'] = array(
     '#type' => 'markup',
-    '#value' => print_r($props, 1),
+    '#markup' => print_r($props, 1),
     '#prefix' => '<pre>',
     '#suffix' => '</pre>',
   );
 
   $form['desc2'] = array(
     '#type' => 'markup',
-    '#value' => t('Syncing will also update local settings with values learned from facebook (i.e. if you have changed your canvas page).'),
+    '#markup' => t('Syncing will also update local settings with values learned from facebook (i.e. if you have changed your canvas page).'),
     '#prefix' => '<p>',
     '#suffix' => '</p>',
   );
@@ -297,6 +332,24 @@ function fb_admin_set_properties_form_submit($form, &$form_state) {
 function fb_admin_settings() {
   $form = array();
 
+  // @TODO would be nice to automatically test whether HTTPS is supported.
+  $form['fb_admin_secure'] = array(
+    '#title' => t('Secure URLs'),
+    '#type' => 'fieldset',
+    '#description' => t('Canvas Pages and Page Tabs require a server that supports SSL encrypted HTTPS.  Without HTTPS, those features will only work in "sandbox mode."'),
+  );
+  $form['fb_admin_secure'][FB_VAR_SECURE_URLS] = array(
+    '#type' => 'radios',
+    '#title' => t('Use Secure URLs'),
+    '#default_value' => variable_get(FB_VAR_SECURE_URLS, FB_SECURE_URLS_SOMETIMES),
+    '#description' => t('This setting affects your applications\' connect_url, callback_url, secure_callback_url, profile_tab_url, and secure_page_tab_url properties.'),
+    '#options' => array(
+      FB_SECURE_URLS_NEVER => t('Never use HTTPS. (I.e. this server does not support it.)'),
+      FB_SECURE_URLS_SOMETIMES => t('Use HTTPS only when Facebook expects a secure URL. (Recommended.)'),
+      FB_SECURE_URLS_ALWAYS => t('Always use HTTPS for both secure urls and also other url callbacks.'),
+    ),
+  );
+
   $form['fb_admin_session'] = array(
     '#title' => t('Sessions'),
     '#type' => 'fieldset',
@@ -308,17 +361,89 @@ function fb_admin_settings() {
 
   $form['fb_admin_session'][FB_VAR_USE_COOKIE] = array(
     '#type' => 'checkbox',
-    '#title' => t('Set FB Cookie'),
+    '#title' => t('Use FB Cookie'),
     '#default_value' => variable_get(FB_VAR_USE_COOKIE, TRUE),
-    '#description' => t('Tell Facebook\'s libraries to set a cookie, named fbs_<em>APIKEY</em>, when user connects.  Makes facebook applications run smoother, but fails when third-party cookies are denied by user\'s browser.'),
+    '#description' => t('Tell Facebook\'s libraries to set and honor a cookie when user connects.  Makes facebook applications run smoother, but may fail when third-party cookies are denied by user\'s browser.'),
   );
 
   $form['fb_admin_session'][FB_VAR_USE_SESSION] = array(
     '#type' => 'checkbox',
     '#title' => t('Store tokens in session'),
     '#default_value' => variable_get(FB_VAR_USE_SESSION, TRUE),
-    '#description' => t('Store tokens and data needed by facebook\'s libraries in Drupal\'s session.  Helps applications work even when third-party cookies are denied.'),
+    '#description' => t('Store tokens and data needed by facebook\'s libraries in Drupal\'s session.  Helps applications work even when third-party cookies are disabled.'),
   );
+
+  $form['fb_admin_js'] = array(
+    '#title' => t('Javascript'),
+    '#type' => 'fieldset',
+    '#description' => t('Settings that control the <a href="!url" target=_blank>Javascript SDK</a>. These settings are relavant for both Apps and not Social Plugins. <br/>The defaults are the recommended values.', array(
+                          '!url' => 'http://developers.facebook.com/docs/reference/javascript/',
+                        )),
+    '#collapsible' => TRUE,
+  );
+
+  $form['fb_admin_js'][FB_VAR_JS_OAUTH] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use Oauth when initializing javascript.'),
+    '#default_value' => variable_get(FB_VAR_JS_OAUTH, TRUE),
+    '#description' => t('Pass oauth TRUE to <a href=!url target=_blank>FB.init()</a>.  When checked, javascript SDK looks for new-style cookie named "fbsr_...".  When unchecked, looks for old-style cookie named "fbs_...".  When this and above options are unchecked, user will have to explicitly connect/disconnect from your site, logging in/out of facebook will not be automatically detected.', array(
+                          '!url' => 'http://developers.facebook.com/docs/reference/javascript/FB.init/',
+                        )),
+  );
+
+  $form['fb_admin_js'][FB_VAR_JS_GET_LOGIN_STATUS] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Get login status when initializing javascript.'),
+    '#default_value' => variable_get(FB_VAR_JS_GET_LOGIN_STATUS, TRUE),
+    '#description' => t('Detect whether a connected user has logged into or out of facebook.  Uses FB.getLoginStatus().  This technique is recommended by Facebook; however, it has <a href=!url>bugs</a> and <a href=!url2>more bugs</a>.  If those bugs affect your site, you may want to disable this.', array(
+                          '!url' => 'http://developers.facebook.com/bugs/173032012783482',
+                          '!url2' => 'https://developers.facebook.com/bugs/240058389381072',
+                        )),
+  );
+
+  $form['fb_admin_js'][FB_VAR_JS_TEST_LOGIN_STATUS] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Alternative verify login status when initializing javascript.'),
+    '#default_value' => variable_get(FB_VAR_JS_TEST_LOGIN_STATUS, FALSE),
+    '#description' => t('When not using FB.getLoginStatus() (because it is <a href=!url target=_blank>buggy</a>) detect log out of facebook via a call to FB.api().  Does not detect a login (the user must explicitly click a connect button). This may add overhead on the client side to every page load.   This setting only takes effect when the setting above is unchecked.', array(
+                          '!url' => 'http://developers.facebook.com/bugs/173032012783482',
+                        )),
+  );
+
+  $form['fb_admin_js'][FB_VAR_JS_USE_SESSION] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use tokens in session to initialize javascript'),
+    '#default_value' => variable_get(FB_VAR_JS_USE_SESSION, FALSE),
+    '#description' => t('Attempt to workaround <a href=!url target=_blank>a bug in facebook\'s javascript</a> by passing a signed request in the js settings.  Facebook\'s SDK should use that instead of a cookie. (Only works when storing tokens in session and using oauth.)', array(
+                          '!url' => 'http://developers.facebook.com/bugs/173032012783482',
+                        )),
+  );
+
+  $form['fb_admin_js'][FB_VAR_RELOAD_APPEND_HASH] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Append hash on javascript page reload'),
+    '#default_value' => variable_get(FB_VAR_RELOAD_APPEND_HASH, FALSE),
+    '#description' => t('When fb.js reloads (on session change), append a query parameter which serves two purposes.  First, it will break through a cache which may be desireable when facebook session changes.  Second, it prevents infinite reloads when third-party cookies are not enabled.  Enable this if you encounter either of those problems.'),
+  );
+
+  $form['fb_username_performance'] = array(
+    '#title' => t('Username Formatting'),
+    '#type' => 'fieldset',
+    '#description' => t('If some pages render very slowly, you may wish to disable username formatting.'),
+    '#collapsible' => TRUE,
+  );
+  $form['fb_username_performance'][FB_VAR_ALTER_USERNAME] = array(
+    '#type' => 'radios',
+    '#title' => t('Format Usernames'),
+    '#default_value' => variable_get(FB_VAR_ALTER_USERNAME, FB_ALTER_USERNAME_NOT_THEMING),
+    '#description' => t(''),
+    '#options' => array(
+      FB_ALTER_USERNAME_NEVER => t('<strong>Never</strong> - In emails and page titles users might see unsightly names like "12345@facebook".'),
+      FB_ALTER_USERNAME_NOT_THEMING => t('<strong>Smart</strong> - Format names in email and page title, but skip formatting when theming markup.  Recommended; however, due to limitations of Drupal API, this only works when <a href=!url target=_blank>fb_connect.module overrides theme_username()</a>.', array('!url' => url('admin/structure/fb/fb_connect'))),
+      FB_ALTER_USERNAME_ALWAYS => t('<strong>Always</strong> (not recommended) - May cause pages to render slowly.'),
+    ),
+  );
+
 
   $form['fb_admin_languages'] = array(
     '#title' => t('Languages and Locales'),
@@ -344,7 +469,6 @@ function fb_admin_settings() {
   }
 
   return system_settings_form($form);
-
 }
 
 /**

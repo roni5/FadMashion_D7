@@ -5,7 +5,12 @@
    <h1>Thank You!</h1>
    <h2>Your order has been successfully placed.</h2>
 </div>
-<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'my-orders/' . $order->order_id, array( 'query' => array('width' => '940px'), 'html' => true, 'attributes' => array( 'class' => 'colorbox-load', ))); ?>, or contact us anytime.</div>
+
+<?php $url = url('static', array('alias' => true, 'fragment' => '!'));
+$url2 = url('contact-us', array('query' => array('page' => 'contact-us')));
+$url = $url . $url2;
+?>
+<div class="orderNumber"><span>Order #<?php print $order->order_id; ?></span>  View the status of your order <?php print l('here', 'user/orders');?>, or <a href="<?php print $url; ?>">contact us</a> anytime.</div>
 
 <div class="orderDetails">
      <?php foreach($product_line_items as $product_line_item) {print $product_line_item; print '<br clear="all">'; } ?>
@@ -26,4 +31,6 @@ $order_view = commerce_order_ui_order_view($order, 'customer');
             <h1>Shipping</h1>
             <?php print render($order_view['commerce_order'][$order->order_id]['commerce_customer_shipping']); ?>
             </div>
+            
+            <div class="back"><?php print l('Continue', 'shop', array('attributes' => array('class' => array('button'))));?></div>
 </div>

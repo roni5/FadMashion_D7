@@ -61,7 +61,7 @@ function fb_user_admin_settings() {
     '#type' => 'textfield',
     '#title' => t('Registration form button text'),
     '#size' => 60,
-    '#default_value' => _fb_user_button_text('user_register'),
+    '#default_value' => _fb_user_button_text('user_register_form'),
     '#description' => t('Leave blank for facebook\'s default, currently "Login".'),
   );
   $form['fb_user_alter']['login'] = array(
@@ -142,7 +142,6 @@ function fb_user_admin_form_alter(&$form, &$form_state, $form_id) {
       '#title' => t('Map accounts'),
       '#description' => t('Mapping an account means creating an entry in the fb_user table.  This allows Drupal to know which Facebook id corresponds to which local uid. <br/>Matching based on email works when the email extended permission is requested and only if the user is not already mapped to another account.'),
       '#options' => array(
-        //FB_USER_OPTION_MAP_NEVER => t('Never map accounts'),
         FB_USER_OPTION_MAP_ALWAYS => t('Map account when both local uid and Facebook id are known'),
         FB_USER_OPTION_MAP_EMAIL => t('Map account when Facebook email exactly matches local account'),
       ),

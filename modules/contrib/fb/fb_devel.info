@@ -10,9 +10,9 @@ dependencies[] = devel
 
 files[] = fb_devel.install
 files[] = fb_devel.module
-; Information added by drupal.org packaging script on 2011-07-19
-version = "7.x-3.x-dev"
+; Information added by drupal.org packaging script on 2012-07-19
+version = "7.x-3.3-beta3"
 core = "7.x"
 project = "fb"
-datestamp = "1311034480"
+datestamp = "1342718795"
 

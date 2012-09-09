@@ -5,55 +5,69 @@
 
 var slideSpeed = 600;
 var fadeSpeed = 500;
+var loadingImagePath =  'http://exp.fadmashion.com/sites/all/themes/v15_fadmashion_commerce/images/confirm-ajax-loader.gif';
+
 jQuery(document).ready(function() {
 	
-		jQuery('#product').slides({
-			preload: true,
-			preloadImage: loadingImagePath,
-			effect: 'fade',
-			crossfade: true,
-			slideSpeed: slideSpeed,
-			fadeSpeed: fadeSpeed,
-			generateNextPrev: true,
-			generatePagination: false
-		});
-		jQuery('#product').show();
-		
-		/*Mousewheel zoom for main product image
-		jQuery(".photos .slides_container img").mousemove(function(e){
-			jQuery("#photo_tooltip").show();
-	    });
-	    jQuery(".photos .slides_container img").mouseout(function(e){
-	    	jQuery("#photo_tooltip").hide();
-	    });*/
-
-		/*jQuery(".zoom01").gzoom({sW: 372,
-			sH: 474,
-			lW: 942,
-			lH: 1200,
-			step: 10,
-			frameColor: "#F0EEEA",
-			re : /fm_main_product_image\//, 
-  	        replace : 'fm_product_super_zoom/',  
-			lighbox : false
-	     });*/
-		 /*$('.zoom01').addimagezoom({
-			  zoomrange: [3, 10],
-			  magnifiersize: [300,300],
-			  magnifierpos: 'right',
-			  cursorshade: true,
-			  largeimage: 'hayden.jpg' //<-- No comma after last option!
-	     })*/;
-		jQuery('.photos .prev').after('<a class="zoom colorbox-inline" href="' + zoomUrl + '">Enlarge</a>');
+	
 		Drupal.attachBehaviors();
 
 });
+(function ($) {
+	
+
+	//Set colorbox behavior weight to be after image slider
+	Drupal.behaviors['initColorboxInline.weight'] = 100;
+	
+	
+	Drupal.behaviors.imageSlider = {
+	  attach: function (context, settings) {
+		  
+		  jQuery('.collectionPanel').each(function (){
+			  
+			  if( !jQuery('#product', this).is(':visible')) {
+				  return;
+			  }
+			  
+			  if(!jQuery('#product', this).length || jQuery('#product .slides_control', this).length) {
+			    	return;
+			  }
+			  
+
+			 jQuery('#product', this).slides({
+					preload: true,
+					preloadImage: loadingImagePath,
+					effect: 'fade',
+					crossfade: true,
+					slideSpeed: slideSpeed,
+					fadeSpeed: fadeSpeed,
+					generateNextPrev: true,
+					generatePagination: false
+				});
+				jQuery('#product', this).show();
+
+				var vals = jQuery(this).attr('id').split('_');
+				var node_id = vals[1];
+				jQuery('#zoomed', this).attr('id', 'zoomed_' +node_id);
+				
+				var full_url = zoomUrl + '_' + node_id;
+				jQuery('#product .prev', this).after('<a class="zoom colorbox-inline" href="' + full_url + '">Enlarge</a>');
+				 jQuery('.slides_control a', this).each(function (){ 
+					 jQuery(this).attr('href', full_url);
+				 });
+		  });
+
+			
+	  }
+	};
+})(jQuery);
+
 
 (function ($) {
 	Drupal.behaviors.zoomedBox = {
 	  attach: function (context, settings) {
 
-		  if(!jQuery('#zoomed').length || !jQuery('#cboxLoadedContent').length || !jQuery('#zoomed').is(":visible")) {
+		  if(!jQuery('.zoomedSlider').length || !jQuery('#cboxLoadedContent').length || !jQuery('.zoomedSlider').is(":visible")) {
 		    	return;
 		  }
 		  
@@ -82,10 +96,10 @@ jQuery(document).ready(function() {
 			  jQuery('#zoom_photo_tooltip').hide();
 		  }
 		  var middle = boxHeight/2;
-		  jQuery(".zoom02 img").panFullSize(zoomed_width, boxHeight);
+		  jQuery("#cboxLoadedContent .zoom02 img").panFullSize(zoomed_width, boxHeight);
 		  
-		  if(!jQuery('#zoomed .slides_control').length) {
-			  jQuery('#zoomed').slides({
+		  if(!jQuery('#cboxLoadedContent .zoomedSlider .slides_control').length) {
+			  jQuery('#cboxLoadedContent .zoomedSlider').slides({
 					preload: true,
 					preloadImage: loadingImagePath,
 					effect: 'fade',
@@ -96,14 +110,14 @@ jQuery(document).ready(function() {
 					generatePagination: false,
 					animationComplete: function() {
 						//Reset Pan
-						jQuery(".zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
+						jQuery("#cboxLoadedContent  .zoom02 .panFullSize").css( {backgroundPosition:  "0px 0px"} )
 					}
 				});
 
 		  }
 		  
-		  jQuery("#zoomed .slides_container").height(boxHeight);
-		  jQuery("#zoomed .prev, #zoomed .next").css('top', middle.toString() + 'px');
+		  jQuery("#cboxLoadedContent .zoomedSlider .slides_container").height(boxHeight);
+		  jQuery("#cboxLoadedContent .zoomedSlider .prev, #cboxLoadedContent .zoomedSlider .next").css('top', middle.toString() + 'px');
 		  
 		  
 		 

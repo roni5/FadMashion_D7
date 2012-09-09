@@ -1,0 +1,34 @@
+
+<div id="grid_view">
+<div class="banner">
+  <?php print $title; ?>
+  <p class="description"><?php print $description; ?></p>
+  <img src="<?php print pp();?>divider_large.jpg">
+</div>
+<div id="grid">
+
+  <?php 
+  $row_num = 4;
+  $rows = array();
+  $i = 0; $j = 0;
+  foreach($products as $product) {
+  	if(!($i % $row_num)) {
+  		$j++;
+  	}
+    $rows[$j][] = $product;
+    $i++;
+  }
+  foreach($rows as $row) {
+  	print '<div class="row">';
+  	foreach($row as $product) {
+  		  $node = fm_commerce_get_display_node($product); 
+  		  if(isset($node)) {
+  		    print theme('fm_shop_page_grid_view_item', array('product' => $product, 'node' => $node,  'argument' => $argument));
+  		  }
+  	}
+  	print '</div>';
+  }
+  
+  ?>
+</div>
+</div>

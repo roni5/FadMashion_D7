@@ -53,6 +53,15 @@ function fm_users_register_theme(){
        ) 
     ),
     
+    'fm_users_register_footer_tabs_promo' => array(
+      'template' => 'fm_users_register_footer_tabs_promo',
+      'variables' => array(
+         'user' => null,
+         'invite_form' => null, 
+         'invite_url' => NULL  
+       ) 
+    ),
+    
   );
 }
 
@@ -125,7 +134,7 @@ function fm_users_register_intro_form_submit($form, &$form_state) {
 	
   $_SESSION[FM_USER_EMAIL_SESSION] = $mail;
 	
-	drupal_goto('deals');
+	drupal_goto('shop');
 }
 
 function fm_users_register_session_email() {
@@ -273,8 +282,11 @@ function fm_users_register_form_alter(&$form, $form_state, $form_id) {
   	case 'user_pass':  
   		$form['name']['#default_value'] = t('Enter E-maill Address');
   		$form['name']['#attributes'] = array('class' => array('clear-defaults'));
+  		$form['actions']['submit']['#value'] = t('E-mail Me');
   		$form['#submit'][] = 'fm_users_register_pass_form_submit';
   		break;
+  	case 'user_pass_reset':
+  		$form['#submit'][] = 'fm_users_register_pass_reset_form_submit';
   	case 'user_login_block':  
   		//ADD JS for User validation and AJAXY functionality
   		//drupal_add_js(drupal_get_path('module', 'fm_users').'/fm_users.js');
@@ -399,8 +411,8 @@ function fm_users_register_form_submit($form, &$form_state) {
 		user_save($user, array('status' => 1));
 		$private = FALSE;
   }
-	
-	$mail = $user->mail;*/
+	dea
+	$mail = $user->mail;
 	
 		
 	
@@ -412,12 +424,21 @@ function fm_users_register_form_submit($form, &$form_state) {
 	} else {
     print theme('fm_users_register_private', array('user' => $user, 'invite_url' => $invite_url, 'invite_form' => $invite_form));
 	}
-	exit();
+	exit();*/
+	drupal_goto('shop');
 }
 
 function fm_users_register_pass_form_submit() {
 	print 'Password E-mailed To you';
 	exit();
+}
+
+function fm_users_register_pass_reset_form_submit() {
+	var_dump('test');
+	exit();
+	
+	
+  drupal_goto('shop');
 }
 
 
@@ -433,5 +454,20 @@ function fm_users_register_module_implements_alter(&$implementations, $hook) {
     
   }
 }
+
+
+function fm_users_register_footer_tab_active() {
+	global $user;
+  return $user->uid ? FALSE : TRUE;
+}
+
+function fm_users_register_footer_tab_vars() {
+	$output = array();
+	$output['link'] = '<a  href="#tab-register">Insider Access</a>';
+	$output['content'] =  '<div id="tab-register">' . theme('fm_users_register_footer_tabs_promo') . '</div>';
+	
+	return $output;
+}
+
 
 ?>

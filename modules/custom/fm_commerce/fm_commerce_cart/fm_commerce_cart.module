@@ -36,7 +36,12 @@ function theme_fm_commerce_cart_line_item($vars) {
 	
 	$line_item_val = '<div class="item_wrapper">';
   $line_item_val .= '<div class="item_title">' . $title . '</div>';
-  $line_item_val .= '<div class="item_value ' .($red ? 'red_val' : '') . '">' . $price . '</div>';
+  if($price != '$0.00') {
+    $line_item_val .= '<div class="item_value ' .($red ? 'red_val' : '') . '">' . $price . '</div>';
+  } else {
+  	$line_item_val .= '<div class="item_value red_val">FREE</div>';
+  }
+  
   $line_item_val .= '</div>';
   
   return $line_item_val;
@@ -51,13 +56,17 @@ function fm_commerce_cart_block_view($block_name = '') {
   if($block_name == 'fm_commerce_cart') {
   	
   	
+  	
+  	
   	global $user;
 	// First attempt to load the customer's shopping cart order.
   $order = commerce_cart_order_load($user->uid);
   
+  //fm_commerce_cart_add_credits_to_cart();  ADD CREDITS TO CART, FOR REGISTERED USERS.
   
-  	$output = '<div class="summary">';
-  	$output .= '<div class="header rounded-top">Order Summary #' . $order->order_id. '</div>';
+  
+  $output = '<div class="summary">';
+  $output .= '<div class="header rounded-top">Order Summary #' . $order->order_id. '</div>';
   	
   	
   
@@ -106,7 +115,7 @@ function fm_commerce_cart_block_view($block_name = '') {
 	     if(isset($line_item_wrapper->field_product_line_item->field_node_reference)) {
 	       $node = $line_item_wrapper->field_product_line_item->field_node_reference->value();
 	       $discount_time = fm_deals_time($node->nid);
-         $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Discount', 
+         $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Exclusive Discount', 
                                      'price' => commerce_currency_format($discount_price['amount'], $discount_price['currency_code']),
                                      'red' => true)
                                     );
@@ -123,6 +132,14 @@ function fm_commerce_cart_block_view($block_name = '') {
                                      'red' => true)
                                     ));
 	     break;
+	     
+	    case 	'credits_amount':
+  	   $credits_price = $line_item_wrapper->commerce_total->value();
+  		 $discount_line_items[] = theme('fm_commerce_cart_line_item', array('title' => 'Credits', 
+                                      'price' => commerce_currency_format($credits_price['amount'], $credits_price['currency_code']),
+  			                              'red' => true)
+                                    );
+  			break;
 	     
   	}
   }
@@ -147,7 +164,7 @@ function fm_commerce_cart_block_view($block_name = '') {
   $output .=  commerce_currency_format($total['amount'], $total['currency_code'], NULL, true);
   $output .= '</div>';
   
-  $output .= render(drupal_get_form('fm_commerce_cart_promo_form'));
+ //$output .= render(drupal_get_form('fm_commerce_cart_promo_form'));
     
   $output .='</div>';  //end class="pad"
   $output .= '</div>'; //End class="summary"

@@ -93,9 +93,9 @@ function fb_app_schema() {
 /**
  * Change app labels to all lower case.
  *
- * This include some code specific to fb_connect.module (because easier to do here than fb_connect.install).
  */
 function fb_app_update_7301() {
+  // This include some code specific to fb_connect.module (because easier to do here than fb_connect.install).
   $ret = array();
   $query = db_query("SELECT fba_id, label FROM {fb_app} ORDER BY fba_id");
   while ($app = $query->fetchObject()) {
@@ -111,7 +111,7 @@ function fb_app_update_7301() {
         ->execute();
 
       drupal_set_message(t("Changed fb application name from %label_old to %label_new. Please adjust any custom code or settings which rely on app's label.", array(
-                           '%label_old' => $label_old,
+                             '%label_old' => $label_old,
                              '%label_new' => $label_new,
                            )), 'warning');
 
@@ -146,3 +146,5 @@ function fb_app_update_7301() {
   }
   return $ret;
 }
+
+

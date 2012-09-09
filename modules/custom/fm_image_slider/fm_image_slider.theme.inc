@@ -74,16 +74,7 @@ function theme_fm_image_slider_nivo_formatter($variables) {
  * @ingroup themeable
  */
 function theme_fm_image_slider_slides_formatter($variables) {
-	
-	drupal_add_js(drupal_get_path('module', 'fm_image_slider').'/fm_image_slider_slides.js');
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/slides.jquery.js');
-	
-	//Add Zoom JS
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.gzoom.js');
-	drupal_add_css(drupal_get_path('theme', 'fadmashion_commerce').'/css/jquery.gzoom.css');
-	//drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/featuredimagezoomer.js');
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.mousewheel.min.js');
-	drupal_add_js(drupal_get_path('theme', 'fadmashion_commerce').'/js/jquery.panFullSize.js');
+
 	
 	drupal_add_library('system', 'ui.slider');
 	
@@ -95,12 +86,8 @@ function theme_fm_image_slider_slides_formatter($variables) {
   
   //show thumbs or not
   $show_thumbs = (count($pictures) > 1 ? true : 0);
+
   
-  //Zoom Colorbox Url
-  $url = '/?height=80%&width=840&inline=true#zoomed';
-  drupal_add_js('var zoomUrl = "' . $url . '";', 'inline');
-  $loadingImagePath = pp() . 'confirm-ajax-loader.gif';
-  drupal_add_js('var loadingImagePath = "' . $loadingImagePath . '";', 'inline');
   
   $i = 0;
   $images = $zooms = $thumbs = ''; 
@@ -117,11 +104,9 @@ function theme_fm_image_slider_slides_formatter($variables) {
       'style_name' => $image_style
     );
     
-    //$images .= '<div class="image_container">';
     $images .= '<a class="colorbox-inline" href="' . $url . '"><div class="zoom01" class="zoom">';
     $images .= theme('image_style', $image);
     $images .= '</div></a>';
-    //$images .= '</div>';
     
     $image = array(
       'path' => $picture['uri'],
@@ -146,8 +131,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
 	  $i++;
   }
   
-  $output = '<div id="product" style="position: relative; display: none;">';
-  $output .= '<div id="photo_tooltip">mousewheel to zoom</div>';
+  $output = '<div id="product" style="position: relative;">';
   $output .= '<div class="slides_container">';
   $output .= $images;
   $output .= '</div>';
@@ -163,7 +147,7 @@ function theme_fm_image_slider_slides_formatter($variables) {
   $logo = field_view_field('fm_commerce_store', $store, 'field_logo', 'node_full');
 	
   $output .= '<div style="display:none">';
-  $output .= '<div id="zoomed">';
+  $output .= '<div class="zoomedSlider" id="zoomed">';
    
   //$output .= '<div id="zoom_photo_tooltip">hover to view more of the image</div>';
   
