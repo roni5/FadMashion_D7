@@ -822,8 +822,8 @@ top:14px;}
 #register_footer_promo .register {float: left; padding-left: 20px; margin-top: 5px;}
 #register_footer_promo .register  a.button{color: #fff; float: left; margin-left: 20px; font-size: 11px; background: url(../images/b_small.png) top left no-repeat; width: 74px; height: 30px; text-decoration: none; text-align:center; line-height: 28px; font-size: 13px;}
 #register_footer_promo .register  a.button:hover{background-position: bottom left;}
-#register_footer_promo .login{font-size: 12px; text-align: center;float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd;  }
-#register_footer_promo .login a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
+#register_footer_promo .login_link{font-size: 12px; text-align: center;float: left; margin-left: 35px; font-style: italic;font-family: "jubilat-1","jubilat-2",Georgia; color: #ddd;  }
+#register_footer_promo .login_link a{float: none; color: #fff; font-style: normal; text-decoration: underline;}
 
 /* Footer User Credits */
 #footer_credits_promo {margin: auto; width: 683px; margin-top: 13px;line-height: 20px;  }
