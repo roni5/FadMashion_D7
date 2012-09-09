@@ -26,15 +26,15 @@
                 <?php print l('Logout', 'user/logout');?>
                <?php //print l('+ Invite Friends', 'user/share-with-friends');?>
              <?php } else{ ?>
-               <a  id="sign_up" href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state1').show();fmForceRegister();fmClearRegisterTimeout();">Sign Up</a>
-               <a id="login"  href="javascript:void(0);" onClick="fmUserStateRestart(); jQuery('.state3').show();fmForceRegister();fmClearRegisterTimeout();">Login</a>
+               <a  target="_parent" id="sign_up" href="/home">Sign Up</a>
+               <a target="_parent" id="login"  href="/home">Login</a>
              <?php } ?>
              <a href="http://blog.fadmashion.com">Blog</a>
              <a href="<?php print $url?>/about-us">About</a>
     </div><!-- links-->
     <div class="shipping"><p><span>Free shipping & hassle-free returns</p></div></div>
         
-    <a class="logo" href="<?php print $front_page; ?>" title="<?php print t('Fadmashion'); ?>" rel="home" >
+    <a target="_parent" class="logo" href="<?php print $front_page; ?>" title="<?php print t('Fadmashion'); ?>" rel="home" >
         			    <img src="<?php print pp();?>logo_fm.png" alt="<?php print t('Fadmashion'); ?>" />
     </a>
     <div class="nav">
