@@ -39,7 +39,7 @@
     </a>
     <div class="nav">
       <ul>
-        <li><a href="/home" target="_parent">Home</a></li>
+        <li><a href="/home" target="_parent" class="home">Home</a></li>
         <li><a target="_parent" href="/shop" class="tooltipBtn">Shop</a></li>
          <?php //print fm_shop_subnav_items();?>
          <?php global $user;
