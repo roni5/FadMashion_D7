@@ -570,7 +570,7 @@ top:14px;}
 .checkoutPanel .header .dropdown{float: right; }
 .checkoutPanel .header .dropdown .form-select{width: 200px; height: auto;}
 .checkoutPanel .header .dropdown span{font-size: 13px;}
-.checkoutPanel .form{margin: 25px; }
+.checkoutPanel .form{margin: 25px; overflow: hidden;}
 
 .checkoutPanel label {font-weight: normal}
 .checkoutPanel .header .form-select{position: relative; top: -3px;}
