@@ -67,7 +67,7 @@ jQuery(document).ready(function() {
 	     });
 	    jQuery("#user-login-form .form-item-pass input").rules("add", {
 	  	   remote: {
-	  		   url: base_path + "?q=fm_users/auth&test=1",
+	  		   url: base_path + "?q=fm_users/auth",
 	  		   type: "post",
 	  		   beforeSend: function() { jQuery('#login_loader').show();},
 	  		   complete: function(data) { if(data.responseText != "true") {jQuery('#login_loader').hide();}},
