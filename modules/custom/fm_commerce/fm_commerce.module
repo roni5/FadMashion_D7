@@ -217,7 +217,6 @@ function fm_commerce_cart_submit($form, &$form_state) {
     //Add it to the order's line item reference value.
     $order_wrapper->commerce_line_items[] = $discount_line_item;
   } else {
-  	
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
   	if($discount == 0) {
   		$discount_line_item_wrapper->delete();
