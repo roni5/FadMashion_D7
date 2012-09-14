@@ -100,9 +100,13 @@
  
  <div class="itemOptions">
 <div class="pricing">
+<?php if ($sale_percentage != '0%') {?>
     <div class="savings"><?php print $sale_percentage; ?> Off</div>
     <div class="original"><span><?php print render($content['product:commerce_price']); ?></span></div>
     <div class="exclusive"><?php print render($content['field_sale_price']); ?></div>
+<?php } else { ?>
+<div class="exclusive"><?php print render($content['field_sale_price']); ?></div>
+<?php }  ?>
     
 </div>
 <br clear="all">
