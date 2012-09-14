@@ -62,7 +62,7 @@
 			      <div><?php print l('Logout', 'user/logout');?></div>
 			      <?php  $url = url('static', array('alias' => true, 'fragment' => '!')) . '?page=' ; ?>
 			      <div style="width: 248px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee"><a href="<?php print $url?>/returns">Shipping & Returns</a></div>
-			      <div><a href="<?php print $url?>/contact-us">Have a Question?</a></div>
+			      <div><a href="<?php print $url?>contact-us">Have a Question?</a></div>
 			    </div>
 			  </div>
 			</div>
