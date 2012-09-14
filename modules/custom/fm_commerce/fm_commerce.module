@@ -174,8 +174,12 @@ function fm_commerce_cart_submit($form, &$form_state) {
      
      if (empty($discount_line_item) &&
          $line_item_wrapper->type->value() == 'deals_discount' ) {
-       // Exit this loop with the $line_item intact so it gets updated.
-         $discount_line_item = $line_item_wrapper->value();
+         	if($discount == 0) {
+         		$line_item_wrapper->delete();
+         	} else {
+         // Exit this loop with the $line_item intact so it gets updated.
+           $discount_line_item = $line_item_wrapper->value();
+         	}
      }
      
      // If this line item matches the product being added...
@@ -218,9 +222,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
     $order_wrapper->commerce_line_items[] = $discount_line_item;
   } else {
   	$discount_line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $discount_line_item);
-  	if($discount == 0) {
-  		$discount_line_item_wrapper->delete();
-  	} else {
+  	if($discount != 0) {
   	  $discount_line_item_wrapper->field_product_line_item = $ref_line_item_id;
    	
   	  $discount_line_item_wrapper->commerce_unit_price->amount = $discount;
