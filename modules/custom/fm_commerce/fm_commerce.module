@@ -175,7 +175,7 @@ function fm_commerce_cart_submit($form, &$form_state) {
      if (empty($discount_line_item) &&
          $line_item_wrapper->type->value() == 'deals_discount' ) {
          	if($discount == 0) {
-         		$line_item_wrapper->delete();
+         		//$line_item_wrapper->delete();
          	} else {
          // Exit this loop with the $line_item intact so it gets updated.
            $discount_line_item = $line_item_wrapper->value();
