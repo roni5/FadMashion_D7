@@ -3,6 +3,7 @@ body{ background: url("../images/bg_pattern.jpg") repeat scroll 0 0 transparent;
 ul, li{list-style-type: none;}
 a, .dotted-hover{color: #0f6da3;font-size: 12px}
 a:hover{color: #2e92cc;}
+a.active{font-weight: bold;}
 
 .dotted-hover {
 border-bottom:1px dotted #0F6DA3;
