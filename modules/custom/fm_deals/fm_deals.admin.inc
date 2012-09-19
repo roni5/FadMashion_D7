@@ -8,13 +8,13 @@ function fm_deals_admin_page() {
 	
 	$query = new EntityFieldQuery();
   
-	$entities = $query->entityCondition('entity_type', 'node')
+/*	$entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 1)
                     ->execute(); 
                     
   $output .= '<h1>Active Deals</h1>';
-  $output .= fm_deals_list($entities);
+  $output .= fm_deals_list($entities);*/
   
   $query = new EntityFieldQuery();
   $entities = $query->entityCondition('entity_type', 'node')
@@ -51,7 +51,7 @@ function fm_deals_list($entities) {
     $rows[] = array($num, l($product->title, 'node/' . $node->nid),
        '<div ref="'. $node->nid .'" class="image-link" style="cursor: pointer; border-bottom: 1px dotted #444;">' . count($images) . ' images</div>', 
       (count($orders) > 0 ? l('View orders', 'admin/fadmashion/deals/orders/' . $node->nid) . ' (' . $qty_purchased .  ')' : t('No Orders Placed')), 
-      true ? 'Has Stock' : '<span style="color: red;">Out of Stock</span>',
+      t ? 'Has Stock' : '<span style="color: red;">Out of Stock</span>',
       $store->name,
       l('edit deal', 'node/'.$node->nid.'/edit') . ' | ' . l('edit product', 'admin/commerce/products/' . $product->product_id  . '/edit' )
 		);
