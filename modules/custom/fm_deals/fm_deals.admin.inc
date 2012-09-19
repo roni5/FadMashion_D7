@@ -33,6 +33,7 @@ function fm_deals_list($entities) {
   $header = array('# Rotated', 'Product Name',  'Images',  'Orders', 'Stock', 'Store Name', 'Operations' );
   $rows = array();
   foreach($entities['node'] as $node) {
+  	try{
   	$node = node_load($node->nid);
   
     $product = fm_commerce_get_product($node);
@@ -56,6 +57,11 @@ function fm_deals_list($entities) {
       $store->name,
       l('edit deal', 'node/'.$node->nid.'/edit') . ' | ' . l('edit product', 'admin/commerce/products/' . $product->product_id  . '/edit' )
 		);
+  	}
+  	catch(Exception $e) {
+  		var_dump($node);
+  		exit();
+  	}
   }
 	
 	$output =  theme ('table', array('header' => $header, 'rows' => $rows));
