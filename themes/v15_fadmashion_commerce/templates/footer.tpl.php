@@ -10,11 +10,8 @@
 <?php  $url = url('static', array('alias' => true, 'fragment' => '!')) . '?page='; ?>
 <div class="links">
 <a href="<?php print $url?>about-us">We ♥ New York</a>
-<a href="<?php print $url?>faq">What is Fadmashion?</a>
-<a href="<?php print $url?>faq">Returns & Exchanges</a>
-<a href="<?php print $url?>faq">Shipping Info</a>
-<a href="<?php print $url?>contact-us">Contact Us</a>
 <a href="http://blog.fadmashion.com">Blog</a>
+<a href="<?php print $url?>contact-us">Contact Us</a>
 </div>
 
 </div>
