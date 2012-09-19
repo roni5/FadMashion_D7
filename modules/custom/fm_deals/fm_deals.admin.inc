@@ -8,21 +8,22 @@ function fm_deals_admin_page() {
 	
 	$query = new EntityFieldQuery();
   
-/*	$entities = $query->entityCondition('entity_type', 'node')
+ $entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 1)
                     ->execute(); 
                     
   $output .= '<h1>Active Deals</h1>';
-  $output .= fm_deals_list($entities);*/
+  $output .= fm_deals_list($entities);
   
+  /*
   $query = new EntityFieldQuery();
   $entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 0)
                     ->execute(); 
   $output .= '<h1>Not-Active Deals</h1>';
-  $output .= fm_deals_list($entities);
+  $output .= fm_deals_list($entities);*/
               
   return $output;	
 }
@@ -60,7 +61,7 @@ function fm_deals_list($entities) {
 	$output =  theme ('table', array('header' => $header, 'rows' => $rows));
 	
 		
-	$options['bt_admin_store_name'] = array(
+	/*$options['bt_admin_store_name'] = array(
       'cssSelect' => '.image-link',
       'trigger' => array('mouseover', 'click'),
 	    'positions' => array('bottom'),
@@ -71,7 +72,7 @@ function fm_deals_list($entities) {
 	    'width' => '800px',
       'style' => 'hulu',
       );
-    beautytips_add_beautytips($options);
+    beautytips_add_beautytips($options);*/
 	
 	return $output;
 }
