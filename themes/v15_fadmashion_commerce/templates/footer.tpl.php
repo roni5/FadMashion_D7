@@ -14,6 +14,8 @@
 <a href="<?php print $url?>contact-us">Contact Us</a>
 </div>
 
+            
+
 </div>
 <?php endif;  ?> 
  

@@ -54,12 +54,10 @@
 </div>
 
 <div id="subHeader">
-        <div class="press">
-        	<a target="_blank" href="http://nymag.com/tags/fadmashion/"><img src="<?php print pp();?>logo_ny.jpg"></a>
-        	<a target="_blank" href="http://bit.ly/n9H1YF"><img src="<?php print pp();?>logo_fashionindie.jpg"></a>
-        	<a target="_blank" href="http://www.thefashionspot.com/runway-news/news/110425-alex-a-eli-emerging-designer-spotlight"><img src="<?php print pp();?>logo_tfs.jpg"></a>
-        	<a target="_blank" href="http://bit.ly/iQfNCD "><img src="<?php print pp();?>logo_prcouture.jpg"></a>
-            </div>
+        
+<div class="press">
+<fb:like href="http://www.facebook.com/Fadmashion" send="false" width="450" show_faces="true"></fb:like>
+        	</div>
         <h1 class="slogan">A <span>New York</span> Style Collective & Boutique </h1>
         
         </div>
