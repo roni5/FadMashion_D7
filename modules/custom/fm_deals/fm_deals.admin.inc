@@ -16,14 +16,14 @@ function fm_deals_admin_page() {
   $output .= '<h1>Active Deals</h1>';
   $output .= fm_deals_list($entities);
   
-  /*
+  
   $query = new EntityFieldQuery();
   $entities = $query->entityCondition('entity_type', 'node')
                     ->entityCondition('bundle', 'fm_group_buying')
                     ->propertyCondition('status', 0)
                     ->execute(); 
   $output .= '<h1>Not-Active Deals</h1>';
-  $output .= fm_deals_list($entities);*/
+  $output .= fm_deals_list($entities);
               
   return $output;	
 }
