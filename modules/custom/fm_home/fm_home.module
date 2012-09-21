@@ -99,20 +99,18 @@ function fm_home_get_images($term, $image_style) {
 
 function fm_home_get_random_images($term, $image_style) {
 	
-	
-  
-	$tids = array($term->tid);
-	
-	var_dump($tids);
-	exit();
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
-    ->fieldCondition($field, 'tid', $tids) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
+    ->fieldCondition($field, 'tid', $term->tid) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
     ->propertyCondition('status', 1)
     ->propertyOrderBy('created', 'DESC');
     
   $products = $query->execute();
+  
+  
+	var_dump($query);
+	exit();
   
   
 	$products_ret = array();
