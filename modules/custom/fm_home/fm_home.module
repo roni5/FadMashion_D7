@@ -99,6 +99,12 @@ function fm_home_get_images($term, $image_style) {
 
 function fm_home_get_random_images($term, $image_style) {
 	
+ if($term->vocabulary_machine_name == 'product_types') {
+		$field = 'field_product_type_top';
+	} else {
+		$field = 'field_product_trend';
+	}
+	
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
@@ -107,10 +113,6 @@ function fm_home_get_random_images($term, $image_style) {
     ->propertyOrderBy('created', 'DESC');
     
   $products = $query->execute();
-  
-  
-	var_dump($query);
-	exit();
   
   
 	$products_ret = array();
