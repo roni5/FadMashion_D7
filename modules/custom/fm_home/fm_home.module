@@ -97,6 +97,43 @@ function fm_home_get_images($term, $image_style) {
 	}
 }
 
+function fm_home_get_random_images($term, $image_style) {
+	
+	$tids = array($term->tid);
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'commerce_product')
+	   ->entityCondition('bundle', 'fm_fashion_product')
+    ->fieldCondition($field, 'tid', $tids) //replace field_food_menu with field_TAXONOMY_NAME and 2 with taxonomy ID (or use this code in a loop for many terms)
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC');
+    
+  $products = $query->execute();
+  
+	$products_ret = array();
+	if(isset($products['commerce_product'])) {
+    foreach($products['commerce_product'] as $product_id => $product) {
+      $products_ret[$product_id] = commerce_product_load($product_id);
+	  }
+	}
+	
+	shuffle($products_ret);
+	$images = array();
+	
+	for($i = 0; $i < 5; $i++) {
+		$product = array_shift($products_ret);
+		$images = field_get_items('commerce_product', $product, 'field_product_images');
+	   //Get First Image
+     $image_node = node_load($images[0]['nid']);
+     $image = field_get_items('node', $image_node, 'field_product_image');
+      
+     $images[] = image_style_url($image_style, $image[0]['uri']);
+	}
+	
+	return $images;
+  
+  
+}
+
 
 function fm_home_page_panel($term_name) {
 	
@@ -104,7 +141,7 @@ function fm_home_page_panel($term_name) {
 	if(!empty($term)) {
 			$term = array_shift($term);
 		  $title = fm_home_get_category_label($term);
-		  $images = fm_home_get_images($term, 'fm_home_big');
+		  $images = fm_home_get_random_images($term, 'fm_home_big');
       $content = theme('fm_home_style_panel', array('term' => $term, 'title' =>$title, 'images' => $images));
 	} 
 	return $content;
