@@ -99,6 +99,10 @@ function fm_home_get_images($term, $image_style) {
 
 function fm_home_get_random_images($term, $image_style) {
 	
+	
+  
+	var_dump($term);
+	exit();
 	$tids = array($term->tid);
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
@@ -109,9 +113,6 @@ function fm_home_get_random_images($term, $image_style) {
     
   $products = $query->execute();
   
-  
-	var_dump($products_ret);
-	exit();
   
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
