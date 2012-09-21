@@ -109,6 +109,10 @@ function fm_home_get_random_images($term, $image_style) {
     
   $products = $query->execute();
   
+  
+	var_dump($products_ret);
+	exit();
+  
 	$products_ret = array();
 	if(isset($products['commerce_product'])) {
     foreach($products['commerce_product'] as $product_id => $product) {
@@ -117,8 +121,6 @@ function fm_home_get_random_images($term, $image_style) {
 	}
 	
 	shuffle($products_ret);
-	var_dump($products_ret);
-	exit();
 	
 	$images = array();
 	
