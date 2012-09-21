@@ -176,11 +176,11 @@ jQuery(document).ready(function() {
           //FIX show
           jQuery('.contentPanel  #' + nid + '.thumb_link').addClass('ad-active');
           
-          Drupal.attachBehaviors();
+          
           try {
-           
+            Drupal.attachBehaviors();
           } catch(err) {
-        	 //alert('error');
+        	 alert(err);
           }
           
 
