@@ -24,38 +24,37 @@ FB_JS.fbu = null;
  * Called when page is loaded, or content added via javascript.
  */
 FB_JS.drupalBehaviors = function(context) {
+  // Respond to our jquery pseudo-events
+  var events = jQuery(document).data('events');
+  if (!events || !events.fb_session_change) {
+    jQuery(document).bind('fb_session_change', FB_JS.sessionChangeHandler);
+  }
   
+  // Once upon a time, we initialized facebook's JS SDK here, but now that is done in fb_footer().
+  if (typeof(FB) != 'undefined') {
+    // Render any XFBML markup that may have been added by AJAX.
+    jQuery(context).each(function() {
+      var elem = jQuery(this).get(0);
+    //  FB.XFBML.parse(elem);
+    });
+
+    FB_JS.showConnectedMarkup(Drupal.settings.fb.fbu, context);
+  }
+
+  // Markup with class .fb_show should be visible if javascript is enabled.  .fb_hide should be hidden.
+  jQuery('.fb_hide', context).hide();
+  jQuery('.fb_show', context).show();
+};
+
+if (typeof(window.fbAsyncInit) != 'undefined') {
+  // There should be only one definition of fbAsyncInit!
+  debugger;
 };
 
 jQuery(document).ready(function() {
-	// Respond to our jquery pseudo-events
-	  var events = jQuery(document).data('events');
-	  if (!events || !events.fb_session_change) {
-	    jQuery(document).bind('fb_session_change', FB_JS.sessionChangeHandler);
-	  }
-	  
-	  // Once upon a time, we initialized facebook's JS SDK here, but now that is done in fb_footer().
-	  if (typeof(FB) != 'undefined') {
-	    // Render any XFBML markup that may have been added by AJAX.
-	    jQuery(context).each(function() {
-	      var elem = jQuery(this).get(0);
-	      FB.XFBML.parse(elem);
-	    });
-
-	    FB_JS.showConnectedMarkup(Drupal.settings.fb.fbu, context);
-	  }
-
-	  // Markup with class .fb_show should be visible if javascript is enabled.  .fb_hide should be hidden.
-	  jQuery('.fb_hide', context).hide();
-	  jQuery('.fb_show', context).show();
-	};
-
-	if (typeof(window.fbAsyncInit) != 'undefined') {
-	  // There should be only one definition of fbAsyncInit!
-	  debugger;
+	
 	
 });
-
 
 
 
