@@ -133,8 +133,8 @@ function fm_home_get_random_images($term, $image_style) {
      $image_node = node_load($images[0]['nid']);
      $image = field_get_items('node', $image_node, 'field_product_image');
      if(count($image) > 1) {
-     	var_dump();
-     	exit($image);
+     	//var_dump();
+     //	exit($image);
      }
      $images[] = image_style_url($image_style, $image[0]['uri']);
 	}
