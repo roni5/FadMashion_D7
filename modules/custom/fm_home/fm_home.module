@@ -124,7 +124,7 @@ function fm_home_get_random_images($term, $image_style) {
 	
 	shuffle($products_ret);
 	
-	$images = array();
+	$images_ret = array();
 	
 	for($i = 0; $i < 5; $i++) {
 		$product = array_shift($products_ret);
@@ -135,14 +135,14 @@ function fm_home_get_random_images($term, $image_style) {
      $image = $image[0];
      $image = image_style_url($image_style, $image['uri']);
      print_r($image);
-     $images[] = $image;
+     $images_ret[] = $image;
 	}
 	
 	
      print_r($images);
      exit();
      
-	return $images;
+	return $images_ret;
   
   
 }
