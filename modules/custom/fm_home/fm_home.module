@@ -101,9 +101,10 @@ function fm_home_get_random_images($term, $image_style) {
 	
 	
   
-	var_dump($term);
-	exit();
 	$tids = array($term->tid);
+	
+	var_dump($tids);
+	exit();
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'commerce_product')
 	   ->entityCondition('bundle', 'fm_fashion_product')
