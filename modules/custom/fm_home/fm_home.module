@@ -117,6 +117,9 @@ function fm_home_get_random_images($term, $image_style) {
 	}
 	
 	shuffle($products_ret);
+	var_dump($products_ret);
+	exit();
+	
 	$images = array();
 	
 	for($i = 0; $i < 5; $i++) {
@@ -141,7 +144,7 @@ function fm_home_page_panel($term_name) {
 	if(!empty($term)) {
 			$term = array_shift($term);
 		  $title = fm_home_get_category_label($term);
-		  $images = fm_home_get_images($term, 'fm_home_big');
+		  $images = fm_home_get_random_images($term, 'fm_home_big');
       $content = theme('fm_home_style_panel', array('term' => $term, 'title' =>$title, 'images' => $images));
 	} 
 	return $content;
