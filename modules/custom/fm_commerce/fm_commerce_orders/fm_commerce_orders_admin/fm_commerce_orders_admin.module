@@ -101,6 +101,8 @@ function fm_commerce_orders_admin() {
  $header = array('Invoice', 'Date', 'Customer', 'Designer Shop', 'Item', 'Actions' );
  $hidden = '';
  foreach($orders as $order) {
+ 	
+ 	try{
  	  $order_user = user_load($order->uid);
  	  
 		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
@@ -125,7 +127,13 @@ function fm_commerce_orders_admin() {
 	  $hidden .= fm_commerce_orders_admin_user($order->uid);
 	  $hidden .= fm_commerce_orders_admin_store($store);
 	  $hidden .= fm_commerce_orders_admin_action($order);
-  }
+  } 
+ 	
+ 	} catch(Exception $e) {
+ 		var_dump($order);
+ 		exit();
+ 	}
+  
 }
 	
 	$div = '<div class="orders-admin-table">' . theme ('table', array('rows' => $rows, 'header' => $header, 'sticky' => false)) . '</div>';
