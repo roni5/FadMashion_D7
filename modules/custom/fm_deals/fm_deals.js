@@ -6,7 +6,7 @@
 function fm_deals_facebookshare( url, thumb_path, description, name, message) {
 	 FB.ui({
        method: 'send',
-	   app_id: appId,
+	   app_id: Drupal.settings.fb.fb_init_settings.appId,
 	   name: name,
 	   link: url,
 	   picture: thumb_path,
