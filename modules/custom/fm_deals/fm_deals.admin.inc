@@ -59,8 +59,9 @@ function fm_deals_list($entities) {
 		);
   	}
   	catch(Exception $e) {
-  		var_dump($node);
-  		exit();
+  		drupal_set_message('Error loading Node w/ nid: ' . $node->nid);
+  		//var_dump($node);
+  		//exit();
   	}
   }
 	
