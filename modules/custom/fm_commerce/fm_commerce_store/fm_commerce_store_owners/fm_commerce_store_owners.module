@@ -305,7 +305,6 @@ function fm_commerce_store_owners_orders_list($store = null) {
 	//Second, load up previous orders and go through each one and update those 
 	
 	var_dump($store);
-	exit();
 	
  $orders = fm_commerce_store_query_orders($store);
  
