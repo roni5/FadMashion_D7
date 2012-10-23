@@ -509,7 +509,7 @@ function fm_commerce_store_query_orders($store, $status = array('fm_orders_captu
 	      
 	$line_item_results = $query->execute();
 	
-	var_dump($pids);
+	var_dump($store);
 	exit();
 	
   $count = 0;
